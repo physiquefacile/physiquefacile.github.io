@@ -270,7 +270,7 @@
       <details><summary>Précautions et incertitudes</summary><div class="sec">${T.precautions}</div></details>
       <details><summary>Préparation (à faire avant la séance)</summary><div class="sec"><ol>${T.preparation.map(q => `<li>${q}</li>`).join("")}</ol></div></details>
     </article>
-    ${ST && ST.duree ? `<div class="timer noprint" id="${T.id}-timer" role="timer" aria-live="off"></div>` : ""}
+    ${ST && ST.duree ? `<div class="timer noprint" id="${T.id}-timer" role="timer" aria-live="off"></div><p class="surv noprint" style="font-family:var(--f-head);font-size:.86rem;color:var(--muted);border-left:3px solid var(--rouge);padding:6px 10px;margin:8px 0;background:var(--tint)"><b>Surveillance du TP minuté :</b> les sorties de la page ou de l'application, les captures d'écran détectables, les copies de texte et les impressions sont enregistrées avec l'heure et transmises à ton enseignant.</p>` : ""}
     <div class="lab">
       <div class="bench"><canvas id="${T.id}-cv" aria-label="Montage simulé"></canvas><p class="hint">${T.hint}</p></div>
       <div class="panel">${T.controls}<p class="msg" id="${T.id}-msg" role="status"></p></div>
@@ -388,7 +388,7 @@
       const seance = ($("#" + T.id + "-seance") || {}).value || "";
       const fillOut = {}; keys.forEach(k => fillOut[k] = T.rows[k].map((_, i) => { const o = {}; CR.parts[k].fill.forEach(c => o[c.k] = (S.fill[k][i] || {})[c.k] ?? ""); return o; }));
       const qOut = {}; QS.forEach(([qi]) => { if (S.qcm["q" + qi] != null) qOut["q" + qi] = S.qcm["q" + qi]; });
-      return { action: "submit", tp: T.id, num: T.num, id, seance, device: device(), raw: T.rows, fill: fillOut, calc: S.calc, qcm: qOut, rem: ($("#" + T.id + "-rem").value || "").slice(0, 2000), client: new Date().toISOString() };
+      return { action: "submit", tp: T.id, num: T.num, id, seance, device: device(), journal: journalResume(), raw: T.rows, fill: fillOut, calc: S.calc, qcm: qOut, rem: ($("#" + T.id + "-rem").value || "").slice(0, 2000), client: new Date().toISOString() };
     };
     // gel du compte rendu : copie figée à l'instant t (heure de l'appareil + décalage avec le serveur), conservée jusqu'à l'envoi
     const freeze = (payload, t) => {
@@ -453,7 +453,7 @@
             const R = await post({ action: "start", tp: T.id, carte: SS.etudiant.carte, code: SS.code, device: device() }, k => { m.textContent = waitMsg(k); });
             if (!R.ok) { go.disabled = false; m.textContent = R.error; m.className = "msg bad"; return; }
             ST.debutTP = R.debutTP; ST.finTP = R.finTP; const s2 = sess(); if (s2) { s2.tps[T.id].debutTP = R.debutTP; s2.tps[T.id].finTP = R.finTP; s2.skew = Date.parse(R.serveur) - Date.now() || 0; store.set("session", s2); }
-            T.clearRows(); T.msg("Le TP a commencé : bon travail !", "ok"); drawTimer();
+            T.clearRows(); store.set(T.id + "_journal", null); T.msg("Le TP a commencé : bon travail !", "ok"); drawTimer();
           } catch (err) { go.disabled = false; m.textContent = "Pas de connexion internet : impossible de démarrer le minuteur."; m.className = "msg bad"; }
         };
         return;
@@ -473,6 +473,58 @@
       }
     };
     if (tbox) { TIMERS.push(drawTimer); drawTimer(); } else qVis();
+    /* ---------- surveillance pendant le TP minuté ---------- */
+    // Remarque : aucun navigateur ne signale une capture faite avec les boutons du téléphone ; on enregistre ce qui est détectable
+    // (sortie de la page ou de l'application, touche Impr. écran, raccourcis de capture, copie, impression) et on filigrane la page.
+    const surv = () => !!(SS && ST && ST.duree && timed() === "en cours");
+    const J = () => store.get(T.id + "_journal", null) || { sorties: 0, hors: 0, focus: 0, cap: 0, imp: 0, cop: 0, ev: [] };
+    const jq = [];   // événements à transmettre tout de suite au serveur
+    const jflush = beacon => {
+      if (!jq.length || !SS || !endpoint()) return;
+      const body = JSON.stringify({ action: "journal", tp: T.id, carte: SS.etudiant.carte, code: SS.code, device: device(), ev: jq.splice(0, 20) });
+      try { if (beacon && navigator.sendBeacon) { navigator.sendBeacon(endpoint(), new Blob([body], { type: "text/plain;charset=utf-8" })); return; } } catch (e) {}
+      fetch(endpoint(), { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body, keepalive: true }).catch(() => {});
+    };
+    let jt = null;
+    const jlog = (type, detail, now, ms) => {
+      if (!surv()) return;
+      const j0 = J(), last = j0.ev[j0.ev.length - 1];
+      if (type === "capture" && last && last.type === "capture" && Date.now() - last.t < 2500) return;   // même capture (touche enfoncée puis relâchée)
+      const j = J(), t = Date.now(), e = { t, srv: new Date(t + ((sess() || {}).skew || 0)).toISOString(), type, detail: detail || "" };
+      j.ev.push(e); if (j.ev.length > 80) j.ev.splice(0, j.ev.length - 80);
+      if (type === "retour") j.sorties++; if (type === "capture") j.cap++; if (type === "impression") j.imp++; if (type === "copie") j.cop++; if (type === "focus") j.focus++;
+      if (ms) { e.dureeMs = ms; if (type === "retour") j.hors += ms; }
+      store.set(T.id + "_journal", j); jq.push(e);
+      if (now) jflush(true); else { clearTimeout(jt); jt = setTimeout(() => jflush(false), 1500); }
+      if (type === "capture" || type === "impression") T.msg("Capture ou impression détectée : l'événement est transmis à ton enseignant.", "bad");
+    };
+    const journalResume = () => { const j = store.get(T.id + "_journal", null); if (!j) return null; return { sorties: j.sorties, horsSec: Math.round(j.hors / 1000), focus: j.focus, captures: j.cap, impressions: j.imp, copies: j.cop, ev: j.ev.slice(-60).map(e => ({ t: e.srv, type: e.type, detail: e.detail, ms: e.dureeMs || 0 })) }; };
+    let hiddenAt = 0, blurAt = 0, lastKey = { k: "", t: 0 };
+    document.addEventListener("visibilitychange", () => {
+      if (!surv()) return;
+      if (document.visibilityState === "hidden") { hiddenAt = Date.now(); jlog("sortie", "page masquée (autre application, autre onglet ou écran éteint)", true); }
+      else if (hiddenAt) { const d = Date.now() - hiddenAt; hiddenAt = 0; jlog("retour", "retour après " + Math.round(d / 1000) + " s", false, d); }
+    });
+    addEventListener("blur", () => { if (surv() && document.visibilityState === "visible") { blurAt = Date.now(); if (Date.now() - lastKey.t < 1500 && /Meta|OS|Shift/.test(lastKey.k)) jlog("capture", "outil de capture probable (" + lastKey.k + " puis perte du focus)", true); } });
+    addEventListener("focus", () => { if (blurAt && surv()) { const d = Date.now() - blurAt; blurAt = 0; if (d > 3000 && !hiddenAt) jlog("focus", "fenêtre quittée pendant " + Math.round(d / 1000) + " s (autre fenêtre ou outil au premier plan)", false, d); } });
+    addEventListener("keydown", e => {
+      if (!surv()) return; lastKey = { k: (e.metaKey ? "Meta+" : "") + (e.ctrlKey ? "Ctrl+" : "") + (e.shiftKey ? "Shift+" : "") + e.key, t: Date.now() };
+      const k = (e.key || "").toLowerCase();
+      if (e.key === "PrintScreen" || e.code === "PrintScreen") jlog("capture", "touche Impr. écran", true);
+      else if (e.metaKey && e.shiftKey && ["3", "4", "5", "s"].includes(k)) jlog("capture", "raccourci de capture " + lastKey.k, true);
+      else if ((e.ctrlKey || e.metaKey) && k === "p") jlog("impression", "raccourci d'impression " + lastKey.k, true);
+    }, true);
+    addEventListener("keyup", e => { if (surv() && (e.key === "PrintScreen" || e.code === "PrintScreen")) jlog("capture", "touche Impr. écran (relâchée)", true); }, true);
+    addEventListener("beforeprint", () => jlog("impression", "impression ou export PDF de la page", true));
+    document.addEventListener("copy", () => { if (surv()) jlog("copie", "texte copié : " + String(getSelection() || "").slice(0, 60), false); });
+    addEventListener("pagehide", () => jflush(true));
+    // filigrane nominatif : toute capture qui circule permet de retrouver son auteur
+    if (SS && ST && ST.duree) {
+      const wm = (SS.etudiant.prenom + " " + SS.etudiant.nom + " · " + SS.etudiant.carte).replace(/[<&"]/g, "");
+      const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='360' height='170'><text x='10' y='100' transform='rotate(-22 180 85)' font-family='Arial' font-size='15' fill='rgba(128,128,128,0.16)'>${wm} · TP ${T.num}</text></svg>`;
+      const url = "url(\"data:image/svg+xml;utf8," + encodeURIComponent(svg) + "\")";
+      [cr, host.querySelector(".lab")].forEach(el => { if (!el) return; el.style.position = "relative"; const d = document.createElement("div"); d.className = "wm noprint-not"; d.setAttribute("aria-hidden", "true"); d.style.cssText = "position:absolute;inset:0;pointer-events:none;z-index:5;background-image:" + url; el.appendChild(d); });
+    }
     if (PEND && !SUB) { lockCR(); if (PEND.refus) smsg("Ton compte rendu verrouillé n'a pas été accepté par le serveur : " + PEND.refus + " Adresse-toi à ton enseignant.", "bad"); else { smsg(PEND_MSG, "bad"); setTimeout(() => doSend(true), 1500); retryLater(); } }
     $("#" + T.id + "-dl").onclick = () => {
       const val = f => ($("#" + T.id + "-" + f) || {}).value || "";
@@ -533,5 +585,5 @@
       const T = TPS.find(t => t.id === cur); if (T && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 41, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 42, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();
