@@ -279,7 +279,8 @@
     <section class="card report" id="${T.id}-cr" aria-labelledby="${T.id}-crh">
       <h3 id="${T.id}-crh">Compte rendu — TP n°${T.num}</h3>
       <div class="note-box" id="${T.id}-noteBox" hidden></div>
-      <p class="crstate${SS ? (ST && ST.etat ? " bad" : "") : " warn"}" id="${T.id}-state">${!SS ? "<b>Mode entraînement.</b> Connecte-toi en haut de la page pour recevoir ton matériel personnel, tes questions et pouvoir soumettre ce compte rendu."
+      <p class="crstate${SS ? (!ST || ST.etat ? " bad" : "") : " warn"}" id="${T.id}-state">${!SS ? "<b>Mode entraînement.</b> Connecte-toi en haut de la page pour recevoir ton matériel personnel, tes questions et pouvoir soumettre ce compte rendu."
+        : !ST ? "<b>Ce TP n'est pas encore activé sur le serveur de correction.</b> Tu peux t'entraîner, mais sans minuteur, sans QCM et sans soumission. Recharge la page quand ton enseignant l'aura activé."
         : ST && ST.etat ? esc(ST.etat) : ST && ST.fin ? "Soumission possible jusqu'au " + esc(dfmt(ST.fin)) + "." : "Matériel personnel attribué à " + esc(SS.etudiant.prenom + " " + SS.etudiant.nom) + "."}</p>
       <div class="id">${idField("nom", "Nom")}${idField("prenom", "Prénom")}${idField("carte", "N° carte étudiant")}${idField("groupe", "Groupe")}${idField("sousgroupe", "Sous-groupe")}${idField("binome", "Binôme", true)}</div>
       <p class="hint">Les mesures relevées sur la paillasse s'ajoutent automatiquement aux tableaux. À toi de calculer et de remplir les colonnes colorées, puis les résultats et le QCM. Tout est enregistré sur cet appareil jusqu'à la soumission.</p>
@@ -308,7 +309,7 @@
       <div class="submit noprint" id="${T.id}-sub">
         ${ST && ST.seance ? `<label class="seance">Code de séance <span class="opt">(donné par l'enseignant en salle)</span><input id="${T.id}-seance" autocomplete="off" autocapitalize="characters"></label>` : ""}
         <label class="chk"><input type="checkbox" id="${T.id}-ok"> <span>Je certifie que ce compte rendu est mon travail. J'ai compris qu'<b>une seule soumission</b> est possible pour ce TP et que la note est définitive.</span></label>
-        <div class="row"><button type="button" class="btn primary" id="${T.id}-send">Soumettre le compte rendu</button><button type="button" class="btn" id="${T.id}-dl">Télécharger une copie</button><button type="button" class="btn" id="${T.id}-clr">Effacer toutes les mesures</button></div>
+        <div class="row"><button type="button" class="btn primary" id="${T.id}-send"${SS && !ST ? " hidden" : ""}>Soumettre le compte rendu</button><button type="button" class="btn" id="${T.id}-dl">Télécharger une copie</button><button type="button" class="btn" id="${T.id}-clr">Effacer toutes les mesures</button></div>
         <p class="msg" id="${T.id}-smsg" role="status"></p>
       </div>
     </section>`;
@@ -650,5 +651,5 @@
       const T = TPS.find(t => t.id === cur); if (T && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 51, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 52, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();
