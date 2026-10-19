@@ -12,7 +12,8 @@
   const gauss = () => { let u = 0, v = 0; while (!u) u = Math.random(); while (!v) v = Math.random(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
   const store = {
     get(k, d) { try { const v = localStorage.getItem("tp2_" + k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
-    set(k, v) { try { localStorage.setItem("tp2_" + k, JSON.stringify(v)); } catch (e) {} }
+    set(k, v) { try { localStorage.setItem("tp2_" + k, JSON.stringify(v)); } catch (e) {} },
+    del(k) { try { localStorage.removeItem("tp2_" + k); } catch (e) {} }
   };
   function fit(cv, ratio) {
     const w = cv.clientWidth || 600, h = Math.round(w * ratio), d = Math.min(devicePixelRatio || 1, 2);
@@ -311,8 +312,9 @@
 
     const S = store.get(T.id + "_crv2", { fill: {}, calc: {}, qcm: {}, id: {} });
     T.rows = {}; keys.forEach(k => { T.rows[k] = store.get(T.id + "_v2_" + k, []); S.fill[k] = S.fill[k] || []; while (S.fill[k].length < T.rows[k].length) S.fill[k].push({}); });
-    const save = () => { store.set(T.id + "_crv2", S); keys.forEach(k => store.set(T.id + "_v2_" + k, T.rows[k])); };
+    const save = () => { S.maj = Date.now(); store.set(T.id + "_crv2", S); keys.forEach(k => store.set(T.id + "_v2_" + k, T.rows[k])); };
     let SUB = store.get(T.id + "_submitted", null);
+    let PEND = SUB ? null : store.get(T.id + "_pending", null);   // compte rendu verrouillé, en attente d'envoi (connexion absente)
     let refused = false;   // mesure refusée : on ne laisse pas le message « enregistrée » du montage la recouvrir
     const refuse = (s) => { T.msg(s, "bad"); refused = true; Promise.resolve().then(() => { refused = false; }); };
     T.msg = (s, kind) => { if (refused && kind === "ok") return; const e = $("#" + T.id + "-msg"); e.textContent = s || ""; e.className = "msg" + (kind ? " " + kind : ""); };
@@ -336,7 +338,7 @@
     T.renderAll = () => keys.forEach(T.renderPart);
     T.locked = () => !!SUB;
     T.clearRows = () => { keys.forEach(k => { T.rows[k] = []; S.fill[k] = []; }); T.renderAll(); };
-    T.add = (k, row) => { if (timed() === "avant") { refuse("Ce TP est minuté : clique d'abord sur « Commencer le TP » au-dessus de la paillasse."); return; } if (timed() === "fini") { refuse("Le temps imparti est écoulé : les mesures ne sont plus enregistrées."); return; } if (SUB) { refuse("Ce compte rendu a déjà été soumis : les nouvelles mesures ne sont plus enregistrées."); return; } T.rows[k].push(Object.assign(ROUND(row, CR.parts[k].r), { ts: Date.now() })); S.fill[k].push({}); T.renderPart(k); };
+    T.add = (k, row) => { if (timed() === "avant") { refuse("Ce TP est minuté : clique d'abord sur « Commencer le TP » au-dessus de la paillasse."); return; } if (timed() === "fini") { refuse("Le temps imparti est écoulé : les mesures ne sont plus enregistrées."); return; } if (SUB) { refuse("Ce compte rendu a déjà été soumis : les nouvelles mesures ne sont plus enregistrées."); return; } if (PEND) { refuse("Ton compte rendu est verrouillé (envoi en attente) : les nouvelles mesures ne sont plus enregistrées."); return; } T.rows[k].push(Object.assign(ROUND(row, CR.parts[k].r), { ts: Date.now() })); S.fill[k].push({}); T.renderPart(k); };
     const cr = $("#" + T.id + "-cr");
     cr.addEventListener("click", e => { const b = e.target.closest("[data-del]"); if (!b || SUB) return; const [k, i] = b.dataset.del.split(":"); T.rows[k].splice(+i, 1); S.fill[k].splice(+i, 1); T.renderPart(k); });
     cr.addEventListener("input", e => {
@@ -350,7 +352,7 @@
     Object.keys(S.calc).forEach(c => { const e = $("#" + T.id + "-c-" + c); if (e) e.value = S.calc[c]; });
     Object.keys(S.qcm).forEach(q => { const e = host.querySelector(`input[name="${T.id}-${q}"][value="${S.qcm[q]}"]`); if (e) e.checked = true; });
     if (SS) { const E = SS.etudiant; [["nom", E.nom], ["prenom", E.prenom], ["carte", E.carte], ["groupe", E.groupe], ["sousgroupe", E.sousgroupe]].forEach(([f, v]) => { const e = $("#" + T.id + "-" + f); e.value = v || ""; e.disabled = true; }); }
-    $("#" + T.id + "-clr").onclick = () => { if (SUB) return; keys.forEach(k => { T.rows[k] = []; S.fill[k] = []; }); T.renderAll(); T.msg("Toutes les mesures ont été effacées."); };
+    $("#" + T.id + "-clr").onclick = () => { if (SUB || PEND) return; keys.forEach(k => { T.rows[k] = []; S.fill[k] = []; }); T.renderAll(); T.msg("Toutes les mesures ont été effacées."); };
 
     const showNote = R => {
       const nb = $("#" + T.id + "-noteBox"); nb.hidden = false;
@@ -378,29 +380,54 @@
       cr.querySelectorAll("[data-del]").forEach(b => b.remove());
     };
     const smsg = (s, kind) => { const e = $("#" + T.id + "-smsg"); e.textContent = s; e.className = "msg" + (kind ? " " + kind : ""); };
-    const doSend = async auto => {
-      if (SUB || (auto && sending)) return;
-      if (!SS) { smsg("Connecte-toi d'abord en haut de la page (n° de carte et code personnel) : la soumission est réservée aux étudiants inscrits.", "bad"); $("#tpLogin").scrollIntoView({ behavior: "smooth" }); return; }
+    const lockCR = () => { cr.querySelectorAll("input, textarea, select").forEach(e => e.disabled = true); ["-send", "-clr"].forEach(x => { const e = $("#" + T.id + x); if (e) e.disabled = true; }); };
+    const PEND_MSG = "Pas de connexion internet : ton compte rendu est VERROUILLÉ (plus aucune modification possible). Il sera envoyé automatiquement dès le retour de la connexion. Garde cette page ouverte, ou rouvre-la plus tard avec une connexion.";
+    const buildPayload = () => {
       const id = {}; ["nom", "prenom", "carte", "groupe", "sousgroupe", "binome"].forEach(f => id[f] = ($("#" + T.id + "-" + f).value || "").trim());
-      const miss = ["nom", "prenom", "carte", "groupe", "sousgroupe"].filter(f => !id[f]);
-      if (miss.length && !auto) { smsg("Complète d'abord l'identification : nom, prénom, n° de carte étudiant, groupe et sous-groupe.", "bad"); $("#" + T.id + "-" + miss[0]).focus(); return; }
+      id.carte = SS.etudiant.carte; id.code = SS.code;
       const seance = ($("#" + T.id + "-seance") || {}).value || "";
-      if (ST && ST.seance && !seance.trim() && !auto) { smsg("Saisis le code de séance donné par l'enseignant.", "bad"); $("#" + T.id + "-seance").focus(); return; }
-      if (!$("#" + T.id + "-ok").checked && !auto) { smsg("Coche la case de certification avant de soumettre.", "bad"); return; }
-      const URL_ = endpoint(); id.carte = SS.etudiant.carte; id.code = SS.code;
-      if (!URL_) { smsg("La soumission en ligne n'est pas encore activée par l'enseignant. Utilise « Télécharger une copie » en attendant.", "bad"); return; }
       const fillOut = {}; keys.forEach(k => fillOut[k] = T.rows[k].map((_, i) => { const o = {}; CR.parts[k].fill.forEach(c => o[c.k] = (S.fill[k][i] || {})[c.k] ?? ""); return o; }));
       const qOut = {}; QS.forEach(([qi]) => { if (S.qcm["q" + qi] != null) qOut["q" + qi] = S.qcm["q" + qi]; });
-      const payload = { action: "submit", tp: T.id, num: T.num, id, seance, device: device(), raw: T.rows, fill: fillOut, calc: S.calc, qcm: qOut, rem: ($("#" + T.id + "-rem").value || "").slice(0, 2000), client: new Date().toISOString() };
-      const btn = $("#" + T.id + "-send"); btn.disabled = true; sending = true; smsg(auto ? "Temps écoulé : envoi automatique de ton compte rendu…" : "Envoi et correction en cours…");
+      return { action: "submit", tp: T.id, num: T.num, id, seance, device: device(), raw: T.rows, fill: fillOut, calc: S.calc, qcm: qOut, rem: ($("#" + T.id + "-rem").value || "").slice(0, 2000), client: new Date().toISOString() };
+    };
+    // gel du compte rendu : copie figée à l'instant t (heure de l'appareil + décalage avec le serveur), conservée jusqu'à l'envoi
+    const freeze = (payload, t) => {
+      const gel = new Date(t).toISOString();
+      PEND = Object.assign(payload, { differe: true, gel, client: gel, skew: (sess() || {}).skew || 0 });
+      store.set(T.id + "_pending", PEND); lockCR();
+    };
+    let rt = null;
+    const retryLater = () => { if (rt) return; rt = setInterval(() => { if (SUB || !PEND || PEND.refus) { clearInterval(rt); rt = null; return; } if (navigator.onLine !== false) doSend(true); }, 20000); };
+    addEventListener("online", () => { if (PEND && !SUB && !PEND.refus) doSend(true); });
+    const doSend = async auto => {
+      if (SUB || sending) return;
+      if (PEND && PEND.refus) return;
+      let payload = PEND;
+      if (!payload) {
+        if (!SS) { smsg("Connecte-toi d'abord en haut de la page (n° de carte et code personnel) : la soumission est réservée aux étudiants inscrits.", "bad"); $("#tpLogin").scrollIntoView({ behavior: "smooth" }); return; }
+        const miss = ["nom", "prenom", "carte", "groupe", "sousgroupe"].filter(f => !($("#" + T.id + "-" + f).value || "").trim());
+        if (miss.length && !auto) { smsg("Complète d'abord l'identification : nom, prénom, n° de carte étudiant, groupe et sous-groupe.", "bad"); $("#" + T.id + "-" + miss[0]).focus(); return; }
+        const seance = ($("#" + T.id + "-seance") || {}).value || "";
+        if (ST && ST.seance && !seance.trim() && !auto) { smsg("Saisis le code de séance donné par l'enseignant.", "bad"); $("#" + T.id + "-seance").focus(); return; }
+        if (!$("#" + T.id + "-ok").checked && !auto) { smsg("Coche la case de certification avant de soumettre.", "bad"); return; }
+        if (!endpoint()) { smsg("La soumission en ligne n'est pas encore activée par l'enseignant. Utilise « Télécharger une copie » en attendant.", "bad"); return; }
+        payload = buildPayload();
+      }
+      const btn = $("#" + T.id + "-send"); btn.disabled = true; sending = true;
+      smsg(PEND ? "Envoi de ton compte rendu verrouillé…" : auto ? "Temps écoulé : envoi automatique de ton compte rendu…" : "Envoi et correction en cours…");
       try {
-        const R = await post(payload, k => smsg(waitMsg(k), "bad"), auto ? 10 : 6);
-        if (R.ok) { SUB = Object.assign({ date: new Date().toISOString() }, R); store.set(T.id + "_submitted", SUB); const s2 = sess(); if (s2 && s2.tps[T.id]) { s2.tps[T.id].soumis = SUB; store.set("session", s2); }
+        const R = await post(payload, k => smsg(waitMsg(k), "bad"), PEND ? 3 : auto ? 10 : 6);
+        if (R.ok) { SUB = Object.assign({ date: new Date().toISOString() }, R); store.set(T.id + "_submitted", SUB); store.del(T.id + "_pending"); PEND = null; { const tb = $("#" + T.id + "-timer"); if (tb) tb.hidden = true; } const s2 = sess(); if (s2 && s2.tps[T.id]) { s2.tps[T.id].soumis = SUB; store.set("session", s2); }
           smsg(R.nonConforme ? "Compte rendu enregistré. Attention : tes mesures ne correspondent pas au matériel qui t'a été attribué ; ton enseignant en est informé." : "Compte rendu soumis et corrigé.", R.nonConforme ? "bad" : "ok"); showNote(SUB); }
-        else if (R.duplicate) { SUB = { date: new Date().toISOString(), note: NaN }; store.set(T.id + "_submitted", SUB); smsg(R.error, "bad"); showNote(SUB); }
-        else { btn.disabled = false; sending = false; smsg((R.error || "La soumission a échoué.") + (R.auth ? " Déconnecte-toi puis reconnecte-toi en haut de la page." : ""), "bad"); }
-      } catch (err) { btn.disabled = false; sending = false; smsg("Envoi impossible : vérifie ta connexion internet puis réessaie. Tes réponses sont conservées sur cet appareil." + (auto ? " Nouvel essai automatique dans 15 s." : ""), "bad"); if (auto) setTimeout(() => doSend(true), 15000); }
-      if (SUB) sending = false;
+        else if (R.duplicate) { SUB = { date: new Date().toISOString(), note: NaN }; store.set(T.id + "_submitted", SUB); store.del(T.id + "_pending"); PEND = null; smsg(R.error, "bad"); showNote(SUB); }
+        else if (PEND) { PEND.refus = R.error || "refusé"; store.set(T.id + "_pending", PEND); smsg("Ton compte rendu verrouillé n'a pas été accepté par le serveur : " + (R.error || "") + " Adresse-toi à ton enseignant (garde ta copie avec « Télécharger une copie »).", "bad"); }
+        else { btn.disabled = false; smsg((R.error || "La soumission a échoué.") + (R.auth ? " Déconnecte-toi puis reconnecte-toi en haut de la page." : ""), "bad"); }
+      } catch (err) {
+        // pas de réseau : la copie est figée telle quelle et partira toute seule
+        if (!PEND) freeze(payload, Date.now());
+        smsg(PEND_MSG, "bad"); retryLater();
+      }
+      sending = false;
     };
     let sending = false;
     $("#" + T.id + "-send").onclick = () => doSend(false);
@@ -434,18 +461,19 @@
       const ms = left(), tot = ST.duree * 60000;
       tbox.dataset.st = st;
       tbox.className = "timer noprint run" + (ms <= 120000 ? " bad" : ms <= 600000 ? " warn" : "");
-      const trop = st === "fini" && ms < -270000;   // fin dépassée depuis plus de 4 min 30 : le serveur n'acceptera plus la copie
-      tbox.innerHTML = st === "fini" ? (trop ? `<b>Temps écoulé</b> <span>depuis le ${esc(dfmt(ST.finTP))}. Le compte rendu n'a pas été envoyé à temps ; adresse-toi à ton enseignant.</span>` : `<b>Temps écoulé.</b> <span>${SUB ? "" : "Envoi automatique du compte rendu dans quelques instants (ne ferme pas la page)…"}</span>`)
+      tbox.innerHTML = st === "fini" ? `<b>Temps écoulé.</b> <span>${SUB ? "" : PEND && PEND.refus ? "Compte rendu verrouillé, refusé par le serveur : adresse-toi à ton enseignant." : "Compte rendu verrouillé : il est envoyé automatiquement, dès que la connexion le permet."}</span>`
         : `<span>Temps restant</span><b class="tleft">${hms(ms)}</b><span class="tbar"><i style="width:${Math.max(0, Math.min(100, ms / tot * 100)).toFixed(1)}%"></i></span><span>fin à ${new Date(Date.parse(ST.finTP) - ((sess() || {}).skew || 0)).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}</span>`;
-      if (st === "fini" && trop && !autoDone) { autoDone = true; cr.querySelectorAll("input, textarea").forEach(e => e.disabled = true); }
-      if (st === "fini" && !trop && !autoDone && !SUB) {
-        autoDone = true; cr.querySelectorAll("input, textarea").forEach(e => e.disabled = true);
+      if (st === "fini" && !autoDone && !SUB) {
+        autoDone = true; lockCR();
+        // copie figée à la fin du temps (ou à la dernière modification si la page était fermée) : plus aucune modification possible
+        if (!PEND && SS) freeze(buildPayload(), Math.min(Date.now(), S.maj || Date.now()));
+        smsg("Temps écoulé : ton compte rendu est verrouillé et va être envoyé automatiquement. S'il n'y a pas de connexion, il partira dès son retour.", "bad");
         // envoi étalé sur 90 s pour ne pas saturer le serveur quand tout un groupe termine en même temps
-        smsg("Temps écoulé : ton compte rendu va être envoyé automatiquement dans quelques instants. Ne ferme pas la page.", "bad");
-        setTimeout(() => doSend(true), Math.random() * 90000);
+        setTimeout(() => doSend(true), Math.random() * 90000); retryLater();
       }
     };
     if (tbox) { TIMERS.push(drawTimer); drawTimer(); } else qVis();
+    if (PEND && !SUB) { lockCR(); if (PEND.refus) smsg("Ton compte rendu verrouillé n'a pas été accepté par le serveur : " + PEND.refus + " Adresse-toi à ton enseignant.", "bad"); else { smsg(PEND_MSG, "bad"); setTimeout(() => doSend(true), 1500); retryLater(); } }
     $("#" + T.id + "-dl").onclick = () => {
       const val = f => ($("#" + T.id + "-" + f) || {}).value || "";
       const tables = keys.map((k, i) => { const p = CR.parts[k]; const cv = p.plot ? $("#" + T.id + "-gr-" + k) : null;
@@ -505,5 +533,5 @@
       const T = TPS.find(t => t.id === cur); if (T && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 39, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 40, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();
