@@ -287,8 +287,9 @@
       ${keys.map((k, i) => { const p = CR.parts[k]; return `<div class="crpart">
         <h4>Partie ${L[i]} — ${esc(p.titre)} <span class="minm" id="${T.id}-min-${k}"></span></h4>
         ${p.aide ? `<div class="formula aide">${p.aide}</div>` : ""}
-        <div class="data${p.plot ? "" : " solo"}">
-          <div class="tblwrap"><table><thead><tr>${p.cols.map(c => `<th>${c}</th>`).join("")}${p.fill.map(f => `<th class="fillh">${f.h}</th>`).join("")}<th class="noprint"></th></tr></thead><tbody id="${T.id}-tb-${k}"></tbody></table></div>
+        <div class="data${!p.plot || p.cols.length + p.fill.length > 6 ? " solo" : ""}">
+          <div class="tblcol"><p class="hint scrollhint" id="${T.id}-sh-${k}" hidden>↔ Fais glisser le tableau vers la gauche pour voir et remplir toutes les colonnes colorées.</p>
+          <div class="tblwrap"><table><thead id="${T.id}-th-${k}"></thead><tbody id="${T.id}-tb-${k}"></tbody></table></div></div>
           ${p.plot ? `<div class="graph"><canvas id="${T.id}-gr-${k}" aria-label="Graphe de la partie ${L[i]}"></canvas><p class="hint">Graphe tracé avec <b>tes</b> valeurs. Trace la droite moyenne et calcule sa pente toi-même.</p></div>` : ""}
         </div></div>`; }).join("")}
       <div class="crblock"><h4>Résultats et calculs</h4><div class="calcs">
@@ -335,10 +336,15 @@
       const p = CR.parts[k], rows = T.rows[k], tb = $("#" + T.id + "-tb-" + k), lock = !!SUB || !!S.qz;
       while (S.fill[k].length < rows.length) S.fill[k].push({}); S.fill[k].length = rows.length;
       const susp = (c, r, i) => suspect(c, r, (S.fill[k][i] || {})[c.k]);
-      tb.innerHTML = rows.length ? rows.map((r, i) => `<tr>${p.cells(r, i).map(v => `<td>${v}</td>`).join("")}${p.fill.map(c => `<td class="fillc${susp(c, r, i) ? " susp" : ""}"${susp(c, r, i) ? ` title="${esc(c.warn || "Valeur très éloignée : vérifie ton calcul.")}"` : ""}><input data-f="${k}:${i}:${c.k}" value="${esc((S.fill[k][i] || {})[c.k] ?? "")}" inputmode="decimal" aria-label="${esc(c.h)}, ligne ${i + 1}"${lock ? " disabled" : ""}></td>`).join("")}<td class="x noprint">${lock ? "" : `<button type="button" data-del="${k}:${i}" aria-label="Supprimer la mesure ${i + 1}">×</button>`}</td></tr>`).join("")
+      // petit écran : les colonnes à remplir viennent juste après « n° », pour être visibles sans faire défiler le tableau
+      const nar = innerWidth < 720, hc = p.cols.map(c => `<th>${c}</th>`), hf = p.fill.map(f => `<th class="fillh">${f.h}</th>`);
+      $("#" + T.id + "-th-" + k).innerHTML = `<tr>${(nar ? [hc[0], ...hf, ...hc.slice(1)] : [...hc, ...hf]).join("")}<th class="noprint"></th></tr>`;
+      tb.innerHTML = rows.length ? rows.map((r, i) => { const rc = p.cells(r, i).map(v => `<td>${v}</td>`), fc = p.fill.map(c => `<td class="fillc${susp(c, r, i) ? " susp" : ""}"${susp(c, r, i) ? ` title="${esc(c.warn || "Valeur très éloignée : vérifie ton calcul.")}"` : ""}><input data-f="${k}:${i}:${c.k}" value="${esc((S.fill[k][i] || {})[c.k] ?? "")}" inputmode="decimal" aria-label="${esc(c.h)}, ligne ${i + 1}"${lock ? " disabled" : ""}></td>`);
+        return `<tr>${(nar ? [rc[0], ...fc, ...rc.slice(1)] : [...rc, ...fc]).join("")}<td class="x noprint">${lock ? "" : `<button type="button" data-del="${k}:${i}" aria-label="Supprimer la mesure ${i + 1}">×</button>`}</td></tr>`; }).join("")
         : `<tr class="empty"><td colspan="${p.cols.length + p.fill.length + 1}">Aucune mesure : fais les mesures sur la paillasse ci-dessus.</td></tr>`;
       const m = $("#" + T.id + "-min-" + k); m.textContent = `${rows.length} mesure${rows.length > 1 ? "s" : ""} / ${p.min} minimum`; m.className = "minm" + (rows.length >= p.min ? " ok" : "");
       plotPart(k); save(); updQD();
+      const sh = $("#" + T.id + "-sh-" + k), tw = tb.closest(".tblwrap"); if (sh && tw) { sh.hidden = !(rows.length && tw.scrollWidth > tw.clientWidth + 4); sh.textContent = nar ? "↔ Fais glisser le tableau vers la gauche pour voir toutes tes mesures." : "↔ Fais glisser le tableau vers la gauche pour voir et remplir toutes les colonnes colorées."; }
     };
     T.renderAll = () => keys.forEach(T.renderPart);
     // QCM déduit des mesures : propositions recalculées avec les mesures actuelles
@@ -651,5 +657,5 @@
       const T = TPS.find(t => t.id === cur); if (T && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 53, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 54, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();

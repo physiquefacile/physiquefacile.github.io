@@ -61,6 +61,9 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .part h3{font-family:var(--f-head);font-size:1.05rem;margin:0}
 .data{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
 .data.solo{grid-template-columns:1fr}
+.data.solo .graph{max-width:720px;width:100%}
+.tblcol{display:grid;gap:6px;min-width:0}
+.scrollhint{margin:0;color:var(--warm,#B87503);font-size:.85rem}
 .tblwrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:12px;max-height:380px}
 table{border-collapse:collapse;width:100%;font-family:var(--f-mono);font-size:.84rem;font-variant-numeric:tabular-nums}
 th,td{padding:7px 9px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
@@ -169,20 +172,20 @@ fieldset.qcm input{width:auto;margin-top:4px;accent-color:var(--accent)}
 <footer><div class="wrap">Université Souleymane Niang de Matam • <a href="auteur.html">Plateforme développée par le Dr P. T. Traoré</a> • Les mesures sont simulées avec une incertitude réaliste. Chaque étudiant connecté reçoit son propre matériel : deux étudiants n'obtiennent pas les mêmes valeurs. • <a href="reparer.html?retour=tp.html">Affichage incomplet ? Mettre le site à jour</a></div></footer>
 
 <script>window.__tpErr = []; addEventListener("error", function (e) { window.__tpErr.push((e.message || "erreur") + " (" + String(e.filename || "").split("/").pop() + ":" + (e.lineno || "") + ")"); });</script>
-<script src="assets/config.js?v=53"></script>
-<script src="assets/tp-cr.js?v=53"></script>
-<script src="assets/tp-qd.js?v=53"></script>
-<script src="assets/tp-core.js?v=53"></script>
-<script src="assets/tp-meca.js?v=53"></script>
-<script src="assets/tp-elec.js?v=53"></script>
-<script src="assets/tp-oscillo.js?v=53"></script>
-<script src="assets/tp-mesures.js?v=53"></script>
-<script src="assets/tp-optique.js?v=53"></script>
+<script src="assets/config.js?v=54"></script>
+<script src="assets/tp-cr.js?v=54"></script>
+<script src="assets/tp-qd.js?v=54"></script>
+<script src="assets/tp-core.js?v=54"></script>
+<script src="assets/tp-meca.js?v=54"></script>
+<script src="assets/tp-elec.js?v=54"></script>
+<script src="assets/tp-oscillo.js?v=54"></script>
+<script src="assets/tp-mesures.js?v=54"></script>
+<script src="assets/tp-optique.js?v=54"></script>
 <script>
 /* Vérifie que tous les fichiers de la page sont de la même version ; sinon (copie ancienne gardée par le
    navigateur après une connexion lente), propose une remise à jour en un clic au lieu d'une page vide. */
 (function () {
-  var BUILD = 53;
+  var BUILD = 54;
   function repair(why) {
     var b = document.getElementById("tpLogin"); if (!b) return;
     var det = (window.__tpErr || []).concat(why ? [why] : []).join(" ; ");
