@@ -144,6 +144,7 @@ fieldset.qcm input{width:auto;margin-top:4px;accent-color:var(--accent)}
 .timer .msg{flex-basis:100%}
 .timer.run{border-color:var(--accent)}
 .timer .tleft{font-family:var(--f-mono);font-size:1.5rem;color:var(--accent)}
+.qzbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;border:2px solid var(--accent);border-radius:10px;padding:10px 14px;margin:8px 0;font-family:var(--f-head)}.qzbar .tbar{flex:1 1 140px;height:8px;border-radius:4px;background:var(--tint);overflow:hidden}.qzbar .tbar i{display:block;height:100%;background:var(--accent)}.qzbar .qzt{font-family:var(--f-mono);font-size:1.3rem;min-width:3.5em}.qzintro{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--tint);font-family:var(--f-head);font-size:.95rem}.qzintro p{margin:0 0 8px}
 .timer .tbar{flex:1 1 140px;height:8px;border-radius:4px;background:var(--tint);overflow:hidden}
 .timer .tbar i{display:block;height:100%;background:var(--accent);transition:width 1s linear}
 .timer.warn{border-color:var(--saff)} .timer.warn .tleft{color:var(--saff)} .timer.warn .tbar i{background:var(--saff)}
@@ -168,20 +169,20 @@ fieldset.qcm input{width:auto;margin-top:4px;accent-color:var(--accent)}
 <footer><div class="wrap">Université Souleymane Niang de Matam • Dr P. T. Traoré • Les mesures sont simulées avec une incertitude réaliste. Chaque étudiant connecté reçoit son propre matériel : deux étudiants n'obtiennent pas les mêmes valeurs. • <a href="reparer.html?retour=tp.html">Affichage incomplet ? Mettre le site à jour</a></div></footer>
 
 <script>window.__tpErr = []; addEventListener("error", function (e) { window.__tpErr.push((e.message || "erreur") + " (" + String(e.filename || "").split("/").pop() + ":" + (e.lineno || "") + ")"); });</script>
-<script src="assets/config.js?v=44"></script>
-<script src="assets/tp-cr.js?v=44"></script>
-<script src="assets/tp-qd.js?v=44"></script>
-<script src="assets/tp-core.js?v=44"></script>
-<script src="assets/tp-meca.js?v=44"></script>
-<script src="assets/tp-elec.js?v=44"></script>
-<script src="assets/tp-oscillo.js?v=44"></script>
-<script src="assets/tp-mesures.js?v=44"></script>
-<script src="assets/tp-optique.js?v=44"></script>
+<script src="assets/config.js?v=45"></script>
+<script src="assets/tp-cr.js?v=45"></script>
+<script src="assets/tp-qd.js?v=45"></script>
+<script src="assets/tp-core.js?v=45"></script>
+<script src="assets/tp-meca.js?v=45"></script>
+<script src="assets/tp-elec.js?v=45"></script>
+<script src="assets/tp-oscillo.js?v=45"></script>
+<script src="assets/tp-mesures.js?v=45"></script>
+<script src="assets/tp-optique.js?v=45"></script>
 <script>
 /* Vérifie que tous les fichiers de la page sont de la même version ; sinon (copie ancienne gardée par le
    navigateur après une connexion lente), propose une remise à jour en un clic au lieu d'une page vide. */
 (function () {
-  var BUILD = 44;
+  var BUILD = 45;
   function repair(why) {
     var b = document.getElementById("tpLogin"); if (!b) return;
     var det = (window.__tpErr || []).concat(why ? [why] : []).join(" ; ");

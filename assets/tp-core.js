@@ -296,9 +296,10 @@
       <div class="crblock"><h4>Questions (QCM)</h4>
         <p class="hint qcm-wait" id="${T.id}-qwait" hidden><b>Les questions apparaîtront quand tu auras cliqué sur « Commencer le TP »</b> (en haut de la paillasse).</p>
         <div id="${T.id}-qbox">
-        ${QS.some(([qi]) => typeof qi === "string") ? `<p class="hint"><b>Questions sur TES mesures :</b> les propositions sont calculées à partir de ton propre tableau. Termine tes mesures avant de répondre ; si tu ajoutes ou supprimes une mesure, les valeurs proposées sont recalculées.</p>` : ""}
-        ${QS.length ? QS.map(([qi, ord, kq], i) => { if (typeof qi === "string") { const t = QDT(qi); return t ? `<fieldset class="qcm qd" data-qd="${qi}" data-k="${kq || 1}"><legend><b>${i + 1}.</b> <span class="qdq"></span></legend><p class="hint qdmiss" hidden></p>${ord.map(j => `<label><input type="radio" name="${T.id}-q${qi}" value="${j}"> <span class="qdv" data-j="${j}"></span></label>`).join("")}</fieldset>` : ""; }
-            const q = CR.qcm[qi]; return `<fieldset class="qcm"><legend><b>${i + 1}.</b> ${q.q}</legend>${ord.map(j => `<label><input type="radio" name="${T.id}-q${qi}" value="${j}"> ${q.o[j]}</label>`).join("")}</fieldset>`; }).join("")
+        ${QS.some(([qi]) => typeof qi === "string") ? `<p class="hint"><b>Questions sur TES mesures :</b> les propositions sont calculées à partir de ton propre tableau.</p>` : ""}
+        <div class="qzctl" id="${T.id}-qzctl"></div>
+        ${QS.length ? QS.map(([qi, ord, kq], i) => { if (typeof qi === "string") { const t = QDT(qi); return t ? `<fieldset class="qcm qd" data-qi="${i}" data-qd="${qi}" data-k="${kq || 1}"><legend><b>${i + 1}.</b> <span class="qdq"></span></legend><p class="hint qdmiss" hidden></p>${ord.map(j => `<label><input type="radio" name="${T.id}-q${qi}" value="${j}"> <span class="qdv" data-j="${j}"></span></label>`).join("")}</fieldset>` : ""; }
+            const q = CR.qcm[qi]; return `<fieldset class="qcm" data-qi="${i}"><legend><b>${i + 1}.</b> ${q.q}</legend>${ord.map(j => `<label><input type="radio" name="${T.id}-q${qi}" value="${j}"> ${q.o[j]}</label>`).join("")}</fieldset>`; }).join("")
           : SS ? `<p class="hint"><b>Questions non disponibles pour ce TP.</b> Le correcteur de l'enseignant ne connaît pas encore ce TP (il doit installer la dernière version du script), puis clique sur « Actualiser » en haut de la page.</p>`
           : `<p class="hint">Les questions te seront attribuées après connexion (chaque étudiant reçoit ses propres questions).</p>`}
         </div>
@@ -330,7 +331,7 @@
         note: bad.length ? `Ligne${bad.length > 1 ? "s" : ""} ${bad.join(", ")} écartée${bad.length > 1 ? "s" : ""} : valeur à vérifier (case rouge)` : "" });
     };
     T.renderPart = k => {
-      const p = CR.parts[k], rows = T.rows[k], tb = $("#" + T.id + "-tb-" + k), lock = !!SUB;
+      const p = CR.parts[k], rows = T.rows[k], tb = $("#" + T.id + "-tb-" + k), lock = !!SUB || !!S.qz;
       while (S.fill[k].length < rows.length) S.fill[k].push({}); S.fill[k].length = rows.length;
       const susp = (c, r, i) => suspect(c, r, (S.fill[k][i] || {})[c.k]);
       tb.innerHTML = rows.length ? rows.map((r, i) => `<tr>${p.cells(r, i).map(v => `<td>${v}</td>`).join("")}${p.fill.map(c => `<td class="fillc${susp(c, r, i) ? " susp" : ""}"${susp(c, r, i) ? ` title="${esc(c.warn || "Valeur très éloignée : vérifie ton calcul.")}"` : ""}><input data-f="${k}:${i}:${c.k}" value="${esc((S.fill[k][i] || {})[c.k] ?? "")}" inputmode="decimal" aria-label="${esc(c.h)}, ligne ${i + 1}"${lock ? " disabled" : ""}></td>`).join("")}<td class="x noprint">${lock ? "" : `<button type="button" data-del="${k}:${i}" aria-label="Supprimer la mesure ${i + 1}">×</button>`}</td></tr>`).join("")
@@ -348,28 +349,29 @@
         const L = { A: "A", B: "B", C: "C" }[t.part] || t.part;
         fs.querySelector(".qdq").textContent = P ? t.q.replace("{k}", P.k) : t.q.replace("{k}", "…");
         miss.hidden = !!P; if (!P) miss.textContent = "Fais d'abord tes mesures de la partie " + L + (t.g ? " (au moins " + (t.min || 3) + ")" : "") + " : les propositions apparaîtront ici.";
-        QDV[id] = P ? P.vals : null;
+        QDV[id] = P ? P.vals : null; fs.dataset.ok = P ? "1" : "0";
         fs.querySelectorAll(".qdv").forEach(sp => { const j = +sp.dataset.j; sp.textContent = P ? window.TPQD.fmt(P.vals[j], t.sig) + (t.u ? " " + t.u : "") : "—"; });
         fs.querySelectorAll("input").forEach(inp => { inp.disabled = !P || !!SUB || !!PEND; });
       });
+      try { qzRender(); } catch (e) {}   // (QCM chronométré pas encore initialisé au tout premier rendu)
     };
-    T.locked = () => !!SUB;
+    T.locked = () => !!SUB || !!S.qz;
     T.clearRows = () => { keys.forEach(k => { T.rows[k] = []; S.fill[k] = []; }); T.renderAll(); };
-    T.add = (k, row) => { if (timed() === "avant") { refuse("Ce TP est minuté : clique d'abord sur « Commencer le TP » au-dessus de la paillasse."); return; } if (timed() === "fini") { refuse("Le temps imparti est écoulé : les mesures ne sont plus enregistrées."); return; } if (SUB) { refuse("Ce compte rendu a déjà été soumis : les nouvelles mesures ne sont plus enregistrées."); return; } if (PEND) { refuse("Ton compte rendu est verrouillé (envoi en attente) : les nouvelles mesures ne sont plus enregistrées."); return; } T.rows[k].push(Object.assign(ROUND(row, CR.parts[k].r), { ts: Date.now() })); S.fill[k].push({}); T.renderPart(k); };
+    T.add = (k, row) => { if (timed() === "avant") { refuse("Ce TP est minuté : clique d'abord sur « Commencer le TP » au-dessus de la paillasse."); return; } if (timed() === "fini") { refuse("Le temps imparti est écoulé : les mesures ne sont plus enregistrées."); return; } if (SUB) { refuse("Ce compte rendu a déjà été soumis : les nouvelles mesures ne sont plus enregistrées."); return; } if (PEND) { refuse("Ton compte rendu est verrouillé (envoi en attente) : les nouvelles mesures ne sont plus enregistrées."); return; } if (S.qz) { refuse("Le QCM est commencé : tes mesures sont verrouillées."); return; } T.rows[k].push(Object.assign(ROUND(row, CR.parts[k].r), { ts: Date.now() })); S.fill[k].push({}); T.renderPart(k); };
     const cr = $("#" + T.id + "-cr");
-    cr.addEventListener("click", e => { const b = e.target.closest("[data-del]"); if (!b || SUB) return; const [k, i] = b.dataset.del.split(":"); T.rows[k].splice(+i, 1); S.fill[k].splice(+i, 1); T.renderPart(k); });
+    cr.addEventListener("click", e => { const b = e.target.closest("[data-del]"); if (!b || SUB || S.qz) return; const [k, i] = b.dataset.del.split(":"); T.rows[k].splice(+i, 1); S.fill[k].splice(+i, 1); T.renderPart(k); });
     cr.addEventListener("input", e => {
       const t = e.target; if (SUB) return;
       if (t.dataset.f) { const [k, i, c] = t.dataset.f.split(":"); S.fill[k][+i] = S.fill[k][+i] || {}; S.fill[k][+i][c] = t.value; const fc = CR.parts[k].fill.find(x => x.k === c), td = t.parentElement; if (fc && td) { const bad = suspect(fc, T.rows[k][+i], t.value); td.classList.toggle("susp", bad); if (bad) td.title = fc.warn || "Valeur très éloignée : vérifie ton calcul."; else td.removeAttribute("title"); } plotPart(k); save(); }
       else if (t.dataset.calc) { S.calc[t.dataset.calc] = t.value; save(); }
       else if (t.dataset.id) { S.id[t.dataset.id] = t.value; save(); }
     });
-    cr.addEventListener("change", e => { if (!SUB && e.target.type === "radio") { S.qcm["q" + e.target.name.split("-q").pop()] = e.target.value; save(); } });
+    cr.addEventListener("change", e => { if (!SUB && e.target.type === "radio" && qzOK(e.target)) { S.qcm["q" + e.target.name.split("-q").pop()] = e.target.value; save(); } });
     Object.keys(S.id).forEach(f => { const e = $("#" + T.id + "-" + f); if (e) e.value = S.id[f]; });
     Object.keys(S.calc).forEach(c => { const e = $("#" + T.id + "-c-" + c); if (e) e.value = S.calc[c]; });
     Object.keys(S.qcm).forEach(q => { const e = host.querySelector(`input[name="${T.id}-${q}"][value="${S.qcm[q]}"]`); if (e) e.checked = true; });
     if (SS) { const E = SS.etudiant; [["nom", E.nom], ["prenom", E.prenom], ["carte", E.carte], ["groupe", E.groupe], ["sousgroupe", E.sousgroupe]].forEach(([f, v]) => { const e = $("#" + T.id + "-" + f); e.value = v || ""; e.disabled = true; }); }
-    $("#" + T.id + "-clr").onclick = () => { if (SUB || PEND) return; keys.forEach(k => { T.rows[k] = []; S.fill[k] = []; }); T.renderAll(); T.msg("Toutes les mesures ont été effacées."); };
+    $("#" + T.id + "-clr").onclick = () => { if (SUB || PEND || S.qz) return; keys.forEach(k => { T.rows[k] = []; S.fill[k] = []; }); T.renderAll(); T.msg("Toutes les mesures ont été effacées."); };
 
     const showNote = R => {
       const nb = $("#" + T.id + "-noteBox"); nb.hidden = false;
@@ -405,7 +407,7 @@
       const seance = ($("#" + T.id + "-seance") || {}).value || "";
       const fillOut = {}; keys.forEach(k => fillOut[k] = T.rows[k].map((_, i) => { const o = {}; CR.parts[k].fill.forEach(c => o[c.k] = (S.fill[k][i] || {})[c.k] ?? ""); return o; }));
       const qOut = {}, qv = {}; QS.forEach(([qi]) => { if (S.qcm["q" + qi] != null) { qOut["q" + qi] = S.qcm["q" + qi]; if (typeof qi === "string" && QDV[qi]) qv["q" + qi] = QDV[qi][+S.qcm["q" + qi]]; } });
-      return { action: "submit", qv, tp: T.id, num: T.num, id, seance, device: device(), journal: journalResume(), raw: T.rows, fill: fillOut, calc: S.calc, qcm: qOut, rem: ($("#" + T.id + "-rem").value || "").slice(0, 2000), client: new Date().toISOString() };
+      return { action: "submit", qv, qz: S.qz ? { deb: new Date(S.qz.deb).toISOString(), d: S.qz.d.slice(), n: QS.length, qsec: QSEC } : null, tp: T.id, num: T.num, id, seance, device: device(), journal: journalResume(), raw: T.rows, fill: fillOut, calc: S.calc, qcm: qOut, rem: ($("#" + T.id + "-rem").value || "").slice(0, 2000), client: new Date().toISOString() };
     };
     // gel du compte rendu : copie figée à l'instant t (heure de l'appareil + décalage avec le serveur), conservée jusqu'à l'envoi
     const freeze = (payload, t) => {
@@ -490,6 +492,50 @@
       }
     };
     if (tbox) { TIMERS.push(drawTimer); drawTimer(); } else qVis();
+    /* ---------- QCM chronométré : une question à la fois, mesures verrouillées ---------- */
+    const QSEC = ST && ST.qsec != null ? +ST.qsec : 60;
+    const qzOn = () => !!(SS && QS.length && QSEC > 0);
+    const qzOK = inp => { if (!qzOn() || SUB) return true; const fs = inp.closest("fieldset"); return !!(S.qz && fs && +fs.dataset.qi === S.qz.i); };
+    let qzTick = null;
+    function qzAdvance() { if (!S.qz) return; S.qz.d.push(Date.now() - S.qz.t); S.qz.i++; S.qz.t = Date.now(); save(); qzRender(); }
+    function qzRender() {
+      const ctl = $("#" + T.id + "-qzctl"); if (!ctl) return;
+      const F = [...host.querySelectorAll("#" + T.id + "-qbox fieldset.qcm")], N = F.length;
+      if (!qzOn() || SUB || PEND) { ctl.innerHTML = ""; F.forEach(f => f.hidden = false); if (qzTick) { clearInterval(qzTick); qzTick = null; } if (SUB || PEND) F.forEach(f => f.querySelectorAll("input").forEach(x => x.disabled = true)); return; }
+      if (!S.qz) {
+        F.forEach(f => f.hidden = true);
+        ctl.innerHTML = `<div class="qzintro"><p><b>QCM chronométré : ${N} questions, ${QSEC} s par question.</b> Les questions s'affichent <b>une par une</b>, sans retour en arrière. Quand le temps d'une question est écoulé, on passe automatiquement à la suivante.</p><p><b>Dernière étape du TP :</b> en commençant le QCM, tes mesures, ton tableau et tes calculs sont <b>verrouillés définitivement</b>. Termine-les avant.</p><button type="button" class="btn primary" id="${T.id}-qzgo">Je réponds au QCM</button></div>`;
+        $("#" + T.id + "-qzgo").onclick = () => {
+          if (!keys.some(k => T.rows[k].length)) { T.msg("Fais d'abord tes mesures.", "bad"); return; }
+          if (!confirm("Commencer le QCM ?\n\nTes mesures, ton tableau et tes calculs seront verrouillés définitivement.\n" + N + " questions, " + QSEC + " s chacune, sans retour en arrière.")) return;
+          S.qz = { deb: Date.now(), t: Date.now(), i: 0, d: [] }; save();
+          T.renderAll(); cr.querySelectorAll("[data-calc]").forEach(x => x.disabled = true);
+          qzRender();
+        };
+        return;
+      }
+      cr.querySelectorAll("[data-calc]").forEach(x => x.disabled = true);
+      if (S.qz.i >= N) {
+        if (qzTick) { clearInterval(qzTick); qzTick = null; }
+        F.forEach(f => { f.hidden = false; f.querySelectorAll("input").forEach(x => x.disabled = true); });
+        ctl.innerHTML = `<p class="msg ok">QCM terminé : tes réponses sont enregistrées (elles ne peuvent plus être modifiées). Tu peux maintenant soumettre ton compte rendu.</p>`;
+        return;
+      }
+      const left = QSEC * 1000 - (Date.now() - S.qz.t);
+      if (left <= 0) { qzAdvance(); return; }
+      F.forEach((f, j) => { f.hidden = j !== S.qz.i; const off = j !== S.qz.i || (f.classList.contains("qd") && f.dataset.ok !== "1"); f.querySelectorAll("input").forEach(x => x.disabled = off); });
+      const last = S.qz.i === N - 1;
+      if (!ctl.querySelector(".qzbar") || +ctl.dataset.i !== S.qz.i) {
+        ctl.dataset.i = S.qz.i;
+        ctl.innerHTML = `<div class="qzbar"><span>Question <b>${S.qz.i + 1}</b> / ${N}</span><b class="qzt"></b><span class="tbar"><i></i></span><button type="button" class="btn primary sm" id="${T.id}-qznext">${last ? "Terminer le QCM" : "Valider et passer à la suivante"}</button></div>`;
+        $("#" + T.id + "-qznext").onclick = () => { if (!confirm(last ? "Terminer le QCM ? Tes réponses seront définitives." : "Passer à la question suivante ? Tu ne pourras plus revenir à celle-ci.")) return; qzAdvance(); };
+      }
+      const sec = Math.ceil(left / 1000);
+      ctl.querySelector(".qzt").textContent = sec + " s"; ctl.querySelector(".qzt").style.color = sec <= 10 ? "var(--rouge)" : "";
+      ctl.querySelector(".tbar i").style.width = (left / (QSEC * 1000) * 100).toFixed(1) + "%";
+      if (!qzTick) qzTick = setInterval(() => qzRender(), 250);
+    }
+    qzRender();
     /* ---------- surveillance pendant le TP minuté ---------- */
     // Remarque : aucun navigateur ne signale une capture faite avec les boutons du téléphone ; on enregistre ce qui est détectable
     // (sortie de la page ou de l'application, touche Impr. écran, raccourcis de capture, copie, impression) et on filigrane la page.
@@ -602,5 +648,5 @@
       const T = TPS.find(t => t.id === cur); if (T && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 44, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 45, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();
