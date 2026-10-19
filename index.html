@@ -159,6 +159,7 @@ footer .wrap{padding-block:18px}
 .pg canvas{display:block;width:100%;height:100%}
 .r-msg{font-family:var(--f-head);color:var(--muted);text-align:center;padding:40px 0}
 @media (prefers-reduced-motion:no-preference){.chap{transition:border-color .15s}}
+.iosbox{grid-column:1/-1;font-family:var(--f-head);font-size:.92rem;line-height:1.5;background:var(--tint);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:10px 14px}.iosbox ol{margin:6px 0 6px 18px;padding:0}.iosbox span{color:var(--muted)}
 </style>
 </head>
 <body>
@@ -212,6 +213,7 @@ footer .wrap{padding-block:18px}
       <button type="button" class="obtn primary" id="dlDocs">Enregistrer les cours, TD et TP<small>3,8 Mo</small></button>
       <button type="button" class="obtn" id="dlSlides">Enregistrer les diaporamas<small>37 Mo</small></button>
       <button type="button" class="obtn" id="install" hidden>Installer l'application</button>
+      <div class="iosbox" id="iosHelp" hidden role="note"><b>Installer sur iPhone ou iPad</b><ol><li>Ouvrez ce site dans <b>Safari</b> (pas depuis WhatsApp ou Facebook : touchez «&nbsp;Ouvrir dans Safari&nbsp;»).</li><li>Touchez le bouton <b>Partager</b> <span aria-hidden="true">(le carré avec une flèche vers le haut)</span>, en bas de l'écran ou en haut sur iPad.</li><li>Faites défiler et choisissez <b>«&nbsp;Sur l'écran d'accueil&nbsp;»</b>, puis <b>«&nbsp;Ajouter&nbsp;»</b>.</li></ol><span>L'icône «&nbsp;Physique L1&nbsp;» apparaît alors sur l'écran d'accueil, comme une application.</span></div>
       <button type="button" class="olink" id="offClear">Supprimer les documents enregistrés</button>
     </div>
     <div class="meter" hidden id="meter"><span id="meterBar"></span></div>
@@ -489,7 +491,11 @@ if("serviceWorker" in navigator&&"caches" in window){
   $("#offClear").addEventListener("click",async()=>{try{await caches.delete(PDF_CACHE)}catch(e){}$("#offMsg").textContent="Les documents enregistrés ont été supprimés de cet appareil.";markCached()});
   addEventListener("online",netState);addEventListener("offline",netState);netState();
   let deferred=null;addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferred=e;$("#install").hidden=false});
-  $("#install").addEventListener("click",async()=>{if(!deferred)return;deferred.prompt();await deferred.userChoice.catch(()=>{});deferred=null;$("#install").hidden=true});
+  // iPhone / iPad : Safari ne propose pas d'installation automatique, on affiche la marche à suivre
+  const isIOS=/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+  const installed=window.navigator.standalone===true||matchMedia("(display-mode: standalone)").matches;
+  if(isIOS&&!installed)$("#install").hidden=false;
+  $("#install").addEventListener("click",async()=>{if(isIOS&&!deferred){const h=$("#iosHelp");h.hidden=!h.hidden;if(!h.hidden)h.scrollIntoView({behavior:"smooth",block:"nearest"});return}if(!deferred)return;deferred.prompt();await deferred.userChoice.catch(()=>{});deferred=null;$("#install").hidden=true});
   markCached();
 }
 
