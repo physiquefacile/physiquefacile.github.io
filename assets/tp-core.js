@@ -598,7 +598,7 @@
       const calcs = CR.calc.map(c => `<tr><td style="text-align:left">${c.h}</td><td>${esc(S.calc[c.k] || "")} ${esc(c.u)}</td></tr>`).join("");
       const qcm = QS.map(([qi], i) => { if (typeof qi === "string") { const fs = host.querySelector(`fieldset.qd[data-qd="${qi}"]`), t = QDT(qi), j = S.qcm["q" + qi]; return `<p><b>${i + 1}. ${esc(fs ? fs.querySelector(".qdq").textContent : qi)}</b><br>${j != null && QDV[qi] && t ? esc(window.TPQD.fmt(QDV[qi][+j], t.sig) + " " + t.u) : "(sans réponse)"}</p>`; } const q = CR.qcm[qi]; return `<p><b>${i + 1}. ${q.q}</b><br>${S.qcm["q" + qi] != null ? esc(q.o[+S.qcm["q" + qi]]) : "(sans réponse)"}</p>`; }).join("");
       const html = `<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Compte rendu TP ${T.num} — ${esc(val("nom"))}</title><style>body{font-family:Georgia,serif;max-width:820px;margin:24px auto;padding:0 16px;color:#111}h1{font-family:Arial,sans-serif;font-size:20px;border-bottom:3px solid #D98E04;padding-bottom:6px}h2{font-family:Arial,sans-serif;font-size:16px;color:#1F7A8C;margin-top:22px}table{border-collapse:collapse;margin:8px 0;font-family:monospace;font-size:13px}th,td{border:1px solid #999;padding:4px 8px;text-align:right}th{background:#EEF4F6}</style></head><body>
-        <div style="font-family:Arial;font-size:12px;color:#B87503;font-weight:bold">UNIVERSITÉ SOULEYMANE NIANG DE MATAM • PHYSIQUE L1</div><h1>Compte rendu — TP n°${T.num} : ${esc(T.titre)}</h1>
+        <div style="font-family:Arial;font-size:12px;color:#B87503;font-weight:bold">${esc(window.SITE_ORG || "UNIVERSITÉ SOULEYMANE NIANG DE MATAM • PHYSIQUE L1")}</div><h1>Compte rendu — TP n°${T.num} : ${esc(T.titre)}</h1>
         <p><b>${esc(val("nom"))} ${esc(val("prenom"))}</b> — carte n° ${esc(val("carte"))} — groupe ${esc(val("groupe"))}, sous-groupe ${esc(val("sousgroupe"))}${val("binome") ? " — binôme : " + esc(val("binome")) : ""}</p>
         ${SUB && isFinite(SUB.note) ? `<p><b>Note obtenue : ${String(SUB.note).replace(".", ",")} / 20</b></p>` : ""}${tables}<h2>Résultats et calculs</h2><table>${calcs}</table><h2>QCM</h2>${qcm}</body></html>`;
       const b = new Blob([html], { type: "text/html;charset=utf-8" }), a = document.createElement("a");
@@ -650,5 +650,5 @@
       const T = TPS.find(t => t.id === cur); if (T && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 49, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 50, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();

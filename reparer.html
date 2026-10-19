@@ -24,7 +24,7 @@ h1{font-size:1.3rem;margin:0}p{margin:0;color:var(--muted)}a{color:var(--accent)
   } catch (e) { m.textContent = "Remise à jour partielle (" + e.message + ")."; }
   // page de retour : uniquement une page de ce site (nom simple en .html)
   let retour = new URLSearchParams(location.search).get("retour") || "tp.html";
-  if (!/^[a-z0-9_-]+\.html$/i.test(retour) || retour === "reparer.html") retour = "tp.html";
+  if (!/^(labo\/)?[a-z0-9_-]+\.html$/i.test(retour) || retour === "reparer.html") retour = "tp.html";
   setTimeout(() => { location.replace(retour + "?maj=" + Date.now()); }, 800);
 })();
 </script>

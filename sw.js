@@ -5,7 +5,7 @@
      ⚠ Toute modification du site doit s'accompagner d'un changement de VERSION.
    - documents PDF : copie locale d'abord, rafraîchie en arrière-plan
    - bibliothèques externes (KaTeX) : copie locale permanente */
-const VERSION = "v83";
+const VERSION = "v84";
 const SHELL = "shell-" + VERSION;
 const PDFS = "pdf-v1";          // nom stable : les documents enregistrés survivent aux mises à jour du site
 const EXT = "ext-v1";           // KaTeX ne change pas : inutile de le retélécharger à chaque version
@@ -101,7 +101,7 @@ async function prechargerDocs() {
 self.addEventListener("activate", e => {
   e.waitUntil((async () => {
     const keep = [SHELL, PDFS, EXT];
-    for (const k of await caches.keys()) if (!keep.includes(k)) await caches.delete(k);
+    for (const k of await caches.keys()) if (!keep.includes(k) && !k.startsWith("labo-")) await caches.delete(k);   // les caches du Labo virtuel (/labo/) lui appartiennent
     await self.clients.claim();
   })());
   prechargerDocs();

@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<script src="../assets/config.js"></script>
+<script>window.SITE_ORG = "LABO VIRTUEL DE PHYSIQUE • PHYSIQUE L1";</script>
+<script src="../assets/acces.js"></script>
+<title>Travaux pratiques — Labo Virtuel de Physique</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1B2A41">
+<link rel="icon" type="image/png" href="../icons/favicon.png">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="description" content="Labo Virtuel de Physique : travaux pratiques virtuels de mécanique, d'électricité et d'optique (Physique L1, Dr P. T. Traoré).">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Fira+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+main .wrap{padding-block:22px 10px;display:grid;gap:18px}
+.grp{display:grid;gap:6px}
+.grp-t{font-family:var(--f-head);font-size:.8rem;font-weight:600;color:var(--muted)}
+.tabs-wrap{display:grid;gap:10px}
+.tp{display:grid;gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;display:grid;gap:10px;min-width:0}
+.fiche h2{font-family:var(--f-head);font-size:1.35rem;margin:0;text-wrap:balance}
+.fiche .obj{font-size:1rem;margin:0}
+.fiche details{border-top:1px solid var(--line);padding-top:10px}
+.fiche summary{font-family:var(--f-head);font-weight:600;cursor:pointer;color:var(--fg)}
+.fiche summary::marker{color:var(--accent)}
+.fiche .sec{display:grid;gap:8px;margin-top:10px;font-size:.98rem}
+.fiche .sec p{margin:0}
+.fiche .sec h4{font-family:var(--f-head);font-size:.92rem;margin:6px 0 0;color:var(--accent)}
+.fiche ol,.fiche ul{margin:0;padding-left:22px;display:grid;gap:5px}
+.fiche .mat{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
+.mat li{font-family:var(--f-head);font-size:.82rem;background:var(--tint);color:var(--fg);border-radius:6px;padding:3px 9px}
+.formula{font-family:var(--f-mono);font-size:.9rem;background:var(--tint);border-radius:8px;padding:8px 12px;overflow-x:auto;white-space:pre}
+.warn{background:var(--tint2);border-radius:8px;padding:8px 12px;font-size:.95rem}
+.lab{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;align-items:start}
+.bench{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:10px;display:grid;gap:8px;min-width:0}
+.bench canvas{display:block;width:100%;border-radius:8px;background:var(--plot-bg);touch-action:none}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:10px;min-width:0}
+.panel h3{font-family:var(--f-head);font-size:.92rem;margin:4px 0 0}
+.panel h3:first-child{margin-top:0}
+.ctl{display:grid;gap:4px}
+.ctl label{display:flex;justify-content:space-between;gap:8px;font-family:var(--f-head);font-size:.86rem;color:var(--muted)}
+.ctl label b{font-family:var(--f-mono);font-weight:500;color:var(--fg);font-variant-numeric:tabular-nums;white-space:nowrap}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.panel select,.panel input[type=number],.panel input[type=text]{font:inherit;font-family:var(--f-head);font-size:.9rem;padding:6px 8px;border:1.5px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg);width:100%}
+.row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.btn.sm{font-size:.84rem;padding:7px 11px}
+.lcd{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-family:var(--f-head);font-size:.86rem;align-items:center;margin:0}
+.lcd dt{color:var(--muted)}
+.lcd dd{margin:0;font-family:var(--f-mono);font-size:1.02rem;text-align:right;font-variant-numeric:tabular-nums}
+.hint{font-family:var(--f-head);font-size:.82rem;color:var(--muted);margin:0}
+.msg{font-family:var(--f-head);font-size:.86rem;margin:0;min-height:1.2em}
+.msg.bad{color:var(--ko)} .msg.ok{color:var(--ok)}
+.seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{flex:1;font-family:var(--f-head);font-size:.82rem;border:0;background:var(--bg);color:var(--fg);padding:7px 6px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-fg)}
+.part{display:grid;gap:10px}
+.part h3{font-family:var(--f-head);font-size:1.05rem;margin:0}
+.data{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+.data.solo{grid-template-columns:1fr}
+.tblwrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:12px;max-height:380px}
+table{border-collapse:collapse;width:100%;font-family:var(--f-mono);font-size:.84rem;font-variant-numeric:tabular-nums}
+th,td{padding:7px 9px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th{font-family:var(--f-head);font-weight:600;font-size:.78rem;color:var(--muted);background:var(--bg);position:sticky;top:0}
+td.x{text-align:center}
+td.x button{border:0;background:none;color:var(--muted);cursor:pointer;font-size:1rem}
+tr.empty td{text-align:center;color:var(--muted);font-family:var(--f-head);white-space:normal}
+.graph{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px;display:grid;gap:8px;min-width:0}
+.graph canvas{width:100%;display:block}
+.fit{font-family:var(--f-mono);font-size:.84rem;background:var(--tint);border-radius:8px;padding:8px 10px;overflow-x:auto}
+.report h3{font-family:var(--f-head);font-size:1.1rem;margin:0}
+.report .id{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.report label{font-family:var(--f-head);font-size:.85rem;display:grid;gap:4px}
+.report input,.report textarea{font:inherit;font-size:.96rem;padding:8px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg);width:100%}
+.report textarea{min-height:66px;resize:vertical}
+.report .q{display:grid;gap:5px}
+.report .q label{display:block;font-family:var(--f-body);font-size:.97rem}
+.res{display:grid;gap:6px}
+.res .fit{font-size:.82rem}
+.saved{font-family:var(--f-head);font-size:.8rem;color:var(--muted)}
+.report .id{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.opt{font-weight:400;color:var(--muted);font-size:.8em}
+.crpart{display:grid;gap:8px;border-top:1px solid var(--line);padding-top:12px}
+.crpart h4,.crblock h4{font-family:var(--f-head);font-size:1rem;margin:0;display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+.minm{font-family:var(--f-head);font-size:.78rem;font-weight:600;color:var(--ko);background:var(--ko-bg);padding:2px 8px;border-radius:999px}
+.minm.ok{color:var(--ok);background:var(--ok-bg)}
+th.fillh{color:var(--warm);background:var(--tint2)}
+td.fillc{padding:3px 4px}
+td.fillc input{width:100%;min-width:78px;font-family:var(--f-mono);font-size:.86rem;padding:5px 7px;border:1.5px solid var(--line);border-radius:6px;background:var(--tint2);color:var(--fg);text-align:right}
+td.fillc input:focus,.cin input:focus{outline:none;border-color:var(--accent)}
+td.fillc.susp input{border-color:#c0392b;background:rgba(192,57,43,.08)}
+.crblock{display:grid;gap:10px;border-top:1px solid var(--line);padding-top:12px}
+.calcs{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.calc{display:grid;gap:5px;align-content:end}
+.calc label{font-family:var(--f-body);font-size:.95rem}
+.cin{display:flex;gap:8px;align-items:center}
+.cin input{flex:1;min-width:0;font-family:var(--f-mono)!important;background:var(--tint2)!important;text-align:right}
+.cin span{font-family:var(--f-mono);font-size:.82rem;color:var(--muted);min-width:40px}
+fieldset.qcm{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:0;display:grid;gap:6px}
+fieldset.qcm legend{font-size:.97rem;padding:0 4px}
+fieldset.qcm label{display:flex;gap:8px;align-items:flex-start;font-family:var(--f-body);font-size:.95rem;cursor:pointer}
+fieldset.qcm input{width:auto;margin-top:4px;accent-color:var(--accent)}
+.submit{display:grid;gap:10px;border-top:2px solid var(--saff);padding-top:14px}
+.chk{display:flex!important;grid-template-columns:none;gap:10px;align-items:flex-start;font-family:var(--f-body)!important;font-size:.95rem!important}
+.chk input{width:auto!important;margin-top:4px}
+.note-box{border:2px solid var(--ok);background:var(--ok-bg);border-radius:12px;padding:14px 16px;display:grid;gap:8px}
+.nb-main{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;font-family:var(--f-head)}
+.nb-main b{font-family:var(--f-mono);font-size:1.8rem;color:var(--ok)}
+.nb-detail{display:flex;flex-wrap:wrap;gap:6px 18px;font-family:var(--f-head);font-size:.88rem;color:var(--muted)}
+.nb-detail b{color:var(--fg);font-family:var(--f-mono)}
+.report input:disabled,.report textarea:disabled{opacity:.75}
+@media (max-width:900px){.lab,.data{grid-template-columns:1fr}.report .id{grid-template-columns:1fr 1fr}}
+@media print{
+  .band,.tabs-wrap,footer,.lab,.noprint,.btn{display:none!important}
+  body{background:#fff;color:#000}
+  .card,.tblwrap,.graph{border:1px solid #999;box-shadow:none}
+  .tp[hidden]{display:none!important}
+  details{display:block}
+  .tblwrap{max-height:none}
+}
+.band a.fasc{display:inline-block;margin-top:4px;padding:8px 14px;border-radius:8px;background:var(--saff);color:#1B2A41;font-family:var(--f-head);font-weight:700;text-decoration:none}
+.band a.fasc:hover{filter:brightness(1.08)}
+.band .fasc-sub{display:block;margin-top:6px;font-size:.85rem;color:var(--band-muted)}
+@media print{.band a.fasc,.band .fasc-sub{display:none}}
+.fasc-link{margin:0;font-family:var(--f-head);font-size:.9rem;background:var(--tint2);border-left:4px solid var(--saff);border-radius:8px;padding:8px 12px}
+.fasc-link a{font-weight:700;color:var(--warm)}
+.login{display:grid;gap:10px;border-left:5px solid var(--saff)}
+.login h2{font-family:var(--f-head);font-size:1.15rem;margin:0}
+.login p{margin:0}
+.loginf{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
+.loginf label{font-family:var(--f-head);font-size:.85rem;display:grid;gap:4px;flex:1 1 180px}
+.loginf input{font:inherit;font-family:var(--f-mono);font-size:1rem;padding:9px 11px;border:1.5px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg);width:100%;letter-spacing:.04em}
+.who{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
+.crstate{margin:0;padding:9px 12px;border-radius:9px;font-family:var(--f-head);font-size:.9rem;background:var(--tint);border-left:4px solid var(--accent)}
+.crstate.warn{border-left-color:var(--saff)}
+.crstate.bad{background:var(--ko-bg);border-left-color:var(--ko)}
+.seance{max-width:340px}
+.seance input{font-family:var(--f-mono)!important;letter-spacing:.06em}
+.timer{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;background:var(--surface);border:2px solid var(--saff);border-radius:12px;padding:12px 16px;box-shadow:var(--shadow);font-family:var(--f-head);font-size:.92rem}
+.timer > div{flex:1 1 320px}
+.timer .msg{flex-basis:100%}
+.timer.run{border-color:var(--accent)}
+.timer .tleft{font-family:var(--f-mono);font-size:1.5rem;color:var(--accent)}
+.qzbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;border:2px solid var(--accent);border-radius:10px;padding:10px 14px;margin:8px 0;font-family:var(--f-head)}.qzbar .tbar{flex:1 1 140px;height:8px;border-radius:4px;background:var(--tint);overflow:hidden}.qzbar .tbar i{display:block;height:100%;background:var(--accent)}.qzbar .qzt{font-family:var(--f-mono);font-size:1.3rem;min-width:3.5em}.qzintro{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--tint);font-family:var(--f-head);font-size:.95rem}.qzintro p{margin:0 0 8px}
+.timer .tbar{flex:1 1 140px;height:8px;border-radius:4px;background:var(--tint);overflow:hidden}
+.timer .tbar i{display:block;height:100%;background:var(--accent);transition:width 1s linear}
+.timer.warn{border-color:var(--saff)} .timer.warn .tleft{color:var(--saff)} .timer.warn .tbar i{background:var(--saff)}
+.timer.bad{border-color:var(--ko);background:var(--ko-bg)} .timer.bad .tleft{color:var(--ko)} .timer.bad .tbar i{background:var(--ko)}
+@media print{.login{display:none!important}}
+</style>
+</head>
+<body>
+<header class="band"><div class="wrap">
+  <a class="back" href="./">← Accueil du labo</a>
+  <div class="uni">LABO VIRTUEL DE PHYSIQUE • PHYSIQUE L1</div>
+  <h1>Travaux pratiques</h1>
+  <p>Pour chaque TP : le protocole détaillé, un montage simulé pour faire les mesures, les tableaux et graphes, et le compte rendu à remplir en ligne.</p>
+  <p><a class="fasc" href="docs/Fascicule_TP_Physique_L1.pdf" target="_blank" rel="noopener">Télécharger le fascicule de TP (PDF, 51 pages)</a> <span class="fasc-sub">les 8 TP : théorie, schémas de montage, protocoles, tableaux de mesures — à lire avant chaque séance</span></p>
+</div></header>
+
+<main><div class="wrap">
+  <section class="card login noprint" id="tpLogin" aria-label="Connexion étudiant"></section>
+  <nav class="tabs-wrap" aria-label="Choix du TP" id="tabs"></nav>
+  <div id="tpHost"></div>
+</div></main>
+<footer><div class="wrap">Labo Virtuel de Physique • Dr P. T. Traoré • Les mesures sont simulées avec une incertitude réaliste. Chaque étudiant connecté reçoit son propre matériel : deux étudiants n'obtiennent pas les mêmes valeurs. • <a href="../reparer.html?retour=labo/tp.html">Affichage incomplet ? Mettre le site à jour</a></div></footer>
+
+<script>window.__tpErr = []; addEventListener("error", function (e) { window.__tpErr.push((e.message || "erreur") + " (" + String(e.filename || "").split("/").pop() + ":" + (e.lineno || "") + ")"); });</script>
+<script src="../assets/config.js?v=50"></script>
+<script src="../assets/tp-cr.js?v=50"></script>
+<script src="../assets/tp-qd.js?v=50"></script>
+<script src="../assets/tp-core.js?v=50"></script>
+<script src="../assets/tp-meca.js?v=50"></script>
+<script src="../assets/tp-elec.js?v=50"></script>
+<script src="../assets/tp-oscillo.js?v=50"></script>
+<script src="../assets/tp-mesures.js?v=50"></script>
+<script src="../assets/tp-optique.js?v=50"></script>
+<script>
+/* Vérifie que tous les fichiers de la page sont de la même version ; sinon (copie ancienne gardée par le
+   navigateur après une connexion lente), propose une remise à jour en un clic au lieu d'une page vide. */
+(function () {
+  var BUILD = 50;
+  function repair(why) {
+    var b = document.getElementById("tpLogin"); if (!b) return;
+    var det = (window.__tpErr || []).concat(why ? [why] : []).join(" ; ");
+    b.innerHTML = '<h2>Mise à jour de la page</h2><p>La page n\'a pas été entièrement mise à jour (connexion lente). Clique sur le bouton : elle se recharge avec la dernière version. Tes mesures enregistrées sont conservées.</p><p><a class="btn primary" href="../reparer.html?retour=labo/tp.html">Mettre à jour la page</a></p>' + (det ? '<p class="hint">Détail technique : ' + det.replace(/[<>&]/g, "") + '</p>' : '');
+  }
+  try {
+    if (!window.TPCORE || TPCORE.build !== BUILD || !window.TPCR || !TPCR.oscillo) throw new Error("versions différentes");
+    TPCORE.start();
+    if (!document.querySelector(".tp canvas")) throw new Error("aucun TP affiché");
+  } catch (e) { console.error(e); repair(e && e.message); }
+})();
+</script>
+<script>
+if("serviceWorker" in navigator){const hadSW=!!navigator.serviceWorker.controller;addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").catch(()=>{})})}
+</script>
+</body>
+</html>

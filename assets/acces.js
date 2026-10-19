@@ -73,7 +73,7 @@
     d.setAttribute("aria-labelledby", "acTitre");
     d.innerHTML =
       '<form class="ac-card" id="acForm" autocomplete="on">' +
-      '<div class="ac-uni">UNIVERSITÉ SOULEYMANE NIANG DE MATAM • PHYSIQUE L1</div>' +
+      '<div class="ac-uni">' + esc(window.SITE_ORG || "UNIVERSITÉ SOULEYMANE NIANG DE MATAM • PHYSIQUE L1") + '</div>' +
       '<h1 id="acTitre">Physique Facile — accès réservé</h1>' +
       "<p>Cette plateforme est réservée aux étudiants inscrits. Connecte-toi avec ton <b>numéro de carte étudiant</b> et le <b>code personnel</b> remis par ton enseignant (le même que pour les TP).</p>" +
       '<label>N° de carte étudiant<input id="acCarte" name="username" autocomplete="username" inputmode="text" required></label>' +
