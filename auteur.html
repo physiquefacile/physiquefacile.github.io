@@ -60,6 +60,11 @@ h2::before{content:"";width:10px;height:10px;border-radius:2px;background:var(--
 .contact{margin-top:34px;background:var(--tint);border-radius:8px;padding:16px 20px;font-family:var(--f-head)}
 .contact a{font-weight:600;word-break:break-all}
 footer{border-top:1px solid var(--line);padding:18px 0 28px;font-family:var(--f-head);font-size:.85rem;color:var(--muted)}
+.hero{display:grid;grid-template-columns:1fr 260px;gap:28px;align-items:end}
+.hero figure{margin:0}
+.hero img{display:block;width:100%;height:auto;aspect-ratio:800/864;object-fit:cover;border-radius:10px;border:3px solid rgba(255,255,255,.9);box-shadow:0 8px 28px rgba(0,0,0,.28)}
+.hero figcaption{font-family:var(--f-head);font-size:.78rem;color:var(--band-muted);margin-top:8px;line-height:1.35}
+@media (max-width:720px){.hero{grid-template-columns:1fr}.hero figure{margin:4px 0 0;max-width:300px}}
 @media (max-width:520px){.lead{padding:14px 16px}.stats{gap:10px 20px}}
 </style>
 </head>
@@ -67,6 +72,7 @@ footer{border-top:1px solid var(--line);padding:18px 0 28px;font-family:var(--f-
 <header>
   <div class="wrap">
     <a class="back" href="./">← Retour à la plateforme</a>
+    <div class="hero"><div>
     <div class="eyebrow">Le développeur de la plateforme</div>
     <h1>Dr Papa Touty Traoré</h1>
     <p class="role">Enseignant-chercheur • Physicien • Docteur en physique de l'Université Cheikh Anta Diop de Dakar</p>
@@ -74,6 +80,10 @@ footer{border-top:1px solid var(--line);padding:18px 0 28px;font-family:var(--f-
       <span><b>10 ans</b>d'enseignement supérieur</span>
       <span><b>36</b>publications indexées</span>
       <span><b>6</b>jurys de master</span>
+    </div>
+    </div>
+    <figure><img src="img/auteur-wyoming.jpg" width="800" height="864" alt="Le Dr Papa Touty Traoré à son poste de travail, devant un ordinateur portable et un petit robot quadrupède, lors d'un atelier à l'Université du Wyoming">
+      <figcaption>Atelier de pédagogie des STEM et de robotique, College of Engineering and Physical Sciences, Université du Wyoming (États-Unis), juillet 2024.</figcaption></figure>
     </div>
   </div>
 </header>
