@@ -200,7 +200,7 @@
       };
       T.draw = () => {
         const { c, w, h } = fit($("#ressort-cv"), innerWidth < 600 ? 1.0 : 0.6); c.fillStyle = css("--plot-bg"); c.fillRect(0, 0, w, h);
-        const fg = css("--fg"), mu = css("--muted"), px = w * 0.36, py = 24, sc = (h - 60) / 50; // px par cm
+        const fg = css("--fg"), mu = css("--muted"), px = w < 520 ? w * 0.2 : w * 0.36, cxR = w < 520 ? w * 0.73 : cxR, py = 24, sc = (h - 60) / 50; // px par cm
         support(c, px, py, 120);
         const yEnd = py + (eqPos() + x * 100) * sc;
         // ressort (spires)
@@ -215,10 +215,19 @@
         for (let k = 0; k <= 50; k++) { const y = py + k * sc; c.beginPath(); c.moveTo(rx, y); c.lineTo(rx + (k % 5 ? 7 : 13), y); c.stroke(); if (k % 5 === 0) txt(c, String(k), rx + 16, y + 4, "#5a4a2a", "left", "alphabetic", "11px 'Fira Mono'"); }
         txt(c, "cm", rx + 17, py + 50 * sc + 14, mu);
         // loupe de lecture
-        const S = ch.S; lcdBox(c, w * 0.8, h * 0.25, fr(S.t, 2) + " s");
-        txt(c, S.armed ? "capteur armé…" : S.on ? "chronomètre en marche" : "chronomètre arrêté", w * 0.8, h * 0.25 + 40, S.on ? css("--ok") : mu, "center");
-        txt(c, "oscillations : " + S.n, w * 0.8, h * 0.25 + 58, mu, "center");
-        if (!run && m > 0) txt(c, "lecture : ℓ = " + fr(lread, 1) + " cm", w * 0.8, h * 0.62, fg, "center", "alphabetic", "600 14px 'Fira Sans'");
+        const S = ch.S; lcdBox(c, cxR, h * 0.25, fr(S.t, 2) + " s");
+        txt(c, S.armed ? "capteur armé…" : S.on ? "chronomètre en marche" : "chronomètre arrêté", cxR, h * 0.25 + 40, S.on ? css("--ok") : mu, "center");
+        txt(c, "oscillations : " + S.n, cxR, h * 0.25 + 58, mu, "center");
+        // loupe : la règle agrandie autour de l'index, graduée au millimètre
+        { const pos = eqPos() + x * 100, lw = Math.min(150, w * 0.36), lh = Math.min(170, h * 0.42), lx = cxR - lw / 2, ly = h * 0.25 + 72, zs = lh / 3.2, cy = ly + lh / 2;
+          c.save(); c.beginPath(); c.rect(lx, ly, lw, lh); c.clip(); c.fillStyle = "#efe6cf"; c.fillRect(lx, ly, lw, lh);
+          c.strokeStyle = css("--rouge"); c.lineWidth = 2; c.beginPath(); c.moveTo(lx, cy); c.lineTo(lx + lw, cy); c.stroke();
+          c.strokeStyle = "#5a4a2a"; c.lineWidth = 1;
+          for (let mm = Math.floor((pos - 2) * 10); mm <= Math.ceil((pos + 2) * 10); mm++) { const y = cy + (mm / 10 - pos) * zs, big = mm % 10 === 0, mid = mm % 5 === 0; c.beginPath(); c.moveTo(lx, y); c.lineTo(lx + (big ? 30 : mid ? 20 : 11), y); c.stroke(); if (big) txt(c, String(mm / 10), lx + 36, y + 5, "#5a4a2a", "left", "alphabetic", "600 14px 'Fira Mono'"); }
+          c.restore();
+          c.strokeStyle = mu; c.lineWidth = 1; c.strokeRect(lx, ly, lw, lh);
+          txt(c, "loupe : règle graduée en mm", cxR, ly + lh + 16, mu, "center"); }
+        if (!run && m > 0) txt(c, "lecture : ℓ = " + fr(lread, 1) + " cm", cxR, Math.min(h - 8, h * 0.25 + 72 + Math.min(170, h * 0.42) + 36), fg, "center", "alphabetic", "600 14px 'Fira Sans'");
       };
       set();
     }
