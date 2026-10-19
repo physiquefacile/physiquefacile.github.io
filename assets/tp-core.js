@@ -283,6 +283,7 @@
       <p class="hint">Les mesures relevées sur la paillasse s'ajoutent automatiquement aux tableaux. À toi de calculer et de remplir les colonnes colorées, puis les résultats et le QCM. Tout est enregistré sur cet appareil jusqu'à la soumission.</p>
       ${keys.map((k, i) => { const p = CR.parts[k]; return `<div class="crpart">
         <h4>Partie ${L[i]} — ${esc(p.titre)} <span class="minm" id="${T.id}-min-${k}"></span></h4>
+        ${p.aide ? `<div class="formula aide">${p.aide}</div>` : ""}
         <div class="data${p.plot ? "" : " solo"}">
           <div class="tblwrap"><table><thead><tr>${p.cols.map(c => `<th>${c}</th>`).join("")}${p.fill.map(f => `<th class="fillh">${f.h}</th>`).join("")}<th class="noprint"></th></tr></thead><tbody id="${T.id}-tb-${k}"></tbody></table></div>
           ${p.plot ? `<div class="graph"><canvas id="${T.id}-gr-${k}" aria-label="Graphe de la partie ${L[i]}"></canvas><p class="hint">Graphe tracé avec <b>tes</b> valeurs. Trace la droite moyenne et calcule sa pente toi-même.</p></div>` : ""}
@@ -448,7 +449,7 @@
     $("#" + T.id + "-dl").onclick = () => {
       const val = f => ($("#" + T.id + "-" + f) || {}).value || "";
       const tables = keys.map((k, i) => { const p = CR.parts[k]; const cv = p.plot ? $("#" + T.id + "-gr-" + k) : null;
-        return `<h2>Partie ${L[i]} — ${esc(p.titre)}</h2><table><tr>${p.cols.concat(p.fill.map(f => f.h)).map(c => `<th>${c}</th>`).join("")}</tr>${T.rows[k].map((r, j) => `<tr>${p.cells(r, j).concat(p.fill.map(c => esc((S.fill[k][j] || {})[c.k] ?? ""))).map(v => `<td>${v}</td>`).join("")}</tr>`).join("") || `<tr><td colspan="9">Aucune mesure</td></tr>`}</table>${cv && T.rows[k].length ? `<img src="${cv.toDataURL("image/png")}" alt="Graphe" style="max-width:100%;border:1px solid #ccc">` : ""}`; }).join("");
+        return `<h2>Partie ${L[i]} — ${esc(p.titre)}</h2>${p.aide ? `<p style="font-family:Arial;font-size:13px;background:#EEF4F6;padding:6px 10px">${p.aide}</p>` : ""}<table><tr>${p.cols.concat(p.fill.map(f => f.h)).map(c => `<th>${c}</th>`).join("")}</tr>${T.rows[k].map((r, j) => `<tr>${p.cells(r, j).concat(p.fill.map(c => esc((S.fill[k][j] || {})[c.k] ?? ""))).map(v => `<td>${v}</td>`).join("")}</tr>`).join("") || `<tr><td colspan="9">Aucune mesure</td></tr>`}</table>${cv && T.rows[k].length ? `<img src="${cv.toDataURL("image/png")}" alt="Graphe" style="max-width:100%;border:1px solid #ccc">` : ""}`; }).join("");
       const calcs = CR.calc.map(c => `<tr><td style="text-align:left">${c.h}</td><td>${esc(S.calc[c.k] || "")} ${esc(c.u)}</td></tr>`).join("");
       const qcm = QS.map(([qi], i) => { const q = CR.qcm[qi]; return `<p><b>${i + 1}. ${q.q}</b><br>${S.qcm["q" + qi] != null ? esc(q.o[+S.qcm["q" + qi]]) : "(sans réponse)"}</p>`; }).join("");
       const html = `<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Compte rendu TP ${T.num} — ${esc(val("nom"))}</title><style>body{font-family:Georgia,serif;max-width:820px;margin:24px auto;padding:0 16px;color:#111}h1{font-family:Arial,sans-serif;font-size:20px;border-bottom:3px solid #D98E04;padding-bottom:6px}h2{font-family:Arial,sans-serif;font-size:16px;color:#1F7A8C;margin-top:22px}table{border-collapse:collapse;margin:8px 0;font-family:monospace;font-size:13px}th,td{border:1px solid #999;padding:4px 8px;text-align:right}th{background:#EEF4F6}</style></head><body>
@@ -504,5 +505,5 @@
       const T = TPS.find(t => t.id === cur); if (T && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 38, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 39, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();

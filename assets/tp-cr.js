@@ -66,7 +66,7 @@ window.TPCR = {
   ohm: {
     parts: {
       A: { min: 6, fill: [{ k: "R", h: "U/I (Ω)" }], plot: { x: (r, f) => r.I, y: (r, f) => r.U, xl: "I (mA)", yl: "U (V)", xmin: 0, ymin: 0, fit: true, eq: R => "U = " + R.a.toFixed(4).replace(".", ",") + " I " + (R.b < 0 ? "− " : "+ ") + Math.abs(R.b).toFixed(3).replace(".", ",") } },
-      B: { min: 4, fill: [{ k: "Rm", h: "R_mes = U/I (Ω)" }, { k: "Rc", h: "R corrigée (Ω)" }] },
+      B: { min: 4, aide: "<b>R corrigée</b> (r<sub>A</sub> = 2 Ω ; R<sub>V</sub> = 1 MΩ = 10⁶ Ω) — montage <b>amont</b> : R = R<sub>mes</sub> − r<sub>A</sub>  ;  montage <b>aval</b> : 1/R = 1/R<sub>mes</sub> − 1/R<sub>V</sub>, soit R = R<sub>mes</sub>·R<sub>V</sub> / (R<sub>V</sub> − R<sub>mes</sub>).", fill: [{ k: "Rm", h: "R_mes = U/I (Ω)" }, { k: "Rc", h: "R corrigée (Ω)" }] },
       C: { min: 4, fill: [{ k: "Rm", h: "R_mes = U/I (Ω)" }] }
     },
     calc: [

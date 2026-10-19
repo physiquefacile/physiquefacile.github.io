@@ -91,7 +91,7 @@
       <h4>Méthode voltampèremétrique : montage amont ou aval ?</h4><p>Les appareils de mesure ne sont pas parfaits : l'ampèremètre a une petite résistance r<sub>A</sub>, le voltmètre une grande résistance R<sub>V</sub>.</p>
       <ul><li><b>Montage amont</b> (longue dérivation : le voltmètre est en amont de l'ampèremètre) : le voltmètre mesure U<sub>R</sub> + U<sub>A</sub>. On trouve R<sub>mes</sub> = U/I = R + r<sub>A</sub> : erreur faible si <b>R ≫ r<sub>A</sub></b> (grandes résistances).</li>
         <li><b>Montage aval</b> (courte dérivation : le voltmètre est directement aux bornes de R) : l'ampèremètre mesure aussi le courant du voltmètre. On trouve 1/R<sub>mes</sub> = 1/R + 1/R<sub>V</sub> : erreur faible si <b>R ≪ R<sub>V</sub></b> (petites résistances).</li></ul>
-      <div class="formula">Amont :  R = U/I − r_A          Aval :  1/R = I/U − 1/R_V</div>
+      <div class="formula">Amont :  R = U/I − r_A          Aval :  1/R = I/U − 1/R_V  ⟺  R = R_mes · R_V / (R_V − R_mes)</div>
       ${SCHEMAS}
       <h4>Associations</h4><div class="formula">Série : R_éq = R₁ + R₂          Parallèle : 1/R_éq = 1/R₁ + 1/R₂</div>`,
     protocole: `<h4>Partie A — Caractéristique du résistor X</h4><ol>
@@ -102,7 +102,7 @@
       <h4>Partie B — Choix du montage</h4><ol>
         <li>Avec le résistor de 22 Ω, règle U ≈ 2 V (attention à la puissance). Câble le montage amont, mesure U et I, puis déplace le fil du voltmètre pour passer en montage aval. Enregistre les deux (Partie B).</li>
         <li>Recommence avec le résistor de 47 kΩ, sous U ≈ 10 V, dans les deux montages.</li>
-        <li>Pour chaque mesure, compare R<sub>mes</sub> = U/I à la valeur corrigée et conclus : quel montage pour quelle résistance ?</li></ol>
+        <li>Pour chaque mesure, calcule R<sub>mes</sub> = U/I puis la valeur corrigée (r<sub>A</sub> = 2 Ω, R<sub>V</sub> = 10⁶ Ω) :<div class="formula">Amont :  R = R_mes − r_A          Aval :  R = R_mes · R_V / (R_V − R_mes)</div>Compare R<sub>mes</sub> à R et conclus : quel montage pour quelle résistance ?</li></ol>
       <h4>Partie C — Associations de résistances</h4><ol>
         <li>En montage aval sous U ≈ 6 V, mesure successivement R₁, R₂, puis R₁ et R₂ câblés en série, puis en parallèle (R₁ sur le support 1, R₂ sur le support 2) (Partie C).</li>
         <li>Compare les valeurs mesurées aux valeurs calculées avec les lois d'association.</li></ol>`,
