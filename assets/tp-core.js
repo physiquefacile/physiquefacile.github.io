@@ -73,8 +73,58 @@
     }
     if (R && o.eq && P.length >= 2) txt(c, o.eq(R), m.l + W - 6, R.a >= 0 ? m.t + H - 10 : m.t + 14, css("--saff"), "right", "alphabetic", "600 13px 'Fira Sans',Arial");
     c.fillStyle = css("--accent"); P.forEach(([x, y]) => { c.beginPath(); c.arc(X(x), Y(y), 4.5, 0, 7); c.fill(); });
+    if (R && o.mark0 && P.length >= 2 && x0 <= 0 && x1 >= 0 && R.b !== 0 && Math.abs(R.b) < 0.1 * (y1 - y0)) zoom0(c, P, R, o, { m, W, H, X, Y });   // loupe sur l'ordonnée à l'origine
     if (o.note) txt(c, o.note, m.l + 10, m.t + 62, "#c0392b", "left", "alphabetic", "600 12px 'Fira Sans',Arial");
     return R;
+  }
+
+
+  /* Loupe : agrandissement de la zone autour de x = 0 pour lire l'ordonnée à l'origine b à l'œil nu */
+  function zoom0(c, P, R, o, G) {
+    const { m, W, H, X, Y } = G, b = R.b, a = R.a, ab = Math.abs(b);
+    const side = P.reduce((s, p) => s + p[0], 0) >= 0 ? 1 : -1;                 // côté des mesures
+    const xspan = Math.max(...P.map(p => Math.abs(p[0])));
+    let xr = Math.abs(a) > 0 ? 2.5 * ab / Math.abs(a) : xspan * 0.2; xr = Math.min(Math.max(xr, xspan * 0.04), xspan * 0.5);
+    const zx0 = Math.min(0, side * xr), zx1 = Math.max(0, side * xr);
+    const ye = [0, b, a * zx0 + b, a * zx1 + b], zy0 = Math.min(...ye) - 0.35 * ab, zy1 = Math.max(...ye) + 0.35 * ab;
+    // cadre de la loupe (coin haut gauche pour une pente positive, haut droit sinon)
+    const bw = Math.min(250, W * 0.46), bh = Math.min(160, H * 0.44), il = { l: 46, r: 10, t: 22, b: 26 };
+    const bx = (a >= 0 ? m.l + 14 : m.l + W - bw - 14), by = m.t + 52, iw = bw - il.l - il.r, ih = bh - il.t - il.b;
+    const ZX = x => bx + il.l + (x - zx0) / (zx1 - zx0) * iw, ZY = y => by + il.t + ih - (y - zy0) / (zy1 - zy0) * ih;
+    const red = css("--bad") || "#c0392b", muted = css("--muted"), fg = css("--fg") || muted;
+    // zone agrandie repérée sur le graphe principal, reliée à la loupe
+    const rx0 = X(zx0), rx1 = X(zx1), ry0 = Y(zy1), ry1 = Y(zy0);
+    c.save(); c.strokeStyle = muted; c.lineWidth = 1; c.setLineDash([3, 3]);
+    c.strokeRect(Math.min(rx0, rx1) - 3, Math.min(ry0, ry1) - 3, Math.abs(rx1 - rx0) + 6, Math.abs(ry1 - ry0) + 6);
+    c.beginPath(); c.moveTo((rx0 + rx1) / 2, Math.min(ry0, ry1) - 3); c.lineTo(bx + bw / 2, by + bh); c.stroke(); c.setLineDash([]);
+    // fond et bord
+    c.fillStyle = css("--plot-bg") || "#fff"; c.fillRect(bx, by, bw, bh); c.strokeStyle = red; c.lineWidth = 1.5; c.strokeRect(bx, by, bw, bh);
+    txt(c, "Loupe : zone proche de " + (o.xl || "x").split(" ")[0] + " = 0", bx + 8, by + 14, red, "left", "alphabetic", "600 11px 'Fira Sans',Arial");
+    // graduations
+    const ticks = (u, v) => { const s = Math.pow(10, Math.floor(Math.log10((v - u) / 3))); const st = [1, 2, 5, 10].map(k => k * s).find(k => (v - u) / k <= 4); const out = []; for (let t = Math.ceil(u / st) * st; t <= v + 1e-12; t += st) out.push(+t.toPrecision(6)); return out; };
+    c.save(); c.beginPath(); c.rect(bx + il.l, by + il.t, iw, ih); c.clip();
+    c.strokeStyle = css("--grid"); c.lineWidth = 1;
+    ticks(zy0, zy1).forEach(t => { c.beginPath(); c.moveTo(bx + il.l, ZY(t)); c.lineTo(bx + il.l + iw, ZY(t)); c.stroke(); });
+    ticks(zx0, zx1).forEach(t => { c.beginPath(); c.moveTo(ZX(t), by + il.t); c.lineTo(ZX(t), by + il.t + ih); c.stroke(); });
+    // axes passant par l'origine
+    c.strokeStyle = fg; c.lineWidth = 1.3; c.beginPath(); c.moveTo(ZX(0), by + il.t); c.lineTo(ZX(0), by + il.t + ih);
+    if (zy0 <= 0 && zy1 >= 0) { c.moveTo(bx + il.l, ZY(0)); c.lineTo(bx + il.l + iw, ZY(0)); } c.stroke();
+    // droite de régression
+    const xm = side > 0 ? Math.min(...P.map(p => p[0])) : Math.max(...P.map(p => p[0]));   // au-delà des mesures : prolongement en pointillés
+    c.strokeStyle = css("--saff"); c.lineWidth = 2;
+    const seg = (u, v, d) => { if (v <= u) return; c.setLineDash(d ? [6, 5] : []); c.beginPath(); c.moveTo(ZX(u), ZY(a * u + b)); c.lineTo(ZX(v), ZY(a * v + b)); c.stroke(); };
+    if (side > 0) { seg(zx0, Math.min(zx1, xm), true); seg(Math.max(zx0, xm), zx1, false); } else { seg(zx0, Math.max(zx0, xm), false); seg(Math.max(zx0, xm), zx1, true); }
+    c.setLineDash([]);
+    c.fillStyle = css("--accent"); P.forEach(([x, y]) => { if (x >= zx0 && x <= zx1 && y >= zy0 && y <= zy1) { c.beginPath(); c.arc(ZX(x), ZY(y), 3.5, 0, 7); c.fill(); } });
+    // ordonnée à l'origine
+    c.strokeStyle = red; c.setLineDash([3, 3]); c.beginPath(); c.moveTo(bx + il.l, ZY(b)); c.lineTo(ZX(0), ZY(b)); c.stroke(); c.setLineDash([]);
+    c.fillStyle = red; c.beginPath(); c.arc(ZX(0), ZY(b), 5, 0, 7); c.fill();
+    c.restore();
+    ticks(zy0, zy1).forEach(t => txt(c, String(t).replace(".", ","), bx + il.l - 4, ZY(t), muted, "right", "middle", "10px 'Fira Sans',Arial"));
+    ticks(zx0, zx1).forEach(t => txt(c, String(t).replace(".", ","), ZX(t), by + il.t + ih + 12, muted, "center", "alphabetic", "10px 'Fira Sans',Arial"));
+    const lab = "b ≈ " + (+b.toPrecision(3)).toString().replace(".", ",");
+    txt(c, lab, ZX(0) + (side > 0 ? 8 : -8), ZY(b) + (a * side >= 0 ? 14 : -8), red, side > 0 ? "left" : "right", "alphabetic", "700 12px 'Fira Sans',Arial");
+    c.restore();
   }
 
   /* chronomètre (manuel ou capteur automatique) */
@@ -454,5 +504,5 @@
       const T = TPS.find(t => t.id === cur); if (T && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 37, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 38, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();
