@@ -2,7 +2,7 @@
    Caches préfixés « labo- » : le site principal ne les touche pas. Changer VERSION à chaque mise à jour. */
 const VERSION = "labo-53-1";
 const SHELL = "labo-shell-" + VERSION, PDFS = "labo-pdf-v1";
-const SHELL_FILES = ["./", "index.html", "tp.html", "manifest.webmanifest", "../assets/site.css", "../assets/acces.js", "../assets/config.js", "../assets/tp-core.js", "../assets/tp-cr.js", "../assets/tp-elec.js", "../assets/tp-meca.js", "../assets/tp-mesures.js", "../assets/tp-optique.js", "../assets/tp-oscillo.js", "../assets/tp-qd.js", "../icons/icon-192.png", "../icons/apple-touch-icon.png"];
+const SHELL_FILES = ["./", "index.html", "tp.html", "auteur.html", "manifest.webmanifest", "../assets/site.css", "../assets/acces.js", "../assets/config.js", "../assets/tp-core.js", "../assets/tp-cr.js", "../assets/tp-elec.js", "../assets/tp-meca.js", "../assets/tp-mesures.js", "../assets/tp-optique.js", "../assets/tp-oscillo.js", "../assets/tp-qd.js", "../icons/icon-192.png", "../icons/apple-touch-icon.png"];
 const DOCS = ["docs/Fascicule_TP_Physique_L1.pdf"];
 self.addEventListener("install", e => { e.waitUntil((async () => { const c = await caches.open(SHELL); await Promise.all(SHELL_FILES.map(async u => { try { const r = await fetch(new Request(u, { cache: "no-cache" })); if (r.ok) await c.put(u, r); } catch (err) {} })); self.skipWaiting(); })()); });
 self.addEventListener("activate", e => { e.waitUntil((async () => {

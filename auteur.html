@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Le développeur de la plateforme : Dr Papa Touty Traoré, enseignant-chercheur et physicien, Université Cheikh Anta Diop de Dakar.">
+<title>Le développeur</title>
+<link rel="icon" type="image/png" href="icons/favicon.png">
+<meta name="theme-color" content="#1B2A41">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Fira+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ink:#1B2A41; --teal:#1F7A8C; --saff:#D98E04;
+  --bg:#F6F7F8; --surface:#FFFFFF; --fg:#1B2A41; --muted:#5A6472; --line:#DDE2E7; --tint:#EEF4F6; --tint2:#FDF3E1;
+  --accent:#1F7A8C; --warm:#B87503; --band:#1B2A41; --band-fg:#FFFFFF; --band-muted:rgba(255,255,255,.74);
+  --f-head:"Fira Sans","Helvetica Neue",Arial,sans-serif; --f-body:"Source Serif 4",Georgia,serif; --f-mono:"Fira Mono",ui-monospace,Menlo,monospace;
+  --shadow:0 1px 2px rgba(27,42,65,.06),0 6px 20px rgba(27,42,65,.06);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#111821; --surface:#18212D; --fg:#E7ECF2; --muted:#9AA6B5; --line:#2A3646; --tint:#16303A; --tint2:#33270F;
+  --accent:#4FB3C6; --warm:#F0AE36; --band:#0C131C; --band-fg:#F1F4F8; --band-muted:rgba(241,244,248,.7); --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111821; --surface:#18212D; --fg:#E7ECF2; --muted:#9AA6B5; --line:#2A3646; --tint:#16303A; --tint2:#33270F;
+  --accent:#4FB3C6; --warm:#F0AE36; --band:#0C131C; --band-fg:#F1F4F8; --band-muted:rgba(241,244,248,.7); --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:1.03rem;line-height:1.6}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px}
+a{color:var(--accent)}
+header{background:var(--band);color:var(--band-fg);padding:18px 0 34px;border-bottom:4px solid var(--saff)}
+.back{font-family:var(--f-head);font-size:.9rem;color:var(--band-muted);text-decoration:none;display:inline-block;margin-bottom:22px}
+.back:hover{color:var(--band-fg)}
+.eyebrow{font-family:var(--f-head);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--saff);font-weight:600}
+h1{font-family:var(--f-head);font-weight:700;font-size:clamp(1.7rem,4.6vw,2.5rem);line-height:1.15;margin:6px 0 8px}
+.role{font-family:var(--f-head);color:var(--band-muted);font-size:1.02rem;margin:0}
+.stats{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:22px;font-family:var(--f-head);font-size:.9rem;color:var(--band-muted)}
+.stats b{display:block;font-family:var(--f-mono);font-weight:500;font-size:1.5rem;color:var(--band-fg);line-height:1.2}
+main{padding:26px 0 40px}
+.lead{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:8px;padding:18px 20px;box-shadow:var(--shadow);font-size:1.08rem}
+.lead p{margin:0 0 10px}.lead p:last-child{margin:0}
+h2{font-family:var(--f-head);font-size:1.25rem;margin:34px 0 4px;display:flex;align-items:center;gap:10px}
+h2::before{content:"";width:10px;height:10px;border-radius:2px;background:var(--saff);flex:none}
+.sub{font-family:var(--f-head);color:var(--muted);font-size:.92rem;margin:0 0 14px}
+.tl{list-style:none;margin:0;padding:0;border-left:2px solid var(--line);margin-left:6px}
+.tl li{position:relative;padding:0 0 18px 22px}
+.tl li::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--surface);border:2px solid var(--accent)}
+.tl li.trip::before{border-color:var(--warm);background:var(--tint2)}
+.when{font-family:var(--f-mono);font-size:.82rem;color:var(--warm);display:block}
+.what{font-family:var(--f-head);font-weight:600;display:block;line-height:1.35}
+.where{font-family:var(--f-head);color:var(--muted);font-size:.9rem;display:block;margin-bottom:4px}
+.tl p{margin:2px 0 0}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.tags span{font-family:var(--f-head);font-size:.78rem;background:var(--tint);color:var(--fg);border-radius:999px;padding:2px 10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px;box-shadow:var(--shadow)}
+.card h3{font-family:var(--f-head);font-size:1rem;margin:0 0 6px}
+.card p{margin:0;font-size:.97rem}
+.contact{margin-top:34px;background:var(--tint);border-radius:8px;padding:16px 20px;font-family:var(--f-head)}
+.contact a{font-weight:600;word-break:break-all}
+footer{border-top:1px solid var(--line);padding:18px 0 28px;font-family:var(--f-head);font-size:.85rem;color:var(--muted)}
+@media (max-width:520px){.lead{padding:14px 16px}.stats{gap:10px 20px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="back" href="./">← Retour à la plateforme</a>
+    <div class="eyebrow">Le développeur de la plateforme</div>
+    <h1>Dr Papa Touty Traoré</h1>
+    <p class="role">Enseignant-chercheur • Physicien • Docteur en physique de l'Université Cheikh Anta Diop de Dakar</p>
+    <div class="stats">
+      <span><b>10 ans</b>d'enseignement supérieur</span>
+      <span><b>36</b>publications indexées</span>
+      <span><b>6</b>jurys de master</span>
+    </div>
+  </div>
+</header>
+
+<main><div class="wrap">
+  <div class="lead">
+    <p>Cette plateforme a été conçue et développée par le <b>Dr Papa Touty Traoré</b>, enseignant-chercheur et physicien de formation. Il a fait
+    tout son parcours à l'<b>Université Cheikh Anta Diop de Dakar</b>, à la <b>Faculté des sciences et techniques</b>, au <b>département de Physique</b>,
+    de la licence au doctorat. Il est membre du <b>Laboratoire des semi-conducteurs et d'énergie solaire</b>.</p>
+    <p>Docteur en physique (2017), spécialité énergie solaire, matériaux et systèmes, il a obtenu la mention <i>Très honorable avec les félicitations du jury</i>.
+    Depuis dix ans, il enseigne la physique à l'université, en école d'ingénieurs et en classes préparatoires. Cette plateforme réunit cette expérience :
+    des cours, des exercices et des travaux pratiques simulés pensés pour la réalité des étudiants de Licence.</p>
+    <p data-only="main">Il assure actuellement le cours de Physique de Licence 1 à l'Université Souleymane Niang de Matam (année 2026 – 2027).</p>
+  </div>
+
+  <h2>Expérience dans l'enseignement supérieur</h2>
+  <p class="sub">Cours magistraux, travaux dirigés et travaux pratiques, du L1 au niveau ingénieur.</p>
+  <ul class="tl">
+    <li><span class="when">2016 – 2025</span><span class="what">Département de Physique, Université Cheikh Anta Diop de Dakar</span>
+      <span class="where">Enseignant vacataire, Faculté des sciences et techniques</span>
+      <p>TD d'électricité en Licence 1 (électrostatique, théorème de Gauss, dipôle, électrocinétique, lois de Kirchhoff, théorème de Thévenin) et
+      <b>travaux pratiques de physique expérimentale</b>. TD d'électromagnétisme et de relativité restreinte en Licence 2.</p>
+      <div class="tags"><span>Électricité</span><span>Électromagnétisme</span><span>Relativité restreinte</span><span>TP de physique</span></div></li>
+    <li><span class="when">2021 – 2026</span><span class="what">École Polytechnique Féminine (EPF), campus de Dakar</span>
+      <span class="where">Classes préparatoires (CPGE 2) et Bachelor Énergie et environnement</span>
+      <p>Cours magistraux et TD de thermodynamique, technologie électrique, solaire photovoltaïque, solaire thermique, et choix et évaluation des
+      systèmes énergétiques (Bachelor 3).</p>
+      <div class="tags"><span>Thermodynamique</span><span>Solaire photovoltaïque</span><span>Solaire thermique</span><span>Systèmes énergétiques</span></div></li>
+    <li><span class="when">Classe préparatoire</span><span class="what">École régionale de la navigation aérienne et du management (ERNAM)</span>
+      <span class="where">Classe préparatoire de mise à niveau, techniciens (Bac + 1) et cycle ingénieur (Bac + 2)</span>
+      <p>Cours et TD d'électricité, d'électromagnétisme et d'optique.</p>
+      <div class="tags"><span>Électricité</span><span>Électromagnétisme</span><span>Optique</span></div></li>
+    <li><span class="when">Cycle ingénieur</span><span class="what">Dakar American University of Science and Technology (DAUST)</span>
+      <span class="where">2<sup>e</sup> année, génie mécanique</span>
+      <p>Cours et TD de thermodynamique pour les élèves ingénieurs.</p>
+      <div class="tags"><span>Thermodynamique</span></div></li>
+    <li><span class="when">Encadrement</span><span class="what">Encadrement et jurys</span>
+      <p>Encadrement d'un master recherche en énergies renouvelables. Six participations à des jurys de soutenance de master, au département de Physique
+      de l'UCAD et à l'École polytechnique de Thiès. Examinateur dans un jury de thèse.</p></li>
+  </ul>
+
+  <h2>Séjours de recherche et ouverture internationale</h2>
+  <p class="sub">Séjours, collaborations et formations à l'international.</p>
+  <ul class="tl">
+    <li class="trip"><span class="when">Juillet – septembre 2023</span><span class="what">Séjour de recherche à l'Université de l'Illinois à Urbana-Champaign (États-Unis)</span>
+      <span class="where">Air Conditioning and Refrigeration Center (ACRC), département de génie mécanique</span>
+      <p>Stage de recherche de trois mois sous la supervision du professeur Nenad Miljkovic, sur les transferts thermiques et la réfrigération.</p></li>
+    <li class="trip"><span class="when">Depuis 2023</span><span class="what">Projet international LightBox</span>
+      <span class="where">Avec le Laboratoire de physique des lasers (Université Sorbonne Paris Nord) et l'association Atouts Sciences</span>
+      <p>Diffusion de la culture scientifique en optique et en photonique, médiation par l'expérience autour des propriétés de la lumière, et création d'un
+      réseau international de référents scientifiques et pédagogiques en physique.</p></li>
+    <li class="trip"><span class="when">Juillet 2024</span><span class="what">Formations en pédagogie des sciences aux États-Unis</span>
+      <span class="where">Massachusetts Institute of Technology (MIT) et Université du Wyoming</span>
+      <p>Programme SEPT (Science and Engineering Pedagogy for Teachers) du MIT, et atelier sur l'apprentissage des STEM du centre pour la réussite des
+      apprenants de l'Université du Wyoming.</p></li>
+    <li class="trip"><span class="when">2022</span><span class="what">Communications internationales</span>
+      <p>Communication orale aux <b>Rencontres des jeunes chercheurs africains en France</b> (5<sup>e</sup> édition). World Conference on Materials Science
+      and Nanotechnology (Allemagne). Atelier <i>Synergistic Hybrid Marine Renewable Energy</i> avec l'Université du Surrey (Royaume-Uni), l'Université
+      de Wollongong (Australie) et NC State University (États-Unis).</p></li>
+    <li class="trip"><span class="when">2022 – 2026</span><span class="what">Conférences au Sénégal</span>
+      <p>Conférence sur les éco-matériaux en Afrique (CEMA 2022, Saly). Journée doctorale de l'ED-PCSTUI (2024). Conférence internationale de modélisation
+      (CIM 2026, UCAD), sur les réseaux de neurones appliqués aux bio-composites.</p></li>
+  </ul>
+
+  <h2>Recherche</h2>
+  <p class="sub">36 articles dans des revues internationales indexées, dont 17 en premier auteur.</p>
+  <div class="grid">
+    <div class="card"><h3>Énergie solaire photovoltaïque</h3><p>Paramètres électriques et optiques des cellules solaires (monofaciales, bifaciales, à jonctions verticales) : réponse spectrale, rendement quantique, couches antireflet.</p></div>
+    <div class="card"><h3>Matériaux locaux et isolation</h3><p>Caractérisation thermique et mécanique d'isolants biosourcés (kapok, typha, chanvre, filasse-plâtre) pour l'efficacité énergétique de l'habitat.</p></div>
+    <div class="card"><h3>Mécanique des fluides</h3><p>Modélisation des écoulements (équations de Navier-Stokes) et des interactions fluide-structure sous Matlab et COMSOL Multiphysics.</p></div>
+  </div>
+
+  <h2>Pédagogie et numérique</h2>
+  <div class="grid">
+    <div class="card"><h3>Enseignement en ligne</h3><p>Membre fondateur de la plateforme éducative Solution E-Learning Sénégal Academy (SELS). Pratique de Moodle et de Google Classroom.</p></div>
+    <div class="card"><h3>Formation pédagogique continue</h3><p>Renforcement des capacités en pédagogie (UCAD, 2016), approche des travaux pratiques de physique (UCAD, 2019), intelligence artificielle pour tous (Force N et Université numérique Cheikh Hamidou Kane, 2024).</p></div>
+  </div>
+
+  <div class="contact">Contact : <a href="mailto:papatouty.traore@ucad.edu.sn">papatouty.traore@ucad.edu.sn</a></div>
+</div></main>
+
+<footer><div class="wrap">Plateforme conçue et développée par le Dr Papa Touty Traoré • <a href="./">Retour à la plateforme</a></div></footer>
+</body>
+</html>
