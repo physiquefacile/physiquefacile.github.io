@@ -76,6 +76,14 @@
     B_Gc: { part: "B", q: "Pour ta mesure n°{k} de la partie B, le grossissement commercial G_c vaut :", u: "", sig: 3, f: [r => r.a / 0.002 / 4, r => r.a / 0.002 * 4], s: ["e","o2","o0","o1"] },
     A_a: { part: "A", g: 1, min: 3, q: "La pente de ta droite |γ₁| = f(O₁A₁) (partie A) vaut :", u: "cm⁻¹", sig: 3, s: [R => H.fit(R, r => r.v, r => r.ab1 / 2).b, R => H.fit(R, r => r.v, r => r.ab1 / 2).a, R => H.fit(R, r => r.v, r => r.ab1).a, R => 1 / H.fit(R, r => r.v, r => r.ab1 / 2).a] },
   };
+  Q.assoc = {
+    A_x: { part: "A", q: "Pour ta mesure n°{k} de la partie A, 1/OA exprimé en dioptries vaut :", u: "δ", sig: 3, f: [r => 100 / r.OA, r => 1 / r.OA], s: ["o2","o0","e","o1"] },
+    A_V: { part: "A", q: "Pour ta mesure n°{k} de la partie A, la vergence V₁ = 1/OA′ − 1/OA vaut :", u: "δ", sig: 3, f: [r => 100 / r.OAp - 100 / r.OA, r => 100 / r.OAp + 100 / r.OA], s: ["e","o2","o1","o0"] },
+    B_V: { part: "B", q: "Pour ta mesure n°{k} de la partie B, la vergence du doublet V = 1/OA′ − 1/OA vaut :", u: "δ", sig: 3, f: [r => 100 / r.OAp - 100 / r.OA, r => 100 / r.OAp + 100 / r.OA], s: ["o1","e","o2","o0"] },
+    C_y: { part: "C", q: "Pour ta mesure n°{k} de la partie C, 1/x′ exprimé en dioptries vaut :", u: "δ", sig: 3, f: [r => 100 / r.xp, r => 1 / r.xp], s: ["o2","o1","o0","e"] },
+    A_b: { part: "A", g: 1, min: 3, q: "L'ordonnée à l'origine de ta droite 1/OA′ = f(1/OA) (partie A) vaut :", u: "δ", sig: 3, s: [R => H.fit(R, r => 100 / r.OA, r => 100 / r.OAp).b, R => H.fit(R, r => 1 / r.OA, r => 1 / r.OAp).b, R => H.fit(R, r => r.OA, r => r.OAp).b, R => H.fit(R, r => 100 / r.OA, r => 100 / r.OAp).a] },
+    B_b: { part: "B", g: 1, min: 3, q: "L'ordonnée à l'origine de ta droite 1/OA′ = f(1/OA) (partie B) vaut :", u: "δ", sig: 3, s: [R => H.fit(R, r => r.OA, r => r.OAp).b, R => H.fit(R, r => 1 / r.OA, r => 1 / r.OAp).b, R => H.fit(R, r => 100 / r.OA, r => 100 / r.OAp).b, R => H.fit(R, r => 100 / r.OA, r => 100 / r.OAp).a] },
+  };
 
   // valeurs des 4 propositions pour les mesures R (lignes de la partie), avec la graine k donnée par le serveur
   const near = (a, b) => !isFinite(a) || !isFinite(b) || Math.abs(a - b) <= 0.03 * Math.max(Math.abs(a), Math.abs(b)) || (Math.abs(a) < 1e-12 && Math.abs(b) < 1e-12);

@@ -226,4 +226,126 @@
       ui();
     }
   });
+
+  /* ========================= TP 9 : ASSOCIATION DE LENTILLES ========================= */
+  function lensDiv(c, x, by, col, label) {
+    c.strokeStyle = col; c.lineWidth = 3; c.beginPath(); c.moveTo(x, by - 40); c.lineTo(x, by + 28); c.stroke();
+    c.lineWidth = 2.2; c.beginPath(); c.moveTo(x - 7, by - 48); c.lineTo(x, by - 40); c.lineTo(x + 7, by - 48); c.moveTo(x - 7, by + 36); c.lineTo(x, by + 28); c.lineTo(x + 7, by + 36); c.stroke();
+    if (label) txt(c, label, x, by - 54, col, "center");
+  }
+  register({
+    id: "assoc", num: 9, disc: "Optique", court: "Association de lentilles",
+    titre: "Association de lentilles minces : lentilles accolées et lentilles séparées",
+    objectifs: "mesurer la vergence d'une lentille convergente, en déduire celle d'une lentille divergente par accolement (V = V₁ + V₂), puis étudier un système de deux lentilles séparées et vérifier la relation de conjugaison appliquée lentille après lentille (formule de Gullstrand).",
+    materiel: ["Banc d'optique gradué", "Objet lumineux (lettre F éclairée)", "Collimateur (objet à l'infini)", "Lentille convergente L₁ (f′₁ inconnue)", "Lentille divergente L₂ (f′₂ inconnue)", "Lentille convergente L₃ (f′₃ inconnue)", "Écran", "Supports"],
+    theorie: `<p>Une lentille mince de vergence V = 1/f′ (en dioptries δ, f′ en mètres) conjugue un objet A et son image A′ :</p>
+      <div class="formula">1/OA′ − 1/OA = V = 1/f′</div>
+      <h4>1. Lentilles accolées</h4><p>Deux lentilles minces accolées (centres confondus) se comportent comme une seule lentille de vergence</p>
+      <div class="formula">V = V₁ + V₂</div>
+      <p>On en déduit la vergence d'une lentille <b>divergente</b> L₂, qui ne donne jamais d'image réelle d'un objet réel : on l'accole à une convergente L₁ plus puissante, on mesure V, puis V₂ = V − V₁.</p>
+      <h4>2. Lentilles séparées</h4><p>Deux lentilles L₁ et L₃ distantes de e = O₁O₃. Pour un objet à l'infini, L₁ donne une image intermédiaire en F′₁ ; elle sert d'objet à L₃, avec O₃F′₁ = f′₁ − e. L'image finale A′ vérifie :</p>
+      <div class="formula">1/O₃A′ = 1/f′₃ + 1/(f′₁ − e)        soit   1/x′ = V₃ + 1/(f′₁ − e)</div>
+      <p>Le graphe 1/x′ = f(1/(f′₁ − e)) est une droite de pente 1 et d'ordonnée à l'origine V₃. La vergence du système est donnée par la formule de Gullstrand :</p>
+      <div class="formula">V = V₁ + V₃ − e · V₁ · V₃</div>`,
+    protocole: `<h4>Partie A — Lentille convergente L₁ seule</h4><ol>
+        <li>Objet à la graduation 5 cm. Place L₁ à environ 30 cm de l'objet (méthode « L₁ seule »).</li>
+        <li>Déplace l'écran jusqu'à l'image la plus nette ; enregistre OA et OA′.</li>
+        <li>Recommence pour au moins 5 positions de L₁. Le graphe 1/OA′ = f(1/OA) donne V₁ (ordonnée à l'origine).</li></ol>
+      <h4>Partie B — Lentilles accolées L₁ + L₂</h4><ol>
+        <li>Accole la lentille divergente L₂ à L₁ (méthode « L₁ + L₂ accolées »).</li>
+        <li>Même démarche : au moins 5 couples (OA, OA′). Le graphe donne la vergence V du doublet ; calcule V₂ = V − V₁ et f′₂.</li></ol>
+      <h4>Partie C — Lentilles séparées L₁ et L₃</h4><ol>
+        <li>Remplace l'objet par le collimateur (objet à l'infini). L₁ est fixée à la graduation 20 cm (méthode « L₁ et L₃ séparées »).</li>
+        <li>Place L₃ à la distance e de L₁ (par exemple e = 2, 3, 4, 5 puis 6 cm).</li>
+        <li>Pour chaque e, cherche l'image nette sur l'écran et enregistre e et x′ = O₃A′.</li>
+        <li>Avec ton f′₁ (partie A), trace 1/x′ = f(1/(f′₁ − e)) : l'ordonnée à l'origine est V₃.</li></ol>`,
+    precautions: `<ul><li>Fais chaque mise au point en venant alternativement des deux côtés et garde une position moyenne.</li>
+      <li>Pour les lentilles accolées, les deux lentilles doivent être au contact : leur distance est négligée devant les focales.</li>
+      <li>En partie C, garde e nettement inférieur à f′₁ : quand e se rapproche de f′₁, 1/(f′₁ − e) devient très sensible à l'erreur sur f′₁.</li>
+      <li>ΔV₂ ≈ ΔV + ΔV₁ : l'incertitude sur une vergence obtenue par différence est la somme des incertitudes.</li></ul>`,
+    preparation: ["Démontre que deux lentilles minces accolées sont équivalentes à une lentille de vergence V₁ + V₂.", "Pourquoi ne peut-on pas mesurer directement f′₂ par la méthode des plans conjugués ? À quelle condition le doublet L₁ + L₂ est-il convergent ?", "Pour un objet à l'infini, montre que O₃A′ = f′₃ (f′₁ − e) / (f′₁ + f′₃ − e).", "Calcule la vergence du système pour f′₁ = 12,5 cm, f′₃ = 20 cm et e = 4 cm avec la formule de Gullstrand."],
+    hint: "Choisis la méthode, déplace les lentilles et l'écran ; la vignette montre l'image sur l'écran. Enregistre quand elle est nette.",
+    controls: `<h3>Méthode</h3>${seg("asm", [["A", "L₁ seule"], ["B", "L₁ + L₂ accolées"], ["C", "L₁ et L₃ séparées"]], "A")}
+      <div class="ctl" id="asLw"><label for="asL">Position de la lentille <b id="asLv"></b></label><input id="asL" type="range" min="12" max="80" step="0.1" value="35"></div>
+      <div class="ctl" id="asEcw"><label for="asEc">Écart e entre L₁ et L₃ <b id="asEcv"></b></label><input id="asEc" type="range" min="1" max="20" step="0.1" value="3"></div>
+      <div class="ctl"><label for="asE">Position de l'écran <b id="asEv"></b></label><input id="asE" type="range" min="20" max="150" step="0.1" value="80"></div>
+      <div class="ctl"><label for="asEf">Réglage fin de l'écran <b>± 2 cm</b></label><input id="asEf" type="range" min="-2" max="2" step="0.02" value="0"></div>
+      <dl class="lcd"><dt id="asOl">Objet</dt><dd id="asOr">5,0 cm</dd><dt>Lentille(s)</dt><dd id="asLr"></dd><dt>Écran</dt><dd id="asEr"></dd></dl>
+      <div class="row"><button type="button" class="btn primary sm" id="asRec">Enregistrer la mesure</button></div>
+      <button type="button" class="btn sm" id="asNew">Changer de lentilles</button>`,
+    parts: [
+      { key: "A", titre: "Lentille convergente L₁ seule", cols: ["n°", "OA (cm)", "OA′ (cm)", "1/OA (δ)", "1/OA′ (δ)"],
+        cells: (r, k) => [k + 1, fr(r.OA, 1), fr(r.OAp, 1), fr(100 / r.OA, 2), fr(100 / r.OAp, 2)],
+        point: r => [100 / r.OA, 100 / r.OAp], axes: { xl: "1/OA (δ)", yl: "1/OA′ (δ)", ymin: 0 },
+        fit: R => R ? `1/OA′ = ${fr(R.a, 3)} · (1/OA) + ${fr(R.b, 2)}  (r = ${fr(R.r, 4)})   ⟹   V₁ = ${fr(R.b, 2)} δ  et  f′₁ = ${fr(100 / R.b, 1)} cm` : "Au moins 2 mesures sont nécessaires." },
+      { key: "B", titre: "Lentilles accolées L₁ + L₂", cols: ["n°", "OA (cm)", "OA′ (cm)", "1/OA (δ)", "1/OA′ (δ)"],
+        cells: (r, k) => [k + 1, fr(r.OA, 1), fr(r.OAp, 1), fr(100 / r.OA, 2), fr(100 / r.OAp, 2)],
+        point: r => [100 / r.OA, 100 / r.OAp], axes: { xl: "1/OA (δ)", yl: "1/OA′ (δ)", ymin: 0 },
+        fit: R => R ? `1/OA′ = ${fr(R.a, 3)} · (1/OA) + ${fr(R.b, 2)}  (r = ${fr(R.r, 4)})   ⟹   V (doublet) = ${fr(R.b, 2)} δ` : "Au moins 2 mesures sont nécessaires." },
+      { key: "C", titre: "Lentilles séparées L₁ et L₃ (objet à l'infini)", cols: ["n°", "e (cm)", "x′ = O₃A′ (cm)", "1/x′ (δ)"],
+        cells: (r, k) => [k + 1, fr(r.e, 1), fr(r.xp, 1), fr(100 / r.xp, 2)],
+        point: r => [r.e, r.xp], axes: { xl: "e (cm)", yl: "x′ (cm)", xmin: 0, ymin: 0, noFit: true },
+        fit: (R, rows) => rows.length ? "Plus L₃ s'éloigne de L₁ (e augmente), plus l'image se rapproche de L₃. Trace 1/x′ = f(1/(f′₁ − e)) dans le compte rendu : l'ordonnée à l'origine est V₃." : "Enregistre x′ pour plusieurs écarts e." }
+    ],
+    questions: ["Partie A : donne V₁ et f′₁. La pente de la droite est-elle proche de 1 ?", "Partie B : donne la vergence V du doublet, puis V₂ = V − V₁ et f′₂. Le doublet est-il convergent ? Pourquoi ?", "Partie C : donne V₃ et f′₃ à partir du graphe 1/x′ = f(1/(f′₁ − e)).", "Pour l'un de tes écarts e, calcule la vergence du système L₁ + L₃ par la formule de Gullstrand.", "Cite deux sources d'erreur et compare la précision sur V₂ (obtenue par différence) à celle sur V₁."],
+    init(T) {
+      let P = store.get("assoc_par", null);
+      const newA = () => { const pk = a => a[Math.floor(Math.random() * a.length)], tl = () => 1 + (Math.random() * 2 - 1) * 0.04; P = { f1: pk([10, 12.5, 15]) * tl(), f2: -pk([40, 50, 60]) * tl(), f3: pk([15, 20, 25]) * tl() }; store.set("assoc_par", P); };
+      if (!P || !P.f1) newA();
+      const XO = 5, XL1C = 20, AP = 4, sharpThr = 0.03; let mode = "A", xl = 35, e = 3, xe = 80;
+      const fd = () => 1 / (1 / P.f1 + 1 / P.f2);
+      const last = () => mode === "C" ? XL1C + e : xl;
+      const state = () => {
+        let xi;
+        if (mode === "C") { if (e >= P.f1 - 0.05) return { blur: null }; xi = imageOf(XL1C + P.f1, XL1C + e, P.f3); }
+        else xi = imageOf(XO, xl, mode === "A" ? P.f1 : fd());
+        const xL = last(); if (!isFinite(xi) || xi <= xL + 0.2) return { blur: null };
+        const v = xi - xL; return { blur: AP * Math.abs(xe - xi) / v, xi, g: mode === "C" ? 1 : -v / (xl - XO) };
+      };
+      const ui = () => {
+        xl = +$("#asL").value; e = +$("#asEc").value; xe = Math.max(+$("#asE").value + +$("#asEf").value, last() + 1);
+        $("#asLv").textContent = fr(xl, 1) + " cm"; $("#asEcv").textContent = fr(e, 1) + " cm"; $("#asEv").textContent = fr(+$("#asE").value, 1) + " cm";
+        $("#asLw").hidden = mode === "C"; $("#asEcw").hidden = mode !== "C";
+        $("#asOl").textContent = mode === "C" ? "Objet" : "Objet"; $("#asOr").textContent = mode === "C" ? "à l'infini (collimateur)" : "5,0 cm";
+        $("#asLr").textContent = mode === "C" ? "L₁ " + fr(XL1C, 1) + " cm · L₃ " + fr(XL1C + e, 1) + " cm" : fr(xl, 1) + " cm"; $("#asEr").textContent = fr(xe, 1) + " cm";
+        T.draw();
+      };
+      document.querySelectorAll("[data-asm]").forEach(b => b.onclick = () => { mode = b.dataset.asm; setSeg("asm", mode); ui(); T.msg(""); });
+      ["#asL", "#asEc", "#asE", "#asEf"].forEach(s => $(s).addEventListener("input", ui));
+      $("#asRec").onclick = () => {
+        const s = state();
+        if (s.blur == null) { T.msg(mode === "C" ? "Pas d'image réelle : diminue l'écart e entre L₁ et L₃." : "Pas d'image réelle sur l'écran : éloigne la lentille de l'objet.", "bad"); return; }
+        if (s.blur >= sharpThr) { T.msg("L'image n'est pas nette : ajuste la position de l'écran avant d'enregistrer.", "bad"); return; }
+        if (mode === "C") T.add("C", { e: Math.round(e * 10) / 10, xp: Math.round((xe - (XL1C + e)) * 10) / 10 });
+        else T.add(mode, { OA: Math.round(-(xl - XO) * 10) / 10, OAp: Math.round((xe - xl) * 10) / 10 });
+        T.msg("Mesure enregistrée (partie " + mode + ").", "ok");
+      };
+      $("#asNew").onclick = () => { if (T.locked()) { T.msg("Compte rendu déjà soumis : le matériel ne peut plus être changé.", "bad"); return; } newA(); T.clearRows(); ui(); T.msg("Nouvelles lentilles : refais les mesures."); };
+      T.draw = () => {
+        const s = state(), { c, w, h } = fit($("#assoc-cv"), innerWidth < 600 ? 1.0 : 0.6); c.fillStyle = css("--plot-bg"); c.fillRect(0, 0, w, h);
+        const fg = css("--fg"), mu = css("--muted"), ac = css("--accent"), by = h * 0.36, X = x => 16 + x / 150 * (w - 32);
+        bench(c, w, by, X, mu);
+        if (mode === "C") {
+          c.fillStyle = "#8a8f98"; c.fillRect(X(0), by - 22, X(9) - X(0), 44); txt(c, w < 520 ? "← collimateur (objet à l'infini)" : "collimateur", w < 520 ? X(0) : X(4.5), w < 520 ? by + 74 : by - 30, mu, w < 520 ? "left" : "center");
+          c.strokeStyle = css("--saff"); c.globalAlpha = .55; c.lineWidth = 1.2;
+          [-12, 12].forEach(dy => { c.beginPath(); c.moveTo(X(9), by + dy); c.lineTo(X(XL1C), by + dy); c.stroke(); });
+          if (s.blur != null) { const x1 = X(XL1C), x3 = X(XL1C + e), xi = X(s.xi), end = Math.min(X(150), Math.max(xi, X(xe)) + 10), yAt3 = dy => dy * (1 - e / P.f1);
+            [-12, 12].forEach(dy => { c.beginPath(); c.moveTo(x1, by + dy); c.lineTo(x3, by + yAt3(dy)); const sl = (by - (by + yAt3(dy))) / ((xi - x3) || 1); c.lineTo(end, by + yAt3(dy) + sl * (end - x3)); c.stroke(); }); }
+          c.globalAlpha = 1;
+          const x1 = X(XL1C), x3 = X(XL1C + e), tight = x3 - x1 < 30; lens(c, x1, by, ac, ""); lens(c, x3, by, css("--ok"), "");
+          txt(c, "L₁", tight ? x1 - 5 : x1, by - 48, ac, tight ? "right" : "center"); txt(c, "L₃", tight ? x3 + 5 : x3, by - 48, css("--ok"), tight ? "left" : "center");
+        } else {
+          objectF(c, X(XO), by);
+          if (mode === "A") lens(c, X(xl), by, ac, "L₁"); else { lens(c, X(xl) - 4, by, ac, ""); lensDiv(c, X(xl) + 4, by, css("--rouge"), ""); txt(c, "L₁ + L₂", X(xl), by - 54, fg, "center"); }
+          if (s.blur != null) { const k = 12, yA = by - 2 * k, ix = X(s.xi), iy = by - s.g * 2 * k, end = Math.min(X(150), Math.max(X(xe), ix) + 10);
+            c.strokeStyle = css("--saff"); c.globalAlpha = .5; c.lineWidth = 1.2; c.beginPath(); c.moveTo(X(XO), yA); c.lineTo(X(xl), yA); c.lineTo(end, yA + (iy - yA) * (end - X(xl)) / ((ix - X(xl)) || 1)); c.stroke();
+            c.beginPath(); c.moveTo(X(XO), yA); c.lineTo(end, yA + (by - yA) * (end - X(XO)) / ((X(xl) - X(XO)) || 1)); c.stroke(); c.globalAlpha = 1; }
+        }
+        const sx = X(xe); c.fillStyle = fg; c.fillRect(sx - 3, by - 46, 6, 74); txt(c, "écran", sx, sx - X(last()) < 44 ? by - 66 : by - 52, fg, "center");
+        const vw = Math.min(170, w * 0.36), vh = h * 0.3, vx = w - vw - 12, vy = h - vh - 12;
+        viewF(c, vx, vy, vw, vh, "ce que l'on voit sur l'écran", s.blur, mode === "C" ? 0.6 : Math.abs(s.g || 0), true, s.blur == null ? "pas d'image" : s.blur < sharpThr ? "image nette" : "image floue");
+      };
+      ui();
+    }
+  });
 })();

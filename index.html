@@ -352,7 +352,7 @@ function render(){
     h+=`<section class="td-card"><div><div class="eyebrow">Travaux dirigés</div><h3>${esc(s.title)}</h3><p><b>${esc(s.sub)}.</b> ${esc(s.text)}</p></div>
       <div class="res">${pdfBtn(s.e,"Énoncés",s.ep,"pdf",true)}${pdfBtn(s.c,"Corrigé détaillé",s.cp,"cor")}</div></section>`;
   });
-  const FTP=["Pendule simple","Oscillateur harmonique (masse-ressort)","Pendule de torsion","Loi d'Ohm et mesures de résistances","L'oscilloscope cathodique","Mesures électriques : le multimètre","Lentilles : distance focale","Le microscope"];
+  const FTP=["Pendule simple","Oscillateur harmonique (masse-ressort)","Pendule de torsion","Loi d'Ohm et mesures de résistances","L'oscilloscope cathodique","Mesures électriques : le multimètre","Lentilles : distance focale","Le microscope","Association de lentilles"];
   const tpShow=!q||norm("travaux pratiques tp fascicule "+FTP.join(" ")).includes(q);
   if(tpShow){
     h+=`<article class="chap fasc-card">
@@ -360,12 +360,12 @@ function render(){
       <div class="chap-body">
         <div class="chap-num">TRAVAUX PRATIQUES</div>
         <h3>Fascicule de travaux pratiques</h3>
-        <div class="meta">8 TP • 51 pages • mécanique, électricité, optique</div>
+        <div class="meta">9 TP • 58 pages • mécanique, électricité, optique</div>
         <details${q?" open":""}><summary>Contenu du fascicule</summary><ol class="toc">${FTP.map((t,i)=>`<li data-n="${i+1}.">${esc(t)}</li>`).join("")}</ol></details>
         <p class="meta" style="margin-top:6px">Rappels théoriques et démonstrations, schémas de montage, protocoles, tableaux de mesures et exploitation. À lire avant chaque séance.</p>
       </div>
       <div class="res">
-        ${pdfBtn("Fascicule_TP_Physique_L1","Fascicule de TP",51,"pdf",true)}
+        ${pdfBtn("Fascicule_TP_Physique_L1","Fascicule de TP",58,"pdf",true)}
         <a class="btn" href="tp.html"><span class="k k-sim">TP</span><span class="lbl">Faire les TP en ligne</span></a>
       </div></article>`;
   }

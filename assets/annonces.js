@@ -15,6 +15,10 @@
      detail : consignes (facultatif)
    ===================================================================== */
 window.ANNONCES = [
+  { date: "2026-10-19", important: true,
+    titre: "Nouveau TP 9 : association de lentilles",
+    texte: "Lentilles accolées et lentilles séparées : mesure la vergence d'une lentille convergente, déduis celle d'une lentille divergente en l'accolant (V = V₁ + V₂), puis étudie deux lentilles séparées et vérifie la formule de Gullstrand. Le chapitre TP 9 est ajouté au fascicule.",
+    lien: "tp.html#assoc" },
   { date: "2026-10-17", important: true,
     titre: "Optique : exercices et quiz avec schémas",
     texte: "15 nouvelles questions de quiz s'appuient sur un schéma (rayon réfracté, réflexion totale, miroirs, prisme, lame, lentilles). En entraînement, 14 exercices d'optique sont désormais illustrés (repère ◩) : lecture d'angles, cuve d'eau, deux miroirs plans, minimum de déviation, constructions sur quadrillage pour le miroir concave et la lentille mince.",
@@ -53,7 +57,7 @@ window.ANNONCES = [
     lien: "tp.html#ohm" },
   { date: "2026-10-14",
     titre: "Nouveau : le fascicule de travaux pratiques",
-    texte: "Les 8 TP réunis dans un PDF de 51 pages : rappels théoriques avec démonstrations, schémas de montage, protocoles, tableaux de mesures à remplir et questions d'exploitation. À lire avant chaque séance.",
+    texte: "Les TP réunis dans un PDF : rappels théoriques avec démonstrations, schémas de montage, protocoles, tableaux de mesures à remplir et questions d'exploitation. À lire avant chaque séance.",
     lien: "docs/Fascicule_TP_Physique_L1.pdf" },
   { date: "2026-10-14",
     titre: "Tous les diaporamas sont en ligne, aussi en PowerPoint",

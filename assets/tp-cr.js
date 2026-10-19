@@ -164,6 +164,35 @@ window.TPCR = {
       { q: "Le grossissement commercial est défini par :", o: ["G_c = 4P", "G_c = P", "G_c = P/4", "G_c = 1/P"] },
       { q: "Pour augmenter le grossissement d'un microscope, on peut :", o: ["utiliser un objectif de plus grande focale", "utiliser un oculaire de plus courte focale", "éloigner l'œil", "réduire la lumière"] }
     ]
+  },
+  assoc: {
+    parts: {
+      A: { min: 4, fill: [{ k: "x", h: "1/OA (δ)" }, { k: "y", h: "1/OA′ (δ)" }], plot: { x: (r, f) => f.x, y: (r, f) => f.y, xl: "1/OA (δ)", yl: "1/OA′ (δ)", xmax: 0, ymin: 0, fit: true, eq: R => "1/OA′ = " + R.a.toFixed(2).replace(".", ",") + " · 1/OA + " + R.b.toFixed(2).replace(".", ","), mark0: R => "V₁ = " + R.b.toFixed(2).replace(".", ",") + " δ pour 1/OA = 0" } },
+      B: { min: 4, fill: [{ k: "x", h: "1/OA (δ)" }, { k: "y", h: "1/OA′ (δ)" }], plot: { x: (r, f) => f.x, y: (r, f) => f.y, xl: "1/OA (δ)", yl: "1/OA′ (δ)", xmax: 0, ymin: 0, fit: true, eq: R => "1/OA′ = " + R.a.toFixed(2).replace(".", ",") + " · 1/OA + " + R.b.toFixed(2).replace(".", ","), mark0: R => "V = " + R.b.toFixed(2).replace(".", ",") + " δ (doublet)" } },
+      C: { min: 4, aide: "Calcule 1/(f′₁ − e) avec <b>ta</b> valeur de f′₁ (partie A). Distances en cm : 1/(f′₁ − e) = 100/(f′₁ − e) en dioptries ; de même 1/x′ = 100/x′.", fill: [{ k: "x", h: "1/(f′₁ − e) (δ)" }, { k: "y", h: "1/x′ (δ)" }], plot: { x: (r, f) => f.x, y: (r, f) => f.y, xl: "1/(f′₁ − e) (δ)", yl: "1/x′ (δ)", xmin: 0, ymin: 0, fit: true, eq: R => "1/x′ = " + R.a.toFixed(2).replace(".", ",") + " · 1/(f′₁ − e) " + (R.b < 0 ? "− " : "+ ") + Math.abs(R.b).toFixed(2).replace(".", ","), mark0: R => "V₃ = " + R.b.toFixed(2).replace(".", ",") + " δ" } }
+    },
+    calc: [
+      { k: "V1", h: "Partie A : vergence V₁ de L₁ (ordonnée à l'origine)", u: "δ" },
+      { k: "V", h: "Partie B : vergence V du doublet L₁ + L₂", u: "δ" },
+      { k: "V2", h: "Vergence de la lentille divergente V₂ = V − V₁", u: "δ" },
+      { k: "f2", h: "Distance focale f′₂ = 1/V₂", u: "cm" },
+      { k: "V3", h: "Partie C : vergence V₃ de L₃ (ordonnée à l'origine)", u: "δ" },
+      { k: "f3", h: "Distance focale f′₃ = 1/V₃", u: "cm" }
+    ],
+    qcm: [
+      { q: "Deux lentilles minces accolées de vergences V₁ et V₂ sont équivalentes à une lentille de vergence :", o: ["V₁ + V₂", "V₁ · V₂", "V₁ − V₂", "V₁V₂/(V₁ + V₂)"] },
+      { q: "On accole une lentille de vergence +8 δ et une lentille de vergence −3 δ. La vergence du doublet vaut :", o: ["+11 δ", "+5 δ", "−24 δ", "+2,7 δ"] },
+      { q: "Pour mesurer une lentille divergente, on l'accole à une lentille convergente plus puissante car :", o: ["une lentille divergente ne donne pas d'image réelle d'un objet réel", "cela double sa vergence", "cela corrige les aberrations", "cela réduit la luminosité"] },
+      { q: "Le doublet L₁ + L₂ (L₁ convergente, L₂ divergente) est convergent si :", o: ["V₁ + V₂ > 0", "V₁ < |V₂|", "V₂ > 0", "f′₁ > |f′₂|"] },
+      { q: "Une lentille de distance focale f′ = −40 cm a une vergence de :", o: ["−0,025 δ", "+2,5 δ", "−2,5 δ", "−40 δ"] },
+      { q: "Pour deux lentilles minces distantes de e, la formule de Gullstrand s'écrit :", o: ["V = V₁ + V₂", "V = V₁ + V₂ − e·V₁·V₂", "V = V₁ + V₂ + e·V₁·V₂", "V = V₁·V₂/e"] },
+      { q: "Pour un objet à l'infini, l'image donnée par la lentille convergente L₁ se forme :", o: ["au foyer image F′₁", "au centre O₁", "au foyer objet F₁", "à l'infini"] },
+      { q: "Dans la partie C (e < f′₁), l'image intermédiaire F′₁ joue pour L₃ le rôle :", o: ["d'un objet virtuel, situé après L₃", "d'un objet réel, situé avant L₃", "de l'image définitive", "du foyer objet de L₃"] },
+      { q: "Pour e = 0, la formule de Gullstrand redonne :", o: ["la formule des lentilles accolées V = V₁ + V₂", "une vergence nulle", "V = V₁ · V₂", "une lentille divergente"] },
+      { q: "V₂ est obtenue par différence, V₂ = V − V₁. Son incertitude vaut environ :", o: ["ΔV + ΔV₁", "ΔV − ΔV₁", "ΔV · ΔV₁", "la plus petite des deux"] },
+      { q: "Avec f′₁ = 10 cm, f′₃ = 20 cm et e = 5 cm, la vergence du système vaut :", o: ["12,5 δ", "15 δ", "17,5 δ", "2,5 δ"] },
+      { q: "Le graphe 1/x′ = f(1/(f′₁ − e)) est une droite de pente 1 et d'ordonnée à l'origine :", o: ["V₃", "V₁", "V₁ + V₃", "f′₃"] }
+    ]
   }
 };
 
@@ -209,10 +238,15 @@ window.TPCR = {
     microscope: {
       A: { cols: ["n°", "O₁A (cm)", "O₁A₁ (cm)", "A₁B₁ (mm)"], cells: (r, i) => [i + 1, fr(-r.s, 2), fr(r.v, 1), fr(r.ab1, 1)], r: { s: 2, v: 1, ab1: 1 }, titre: "Image intermédiaire — focale de l'objectif" },
       B: { cols: ["n°", "|γ₁|", "α′ (mrad)"], cells: (r, i) => [i + 1, fr(r.g1, 2), fr(r.a * 1000, 1)], r: { g1: 2, a: 4 }, titre: "Microscope complet — puissance et grossissement" }
+    },
+    assoc: {
+      A: { cols: ["n°", "OA (cm)", "OA′ (cm)"], cells: (r, i) => [i + 1, fr(r.OA, 1), fr(r.OAp, 1)], r: { OA: 1, OAp: 1 }, titre: "Lentille convergente L₁ seule" },
+      B: { cols: ["n°", "OA (cm)", "OA′ (cm)"], cells: (r, i) => [i + 1, fr(r.OA, 1), fr(r.OAp, 1)], r: { OA: 1, OAp: 1 }, titre: "Lentilles accolées L₁ + L₂" },
+      C: { cols: ["n°", "e (cm)", "x′ = O₃A′ (cm)"], cells: (r, i) => [i + 1, fr(r.e, 1), fr(r.xp, 1)], r: { e: 1, xp: 1 }, titre: "Lentilles séparées L₁ et L₃ (objet à l'infini)" }
     }
   };
   Object.keys(RAW).forEach(k => Object.keys(RAW[k]).forEach(p => Object.assign(window.TPCR[k].parts[p], RAW[k][p])));
-  window.TPCR_PARAMS = { ressort: "ressort_par", torsion: "torsion_par", ohm: "ohm_par", oscillo: "osc_par", mesures: "mes_par", lentilles: "lent_par", microscope: "micro_par" };
+  window.TPCR_PARAMS = { ressort: "ressort_par", torsion: "torsion_par", ohm: "ohm_par", oscillo: "osc_par", mesures: "mes_par", lentilles: "lent_par", microscope: "micro_par", assoc: "assoc_par" };
 })();
 
 /* Banque de questions : 12 par TP. Chaque étudiant connecté reçoit 5 questions tirées
