@@ -255,7 +255,8 @@
 
   function mount(T) {
     const CR = window.TPCR[T.id], L = "ABCDEFG", keys = Object.keys(CR.parts);
-    const SS = sess(), ST = SS && SS.tps[T.id], QS = ST ? ST.qcm : [];   // questions attribuées : [[n° question, ordre des réponses], ...]
+    const SS = sess(), ST = SS && SS.tps[T.id], QS = ST ? ST.qcm : [];
+    const QDT = id => ((window.TPQD || {}).Q || {})[T.id] && window.TPQD.Q[T.id][id];   // questions attribuées : [[n° question, ordre des réponses], ...]
     const host = document.createElement("section"); host.className = "tp"; host.id = T.id; host.hidden = true;
     const idField = (f, label, opt) => `<label>${label}${opt ? ' <span class="opt">(facultatif)</span>' : ""}<input id="${T.id}-${f}" data-id="${f}" autocomplete="off"></label>`;
     host.innerHTML = `
@@ -295,7 +296,9 @@
       <div class="crblock"><h4>Questions (QCM)</h4>
         <p class="hint qcm-wait" id="${T.id}-qwait" hidden><b>Les questions apparaîtront quand tu auras cliqué sur « Commencer le TP »</b> (en haut de la paillasse).</p>
         <div id="${T.id}-qbox">
-        ${QS.length ? QS.map(([qi, ord], i) => { const q = CR.qcm[qi]; return `<fieldset class="qcm"><legend><b>${i + 1}.</b> ${q.q}</legend>${ord.map(j => `<label><input type="radio" name="${T.id}-q${qi}" value="${j}"> ${q.o[j]}</label>`).join("")}</fieldset>`; }).join("")
+        ${QS.some(([qi]) => typeof qi === "string") ? `<p class="hint"><b>Questions sur TES mesures :</b> les propositions sont calculées à partir de ton propre tableau. Termine tes mesures avant de répondre ; si tu ajoutes ou supprimes une mesure, les valeurs proposées sont recalculées.</p>` : ""}
+        ${QS.length ? QS.map(([qi, ord, kq], i) => { if (typeof qi === "string") { const t = QDT(qi); return t ? `<fieldset class="qcm qd" data-qd="${qi}" data-k="${kq || 1}"><legend><b>${i + 1}.</b> <span class="qdq"></span></legend><p class="hint qdmiss" hidden></p>${ord.map(j => `<label><input type="radio" name="${T.id}-q${qi}" value="${j}"> <span class="qdv" data-j="${j}"></span></label>`).join("")}</fieldset>` : ""; }
+            const q = CR.qcm[qi]; return `<fieldset class="qcm"><legend><b>${i + 1}.</b> ${q.q}</legend>${ord.map(j => `<label><input type="radio" name="${T.id}-q${qi}" value="${j}"> ${q.o[j]}</label>`).join("")}</fieldset>`; }).join("")
           : SS ? `<p class="hint"><b>Questions non disponibles pour ce TP.</b> Le correcteur de l'enseignant ne connaît pas encore ce TP (il doit installer la dernière version du script), puis clique sur « Actualiser » en haut de la page.</p>`
           : `<p class="hint">Les questions te seront attribuées après connexion (chaque étudiant reçoit ses propres questions).</p>`}
         </div>
@@ -333,9 +336,23 @@
       tb.innerHTML = rows.length ? rows.map((r, i) => `<tr>${p.cells(r, i).map(v => `<td>${v}</td>`).join("")}${p.fill.map(c => `<td class="fillc${susp(c, r, i) ? " susp" : ""}"${susp(c, r, i) ? ` title="${esc(c.warn || "Valeur très éloignée : vérifie ton calcul.")}"` : ""}><input data-f="${k}:${i}:${c.k}" value="${esc((S.fill[k][i] || {})[c.k] ?? "")}" inputmode="decimal" aria-label="${esc(c.h)}, ligne ${i + 1}"${lock ? " disabled" : ""}></td>`).join("")}<td class="x noprint">${lock ? "" : `<button type="button" data-del="${k}:${i}" aria-label="Supprimer la mesure ${i + 1}">×</button>`}</td></tr>`).join("")
         : `<tr class="empty"><td colspan="${p.cols.length + p.fill.length + 1}">Aucune mesure : fais les mesures sur la paillasse ci-dessus.</td></tr>`;
       const m = $("#" + T.id + "-min-" + k); m.textContent = `${rows.length} mesure${rows.length > 1 ? "s" : ""} / ${p.min} minimum`; m.className = "minm" + (rows.length >= p.min ? " ok" : "");
-      plotPart(k); save();
+      plotPart(k); save(); updQD();
     };
     T.renderAll = () => keys.forEach(T.renderPart);
+    // QCM déduit des mesures : propositions recalculées avec les mesures actuelles
+    const QDV = {};
+    const updQD = () => {
+      host.querySelectorAll("fieldset.qd").forEach(fs => {
+        const id = fs.dataset.qd, t = QDT(id), k = +fs.dataset.k || 1; if (!t) return;
+        const R = T.rows[t.part] || [], P = window.TPQD.propose(t, R, k), miss = fs.querySelector(".qdmiss");
+        const L = { A: "A", B: "B", C: "C" }[t.part] || t.part;
+        fs.querySelector(".qdq").textContent = P ? t.q.replace("{k}", P.k) : t.q.replace("{k}", "…");
+        miss.hidden = !!P; if (!P) miss.textContent = "Fais d'abord tes mesures de la partie " + L + (t.g ? " (au moins " + (t.min || 3) + ")" : "") + " : les propositions apparaîtront ici.";
+        QDV[id] = P ? P.vals : null;
+        fs.querySelectorAll(".qdv").forEach(sp => { const j = +sp.dataset.j; sp.textContent = P ? window.TPQD.fmt(P.vals[j], t.sig) + (t.u ? " " + t.u : "") : "—"; });
+        fs.querySelectorAll("input").forEach(inp => { inp.disabled = !P || !!SUB || !!PEND; });
+      });
+    };
     T.locked = () => !!SUB;
     T.clearRows = () => { keys.forEach(k => { T.rows[k] = []; S.fill[k] = []; }); T.renderAll(); };
     T.add = (k, row) => { if (timed() === "avant") { refuse("Ce TP est minuté : clique d'abord sur « Commencer le TP » au-dessus de la paillasse."); return; } if (timed() === "fini") { refuse("Le temps imparti est écoulé : les mesures ne sont plus enregistrées."); return; } if (SUB) { refuse("Ce compte rendu a déjà été soumis : les nouvelles mesures ne sont plus enregistrées."); return; } if (PEND) { refuse("Ton compte rendu est verrouillé (envoi en attente) : les nouvelles mesures ne sont plus enregistrées."); return; } T.rows[k].push(Object.assign(ROUND(row, CR.parts[k].r), { ts: Date.now() })); S.fill[k].push({}); T.renderPart(k); };
@@ -387,8 +404,8 @@
       id.carte = SS.etudiant.carte; id.code = SS.code;
       const seance = ($("#" + T.id + "-seance") || {}).value || "";
       const fillOut = {}; keys.forEach(k => fillOut[k] = T.rows[k].map((_, i) => { const o = {}; CR.parts[k].fill.forEach(c => o[c.k] = (S.fill[k][i] || {})[c.k] ?? ""); return o; }));
-      const qOut = {}; QS.forEach(([qi]) => { if (S.qcm["q" + qi] != null) qOut["q" + qi] = S.qcm["q" + qi]; });
-      return { action: "submit", tp: T.id, num: T.num, id, seance, device: device(), journal: journalResume(), raw: T.rows, fill: fillOut, calc: S.calc, qcm: qOut, rem: ($("#" + T.id + "-rem").value || "").slice(0, 2000), client: new Date().toISOString() };
+      const qOut = {}, qv = {}; QS.forEach(([qi]) => { if (S.qcm["q" + qi] != null) { qOut["q" + qi] = S.qcm["q" + qi]; if (typeof qi === "string" && QDV[qi]) qv["q" + qi] = QDV[qi][+S.qcm["q" + qi]]; } });
+      return { action: "submit", qv, tp: T.id, num: T.num, id, seance, device: device(), journal: journalResume(), raw: T.rows, fill: fillOut, calc: S.calc, qcm: qOut, rem: ($("#" + T.id + "-rem").value || "").slice(0, 2000), client: new Date().toISOString() };
     };
     // gel du compte rendu : copie figée à l'instant t (heure de l'appareil + décalage avec le serveur), conservée jusqu'à l'envoi
     const freeze = (payload, t) => {
@@ -531,7 +548,7 @@
       const tables = keys.map((k, i) => { const p = CR.parts[k]; const cv = p.plot ? $("#" + T.id + "-gr-" + k) : null;
         return `<h2>Partie ${L[i]} — ${esc(p.titre)}</h2>${p.aide ? `<p style="font-family:Arial;font-size:13px;background:#EEF4F6;padding:6px 10px">${p.aide}</p>` : ""}<table><tr>${p.cols.concat(p.fill.map(f => f.h)).map(c => `<th>${c}</th>`).join("")}</tr>${T.rows[k].map((r, j) => `<tr>${p.cells(r, j).concat(p.fill.map(c => esc((S.fill[k][j] || {})[c.k] ?? ""))).map(v => `<td>${v}</td>`).join("")}</tr>`).join("") || `<tr><td colspan="9">Aucune mesure</td></tr>`}</table>${cv && T.rows[k].length ? `<img src="${cv.toDataURL("image/png")}" alt="Graphe" style="max-width:100%;border:1px solid #ccc">` : ""}`; }).join("");
       const calcs = CR.calc.map(c => `<tr><td style="text-align:left">${c.h}</td><td>${esc(S.calc[c.k] || "")} ${esc(c.u)}</td></tr>`).join("");
-      const qcm = QS.map(([qi], i) => { const q = CR.qcm[qi]; return `<p><b>${i + 1}. ${q.q}</b><br>${S.qcm["q" + qi] != null ? esc(q.o[+S.qcm["q" + qi]]) : "(sans réponse)"}</p>`; }).join("");
+      const qcm = QS.map(([qi], i) => { if (typeof qi === "string") { const fs = host.querySelector(`fieldset.qd[data-qd="${qi}"]`), t = QDT(qi), j = S.qcm["q" + qi]; return `<p><b>${i + 1}. ${esc(fs ? fs.querySelector(".qdq").textContent : qi)}</b><br>${j != null && QDV[qi] && t ? esc(window.TPQD.fmt(QDV[qi][+j], t.sig) + " " + t.u) : "(sans réponse)"}</p>`; } const q = CR.qcm[qi]; return `<p><b>${i + 1}. ${q.q}</b><br>${S.qcm["q" + qi] != null ? esc(q.o[+S.qcm["q" + qi]]) : "(sans réponse)"}</p>`; }).join("");
       const html = `<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Compte rendu TP ${T.num} — ${esc(val("nom"))}</title><style>body{font-family:Georgia,serif;max-width:820px;margin:24px auto;padding:0 16px;color:#111}h1{font-family:Arial,sans-serif;font-size:20px;border-bottom:3px solid #D98E04;padding-bottom:6px}h2{font-family:Arial,sans-serif;font-size:16px;color:#1F7A8C;margin-top:22px}table{border-collapse:collapse;margin:8px 0;font-family:monospace;font-size:13px}th,td{border:1px solid #999;padding:4px 8px;text-align:right}th{background:#EEF4F6}</style></head><body>
         <div style="font-family:Arial;font-size:12px;color:#B87503;font-weight:bold">UNIVERSITÉ SOULEYMANE NIANG DE MATAM • PHYSIQUE L1</div><h1>Compte rendu — TP n°${T.num} : ${esc(T.titre)}</h1>
         <p><b>${esc(val("nom"))} ${esc(val("prenom"))}</b> — carte n° ${esc(val("carte"))} — groupe ${esc(val("groupe"))}, sous-groupe ${esc(val("sousgroupe"))}${val("binome") ? " — binôme : " + esc(val("binome")) : ""}</p>
@@ -585,5 +602,5 @@
       const T = TPS.find(t => t.id === cur); if (T && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 43, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 44, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();
