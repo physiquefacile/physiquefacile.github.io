@@ -42,10 +42,20 @@
     c.strokeStyle = css("--grid"); c.lineWidth = 1;
     ticks(x0, x1).forEach(t => { c.beginPath(); c.moveTo(X(t), m.t); c.lineTo(X(t), m.t + H); c.stroke(); txt(c, String(t).replace(".", ","), X(t), m.t + H + 14, css("--muted"), "center"); });
     ticks(y0, y1).forEach(t => { c.beginPath(); c.moveTo(m.l, Y(t)); c.lineTo(m.l + W, Y(t)); c.stroke(); txt(c, String(t).replace(".", ","), m.l - 6, Y(t), css("--muted"), "right", "middle"); });
-    c.strokeStyle = css("--muted"); c.lineWidth = 1.2; c.beginPath(); c.moveTo(m.l, m.t); c.lineTo(m.l, m.t + H); c.lineTo(m.l + W, m.t + H); c.stroke();
+    // axes : ils se coupent à l'origine (0, 0) dès qu'elle est dans le cadre
+    const ax = x0 <= 0 && x1 >= 0 ? X(0) : m.l, ay = y0 <= 0 && y1 >= 0 ? Y(0) : m.t + H;
+    c.strokeStyle = css("--fg") || css("--muted"); c.lineWidth = 1.4; c.beginPath(); c.moveTo(ax, m.t); c.lineTo(ax, m.t + H); c.moveTo(m.l, ay); c.lineTo(m.l + W, ay); c.stroke();
+    if (ax !== m.l || ay !== m.t + H) { c.strokeStyle = css("--muted"); c.lineWidth = 1; c.beginPath(); c.moveTo(m.l, m.t); c.lineTo(m.l, m.t + H); c.lineTo(m.l + W, m.t + H); c.stroke(); }
     txt(c, o.xl, m.l + W, m.t + H + 32, css("--muted"), "right"); txt(c, o.yl, m.l + 4, m.t + 10, css("--muted"));
     c.save(); c.beginPath(); c.rect(m.l, m.t, W, H); c.clip();
     if (o.curve) { c.strokeStyle = css("--muted"); c.setLineDash([5, 4]); c.lineWidth = 1.4; c.beginPath(); for (let i = 0; i <= 200; i++) { const x = x0 + (x1 - x0) * i / 200, y = o.curve(x); i ? c.lineTo(X(x), Y(y)) : c.moveTo(X(x), Y(y)); } c.stroke(); c.setLineDash([]); }
+    if (o.join && P.length >= 2) {   // courbe lissée passant par les points (grandeur non linéaire)
+      const Q = P.slice().sort((a, b) => a[0] - b[0]).map(([x, y]) => [X(x), Y(y)]);
+      c.strokeStyle = css("--saff"); c.lineWidth = 2; c.beginPath(); c.moveTo(Q[0][0], Q[0][1]);
+      for (let i = 0; i + 1 < Q.length; i++) { const p0 = Q[i - 1] || Q[i], p1 = Q[i], p2 = Q[i + 1], p3 = Q[i + 2] || p2;
+        c.bezierCurveTo(p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6, p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6, p2[0], p2[1]); }
+      c.stroke();
+    }
     const R = o.noFit ? null : linreg(P);
     if (R) {
       const xa = o.xmin != null ? Math.min(...xs) : x0, xb = o.xmax != null ? Math.max(...xs) : x1;   // partie mesurée en trait plein, prolongements (jusqu'à x = 0) en pointillés
@@ -58,8 +68,8 @@
     c.restore();
     if (R && o.mark0 && x0 <= 0 && x1 >= 0 && P.length >= 2) {   // ordonnée à l'origine (ex. T₀ du pendule, vergence V)
       const yb = Y(R.b); c.fillStyle = css("--bad") || "#c0392b"; c.beginPath(); c.arc(X(0), yb, 6, 0, 7); c.fill();
-      c.strokeStyle = c.fillStyle; c.setLineDash([3, 3]); c.beginPath(); c.moveTo(m.l, yb); c.lineTo(X(0) + 30, yb); c.stroke(); c.setLineDash([]);
-      txt(c, o.mark0(R), m.l + 10, m.t + 40, c.fillStyle, "left", "alphabetic", "700 14px 'Fira Sans',Arial");
+      c.strokeStyle = c.fillStyle; c.setLineDash([3, 3]); c.beginPath(); c.moveTo(m.l, yb); c.lineTo(Math.min(X(0) + 30, m.l + W), yb); c.stroke(); c.setLineDash([]);
+      txt(c, o.mark0(R), m.l + 10, Math.abs(yb - (m.t + 40)) < 22 ? yb + 22 : m.t + 40, c.fillStyle, "left", "alphabetic", "700 14px 'Fira Sans',Arial");
     }
     if (R && o.eq && P.length >= 2) txt(c, o.eq(R), m.l + W - 6, R.a >= 0 ? m.t + H - 10 : m.t + 14, css("--saff"), "right", "alphabetic", "600 13px 'Fira Sans',Arial");
     c.fillStyle = css("--accent"); P.forEach(([x, y]) => { c.beginPath(); c.arc(X(x), Y(y), 4.5, 0, 7); c.fill(); });
@@ -260,7 +270,7 @@
       const p = CR.parts[k]; if (!p.plot) return;
       const bad = [];   // valeurs saisies très éloignées de la valeur attendue (ex. t au lieu de T = t/n) : écartées du graphe
       const P = T.rows[k].map((r, i) => { const f = {}; p.fill.forEach(c => f[c.k] = parseNum((S.fill[k][i] || {})[c.k])); if (p.fill.some(c => suspect(c, r, (S.fill[k][i] || {})[c.k]))) { bad.push(i + 1); return [NaN, NaN]; } return [p.plot.x(r, f), p.plot.y(r, f)]; }).filter(q => isFinite(q[0]) && isFinite(q[1]));
-      scatter($("#" + T.id + "-gr-" + k), P, { xl: p.plot.xl, yl: p.plot.yl, noFit: !(p.plot.fit && P.length >= 2), xmin: p.plot.xmin, xmax: p.plot.xmax, ymin: p.plot.ymin, eq: p.plot.eq, mark0: p.plot.mark0,
+      scatter($("#" + T.id + "-gr-" + k), P, { xl: p.plot.xl, yl: p.plot.yl, noFit: !(p.plot.fit && P.length >= 2), xmin: p.plot.xmin, xmax: p.plot.xmax, ymin: p.plot.ymin, eq: p.plot.eq, mark0: p.plot.mark0, join: p.plot.join,
         note: bad.length ? `Ligne${bad.length > 1 ? "s" : ""} ${bad.join(", ")} écartée${bad.length > 1 ? "s" : ""} : valeur à vérifier (case rouge)` : "" });
     };
     T.renderPart = k => {
@@ -444,5 +454,5 @@
       const T = TPS.find(t => t.id === cur); if (T && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 36, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 37, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();

@@ -7,9 +7,9 @@
 window.TPCR = {
   pendule: {
     parts: {
-      A: { min: 5, fill: [{ k: "T", h: "T = t/n (s)", ref: r => r.t / r.n, warn: "Attention : T est la durée d'UNE oscillation, T = t / n (et non t)." }], plot: { x: (r, f) => (r.A * Math.PI / 180) ** 2, y: (r, f) => f.T, xl: "θ₀² (rad²)", yl: "T (s)", xmin: 0, fit: true, eq: R => "T = " + R.a.toFixed(4).replace(".", ",") + " θ₀² + " + R.b.toFixed(3).replace(".", ","), mark0: R => "T₀ = " + R.b.toFixed(3).replace(".", ",") + " s (θ₀ = 0)" } },
+      A: { min: 5, fill: [{ k: "T", h: "T = t/n (s)", ref: r => r.t / r.n, warn: "Attention : T est la durée d'UNE oscillation, T = t / n (et non t)." }], plot: { x: (r, f) => (r.A * Math.PI / 180) ** 2, y: (r, f) => f.T, xl: "θ₀² (rad²)", yl: "T (s)", xmin: 0, ymin: 0, fit: true, eq: R => "T = " + R.a.toFixed(4).replace(".", ",") + " θ₀² + " + R.b.toFixed(3).replace(".", ","), mark0: R => "T₀ = " + R.b.toFixed(3).replace(".", ",") + " s (θ₀ = 0)" } },
       B: { min: 3, fill: [{ k: "T", h: "T = t/n (s)", ref: r => r.t / r.n, warn: "Attention : T est la durée d'UNE oscillation, T = t / n (et non t)." }] },
-      C: { min: 5, fill: [{ k: "T", h: "T = t/n (s)", ref: r => r.t / r.n, warn: "Attention : T est la durée d'UNE oscillation, T = t / n (et non t)." }, { k: "T2", h: "T² (s²)" }], plot: { x: (r, f) => r.L, y: (r, f) => f.T2, xl: "L (m)", yl: "T² (s²)", xmin: 0, ymin: 0 } }
+      C: { min: 5, fill: [{ k: "T", h: "T = t/n (s)", ref: r => r.t / r.n, warn: "Attention : T est la durée d'UNE oscillation, T = t / n (et non t)." }, { k: "T2", h: "T² (s²)" }], plot: { x: (r, f) => r.L, y: (r, f) => f.T2, xl: "L (m)", yl: "T² (s²)", xmin: 0, ymin: 0, fit: true, eq: R => "T² = " + R.a.toFixed(3).replace(".", ",") + " L " + (R.b < 0 ? "− " : "+ ") + Math.abs(R.b).toFixed(3).replace(".", ",") } }
     },
     calc: [
       { k: "varA", h: "Partie A : variation relative de T entre la plus petite et la plus grande amplitude", u: "%" },
@@ -27,7 +27,7 @@ window.TPCR = {
   },
   ressort: {
     parts: {
-      A: { min: 5, fill: [{ k: "F", h: "F = mg (N)" }, { k: "dl", h: "Δℓ = ℓ − ℓ₀ (cm)" }], plot: { x: (r, f) => f.dl, y: (r, f) => f.F, xl: "Δℓ (cm)", yl: "F (N)", xmin: 0, ymin: 0 } },
+      A: { min: 5, fill: [{ k: "F", h: "F = mg (N)" }, { k: "dl", h: "Δℓ = ℓ − ℓ₀ (cm)" }], plot: { x: (r, f) => f.dl, y: (r, f) => f.F, xl: "Δℓ (cm)", yl: "F (N)", xmin: 0, ymin: 0, fit: true, eq: R => "F = " + R.a.toFixed(3).replace(".", ",") + " Δℓ " + (R.b < 0 ? "− " : "+ ") + Math.abs(R.b).toFixed(3).replace(".", ",") } },
       B: { min: 4, fill: [{ k: "T", h: "T₀ = t/n (s)", ref: r => r.t / r.n, warn: "Attention : T₀ est la durée d'UNE oscillation, T₀ = t / n (et non t)." }, { k: "T2", h: "T₀² (s²)", ref: r => (r.t / r.n) ** 2, warn: "T₀² est le carré de la période T₀ = t / n." }], plot: { x: (r, f) => r.m / 1000, y: (r, f) => f.T2, xl: "m (kg)", yl: "T₀² (s²)", xmin: 0, ymin: 0, fit: true, eq: R => "T₀² = " + R.a.toFixed(3).replace(".", ",") + " m + " + R.b.toFixed(4).replace(".", ","), mark0: R => "b = " + R.b.toFixed(4).replace(".", ",") + " s² pour m = 0" } }
     },
     calc: [
@@ -47,7 +47,7 @@ window.TPCR = {
   torsion: {
     parts: {
       A: { min: 4, fill: [{ k: "d2", h: "d² (m²)" }, { k: "T", h: "T = t/n (s)" }, { k: "T2", h: "T² (s²)" }], plot: { x: (r, f) => f.d2, y: (r, f) => f.T2, xl: "d² (m²)", yl: "T² (s²)", xmin: 0, ymin: 0, fit: true, eq: R => "T² = " + R.a.toFixed(1).replace(".", ",") + " d² + " + R.b.toFixed(3).replace(".", ","), mark0: R => "b = " + R.b.toFixed(3).replace(".", ",") + " s² pour d = 0" } },
-      B: { min: 4, fill: [{ k: "T", h: "T = t/n (s)" }, { k: "T2", h: "T² (s²)" }], plot: { x: (r, f) => r.L / 100, y: (r, f) => f.T2, xl: "ℓ (m)", yl: "T² (s²)", xmin: 0, ymin: 0 } }
+      B: { min: 4, fill: [{ k: "T", h: "T = t/n (s)" }, { k: "T2", h: "T² (s²)" }], plot: { x: (r, f) => r.L / 100, y: (r, f) => f.T2, xl: "ℓ (m)", yl: "T² (s²)", xmin: 0, ymin: 0, fit: true, eq: R => "T² = " + R.a.toFixed(2).replace(".", ",") + " ℓ " + (R.b < 0 ? "− " : "+ ") + Math.abs(R.b).toFixed(3).replace(".", ",") } }
     },
     calc: [
       { k: "pente", h: "Partie A : pente a de la droite T² = f(d²)", u: "s²/m²" },
@@ -65,7 +65,7 @@ window.TPCR = {
   },
   ohm: {
     parts: {
-      A: { min: 6, fill: [{ k: "R", h: "U/I (Ω)" }], plot: { x: (r, f) => r.I, y: (r, f) => r.U, xl: "I (mA)", yl: "U (V)", xmin: 0, ymin: 0 } },
+      A: { min: 6, fill: [{ k: "R", h: "U/I (Ω)" }], plot: { x: (r, f) => r.I, y: (r, f) => r.U, xl: "I (mA)", yl: "U (V)", xmin: 0, ymin: 0, fit: true, eq: R => "U = " + R.a.toFixed(4).replace(".", ",") + " I " + (R.b < 0 ? "− " : "+ ") + Math.abs(R.b).toFixed(3).replace(".", ",") } },
       B: { min: 4, fill: [{ k: "Rm", h: "R_mes = U/I (Ω)" }, { k: "Rc", h: "R corrigée (Ω)" }] },
       C: { min: 4, fill: [{ k: "Rm", h: "R_mes = U/I (Ω)" }] }
     },
@@ -87,8 +87,8 @@ window.TPCR = {
   oscillo: {
     parts: {
       A: { min: 3, fill: [{ k: "U", h: "E = d × S (V)" }] },
-      B: { min: 4, fill: [{ k: "Um", h: "U_m (V)" }, { k: "T", h: "T (ms)" }, { k: "f", h: "f mesurée (Hz)" }, { k: "Ueff", h: "U_eff = U_m/√2 (V)" }], plot: { x: (r, f) => r.fa, y: (r, f) => f.f, xl: "f affichée (Hz)", yl: "f mesurée (Hz)", xmin: 0, ymin: 0 } },
-      C: { min: 4, fill: [{ k: "phi", h: "φ = 360°·τ/T (°)" }], plot: { x: (r, f) => r.fa, y: (r, f) => f.phi, xl: "f affichée (Hz)", yl: "φ (°)" } }
+      B: { min: 4, fill: [{ k: "Um", h: "U_m (V)" }, { k: "T", h: "T (ms)" }, { k: "f", h: "f mesurée (Hz)" }, { k: "Ueff", h: "U_eff = U_m/√2 (V)" }], plot: { x: (r, f) => r.fa, y: (r, f) => f.f, xl: "f affichée (Hz)", yl: "f mesurée (Hz)", xmin: 0, ymin: 0, fit: true, eq: R => "f = " + R.a.toFixed(3).replace(".", ",") + " f_aff " + (R.b < 0 ? "− " : "+ ") + Math.abs(R.b).toFixed(3).replace(".", ",") } },
+      C: { min: 4, fill: [{ k: "phi", h: "φ = 360°·τ/T (°)" }], plot: { x: (r, f) => r.fa, y: (r, f) => f.phi, xl: "f affichée (Hz)", yl: "φ (°)", xmin: 0, ymin: 0, join: true } }
     },
     calc: [
       { k: "E", h: "Partie A : tension continue E (moyenne de tes mesures)", u: "V" },
@@ -129,7 +129,7 @@ window.TPCR = {
   lentilles: {
     parts: {
       A: { min: 3, fill: [{ k: "f", h: "f′ = OA (cm)" }] },
-      B: { min: 5, fill: [{ k: "x", h: "1/OA (δ)" }, { k: "y", h: "1/OA′ (δ)" }], plot: { x: (r, f) => f.x, y: (r, f) => f.y, xl: "1/OA (δ)", yl: "1/OA′ (δ)", xmax: 0, fit: true, eq: R => "1/OA′ = " + R.a.toFixed(2).replace(".", ",") + " · 1/OA + " + R.b.toFixed(2).replace(".", ","), mark0: R => "V = " + R.b.toFixed(2).replace(".", ",") + " δ pour 1/OA = 0" } },
+      B: { min: 5, fill: [{ k: "x", h: "1/OA (δ)" }, { k: "y", h: "1/OA′ (δ)" }], plot: { x: (r, f) => f.x, y: (r, f) => f.y, xl: "1/OA (δ)", yl: "1/OA′ (δ)", xmax: 0, ymin: 0, fit: true, eq: R => "1/OA′ = " + R.a.toFixed(2).replace(".", ",") + " · 1/OA + " + R.b.toFixed(2).replace(".", ","), mark0: R => "V = " + R.b.toFixed(2).replace(".", ",") + " δ pour 1/OA = 0" } },
       C: { min: 2, fill: [{ k: "d", h: "d = x₂ − x₁ (cm)" }, { k: "f", h: "f′ = (D² − d²)/4D (cm)" }] }
     },
     calc: [
@@ -148,8 +148,8 @@ window.TPCR = {
   },
   microscope: {
     parts: {
-      A: { min: 5, fill: [{ k: "g", h: "|γ₁| = A₁B₁/AB" }], plot: { x: (r, f) => r.v, y: (r, f) => f.g, xl: "O₁A₁ (cm)", yl: "|γ₁|" } },
-      B: { min: 4, fill: [{ k: "P", h: "P = α′/AB (δ)" }, { k: "G", h: "G_c = P/4" }], plot: { x: (r, f) => r.g1, y: (r, f) => f.P, xl: "|γ₁|", yl: "P (δ)", xmin: 0, ymin: 0 } }
+      A: { min: 5, fill: [{ k: "g", h: "|γ₁| = A₁B₁/AB" }], plot: { x: (r, f) => r.v, y: (r, f) => f.g, xl: "O₁A₁ (cm)", yl: "|γ₁|", xmin: 0, ymin: 0, fit: true, eq: R => "|γ₁| = " + R.a.toFixed(3).replace(".", ",") + " O₁A₁ " + (R.b < 0 ? "− " : "+ ") + Math.abs(R.b).toFixed(3).replace(".", ",") } },
+      B: { min: 4, fill: [{ k: "P", h: "P = α′/AB (δ)" }, { k: "G", h: "G_c = P/4" }], plot: { x: (r, f) => r.g1, y: (r, f) => f.P, xl: "|γ₁|", yl: "P (δ)", xmin: 0, ymin: 0, fit: true, eq: R => "P = " + R.a.toFixed(1).replace(".", ",") + " |γ₁| " + (R.b < 0 ? "− " : "+ ") + Math.abs(R.b).toFixed(3).replace(".", ",") } }
     },
     calc: [
       { k: "pente", h: "Partie A : pente de la droite |γ₁| = f(O₁A₁)", u: "cm⁻¹" },
@@ -240,7 +240,7 @@ window.TPCR = {
     torsion: [
       { q: "L'unité de la constante de torsion C est :", o: ["le N·m/rad", "le N/m", "le kg·m²", "le N·m²"] },
       { q: "L'ordonnée à l'origine b de la droite T² = f(d²) permet de calculer :", o: ["la constante de torsion C", "le moment d'inertie J₀ de la barre seule", "la masse des cylindres", "la longueur du fil"] },
-      { q: "Le moment d'inertie de deux masses ponctuelles m placées à la distance d de l'axe vaut :", o: ["2md", "md²", "2md²", "md²/2"] },
+      { q: "La barre seule a un moment d'inertie J₀. On y fixe deux masses ponctuelles m à la distance d de l'axe. Le moment d'inertie total J du système vaut :", o: ["J₀ + 2md", "J₀ + md²", "J₀ + 2md²", "2md²"] },
       { q: "Si la constante de torsion C est multipliée par 4 (J inchangé), la période :", o: ["est multipliée par 4", "est divisée par 2", "est multipliée par 2", "ne change pas"] },
       { q: "L'équation du mouvement du pendule de torsion s'écrit :", o: ["J θ̈ + C θ = 0", "J θ̈ − C θ = 0", "C θ̈ + J θ = 0", "θ̈ + C J θ = 0"] },
       { q: "Pour un fil de rayon r, C = πGr⁴/(2ℓ). Avec un fil de rayon double (même longueur), C est :", o: ["multipliée par 2", "multipliée par 4", "multipliée par 16", "inchangée"] },
