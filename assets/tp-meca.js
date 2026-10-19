@@ -200,7 +200,7 @@
       };
       T.draw = () => {
         const { c, w, h } = fit($("#ressort-cv"), innerWidth < 600 ? 1.0 : 0.6); c.fillStyle = css("--plot-bg"); c.fillRect(0, 0, w, h);
-        const fg = css("--fg"), mu = css("--muted"), px = w < 520 ? w * 0.2 : w * 0.36, cxR = w < 520 ? w * 0.73 : cxR, py = 24, sc = (h - 60) / 50; // px par cm
+        const fg = css("--fg"), mu = css("--muted"), px = w < 520 ? w * 0.2 : w * 0.36, cxR = w < 520 ? w * 0.73 : w * 0.8, py = 24, sc = (h - 60) / 50; // px par cm
         support(c, px, py, 120);
         const yEnd = py + (eqPos() + x * 100) * sc;
         // ressort (spires)
