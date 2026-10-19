@@ -493,7 +493,9 @@
     };
     if (tbox) { TIMERS.push(drawTimer); drawTimer(); } else qVis();
     /* ---------- QCM chronométré : une question à la fois, mesures verrouillées ---------- */
-    const QSEC = ST && ST.qsec != null ? +ST.qsec : 60;
+    const QSEC = ST && ST.qsec != null ? +ST.qsec : 30;
+    // durée de la question i : double pour les questions qui demandent un calcul sur la droite de régression
+    const qdur = i => { const q = QS[i], t = q && typeof q[0] === "string" ? QDT(q[0]) : null; return QSEC * (t && t.g ? 2 : 1); };
     const qzOn = () => !!(SS && QS.length && QSEC > 0);
     const qzOK = inp => { if (!qzOn() || SUB) return true; const fs = inp.closest("fieldset"); return !!(S.qz && fs && +fs.dataset.qi === S.qz.i); };
     let qzTick = null;
@@ -504,10 +506,10 @@
       if (!qzOn() || SUB || PEND) { ctl.innerHTML = ""; F.forEach(f => f.hidden = false); if (qzTick) { clearInterval(qzTick); qzTick = null; } if (SUB || PEND) F.forEach(f => f.querySelectorAll("input").forEach(x => x.disabled = true)); return; }
       if (!S.qz) {
         F.forEach(f => f.hidden = true);
-        ctl.innerHTML = `<div class="qzintro"><p><b>QCM chronométré : ${N} questions, ${QSEC} s par question.</b> Les questions s'affichent <b>une par une</b>, sans retour en arrière. Quand le temps d'une question est écoulé, on passe automatiquement à la suivante.</p><p><b>Dernière étape du TP :</b> en commençant le QCM, tes mesures, ton tableau et tes calculs sont <b>verrouillés définitivement</b>. Termine-les avant.</p><button type="button" class="btn primary" id="${T.id}-qzgo">Je réponds au QCM</button></div>`;
+        ctl.innerHTML = `<div class="qzintro"><p><b>QCM chronométré : ${N} questions, ${QSEC} s par question (${2 * QSEC} s pour celles qui portent sur ta droite).</b> Les questions s'affichent <b>une par une</b>, sans retour en arrière. Quand le temps d'une question est écoulé, on passe automatiquement à la suivante.</p><p><b>Dernière étape du TP :</b> en commençant le QCM, tes mesures, ton tableau et tes calculs sont <b>verrouillés définitivement</b>. Termine-les avant.</p><button type="button" class="btn primary" id="${T.id}-qzgo">Je réponds au QCM</button></div>`;
         $("#" + T.id + "-qzgo").onclick = () => {
           if (!keys.some(k => T.rows[k].length)) { T.msg("Fais d'abord tes mesures.", "bad"); return; }
-          if (!confirm("Commencer le QCM ?\n\nTes mesures, ton tableau et tes calculs seront verrouillés définitivement.\n" + N + " questions, " + QSEC + " s chacune, sans retour en arrière.")) return;
+          if (!confirm("Commencer le QCM ?\n\nTes mesures, ton tableau et tes calculs seront verrouillés définitivement.\n" + N + " questions, " + QSEC + " s chacune (" + 2 * QSEC + " s pour celles qui portent sur ta droite), sans retour en arrière.")) return;
           S.qz = { deb: Date.now(), t: Date.now(), i: 0, d: [] }; save();
           T.renderAll(); cr.querySelectorAll("[data-calc]").forEach(x => x.disabled = true);
           qzRender();
@@ -521,7 +523,7 @@
         ctl.innerHTML = `<p class="msg ok">QCM terminé : tes réponses sont enregistrées (elles ne peuvent plus être modifiées). Tu peux maintenant soumettre ton compte rendu.</p>`;
         return;
       }
-      const left = QSEC * 1000 - (Date.now() - S.qz.t);
+      const left = qdur(S.qz.i) * 1000 - (Date.now() - S.qz.t);
       if (left <= 0) { qzAdvance(); return; }
       F.forEach((f, j) => { f.hidden = j !== S.qz.i; const off = j !== S.qz.i || (f.classList.contains("qd") && f.dataset.ok !== "1"); f.querySelectorAll("input").forEach(x => x.disabled = off); });
       const last = S.qz.i === N - 1;
@@ -532,7 +534,7 @@
       }
       const sec = Math.ceil(left / 1000);
       ctl.querySelector(".qzt").textContent = sec + " s"; ctl.querySelector(".qzt").style.color = sec <= 10 ? "var(--rouge)" : "";
-      ctl.querySelector(".tbar i").style.width = (left / (QSEC * 1000) * 100).toFixed(1) + "%";
+      ctl.querySelector(".tbar i").style.width = (left / (qdur(S.qz.i) * 1000) * 100).toFixed(1) + "%";
       if (!qzTick) qzTick = setInterval(() => qzRender(), 250);
     }
     qzRender();
@@ -648,5 +650,5 @@
       const T = TPS.find(t => t.id === cur); if (T && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 45, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 46, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();
