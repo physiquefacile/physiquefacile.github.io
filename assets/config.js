@@ -13,5 +13,5 @@ window.SITE_CONFIG = {
   /* true : la plateforme entière demande le n° de carte et le code personnel (liste « Étudiants » du tableur).
      false : accès libre (seuls les TP demandent la connexion). */
   accesReserve: true,
-  crEndpoint: "https://script.google.com/macros/s/AKfycbzP9ElwWSy_xdsL3Izg0fWO133ttqqM4pLXgMn4jcZNFSLTNKkvlOHnIVcU_p3SPcPndQ/exec"
+  crEndpoint: "https://script.google.com/macros/s/AKfycbwZbAHdLG8fprqZjfOUn5Dpj6_B1Txlan1Kt7xFmjRAcHyBUyCmfpTT-JWWoxChreRxAA/exec"
 };
