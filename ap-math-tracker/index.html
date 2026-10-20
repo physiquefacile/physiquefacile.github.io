@@ -115,7 +115,8 @@ details.unitlib summary .st{flex:1;min-width:0}
 .lesson .lt{min-width:0}
 .unitfiles{display:flex;flex-wrap:wrap;gap:8px;padding:4px 12px 12px}
 .lessons-h{padding:8px 12px 2px;border-top:1px solid var(--line)}
-.lesson{border-top:0!important;padding-block:5px!important}
+.lesson{border-top:0!important;padding-block:6px!important}
+.res{grid-column:2;display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
 .rbtn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font:inherit;font-size:.82rem;font-weight:700;padding:4px 10px;border-radius:6px;cursor:pointer;text-decoration:none}
 .rbtn .k{font-size:.66rem;letter-spacing:.06em;padding:1px 5px;border-radius:3px;background:var(--m0);color:var(--ink)}
 .rbtn.key .k{background:var(--m1);color:#16223A}
@@ -393,13 +394,13 @@ function viewCourses(){
     return `<details class="unitlib" id="lib-${u.id}"${open?" open":""}>
       <summary><span class="st">${u.n==="R"?"":`Unit ${esc(u.n)} · `}${esc(u.t)}${u.note?` <span class="chip" style="font-weight:400">${esc(u.note)}</span>`:""}</span>${u.files?'<span class="chip ap">Available</span>':'<span class="muted" style="font-weight:400;font-size:.8rem">In preparation</span>'}</summary>
       ${u.files?`<div class="unitfiles">${FILES.filter(f=>u.files[f[0]]).map(f=>`<button class="rbtn ${f[3]}" data-pdf="${esc(pdfUrl(state.course,u.files[f[0]]))}" data-title="${esc((u.n==="R"?"":"Unit "+u.n+" · ")+f[1])}"><span class="k">${f[2]}</span>${f[1]}</button>`).join("")}</div>`:""}
-      <div class="lessons-h label">Lessons in this unit</div>
-      ${u.lessons.map(l=>`<div class="lesson"><span class="ln">${esc(l.n)}</span><span class="lt">${esc(l.t)}</span></div>`).join("")}
+      <div class="lessons-h label">${u.lessonFiles?"Lesson practice":"Lessons in this unit"}</div>
+      ${u.lessons.map(l=>`<div class="lesson"><span class="ln">${esc(l.n)}</span><span class="lt">${esc(l.t)}</span>${u.lessonFiles?`<div class="res"><button class="rbtn" data-pdf="${esc(pdfUrl(state.course,u.lessonFiles+l.n+"-practice"))}" data-title="${esc("Lesson "+l.n+" · Practice")}"><span class="k">MCQ + FRQ</span>Practice</button><button class="rbtn key" data-pdf="${esc(pdfUrl(state.course,u.lessonFiles+l.n+"-key"))}" data-title="${esc("Lesson "+l.n+" · Answer key")}"><span class="k">KEY</span>Key</button></div>`:""}</div>`).join("")}
     </details>`}).join("");
   return `<div style="display:grid;gap:18px">
     <section class="panel">
       <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap"><h2>${esc(lib.name)} course</h2><span class="muted num">${ready}/${lib.units.length} units available</span></div>
-      <p class="muted" style="margin:0;font-size:.88rem">Each unit has course notes covering every lesson, an AP-style practice set with multiple-choice and free-response questions, and a detailed answer key. Lessons follow the College Board course outline.</p>
+      <p class="muted" style="margin:0;font-size:.88rem">Each unit has course notes, a unit practice set in AP format (multiple choice and free response) with a detailed answer key, and a short practice for every lesson. Lessons follow the College Board course outline.</p>
     </section>
     <section class="units">${units}</section></div>`;
 }

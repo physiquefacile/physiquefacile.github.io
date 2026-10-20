@@ -1,0 +1,586 @@
+%% Lesson practice sets, AP Calculus AB Unit 1.
+%% Text before the first "%%LESSON" line is shared preamble. Built by lessons.py.
+\newcommand{\fgraph}{%
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[apaxis,xmin=-3.5,xmax=4.5,ymin=-1,ymax=5,xtick={-3,-2,-1,1,2,3,4},ytick={1,2,3,4},width=8cm,height=5.4cm]
+\addplot[apblue,very thick,domain=-3:-1]{x+4};
+\addplot[apblue,very thick,domain=-1:2]{x^2};
+\addplot[apblue,very thick,domain=2:4]{8-2*x};
+\node[circle,draw=apblue,fill=white,thick,inner sep=1.6pt] at (axis cs:-1,3){};
+\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:-1,1){};
+\node[circle,draw=apblue,fill=white,thick,inner sep=1.6pt] at (axis cs:2,4){};
+\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:2,1){};
+\node[font=\small] at (axis cs:3.5,3.4){$y=f(x)$};
+\end{axis}
+\end{tikzpicture}
+
+{\small The graph of $f$: a line segment for $-3\le x<-1$, $y=x^2$ for $-1\le x<2$, a line segment for $2<x\le4$; $f(-1)=1$, $f(2)=1$.}
+\end{center}}
+
+%%LESSON 1.1 | Introducing Calculus: Can Change Occur at an Instant?
+\begin{exo}{}
+For $s(t)=t^2$, which expression gives the average rate of change on $[2,\,2+h]$, $h\neq0$?
+\choices{$4+h$}{$4$}{$2+h$}{$4h+h^2$}
+\answer{A}{$\dfrac{(2+h)^2-4}{h}=\dfrac{4h+h^2}{h}=4+h$.}
+\end{exo}
+\begin{exo}{}
+Using the previous question, what is the instantaneous rate of change of $s$ at $t=2$?
+\choices{$2$}{$4$}{$0$}{It cannot be found.}
+\answer{B}{As $h\to0$, $4+h\to4$.}
+\end{exo}
+\begin{exo}{}
+The average velocities of an object on $[3,3+h]$ are $6.1$, $6.01$, $6.001$ for $h=0.1$, $0.01$, $0.001$. Which is the best estimate of its velocity at $t=3$?
+\choices{$6.1$}{$6.001$}{$6$}{$3$}
+\answer{C}{The average velocities approach $6$ as $h$ approaches $0$.}
+\end{exo}
+\begin{exo}{}
+What is the instantaneous rate of change of $f(x)=3x+2$ at $x=5$?
+\choices{$17$}{$5$}{$2$}{$3$}
+\answer{D}{A linear function has the same rate of change, its slope, at every point.}
+\end{exo}
+\begin{exo}[Free response]{}
+An object's position is $s(t)=t^3$ meters at time $t$ seconds.
+\begin{enumerate}[label=(\alph*)]
+\item Show that the average velocity on $[1,\,1+h]$ is $3+3h+h^2$.
+\item Compute it for $h=0.1$ and $h=0.01$.
+\item Estimate the velocity of the object at $t=1$, with units.
+\end{enumerate}
+\begin{solution}
+(a) $\dfrac{(1+h)^3-1}{h}=\dfrac{1+3h+3h^2+h^3-1}{h}=3+3h+h^2$.\\
+(b) $h=0.1$: $3.31$ m/s. $h=0.01$: $3.0301$ m/s.\\
+(c) As $h\to0$ the average velocity approaches $3$: the velocity at $t=1$ is $3$ meters per second.
+\end{solution}
+\end{exo}
+
+%%LESSON 1.2 | Defining Limits and Using Limit Notation
+\begin{exo}{}
+What does $\displaystyle\lim_{x\to2}f(x)=5$ mean?
+\choices{$f(2)=5$.}{$f(x)$ gets as close to $5$ as we want when $x$ is close enough to $2$, $x\neq2$.}{$f(x)$ never equals $5$.}{$f(5)=2$.}
+\answer{B}{A limit describes outputs near $x=2$, not the value at $x=2$.}
+\end{exo}
+\begin{exo}{}
+$\displaystyle\lim_{x\to3^-}f(x)=4$, $\displaystyle\lim_{x\to3^+}f(x)=4$ and $f(3)=1$. What is $\displaystyle\lim_{x\to3}f(x)$?
+\choices{$1$}{$4$}{$5$}{It does not exist.}
+\answer{B}{Both one-sided limits equal $4$. The value $f(3)$ does not matter.}
+\end{exo}
+\begin{exo}{}
+$\displaystyle\lim_{x\to0^-}g(x)=2$ and $\displaystyle\lim_{x\to0^+}g(x)=5$. Which statement is true?
+\choices{$\lim_{x\to0}g(x)=2$}{$\lim_{x\to0}g(x)=3.5$}{$\lim_{x\to0}g(x)$ does not exist.}{$g(0)=5$}
+\answer{C}{The one-sided limits are different.}
+\end{exo}
+\begin{exo}{}
+Let $f(x)=x^2$ for $x\neq1$ and $f(1)=7$. What is $\displaystyle\lim_{x\to1}f(x)$?
+\choices{$7$}{$8$}{It does not exist.}{$1$}
+\answer{D}{Near $x=1$ (but not at it), $f(x)=x^2$, which approaches $1$.}
+\end{exo}
+\begin{exo}[Free response]{}
+Let $f(x)=\begin{cases}x+2, & x<1\\ 5, & x=1\\ x^2+2, & x>1.\end{cases}$
+\begin{enumerate}[label=(\alph*)]
+\item Find $\displaystyle\lim_{x\to1^-}f(x)$ and $\displaystyle\lim_{x\to1^+}f(x)$.
+\item Does $\displaystyle\lim_{x\to1}f(x)$ exist? If so, give its value.
+\item Explain why the value $f(1)=5$ does not change your answer to (b).
+\end{enumerate}
+\begin{solution}
+(a) $\lim_{x\to1^-}f(x)=1+2=3$ and $\lim_{x\to1^+}f(x)=1^2+2=3$.\\
+(b) Yes. Both one-sided limits equal $3$, so $\lim_{x\to1}f(x)=3$.\\
+(c) A limit only uses values of $f(x)$ for $x$ near $1$ with $x\neq1$; the value at $x=1$ itself is not used.
+\end{solution}
+\end{exo}
+
+%%LESSON 1.3 | Estimating Limit Values from Graphs
+\fgraph
+\begin{exo}{}
+Using the graph of $f$, what is $\displaystyle\lim_{x\to-1^-}f(x)$?
+\choices{$3$}{$1$}{$2$}{It does not exist.}
+\answer{A}{From the left, the line segment approaches the open circle at height $3$.}
+\end{exo}
+\begin{exo}{}
+Using the graph of $f$, what is $\displaystyle\lim_{x\to2}f(x)$?
+\choices{$1$}{$2$}{$4$}{It does not exist.}
+\answer{C}{Both pieces approach the open circle at $(2,4)$.}
+\end{exo}
+\begin{exo}{}
+Using the graph of $f$, what is $f(2)$?
+\choices{$4$}{$1$}{$0$}{undefined}
+\answer{B}{The filled dot at $x=2$ is at height $1$.}
+\end{exo}
+\begin{exo}{}
+For which value of $x$ in $(-3,4)$ does $\displaystyle\lim f(x)$ fail to exist?
+\choices{$x=2$}{$x=0$}{$x=3$}{$x=-1$}
+\answer{D}{At $x=-1$ the one-sided limits are $3$ and $1$.}
+\end{exo}
+\begin{exo}[Free response]{}
+Use the graph of $f$ above.
+\begin{enumerate}[label=(\alph*)]
+\item Find $\displaystyle\lim_{x\to3}f(x)$ and $\displaystyle\lim_{x\to0}f(x)$.
+\item Find $\displaystyle\lim_{x\to1}\big(f(x)+2x\big)$.
+\item Find $\displaystyle\lim_{x\to2}x\,f(x)$.
+\end{enumerate}
+\begin{solution}
+(a) $\lim_{x\to3}f(x)=8-6=2$ and $\lim_{x\to0}f(x)=0^2=0$.\\
+(b) $\lim_{x\to1}f(x)=1$ and $\lim_{x\to1}2x=2$, so the limit is $3$.\\
+(c) $\lim_{x\to2}x=2$ and $\lim_{x\to2}f(x)=4$, so the limit is $8$.
+\end{solution}
+\end{exo}
+
+%%LESSON 1.4 | Estimating Limit Values from Tables
+\begin{exo}{}
+\begin{center}\begin{tabular}{c|cccccc}$x$&$1.9$&$1.99$&$1.999$&$2.001$&$2.01$&$2.1$\\\hline$f(x)$&$0.47$&$0.497$&$0.4997$&$0.5003$&$0.503$&$0.53$\end{tabular}\end{center}
+Which is the best estimate of $\displaystyle\lim_{x\to2}f(x)$?
+\choices{$0.5$}{$0.4997$}{$2$}{It does not exist.}
+\answer{A}{The values approach $0.5$ from both sides.}
+\end{exo}
+\begin{exo}{}
+As $x\to3^-$, the values of $g(x)$ are $1.9$, $1.99$, $1.999$; as $x\to3^+$, they are $-0.9$, $-0.99$, $-0.999$. What is $\displaystyle\lim_{x\to3}g(x)$?
+\choices{$2$}{$-1$}{$1$}{It does not exist.}
+\answer{D}{The left-hand limit appears to be $2$ and the right-hand limit $-1$.}
+\end{exo}
+\begin{exo}{}
+As $x\to0$ from both sides, $h(x)$ takes the values $10$, $100$, $1000$, $10000$. Which statement is true?
+\choices{$\lim_{x\to0}h(x)=10000$}{$h$ increases without bound near $0$; the limit does not exist as a real number.}{$\lim_{x\to0}h(x)=0$}{$h(0)=10000$}
+\answer{B}{The outputs grow without bound: $\lim_{x\to0}h(x)=\infty$.}
+\end{exo}
+\begin{exo}{}
+Which is true about using a table to find a limit?
+\choices{A table always gives the exact limit.}{A table cannot suggest a limit.}{A table suggests a value but does not prove the limit.}{A table needs only values on one side.}
+\answer{C}{Tables give evidence; algebra or theorems confirm the value.}
+\end{exo}
+\begin{exo}[Free response]{}
+\begin{center}\begin{tabular}{c|cccccc}$x$&$-0.1$&$-0.01$&$-0.001$&$0.001$&$0.01$&$0.1$\\\hline$f(x)=\frac{e^x-1}{x}$&$0.9516$&$0.9950$&$0.9995$&$1.0005$&$1.0050$&$1.0517$\end{tabular}\end{center}
+\begin{enumerate}[label=(\alph*)]
+\item Use the table to estimate $\displaystyle\lim_{x\to0}f(x)$.
+\item Is $f(0)$ defined? Does this affect your answer to (a)?
+\item A function $g$ has $g(1.9)=1.9$, $g(1.99)=1.99$, $g(1.999)=1.999$, $g(2.1)=3.1$, $g(2.01)=3.01$, $g(2.001)=3.001$. Estimate the one-sided limits of $g$ at $x=2$. Does $\displaystyle\lim_{x\to2}g(x)$ appear to exist?
+\end{enumerate}
+\begin{solution}
+(a) The values approach $1$ from both sides, so the limit appears to be $1$.\\
+(b) No, $f(0)=\frac00$ is undefined. This does not affect the limit, which depends only on values near $0$.\\
+(c) $\lim_{x\to2^-}g(x)$ appears to be $2$ and $\lim_{x\to2^+}g(x)$ appears to be $3$. They differ, so $\lim_{x\to2}g(x)$ does not appear to exist.
+\end{solution}
+\end{exo}
+
+%%LESSON 1.5 | Determining Limits Using Algebraic Properties of Limits
+\begin{exo}{}
+$\displaystyle\lim_{x\to2}\left(3x^2-x\right)$ is
+\choices{$10$}{$12$}{$14$}{$8$}
+\answer{A}{Direct substitution: $3(4)-2=10$.}
+\end{exo}
+\begin{exo}{}
+If $\displaystyle\lim_{x\to c}f(x)=4$ and $\displaystyle\lim_{x\to c}g(x)=-1$, then $\displaystyle\lim_{x\to c}\big(f(x)g(x)+3\big)$ is
+\choices{$7$}{$-1$}{$3$}{$-4$}
+\answer{B}{$4\cdot(-1)+3=-1$.}
+\end{exo}
+\begin{exo}{}
+If $\displaystyle\lim_{x\to c}f(x)=6$ and $\displaystyle\lim_{x\to c}g(x)=2$, then $\displaystyle\lim_{x\to c}\frac{f(x)}{g(x)}$ is
+\choices{$12$}{$4$}{$3$}{$\dfrac13$}
+\answer{C}{The denominator's limit is not zero, so the limit is $\frac62=3$.}
+\end{exo}
+\begin{exo}{}
+$\displaystyle\lim_{x\to\pi}\cos x$ is
+\choices{$0$}{$1$}{$\pi$}{$-1$}
+\answer{D}{$\cos x$ is continuous, so the limit is $\cos\pi=-1$.}
+\end{exo}
+\begin{exo}[Free response]{}
+$\displaystyle\lim_{x\to1}f(x)=3$, $\displaystyle\lim_{x\to1}g(x)=-2$ and $h(x)=x^2+1$. Find each limit, showing which properties you use.
+\begin{enumerate}[label=(\alph*)]
+\item $\displaystyle\lim_{x\to1}\big(2f(x)-g(x)\big)$ \qquad (b) $\displaystyle\lim_{x\to1}f(x)h(x)$
+\setcounter{enumi}{2}
+\item $\displaystyle\lim_{x\to1}\sqrt{f(x)+6}$ \qquad (d) $\displaystyle\lim_{x\to1}\big(g(x)\big)^3$
+\end{enumerate}
+\begin{solution}
+(a) Constant multiple and difference: $2(3)-(-2)=8$.\\
+(b) $\lim_{x\to1}h(x)=2$ by substitution; product: $3\cdot2=6$.\\
+(c) Sum, then the square root (continuous): $\sqrt{3+6}=3$.\\
+(d) Power: $(-2)^3=-8$.
+\end{solution}
+\end{exo}
+
+%%LESSON 1.6 | Determining Limits Using Algebraic Manipulations
+\begin{exo}{}
+$\displaystyle\lim_{x\to-2}\frac{x^2-4}{x+2}$ is
+\choices{$0$}{$-4$}{$4$}{It does not exist.}
+\answer{B}{$\dfrac{(x-2)(x+2)}{x+2}=x-2\to-4$.}
+\end{exo}
+\begin{exo}{}
+$\displaystyle\lim_{x\to4}\frac{\sqrt{x}-2}{x-4}$ is
+\choices{$\dfrac14$}{$\dfrac12$}{$0$}{$4$}
+\answer{A}{$x-4=(\sqrt x-2)(\sqrt x+2)$, so the quotient is $\dfrac{1}{\sqrt x+2}\to\dfrac14$.}
+\end{exo}
+\begin{exo}{}
+$\displaystyle\lim_{h\to0}\frac{(3+h)^2-9}{h}$ is
+\choices{$9$}{$0$}{$6$}{$3$}
+\answer{C}{$\dfrac{6h+h^2}{h}=6+h\to6$.}
+\end{exo}
+\begin{exo}{}
+$\displaystyle\lim_{x\to1}\frac{\frac1x-1}{x-1}$ is
+\choices{$1$}{$0$}{It does not exist.}{$-1$}
+\answer{D}{$\dfrac{\frac{1-x}{x}}{x-1}=-\dfrac1x\to-1$.}
+\end{exo}
+\begin{exo}[Free response]{}
+Evaluate each limit. Show the algebra.
+\begin{enumerate}[label=(\alph*)]
+\item $\displaystyle\lim_{x\to5}\frac{x^2-3x-10}{x-5}$ \qquad (b) $\displaystyle\lim_{x\to0}\frac{\sqrt{4+x}-2}{x}$
+\setcounter{enumi}{2}
+\item $\displaystyle\lim_{x\to2}\frac{x^3-8}{x-2}$ \qquad (d) $\displaystyle\lim_{h\to0}\frac{\frac{1}{2+h}-\frac12}{h}$
+\end{enumerate}
+\begin{solution}
+(a) $\dfrac{(x-5)(x+2)}{x-5}=x+2\to7$.\\
+(b) $\dfrac{(4+x)-4}{x(\sqrt{4+x}+2)}=\dfrac{1}{\sqrt{4+x}+2}\to\dfrac14$.\\
+(c) $x^3-8=(x-2)(x^2+2x+4)$, so the limit is $4+4+4=12$.\\
+(d) $\dfrac{\frac{2-(2+h)}{2(2+h)}}{h}=\dfrac{-1}{2(2+h)}\to-\dfrac14$.
+\end{solution}
+\end{exo}
+
+%%LESSON 1.7 | Selecting Procedures for Determining Limits
+\begin{exo}{}
+$\displaystyle\lim_{x\to3}\frac{x+1}{(x-3)^2}$ is
+\choices{$+\infty$}{$-\infty$}{$0$}{$4$}
+\answer{A}{Substitution gives $\frac40$. The denominator is positive on both sides, so the quotient increases without bound.}
+\end{exo}
+\begin{exo}{}
+$\displaystyle\lim_{x\to0}\frac{x^2+5x}{x}$ is
+\choices{$0$}{$5$}{$1$}{It does not exist.}
+\answer{B}{$\frac00$: factor, $\dfrac{x(x+5)}{x}=x+5\to5$.}
+\end{exo}
+\begin{exo}{}
+$\displaystyle\lim_{x\to1}\frac{x^2+1}{x+1}$ is
+\choices{$0$}{$2$}{$1$}{It does not exist.}
+\answer{C}{Direct substitution works: $\frac22=1$.}
+\end{exo}
+\begin{exo}{}
+$\displaystyle\lim_{x\to4}\frac{|x-4|}{x-4}$ is
+\choices{$1$}{$-1$}{$0$}{It does not exist.}
+\answer{D}{The left-hand limit is $-1$ and the right-hand limit is $1$.}
+\end{exo}
+\begin{exo}[Free response]{}
+For each limit, name the method you choose and evaluate the limit.
+\begin{enumerate}[label=(\alph*)]
+\item $\displaystyle\lim_{x\to-1}\frac{x^2+2x+1}{x+1}$ \qquad (b) $\displaystyle\lim_{x\to2^+}\frac{x}{2-x}$
+\setcounter{enumi}{2}
+\item $\displaystyle\lim_{x\to9}\frac{x-9}{\sqrt x-3}$ \qquad (d) $\displaystyle\lim_{x\to0}\frac{\sin 2x}{\sin 3x}$
+\end{enumerate}
+\begin{solution}
+(a) $\frac00$, factor: $\dfrac{(x+1)^2}{x+1}=x+1\to0$.\\
+(b) $\frac20$: the numerator is near $2>0$ and $2-x<0$ for $x>2$, so the limit is $-\infty$.\\
+(c) $\frac00$, factor $x-9=(\sqrt x-3)(\sqrt x+3)$: the limit is $\sqrt9+3=6$.\\
+(d) $\frac00$, trig limit: $\dfrac{\sin2x}{\sin3x}=\dfrac{\frac{\sin2x}{2x}\cdot2x}{\frac{\sin3x}{3x}\cdot3x}\to\dfrac{1\cdot2}{1\cdot3}=\dfrac23$.
+\end{solution}
+\end{exo}
+
+%%LESSON 1.8 | Determining Limits Using the Squeeze Theorem
+\begin{exo}{}
+$\displaystyle\lim_{x\to0}x\sin\frac1x$ is
+\choices{$0$}{$1$}{It does not exist.}{$\infty$}
+\answer{A}{$-|x|\le x\sin\frac1x\le|x|$, and both bounds approach $0$.}
+\end{exo}
+\begin{exo}{}
+$\displaystyle\lim_{x\to0}\frac{\sin4x}{2x}$ is
+\choices{$4$}{$2$}{$\dfrac12$}{$1$}
+\answer{B}{$\dfrac{\sin4x}{2x}=2\cdot\dfrac{\sin4x}{4x}\to2$.}
+\end{exo}
+\begin{exo}{}
+$\displaystyle\lim_{x\to0}\frac{1-\cos x}{x}$ is
+\choices{$1$}{$-1$}{$0$}{It does not exist.}
+\answer{C}{This is one of the two standard trigonometric limits.}
+\end{exo}
+\begin{exo}{}
+If $3-x^2\le f(x)\le3+x^2$ for all $x$, then $\displaystyle\lim_{x\to0}f(x)$ is
+\choices{$0$}{$6$}{It cannot be determined.}{$3$}
+\answer{D}{Both bounds approach $3$; by the squeeze theorem so does $f$.}
+\end{exo}
+\begin{exo}[Free response]{}
+\begin{enumerate}[label=(\alph*)]
+\item Explain why $-|x|\le x\cos\frac1x\le|x|$ for $x\neq0$, and use it to find $\displaystyle\lim_{x\to0}x\cos\frac1x$.
+\item Find $\displaystyle\lim_{x\to0}\frac{\tan x}{x}$.
+\item Find $\displaystyle\lim_{x\to0}\frac{x}{\sin3x}$.
+\end{enumerate}
+\begin{solution}
+(a) $-1\le\cos\frac1x\le1$; multiplying by $|x|\ge0$ gives $-|x|\le|x|\cos\frac1x\le|x|$, and $x\cos\frac1x$ equals $\pm|x|\cos\frac1x$, so it lies between $-|x|$ and $|x|$. Both bounds approach $0$, so by the squeeze theorem the limit is $0$.\\
+(b) $\dfrac{\tan x}{x}=\dfrac{\sin x}{x}\cdot\dfrac{1}{\cos x}\to1\cdot1=1$.\\
+(c) $\dfrac{x}{\sin3x}=\dfrac13\cdot\dfrac{3x}{\sin3x}\to\dfrac13$.
+\end{solution}
+\end{exo}
+
+%%LESSON 1.9 | Connecting Multiple Representations of Limits
+\fgraph
+\begin{exo}{}
+Let $g(x)=x+1$. Using the graph of $f$, what is $\displaystyle\lim_{x\to2}f(x)g(x)$?
+\choices{$3$}{$4$}{$12$}{$7$}
+\answer{C}{$\lim f(x)=4$ and $\lim g(x)=3$, so the product's limit is $12$.}
+\end{exo}
+\begin{exo}{}
+With $g(x)=x+1$, what is $\displaystyle\lim_{x\to2}\big(f(x)-g(x)\big)$?
+\choices{$1$}{$-2$}{$-1$}{$7$}
+\answer{A}{$4-3=1$.}
+\end{exo}
+\begin{exo}{}
+A function $h$ has values $4.9$, $4.99$, $4.999$, $5.001$, $5.01$, $5.1$ at $x=0.9$, $0.99$, $0.999$, $1.001$, $1.01$, $1.1$. Let $k(x)=2x$. What is $\displaystyle\lim_{x\to1}\frac{h(x)}{k(x)}$?
+\choices{$5$}{$\dfrac52$}{$10$}{$\dfrac25$}
+\answer{B}{The table suggests $\lim h(x)=5$, and $\lim k(x)=2$, so the limit is $\frac52$.}
+\end{exo}
+\begin{exo}{}
+With $g(x)=x+1$, what is $\displaystyle\lim_{x\to3}g\big(f(x)\big)$?
+\choices{$4$}{$2$}{$5$}{$3$}
+\answer{D}{$\lim_{x\to3}f(x)=2$ and $g$ is continuous, so the limit is $g(2)=3$.}
+\end{exo}
+\begin{exo}[Free response]{}
+Use the graph of $f$ above. The function $g$ is defined for all $x$, and $g(1.9)=-1.2$, $g(1.99)=-1.02$, $g(1.999)=-1.002$, $g(2.001)=-0.998$, $g(2.01)=-0.98$, $g(2.1)=-0.8$.
+\begin{enumerate}[label=(\alph*)]
+\item Assuming the table shows the trend of $g$, find $\displaystyle\lim_{x\to2}\big(f(x)+g(x)\big)$.
+\item Find $\displaystyle\lim_{x\to2}f(x)g(x)$ and $\displaystyle\lim_{x\to2}\frac{f(x)}{g(x)}$.
+\item Find $\displaystyle\lim_{x\to-1^+}\big(f(x)+x\big)$ and $\displaystyle\lim_{x\to-1^-}\big(f(x)+x\big)$.
+\end{enumerate}
+\begin{solution}
+(a) $\lim_{x\to2}f(x)=4$ (graph) and $\lim_{x\to2}g(x)=-1$ (table), so the limit is $3$.\\
+(b) Product: $4\cdot(-1)=-4$. Quotient: $\frac{4}{-1}=-4$ (the denominator's limit is not zero).\\
+(c) Right: $1+(-1)=0$. Left: $3+(-1)=2$.
+\end{solution}
+\end{exo}
+
+%%LESSON 1.10 | Exploring Types of Discontinuities
+\fgraph
+\begin{exo}{}
+What type of discontinuity does $f(x)=\dfrac{x^2-1}{x-1}$ have at $x=1$?
+\choices{Jump}{Infinite}{Removable}{None}
+\answer{C}{$\lim_{x\to1}f(x)=2$ exists, but $f(1)$ is undefined.}
+\end{exo}
+\begin{exo}{}
+$\displaystyle\lim_{x\to0^-}g(x)=1$ and $\displaystyle\lim_{x\to0^+}g(x)=4$. What type of discontinuity does $g$ have at $x=0$?
+\choices{Jump}{Removable}{Infinite}{None}
+\answer{A}{The one-sided limits exist and are different.}
+\end{exo}
+\begin{exo}{}
+What type of discontinuity does $h(x)=\dfrac{1}{x-2}$ have at $x=2$?
+\choices{Removable}{Infinite}{Jump}{None}
+\answer{B}{The one-sided limits are $-\infty$ and $+\infty$.}
+\end{exo}
+\begin{exo}{}
+For the function $f$ graphed above, which describes its discontinuities at $x=-1$ and $x=2$?
+\choices{Both removable}{Both jumps}{Removable at $-1$, jump at $2$}{Jump at $-1$, removable at $2$}
+\answer{D}{At $-1$ the one-sided limits are $3$ and $1$; at $2$ the limit is $4$ but $f(2)=1$.}
+\end{exo}
+\begin{exo}[Free response]{}
+Let $g(x)=\begin{cases}x^2, & x<0\\ x+1, & 0\le x\le2\\ \dfrac{1}{x-3}, & x>2.\end{cases}$
+\begin{enumerate}[label=(\alph*)]
+\item Find the one-sided limits of $g$ at $x=0$ and classify the discontinuity.
+\item Find the one-sided limits of $g$ at $x=2$ and classify the discontinuity.
+\item Classify the discontinuity at $x=3$. Justify with limits.
+\end{enumerate}
+\begin{solution}
+(a) $\lim_{x\to0^-}g(x)=0$ and $\lim_{x\to0^+}g(x)=1$: jump discontinuity.\\
+(b) $\lim_{x\to2^-}g(x)=3$ and $\lim_{x\to2^+}g(x)=\frac{1}{2-3}=-1$: jump discontinuity.\\
+(c) $\lim_{x\to3^-}\frac{1}{x-3}=-\infty$ and $\lim_{x\to3^+}\frac1{x-3}=+\infty$: infinite discontinuity (vertical asymptote $x=3$).
+\end{solution}
+\end{exo}
+
+%%LESSON 1.11 | Defining Continuity at a Point
+\begin{exo}{}
+Let $f(x)=x^2$ for $x\neq2$ and $f(2)=1$. Which condition for continuity at $x=2$ fails?
+\choices{$f(2)$ is defined.}{$\lim_{x\to2}f(x)$ exists.}{$\lim_{x\to2}f(x)=f(2)$.}{None; $f$ is continuous at $2$.}
+\answer{C}{The limit is $4$ but $f(2)=1$.}
+\end{exo}
+\begin{exo}{}
+Let $f(x)=\begin{cases}2x+1, & x<1\\ 3, & x=1\\ x^2+2, & x>1.\end{cases}$ Is $f$ continuous at $x=1$?
+\choices{Yes}{No, $f(1)$ is undefined.}{No, the limit does not exist.}{No, the limit is not equal to $f(1)$.}
+\answer{A}{Left limit $3$, right limit $3$, and $f(1)=3$.}
+\end{exo}
+\begin{exo}{}
+Why is $f(x)=\dfrac{x^2-9}{x-3}$ not continuous at $x=3$?
+\choices{The limit does not exist.}{$f(3)$ is undefined.}{The limit is infinite.}{It is continuous at $x=3$.}
+\answer{B}{The denominator is $0$ at $x=3$, so $f(3)$ is undefined (the limit is $6$).}
+\end{exo}
+\begin{exo}{}
+Which function is continuous at $x=0$?
+\choices{$\dfrac1x$}{$\dfrac{|x|}{x}$}{$\dfrac{\sin x}{x}$}{$|x|$}
+\answer{D}{$|x|$ is defined at $0$ and its limit there is $0=|0|$. The others are undefined at $0$.}
+\end{exo}
+\begin{exo}[Free response]{}
+Let $f(x)=\begin{cases}x^2-1, & x<2\\ 3, & x=2\\ 5-x, & x>2.\end{cases}$
+\begin{enumerate}[label=(\alph*)]
+\item Find $\displaystyle\lim_{x\to2}f(x)$, showing both one-sided limits.
+\item Is $f$ continuous at $x=2$? Justify using the definition of continuity.
+\item Is $f$ continuous at $x=0$? Explain.
+\end{enumerate}
+\begin{solution}
+(a) $\lim_{x\to2^-}f(x)=4-1=3$ and $\lim_{x\to2^+}f(x)=5-2=3$, so $\lim_{x\to2}f(x)=3$.\\
+(b) Yes: $f(2)=3$ is defined, $\lim_{x\to2}f(x)=3$ exists, and $\lim_{x\to2}f(x)=f(2)$.\\
+(c) Yes. Near $x=0$, $f(x)=x^2-1$, a polynomial, which is continuous everywhere.
+\end{solution}
+\end{exo}
+
+%%LESSON 1.12 | Confirming Continuity over an Interval
+\begin{exo}{}
+On which interval is $f(x)=\sqrt{x-3}$ continuous?
+\choices{$[3,\infty)$}{$(3,\infty)$}{$(-\infty,3]$}{All real numbers}
+\answer{A}{The square root is continuous on its domain $x\ge3$ (one-sided at $x=3$).}
+\end{exo}
+\begin{exo}{}
+Where is $f(x)=\dfrac{x+1}{x^2-4}$ continuous?
+\choices{All real numbers}{All real numbers except $\pm2$}{All real numbers except $-1$}{All real numbers except $2$}
+\answer{B}{A rational function is continuous except where the denominator is zero.}
+\end{exo}
+\begin{exo}{}
+On which interval is $f(x)=\ln(x+5)$ continuous?
+\choices{$(0,\infty)$}{$[-5,\infty)$}{$(-5,\infty)$}{$(5,\infty)$}
+\answer{C}{$\ln$ requires $x+5>0$.}
+\end{exo}
+\begin{exo}{}
+On which interval is $\tan x$ continuous?
+\choices{$[0,\pi]$}{$(0,\pi)$}{$\left[-\frac\pi2,\frac\pi2\right]$}{$\left(-\frac\pi2,\frac\pi2\right)$}
+\answer{D}{$\tan x$ is undefined at $\pm\frac\pi2$ and continuous between them.}
+\end{exo}
+\begin{exo}[Free response]{}
+Let $h(x)=\dfrac{\ln x}{x^2-9}$.
+\begin{enumerate}[label=(\alph*)]
+\item Find the domain of $h$, and explain why $h$ is continuous on its domain.
+\item Is $h$ continuous on the closed interval $[1,2]$? On $[2,4]$? Explain.
+\end{enumerate}
+\begin{solution}
+(a) $\ln x$ needs $x>0$, and the denominator is zero at $x=\pm3$. Domain: $(0,3)\cup(3,\infty)$. $h$ is a quotient of continuous functions with a nonzero denominator on this set, so it is continuous there.\\
+(b) $[1,2]$ is inside the domain, so $h$ is continuous on $[1,2]$. $[2,4]$ contains $x=3$, where $h$ is undefined, so $h$ is not continuous on $[2,4]$.
+\end{solution}
+\end{exo}
+
+%%LESSON 1.13 | Removing Discontinuities
+\begin{exo}{}
+Let $g(x)=\dfrac{x^2-16}{x-4}$. What value of $g(4)$ makes $g$ continuous at $x=4$?
+\choices{$0$}{$4$}{$16$}{$8$}
+\answer{D}{$\lim_{x\to4}(x+4)=8$.}
+\end{exo}
+\begin{exo}{}
+For what value of $k$ is $f(x)=\begin{cases}kx^2, & x\le1\\ x+3, & x>1\end{cases}$ continuous?
+\choices{$4$}{$3$}{$1$}{$2$}
+\answer{A}{$k(1)^2=1+3$, so $k=4$.}
+\end{exo}
+\begin{exo}{}
+For what value of $a$ is $f(x)=\begin{cases}ax+2, & x<3\\ x^2-a, & x\ge3\end{cases}$ continuous?
+\choices{$\dfrac{11}{4}$}{$\dfrac74$}{$\dfrac72$}{$7$}
+\answer{B}{$3a+2=9-a$, so $4a=7$ and $a=\frac74$.}
+\end{exo}
+\begin{exo}{}
+Let $f(x)=\dfrac{\sin x}{x}$ for $x\neq0$. What value of $f(0)$ makes $f$ continuous at $0$?
+\choices{$0$}{undefined}{$1$}{$\pi$}
+\answer{C}{$\lim_{x\to0}\frac{\sin x}{x}=1$.}
+\end{exo}
+\begin{exo}[Free response]{}
+Let $f(x)=\begin{cases}2x+a, & x<1\\ bx^2+1, & x\ge1\end{cases}$ where $a$ and $b$ are constants, and $f(2)=9$.
+\begin{enumerate}[label=(\alph*)]
+\item Find $b$.
+\item Find the value of $a$ that makes $f$ continuous at $x=1$.
+\item With these values, verify that $f$ is continuous at $x=1$ using the definition.
+\end{enumerate}
+\begin{solution}
+(a) $f(2)=4b+1=9$, so $b=2$.\\
+(b) $\lim_{x\to1^-}f(x)=2+a$ and $\lim_{x\to1^+}f(x)=b+1=3$. Then $2+a=3$, so $a=1$.\\
+(c) $f(1)=2(1)^2+1=3$; $\lim_{x\to1^-}f(x)=3$ and $\lim_{x\to1^+}f(x)=3$, so $\lim_{x\to1}f(x)=3=f(1)$: $f$ is continuous at $x=1$.
+\end{solution}
+\end{exo}
+
+%%LESSON 1.14 | Connecting Infinite Limits and Vertical Asymptotes
+\begin{exo}{}
+$\displaystyle\lim_{x\to0^-}\frac1x$ is
+\choices{$+\infty$}{$-\infty$}{$0$}{$1$}
+\answer{B}{For small negative $x$, $\frac1x$ is a large negative number.}
+\end{exo}
+\begin{exo}{}
+$\displaystyle\lim_{x\to2}\frac{3}{(x-2)^2}$ is
+\choices{$+\infty$}{$-\infty$}{$3$}{It does not exist and is not infinite.}
+\answer{A}{The denominator is positive on both sides of $2$ and approaches $0$.}
+\end{exo}
+\begin{exo}{}
+Which line is a vertical asymptote of $f(x)=\ln(x-1)$?
+\choices{$x=0$}{$x=e$}{$x=1$}{$y=1$}
+\answer{C}{$\lim_{x\to1^+}\ln(x-1)=-\infty$.}
+\end{exo}
+\begin{exo}{}
+$\displaystyle\lim_{x\to\frac\pi2^+}\tan x$ is
+\choices{$+\infty$}{$0$}{$1$}{$-\infty$}
+\answer{D}{Just to the right of $\frac\pi2$, $\sin x>0$ and $\cos x<0$ is near $0$, so $\tan x\to-\infty$.}
+\end{exo}
+\begin{exo}[Free response]{}
+Let $f(x)=\dfrac{x+2}{x^2-4x}$.
+\begin{enumerate}[label=(\alph*)]
+\item Find all vertical asymptotes of the graph of $f$.
+\item For each asymptote, find both one-sided limits. Justify the signs.
+\end{enumerate}
+\begin{solution}
+(a) $f(x)=\dfrac{x+2}{x(x-4)}$. No factor cancels: $x=0$ and $x=4$.\\
+(b) Near $x=0$ the numerator is near $2$ and $x-4$ near $-4$. For $x<0$, $x(x-4)>0$: $\lim_{x\to0^-}f(x)=+\infty$. For $x>0$, $x(x-4)<0$: $\lim_{x\to0^+}f(x)=-\infty$.\\
+Near $x=4$ the numerator is near $6$ and $x$ near $4$. For $x<4$, $x(x-4)<0$: $\lim_{x\to4^-}f(x)=-\infty$. For $x>4$: $\lim_{x\to4^+}f(x)=+\infty$.
+\end{solution}
+\end{exo}
+
+%%LESSON 1.15 | Connecting Limits at Infinity and Horizontal Asymptotes
+\begin{exo}{}
+$\displaystyle\lim_{x\to\infty}\frac{3x^2+1}{x^2-5}$ is
+\choices{$3$}{$-\dfrac15$}{$0$}{$\infty$}
+\answer{A}{Equal degrees: $\frac31=3$.}
+\end{exo}
+\begin{exo}{}
+$\displaystyle\lim_{x\to\infty}\frac{x+1}{x^2}$ is
+\choices{$1$}{$0$}{$\infty$}{$\dfrac12$}
+\answer{B}{The degree of the denominator is larger.}
+\end{exo}
+\begin{exo}{}
+$\displaystyle\lim_{x\to\infty}e^{-x}$ is
+\choices{$1$}{$\infty$}{$0$}{$-\infty$}
+\answer{C}{$e^{-x}=\frac{1}{e^x}$ and $e^x\to\infty$.}
+\end{exo}
+\begin{exo}{}
+$\displaystyle\lim_{x\to\infty}\frac{x^2}{e^x}$ is
+\choices{$\infty$}{$1$}{$e$}{$0$}
+\answer{D}{Exponential growth dominates polynomial growth.}
+\end{exo}
+\begin{exo}[Free response]{}
+Let $f(x)=\dfrac{4x}{\sqrt{9x^2+1}}$.
+\begin{enumerate}[label=(\alph*)]
+\item Find $\displaystyle\lim_{x\to\infty}f(x)$.
+\item Find $\displaystyle\lim_{x\to-\infty}f(x)$. Show why the sign changes.
+\item Write the equations of all horizontal asymptotes of $f$.
+\item Find $\displaystyle\lim_{x\to\infty}\frac{2e^x+5}{e^x-3}$.
+\end{enumerate}
+\begin{solution}
+(a) For large $x>0$, $\sqrt{9x^2+1}\approx3x$, so $f(x)\to\frac{4x}{3x}=\frac43$.\\
+(b) For $x<0$, $\sqrt{9x^2}=3|x|=-3x$, so $f(x)\to\frac{4x}{-3x}=-\frac43$.\\
+(c) $y=\frac43$ and $y=-\frac43$.\\
+(d) Divide by $e^x$: $\dfrac{2+5e^{-x}}{1-3e^{-x}}\to\dfrac{2}{1}=2$.
+\end{solution}
+\end{exo}
+
+%%LESSON 1.16 | Working with the Intermediate Value Theorem
+\begin{exo}{}
+Which hypothesis is required to apply the Intermediate Value Theorem to $f$ on $[a,b]$?
+\choices{$f$ is continuous on $[a,b]$.}{$f$ is increasing on $[a,b]$.}{$f(a)$ and $f(b)$ have the same sign.}{$f$ is a polynomial.}
+\answer{A}{Continuity on the closed interval is the hypothesis of the IVT.}
+\end{exo}
+\begin{exo}{}
+$f$ is continuous on $[0,4]$ with $f(0)=3$ and $f(4)=-1$. Which must be true?
+\choices{$f(2)=1$}{$f(c)=0$ for some $c$ in $(0,4)$}{$f$ has exactly one zero in $(0,4)$.}{$f(c)=4$ for some $c$ in $(0,4)$}
+\answer{B}{$0$ is between $-1$ and $3$. The IVT guarantees at least one zero, not exactly one.}
+\end{exo}
+\begin{exo}{}
+For $f(x)=\frac1x$, $f(-1)=-1$ and $f(1)=1$, yet $f(x)\neq0$ for every $x$. Why does this not contradict the IVT?
+\choices{$0$ is not between $-1$ and $1$.}{The IVT only applies to polynomials.}{$f$ is not continuous on $[-1,1]$.}{$f$ is decreasing.}
+\answer{C}{$f$ is undefined at $x=0$, so the hypothesis of continuity fails.}
+\end{exo}
+\begin{exo}{}
+$g$ is continuous with $g(0)=2$, $g(1)=-1$, $g(2)=1$, $g(3)=4$. What is the least number of zeros $g$ must have on $[0,3]$?
+\choices{$0$}{$1$}{$3$}{$2$}
+\answer{D}{Sign changes on $[0,1]$ and on $[1,2]$ give at least two zeros.}
+\end{exo}
+\begin{exo}[Free response \textbullet\ calculator for (c)]{}
+Let $f(x)=x^3-2x-2$.
+\begin{enumerate}[label=(\alph*)]
+\item Use the IVT to show that $f$ has a zero in $[1,2]$.
+\item Show that $f(c)=10$ for some $c$ in $[2,3]$.
+\item Use a calculator to approximate the zero of $f$ in $[1,2]$ to three decimal places.
+\item Explain why the IVT cannot be applied to $g(x)=\dfrac{1}{x-1.5}$ on $[1,2]$.
+\end{enumerate}
+\begin{solution}
+(a) $f$ is a polynomial, so it is continuous on $[1,2]$. $f(1)=-3<0$ and $f(2)=2>0$. Since $0$ is between $-3$ and $2$, there is a $c$ in $[1,2]$ with $f(c)=0$.\\
+(b) $f$ is continuous on $[2,3]$, $f(2)=2$ and $f(3)=19$. Since $2<10<19$, the IVT gives a $c$ in $[2,3]$ with $f(c)=10$.\\
+(c) $x\approx1.769$.\\
+(d) $g$ is not continuous on $[1,2]$: it is undefined at $x=1.5$.
+\end{solution}
+\end{exo}

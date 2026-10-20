@@ -1,0 +1,494 @@
+%% Lesson practice sets, AP Precalculus Unit 1.
+%% Each block starts with a line "%%LESSON <n> | <title>". Built by lessons.py.
+
+%%LESSON 1.1 | Change in Tandem
+\begin{exo}{}
+The table gives values of $f$. On which interval does the table show $f$ decreasing?
+\begin{center}\begin{tabular}{c|ccccc}$x$&$-2$&$-1$&$0$&$1$&$2$\\\hline$f(x)$&$7$&$2$&$-1$&$-2$&$-1$\end{tabular}\end{center}
+\choices{$[-2,1]$}{$[-1,2]$}{$[0,2]$}{$[-2,2]$}
+\answer{A}{The outputs decrease from $7$ to $-2$ as $x$ goes from $-2$ to $1$, then increase.}
+\end{exo}
+\begin{exo}{}
+What are the zeros of $g(x)=(x-4)(x+1)$?
+\choices{$-4$ and $1$}{$4$ only}{$-1$ and $4$}{$0$ and $4$}
+\answer{C}{$g(x)=0$ when $x-4=0$ or $x+1=0$.}
+\end{exo}
+\begin{exo}{}
+A function is increasing and its rate of change is decreasing. Which describes its graph?
+\choices{Increasing and concave up}{Increasing and concave down}{Decreasing and concave up}{Decreasing and concave down}
+\answer{B}{A decreasing rate of change means the graph is concave down.}
+\end{exo}
+\begin{exo}{}
+A car's distance $d$ (meters) from a stop sign is recorded: $d(0)=0$, $d(1)=10$, $d(2)=40$, $d(3)=90$. Which statement fits the data?
+\choices{$d$ is decreasing and concave up.}{$d$ is increasing and concave down.}{$d$ is linear.}{$d$ is increasing and concave up.}
+\answer{D}{The changes $10, 30, 50$ are positive and increasing: increasing and concave up.}
+\end{exo}
+\begin{exo}[Free response]{}
+The height $h$, in meters, of a ball is recorded every half second.
+\begin{center}\begin{tabular}{c|ccccc}$t$ (s)&0&0.5&1&1.5&2\\\hline$h(t)$ (m)&2&9&12&11&6\end{tabular}\end{center}
+\begin{enumerate}[label=(\alph*)]
+\item Find the change in $h$ over each half-second interval.
+\item Based on these changes, is the graph of $h$ concave up or concave down on $[0,2]$? Give a reason.
+\item Between which two recorded times does $h$ change from increasing to decreasing, according to the table?
+\end{enumerate}
+\begin{solution}
+(a) $9-2=7$, $12-9=3$, $11-12=-1$, $6-11=-5$.\\
+(b) The changes over equal intervals are decreasing ($7>3>-1>-5$), so the rate of change is decreasing: concave down.\\
+(c) The changes go from positive ($+3$ on $[0.5,1]$) to negative ($-1$ on $[1,1.5]$), so the ball reaches its maximum height between $t=0.5$ and $t=1.5$; the table shows $h$ increasing up to $t=1$ and decreasing after it.
+\end{solution}
+\end{exo}
+
+%%LESSON 1.2 | Rates of Change
+\begin{exo}{}
+What is the average rate of change of $f(x)=2x^2-3$ on $[1,4]$?
+\choices{$10$}{$15$}{$30$}{$8$}
+\answer{A}{$f(4)=29$, $f(1)=-1$, so $\dfrac{29-(-1)}{3}=10$.}
+\end{exo}
+\begin{exo}{}
+What is the slope of the secant line to $f(x)=x^3$ through the points where $x=-1$ and $x=3$?
+\choices{$\dfrac{26}{4}$}{$7$}{$9$}{$28$}
+\answer{B}{$\dfrac{27-(-1)}{3-(-1)}=\dfrac{28}{4}=7$.}
+\end{exo}
+\begin{exo}{}
+$V(t)$ is the volume of water in a tank, in liters, $t$ minutes after it starts filling. What are the units of the average rate of change of $V$?
+\choices{Minutes per liter}{Liters}{Liters per minute}{Liters times minutes}
+\answer{C}{Output units per input unit: liters per minute.}
+\end{exo}
+\begin{exo}{}
+Using the interval $[2,\,2.001]$, which is the best estimate of the rate of change of $f(x)=x^2+x$ at $x=2$?
+\choices{$4$}{$6$}{$2.5$}{$5$}
+\answer{D}{$\dfrac{f(2.001)-f(2)}{0.001}=\dfrac{6.005001-6}{0.001}=5.001\approx5$.}
+\end{exo}
+\begin{exo}[Free response]{}
+The position of a cart, in meters, is $s(t)=t^2-4t+10$ for $0\le t\le6$ seconds.
+\begin{enumerate}[label=(\alph*)]
+\item Find the average velocity (average rate of change of $s$) on $[0,4]$. What does your answer mean about the cart?
+\item Find the average velocity on $[4,6]$, with units.
+\item Use the interval $[1,\,1.01]$ to decide whether the position is increasing or decreasing at $t=1$.
+\end{enumerate}
+\begin{solution}
+(a) $s(4)=10$ and $s(0)=10$, so $\dfrac{10-10}{4}=0$ m/s. The cart is back at its starting position at $t=4$.\\
+(b) $s(6)=22$, so $\dfrac{22-10}{2}=6$ meters per second.\\
+(c) $s(1)=7$ and $s(1.01)=6.9801$, so $\dfrac{6.9801-7}{0.01}=-1.99<0$: the position is decreasing at $t=1$.
+\end{solution}
+\end{exo}
+
+%%LESSON 1.3 | Rates of Change in Linear and Quadratic Functions
+\begin{exo}{}
+Each list gives the outputs of a function at $x=0,1,2,3$. Which list could come from a linear function?
+\choices{$3,5,9,15$}{$4,7,10,13$}{$1,2,4,8$}{$2,3,5,8$}
+\answer{B}{The differences are all $3$: a constant rate of change.}
+\end{exo}
+\begin{exo}{}
+For a quadratic $f(x)=ax^2+bx+c$, the second differences of $f(0),f(1),f(2),\dots$ are all $-4$. What is $a$?
+\choices{$-4$}{$4$}{$-2$}{$2$}
+\answer{C}{With input step 1, the second difference equals $2a$, so $2a=-4$ and $a=-2$.}
+\end{exo}
+\begin{exo}{}
+Let $f(x)=-(x-2)^2+5$. What is the average rate of change of $f$ on $[2,4]$?
+\choices{$2$}{$0$}{$-4$}{$-2$}
+\answer{D}{$f(2)=5$, $f(4)=1$, so $\dfrac{1-5}{2}=-2$.}
+\end{exo}
+\begin{exo}{}
+At what value of $x$ does the rate of change of $f(x)=3x^2-12x+1$ change from negative to positive?
+\choices{$x=2$}{$x=-2$}{$x=4$}{$x=12$}
+\answer{A}{The vertex is at $x=-\frac{b}{2a}=\frac{12}{6}=2$; $a>0$, so $f$ decreases before it and increases after it.}
+\end{exo}
+\begin{exo}[Free response]{}
+\begin{center}\begin{tabular}{c|ccccc}$x$&0&1&2&3&4\\\hline$y$&5&2&1&2&5\end{tabular}\end{center}
+\begin{enumerate}[label=(\alph*)]
+\item Show that a quadratic function models these data exactly.
+\item Write an equation for this quadratic function.
+\item Find the average rates of change on $[0,1]$, $[1,2]$ and $[2,3]$, and explain what they show about the concavity of the graph.
+\end{enumerate}
+\begin{solution}
+(a) First differences: $-3,-1,1,3$. Second differences: $2,2,2$, constant, so the data are quadratic.\\
+(b) The vertex is $(2,1)$ and $2a=2$ gives $a=1$: $y=(x-2)^2+1$.\\
+(c) $-3$, $-1$, $1$. The average rates of change over consecutive equal intervals increase, so the graph is concave up.
+\end{solution}
+\end{exo}
+
+%%LESSON 1.4 | Polynomial Functions and Rates of Change
+\begin{exo}{}
+What is the greatest possible number of local extrema of a polynomial of degree 5?
+\choices{$5$}{$4$}{$3$}{$6$}
+\answer{B}{A degree-$n$ polynomial has at most $n-1$ local extrema.}
+\end{exo}
+\begin{exo}{}
+A polynomial $p$ is increasing on $(-\infty,-2)$, decreasing on $(-2,3)$ and increasing on $(3,\infty)$. Where does $p$ have a local maximum?
+\choices{$x=3$}{$x=0$}{$x=-2$}{Nowhere}
+\answer{C}{$p$ changes from increasing to decreasing at $x=-2$.}
+\end{exo}
+\begin{exo}{}
+What is the leading coefficient of $p(x)=2x^3(x-1)^2-x^5$?
+\choices{$2$}{$-1$}{$1$}{$3$}
+\answer{C}{$2x^3(x^2-2x+1)-x^5=x^5-4x^4+2x^3$, so the leading coefficient is $1$.}
+\end{exo}
+\begin{exo}{}
+A point of inflection on the graph of a polynomial occurs where
+\choices{the rate of change changes from increasing to decreasing, or the reverse.}{the function changes from increasing to decreasing.}{the graph crosses the $x$-axis.}{the function has a local minimum.}
+\answer{A}{A point of inflection is a change in concavity, that is, in the behavior of the rate of change.}
+\end{exo}
+\begin{exo}[Free response]{}
+The polynomial $p(x)=x^3-6x^2+9x$ has a local maximum at $(1,4)$, a local minimum at $(3,0)$ and a point of inflection at $(2,2)$.
+\begin{enumerate}[label=(\alph*)]
+\item On which intervals is $p$ increasing? decreasing?
+\item Find the absolute maximum and minimum values of $p$ on $[0,4]$.
+\item On which intervals is the graph of $p$ concave up? concave down?
+\end{enumerate}
+\begin{solution}
+(a) Increasing on $(-\infty,1)$ and $(3,\infty)$; decreasing on $(1,3)$.\\
+(b) Compare the local extrema with the endpoints: $p(0)=0$, $p(1)=4$, $p(3)=0$, $p(4)=64-96+36=4$. Absolute maximum $4$ (at $x=1$ and $x=4$); absolute minimum $0$ (at $x=0$ and $x=3$).\\
+(c) The leading coefficient is positive, so the graph is concave down on $(-\infty,2)$ and concave up on $(2,\infty)$.
+\end{solution}
+\end{exo}
+
+%%LESSON 1.5 | Polynomial Functions and Complex Zeros
+\begin{exo}{}
+How many complex zeros, counted with multiplicity, does a polynomial of degree 6 have?
+\choices{$3$}{$5$}{$6$}{$12$}
+\answer{C}{A polynomial of degree $n$ has exactly $n$ complex zeros, counted with multiplicity.}
+\end{exo}
+\begin{exo}{}
+What are the zeros of $p(x)=x^3+4x$?
+\choices{$0,\ 2,\ -2$}{$0,\ 2i,\ -2i$}{$0,\ 4i$}{$0$ only}
+\answer{B}{$x(x^2+4)=0$ gives $x=0$ or $x^2=-4$, so $x=\pm2i$.}
+\end{exo}
+\begin{exo}{}
+A polynomial with real coefficients has zeros $3$ and $2i$. What is its least possible degree?
+\choices{$2$}{$3$}{$4$}{$6$}
+\answer{B}{$-2i$ must also be a zero, so there are at least 3 zeros.}
+\end{exo}
+\begin{exo}{}
+Which function is odd?
+\choices{$f(x)=x^4+x$}{$f(x)=x^3+1$}{$f(x)=x^3-5x$}{$f(x)=|x|$}
+\answer{C}{$(-x)^3-5(-x)=-(x^3-5x)$, so $f(-x)=-f(x)$.}
+\end{exo}
+\begin{exo}[Free response]{}
+Let $p(x)=(x-1)^2(x+3)(x^2+1)$.
+\begin{enumerate}[label=(\alph*)]
+\item Find the degree of $p$ and all of its complex zeros with their multiplicities.
+\item Describe the behavior of the graph of $p$ at each $x$-intercept.
+\item Is $p$ even, odd, or neither? Justify your answer.
+\end{enumerate}
+\begin{solution}
+(a) Degree $2+1+2=5$. Zeros: $1$ (multiplicity 2), $-3$ (multiplicity 1), $i$ and $-i$ (multiplicity 1 each).\\
+(b) At $x=1$ (even multiplicity) the graph touches the $x$-axis and turns back. At $x=-3$ (odd multiplicity) it crosses the axis.\\
+(c) $p(1)=0$ but $p(-1)=(4)(2)(2)=16$. Since $p(-1)\neq p(1)$, $p$ is not even; since $p(-1)\neq-p(1)=0$, $p$ is not odd. So $p$ is neither.
+\end{solution}
+\end{exo}
+
+%%LESSON 1.6 | Polynomial Functions and End Behavior
+\begin{exo}{}
+$\displaystyle\lim_{x\to\infty}\left(-4x^3+x^2\right)$ is
+\choices{$\infty$}{$-\infty$}{$-4$}{$0$}
+\answer{B}{The leading term $-4x^3$ has odd degree and negative coefficient.}
+\end{exo}
+\begin{exo}{}
+Let $p(x)=(2-x)^3$. What is $\displaystyle\lim_{x\to-\infty}p(x)$?
+\choices{$-\infty$}{$+\infty$}{$8$}{$0$}
+\answer{B}{The leading term is $(-x)^3=-x^3$. As $x\to-\infty$, $-x^3\to+\infty$.}
+\end{exo}
+\begin{exo}{}
+Which polynomial increases without bound as $x\to\infty$ and as $x\to-\infty$?
+\choices{$x^3+1$}{$-x^4$}{$5x-x^2$}{$2x^6-x$}
+\answer{D}{Even degree with a positive leading coefficient.}
+\end{exo}
+\begin{exo}{}
+The graph of a polynomial falls to the left and rises to the right. Its degree and leading coefficient are
+\choices{even, positive}{even, negative}{odd, positive}{odd, negative}
+\answer{C}{Opposite end behaviors mean odd degree; rising to the right means positive leading coefficient.}
+\end{exo}
+\begin{exo}[Free response]{}
+Let $f(x)=-2x^4+3x^3+x-7$ and $g(x)=x^2(3-x)(x+1)^2$.
+\begin{enumerate}[label=(\alph*)]
+\item Write limit statements for the end behavior of $f$.
+\item Find the degree and leading term of $g$, and write limit statements for its end behavior.
+\item Could the graph of $g$ have 5 turning points? Explain.
+\end{enumerate}
+\begin{solution}
+(a) Even degree, negative leading coefficient: $\lim_{x\to\infty}f(x)=-\infty$ and $\lim_{x\to-\infty}f(x)=-\infty$.\\
+(b) Leading term $x^2\cdot(-x)\cdot x^2=-x^5$, degree 5. $\lim_{x\to\infty}g(x)=-\infty$ and $\lim_{x\to-\infty}g(x)=+\infty$.\\
+(c) No. A polynomial of degree 5 has at most $4$ turning points.
+\end{solution}
+\end{exo}
+
+%%LESSON 1.7 | Rational Functions and End Behavior
+\begin{exo}{}
+What is the horizontal asymptote of $r(x)=\dfrac{5x-1}{x^2+4}$?
+\choices{$y=5$}{$y=0$}{$y=-\dfrac14$}{There is none.}
+\answer{B}{The degree of the numerator is less than the degree of the denominator.}
+\end{exo}
+\begin{exo}{}
+What is the horizontal asymptote of $r(x)=\dfrac{4x^3-x}{1-2x^3}$?
+\choices{$y=2$}{$y=4$}{$y=-2$}{$y=0$}
+\answer{C}{Equal degrees: $\frac{4}{-2}=-2$.}
+\end{exo}
+\begin{exo}{}
+What is the slant asymptote of $r(x)=\dfrac{x^2+3x}{x-1}$?
+\choices{$y=x+3$}{$y=x+4$}{$y=x$}{$y=x-4$}
+\answer{B}{$x^2+3x=(x-1)(x+4)+4$, so $r(x)=x+4+\dfrac{4}{x-1}$.}
+\end{exo}
+\begin{exo}{}
+$\displaystyle\lim_{x\to-\infty}\frac{x^3}{x^2+1}$ is
+\choices{$1$}{$0$}{$+\infty$}{$-\infty$}
+\answer{D}{The quotient behaves like $\frac{x^3}{x^2}=x$, which goes to $-\infty$.}
+\end{exo}
+\begin{exo}[Free response]{}
+Let $r(x)=\dfrac{6x^2+x}{3x^2-12}$ and $s(x)=\dfrac{2x^2-x+3}{x+1}$.
+\begin{enumerate}[label=(\alph*)]
+\item Write limit statements for the end behavior of $r$.
+\item Find the equation of the slant asymptote of $s$.
+\item For large positive values of $x$, is the graph of $s$ above or below its slant asymptote? Explain.
+\end{enumerate}
+\begin{solution}
+(a) Equal degrees: $\lim_{x\to\pm\infty}r(x)=\frac63=2$.\\
+(b) Synthetic division by $-1$ on $2,-1,3$ gives $2,-3$ and remainder $6$: $s(x)=2x-3+\dfrac{6}{x+1}$. Slant asymptote: $y=2x-3$.\\
+(c) For $x>-1$, $\dfrac{6}{x+1}>0$, so $s(x)>2x-3$: the graph is above the asymptote.
+\end{solution}
+\end{exo}
+
+%%LESSON 1.8 | Rational Functions and Zeros
+\begin{exo}{}
+What are the zeros of $r(x)=\dfrac{x^2-9}{x+2}$?
+\choices{$-2$}{$3$ and $-3$}{$9$}{$3$ only}
+\answer{B}{The numerator is $0$ at $x=\pm3$, and neither value makes the denominator $0$.}
+\end{exo}
+\begin{exo}{}
+What are the zeros of $r(x)=\dfrac{x^2-4x}{x-4}$?
+\choices{$0$ and $4$}{$4$ only}{$0$ only}{There are none.}
+\answer{C}{$x=4$ is not in the domain of $r$, so only $x=0$ is a zero.}
+\end{exo}
+\begin{exo}{}
+What are the zeros of $r(x)=\dfrac{(x+1)(x-5)}{(x-5)(x+3)}$?
+\choices{$-1$ only}{$-1$ and $5$}{$5$ only}{$-3$ and $-1$}
+\answer{A}{$x=5$ is excluded from the domain (there is a hole), and $x=-3$ is a zero of the denominator.}
+\end{exo}
+\begin{exo}{}
+What is the solution set of $\dfrac{x+2}{x-1}<0$?
+\choices{$(-\infty,-2)$}{$(1,\infty)$}{$(-\infty,-2)\cup(1,\infty)$}{$(-2,1)$}
+\answer{D}{The sign changes at $-2$ and $1$. Test $x=0$: $\frac{2}{-1}<0$. Outside the interval the quotient is positive.}
+\end{exo}
+\begin{exo}[Free response]{}
+Let $r(x)=\dfrac{x^2-x-2}{x^2-9}$.
+\begin{enumerate}[label=(\alph*)]
+\item Factor the numerator and denominator, and find the zeros of $r$.
+\item Make a sign chart for $r$ and solve $r(x)>0$.
+\end{enumerate}
+\begin{solution}
+(a) $r(x)=\dfrac{(x-2)(x+1)}{(x-3)(x+3)}$. No factor cancels. Zeros: $x=2$ and $x=-1$.\\
+(b) The sign can change at $-3$, $-1$, $2$, $3$. Test values: $x=-4$: $\frac{(-6)(-3)}{(-7)(-1)}>0$; $x=-2$: $\frac{(-4)(-1)}{(-5)(1)}<0$; $x=0$: $\frac{(-2)(1)}{(-3)(3)}>0$; $x=2.5$: $\frac{(0.5)(3.5)}{(-0.5)(5.5)}<0$; $x=4$: $\frac{(2)(5)}{(1)(7)}>0$.\\
+So $r(x)>0$ on $(-\infty,-3)\cup(-1,2)\cup(3,\infty)$.
+\end{solution}
+\end{exo}
+
+%%LESSON 1.9 | Rational Functions and Vertical Asymptotes
+\begin{exo}{}
+Which line is a vertical asymptote of $r(x)=\dfrac{x+2}{x^2-x-6}$?
+\choices{$x=-2$}{$x=3$}{$x=-2$ and $x=3$}{$x=6$}
+\answer{B}{$\dfrac{x+2}{(x-3)(x+2)}$: the factor $(x+2)$ cancels (a hole at $x=-2$), so only $x=3$ is an asymptote.}
+\end{exo}
+\begin{exo}{}
+$\displaystyle\lim_{x\to1^+}\frac{2x}{x-1}$ is
+\choices{$+\infty$}{$-\infty$}{$2$}{$0$}
+\answer{A}{The numerator approaches $2>0$ and the denominator approaches $0$ through positive values.}
+\end{exo}
+\begin{exo}{}
+$\displaystyle\lim_{x\to-2^-}\frac{1}{(x+2)^2}$ is
+\choices{$-\infty$}{$0$}{$\dfrac14$}{$+\infty$}
+\answer{D}{The denominator is a square, positive on both sides of $-2$, and approaches $0$.}
+\end{exo}
+\begin{exo}{}
+Which function has a vertical asymptote at $x=4$?
+\choices{$\dfrac{x-4}{x+4}$}{$\dfrac{x^2-16}{x-4}$}{$\dfrac{x}{(x-4)^2}$}{$\dfrac{(x-4)^2}{x}$}
+\answer{C}{$x=4$ is a zero of the denominator only. In (B) the factor cancels, giving a hole.}
+\end{exo}
+\begin{exo}[Free response]{}
+Let $r(x)=\dfrac{x-1}{(x+2)(x-3)}$.
+\begin{enumerate}[label=(\alph*)]
+\item Find the vertical asymptotes of the graph of $r$.
+\item For each vertical asymptote $x=a$, find $\displaystyle\lim_{x\to a^-}r(x)$ and $\displaystyle\lim_{x\to a^+}r(x)$. Show how you determine the signs.
+\end{enumerate}
+\begin{solution}
+(a) No factor cancels, so $x=-2$ and $x=3$.\\
+(b) Near $x=-2$ the numerator is close to $-3$ and $(x-3)$ is close to $-5$. For $x<-2$, $(x+2)<0$, so the denominator is positive and $r<0$: $\lim_{x\to-2^-}r(x)=-\infty$. For $x>-2$ the denominator is negative and $r>0$: $\lim_{x\to-2^+}r(x)=+\infty$.\\
+Near $x=3$ the numerator is close to $2$ and $(x+2)$ to $5$. For $x<3$ the denominator is negative: $\lim_{x\to3^-}r(x)=-\infty$. For $x>3$ it is positive: $\lim_{x\to3^+}r(x)=+\infty$.
+\end{solution}
+\end{exo}
+
+%%LESSON 1.10 | Rational Functions and Holes
+\begin{exo}{}
+Where is the hole in the graph of $r(x)=\dfrac{x^2-25}{x-5}$?
+\choices{$(5,0)$}{$(5,10)$}{$(-5,0)$}{$(5,5)$}
+\answer{B}{$r(x)=x+5$ for $x\neq5$, and $5+5=10$.}
+\end{exo}
+\begin{exo}{}
+Where is the hole in the graph of $r(x)=\dfrac{x^2+x-2}{x^2-1}$?
+\choices{$\left(1,\frac32\right)$}{$(-1,0)$}{$(1,0)$}{$(-2,0)$}
+\answer{A}{$\dfrac{(x+2)(x-1)}{(x-1)(x+1)}$; the hole is at $x=1$ with height $\frac{3}{2}$.}
+\end{exo}
+\begin{exo}{}
+What happens on the graph of $r(x)=\dfrac{x-2}{(x-2)^2}$ at $x=2$?
+\choices{A hole}{A zero}{A vertical asymptote}{Nothing; $r$ is defined at $x=2$.}
+\answer{C}{The factor $(x-2)$ appears more times in the denominator: $r(x)=\frac{1}{x-2}$ for $x\neq2$.}
+\end{exo}
+\begin{exo}{}
+$\displaystyle\lim_{x\to3}\frac{x^2-3x}{x-3}$ is
+\choices{$0$}{$1$}{$9$}{$3$}
+\answer{D}{$\dfrac{x(x-3)}{x-3}=x\to3$.}
+\end{exo}
+\begin{exo}[Free response]{}
+Let $r(x)=\dfrac{x^3-4x}{x^2+2x}$.
+\begin{enumerate}[label=(\alph*)]
+\item Factor $r(x)$ completely and simplify.
+\item Find the coordinates of every hole in the graph of $r$.
+\item Does the graph of $r$ have a vertical asymptote? Find the zeros of $r$ and describe the graph.
+\end{enumerate}
+\begin{solution}
+(a) $r(x)=\dfrac{x(x-2)(x+2)}{x(x+2)}=x-2$ for $x\neq0$ and $x\neq-2$.\\
+(b) Hole at $x=0$: $(0,-2)$. Hole at $x=-2$: $(-2,-4)$.\\
+(c) No vertical asymptote: every factor of the denominator cancels. The only zero is $x=2$. The graph is the line $y=x-2$ with holes at $(0,-2)$ and $(-2,-4)$.
+\end{solution}
+\end{exo}
+
+%%LESSON 1.11 | Equivalent Representations of Polynomial and Rational Expressions
+\begin{exo}{}
+Which is the standard form of $(x+1)^3$?
+\choices{$x^3+1$}{$x^3+3x^2+3x+1$}{$x^3+3x+1$}{$x^3+2x^2+2x+1$}
+\answer{B}{Row 3 of Pascal's triangle: $1,3,3,1$.}
+\end{exo}
+\begin{exo}{}
+What is the remainder when $x^3-2x+5$ is divided by $x-2$?
+\choices{$1$}{$5$}{$9$}{$13$}
+\answer{C}{The remainder equals $p(2)=8-4+5=9$.}
+\end{exo}
+\begin{exo}{}
+Which is the completely factored form of $x^3-9x$?
+\choices{$x(x-3)(x+3)$}{$x(x-3)^2$}{$(x-3)(x+3)$}{$x(x^2+9)$}
+\answer{A}{$x^3-9x=x(x^2-9)=x(x-3)(x+3)$.}
+\end{exo}
+\begin{exo}{}
+What is the coefficient of $x^3$ in the expansion of $(x+2)^5$?
+\choices{$10$}{$20$}{$80$}{$40$}
+\answer{D}{Row 5 is $1,5,10,10,5,1$. The $x^3$ term is $10\,x^3\cdot2^2=40x^3$.}
+\end{exo}
+\begin{exo}[Free response]{}
+Let $p(x)=2x^3+x^2-13x+6$.
+\begin{enumerate}[label=(\alph*)]
+\item Show that $x=2$ is a zero of $p$.
+\item Write $p(x)$ as a product of linear factors and find all zeros of $p$.
+\item Write $\dfrac{p(x)}{x+1}$ in the form $q(x)+\dfrac{k}{x+1}$.
+\end{enumerate}
+\begin{solution}
+(a) $p(2)=16+4-26+6=0$.\\
+(b) Synthetic division by $2$ on $2,1,-13,6$ gives $2,5,-3$ with remainder $0$. So $p(x)=(x-2)(2x^2+5x-3)=(x-2)(2x-1)(x+3)$. Zeros: $2$, $\frac12$, $-3$.\\
+(c) Synthetic division by $-1$ gives $2,-1,-12$ with remainder $18$: $\dfrac{p(x)}{x+1}=2x^2-x-12+\dfrac{18}{x+1}$.
+\end{solution}
+\end{exo}
+
+%%LESSON 1.12 | Transformations of Functions
+\begin{exo}{}
+How is the graph of $g(x)=f(x+3)-1$ obtained from the graph of $f$?
+\choices{Right 3, down 1}{Left 3, down 1}{Left 3, up 1}{Right 3, up 1}
+\answer{B}{$x+3=x-(-3)$: a shift of 3 units left; $-1$: down 1.}
+\end{exo}
+\begin{exo}{}
+How is the graph of $g(x)=f(2x)$ obtained from the graph of $f$?
+\choices{Vertical dilation by a factor of 2}{Horizontal dilation by a factor of 2}{Horizontal dilation by a factor of $\frac12$}{Vertical dilation by a factor of $\frac12$}
+\answer{C}{$f(bx)$ is a horizontal dilation by a factor of $\frac{1}{b}=\frac12$.}
+\end{exo}
+\begin{exo}{}
+The point $(4,-2)$ is on the graph of $f$. Which point must be on the graph of $y=3f(x-1)+2$?
+\choices{$(3,-4)$}{$(5,-6)$}{$(5,-4)$}{$(4,-4)$}
+\answer{C}{$x$ moves right 1 to $5$; $y$ becomes $3(-2)+2=-4$.}
+\end{exo}
+\begin{exo}{}
+How is the graph of $y=-f(x)$ obtained from the graph of $f$?
+\choices{Reflection over the $x$-axis}{Reflection over the $y$-axis}{Reflection over the line $y=x$}{Shift down 1 unit}
+\answer{A}{Each output is multiplied by $-1$.}
+\end{exo}
+\begin{exo}[Free response]{}
+Let $f(x)=x^2$ and $g(x)=-2(x-1)^2+8$.
+\begin{enumerate}[label=(\alph*)]
+\item Describe the transformations that take the graph of $f$ to the graph of $g$.
+\item Find the zeros of $g$.
+\item If $f$ is restricted to the domain $[-2,2]$ (range $[0,4]$), find the corresponding domain and range of $g$.
+\end{enumerate}
+\begin{solution}
+(a) Shift right 1 unit, vertical dilation by a factor of 2, reflection over the $x$-axis, then shift up 8 units.\\
+(b) $-2(x-1)^2+8=0 \iff (x-1)^2=4 \iff x=3$ or $x=-1$.\\
+(c) Domain: $[-2+1,\,2+1]=[-1,3]$. Range: $-2\cdot[0,4]=[-8,0]$, then $+8$: $[0,8]$.
+\end{solution}
+\end{exo}
+
+%%LESSON 1.13 | Function Model Selection and Assumption Articulation
+\begin{exo}{}
+Data with equally spaced inputs have first differences $4.9,\ 5.1,\ 5.0,\ 4.9$. Which model is most appropriate?
+\choices{Linear}{Quadratic}{Cubic}{Rational}
+\answer{A}{The rate of change is roughly constant.}
+\end{exo}
+\begin{exo}{}
+Data with equally spaced inputs have second differences $-6.1,\ -5.9,\ -6.0$. Which model is most appropriate?
+\choices{Linear}{Quadratic}{Cubic}{Constant}
+\answer{B}{Roughly constant second differences indicate a quadratic model.}
+\end{exo}
+\begin{exo}{}
+A company's average cost per item is $A(n)=\dfrac{500+4n}{n}$ dollars, for $n$ items. What does $\displaystyle\lim_{n\to\infty}A(n)$ tell you?
+\choices{The fixed cost is \$500.}{The average cost becomes 0.}{The average cost per item approaches \$4.}{The cost per item increases without bound.}
+\answer{C}{$A(n)=\frac{500}{n}+4\to4$: the fixed cost is spread over more and more items.}
+\end{exo}
+\begin{exo}{}
+A quadratic model $P(t)$ gives the number of fish in a pond after $t$ months; it has a maximum, then decreases. Which is the most reasonable restriction on the domain?
+\choices{All real numbers $t$}{$t<0$}{Only integer values of $P$}{$t\ge0$ and only while $P(t)\ge0$}
+\answer{D}{Time starts at 0 and a population cannot be negative.}
+\end{exo}
+\begin{exo}[Free response]{}
+A phone plan costs \$20 per month, which includes 100 texts. Each additional text costs \$0.10.
+\begin{enumerate}[label=(\alph*)]
+\item Write a piecewise function $C(n)$ for the monthly cost of sending $n$ texts.
+\item Find $C(250)$ and interpret it.
+\item For $n>100$, the average cost per text is $A(n)=\dfrac{C(n)}{n}$. Find $\displaystyle\lim_{n\to\infty}A(n)$ and interpret it.
+\end{enumerate}
+\begin{solution}
+(a) $C(n)=\begin{cases}20, & 0\le n\le100\\ 20+0.10(n-100), & n>100\end{cases}$\\
+(b) $C(250)=20+0.10(150)=35$: sending 250 texts in a month costs \$35.\\
+(c) For $n>100$, $A(n)=\dfrac{10+0.10n}{n}=\dfrac{10}{n}+0.10\to0.10$. With many texts, the average cost per text approaches \$0.10, the price of an extra text.
+\end{solution}
+\end{exo}
+
+%%LESSON 1.14 | Function Model Construction and Application
+\begin{exo}{}
+A rectangle has perimeter 40 cm and width $w$ cm. Which function gives its area?
+\choices{$A(w)=w(40-w)$}{$A(w)=w(20-w)$}{$A(w)=2w+40$}{$A(w)=w^2-20$}
+\answer{B}{The length is $\frac{40-2w}{2}=20-w$.}
+\end{exo}
+\begin{exo}{}
+What is a reasonable domain for $A(w)$ in the previous question?
+\choices{$0<w<20$}{$0<w<40$}{$w>0$}{All real numbers}
+\answer{A}{Both the width $w$ and the length $20-w$ must be positive.}
+\end{exo}
+\begin{exo}{}
+What is the maximum area of a rectangle with perimeter 40 cm?
+\choices{$400$ cm$^2$}{$200$ cm$^2$}{$100$ cm$^2$}{$80$ cm$^2$}
+\answer{C}{$A(w)=-(w-10)^2+100$, maximum $100$ at $w=10$.}
+\end{exo}
+\begin{exo}[calculator]{}
+An open box is made from a $12$ in by $12$ in square sheet by cutting squares of side $x$ from the corners. What is the maximum volume?
+\choices{$96$ in$^3$}{$108$ in$^3$}{$144$ in$^3$}{$128$ in$^3$}
+\answer{D}{$V(x)=x(12-2x)^2$ on $0<x<6$. The maximum is at $x=2$: $V(2)=2\cdot8^2=128$ in$^3$.}
+\end{exo}
+\begin{exo}[Free response \textbullet\ calculator]{}
+A cylindrical can must hold $500$ cm$^3$. Let $r$ be its radius and $h$ its height, in centimeters.
+\begin{enumerate}[label=(\alph*)]
+\item Express $h$ in terms of $r$.
+\item Show that the surface area is $S(r)=2\pi r^2+\dfrac{1000}{r}$.
+\item Use a graphing calculator to find the radius that minimizes $S$, and the minimum surface area.
+\item Describe the behavior of $S$ as $r\to0^+$ and as $r\to\infty$, and explain why in context.
+\end{enumerate}
+\begin{solution}
+(a) $\pi r^2h=500$, so $h=\dfrac{500}{\pi r^2}$.\\
+(b) $S=2\pi r^2+2\pi rh=2\pi r^2+2\pi r\cdot\dfrac{500}{\pi r^2}=2\pi r^2+\dfrac{1000}{r}$.\\
+(c) The minimum is at $r\approx4.30$ cm, with $S\approx348.7$ cm$^2$ (then $h\approx8.60$ cm).\\
+(d) $S\to\infty$ in both cases. A very thin can must be very tall (the $\frac{1000}{r}$ term grows); a very wide can has huge top and bottom (the $2\pi r^2$ term grows).
+\end{solution}
+\end{exo}
