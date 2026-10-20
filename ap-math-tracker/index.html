@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Teacher dashboard to track unit progress, scores and exam review for AP Precalculus and AP Calculus AB.">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}</style>
+<title>AP Math Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: graph-paper notebook — course switch on top, three views (Class / Student / Plan), single column on phones */
+:root{
+  --bg:#EEF2F6; --paper:#FFFFFF; --grid:#DCE4EE; --ink:#16223A; --muted:#5B6880; --line:#CDD6E2;
+  --accent:#2A55D9; --accent-ink:#FFFFFF; --hl:#F4C430;
+  --m0:#E3E8EF; --m1:#F2B84B; --m2:#4FA3A5; --m3:#1F6F4A;
+  --bad:#C2412D; --good:#1F6F4A;
+  --f-display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --f-body:"Atkinson Hyperlegible",ui-sans-serif,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0F1522; --paper:#171F30; --grid:#1D2738; --ink:#E6ECF5; --muted:#93A0B8; --line:#2A3650;
+  --accent:#7D9BFF; --accent-ink:#0F1522; --hl:#E8B92E;
+  --m0:#26314A; --m1:#C9963A; --m2:#3E8E90; --m3:#3FA36E; --bad:#F07560; --good:#5CC48E; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1522; --paper:#171F30; --grid:#1D2738; --ink:#E6ECF5; --muted:#93A0B8; --line:#2A3650;
+  --accent:#7D9BFF; --accent-ink:#0F1522; --hl:#E8B92E;
+  --m0:#26314A; --m1:#C9963A; --m2:#3E8E90; --m3:#3FA36E; --bad:#F07560; --good:#5CC48E; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px}
+.wrap{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px;display:grid;gap:18px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:1.7rem;font-weight:700;letter-spacing:-.01em}
+h2{font-size:1.2rem;font-weight:700}
+h3{font-size:1rem;font-weight:500}
+.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+.label{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+header.top{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px}
+.course{display:inline-flex;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:3px}
+.course button{border:0;background:none;color:var(--ink);font:inherit;font-weight:700;padding:7px 14px;border-radius:999px;cursor:pointer}
+.course button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+nav.tabs{display:flex;gap:4px;border-bottom:2px solid var(--line)}
+nav.tabs button{border:0;background:none;font:inherit;color:var(--muted);font-weight:700;padding:8px 12px;margin-bottom:-2px;border-bottom:2px solid transparent;cursor:pointer}
+nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+button:focus-visible,input:focus-visible,select:focus-visible,.cell:focus-visible{outline:3px solid var(--hl);outline-offset:2px}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;gap:12px;min-width:0}
+.banner{background:var(--hl);color:#16223A;border-radius:8px;padding:8px 12px;font-size:.9rem}
+.count{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
+.count .big{font-family:var(--f-display);font-weight:700;font-size:2.6rem;line-height:1}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.btn{border:1px solid var(--line);background:var(--paper);color:var(--ink);font:inherit;font-weight:700;padding:8px 14px;border-radius:8px;cursor:pointer}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.danger{color:var(--bad)}
+.btn.sm{padding:4px 10px;font-size:.85rem}
+.btn:disabled{opacity:.5;cursor:default}
+form.row{display:flex;flex-wrap:wrap;gap:8px;align-items:end}
+form.row label{display:grid;gap:2px;font-size:.8rem;color:var(--muted);flex:1 1 120px;min-width:0}
+input,select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:7px 9px;width:100%}
+.scroll{overflow-x:auto}
+table.heat{border-collapse:separate;border-spacing:3px;font-size:.85rem}
+table.heat th{font-weight:700;color:var(--muted);text-align:center;font-family:var(--f-mono);font-size:.78rem}
+table.heat th.name,table.heat td.name{text-align:left;white-space:nowrap;padding-right:8px;max-width:140px;overflow:hidden;text-overflow:ellipsis}
+table.heat td.name button{all:unset;cursor:pointer;color:var(--ink);font-weight:700}
+table.heat td.name button:focus-visible{outline:3px solid var(--hl)}
+.cell{width:30px;height:26px;border-radius:4px;display:block}
+.l0{background:var(--m0)}.l1{background:var(--m1)}.l2{background:var(--m2)}.l3{background:var(--m3)}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:.82rem;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:14px;height:14px;border-radius:3px;display:inline-block}
+.students{display:grid;gap:8px}
+.srow{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);cursor:pointer;text-align:left;font:inherit;color:inherit;width:100%}
+.srow .bar{grid-column:1/-1;display:flex;gap:2px}
+.srow .bar i{flex:1;height:6px;border-radius:2px}
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:.78rem;font-weight:700;padding:2px 8px;border-radius:999px;border:1px solid var(--line);white-space:nowrap}
+.chip.ap{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip.warn{color:var(--bad);border-color:var(--bad)}
+.units{display:grid;gap:8px}
+.unit{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:8px 10px;border:1px solid var(--line);border-radius:8px}
+.unit .u{font-family:var(--f-mono);font-size:.8rem;color:var(--muted)}
+.unit .t{min-width:0}
+.unit .t small{display:block;color:var(--muted);font-size:.78rem}
+.lv{display:flex;gap:3px}
+.lv button{width:30px;height:30px;border-radius:6px;border:1px solid var(--line);background:var(--bg);cursor:pointer;font:inherit;font-size:.75rem;font-weight:700;color:var(--muted)}
+.lv button[aria-pressed="true"].b1{background:var(--m1);color:#16223A;border-color:var(--m1)}
+.lv button[aria-pressed="true"].b2{background:var(--m2);color:#fff;border-color:var(--m2)}
+.lv button[aria-pressed="true"].b3{background:var(--m3);color:#fff;border-color:var(--m3)}
+.lv button[aria-pressed="true"].b0{background:var(--m0);color:var(--ink)}
+table.scores{width:100%;border-collapse:collapse;font-size:.88rem}
+table.scores th,table.scores td{padding:6px 6px;border-bottom:1px solid var(--line);text-align:left}
+table.scores td.r,table.scores th.r{text-align:right}
+.week{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;padding:10px 0;border-bottom:1px dashed var(--line)}
+.week:last-child{border-bottom:0}
+.week input{width:20px;height:20px;margin-top:2px;accent-color:var(--accent)}
+.week.done .wt{text-decoration:line-through;color:var(--muted)}
+.week .tag{font-size:.72rem;font-weight:700;padding:1px 7px;border-radius:4px;margin-left:6px}
+.tag.rev{background:var(--hl);color:#16223A}
+.tag.exam{background:var(--bad);color:#fff}
+.tag.now{background:var(--accent);color:var(--accent-ink)}
+.confirm{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--bg);border:1px solid var(--bad);border-radius:8px;padding:8px 10px}
+.empty{padding:18px;border:2px dashed var(--line);border-radius:10px;text-align:center;color:var(--muted)}
+svg text{fill:var(--muted);font-family:var(--f-mono);font-size:10px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:8px;font-weight:700;font-size:.9rem;z-index:20}
+@media (prefers-reduced-motion:no-preference){.srow,.btn,.lv button{transition:background .15s,border-color .15s}}
+@media (max-width:480px){h1{font-size:1.4rem}.count .big{font-size:2.1rem}.unit{grid-template-columns:1fr;}.unit .u{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app">
+  <header class="top">
+    <div>
+      <div class="label">Teacher dashboard · May 2027 exams</div>
+      <h1>AP Math Tracker</h1>
+    </div>
+    <div class="course" role="group" aria-label="Course">
+      <button id="c-pc" data-course="pc">Precalculus</button>
+      <button id="c-ab" data-course="ab">Calculus AB</button>
+    </div>
+  </header>
+  <div id="banner"></div>
+  <nav class="tabs" role="tablist">
+    <button role="tab" id="t-class" data-view="class">Class</button>
+    <button role="tab" id="t-student" data-view="student">Student</button>
+    <button role="tab" id="t-plan" data-view="plan">Review plan</button>
+  </nav>
+  <main id="main"></main>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const COURSES={
+  pc:{name:"AP Precalculus",exam:new Date(2027,4,11,8,0),examLabel:"Tuesday, May 11, 2027, morning",
+    cut:[65,52,40,28],
+    units:[
+      {id:"u1",n:"1",t:"Polynomial and Rational Functions",w:[30,40]},
+      {id:"u2",n:"2",t:"Exponential and Logarithmic Functions",w:[27,40]},
+      {id:"u3",n:"3",t:"Trigonometric and Polar Functions",w:[30,35]},
+      {id:"u4",n:"4",t:"Functions Involving Parameters, Vectors, and Matrices",w:null}]},
+  ab:{name:"AP Calculus AB",exam:new Date(2027,4,10,8,0),examLabel:"Monday, May 10, 2027, morning",
+    cut:[63,50,38,25],
+    units:[
+      {id:"u1",n:"1",t:"Limits and Continuity",w:[10,12]},
+      {id:"u2",n:"2",t:"Differentiation: Definition and Fundamental Properties",w:[10,12]},
+      {id:"u3",n:"3",t:"Differentiation: Composite, Implicit, and Inverse Functions",w:[9,13]},
+      {id:"u4",n:"4",t:"Contextual Applications of Differentiation",w:[10,15]},
+      {id:"u5",n:"5",t:"Analytical Applications of Differentiation",w:[15,18]},
+      {id:"u6",n:"6",t:"Integration and Accumulation of Change",w:[17,20]},
+      {id:"u7",n:"7",t:"Differential Equations",w:[6,12]},
+      {id:"u8",n:"8",t:"Applications of Integration",w:[10,15]}]}
+};
+const LV=["Not started","In progress","Proficient","Mastered"];
+const state={course:"pc",view:"class",sel:null,students:[],plans:{pc:{},ab:{}},db:null,mode:"loading",confirmDel:false,writable:true};
+try{const s=JSON.parse(localStorage.getItem("apMathTracker.prefs")||"{}");if(s.course)state.course=s.course;if(s.view)state.view=s.view}catch(e){}
+function savePref(){try{localStorage.setItem("apMathTracker.prefs",JSON.stringify({course:state.course,view:state.view}))}catch(e){}}
+
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt=(d,o)=>d.toLocaleDateString("en-US",o||{day:"numeric",month:"short"});
+function toast(m){const t=$("#toast");t.textContent=m;t.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(()=>t.hidden=true,1800)}
+
+/* ---------- calculations ---------- */
+function testedUnits(c){return COURSES[c].units.filter(u=>u.w)}
+function pct(s){return s.max>0?Math.round(100*s.pts/s.max):0}
+function apEstimate(c,p){const k=COURSES[c].cut;return p>=k[0]?5:p>=k[1]?4:p>=k[2]?3:p>=k[3]?2:1}
+function lastScores(st,n){return [...(st.scores||[])].sort((a,b)=>a.d<b.d?-1:1).slice(-n)}
+function studentAvgPct(st){const l=lastScores(st,3);return l.length?Math.round(l.reduce((a,s)=>a+pct(s),0)/l.length):null}
+function mastery(st,uid){return (st.progress||{})[uid]||0}
+function classUnitAvg(list,uid){return list.length?list.reduce((a,s)=>a+mastery(s,uid),0)/list.length:0}
+function daysUntil(d){const t=new Date();t.setHours(0,0,0,0);const e=new Date(d);e.setHours(0,0,0,0);return Math.round((e-t)/864e5)}
+function monday(d){const x=new Date(d);x.setHours(0,0,0,0);const k=(x.getDay()+6)%7;x.setDate(x.getDate()-k);return x}
+function key(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function courseStudents(){return state.students.filter(s=>s.course===state.course).sort((a,b)=>a.name.localeCompare(b.name,"en"))}
+
+function buildPlan(c){
+  const C=COURSES[c],list=state.students.filter(s=>s.course===c);
+  const start=monday(new Date()),examMon=monday(C.exam);
+  const total=Math.max(1,Math.round((examMon-start)/(7*864e5)));
+  const REV=Math.min(5,Math.max(1,Math.floor(total/4)));
+  const teachN=Math.max(0,total-REV);
+  const tested=testedUnits(c);
+  const todo=tested.filter(u=>!list.length||classUnitAvg(list,u.id)<2);
+  const weeks=[];
+  // split weeks by exam weighting (largest remainder, at least 1 week each)
+  let alloc=[];
+  if(todo.length&&teachN>0){
+    const w=todo.map(u=>(u.w[0]+u.w[1])/2),sw=w.reduce((a,b)=>a+b,0);
+    if(teachN>=todo.length){
+      const raw=w.map(x=>x/sw*teachN);alloc=raw.map(r=>Math.max(1,Math.floor(r)));
+      let rest=teachN-alloc.reduce((a,b)=>a+b,0);
+      const order=raw.map((r,i)=>[r-Math.floor(r),i]).sort((a,b)=>b[0]-a[0]);
+      let k=0;while(rest>0){alloc[order[k%order.length][1]]++;rest--;k++}
+      while(rest<0){const i=alloc.indexOf(Math.max(...alloc));alloc[i]--;rest++}
+    } else alloc=todo.map((u,i)=>i<teachN?1:0);
+  }
+  let d=new Date(start);
+  todo.forEach((u,i)=>{for(let j=0;j<(alloc[i]||0);j++){weeks.push({d:new Date(d),kind:"teach",title:"Unit "+u.n+" · "+u.t,sub:alloc[i]>1?"Week "+(j+1)+" of "+alloc[i]:"One week",uid:u.id});d.setDate(d.getDate()+7)}});
+  // review: weakest units first
+  const weak=[...tested].sort((a,b)=>classUnitAvg(list,a.id)-classUnitAvg(list,b.id));
+  const revItems=[];
+  for(let i=0;i<REV;i++){
+    if(i===REV-1&&REV>=2) revItems.push({title:"Full practice exam",sub:"Real conditions: multiple choice in Bluebook, then free response on paper"});
+    else if(i===REV-2&&REV>=3) revItems.push({title:"Past free-response questions (FRQs)",sub:"Grade with the official College Board scoring guidelines"});
+    else {const u=weak[i%weak.length];revItems.push({title:"Review · Unit "+u.n+" · "+u.t,sub:"One of the class's weakest units (average: "+LV[Math.round(classUnitAvg(list,u.id))].toLowerCase()+")",uid:u.id})}
+  }
+  revItems.forEach(r=>{weeks.push({d:new Date(d),kind:"rev",...r});d.setDate(d.getDate()+7)});
+  weeks.push({d:examMon,kind:"exam",title:"Exam week",sub:C.examLabel});
+  const done=todo.length?null:"The class is proficient in every tested unit, so the plan goes straight to review.";
+  return {weeks,done,REV,teachN};
+}
+
+/* ---------- rendering ---------- */
+function render(){
+  document.querySelectorAll(".course button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.course===state.course));
+  document.querySelectorAll("nav.tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.view===state.view));
+  $("#banner").innerHTML=state.mode==="demo"?'<div class="banner"><b>Demo mode.</b> Storage is not available in this view: the students shown are examples and your changes will not be saved.</div>':
+    (!state.writable?'<div class="banner">Read only: you can view the tracker but not edit it.</div>':"");
+  const m=$("#main");
+  if(state.mode==="loading"){m.innerHTML='<div class="panel"><p class="muted">Loading tracker…</p></div>';return}
+  m.innerHTML=state.view==="class"?viewClass():state.view==="student"?viewStudent():viewPlan();
+  if(state.view==="student")drawChart();
+}
+
+function countdown(){
+  const C=COURSES[state.course],n=daysUntil(C.exam),w=Math.floor(n/7);
+  return `<div class="panel">
+    <div class="label">${esc(C.name)} exam</div>
+    <div class="count"><span class="big num">${n}</span><span>days left · about <b class="num">${w}</b> weeks</span></div>
+    <div class="muted">${esc(C.examLabel)} · Multiple choice in Bluebook, free response on paper.</div>
+  </div>`;
+}
+
+function viewClass(){
+  const C=COURSES[state.course],list=courseStudents(),units=C.units;
+  let heat;
+  if(!list.length) heat=`<div class="empty">No students in ${esc(C.name)} yet.<br>Add the first one with the form below.</div>`;
+  else heat=`<div class="scroll"><table class="heat"><thead><tr><th class="name">Student</th>${units.map(u=>`<th title="${esc(u.t)}">U${u.n}${u.w?"":"*"}</th>`).join("")}</tr></thead><tbody>
+    ${list.map(s=>`<tr><td class="name"><button data-open="${s.id}">${esc(s.name)}</button></td>${units.map(u=>{const l=mastery(s,u.id);return `<td><span class="cell l${l}" title="${esc(s.name)} · U${u.n}: ${LV[l]}"></span></td>`}).join("")}</tr>`).join("")}
+    <tr><td class="name muted">Average</td>${units.map(u=>{const a=classUnitAvg(list,u.id);return `<td><span class="cell l${Math.round(a)}" style="opacity:.75" title="Average ${a.toFixed(1)}/3"></span></td>`}).join("")}</tr>
+    </tbody></table></div>`;
+  const legend=`<div class="legend">${LV.map((l,i)=>`<span><i class="l${i}"></i>${l}</span>`).join("")}${state.course==="pc"?'<span>* Unit 4 is not on the exam</span>':""}</div>`;
+  const rows=list.map(s=>{
+    const p=studentAvgPct(s),ap=p==null?null:apEstimate(state.course,p);
+    const behind=testedUnits(state.course).filter(u=>mastery(s,u.id)<=1&&classUnitAvg(list,u.id)>=2).length;
+    return `<button class="srow" data-open="${s.id}">
+      <span><b>${esc(s.name)}</b> <span class="muted" style="font-size:.85rem">${(s.scores||[]).length} assessment${(s.scores||[]).length!==1?"s":""}</span></span>
+      <span style="display:flex;gap:6px;flex-wrap:wrap;justify-content:end">${p!=null&&p<50?'<span class="chip warn">Needs attention</span>':""}${behind?`<span class="chip warn">${behind} unit${behind>1?"s":""} behind</span>`:""}${ap?`<span class="chip ap" title="Estimate based on the average of the last 3 assessments">AP ≈ ${ap}</span>`:'<span class="chip">No scores</span>'}</span>
+      <span class="bar">${C.units.map(u=>`<i class="l${mastery(s,u.id)}"></i>`).join("")}</span>
+    </button>`}).join("");
+  return `<div style="display:grid;gap:18px">
+    ${countdown()}
+    <section class="panel"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap"><h2>Progress by unit</h2><span class="muted num">${list.length} student${list.length!==1?"s":""}</span></div>${heat}${list.length?legend:""}</section>
+    <section class="panel"><h2>Students</h2>${list.length?`<div class="students">${rows}</div>`:""}
+      ${state.writable?`<form class="row" id="addStudent"><label for="newName">Student name<input id="newName" required maxlength="60" placeholder="e.g. Aminata Diallo"></label><button class="btn primary" type="submit">Add to ${state.course==="pc"?"Precalc":"Calc AB"}</button></form>`:""}
+    </section>
+    <section class="panel"><h2>Backup</h2>
+      <p class="muted" style="margin:0;font-size:.88rem">Your data is saved in this browser only. Download a backup regularly, and restore it to use the tracker on another device. Restoring replaces the data in this browser.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <button class="btn" id="exportBtn">Download backup</button>
+        <label class="btn" for="importFile" style="display:inline-block">Restore backup</label>
+        <input type="file" id="importFile" accept="application/json,.json" hidden>
+        ${state.students.some(x=>/\(example\)$/.test(x.name))?'<button class="btn danger" id="clearEx">Remove example students</button>':""}
+      </div>
+    </section></div>`;
+}
+
+function viewStudent(){
+  const list=courseStudents();
+  if(!list.length) return `<div class="empty">Add a student in the Class tab first.</div>`;
+  let s=list.find(x=>x.id===state.sel)||list[0];state.sel=s.id;
+  const C=COURSES[state.course],p=studentAvgPct(s),ap=p==null?null:apEstimate(state.course,p);
+  const scores=[...(s.scores||[])].sort((a,b)=>a.d<b.d?1:-1);
+  const today=key(new Date());
+  return `<div style="display:grid;gap:18px">
+    <div class="panel">
+      <label class="label" for="pick">Student</label>
+      <select id="pick">${list.map(x=>`<option value="${x.id}"${x.id===s.id?" selected":""}>${esc(x.name)}</option>`).join("")}</select>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:baseline">
+        <div><div class="label">Last 3 average</div><div class="num" style="font-size:1.6rem">${p==null?"—":p+"%"}</div></div>
+        <div><div class="label">Estimated AP score</div><div class="num" style="font-size:1.6rem">${ap??"—"}<span class="muted" style="font-size:.9rem"> /5</span></div></div>
+      </div>
+      <p class="muted" style="margin:0;font-size:.82rem">Rough estimate using approximate cutoffs (5 ≥ ${C.cut[0]}%, 4 ≥ ${C.cut[1]}%, 3 ≥ ${C.cut[2]}%). Adjust them against your practice exams.</p>
+    </div>
+    <div class="grid2">
+      <section class="panel"><h2>Unit mastery</h2>
+        <div class="units">${C.units.map(u=>{const l=mastery(s,u.id);return `<div class="unit"><span class="u">U${u.n}</span><span class="t">${esc(u.t)}<small>${u.w?`${u.w[0]}–${u.w[1]}% of the exam`:"Not on the exam"}</small></span>
+          <span class="lv" role="group" aria-label="Unit ${u.n} level">${[0,1,2,3].map(i=>`<button class="b${i}" data-lv="${u.id}:${i}" aria-pressed="${l===i}" title="${LV[i]}"${state.writable?"":" disabled"}>${i}</button>`).join("")}</span></div>`}).join("")}</div>
+        <div class="legend">${LV.map((l,i)=>`<span><b class="num">${i}</b> ${l}</span>`).join("")}</div>
+      </section>
+      <section class="panel"><h2>Scores</h2>
+        <div id="chart"></div>
+        ${state.writable?`<form class="row" id="addScore">
+          <label for="sLabel">Assessment<input id="sLabel" required maxlength="60" placeholder="Quiz 2.3"></label>
+          <label for="sUnit">Unit<select id="sUnit"><option value="">Several / practice exam</option>${C.units.map(u=>`<option value="${u.id}">Unit ${u.n}</option>`).join("")}</select></label>
+          <label for="sPts" style="flex-basis:70px">Points<input id="sPts" type="number" min="0" step="0.5" required inputmode="decimal"></label>
+          <label for="sMax" style="flex-basis:70px">Out of<input id="sMax" type="number" min="1" step="0.5" value="20" required inputmode="decimal"></label>
+          <label for="sDate">Date<input id="sDate" type="date" value="${today}" required></label>
+          <button class="btn primary" type="submit">Save score</button></form>`:""}
+        ${scores.length?`<div class="scroll"><table class="scores"><thead><tr><th>Date</th><th>Assessment</th><th class="r">Score</th><th class="r">%</th>${state.writable?"<th></th>":""}</tr></thead><tbody>
+          ${scores.map(x=>`<tr><td class="num">${fmt(new Date(x.d+"T12:00"))}</td><td>${esc(x.label)}${x.unit?` <span class="muted">· U${esc(x.unit.slice(1))}</span>`:""}</td><td class="r num">${x.pts}/${x.max}</td><td class="r num" style="color:${pct(x)<50?"var(--bad)":"inherit"}">${pct(x)}</td>${state.writable?`<td class="r"><button class="btn sm danger" data-delscore="${esc(x.k)}" aria-label="Delete ${esc(x.label)}">×</button></td>`:""}</tr>`).join("")}
+        </tbody></table></div>`:'<div class="empty">No scores yet.</div>'}
+      </section>
+    </div>
+    ${state.writable?`<div>${state.confirmDel?`<div class="confirm"><span>Remove <b>${esc(s.name)}</b> and all their scores?</span><button class="btn danger" id="delYes">Remove</button><button class="btn" id="delNo">Cancel</button></div>`:`<button class="btn danger sm" id="delAsk">Remove this student</button>`}</div>`:""}
+  </div>`;
+}
+
+function drawChart(){
+  const el=$("#chart");if(!el)return;
+  const s=state.students.find(x=>x.id===state.sel);if(!s)return;
+  const pts=[...(s.scores||[])].sort((a,b)=>a.d<b.d?-1:1);
+  if(pts.length<2){el.innerHTML=pts.length?'<p class="muted" style="margin:0;font-size:.85rem">The chart appears once there are two scores.</p>':"";return}
+  const W=340,H=150,L=30,R=10,T=10,B=22,iw=W-L-R,ih=H-T-B;
+  const x=i=>L+(pts.length===1?iw/2:i*iw/(pts.length-1)),y=v=>T+ih-(v/100)*ih;
+  const cut=COURSES[state.course].cut;
+  let g="";[0,50,100].forEach(v=>g+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-width="1"/><text x="${L-6}" y="${y(v)+3}" text-anchor="end">${v}</text>`);
+  g+=`<line x1="${L}" x2="${W-R}" y1="${y(cut[2])}" y2="${y(cut[2])}" stroke="var(--hl)" stroke-dasharray="4 3" stroke-width="1.5"/><text x="${W-R}" y="${y(cut[2])-4}" text-anchor="end">AP 3 cutoff</text>`;
+  const line=pts.map((p,i)=>`${x(i)},${y(pct(p))}`).join(" ");
+  const area=`${x(0)},${y(0)} ${line} ${x(pts.length-1)},${y(0)}`;
+  const lastI=pts.length-1;
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Scores over time, in percent">${g}
+    <polygon points="${area}" fill="var(--accent)" opacity=".12"/>
+    <polyline points="${line}" fill="none" stroke="var(--accent)" stroke-width="2"/>
+    ${pts.map((p,i)=>`<circle cx="${x(i)}" cy="${y(pct(p))}" r="${i===lastI?4.5:2.5}" fill="${i===lastI?"var(--accent)":"var(--paper)"}" stroke="var(--accent)" stroke-width="1.5"><title>${esc(p.label)}: ${pct(p)}%</title></circle>`).join("")}
+    <text x="${x(0)}" y="${H-6}" text-anchor="start">${fmt(new Date(pts[0].d+"T12:00"))}</text>
+    <text x="${x(lastI)}" y="${H-6}" text-anchor="end">${fmt(new Date(pts[lastI].d+"T12:00"))}</text></svg>`;
+}
+
+function viewPlan(){
+  const C=COURSES[state.course],P=buildPlan(state.course),done=state.plans[state.course]||{};
+  const nowK=key(monday(new Date()));
+  const nDone=P.weeks.filter(w=>done[key(w.d)]).length;
+  return `<div style="display:grid;gap:18px">${countdown()}
+    <section class="panel">
+      <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:baseline"><h2>Week-by-week plan</h2><span class="muted num">${nDone}/${P.weeks.length} done</span></div>
+      <p class="muted" style="margin:0;font-size:.88rem">The plan updates with class progress: units the class is already proficient in are dropped, the remaining time is split by each unit's exam weighting, and the last ${P.REV} weeks are for review${state.course==="pc"?". Unit 4 is not on the exam, so it can be taught after the exam":""}.</p>
+      ${P.done?`<div class="banner">${P.done}</div>`:""}
+      <div>${P.weeks.map(w=>{const k=key(w.d),isDone=!!done[k];return `<div class="week${isDone?" done":""}">
+        <input type="checkbox" id="w-${k}" data-week="${k}"${isDone?" checked":""}${state.writable?"":" disabled"} aria-label="Week of ${fmt(w.d)} done">
+        <label for="w-${k}"><span class="label num">Week of ${fmt(w.d,{month:"long",day:"numeric"})}</span>${k===nowK?'<span class="tag now">This week</span>':""}${w.kind==="rev"?'<span class="tag rev">Review</span>':""}${w.kind==="exam"?'<span class="tag exam">Exam</span>':""}
+          <div class="wt"><b>${esc(w.title)}</b></div><div class="muted" style="font-size:.85rem">${esc(w.sub)}</div></label></div>`}).join("")}</div>
+    </section></div>`;
+}
+
+/* ---------- data ---------- */
+const queues={};
+function queued(id,fn){const q=(queues[id]||Promise.resolve()).then(fn).catch(e=>{console.warn(e);if(e&&e.code==="invalid_argument"){state.writable=false;render()}toast(e&&e.code==="quota_exceeded"?"Storage is full: delete some data":"Could not save. Try again.")});queues[id]=q;return q}
+function newId(){return Math.random().toString(36).slice(2,10)}
+
+async function writeStudent(s,patch){
+  Object.assign(s,patch);render();
+  persist();if(state.mode!=="live")return;
+  return queued("s"+s.id,()=>state.db.doc("students/"+s.id).set(stripId(s)));
+}
+function stripId(s){const {id,...r}=s;return JSON.parse(JSON.stringify(r))}
+
+async function addStudent(name){
+  const s={id:newId(),name,course:state.course,progress:{},scores:[],createdAt:new Date().toISOString()};
+  state.students.push(s);state.sel=s.id;persist();
+  if(state.mode==="live") queued("s"+s.id,()=>state.db.doc("students/"+s.id).set(stripId(s)));
+  render();toast("Student added");
+}
+async function delStudent(id){
+  state.students=state.students.filter(s=>s.id!==id);state.confirmDel=false;state.sel=null;persist();render();
+  if(state.mode==="live") queued("s"+id,()=>state.db.doc("students/"+id).delete());
+  toast("Student removed");
+}
+function togglePlan(k,v){
+  const p={...(state.plans[state.course]||{})};if(v)p[k]=true;else delete p[k];
+  state.plans[state.course]=p;persist();render();
+  if(state.mode==="live"){const c=state.course;queued("p"+c,()=>state.db.doc("plans/"+c).set({done:p}))}
+}
+
+function demoData(){
+  const mk=(name,course,prog,sc)=>({id:newId(),name:name+" (example)",course,progress:prog,scores:sc.map((x,i)=>({k:newId(),label:x[0],unit:x[1],pts:x[2],max:x[3],d:x[4]}))});
+  return [
+    mk("Student A","pc",{u1:3,u2:1},[["Quiz 1.1","u1",15,20,"2026-09-18"],["Quiz 1.6","u1",12,20,"2026-10-02"],["Unit 1 test","u1",34,45,"2026-10-14"]]),
+    mk("Student B","pc",{u1:2,u2:1},[["Quiz 1.1","u1",9,20,"2026-09-18"],["Quiz 1.6","u1",11,20,"2026-10-02"],["Unit 1 test","u1",22,45,"2026-10-14"]]),
+    mk("Student C","ab",{u1:3,u2:2,u3:1},[["Limits quiz","u1",17,20,"2026-09-20"],["Unit 1 test","u1",40,50,"2026-10-01"],["Quiz 2.4","u2",14,20,"2026-10-15"]]),
+    mk("Student D","ab",{u1:2,u2:1},[["Limits quiz","u1",11,20,"2026-09-20"],["Unit 1 test","u1",27,50,"2026-10-01"]])
+  ];
+}
+
+const STORE="apMathTracker.v1";
+function persist(){
+  if(state.mode!=="local")return;
+  try{localStorage.setItem(STORE,JSON.stringify({v:1,students:state.students,plans:state.plans}))}
+  catch(e){toast("Could not save in this browser")}
+}
+function loadData(obj){
+  if(!obj||!Array.isArray(obj.students))throw new Error("bad");
+  state.students=obj.students.filter(s=>s&&s.id&&s.name&&(s.course==="pc"||s.course==="ab")).map(s=>({progress:{},scores:[],...s}));
+  state.plans={pc:{},ab:{},...(obj.plans||{})};
+}
+function exportData(){
+  const blob=new Blob([JSON.stringify({v:1,exported:new Date().toISOString(),students:state.students,plans:state.plans},null,2)],{type:"application/json"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);
+  a.download="ap-math-tracker-"+key(new Date())+".json";document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);toast("Backup downloaded");
+}
+function importFile(f){
+  const r=new FileReader();
+  r.onload=()=>{try{loadData(JSON.parse(r.result));state.sel=null;persist();render();toast("Backup restored")}catch(e){toast("This file is not an AP Math Tracker backup")}};
+  r.readAsText(f);
+}
+function boot(){
+  state.mode="local";
+  let saved=null;try{saved=JSON.parse(localStorage.getItem(STORE)||"null")}catch(e){}
+  try{if(saved)loadData(saved);else{state.students=demoData();persist()}}catch(e){state.students=demoData()}
+  render();
+}
+
+/* ---------- interactions ---------- */
+document.addEventListener("click",e=>{
+  const t=e.target.closest("button,[data-open]");if(!t)return;
+  if(t.dataset.course){state.course=t.dataset.course;state.sel=null;state.confirmDel=false;savePref();render();return}
+  if(t.dataset.view){state.view=t.dataset.view;state.confirmDel=false;savePref();render();return}
+  if(t.dataset.open){state.sel=t.dataset.open;state.view="student";state.confirmDel=false;savePref();render();window.scrollTo({top:0});return}
+  if(t.dataset.lv){const [u,l]=t.dataset.lv.split(":"),s=state.students.find(x=>x.id===state.sel);if(!s)return;
+    writeStudent(s,{progress:{...(s.progress||{}),[u]:+l}});return}
+  if(t.dataset.delscore){const s=state.students.find(x=>x.id===state.sel);if(!s)return;
+    writeStudent(s,{scores:(s.scores||[]).filter(x=>x.k!==t.dataset.delscore)});toast("Score deleted");return}
+  if(t.id==="exportBtn"){exportData();return}
+  if(t.id==="clearEx"){state.students=state.students.filter(x=>!/\(example\)$/.test(x.name));state.sel=null;persist();render();toast("Example students removed");return}
+  if(t.id==="delAsk"){state.confirmDel=true;render();return}
+  if(t.id==="delNo"){state.confirmDel=false;render();return}
+  if(t.id==="delYes"){delStudent(state.sel);return}
+});
+document.addEventListener("change",e=>{
+  if(e.target.id==="pick"){state.sel=e.target.value;state.confirmDel=false;render()}
+  if(e.target.id==="importFile"&&e.target.files[0]){importFile(e.target.files[0]);e.target.value=""}
+  if(e.target.dataset.week)togglePlan(e.target.dataset.week,e.target.checked);
+});
+document.addEventListener("submit",e=>{
+  e.preventDefault();
+  if(e.target.id==="addStudent"){const n=$("#newName").value.trim();if(n)addStudent(n)}
+  if(e.target.id==="addScore"){
+    const s=state.students.find(x=>x.id===state.sel);if(!s)return;
+    const pts=parseFloat($("#sPts").value),max=parseFloat($("#sMax").value);
+    if(!(max>0)||pts<0||pts>max){toast("The score must be between 0 and the total");return}
+    const sc={k:newId(),label:$("#sLabel").value.trim(),unit:$("#sUnit").value||null,pts,max,d:$("#sDate").value};
+    writeStudent(s,{scores:[...(s.scores||[]),sc]});toast("Score saved");
+  }
+});
+boot();
+</script>
+
+</body>
+</html>
