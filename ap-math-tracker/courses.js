@@ -10,6 +10,7 @@ const L=(n,t,r)=>({n,t,r:r||{}});
 const ws=s=>Array.isArray(s)?s:s.split("");
 const W=(n,t,s)=>({n,t,notes:true,ws:ws(s)});
 const R=(n,t,s)=>({n,t,review:true,ws:ws(s)});
+const T=(id,t)=>({id,t});  /* self checks and unit tests: docs/<course>/<plan><id>.pdf and -key.pdf */
 window.COURSE_LIB={
   pc:{
     name:"AP Precalculus",
@@ -58,63 +59,27 @@ window.COURSE_LIB={
   ab:{
     name:"AP Calculus AB",
     units:[
-      {id:"u1",n:"1",t:"Limits and Continuity",files:{notes:"u1-notes",practice:"u1-practice",key:"u1-key"},lessonFiles:"u1-l",lessons:[
-        L("1.1","Introducing Calculus: Can Change Occur at an Instant?"),L("1.2","Defining Limits and Using Limit Notation"),
-        L("1.3","Estimating Limit Values from Graphs"),L("1.4","Estimating Limit Values from Tables"),
-        L("1.5","Determining Limits Using Algebraic Properties of Limits"),L("1.6","Determining Limits Using Algebraic Manipulations"),
-        L("1.7","Selecting Procedures for Determining Limits"),L("1.8","Determining Limits Using the Squeeze Theorem"),
-        L("1.9","Connecting Multiple Representations of Limits"),L("1.10","Exploring Types of Discontinuities"),
-        L("1.11","Defining Continuity at a Point"),L("1.12","Confirming Continuity over an Interval"),
-        L("1.13","Removing Discontinuities"),L("1.14","Connecting Infinite Limits and Vertical Asymptotes"),
-        L("1.15","Connecting Limits at Infinity and Horizontal Asymptotes"),L("1.16","Working with the Intermediate Value Theorem")]},
-      {id:"u2",n:"2",t:"Differentiation: Definition and Fundamental Properties",lessons:[
-        L("2.1","Defining Average and Instantaneous Rates of Change at a Point"),
-        L("2.2","Defining the Derivative of a Function and Using Derivative Notation"),
-        L("2.3","Estimating Derivatives of a Function at a Point"),L("2.4","Connecting Differentiability and Continuity"),
-        L("2.5","Applying the Power Rule"),L("2.6","Derivative Rules: Constant, Sum, Difference, and Constant Multiple"),
-        L("2.7","Derivatives of cos x, sin x, eˣ, and ln x"),L("2.8","The Product Rule"),L("2.9","The Quotient Rule"),
-        L("2.10","Derivatives of Tangent, Cotangent, Secant, and Cosecant")]},
-      {id:"u3",n:"3",t:"Differentiation: Composite, Implicit, and Inverse Functions",lessons:[
-        L("3.1","The Chain Rule"),L("3.2","Implicit Differentiation"),L("3.3","Differentiating Inverse Functions"),
-        L("3.4","Differentiating Inverse Trigonometric Functions"),L("3.5","Selecting Procedures for Calculating Derivatives"),
-        L("3.6","Calculating Higher-Order Derivatives")]},
-      {id:"u4",n:"4",t:"Contextual Applications of Differentiation",lessons:[
-        L("4.1","Interpreting the Meaning of the Derivative in Context"),
-        L("4.2","Straight-Line Motion: Position, Velocity, and Acceleration"),
-        L("4.3","Rates of Change in Applied Contexts Other Than Motion"),L("4.4","Introduction to Related Rates"),
-        L("4.5","Solving Related Rates Problems"),L("4.6","Local Linearity and Linearization"),
-        L("4.7","L'Hospital's Rule for Indeterminate Forms")]},
-      {id:"u5",n:"5",t:"Analytical Applications of Differentiation",lessons:[
-        L("5.1","Using the Mean Value Theorem"),L("5.2","Extreme Value Theorem, Global Versus Local Extrema, and Critical Points"),
-        L("5.3","Intervals on Which a Function Is Increasing or Decreasing"),L("5.4","The First Derivative Test for Relative Extrema"),
-        L("5.5","The Candidates Test for Absolute Extrema"),L("5.6","Determining Concavity"),
-        L("5.7","The Second Derivative Test"),L("5.8","Sketching Graphs of Functions and Their Derivatives"),
-        L("5.9","Connecting a Function, Its First Derivative, and Its Second Derivative"),
-        L("5.10","Introduction to Optimization Problems"),L("5.11","Solving Optimization Problems"),
-        L("5.12","Exploring Behaviors of Implicit Relations")]},
-      {id:"u6",n:"6",t:"Integration and Accumulation of Change",lessons:[
-        L("6.1","Exploring Accumulations of Change"),L("6.2","Approximating Areas with Riemann Sums"),
-        L("6.3","Riemann Sums, Summation Notation, and Definite Integral Notation"),
-        L("6.4","The Fundamental Theorem of Calculus and Accumulation Functions"),
-        L("6.5","Behavior of Accumulation Functions Involving Area"),L("6.6","Applying Properties of Definite Integrals"),
-        L("6.7","The Fundamental Theorem of Calculus and Definite Integrals"),
-        L("6.8","Antiderivatives and Indefinite Integrals: Basic Rules and Notation"),L("6.9","Integrating Using Substitution"),
-        L("6.10","Long Division and Completing the Square"),L("6.14","Selecting Techniques for Antidifferentiation")]},
-      {id:"u7",n:"7",t:"Differential Equations",lessons:[
-        L("7.1","Modeling Situations with Differential Equations"),L("7.2","Verifying Solutions for Differential Equations"),
-        L("7.3","Sketching Slope Fields"),L("7.4","Reasoning Using Slope Fields"),
-        L("7.6","General Solutions Using Separation of Variables"),
-        L("7.7","Particular Solutions Using Initial Conditions and Separation of Variables"),
-        L("7.8","Exponential Models with Differential Equations")]},
-      {id:"u8",n:"8",t:"Applications of Integration",lessons:[
-        L("8.1","Average Value of a Function on an Interval"),L("8.2","Position, Velocity, and Acceleration Using Integrals"),
-        L("8.3","Accumulation Functions and Definite Integrals in Applied Contexts"),
-        L("8.4","Area Between Curves as Functions of x"),L("8.5","Area Between Curves as Functions of y"),
-        L("8.6","Area Between Curves That Intersect at More Than Two Points"),
-        L("8.7","Volumes with Cross Sections: Squares and Rectangles"),L("8.8","Volumes with Cross Sections: Triangles and Semicircles"),
-        L("8.9","Disc Method: Revolving Around the x- or y-Axis"),L("8.10","Disc Method: Revolving Around Other Axes"),
-        L("8.11","Washer Method: Revolving Around the x- or y-Axis"),L("8.12","Washer Method: Revolving Around Other Axes")]},
-      {id:"rev",n:"R",t:"AP Exam Review",lessons:[
-        L("R.1","Practice multiple-choice set"),L("R.2","Practice free-response set"),L("R.3","Full practice exam")]}
+      {id:"u1",n:"1",t:"Limits, Continuity, and Differentiability",files:{practice:"u1-practice",key:"u1-key"},plan:"u1-",lessons:[
+        W("1-1","Limits to a Point on a Graph","A"),
+        W("1-2","Limits to a Point of a Function","A"),
+        W("1-3","Limits to Infinity and Horizontal Asymptotes","A"),
+        W("1-4","Continuity at a Point","A"),
+        W("1-5","IVT and EVT","A"),
+        W("1-6","Average Rate of Change","A"),
+        W("1-7","Instantaneous Rates of Change","A"),
+        W("1-8","MVT","A"),
+        W("1-9","IVT, EVT, and MVT","A")],
+        tests:[T("SC1.1","Self Check 1.1"),T("SC1.2","Self Check 1.2"),T("SC1.1-1.2","Self Check 1.1 and 1.2"),T("SC1.3","Self Check 1.3"),T("SC1.4","Self Check 1.4"),T("SC1.3-1.4","Self Check 1.3 and 1.4"),T("PRETEST1","Unit 1 Pretest"),T("FIXUP1","Unit 1 Fix-Up")]},
+      {id:"u2",n:"2",t:"Derivatives",lessons:[L("2-1","Basic Power Derivatives"),L("2-2","Finding “u”"),L("2-3","General and Power Chain Rule"),L("2-4","Advanced Power Chain Rule"),L("2-5","Exponential and Logarithmic Chain Rules"),L("2-6","Trigonometric Chain Rules"),L("2-7","Derivatives of Piecewise Functions"),L("2-8","Definition of Derivative AP Questions"),L("2-9","The Product Rule"),L("2-10","The Quotient Rule")]},
+      {id:"u3",n:"3",t:"Analyzing Derivatives",lessons:[L("3-1","Height, Slope, Concavity"),L("3-2","Graphical Analysis: Increasing, Decreasing, Critical Values"),L("3-3","Graphical Analysis: Relative Extrema, Minimums, Maximums"),L("3-4","Graphical Analysis: Concavity and Inflection Points"),L("3-5","Curve Sketching"),L("3-6","Analytic Analysis: Increasing, Decreasing, Critical Values"),L("3-7","Analytic Analysis: Relative Extrema, Minimums, Maximums"),L("3-8","Analytic Analysis: Concavity and Inflection Points")]},
+      {id:"u4",n:"4",t:"Applications of Derivatives",lessons:[L("4-1","Tangent Line Equations"),L("4-2","Tangent Line Approximations (Linearization)"),L("4-3","Tangent Line Applications"),L("4-4","Mean Value Theorem Applications"),L("4-5","Implicit Differentiation"),L("4-6","Advanced Implicit Differentiation"),L("4-7","Circular Related Rates"),L("4-8","Spherical Related Rates"),L("4-9","Triangular Related Rates")]},
+      {id:"u5",n:"5",t:"Antiderivatives",lessons:[L("5-1","Basic Antiderivatives"),L("5-2","General and Power Antiderivatives"),L("5-3","Advanced Power Antiderivatives"),L("5-4","Unique Power and Exponential Antiderivatives"),L("5-5","Trigonometric Antiderivatives"),L("5-6","Analytic Definite Integrals"),L("5-7","Graphical Definite Integrals"),L("5-8","Piecewise Integration"),L("5-9","Definite Integral Rules")]},
+      {id:"u6",n:"6",t:"Antiderivative Applications",lessons:[L("6-1","Slope Fields"),L("6-2","General Particular Solutions"),L("6-3","Specific Particular Solutions")]},
+      {id:"u7",n:"7",t:"Motion Applications",lessons:[L("7-1","Motion Differentiation"),L("7-2","Motion Integration"),L("7-3","Direction"),L("7-4","Position"),L("7-5","Speed and Distance")]},
+      {id:"u8",n:"8",t:"Specific Integral Applications",lessons:[L("8-1","Understanding Rates of Change"),L("8-2","Understanding Total Change"),L("8-3","Specific FTC Applications"),L("8-4","Specific Absolute Extrema")]},
+      {id:"u9",n:"9",t:"Approximate Integral Applications",lessons:[L("9-1","Tabular Rates and Integrals"),L("9-2","Approximating Total Change"),L("9-3","Approximating Average Value")]},
+      {id:"u10",n:"10",t:"General Integral Applications",lessons:[L("10-1","General FTC Applications"),L("10-2","Integral Analysis"),L("10-3","General Absolute Extrema")]},
+      {id:"u11",n:"11",t:"Area and Volume",lessons:[L("11-1","Area Under Two Curves"),L("11-2","Area Between Two Curves"),L("11-3","Volumes of Square Cross Sections"),L("11-4","Basic Volumes of Revolution"),L("11-5","Advanced Volumes of Revolution")]},
+      {id:"u12",n:"12",t:"AP Test Review",lessons:[L("12-1","Final exam preparation, Units 1 to 5"),L("12-2","Final exam preparation, Units 6 to 11"),L("12-3","Full practice exam")]}
     ]}
 };

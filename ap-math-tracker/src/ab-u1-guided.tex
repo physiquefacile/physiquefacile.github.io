@@ -1,0 +1,511 @@
+%% Guided notes, AP Calculus AB Unit 1: Limits, Continuity, and Differentiability (lessons 1-1 to 1-9).
+\newcommand{\gr}[2]{\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,#1]#2\end{axis}\end{tikzpicture}\end{center}}
+\newcommand{\pt}[1]{\node[circle,fill=apblue,inner sep=1.5pt] at (axis cs:#1){};}
+\newcommand{\op}[1]{\node[circle,draw=apblue,fill=white,thick,inner sep=1.5pt] at (axis cs:#1){};}
+\newcommand{\va}[1]{\draw[apred,dashed,thick](axis cs:#1,-100)--(axis cs:#1,100);}
+\newcommand{\ha}[1]{\draw[apgold!80!black,dashed,thick](axis cs:-100,#1)--(axis cs:100,#1);}
+\newcommand{\fgraph}{\gr{xmin=-3.5,xmax=4.5,ymin=-0.5,ymax=4.5,width=7.5cm,height=5cm}{\addplot[apblue,very thick,domain=-3:-1]{x+4};\addplot[apblue,very thick,domain=-1:2]{x^2};\addplot[apblue,very thick,domain=2:4]{8-2*x};\op{-1,3}\pt{-1,1}\op{2,4}\pt{2,1}\pt{-3,1}\pt{4,0}\node[font=\small,apblue] at (axis cs:3.6,3.4){$y=f(x)$};}}
+
+%%DOC 1-1 | Limits to a Point on a Graph
+\goals{\item Read and write limit notation, including one-sided limits.
+\item Find limits from a graph and decide whether a limit exists.
+\item Distinguish the limit of $f$ at $c$ from the value $f(c)$.}
+\vocab{limit, left-hand limit, right-hand limit, open circle, closed (filled) dot, does not exist (DNE), unbounded, oscillating.}
+
+\subsection*{1. What a limit means}
+\begin{keyidea}
+$\displaystyle\lim_{x\to c}f(x)=L$ means: as $x$ gets closer and closer to \fillin{$c$} (from both sides, with $x\neq c$), the values $f(x)$ get closer and closer to \fillin{$L$}.
+The value of $f$ \emph{at} $c$ \fillin{does not affect} the limit; $f(c)$ may even be undefined.
+\end{keyidea}
+
+\subsection*{2. One-sided limits}
+$\displaystyle\lim_{x\to c^-}f(x)$ is the \fillin{left-hand} limit (uses $x<c$); $\displaystyle\lim_{x\to c^+}f(x)$ is the \fillin{right-hand} limit (uses $x>c$).
+\begin{keyidea}[When does a limit exist?]
+$\displaystyle\lim_{x\to c}f(x)=L$ exists if and only if $\displaystyle\lim_{x\to c^-}f(x)$ and $\displaystyle\lim_{x\to c^+}f(x)$ both exist and are \fillin{equal to $L$}.
+\end{keyidea}
+
+\fgraph
+\ex{Example 1 \textbullet\ Reading the graph of $f$}
+Complete the table.
+\begin{center}\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{c|c|c|c|c}
+$c$ & $\lim_{x\to c^-}f(x)$ & $\lim_{x\to c^+}f(x)$ & $\lim_{x\to c}f(x)$ & $f(c)$\\\hline
+$-1$ & \fillin{$3$} & \fillin{$1$} & \fillin{DNE} & \fillin{$1$}\\
+$0$ & \fillin{$0$} & \fillin{$0$} & \fillin{$0$} & \fillin{$0$}\\
+$2$ & \fillin{$4$} & \fillin{$4$} & \fillin{$4$} & \fillin{$1$}\\
+$3$ & \fillin{$2$} & \fillin{$2$} & \fillin{$2$} & \fillin{$2$}\\
+$-3$ & \fillin{none} & \fillin{$1$} & \fillin{one-sided only} & \fillin{$1$}
+\end{tabular}
+\end{center}
+
+\subsection*{3. Three ways a limit fails to exist}
+\begin{keyidea}
+\begin{itemize}
+\item \textbf{Jump}: the one-sided limits are \fillin{different}.
+\item \textbf{Unbounded behavior}: $f(x)$ \fillin{increases or decreases without bound} (vertical asymptote).
+\item \textbf{Oscillation}: $f(x)$ keeps \fillin{oscillating} between values, like $\sin\frac1x$ near $0$.
+\end{itemize}
+\end{keyidea}
+
+\ex{Example 2 \textbullet\ A graph with an asymptote}
+\gr{xmin=-4.5,xmax=5.5,ymin=-4.5,ymax=6.5,width=8cm,height=6.5cm}{\addplot[apblue,very thick,domain=-4:-1]{2};\addplot[apblue,very thick,domain=-1:1]{x+1};\addplot[apblue,very thick,domain=1:2.33,samples=120]{4/(3-x)};\addplot[apblue,very thick,domain=3.34:5,samples=120]{2-2/(x-3)};\va{3}\op{-1,2}\op{-1,0}\pt{-1,3}\op{1,2}\pt{1,4}\node[font=\small,apblue,fill=white,inner sep=1pt] at (axis cs:-2.6,3.4){$y=g(x)$};}
+Find $\lim_{x\to-1}g(x)$, $\lim_{x\to1}g(x)$, $\lim_{x\to3^-}g(x)$, $\lim_{x\to3^+}g(x)$, and $\lim_{x\to0}g\big(g(x)\big)$.
+\begin{workspace}[3.6cm]
+At $-1$: left $2$, right $0$: DNE. At $1$: both sides approach $2$: the limit is $2$ (although $g(1)=4$).\\
+$\lim_{x\to3^-}g(x)=+\infty$, $\lim_{x\to3^+}g(x)=-\infty$.\\
+As $x\to0$, $g(x)=x+1\to1$ (never equal to $1$), so $g(g(x))\to\lim_{u\to1}g(u)=2$.
+\end{workspace}
+
+\begin{mistakes}
+\begin{itemize}
+\item Reading the filled dot as the limit.
+\item Writing ``$\lim f(x)=$ DNE''. Write ``the limit does not exist'' and give the reason.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. If $\lim_{x\to4^-}h=5$, $\lim_{x\to4^+}h=5$ and $h(4)=0$, then $\lim_{x\to4}h(x)=$ \fillin{$5$}.\\
+2. If $\lim_{x\to1^-}k=2$ and $\lim_{x\to1^+}k=-2$, then $\lim_{x\to1}k(x)$ \fillin{does not exist}.
+\end{quickcheck}
+
+%%DOC 1-2 | Limits to a Point of a Function
+\goals{\item Evaluate limits by direct substitution and with the limit properties.
+\item Rewrite $\frac00$ forms by factoring, using conjugates, and combining fractions.
+\item Handle $\frac k0$ forms, piecewise and absolute value functions, and the special trigonometric limits.}
+\vocab{direct substitution, indeterminate form, conjugate, complex fraction, squeeze theorem.}
+
+\subsection*{1. Start with direct substitution}
+\begin{keyidea}
+Polynomials, rational functions (where defined), roots, $\sin$, $\cos$, $e^x$ and $\ln x$ are continuous on their domains, so $\lim_{x\to c}f(x)=$ \fillin{$f(c)$} for $c$ in the domain.\\
+Properties: limits of sums, differences, products and constant multiples are the sums, differences, products and multiples of the limits; for a quotient, the denominator's limit must be \fillin{nonzero}.
+\end{keyidea}
+\ex{Example 1}
+Evaluate $\lim_{x\to-1}(x^3-4x+2)$ and $\lim_{x\to\pi/3}2\cos x$. If $\lim_{x\to4}f(x)=3$ and $\lim_{x\to4}g(x)=-2$, find $\lim_{x\to4}\big(2f(x)-g(x)^2\big)$.
+\begin{workspace}[2.4cm]
+$-1+4+2=5$. \quad $2\cdot\frac12=1$. \quad $2(3)-(-2)^2=2$.
+\end{workspace}
+
+\subsection*{2. What substitution tells you}
+\begin{keyidea}
+\begin{tabular}{@{}ll@{}}
+a real number & that number is the limit\\
+$\frac00$ & \fillin{indeterminate}: rewrite (factor, conjugate, combine fractions, trig limit)\\
+$\frac k0$, $k\neq0$ & the limit is \fillin{infinite or does not exist}: check the sign on each side
+\end{tabular}
+\end{keyidea}
+
+\ex{Example 2 \textbullet\ Factoring}
+$\displaystyle\lim_{x\to3}\frac{x^2-9}{x^2-2x-3}$
+\begin{workspace}[2cm]
+$\dfrac{(x-3)(x+3)}{(x-3)(x+1)}=\dfrac{x+3}{x+1}\to\dfrac64=\dfrac32$.
+\end{workspace}
+\ex{Example 3 \textbullet\ Conjugate}
+$\displaystyle\lim_{x\to0}\frac{\sqrt{x+9}-3}{x}$
+\begin{workspace}[2.2cm]
+$\dfrac{(\sqrt{x+9}-3)(\sqrt{x+9}+3)}{x(\sqrt{x+9}+3)}=\dfrac{x}{x(\sqrt{x+9}+3)}=\dfrac{1}{\sqrt{x+9}+3}\to\dfrac16$.
+\end{workspace}
+\ex{Example 4 \textbullet\ Complex fraction}
+$\displaystyle\lim_{x\to2}\frac{\frac1x-\frac12}{x-2}$
+\begin{workspace}[2cm]
+$\dfrac{\frac{2-x}{2x}}{x-2}=\dfrac{-1}{2x}\to-\dfrac14$.
+\end{workspace}
+\ex{Example 5 \textbullet\ $\frac k0$ and absolute value}
+$\displaystyle\lim_{x\to2}\frac{x+3}{x-2}$ \quad and \quad $\displaystyle\lim_{x\to-1}\frac{x^2-1}{|x+1|}$
+\begin{workspace}[3cm]
+First: $\frac50$. For $x<2$: $-\infty$; for $x>2$: $+\infty$. The limit does not exist.\\
+Second: for $x<-1$, $|x+1|=-(x+1)$, the quotient is $-(x-1)\to2$; for $x>-1$ it is $x-1\to-2$. Does not exist.
+\end{workspace}
+
+\subsection*{3. Trigonometric limits and the squeeze theorem}
+\begin{keyidea}
+$\displaystyle\lim_{x\to0}\frac{\sin x}{x}=$ \fillin{$1$} \qquad $\displaystyle\lim_{x\to0}\frac{1-\cos x}{x}=$ \fillin{$0$}\\[3pt]
+\textbf{Squeeze theorem}: if $g(x)\le f(x)\le h(x)$ near $c$ and $\lim_{x\to c}g=\lim_{x\to c}h=L$, then $\lim_{x\to c}f(x)=$ \fillin{$L$}.
+\end{keyidea}
+\ex{Example 6}
+$\displaystyle\lim_{x\to0}\frac{\sin5x}{x}$ \quad and \quad $\displaystyle\lim_{x\to0}x^2\sin\frac1x$
+\begin{workspace}[2.4cm]
+$5\cdot\dfrac{\sin5x}{5x}\to5$. \quad $-x^2\le x^2\sin\frac1x\le x^2$ and both bounds $\to0$: the limit is $0$.
+\end{workspace}
+
+\begin{mistakes}
+\begin{itemize}
+\item Concluding that a $\frac00$ limit is $0$, $1$ or does not exist without rewriting.
+\item Cancelling terms instead of factors.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. $\lim_{x\to1}\frac{x^3-1}{x-1}=$ \fillin{$3$}. \quad 2. $\lim_{x\to0}\frac{\sin 2x}{\sin 5x}=$ \fillin{$\frac25$}. \quad 3. $\lim_{x\to3^-}\frac{1}{x-3}=$ \fillin{$-\infty$}.
+\end{quickcheck}
+
+%%DOC 1-3 | Limits to Infinity and Horizontal Asymptotes
+\goals{\item Evaluate limits as $x\to\pm\infty$ for rational, radical and exponential expressions.
+\item Connect limits at infinity to horizontal asymptotes and infinite limits to vertical asymptotes.
+\item Compare growth rates of logarithmic, power and exponential functions.}
+\vocab{limit at infinity, horizontal asymptote, infinite limit, vertical asymptote, dominant term.}
+
+\subsection*{1. Horizontal and vertical asymptotes}
+\begin{keyidea}
+If $\lim_{x\to\infty}f(x)=L$ or $\lim_{x\to-\infty}f(x)=L$, the line \fillin{$y=L$} is a horizontal asymptote.\\
+If $\lim_{x\to c^-}f(x)$ or $\lim_{x\to c^+}f(x)$ is $\pm\infty$, the line \fillin{$x=c$} is a vertical asymptote.
+\end{keyidea}
+
+\subsection*{2. Rational functions}
+\begin{keyidea}
+Compare the degrees of numerator and denominator:
+smaller on top $\Rightarrow$ limit \fillin{$0$}; equal $\Rightarrow$ ratio of \fillin{leading coefficients}; larger on top $\Rightarrow$ \fillin{$\pm\infty$} (no horizontal asymptote).
+\end{keyidea}
+\ex{Example 1}
+$\displaystyle\lim_{x\to\infty}\frac{4x^3-x}{2x^3+7x^2}$, \quad $\displaystyle\lim_{x\to\infty}\frac{5x+1}{x^2-3}$, \quad $\displaystyle\lim_{x\to-\infty}\frac{x^3}{x^2+1}$
+\begin{workspace}[2cm]
+$2$. \quad $0$. \quad Behaves like $x$: $-\infty$.
+\end{workspace}
+
+\subsection*{3. Radicals: watch the sign}
+$\sqrt{x^2}=|x|$, which equals \fillin{$-x$} when $x<0$.
+\ex{Example 2}
+Find both horizontal asymptotes of $f(x)=\dfrac{3x-1}{\sqrt{4x^2+5}}$.
+\begin{workspace}[5cm]
+For large $|x|$, $\sqrt{4x^2+5}\approx2|x|$. As $x\to\infty$: $\frac{3x}{2x}\to\frac32$. As $x\to-\infty$: $\frac{3x}{-2x}\to-\frac32$. Asymptotes $y=\frac32$ and $y=-\frac32$.
+\gr{xmin=-8.5,xmax=8.5,ymin=-2.5,ymax=2.5,xtick distance=2,width=7cm,height=3.8cm}{\addplot[apblue,very thick,domain=-8.5:8.5]{(3*x-1)/sqrt(4*x^2+5)};\ha{1.5}\ha{-1.5}}
+\end{workspace}
+
+\subsection*{4. Growth rates}
+\begin{keyidea}
+As $x\to\infty$: $\ln x$ grows \fillin{slower} than $x^p$ ($p>0$), which grows \fillin{slower} than $a^x$ ($a>1$). The fastest-growing term controls the limit.
+\end{keyidea}
+\ex{Example 3}
+$\displaystyle\lim_{x\to\infty}\frac{x^3}{e^x}$, \quad $\displaystyle\lim_{x\to\infty}\frac{3e^x+x^2}{e^x-1}$, \quad $\displaystyle\lim_{x\to-\infty}e^x$, \quad $\displaystyle\lim_{x\to0^+}\ln x$
+\begin{workspace}[2.2cm]
+$0$. \quad Divide by $e^x$: $\frac{3+x^2e^{-x}}{1-e^{-x}}\to3$. \quad $0$. \quad $-\infty$ (vertical asymptote $x=0$).
+\end{workspace}
+
+\ex{Example 4 \textbullet\ Vertical asymptotes}
+For $f(x)=\dfrac{x+2}{x^2-4x}$, find the vertical asymptotes and the one-sided limits.
+\begin{workspace}[3cm]
+$f(x)=\frac{x+2}{x(x-4)}$. At $x=0$: numerator near $2$; for $x<0$, $x(x-4)>0$: $+\infty$; for $x>0$: $-\infty$. At $x=4$: numerator near $6$; left $-\infty$, right $+\infty$.
+\end{workspace}
+
+\begin{mistakes}
+\begin{itemize}
+\item Forgetting that $\sqrt{x^2}=-x$ for $x<0$.
+\item Thinking $\lim_{x\to-\infty}e^x=-\infty$; it is $0$.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. $\lim_{x\to\infty}\frac{2-5x^2}{x^2+x}=$ \fillin{$-5$}. \quad 2. $\lim_{x\to\infty}\frac{x^{100}}{1.01^x}=$ \fillin{$0$}. \quad 3. $\lim_{x\to-\infty}\frac{2x}{\sqrt{x^2+5}}=$ \fillin{$-2$}.
+\end{quickcheck}
+
+%%DOC 1-4 | Continuity at a Point
+\goals{\item State and use the three conditions for continuity at a point.
+\item Classify discontinuities as removable, jump or infinite.
+\item Find constants that make a piecewise function continuous, and remove removable discontinuities.}
+\vocab{continuous, removable discontinuity, jump discontinuity, infinite discontinuity, piecewise function.}
+
+\subsection*{1. Definition}
+\begin{keyidea}
+$f$ is continuous at $x=c$ when:
+(1) \fillin{$f(c)$ is defined}; \quad (2) \fillin{$\lim_{x\to c}f(x)$ exists}; \quad (3) \fillin{$\lim_{x\to c}f(x)=f(c)$}.
+\end{keyidea}
+
+\subsection*{2. Types of discontinuity}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-0.2,xmax=3.2,ymin=-0.2,ymax=3.2,width=4.4cm,height=4.2cm,title={\small removable},xtick=\empty,ytick=\empty]
+\addplot[apblue,very thick,domain=0:3]{0.5*x+0.5};\op{1.5,1.25}\pt{1.5,2.5}\end{axis}\end{tikzpicture}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-0.2,xmax=3.2,ymin=-0.2,ymax=3.2,width=4.4cm,height=4.2cm,title={\small jump},xtick=\empty,ytick=\empty]
+\addplot[apblue,very thick,domain=0:1.5]{0.5};\addplot[apblue,very thick,domain=1.5:3]{2};\op{1.5,0.5}\pt{1.5,2}\end{axis}\end{tikzpicture}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-0.2,xmax=3.2,ymin=-0.2,ymax=3.2,width=4.4cm,height=4.2cm,title={\small infinite},xtick=\empty,ytick=\empty]
+\addplot[apblue,very thick,domain=0:1.25,samples=80]{0.3/(1.5-x)};\addplot[apblue,very thick,domain=1.62:3,samples=80]{0.3/(x-1.5)};\va{1.5}\end{axis}\end{tikzpicture}
+\end{center}
+\begin{keyidea}
+\textbf{Removable}: the limit exists but \fillin{does not equal $f(c)$ (or $f(c)$ is undefined)}.\\
+\textbf{Jump}: the one-sided limits \fillin{exist but are different}.\\
+\textbf{Infinite}: at least one one-sided limit is \fillin{$\pm\infty$}.
+\end{keyidea}
+
+\ex{Example 1 \textbullet\ A complete justification}
+$f(x)=\begin{cases}x^2+1, & x\le2\\ 4x-3, & x>2.\end{cases}$ Is $f$ continuous at $x=2$?
+\begin{workspace}[2.8cm]
+$f(2)=5$. $\lim_{x\to2^-}f(x)=5$ and $\lim_{x\to2^+}f(x)=5$, so $\lim_{x\to2}f(x)=5$. Since $\lim_{x\to2}f(x)=f(2)$, $f$ is continuous at $x=2$.
+\end{workspace}
+
+\ex{Example 2 \textbullet\ Classify}
+Classify the discontinuities: $\dfrac{x^2-9}{x-3}$ at $3$; \ $\dfrac{|x|}{x}$ at $0$; \ $\dfrac1{x^2}$ at $0$.
+\begin{workspace}[2.2cm]
+Removable (limit $6$, undefined value). \ Jump (limits $-1$ and $1$). \ Infinite ($+\infty$).
+\end{workspace}
+
+\subsection*{3. Making a function continuous}
+\ex{Example 3 \textbullet\ Find the constant}
+For which $k$ is $f(x)=\begin{cases}kx+1, & x<2\\ x^2-k, & x\ge2\end{cases}$ continuous?
+\begin{workspace}[2.2cm]
+Left limit $2k+1$; right limit and $f(2)$: $4-k$. $2k+1=4-k$, so $k=1$.
+\end{workspace}
+\ex{Example 4 \textbullet\ Two constants}
+$g(x)=\begin{cases}ax+b, & x<1\\ 5, & x=1\\ x^2+bx, & x>1\end{cases}$ is continuous at $x=1$. Find $a$ and $b$.
+\begin{workspace}[2.2cm]
+Right: $1+b=5$, $b=4$. Left: $a+b=5$, $a=1$.
+\end{workspace}
+
+\subsection*{4. Continuity on an interval}
+Polynomials, rational functions, roots, exponentials, logarithms and trigonometric functions are continuous \fillin{on their domains}. Example: $h(x)=\frac{\sqrt{x+2}}{x-1}$ is continuous on \fillin{$[-2,1)\cup(1,\infty)$}.
+
+\begin{aptip}
+Model sentence: ``$\lim_{x\to2^-}f(x)=5=\lim_{x\to2^+}f(x)$, so $\lim_{x\to2}f(x)=5=f(2)$. Therefore $f$ is continuous at $x=2$.''
+\end{aptip}
+
+\begin{quickcheck}
+1. For $f(x)=\frac{x^2-1}{x-1}$ at $x=1$, condition \fillin{(1)} fails.\\
+2. $\frac{x+2}{x^2-4}$ has a \fillin{removable} discontinuity at $x=-2$ and an \fillin{infinite} one at $x=2$.
+\end{quickcheck}
+
+%%DOC 1-5 | IVT and EVT
+\goals{\item State the Intermediate Value Theorem and the Extreme Value Theorem, with their hypotheses.
+\item Use the IVT to justify that an equation has a solution.
+\item Use the EVT to justify that absolute extrema exist, and find them from graphs and tables.}
+\vocab{Intermediate Value Theorem (IVT), Extreme Value Theorem (EVT), closed interval, absolute maximum, absolute minimum, hypothesis, conclusion.}
+
+\subsection*{1. Intermediate Value Theorem}
+\begin{keyidea}[IVT]
+If $f$ is \fillin{continuous} on the \fillin{closed} interval $[a,b]$ and $k$ is any number \fillin{between $f(a)$ and $f(b)$}, then there is at least one $c$ in $[a,b]$ with \fillin{$f(c)=k$}.
+\end{keyidea}
+\gr{xmin=-0.5,xmax=4.5,ymin=-5.5,ymax=7.5,ytick distance=2,width=6cm,height=5cm}{\addplot[apblue,very thick,domain=0:4]{(x-1)*(x-2)*(x-3)+1};\ha{1}\pt{0,-5}\pt{4,7}}
+\ex{Example 1}
+Show that $x^3+2x=5$ has a solution in $[1,2]$.
+\begin{workspace}[2.6cm]
+$f(x)=x^3+2x$ is a polynomial, so it is continuous on $[1,2]$. $f(1)=3$, $f(2)=12$. Since $3<5<12$, by the IVT there is a $c$ in $[1,2]$ with $f(c)=5$.
+\end{workspace}
+\ex{Example 2 \textbullet\ Table}
+$W$ is continuous with $W(0)=8$, $W(2)=3$, $W(5)=6$, $W(9)=1$. What is the least number of solutions of $W(t)=4$ on $[0,9]$?
+\begin{workspace}[2.2cm]
+$4$ is between $8$ and $3$, between $3$ and $6$, and between $6$ and $1$: at least three.
+\end{workspace}
+
+\subsection*{2. Extreme Value Theorem}
+\begin{keyidea}[EVT]
+If $f$ is \fillin{continuous} on the closed interval $[a,b]$, then $f$ has both an \fillin{absolute maximum} and an \fillin{absolute minimum} value on $[a,b]$. They occur at \fillin{endpoints} or at points where the graph turns (critical points).
+\end{keyidea}
+
+\ex{Example 3}
+Find the absolute maximum and minimum of $f(x)=x^2-4x+5$ on $[0,3]$. Why must they exist?
+\begin{workspace}[2.8cm]
+$f$ is a polynomial, continuous on $[0,3]$, so by the EVT both exist. Candidates: vertex $x=2$, $f(2)=1$; endpoints $f(0)=5$, $f(3)=2$. Absolute maximum $5$ at $x=0$; absolute minimum $1$ at $x=2$.
+\end{workspace}
+
+\ex{Example 4 \textbullet\ When the theorems do not apply}
+Explain why the conclusion can fail: (a) $g(x)=\frac1x$ on $[-1,1]$, IVT with $k=0$; (b) $h(x)=\frac1x$ on $(0,1]$, EVT.
+\begin{workspace}[2.6cm]
+(a) $g(-1)=-1$, $g(1)=1$, yet $g$ is never $0$: $g$ is not continuous on $[-1,1]$.\\
+(b) $h$ has no absolute maximum (it grows without bound near $0$): the interval is not closed.
+\end{workspace}
+
+\begin{aptip}
+An IVT or EVT justification names the hypothesis (``$f$ is continuous on $[a,b]$ because\dots''), the values used, and the conclusion.
+\end{aptip}
+
+\begin{quickcheck}
+1. $f$ continuous, $f(1)=4$, $f(3)=4$. Does the IVT guarantee $f(c)=0$ on $[1,3]$? \fillin{No}.\\
+2. Does a continuous function on $(0,5)$ always have an absolute maximum? \fillin{No; the interval must be closed}.
+\end{quickcheck}
+
+%%DOC 1-6 | Average Rate of Change
+\goals{\item Compute an average rate of change from a formula, a table or a graph.
+\item Interpret an average rate of change in context with units, including average velocity.
+\item Use the difference quotient $\frac{f(a+h)-f(a)}{h}$.}
+\vocab{average rate of change, secant line, difference quotient, average velocity, units.}
+
+\begin{keyidea}
+The average rate of change of $f$ on $[a,b]$ is \fillin{$\dfrac{f(b)-f(a)}{b-a}$}, the slope of the \fillin{secant line} through $(a,f(a))$ and $(b,f(b))$. On $[a,a+h]$ it is the \textbf{difference quotient} \fillin{$\dfrac{f(a+h)-f(a)}{h}$}.
+\end{keyidea}
+
+\ex{Example 1 \textbullet\ Formula}
+Find the average rate of change of $f(x)=x^3-2x$ on $[-1,2]$, and simplify $\dfrac{f(1+h)-f(1)}{h}$ for $f(x)=x^2$.
+\begin{workspace}[2.4cm]
+$\frac{4-1}{3}=1$. \quad $\frac{(1+h)^2-1}{h}=\frac{2h+h^2}{h}=2+h$.
+\end{workspace}
+
+\ex{Example 2 \textbullet\ Table, with units}
+\begin{center}\begin{tabular}{c|ccccc}$t$ (min)&$0$&$5$&$10$&$15$&$20$\\\hline$A(t)$ (L)&$40$&$52$&$61$&$66$&$68$\end{tabular}\end{center}
+Find and interpret the average rate of change of $A$ on $[5,15]$.
+\begin{workspace}[2.2cm]
+$\frac{66-52}{10}=1.4$. From $t=5$ to $t=15$ minutes, the amount of water increased on average by $1.4$ liters per minute.
+\end{workspace}
+
+\ex{Example 3 \textbullet\ Average velocity from a graph}
+\gr{xmin=-0.5,xmax=6.5,ymin=-0.5,ymax=8.5,ytick distance=2,width=6cm,height=5cm,xlabel={$t$},ylabel={$s$}}{\addplot[apblue,very thick] coordinates {(0,0)(2,6)(4,6)(6,2)};}
+The position $s(t)$ (meters) of a particle is graphed. Find its average velocity on $[0,2]$, $[2,4]$ and $[0,6]$.
+\begin{workspace}[2.2cm]
+$\frac{6-0}{2}=3$ m/s. \quad $0$ m/s. \quad $\frac{2-0}{6}=\frac13$ m/s.
+\end{workspace}
+
+\begin{mistakes}
+\begin{itemize}
+\item Giving the change $f(b)-f(a)$ instead of the rate.
+\item Forgetting units, or interpreting an average rate as a rate at an instant.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. The average rate of change of $g(x)=\frac{12}{x}$ on $[2,6]$ is \fillin{$-1$}.\\
+2. For $f(x)=x^2+x$, $\frac{f(2+h)-f(2)}{h}=$ \fillin{$5+h$}.
+\end{quickcheck}
+
+%%DOC 1-7 | Instantaneous Rates of Change
+\goals{\item Define the derivative at a point as the limit of a difference quotient.
+\item Compute derivatives of simple functions from the definition and estimate them from tables and graphs.
+\item Write the equation of a tangent line, and recognize where a function is not differentiable.}
+\vocab{instantaneous rate of change, derivative, $f'(a)$, tangent line, differentiable, corner, cusp, vertical tangent.}
+
+\subsection*{1. From average to instantaneous}
+\begin{keyidea}[Definition of the derivative]
+\[f'(a)=\lim_{h\to0}\fillin{$\dfrac{f(a+h)-f(a)}{h}$}\qquad\text{or}\qquad f'(a)=\lim_{x\to a}\fillin{$\dfrac{f(x)-f(a)}{x-a}$}.\]
+$f'(a)$ is the \fillin{instantaneous rate of change} of $f$ at $a$ and the \fillin{slope of the tangent line} at $(a,f(a))$.
+\end{keyidea}
+\gr{xmin=-0.5,xmax=3.5,ymin=-1,ymax=9.5,ytick distance=2,width=6cm,height=5.4cm}{\addplot[apblue,very thick,domain=0:3]{x^2};\addplot[apred!50,thick,domain=0:3.2]{4*x-3};\addplot[apred!75,thick,domain=0:3.2]{3*x-2};\addplot[apred,very thick,dashed,domain=0.2:3.2]{2*x-1};\pt{1,1}}
+\begin{center}\small Secant lines from $(1,1)$ on $y=x^2$ approach the tangent line of slope $2$.\end{center}
+
+\ex{Example 1 \textbullet\ From the definition}
+Find $f'(x)$ for $f(x)=x^2$, $g(x)=x^3$ and $k(x)=\frac1x$.
+\begin{workspace}[4.4cm]
+$\frac{(x+h)^2-x^2}{h}=2x+h\to2x$: $f'(x)=2x$.\\
+$\frac{(x+h)^3-x^3}{h}=3x^2+3xh+h^2\to3x^2$: $g'(x)=3x^2$.\\
+$\frac{\frac1{x+h}-\frac1x}{h}=\frac{-1}{x(x+h)}\to-\frac1{x^2}$: $k'(x)=-\frac1{x^2}$.
+\end{workspace}
+
+\ex{Example 2 \textbullet\ Tangent line}
+Write the equation of the tangent line to $y=x^3$ at $x=2$.
+\begin{workspace}[2cm]
+Point $(2,8)$; slope $g'(2)=3(4)=12$. \ $y-8=12(x-2)$.
+\end{workspace}
+
+\ex{Example 3 \textbullet\ Estimating from a table}
+\begin{center}\begin{tabular}{c|ccccc}$t$ (s)&$0$&$2$&$4$&$6$&$8$\\\hline$s(t)$ (m)&$0$&$9$&$20$&$35$&$52$\end{tabular}\end{center}
+Estimate $s'(4)$ and interpret it.
+\begin{workspace}[2.2cm]
+Use the closest values on both sides: $\frac{s(6)-s(2)}{6-2}=\frac{35-9}{4}=6.5$. At $t=4$ s the object moves at about $6.5$ m/s.
+\end{workspace}
+
+\subsection*{2. Differentiability}
+\begin{keyidea}
+If $f$ is differentiable at $a$, then $f$ is \fillin{continuous} at $a$. The converse is \fillin{false}.\\
+$f$ is \textbf{not} differentiable where its graph has a \fillin{corner}, a \fillin{cusp}, a \fillin{vertical tangent}, or a \fillin{discontinuity}.
+\end{keyidea}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-1.6,xmax=1.6,ymin=-0.5,ymax=1.8,width=4.2cm,height=3.8cm,title={\scriptsize corner: $|x|$},xtick=\empty,ytick=\empty]
+\addplot[apblue,very thick,domain=-1.5:1.5]{abs(x)};\end{axis}\end{tikzpicture}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-1.6,xmax=1.6,ymin=-0.5,ymax=1.8,width=4.2cm,height=3.8cm,title={\scriptsize cusp: $x^{2/3}$},xtick=\empty,ytick=\empty]
+\addplot[apblue,very thick,domain=-1.5:1.5,samples=200]{abs(x)^(2/3)};\end{axis}\end{tikzpicture}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-1.6,xmax=1.6,ymin=-1.4,ymax=1.4,width=4.2cm,height=3.8cm,title={\scriptsize vertical tangent: $\sqrt[3]{x}$},xtick=\empty,ytick=\empty]
+\addplot[apblue,very thick,domain=0:1.5,samples=200]{x^(1/3)};\addplot[apblue,very thick,domain=-1.5:0,samples=200]{-(-x)^(1/3)};\end{axis}\end{tikzpicture}
+\end{center}
+
+\ex{Example 4 \textbullet\ A piecewise function}
+Is $f(x)=\begin{cases}x^2, & x\le1\\ 2x-1, & x>1\end{cases}$ differentiable at $x=1$?
+\begin{workspace}[2.6cm]
+Continuous: both pieces give $1$ at $x=1$. Slopes: the left piece $x^2$ has slope $2(1)=2$; the right piece has slope $2$. The slopes match, so $f$ is differentiable at $x=1$ with $f'(1)=2$.
+\end{workspace}
+
+\begin{quickcheck}
+1. $\lim_{h\to0}\frac{(3+h)^2-9}{h}$ is $f'(3)$ for $f(x)=$ \fillin{$x^2$}, and equals \fillin{$6$}.\\
+2. $f(x)=|x-2|$ is continuous at $2$ but \fillin{not differentiable} there.
+\end{quickcheck}
+
+%%DOC 1-8 | MVT
+\goals{\item State the Mean Value Theorem and check its hypotheses.
+\item Find the value(s) of $c$ guaranteed by the MVT.
+\item Apply the MVT to tables and contexts.}
+\vocab{Mean Value Theorem (MVT), differentiable, open interval, secant slope, tangent slope.}
+
+\begin{keyidea}[Mean Value Theorem]
+If $f$ is \fillin{continuous} on $[a,b]$ and \fillin{differentiable} on $(a,b)$, then there is at least one $c$ in $(a,b)$ such that
+\[f'(c)=\fillin{$\dfrac{f(b)-f(a)}{b-a}$}.\]
+Some tangent line is \fillin{parallel} to the secant line: at some instant, the instantaneous rate of change equals the average rate of change.
+\end{keyidea}
+\gr{xmin=-0.5,xmax=3.5,ymin=-0.5,ymax=9.5,ytick distance=2,width=6cm,height=5.2cm}{\addplot[apblue,very thick,domain=0.5:3.2]{x^2};\addplot[apred,thick,domain=0.6:3.3]{4*x-3};\addplot[apgreen,thick,dashed,domain=0.8:3.2]{4*x-4};\pt{1,1}\pt{3,9}\pt{2,4}}
+\begin{center}\small $f(x)=x^2$ on $[1,3]$: secant slope $4$; the tangent at $c=2$ has slope $4$ too.\end{center}
+
+\ex{Example 1 \textbullet\ Finding $c$}
+Find the value(s) of $c$ guaranteed by the MVT for (a) $f(x)=x^2$ on $[1,3]$; (b) $g(x)=x^3$ on $[0,3]$; (c) $k(x)=\frac1x$ on $[1,4]$. (Use $f'(x)=2x$, $g'(x)=3x^2$, $k'(x)=-\frac1{x^2}$ from Lesson 1-7.)
+\begin{workspace}[3.6cm]
+(a) $\frac{9-1}{2}=4=2c$: $c=2$.\\
+(b) $\frac{27-0}{3}=9=3c^2$: $c=\sqrt3\approx1.732$ (the negative root is not in $(0,3)$).\\
+(c) $\frac{\frac14-1}{3}=-\frac14=-\frac1{c^2}$: $c=2$.
+\end{workspace}
+
+\ex{Example 2 \textbullet\ When the MVT does not apply}
+Explain why the MVT does not apply: (a) $f(x)=|x|$ on $[-1,1]$; (b) $g(x)=\frac1x$ on $[-1,1]$.
+\begin{workspace}[2.4cm]
+(a) Not differentiable at $x=0$ (corner). The secant slope is $0$, yet no tangent is horizontal.\\
+(b) Not continuous on $[-1,1]$ (undefined at $0$).
+\end{workspace}
+
+\ex{Example 3 \textbullet\ A table in context}
+A car's position $s(t)$ (miles) is differentiable, with $s(0)=0$ and $s(2)=130$ ($t$ in hours). Must the car's speed have been exactly $65$ mph at some time?
+\begin{workspace}[2.4cm]
+$s$ is differentiable, so continuous; the MVT applies on $[0,2]$: $s'(c)=\frac{130-0}{2}=65$ for some $c$ in $(0,2)$. Yes: at some instant the velocity was $65$ mph.
+\end{workspace}
+
+\begin{mistakes}
+\begin{itemize}
+\item Forgetting to check differentiability (corners, cusps) or continuity.
+\item Giving a $c$ that is not inside the open interval.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. For $f(x)=x^2$ on $[0,4]$, the MVT gives $c=$ \fillin{$2$}.\\
+2. If $f(2)=f(5)$ and $f$ satisfies the hypotheses, then $f'(c)=$ \fillin{$0$} for some $c$ in $(2,5)$.
+\end{quickcheck}
+
+%%DOC 1-9 | IVT, EVT, and MVT
+\goals{\item Choose the right existence theorem for a question.
+\item Check the hypotheses of the IVT, EVT and MVT from formulas, tables and graphs.
+\item Write complete AP-style justifications.}
+\vocab{existence theorem, hypothesis, conclusion, justification.}
+
+\subsection*{1. Which theorem?}
+\begin{keyidea}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{@{}p{1.3cm}p{5cm}p{6.3cm}@{}}
+& \textbf{Hypothesis} & \textbf{Conclusion}\\\hline
+IVT & \fillin{continuous on $[a,b]$} & $f(c)=k$ for every $k$ between \fillin{$f(a)$ and $f(b)$}\\
+EVT & \fillin{continuous on $[a,b]$} & $f$ has an absolute \fillin{maximum and minimum} on $[a,b]$\\
+MVT & continuous on $[a,b]$ and \fillin{differentiable on $(a,b)$} & $f'(c)=$ \fillin{$\frac{f(b)-f(a)}{b-a}$} for some $c$ in $(a,b)$
+\end{tabular}
+\end{keyidea}
+Questions about a \fillin{value of $f$} point to the IVT; about the \fillin{largest or smallest value}, the EVT; about a \fillin{rate (value of $f'$)}, the MVT.
+
+\ex{Example 1 \textbullet\ A table (AP style)}
+A differentiable function $f$ has the values below.
+\begin{center}\begin{tabular}{c|ccccc}$x$&$0$&$2$&$5$&$7$&$10$\\\hline$f(x)$&$4$&$-2$&$3$&$9$&$5$\end{tabular}\end{center}
+(a) Must $f(c)=0$ for some $c$ in $[0,10]$? (b) Must $f'(c)=3$ for some $c$ in $(5,7)$? (c) Must $f$ have an absolute maximum on $[0,10]$? (d) Must $f'(c)=0$ for some $c$ in $(0,10)$?
+\begin{workspace}[5.2cm]
+$f$ is differentiable, hence continuous everywhere.\\
+(a) Yes: on $[0,2]$, $f(0)=4>0>-2=f(2)$; by the IVT there is $c$ with $f(c)=0$ (also on $[2,5]$).\\
+(b) Yes: $\frac{f(7)-f(5)}{7-5}=\frac{6}{2}=3$; by the MVT, $f'(c)=3$ for some $c$ in $(5,7)$.\\
+(c) Yes: $f$ is continuous on the closed interval $[0,10]$; by the EVT it has an absolute maximum.\\
+(d) Yes. $f(0)=4$, and since $3<4<9$, the IVT gives a $b$ in $(5,7)$ with $f(b)=4$. On $[0,b]$ the MVT gives $f'(c)=\frac{f(b)-f(0)}{b-0}=\frac{4-4}{b}=0$ for some $c$ in $(0,b)$.
+\end{workspace}
+
+\ex{Example 2 \textbullet\ Hypotheses fail}
+\gr{xmin=-0.5,xmax=4.5,ymin=-0.5,ymax=4.5,width=5.5cm,height=4.6cm}{\addplot[apblue,very thick,domain=0:2]{x+1};\addplot[apblue,very thick,domain=2:4]{3-0.5*(x-2)^2};\pt{0,1}\pt{4,1}\pt{2,3}}
+The graph of $f$ on $[0,4]$ is shown (a corner at $x=2$). Which theorems apply on $[0,4]$?
+\begin{workspace}[2.6cm]
+$f$ is continuous on $[0,4]$: the IVT and EVT apply. $f$ is not differentiable at $x=2$ (corner), so the MVT does not apply on $[0,4]$ (it does apply on $[2,4]$).
+\end{workspace}
+
+\begin{aptip}
+Never apply a theorem without stating why its hypotheses hold. On tables, ``$f$ is differentiable, so it is continuous'' covers both continuity and differentiability.
+\end{aptip}
+
+\begin{quickcheck}
+1. ``Is there a time when the temperature was exactly $70^\circ$?'' uses the \fillin{IVT}.\\
+2. ``Is there a time when the temperature was rising at $2^\circ$ per hour?'' uses the \fillin{MVT}.
+\end{quickcheck}

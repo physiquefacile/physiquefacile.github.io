@@ -25,7 +25,7 @@ for i, title, body in bl:
         if only and i not in only: continue
         kind = "Notes (filled in)" if key else "Guided notes"
         doc = HEAD + ("\\keytrue\n" if key else "\\keyfalse\n") + f"\\setdoc{{{course}}}{{{unit}}}{{{label(i)} \\textbullet\\ {kind}}}\n" + pre
-        doc += "\n\\begin{document}\n" + f"\\titleband{{{label(i).replace('Lesson ','Topic ')} \\textbullet\\ {title}}}{{{kind}" + ("" if key else " \\textbullet\\ Fill in the blanks and work the examples in the boxes") + "}\n" + body + "\n\\end{document}\n"
+        doc += "\n\\begin{document}\n" + f"\\titleband{{{label(i).replace('Lesson ','Topic ') if '.' in i else label(i)} \\textbullet\\ {title}}}{{{kind}" + ("" if key else " \\textbullet\\ Fill in the blanks and work the examples in the boxes") + "}\n" + body + "\n\\end{document}\n"
         jobs.append((name, doc))
 pre, bl = blocks(f"{base}-worksheets.tex")
 WSDIR = r"""\begin{directions}
@@ -33,6 +33,14 @@ Answer every question. Multiple-choice questions have one best answer. On free-r
 \end{directions}
 """
 for i, title, body in bl:
+    if i.startswith(("SC", "PRETEST", "FIXUP")):   # self checks and unit tests: id is the name, title is the heading
+        if only and i not in only: continue
+        for key in (False, True):
+            name = f"{base}-{i}" + ("-key" if key else "")
+            doc = HEAD + ("\\keytrue\n" if key else "\\keyfalse\n") + f"\\setdoc{{{course}}}{{{unit}}}{{{title.split(' |')[0]}" + (" \\textbullet\\ Answer key" if key else "") + "}\n" + pre
+            doc += "\n\\begin{document}\n" + f"\\titleband{{{title}}}{{" + ("Answer key with worked solutions" if key else "Name: \\rule{5cm}{0.4pt} \\quad Date: \\rule{2.5cm}{0.4pt}") + "}\n" + WSDIR + body + "\n\\end{document}\n"
+            jobs.append((name, doc))
+        continue
     lesson, letter = i[:-1], i[-1]
     if i.endswith("MEGA"): lesson, letter = i[:-4], "MEGA"
     if only and lesson not in only: continue
