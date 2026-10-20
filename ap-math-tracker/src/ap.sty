@@ -1,0 +1,91 @@
+% Shared style for AP Math Tracker course documents
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ap}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{mathpazo}
+\RequirePackage[scaled=0.92]{helvet}
+\RequirePackage[a4paper,margin=2cm,top=2.2cm,bottom=2.2cm,headheight=14pt]{geometry}
+\RequirePackage{amsmath,amssymb}
+\RequirePackage{xcolor}
+\RequirePackage[most]{tcolorbox}
+\RequirePackage{tikz}
+\RequirePackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usetikzlibrary{arrows.meta,calc,patterns}
+\RequirePackage{enumitem}
+\RequirePackage{fancyhdr}
+\RequirePackage{multicol}
+\RequirePackage{booktabs}
+\RequirePackage{array}
+\RequirePackage{titlesec}
+\RequirePackage{environ}
+\RequirePackage[hidelinks]{hyperref}
+
+\definecolor{apnavy}{HTML}{16223A}
+\definecolor{apblue}{HTML}{2A55D9}
+\definecolor{apgold}{HTML}{E0A100}
+\definecolor{aptint}{HTML}{EEF2F8}
+\definecolor{apgreen}{HTML}{1F6F4A}
+\definecolor{apred}{HTML}{C2412D}
+\definecolor{apgrey}{HTML}{5B6880}
+
+\newcommand{\coursename}{AP Course}
+\newcommand{\unitname}{Unit}
+\newcommand{\doctype}{Notes}
+\newcommand{\setdoc}[3]{\renewcommand{\coursename}{#1}\renewcommand{\unitname}{#2}\renewcommand{\doctype}{#3}}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlist{nosep,leftmargin=*,topsep=3pt}
+
+\pagestyle{fancy}\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{apblue}\leaders\hrule height \headrulewidth\hfill}}
+\fancyhead[L]{\sffamily\footnotesize\color{apblue}\coursename\ \textbullet\ \unitname}
+\fancyhead[R]{\sffamily\footnotesize\color{apgrey}\doctype}
+\fancyfoot[C]{\sffamily\footnotesize\color{apgrey}\thepage}
+\fancyfoot[R]{\sffamily\scriptsize\color{apgrey}AP Math Tracker}
+\fancypagestyle{first}{\fancyhf{}\renewcommand{\headrulewidth}{0pt}\fancyfoot[C]{\sffamily\footnotesize\color{apgrey}\thepage}\fancyfoot[R]{\sffamily\scriptsize\color{apgrey}AP Math Tracker}}
+
+% Title band
+\newcommand{\titleband}[2]{%
+  \thispagestyle{first}%
+  \begin{tcolorbox}[enhanced,colback=apnavy,colframe=apnavy,arc=0pt,boxrule=0pt,left=14pt,right=14pt,top=12pt,bottom=12pt,
+    overlay={\foreach \i in {0,...,7}{\draw[apblue!60,line width=0.6pt] ([xshift=-12pt-\i*13pt,yshift=-10pt]frame.north east) -- ++(-8pt,-8pt);}}]
+  {\sffamily\color{apgold}\bfseries\small \MakeUppercase{\coursename}\par}
+  \vspace{2pt}{\sffamily\color{white}\small \unitname\ \textbullet\ \doctype\par}
+  \vspace{4pt}{\sffamily\color{white}\bfseries\LARGE #1\par}
+  \ifx&#2&\else\vspace{4pt}{\color{white!80!apnavy}\small #2\par}\fi
+  \end{tcolorbox}\vspace{4pt}}
+
+% Sections = lessons
+\titleformat{\section}{\sffamily\Large\bfseries\color{apnavy}}{\colorbox{apblue}{\color{white}\,\thesection\,}}{8pt}{}
+\titlespacing*{\section}{0pt}{14pt}{6pt}
+\titleformat{\subsection}{\sffamily\large\bfseries\color{apblue}}{}{0pt}{}
+\titlespacing*{\subsection}{0pt}{8pt}{3pt}
+\newcommand{\lesson}[2]{\renewcommand{\thesection}{#1}\section{#2}}
+
+% Boxes
+\newtcolorbox{keyidea}[1][Key idea]{enhanced,breakable,colback=aptint,colframe=apblue,boxrule=0pt,leftrule=3pt,arc=0pt,
+  title={\sffamily\bfseries\small #1},coltitle=apblue,colbacktitle=aptint,attach title to upper={\par},left=8pt,top=4pt,bottom=4pt}
+\newtcolorbox{example}[1][Example]{enhanced,breakable,colback=white,colframe=apgrey!40,boxrule=0.5pt,arc=2pt,
+  title={\sffamily\bfseries\small #1},coltitle=apnavy,colbacktitle=apgrey!12,left=8pt,top=4pt,bottom=4pt}
+\newtcolorbox{aptip}{enhanced,breakable,colback=apgold!10,colframe=apgold,boxrule=0pt,leftrule=3pt,arc=0pt,
+  title={\sffamily\bfseries\small AP exam tip},coltitle=apgold!60!black,colbacktitle=apgold!10,attach title to upper={\par},left=8pt,top=4pt,bottom=4pt}
+\newcommand{\sol}{\par\textbf{\sffamily\small\color{apgreen}Solution.}\ }
+
+% Exercises with optional solutions
+\newif\ifkey
+\newcounter{exo}
+\newenvironment{exo}[2][]{\refstepcounter{exo}\par\medskip
+  \noindent{\sffamily\bfseries\color{apnavy}Question \theexo}\ifx&#1&\else\ {\sffamily\small\color{apgrey}(#1)}\fi\hfill{\color{apgold}#2}\par\nopagebreak}{\par}
+\newcommand{\easy}{$\star$}\newcommand{\medium}{$\star\star$}\newcommand{\hard}{$\star\star\star$}
+\NewEnviron{solution}{\ifkey\begin{tcolorbox}[enhanced,breakable,colback=apgreen!6,colframe=apgreen,boxrule=0pt,leftrule=2.5pt,arc=0pt,left=8pt,top=3pt,bottom=3pt]{\sffamily\bfseries\small\color{apgreen}Solution}\par\BODY\end{tcolorbox}\fi}
+\newcommand{\partheading}[1]{\par\bigskip{\sffamily\bfseries\large\color{apnavy}\colorbox{apgold}{\,#1\,}}\par\smallskip}
+
+% Graph helpers
+\pgfplotsset{apaxis/.style={axis lines=middle,grid=both,grid style={line width=.1pt,draw=apgrey!25},major grid style={line width=.2pt,draw=apgrey!40},
+  xlabel={$x$},ylabel={$y$},every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+  tick label style={font=\scriptsize},width=7cm,height=5.5cm,samples=150,clip=true}}
+\endinput

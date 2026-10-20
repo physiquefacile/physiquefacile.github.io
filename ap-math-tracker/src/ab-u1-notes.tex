@@ -1,0 +1,242 @@
+\documentclass[11pt]{article}
+\usepackage{ap}
+\setdoc{AP Calculus AB}{Unit 1}{Course notes}
+\begin{document}
+\titleband{Limits and Continuity}{Topics 1.1 to 1.16 \textbullet\ About 10--12\% of the AP Calculus AB exam}
+
+\textbf{In this unit} you learn what a limit is, how to find limits from graphs, tables and formulas, and how limits define continuity and asymptotes. Limits are the foundation of derivatives (Units 2--5) and integrals (Units 6--8).
+
+%------------------------------------------------
+\lesson{1.1}{Introducing Calculus: Can Change Occur at an Instant?}
+The average rate of change of $f$ on $[a,a+h]$ is $\dfrac{f(a+h)-f(a)}{h}$. It needs two points. To describe change \emph{at an instant} ($h=0$) we cannot divide by zero, so we look at what the average rates approach as $h$ gets closer and closer to 0. This idea is a \textbf{limit}.
+
+\begin{example}
+A ball's height is $s(t)=20t-5t^2$ meters. Average velocities on $[1,1+h]$:
+\begin{center}\begin{tabular}{c|cccc}
+$h$ & $0.1$ & $0.01$ & $0.001$ & $-0.001$\\\hline
+$\dfrac{s(1+h)-s(1)}{h}$ & $9.5$ & $9.95$ & $9.995$ & $10.005$
+\end{tabular}\end{center}
+\sol The average velocities approach $10$, so the velocity at $t=1$ is $10$ m/s.
+\end{example}
+
+%------------------------------------------------
+\lesson{1.2}{Defining Limits and Using Limit Notation}
+\begin{keyidea}
+$\displaystyle\lim_{x\to c}f(x)=L$ means: $f(x)$ can be made as close to $L$ as we want by taking $x$ close enough to $c$ (but $x\neq c$).
+\begin{itemize}
+\item $\displaystyle\lim_{x\to c^-}f(x)$: left-hand limit ($x<c$). $\displaystyle\lim_{x\to c^+}f(x)$: right-hand limit ($x>c$).
+\item $\displaystyle\lim_{x\to c}f(x)=L$ \textbf{if and only if} both one-sided limits exist and equal $L$.
+\item The value $f(c)$ does not affect the limit; $f(c)$ may even be undefined.
+\end{itemize}
+\end{keyidea}
+
+%------------------------------------------------
+\lesson{1.3}{Estimating Limit Values from Graphs}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[apaxis,xmin=-3.5,xmax=4.5,ymin=-1,ymax=5,xtick={-3,-2,-1,1,2,3,4},ytick={1,2,3,4},width=8.5cm,height=5.8cm]
+\addplot[apblue,very thick,domain=-3:-1]{x+4};
+\addplot[apblue,very thick,domain=-1:2]{x^2};
+\addplot[apblue,very thick,domain=2:4]{8-2*x};
+\node[circle,draw=apblue,fill=white,thick,inner sep=1.6pt] at (axis cs:-1,3){};
+\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:-1,1){};
+\node[circle,draw=apblue,fill=white,thick,inner sep=1.6pt] at (axis cs:2,4){};
+\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:2,1){};
+\node[font=\small] at (axis cs:3.6,3.3){$y=f(x)$};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\begin{example}
+Use the graph of $f$ above.
+\sol At $x=-1$: $\displaystyle\lim_{x\to-1^-}f(x)=3$ and $\displaystyle\lim_{x\to-1^+}f(x)=1$. They differ, so $\displaystyle\lim_{x\to-1}f(x)$ does not exist (DNE).\\
+At $x=2$: both one-sided limits are $4$, so $\displaystyle\lim_{x\to2}f(x)=4$, even though $f(2)=1$.
+\end{example}
+A limit also fails to exist when $f$ grows without bound (vertical asymptote) or oscillates (for example $\sin\frac1x$ near $0$).
+
+%------------------------------------------------
+\lesson{1.4}{Estimating Limit Values from Tables}
+Read the outputs as $x$ approaches $c$ from \emph{both} sides.
+\begin{example}
+\begin{center}\begin{tabular}{c|cccccc}
+$x$ & $1.9$ & $1.99$ & $1.999$ & $2.001$ & $2.01$ & $2.1$\\\hline
+$g(x)$ & $3.70$ & $3.97$ & $3.997$ & $4.003$ & $4.03$ & $4.30$
+\end{tabular}\end{center}
+\sol The values approach $4$ from both sides, so $\displaystyle\lim_{x\to2}g(x)$ appears to be $4$. A table suggests a limit; it does not prove it.
+\end{example}
+
+%------------------------------------------------
+\lesson{1.5}{Determining Limits Using Algebraic Properties of Limits}
+\begin{keyidea}
+If $\displaystyle\lim_{x\to c}f(x)=L$ and $\displaystyle\lim_{x\to c}g(x)=M$, then
+\[\lim_{x\to c}\big(f\pm g\big)=L\pm M,\quad \lim_{x\to c}(kf)=kL,\quad \lim_{x\to c}(fg)=LM,\quad \lim_{x\to c}\frac fg=\frac LM\ (M\neq0).\]
+For polynomials, rational functions (where defined), roots, trigonometric, exponential and logarithmic functions, the limit at a point of the domain is found by \textbf{direct substitution}.
+\end{keyidea}
+\begin{example}
+$\displaystyle\lim_{x\to2}\frac{x^2+1}{x+3}=\frac{5}{5}=1$.\qquad If $\displaystyle\lim_{x\to4}f(x)=3$ and $\displaystyle\lim_{x\to4}g(x)=-2$, then $\displaystyle\lim_{x\to4}\big(2f(x)-g(x)^2\big)=6-4=2$.
+\end{example}
+
+%------------------------------------------------
+\lesson{1.6}{Determining Limits Using Algebraic Manipulations}
+If substitution gives $\frac00$, the limit is \textbf{indeterminate}: rewrite the expression first.
+\begin{example}[Factoring]
+$\displaystyle\lim_{x\to3}\frac{x^2-9}{x-3}=\lim_{x\to3}\frac{(x-3)(x+3)}{x-3}=\lim_{x\to3}(x+3)=6.$
+\end{example}
+\begin{example}[Multiplying by the conjugate]
+$\displaystyle\lim_{x\to0}\frac{\sqrt{x+4}-2}{x}=\lim_{x\to0}\frac{(x+4)-4}{x\left(\sqrt{x+4}+2\right)}=\lim_{x\to0}\frac{1}{\sqrt{x+4}+2}=\frac14.$
+\end{example}
+\begin{example}[Complex fraction]
+$\displaystyle\lim_{x\to2}\frac{\frac1x-\frac12}{x-2}=\lim_{x\to2}\frac{\frac{2-x}{2x}}{x-2}=\lim_{x\to2}\frac{-1}{2x}=-\frac14.$
+\end{example}
+
+%------------------------------------------------
+\lesson{1.7}{Selecting Procedures for Determining Limits}
+\begin{keyidea}[Strategy]
+\begin{enumerate}
+\item Try \textbf{direct substitution}. A real number answer is the limit.
+\item $\frac00$: factor, use a conjugate, combine fractions, or use a known trig limit.
+\item $\frac{k}{0}$ with $k\neq0$: the limit is infinite or does not exist; study the sign of each one-sided limit.
+\item Piecewise or absolute value functions: compute both one-sided limits.
+\end{enumerate}
+\end{keyidea}
+\begin{example}
+$\displaystyle\lim_{x\to0^-}\frac{|x|}{x}=-1$ and $\displaystyle\lim_{x\to0^+}\frac{|x|}{x}=1$, so $\displaystyle\lim_{x\to0}\frac{|x|}{x}$ does not exist.
+\end{example}
+
+%------------------------------------------------
+\lesson{1.8}{Determining Limits Using the Squeeze Theorem}
+\begin{keyidea}[Squeeze theorem]
+If $g(x)\le f(x)\le h(x)$ for $x$ near $c$, and $\displaystyle\lim_{x\to c}g(x)=\lim_{x\to c}h(x)=L$, then $\displaystyle\lim_{x\to c}f(x)=L$.
+\end{keyidea}
+\begin{example}
+Find $\displaystyle\lim_{x\to0}x^2\sin\frac1x$.
+\sol Since $-1\le\sin\frac1x\le1$, we have $-x^2\le x^2\sin\frac1x\le x^2$. Both bounds approach $0$, so the limit is $0$.
+\end{example}
+\begin{keyidea}[Two trigonometric limits to know]
+\[\lim_{x\to0}\frac{\sin x}{x}=1\qquad\qquad\lim_{x\to0}\frac{1-\cos x}{x}=0\]
+For example, $\displaystyle\lim_{x\to0}\frac{\sin 3x}{x}=\lim_{x\to0}3\cdot\frac{\sin3x}{3x}=3$.
+\end{keyidea}
+
+%------------------------------------------------
+\lesson{1.9}{Connecting Multiple Representations of Limits}
+The same limit can be read from a graph, a table, or a formula. On the exam you may need to combine them: for example, $\displaystyle\lim_{x\to2}\big(f(x)\,g(x)\big)$ where $f$ is given by a graph and $g$ by a formula. Find each limit separately, then apply the properties of Topic 1.5.
+
+\begin{aptip}
+For a composite limit $\displaystyle\lim_{x\to c}f(g(x))$, first find $\displaystyle\lim_{x\to c}g(x)=b$, then decide \emph{from which side} $g(x)$ approaches $b$ before reading $f$ near $b$.
+\end{aptip}
+
+%------------------------------------------------
+\lesson{1.10}{Exploring Types of Discontinuities}
+\begin{center}
+\begin{tikzpicture}[scale=0.85]
+\begin{scope}
+\draw[->,apgrey](-0.2,0)--(2.4,0);\draw[->,apgrey](0,-0.2)--(0,2);
+\draw[apblue,very thick](0.2,0.4) .. controls (0.8,1.2) .. (1.1,1.3) .. controls (1.5,1.4) .. (2.2,1.8);
+\draw[apblue,thick,fill=white](1.1,1.3) circle(2.5pt);\fill[apblue](1.1,0.6) circle(2.5pt);
+\node[font=\small,align=center] at (1.1,-0.6){Removable\\(hole)};
+\end{scope}
+\begin{scope}[xshift=4cm]
+\draw[->,apgrey](-0.2,0)--(2.4,0);\draw[->,apgrey](0,-0.2)--(0,2);
+\draw[apblue,very thick](0.2,0.5)--(1.1,0.8);\draw[apblue,very thick](1.1,1.5)--(2.2,1.8);
+\fill[apblue](1.1,0.8) circle(2.5pt);\draw[apblue,thick,fill=white](1.1,1.5) circle(2.5pt);
+\node[font=\small] at (1.1,-0.6){Jump};
+\end{scope}
+\begin{scope}[xshift=8cm]
+\draw[->,apgrey](-0.2,0)--(2.4,0);\draw[->,apgrey](0,-0.2)--(0,2);
+\draw[apred,dashed](1.1,-0.2)--(1.1,2);
+\draw[apblue,very thick,domain=0.2:0.98,samples=40] plot(\x,{0.25/(1.1-\x)});
+\draw[apblue,very thick,domain=1.22:2.2,samples=40] plot(\x,{0.25/(\x-1.1)});
+\node[font=\small] at (1.1,-0.6){Infinite};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\begin{itemize}
+\item \textbf{Removable}: $\lim_{x\to c}f(x)$ exists but is not equal to $f(c)$ (or $f(c)$ is undefined).
+\item \textbf{Jump}: both one-sided limits exist but are different.
+\item \textbf{Infinite}: at least one one-sided limit is $\pm\infty$ (vertical asymptote).
+\end{itemize}
+
+%------------------------------------------------
+\lesson{1.11}{Defining Continuity at a Point}
+\begin{keyidea}
+$f$ is \textbf{continuous at} $x=c$ if all three conditions hold:
+\begin{enumerate}
+\item $f(c)$ is defined;
+\item $\displaystyle\lim_{x\to c}f(x)$ exists;
+\item $\displaystyle\lim_{x\to c}f(x)=f(c)$.
+\end{enumerate}
+\end{keyidea}
+\begin{aptip}
+To justify continuity on a free-response question, state all three conditions with numbers, for example ``$f(1)=2$, $\lim_{x\to1^-}f(x)=2$, $\lim_{x\to1^+}f(x)=2$, so $\lim_{x\to1}f(x)=f(1)$ and $f$ is continuous at $x=1$.''
+\end{aptip}
+
+%------------------------------------------------
+\lesson{1.12}{Confirming Continuity over an Interval}
+A function is continuous on an interval if it is continuous at every point of the interval (one-sided at endpoints). Polynomials, rational, power, exponential, logarithmic and trigonometric functions are \textbf{continuous on their domains}. Sums, products, quotients (where the denominator is nonzero) and compositions of continuous functions are continuous.
+
+\begin{example}
+$f(x)=\dfrac{\ln x}{x-3}$ is continuous on $(0,3)\cup(3,\infty)$: $\ln x$ needs $x>0$ and the denominator is zero at $x=3$.
+\end{example}
+
+%------------------------------------------------
+\lesson{1.13}{Removing Discontinuities}
+\begin{example}[Defining a value]
+$g(x)=\dfrac{x^2-4}{x-2}$ has a removable discontinuity at $x=2$ since $\lim_{x\to2}g(x)=4$. Defining $g(2)=4$ makes $g$ continuous at $2$.
+\end{example}
+\begin{example}[Finding a constant]
+For which $k$ is $f(x)=\begin{cases}kx+1, & x<2\\ x^2-k, & x\ge2\end{cases}$ continuous at $x=2$?
+\sol Left limit: $2k+1$. Right limit and $f(2)$: $4-k$. Set them equal: $2k+1=4-k$, so $k=1$.
+\end{example}
+
+%------------------------------------------------
+\lesson{1.14}{Connecting Infinite Limits and Vertical Asymptotes}
+\begin{keyidea}
+If $\displaystyle\lim_{x\to c^-}f(x)=\pm\infty$ or $\displaystyle\lim_{x\to c^+}f(x)=\pm\infty$, the line $x=c$ is a \textbf{vertical asymptote}. Saying the limit ``equals $\infty$'' describes the behavior; the limit still does not exist as a real number.
+\end{keyidea}
+\begin{example}
+$\displaystyle\lim_{x\to3^-}\frac{2}{x-3}=-\infty$ and $\displaystyle\lim_{x\to3^+}\frac{2}{x-3}=+\infty$: $x=3$ is a vertical asymptote. Also $\displaystyle\lim_{x\to0^+}\ln x=-\infty$ and $\displaystyle\lim_{x\to\frac\pi2^-}\tan x=+\infty$.
+\end{example}
+
+%------------------------------------------------
+\lesson{1.15}{Connecting Limits at Infinity and Horizontal Asymptotes}
+\begin{keyidea}
+If $\displaystyle\lim_{x\to\infty}f(x)=L$ or $\displaystyle\lim_{x\to-\infty}f(x)=L$, the line $y=L$ is a \textbf{horizontal asymptote}.
+\begin{itemize}
+\item Rational functions: compare the degrees (as in Precalculus).
+\item Growth rates as $x\to\infty$: \ $\ln x \ll x^p\ (p>0) \ll a^x\ (a>1)$. The fastest-growing term dominates.
+\end{itemize}
+\end{keyidea}
+\begin{example}
+$\displaystyle\lim_{x\to\infty}\frac{5x^2-x}{2x^2+3}=\frac52$,\qquad $\displaystyle\lim_{x\to\infty}\frac{x^3}{e^x}=0$,\qquad $\displaystyle\lim_{x\to-\infty}\frac{3x}{\sqrt{x^2+1}}=-3$.\\
+For the last one, $\sqrt{x^2}=|x|=-x$ when $x<0$, so the quotient behaves like $\dfrac{3x}{-x}=-3$.
+\end{example}
+
+%------------------------------------------------
+\lesson{1.16}{Working with the Intermediate Value Theorem (IVT)}
+\begin{keyidea}[Intermediate Value Theorem]
+If $f$ is \textbf{continuous} on the closed interval $[a,b]$ and $k$ is any number between $f(a)$ and $f(b)$, then there is at least one number $c$ in $[a,b]$ with $f(c)=k$.
+\end{keyidea}
+\begin{example}
+Show that $f(x)=x^3+x-1$ has a zero in $[0,1]$.
+\sol $f$ is a polynomial, so it is continuous on $[0,1]$. $f(0)=-1<0$ and $f(1)=1>0$. Since $0$ is between $f(0)$ and $f(1)$, the IVT guarantees a $c$ in $[0,1]$ with $f(c)=0$.
+\end{example}
+\begin{aptip}
+An IVT justification always names three things: the function is continuous on the closed interval, the two endpoint values, and that the target value lies between them.
+\end{aptip}
+
+%------------------------------------------------
+\partheading{Unit 1 summary}
+\begin{multicols}{2}\small
+\begin{itemize}
+\item The limit exists only if both one-sided limits exist and are equal.
+\item Try substitution first; $\frac00$ means rewrite.
+\item $\frac{k}{0}$ ($k\neq0$): infinite limit, check signs.
+\item $\lim\limits_{x\to0}\frac{\sin x}{x}=1$; squeeze for bounded factors.
+\item Continuity: $f(c)$ defined, limit exists, they are equal.
+\item Discontinuities: removable, jump, infinite.
+\item Vertical asymptote: an infinite one-sided limit.
+\item Horizontal asymptote: a finite limit at $\pm\infty$.
+\item $\ln x\ll x^p\ll a^x$ as $x\to\infty$.
+\item IVT needs continuity on a closed interval.
+\end{itemize}
+\end{multicols}
+\end{document}

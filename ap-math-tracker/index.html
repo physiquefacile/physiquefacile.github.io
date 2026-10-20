@@ -113,12 +113,12 @@ details.unitlib summary .st{flex:1;min-width:0}
 .lesson{display:grid;grid-template-columns:3.2em 1fr;gap:4px 10px;padding:9px 12px;border-top:1px solid var(--line)}
 .lesson .ln{font-family:var(--f-mono);font-size:.8rem;color:var(--muted);padding-top:2px}
 .lesson .lt{min-width:0}
-.res{grid-column:2;display:flex;flex-wrap:wrap;gap:6px}
+.unitfiles{display:flex;flex-wrap:wrap;gap:8px;padding:4px 12px 12px}
+.lessons-h{padding:8px 12px 2px;border-top:1px solid var(--line)}
+.lesson{border-top:0!important;padding-block:5px!important}
 .rbtn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font:inherit;font-size:.82rem;font-weight:700;padding:4px 10px;border-radius:6px;cursor:pointer;text-decoration:none}
 .rbtn .k{font-size:.66rem;letter-spacing:.06em;padding:1px 5px;border-radius:3px;background:var(--m0);color:var(--ink)}
-.rbtn.key .k{background:var(--m1);color:#16223A}.rbtn.vid .k{background:var(--accent);color:var(--accent-ink)}
-.ext{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:10px 12px;border:1px dashed var(--accent);border-radius:8px}
-.ext a{color:var(--accent);font-weight:700}
+.rbtn.key .k{background:var(--m1);color:#16223A}
 .reader{position:fixed;inset:0;z-index:30;background:var(--bg);display:flex;flex-direction:column}
 .reader .bar{display:flex;gap:8px;align-items:center;padding:calc(8px + env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) 8px max(12px,env(safe-area-inset-left,0px));background:var(--paper);border-bottom:1px solid var(--line)}
 .reader .bar .rt{flex:1;min-width:0;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -382,25 +382,24 @@ function viewPlan(){
 }
 
 /* ---------- course library ---------- */
-const RES=[["notes","Notes","PDF",""],["filled","Filled notes","PDF",""],["worksheet","Worksheet","PDF",""],["key","Answer key","KEY","key"]];
+const FILES=[["notes","Course notes","NOTES",""],["practice","AP practice: MCQ + FRQ","PRACTICE",""],["key","Answer key","KEY","key"]];
 function pdfUrl(c,f){return "docs/"+c+"/"+f+".pdf"}
 function viewCourses(){
   const lib=(window.COURSE_LIB||{})[state.course];
   if(!lib)return '<div class="empty">The course library could not be loaded. Reload the page.</div>';
-  const has=l=>Object.keys(l.r).length>0;
-  const all=lib.units.flatMap(u=>u.lessons),withRes=all.filter(has).length;
-  const units=lib.units.map((u,i)=>{
-    const n=u.lessons.filter(has).length;
-    return `<details class="unitlib" id="lib-${u.id}"${state.openUnits&&state.openUnits[state.course+u.id]?" open":""}>
-      <summary><span class="st">${u.n==="R"?"":`Unit ${esc(u.n)} · `}${esc(u.t)}${u.note?` <span class="chip" style="font-weight:400">${esc(u.note)}</span>`:""}</span><span class="muted num" style="font-weight:400;font-size:.82rem">${n}/${u.lessons.length}</span></summary>
-      ${u.lessons.map(l=>`<div class="lesson"><span class="ln">${esc(l.n)}</span><span class="lt">${esc(l.t)}</span>
-        <div class="res">${has(l)?RES.filter(r=>l.r[r[0]]).map(r=>`<button class="rbtn ${r[3]}" data-pdf="${esc(pdfUrl(state.course,l.r[r[0]]))}" data-title="${esc(l.n+" "+l.t+" · "+r[1])}"><span class="k">${r[2]}</span>${r[1]}</button>`).join("")+(l.r.video?`<a class="rbtn vid" href="${esc(l.r.video)}" target="_blank" rel="noopener"><span class="k">VIDEO</span>Lesson video</a>`:""):'<span class="muted" style="font-size:.8rem">No files yet</span>'}</div></div>`).join("")}
+  const ready=lib.units.filter(u=>u.files).length;
+  const units=lib.units.map(u=>{
+    const k=state.course+u.id,open=(state.openUnits&&k in state.openUnits)?state.openUnits[k]:!!(u.files&&u.id==="u1");
+    return `<details class="unitlib" id="lib-${u.id}"${open?" open":""}>
+      <summary><span class="st">${u.n==="R"?"":`Unit ${esc(u.n)} · `}${esc(u.t)}${u.note?` <span class="chip" style="font-weight:400">${esc(u.note)}</span>`:""}</span>${u.files?'<span class="chip ap">Available</span>':'<span class="muted" style="font-weight:400;font-size:.8rem">In preparation</span>'}</summary>
+      ${u.files?`<div class="unitfiles">${FILES.filter(f=>u.files[f[0]]).map(f=>`<button class="rbtn ${f[3]}" data-pdf="${esc(pdfUrl(state.course,u.files[f[0]]))}" data-title="${esc((u.n==="R"?"":"Unit "+u.n+" · ")+f[1])}"><span class="k">${f[2]}</span>${f[1]}</button>`).join("")}</div>`:""}
+      <div class="lessons-h label">Lessons in this unit</div>
+      ${u.lessons.map(l=>`<div class="lesson"><span class="ln">${esc(l.n)}</span><span class="lt">${esc(l.t)}</span></div>`).join("")}
     </details>`}).join("");
   return `<div style="display:grid;gap:18px">
     <section class="panel">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap"><h2>${esc(lib.name)} lessons</h2><span class="muted num">${withRes}/${all.length} lessons with files</span></div>
-      <p class="muted" style="margin:0;font-size:.88rem">Lessons follow the College Board course outline. Open a unit to see its notes, worksheets, answer keys and videos.</p>
-      <div class="ext"><span>More notes, worksheets and videos</span><a href="${esc(lib.external.url)}" target="_blank" rel="noopener">${esc(lib.external.label)} ↗</a></div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap"><h2>${esc(lib.name)} course</h2><span class="muted num">${ready}/${lib.units.length} units available</span></div>
+      <p class="muted" style="margin:0;font-size:.88rem">Each unit has course notes covering every lesson, an AP-style practice set with multiple-choice and free-response questions, and a detailed answer key. Lessons follow the College Board course outline.</p>
     </section>
     <section class="units">${units}</section></div>`;
 }

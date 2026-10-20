@@ -1,0 +1,193 @@
+\documentclass[11pt]{article}
+\usepackage{ap}
+\newcommand{\choices}[4]{\par\smallskip
+  \begin{tabular}{@{}p{0.47\linewidth}p{0.47\linewidth}@{}}(A)\ #1 & (B)\ #2\\[3pt](C)\ #3 & (D)\ #4\end{tabular}\par}
+\newcommand{\answer}[2]{\begin{solution}\textbf{Answer: (#1).} #2\end{solution}}
+\input{mode}
+\ifkey\setdoc{AP Precalculus}{Unit 1}{Practice \textbullet\ Answer key}\else\setdoc{AP Precalculus}{Unit 1}{Practice}\fi
+\begin{document}
+\titleband{Polynomial and Rational Functions}{AP-style practice \textbullet\ Multiple choice and free response\ifkey\ \textbullet\ Answer key with explanations\fi}
+
+\begin{keyidea}[How to use this practice set]
+The questions follow the format of the AP Precalculus exam. \textbf{Part A}: multiple choice, no calculator. \textbf{Part B}: multiple choice, graphing calculator allowed. \textbf{Part C}: free response; show your work and justify your answers with words, as on the exam.\\
+Suggested timing: Part A 30 min \textbullet\ Part B 10 min \textbullet\ Part C 45 min.
+\end{keyidea}
+
+%=================================================
+\partheading{Part A \textbullet\ Multiple choice \textbullet\ No calculator}
+
+\begin{exo}[1.1]{}
+The table gives values of a function $f$ at selected values of $x$.
+\begin{center}\begin{tabular}{c|cccc}
+$x$ & 0 & 2 & 4 & 6\\\hline $f(x)$ & 5 & 9 & 11 & 12\end{tabular}\end{center}
+Which statement is consistent with the table?
+\choices{$f$ is increasing and its graph is concave up.}{$f$ is increasing and its graph is concave down.}{$f$ is decreasing and its graph is concave up.}{$f$ is decreasing and its graph is concave down.}
+\answer{B}{The outputs increase, so $f$ is increasing. The average rates of change on $[0,2]$, $[2,4]$, $[4,6]$ are $2$, $1$, $0.5$: the rate of change is decreasing, so the graph is concave down.}
+\end{exo}
+
+\begin{exo}[1.2]{}
+What is the average rate of change of $f(x)=x^3-2x$ on the interval $[-1,2]$?
+\choices{$3$}{$\dfrac53$}{$1$}{$-1$}
+\answer{C}{$f(2)=8-4=4$ and $f(-1)=-1+2=1$, so $\dfrac{4-1}{2-(-1)}=\dfrac33=1$.}
+\end{exo}
+
+\begin{exo}[1.3]{}
+\begin{center}\begin{tabular}{c|ccccc}
+$x$ & 1 & 2 & 3 & 4 & 5\\\hline $y$ & 2 & 5 & 10 & 17 & 26\end{tabular}\end{center}
+Which type of function best models the data in the table?
+\choices{Quadratic}{Linear}{Cubic}{Constant}
+\answer{A}{The first differences are $3, 5, 7, 9$ and the second differences are all $2$. Constant second differences over equal input intervals indicate a quadratic model ($y=x^2+1$).}
+\end{exo}
+
+\begin{exo}[1.5]{}
+A polynomial $p$ of degree 4 has real coefficients. Two of its zeros are $2$ and $1+3i$. Which of the following must also be a zero of $p$?
+\choices{$-2$}{$3+i$}{$-1-3i$}{$1-3i$}
+\answer{D}{Non-real zeros of a polynomial with real coefficients come in conjugate pairs, so $1-3i$ is a zero.}
+\end{exo}
+
+\begin{exo}[1.6]{}
+Let $p(x)=x^2(x-3)^3(x+1)$. What is $\displaystyle\lim_{x\to-\infty}p(x)$?
+\choices{$-\infty$}{$+\infty$}{$0$}{$1$}
+\answer{B}{The leading term is $x^2\cdot x^3\cdot x=x^6$: even degree with positive leading coefficient, so $p(x)\to+\infty$ as $x\to-\infty$.}
+\end{exo}
+
+\begin{exo}[1.5]{}
+Which statement describes the graph of $p(x)=(x+2)^2(x-1)$ at $x=-2$?
+\choices{It has a vertical asymptote.}{It crosses the $x$-axis.}{It touches the $x$-axis without crossing it.}{It has a hole.}
+\answer{C}{$x=-2$ is a zero of even multiplicity (2), so the graph touches the $x$-axis and turns back. Polynomials have no asymptotes or holes.}
+\end{exo}
+
+\begin{exo}[1.7]{}
+Which line is a horizontal asymptote of the graph of $r(x)=\dfrac{3x^2-x}{6x^2+5}$?
+\choices{$y=3$}{$y=0$}{$y=-\dfrac15$}{$y=\dfrac12$}
+\answer{D}{The degrees are equal, so the asymptote is the ratio of leading coefficients: $y=\frac36=\frac12$.}
+\end{exo}
+
+\begin{exo}[1.10]{}
+Let $r(x)=\dfrac{x^2-1}{x^2+x-2}$. Which statement is true about the graph of $r$ at $x=1$?
+\choices{It has a vertical asymptote $x=1$.}{It has a hole at $\left(1,\frac23\right)$.}{It has a zero at $x=1$.}{It has a hole at $(1,0)$.}
+\answer{B}{$r(x)=\dfrac{(x-1)(x+1)}{(x-1)(x+2)}$. The factor $(x-1)$ cancels, so there is a hole at $x=1$. Its height is $\dfrac{1+1}{1+2}=\dfrac23$.}
+\end{exo}
+
+\begin{exo}[1.9]{}
+What is $\displaystyle\lim_{x\to2^+}\frac{x+1}{2-x}$?
+\choices{$0$}{$3$}{$+\infty$}{$-\infty$}
+\answer{D}{As $x\to2^+$, the numerator approaches $3>0$ and the denominator $2-x$ approaches $0$ through negative values. The quotient decreases without bound.}
+\end{exo}
+
+\begin{exo}[1.11]{}
+The graph of $r(x)=\dfrac{2x^2+3x-4}{x+2}$ has a slant asymptote. What is its equation?
+\choices{$y=2x-1$}{$y=2x+7$}{$y=2x+3$}{$y=x-1$}
+\answer{A}{Synthetic division by $-2$ on $2,\ 3,\ -4$ gives $2,\ -1$ with remainder $-2$, so $r(x)=2x-1-\dfrac{2}{x+2}$. As $x\to\pm\infty$ the fraction goes to $0$.}
+\end{exo}
+
+\begin{exo}[1.11]{}
+What is the coefficient of $x^2$ in the expansion of $(x-3)^4$?
+\choices{$6$}{$-108$}{$54$}{$9$}
+\answer{C}{Row 4 of Pascal's triangle is $1,4,6,4,1$. The $x^2$ term is $6\,x^2(-3)^2=54x^2$.}
+\end{exo}
+
+\begin{exo}[1.12]{}
+The function $f$ has domain $[0,8]$ and range $[-2,3]$. What is the range of $g(x)=-2f\!\left(\frac{x}{2}\right)+1$?
+\choices{$[-5,5]$}{$[-3,7]$}{$[-4,6]$}{$[-1,3]$}
+\answer{A}{The horizontal dilation does not change the range. Multiplying $[-2,3]$ by $-2$ gives $[-6,4]$; adding 1 gives $[-5,5]$.}
+\end{exo}
+
+\begin{exo}[1.5]{}
+Which function is even?
+\choices{$f(x)=x^3-x$}{$f(x)=x^4+3x^2-1$}{$f(x)=x^2+x$}{$f(x)=(x-1)^2$}
+\answer{B}{$(-x)^4+3(-x)^2-1=x^4+3x^2-1$, so $f(-x)=f(x)$. The others fail this test (for example, (C) gives $x^2-x$).}
+\end{exo}
+
+\begin{exo}[1.8]{}
+What is the solution set of $\dfrac{x-3}{x+1}\ge0$?
+\choices{$(-\infty,-1]\cup[3,\infty)$}{$[3,\infty)$}{$(-1,3]$}{$(-\infty,-1)\cup[3,\infty)$}
+\answer{D}{The sign can change only at the zero $x=3$ and at $x=-1$ (excluded). Test points: $x=-2$ gives $\frac{-5}{-1}>0$, $x=0$ gives $-3<0$, $x=4$ gives $\frac15>0$. Include $x=3$ (value 0) but not $x=-1$.}
+\end{exo}
+
+%=================================================
+\partheading{Part B \textbullet\ Multiple choice \textbullet\ Graphing calculator}
+
+\begin{exo}[1.14]{}
+An open box is made from a $16$ in by $10$ in sheet by cutting squares of side $x$ in from the corners. Its volume is $V(x)=x(16-2x)(10-2x)$ for $0<x<5$. What is the maximum volume of the box?
+\choices{$120$ in$^3$}{$144$ in$^3$}{$160$ in$^3$}{$168$ in$^3$}
+\answer{B}{Graph $V$ on $0<x<5$ and use the maximum feature: the maximum occurs at $x=2$, with $V(2)=2\cdot12\cdot6=144$ in$^3$.}
+\end{exo}
+
+\begin{exo}[1.14]{}
+The height $h$, in meters, of a model rocket was measured at times $t$, in seconds.
+\begin{center}\begin{tabular}{c|ccccc}
+$t$ & 0 & 1 & 2 & 3 & 4\\\hline $h(t)$ & 1.2 & 6.1 & 9.0 & 9.9 & 8.6\end{tabular}\end{center}
+Using a quadratic regression, what is the predicted height at $t=5$ seconds?
+\choices{$4.2$ m}{$5.3$ m}{$6.4$ m}{$7.3$ m}
+\answer{B}{The quadratic regression is $h(t)\approx-1.029t^2+5.974t+1.183$, so $h(5)\approx5.34$ m.}
+\end{exo}
+
+%=================================================
+\partheading{Part C \textbullet\ Free response}
+
+\begin{exo}[Function concepts \textbullet\ no calculator]{}
+The polynomial function $h$ has degree 3 and leading coefficient 1. Selected values of $h$ are given in the table.
+\begin{center}\begin{tabular}{c|cccccc}
+$x$ & $-2$ & $-1$ & $0$ & $1$ & $2$ & $3$\\\hline $h(x)$ & $-1$ & $3$ & $1$ & $-1$ & $3$ & $19$\end{tabular}\end{center}
+\begin{enumerate}[label=(\Alph*)]
+\item (i) Find the average rate of change of $h$ over the interval $[-1,1]$. Show the work that leads to your answer.\\
+(ii) How many real zeros does $h$ have? Give a reason for your answer using the table.
+\item (i) The average rates of change of $h$ over $[1,2]$ and $[2,3]$ are different. Use them to determine whether the graph of $h$ is concave up or concave down on $[1,3]$. Give a reason for your answer.\\
+(ii) Write a limit statement that describes the end behavior of $h$ as $x$ decreases without bound.
+\item Let $k(x)=h(x-2)+4$. Find $k(3)$, and describe how the graph of $k$ is obtained from the graph of $h$.
+\end{enumerate}
+\begin{solution}
+\textbf{(A)(i)} $\dfrac{h(1)-h(-1)}{1-(-1)}=\dfrac{-1-3}{2}=-2$.\\
+\textbf{(ii)} $h$ is a polynomial, so it is continuous. Its values change sign on $[-2,-1]$ (from $-1$ to $3$), on $[0,1]$ (from $1$ to $-1$) and on $[1,2]$ (from $-1$ to $3$), so $h$ has a zero in each of these intervals: at least 3 real zeros. A degree-3 polynomial has at most 3 zeros, so $h$ has \textbf{exactly 3} real zeros.\\
+\textbf{(B)(i)} On $[1,2]$: $\frac{3-(-1)}{1}=4$. On $[2,3]$: $\frac{19-3}{1}=16$. The average rates of change over consecutive equal-length intervals are increasing, so the graph of $h$ is concave up on $[1,3]$.\\
+\textbf{(ii)} The leading term is $x^3$ (odd degree, positive coefficient), so $\displaystyle\lim_{x\to-\infty}h(x)=-\infty$.\\
+\textbf{(C)} $k(3)=h(1)+4=-1+4=3$. The graph of $k$ is the graph of $h$ translated 2 units to the right and 4 units up.
+\end{solution}
+\end{exo}
+
+\begin{exo}[Modeling a non-periodic context \textbullet\ calculator]{}
+A theater studies how its revenue $R$, in dollars, depends on the ticket price $p$, in dollars.
+\begin{center}\begin{tabular}{c|ccccc}
+$p$ (dollars) & 10 & 15 & 20 & 25 & 30\\\hline $R$ (dollars) & 4000 & 5250 & 6000 & 6250 & 6000\end{tabular}\end{center}
+\begin{enumerate}[label=(\Alph*)]
+\item (i) Explain why a quadratic function is an appropriate model for these data.\\
+(ii) Write an expression for a quadratic function $R(p)$ that fits the data exactly.
+\item (i) Use your model to predict the revenue when the ticket price is \$35.\\
+(ii) Find the average rate of change of $R$ from $p=25$ to $p=35$, and interpret its meaning in context, with units.
+\item Revenue cannot be negative. Find the interval of ticket prices for which the model gives a revenue of at least \$0, and state one reason the model may not be valid for every price in that interval.
+\end{enumerate}
+\begin{solution}
+\textbf{(A)(i)} The inputs are equally spaced (every \$5). The first differences are $1250, 750, 250, -250$ and the second differences are all $-500$. Constant second differences indicate a quadratic model.\\
+\textbf{(ii)} The table is symmetric about $p=25$ ($R(20)=R(30)=6000$), so the vertex is $(25, 6250)$: $R(p)=a(p-25)^2+6250$. Using $R(10)=4000$: $225a+6250=4000$, so $a=-10$.
+\[R(p)=-10(p-25)^2+6250.\]
+\textbf{(B)(i)} $R(35)=-10(10)^2+6250=5250$ dollars.\\
+\textbf{(ii)} $\dfrac{R(35)-R(25)}{35-25}=\dfrac{5250-6250}{10}=-100$. Between a price of \$25 and \$35, revenue decreases by \$100 on average for each \$1 increase in the ticket price.\\
+\textbf{(C)} $R(p)\ge0 \iff (p-25)^2\le625 \iff 0\le p\le50$. Possible reasons: the model is built from prices between \$10 and \$30 only; at very high prices attendance may drop to zero sooner than the model predicts; the theater's capacity limits attendance at low prices.
+\end{solution}
+\end{exo}
+
+\begin{exo}[Symbolic manipulations \textbullet\ no calculator]{}
+Let $r(x)=\dfrac{2x^2+2x-4}{x^2-1}$ and $p(x)=x^3-2x^2-5x+6$.
+\begin{enumerate}[label=(\Alph*)]
+\item (i) Find the zeros of $r$ and the coordinates of any hole in the graph of $r$.\\
+(ii) Find the vertical asymptote of the graph of $r$. Write limit statements that justify your answer.
+\item (i) Write a limit statement that describes the end behavior of $r$.\\
+(ii) Solve $r(x)\ge0$. Express your answer in interval notation.
+\item It is known that $p(1)=0$. Write $p(x)$ as a product of linear factors, and find all zeros of $p$.
+\end{enumerate}
+\begin{solution}
+\textbf{(A)(i)} $r(x)=\dfrac{2(x+2)(x-1)}{(x-1)(x+1)}$. The factor $(x-1)$ cancels: hole at $x=1$, with height $\dfrac{2(1+2)}{1+1}=3$, so the hole is $(1,3)$. The only zero is $x=-2$ (note $x=1$ is not in the domain).\\
+\textbf{(ii)} $x=-1$ is a zero of the denominator that does not cancel. For $x\neq1$, $r(x)=\dfrac{2(x+2)}{x+1}$. Near $x=-1$ the numerator is close to $2>0$, so $\displaystyle\lim_{x\to-1^-}r(x)=-\infty$ and $\displaystyle\lim_{x\to-1^+}r(x)=+\infty$. The line $x=-1$ is a vertical asymptote.\\
+\textbf{(B)(i)} Equal degrees, leading coefficients $2$ and $1$: $\displaystyle\lim_{x\to\pm\infty}r(x)=2$.\\
+\textbf{(ii)} Using $\dfrac{2(x+2)}{x+1}$: the sign changes at $x=-2$ and $x=-1$. It is positive on $(-\infty,-2)$, negative on $(-2,-1)$, positive on $(-1,\infty)$. Include $x=-2$; exclude $x=-1$ and the hole $x=1$:
+\[(-\infty,-2]\cup(-1,1)\cup(1,\infty).\]
+\textbf{(C)} Since $p(1)=0$, $(x-1)$ is a factor. Synthetic division by $1$ on $1,-2,-5,6$ gives $1,-1,-6$ with remainder 0, so $p(x)=(x-1)(x^2-x-6)=(x-1)(x-3)(x+2)$. The zeros are $1$, $3$ and $-2$.
+\end{solution}
+\end{exo}
+
+\ifkey\else
+\vfill
+\begin{center}\small\color{apgrey}Check your answers with the answer key for this unit.\end{center}
+\fi
+\end{document}

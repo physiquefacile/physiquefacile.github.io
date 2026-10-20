@@ -1,16 +1,14 @@
 /* AP Math Tracker — course library.
-   Each lesson lists its resources in `r`. Add a resource by putting the PDF in
-   ap-math-tracker/docs/<course>/ and writing its file name (without ".pdf"):
-     r:{notes:"1.1-notes", filled:"1.1-notes-filled", worksheet:"1.1-worksheet", key:"1.1-key", video:"https://www.youtube.com/watch?v=..."}
-   Lessons with no resources are listed but show no buttons.
+   Each unit lists its PDFs in `files` (names in ap-math-tracker/docs/<course>/, without ".pdf"):
+     files:{notes:"u1-notes", practice:"u1-practice", key:"u1-key"}
+   Units without files are shown as "in preparation".
    Topic numbers and titles follow the College Board Course and Exam Descriptions. */
 const L=(n,t,r)=>({n,t,r:r||{}});
 window.COURSE_LIB={
   pc:{
     name:"AP Precalculus",
-    external:{label:"Mr. Sindel's AP Precalculus page",url:"https://www.mrsindelmath.com/ap-precalculus"},
     units:[
-      {id:"u1",n:"1",t:"Polynomial and Rational Functions",lessons:[
+      {id:"u1",n:"1",t:"Polynomial and Rational Functions",files:{notes:"u1-notes",practice:"u1-practice",key:"u1-key"},lessons:[
         L("1.1","Change in Tandem"),L("1.2","Rates of Change"),L("1.3","Rates of Change in Linear and Quadratic Functions"),
         L("1.4","Polynomial Functions and Rates of Change"),L("1.5","Polynomial Functions and Complex Zeros"),
         L("1.6","Polynomial Functions and End Behavior"),L("1.7","Rational Functions and End Behavior"),
@@ -46,9 +44,8 @@ window.COURSE_LIB={
     ]},
   ab:{
     name:"AP Calculus AB",
-    external:{label:"Mr. Sindel's AP Calculus AB page",url:"https://www.mrsindelmath.com/ap-calculus-ab"},
     units:[
-      {id:"u1",n:"1",t:"Limits and Continuity",lessons:[
+      {id:"u1",n:"1",t:"Limits and Continuity",files:{notes:"u1-notes",practice:"u1-practice",key:"u1-key"},lessons:[
         L("1.1","Introducing Calculus: Can Change Occur at an Instant?"),L("1.2","Defining Limits and Using Limit Notation"),
         L("1.3","Estimating Limit Values from Graphs"),L("1.4","Estimating Limit Values from Tables"),
         L("1.5","Determining Limits Using Algebraic Properties of Limits"),L("1.6","Determining Limits Using Algebraic Manipulations"),

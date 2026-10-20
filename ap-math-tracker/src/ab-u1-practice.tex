@@ -1,0 +1,193 @@
+\documentclass[11pt]{article}
+\usepackage{ap}
+\newcommand{\choices}[4]{\par\smallskip
+  \begin{tabular}{@{}p{0.47\linewidth}p{0.47\linewidth}@{}}(A)\ #1 & (B)\ #2\\[3pt](C)\ #3 & (D)\ #4\end{tabular}\par}
+\newcommand{\answer}[2]{\begin{solution}\textbf{Answer: (#1).} #2\end{solution}}
+\input{mode}
+\ifkey\setdoc{AP Calculus AB}{Unit 1}{Practice \textbullet\ Answer key}\else\setdoc{AP Calculus AB}{Unit 1}{Practice}\fi
+\begin{document}
+\titleband{Limits and Continuity}{AP-style practice \textbullet\ Multiple choice and free response\ifkey\ \textbullet\ Answer key with explanations\fi}
+
+\begin{keyidea}[How to use this practice set]
+The questions follow the format of the AP Calculus AB exam. \textbf{Part A}: multiple choice, no calculator. \textbf{Part B}: multiple choice, graphing calculator required. \textbf{Part C}: free response; show your work and justify your answers, as on the exam.\\
+Suggested timing: Part A 30 min \textbullet\ Part B 8 min \textbullet\ Part C 45 min.
+\end{keyidea}
+
+%=================================================
+\partheading{Part A \textbullet\ Multiple choice \textbullet\ No calculator}
+
+\begin{exo}[1.6]{}
+$\displaystyle\lim_{x\to3}\frac{x^2-9}{x^2-2x-3}$ is
+\choices{$0$}{$\dfrac32$}{$3$}{nonexistent}
+\answer{B}{$\dfrac{(x-3)(x+3)}{(x-3)(x+1)}=\dfrac{x+3}{x+1}$ for $x\neq3$, and $\dfrac{6}{4}=\dfrac32$.}
+\end{exo}
+
+\begin{exo}[1.6]{}
+$\displaystyle\lim_{x\to0}\frac{\sqrt{x+9}-3}{x}$ is
+\choices{$0$}{$\dfrac13$}{$\dfrac16$}{$3$}
+\answer{C}{Multiply by the conjugate: $\dfrac{(x+9)-9}{x\left(\sqrt{x+9}+3\right)}=\dfrac{1}{\sqrt{x+9}+3}\to\dfrac16$.}
+\end{exo}
+
+\begin{exo}[1.8]{}
+$\displaystyle\lim_{x\to0}\frac{\sin(5x)}{x}$ is
+\choices{$5$}{$1$}{$\dfrac15$}{$0$}
+\answer{A}{$\dfrac{\sin5x}{x}=5\cdot\dfrac{\sin5x}{5x}\to5\cdot1=5$.}
+\end{exo}
+
+\begin{exo}[1.15]{}
+$\displaystyle\lim_{x\to\infty}\frac{4x^3-x}{2x^3+7x^2}$ is
+\choices{$0$}{$\dfrac47$}{$\infty$}{$2$}
+\answer{D}{Equal degrees: the limit is the ratio of the leading coefficients, $\frac42=2$.}
+\end{exo}
+
+\begin{exo}[1.15]{}
+$\displaystyle\lim_{x\to-\infty}\frac{2x}{\sqrt{x^2+5}}$ is
+\choices{$2$}{$-2$}{$0$}{$-\infty$}
+\answer{B}{For $x<0$, $\sqrt{x^2+5}\approx|x|=-x$, so the quotient approaches $\dfrac{2x}{-x}=-2$.}
+\end{exo}
+
+\begin{exo}[1.7]{}
+$\displaystyle\lim_{x\to2^-}\frac{|x-2|}{x-2}$ is
+\choices{$1$}{$0$}{$-1$}{nonexistent}
+\answer{C}{For $x<2$, $|x-2|=-(x-2)$, so the quotient equals $-1$.}
+\end{exo}
+
+\begin{exo}[1.4]{}
+\begin{center}\begin{tabular}{c|cccccc}
+$x$ & $0.9$ & $0.99$ & $0.999$ & $1.001$ & $1.01$ & $1.1$\\\hline
+$f(x)$ & $2.71$ & $2.97$ & $2.997$ & $3.003$ & $3.03$ & $3.31$\end{tabular}\end{center}
+Based on the table, which is the best estimate of $\displaystyle\lim_{x\to1}f(x)$?
+\choices{$2.997$}{$3$}{$3.003$}{The limit does not exist.}
+\answer{B}{The values approach $3$ from both the left and the right.}
+\end{exo}
+
+\begin{exo}[1.11]{}
+Let $f(x)=\begin{cases}x^2+1, & x<1\\ 3x-1, & x\ge1.\end{cases}$ Which statement is true?
+\choices{$\lim_{x\to1}f(x)$ does not exist.}{$\lim_{x\to1}f(x)$ exists, but $f$ is not continuous at $x=1$.}{$f$ is continuous at $x=1$.}{$f(1)$ is undefined.}
+\answer{C}{$\lim_{x\to1^-}f(x)=2$, $\lim_{x\to1^+}f(x)=2$ and $f(1)=3-1=2$. All three conditions of continuity hold.}
+\end{exo}
+
+\begin{exo}[1.13]{}
+For what value of $k$ is $f(x)=\begin{cases}kx+3, & x\le2\\ x^2-k, & x>2\end{cases}$ continuous at $x=2$?
+\choices{$-\dfrac13$}{$\dfrac13$}{$1$}{$7$}
+\answer{B}{Left: $2k+3$. Right: $4-k$. Then $2k+3=4-k$, so $3k=1$ and $k=\frac13$.}
+\end{exo}
+
+\begin{exo}[1.10]{}
+What type of discontinuity does $g(x)=\dfrac{x^2-4}{x-2}$ have at $x=2$?
+\choices{Jump}{Infinite}{Removable}{None; $g$ is continuous at $x=2$.}
+\answer{C}{$g(2)$ is undefined, but $\lim_{x\to2}g(x)=\lim_{x\to2}(x+2)=4$ exists: a removable discontinuity.}
+\end{exo}
+
+\begin{exo}[1.14]{}
+Which line or lines are vertical asymptotes of the graph of $h(x)=\dfrac{x+1}{x^2-1}$?
+\choices{$x=1$ only}{$x=-1$ only}{$x=1$ and $x=-1$}{$y=0$ only}
+\answer{A}{$h(x)=\dfrac{x+1}{(x-1)(x+1)}=\dfrac{1}{x-1}$ for $x\neq-1$. At $x=-1$ there is a hole (the limit is $-\frac12$); at $x=1$ the one-sided limits are infinite. $y=0$ is a horizontal asymptote.}
+\end{exo}
+
+\begin{exo}[1.8]{}
+$\displaystyle\lim_{x\to0}x^2\cos\!\left(\frac1x\right)$ is
+\choices{$1$}{$0$}{$-1$}{nonexistent}
+\answer{B}{$-x^2\le x^2\cos\frac1x\le x^2$ and both bounds approach $0$. By the squeeze theorem, the limit is $0$.}
+\end{exo}
+
+\begin{exo}[1.16]{}
+The function $f$ is continuous on $[1,5]$ with $f(1)=-2$ and $f(5)=6$. Which statement must be true?
+\choices{$f(c)=8$ for some $c$ in $(1,5)$.}{$f(3)=2$.}{$f$ is increasing on $[1,5]$.}{$f(c)=4$ for some $c$ in $(1,5)$.}
+\answer{D}{$4$ is between $-2$ and $6$, and $f$ is continuous, so the IVT guarantees such a $c$. Nothing forces $f(3)=2$ or monotonicity, and $8$ is not between the endpoint values.}
+\end{exo}
+
+\begin{exo}[1.15]{}
+$\displaystyle\lim_{x\to\infty}\frac{3e^x+x^2}{e^x-1}$ is
+\choices{$0$}{$1$}{$3$}{$\infty$}
+\answer{C}{$e^x$ dominates $x^2$ and constants as $x\to\infty$. Dividing by $e^x$: $\dfrac{3+x^2e^{-x}}{1-e^{-x}}\to\dfrac{3+0}{1-0}=3$.}
+\end{exo}
+
+%=================================================
+\partheading{Part B \textbullet\ Multiple choice \textbullet\ Graphing calculator}
+
+\begin{exo}[1.4]{}
+Using a table of values or a graph, what is $\displaystyle\lim_{x\to0}\frac{2^x-1}{x}$, to three decimal places?
+\choices{$0.500$}{$0.693$}{$1.000$}{$1.443$}
+\answer{B}{Values at $x=\pm0.001$ are about $0.6929$ and $0.6934$, so the limit is about $0.693$ (it equals $\ln2$).}
+\end{exo}
+
+\begin{exo}[1.16]{}
+How many values of $c$ in the open interval $(0,2)$ satisfy $c^3-4c+1=0$?
+\choices{None}{One}{Two}{Three}
+\answer{C}{Graphing $y=x^3-4x+1$ shows zeros at $x\approx-2.115$, $0.254$ and $1.861$. Two of them are in $(0,2)$.}
+\end{exo}
+
+%=================================================
+\partheading{Part C \textbullet\ Free response}
+
+\begin{exo}[Graph analysis \textbullet\ no calculator]{}
+The graph of the function $f$ on $[-3,4]$ is shown. It consists of a line segment for $-3\le x<-1$, the parabola $y=x^2$ for $-1\le x<2$, and a line segment for $2<x\le4$. Also $f(-1)=1$ and $f(2)=1$.
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[apaxis,xmin=-3.5,xmax=4.5,ymin=-1,ymax=5,xtick={-3,-2,-1,1,2,3,4},ytick={1,2,3,4},width=8.5cm,height=5.8cm]
+\addplot[apblue,very thick,domain=-3:-1]{x+4};
+\addplot[apblue,very thick,domain=-1:2]{x^2};
+\addplot[apblue,very thick,domain=2:4]{8-2*x};
+\node[circle,draw=apblue,fill=white,thick,inner sep=1.6pt] at (axis cs:-1,3){};
+\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:-1,1){};
+\node[circle,draw=apblue,fill=white,thick,inner sep=1.6pt] at (axis cs:2,4){};
+\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:2,1){};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\begin{enumerate}[label=(\alph*)]
+\item Find $\displaystyle\lim_{x\to-1^-}f(x)$ and $\displaystyle\lim_{x\to-1^+}f(x)$. Does $\displaystyle\lim_{x\to-1}f(x)$ exist? Give a reason for your answer.
+\item Find $\displaystyle\lim_{x\to2}f(x)$. Is $f$ continuous at $x=2$? Name the type of discontinuity, if any, and explain how $f(2)$ could be redefined to make $f$ continuous at $x=2$.
+\item Find $\displaystyle\lim_{x\to3}f\big(f(x)\big)$. Show the work that leads to your answer.
+\item $f(1)=1$ and $f(3)=2$. Explain why the Intermediate Value Theorem cannot be used to guarantee a value $c$ in $[1,3]$ with $f(c)=1.5$. Does such a value exist? Justify.
+\end{enumerate}
+\begin{solution}
+\textbf{(a)} $\lim_{x\to-1^-}f(x)=3$ and $\lim_{x\to-1^+}f(x)=(-1)^2=1$. The one-sided limits are not equal, so $\lim_{x\to-1}f(x)$ does not exist.\\
+\textbf{(b)} $\lim_{x\to2^-}f(x)=2^2=4$ and $\lim_{x\to2^+}f(x)=8-2(2)=4$, so $\lim_{x\to2}f(x)=4$. But $f(2)=1\neq4$, so $f$ is not continuous at $x=2$. This is a removable discontinuity; redefining $f(2)=4$ makes $f$ continuous at $x=2$.\\
+\textbf{(c)} For $x$ near 3, $f(x)=8-2x\to2$. As $x\to3^-$, $f(x)\to2$ from above; as $x\to3^+$, $f(x)\to2$ from below. In both cases $f(f(x))$ approaches $\lim_{y\to2}f(y)=4$ (from part (b)). So $\lim_{x\to3}f(f(x))=4$. (Note that this is not $f(2)=1$.)\\
+\textbf{(d)} The IVT requires $f$ to be continuous on $[1,3]$, but $f$ is not continuous at $x=2$. Such a value does exist: on $[1,2)$, $f(x)=x^2=1.5$ when $c=\sqrt{1.5}\approx1.22$, which is in $[1,3]$.
+\end{solution}
+\end{exo}
+
+\begin{exo}[Algebraic limits and continuity \textbullet\ no calculator]{}
+Let $g(x)=\begin{cases}\dfrac{x^2+x-6}{x-2}, & x<2\\[6pt] cx+1, & x\ge2\end{cases}$ \ where $c$ is a constant, and let $h(x)=\dfrac{x^2+x-6}{x^2-4}$.
+\begin{enumerate}[label=(\alph*)]
+\item Find $\displaystyle\lim_{x\to2^-}g(x)$. Show the work that leads to your answer.
+\item Find the value of $c$ for which $g$ is continuous at $x=2$. Justify your answer using the definition of continuity.
+\item Find all values of $x$ where $h$ is not continuous, and classify each discontinuity. Justify with limits.
+\item Find $\displaystyle\lim_{x\to\infty}h(x)$ and $\displaystyle\lim_{x\to-2^+}h(x)$.
+\end{enumerate}
+\begin{solution}
+\textbf{(a)} For $x<2$: $\dfrac{(x+3)(x-2)}{x-2}=x+3$, so $\lim_{x\to2^-}g(x)=5$.\\
+\textbf{(b)} $g(2)=2c+1$ and $\lim_{x\to2^+}g(x)=2c+1$. For continuity we need $\lim_{x\to2^-}g(x)=\lim_{x\to2^+}g(x)=g(2)$: $2c+1=5$, so $c=2$. Then $g(2)=5$ and $\lim_{x\to2}g(x)=5=g(2)$.\\
+\textbf{(c)} $h(x)=\dfrac{(x+3)(x-2)}{(x+2)(x-2)}$ is not defined at $x=2$ and $x=-2$.
+At $x=2$: $\lim_{x\to2}h(x)=\lim_{x\to2}\dfrac{x+3}{x+2}=\dfrac54$ exists: removable discontinuity.
+At $x=-2$: the numerator of $\dfrac{x+3}{x+2}$ approaches $1$ and the denominator approaches $0$, so $\lim_{x\to-2^-}h(x)=-\infty$ and $\lim_{x\to-2^+}h(x)=+\infty$: infinite discontinuity (vertical asymptote $x=-2$).\\
+\textbf{(d)} $\lim_{x\to\infty}h(x)=1$ (equal degrees, leading coefficients $1$ and $1$). $\lim_{x\to-2^+}h(x)=+\infty$.
+\end{solution}
+\end{exo}
+
+\begin{exo}[Table and theorems \textbullet\ calculator]{}
+The temperature $W$, in degrees Celsius, of a greenhouse is a continuous function of time $t$, in hours, for $0\le t\le10$. Selected values are given in the table.
+\begin{center}\begin{tabular}{c|ccccc}
+$t$ (hours) & 0 & 3 & 5 & 8 & 10\\\hline $W(t)$ ($^\circ$C) & 20 & 24 & 31 & 27 & 22\end{tabular}\end{center}
+\begin{enumerate}[label=(\alph*)]
+\item Must there be a time $t$ in $[0,10]$ at which $W(t)=30$? Justify your answer.
+\item Explain why there must be at least two times in $[0,10]$ at which $W(t)=25$.
+\item Use the data to estimate the rate at which the temperature is changing at $t=4$ hours. Show the computation and give units.
+\item A function $f$ satisfies $4x-x^2\le f(x)\le x^2-4x+8$ for all $x$. Find $\displaystyle\lim_{x\to2}f(x)$, and name the theorem you use.
+\end{enumerate}
+\begin{solution}
+\textbf{(a)} Yes. $W$ is continuous on $[3,5]$, $W(3)=24$ and $W(5)=31$. Since $24<30<31$, the IVT guarantees a $t$ in $[3,5]$ with $W(t)=30$.\\
+\textbf{(b)} $W$ is continuous on $[3,5]$ with $24<25<31$, so $W(t)=25$ for some $t$ in $[3,5]$. $W$ is continuous on $[8,10]$ with $22<25<27$, so $W(t)=25$ for some $t$ in $[8,10]$. These intervals do not overlap, so there are at least two such times.\\
+\textbf{(c)} $\dfrac{W(5)-W(3)}{5-3}=\dfrac{31-24}{2}=3.5$ degrees Celsius per hour.\\
+\textbf{(d)} At $x=2$: $4(2)-2^2=4$ and $2^2-4(2)+8=4$. Both bounding functions are polynomials, so $\lim_{x\to2}(4x-x^2)=4$ and $\lim_{x\to2}(x^2-4x+8)=4$. By the squeeze theorem, $\lim_{x\to2}f(x)=4$.
+\end{solution}
+\end{exo}
+
+\ifkey\else
+\vfill
+\begin{center}\small\color{apgrey}Check your answers with the answer key for this unit.\end{center}
+\fi
+\end{document}

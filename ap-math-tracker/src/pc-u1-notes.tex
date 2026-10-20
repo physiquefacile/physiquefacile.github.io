@@ -1,0 +1,284 @@
+\documentclass[11pt]{article}
+\usepackage{ap}
+\setdoc{AP Precalculus}{Unit 1}{Course notes}
+\begin{document}
+\titleband{Polynomial and Rational Functions}{Topics 1.1 to 1.14 \textbullet\ About 30--40\% of the AP Precalculus exam}
+
+\textbf{In this unit} you learn to describe how the outputs of a function change with its inputs, to analyze polynomial and rational functions from their formulas, graphs and tables, and to build function models from data and contexts.
+
+%------------------------------------------------
+\lesson{1.1}{Change in Tandem}
+A \textbf{function} assigns exactly one output value to each input value. As the input values change, the output values change \emph{in tandem}.
+
+\begin{keyidea}
+\begin{itemize}
+\item $f$ is \textbf{increasing} on an interval if, as inputs increase, outputs increase: $a<b \Rightarrow f(a)<f(b)$.
+\item $f$ is \textbf{decreasing} on an interval if, as inputs increase, outputs decrease: $a<b \Rightarrow f(a)>f(b)$.
+\item The graph is \textbf{concave up} where the rate of change is increasing, and \textbf{concave down} where the rate of change is decreasing.
+\item A \textbf{zero} of $f$ is an input $a$ with $f(a)=0$; it is an $x$-intercept of the graph.
+\end{itemize}
+\end{keyidea}
+
+\begin{example}
+A cup of coffee cools in a room. Its temperature $T$ (in $^\circ$C) is recorded every 5 minutes.
+\begin{center}\begin{tabular}{c|ccccc}
+$t$ (min) & 0 & 5 & 10 & 15 & 20\\\hline
+$T(t)$ ($^\circ$C) & 90 & 70 & 56 & 46 & 40
+\end{tabular}\end{center}
+\sol The outputs decrease, so $T$ is decreasing. The changes are $-20, -14, -10, -6$: the temperature falls more and more slowly. The rate of change is negative and increasing, so the graph is decreasing and concave up.
+\end{example}
+
+%------------------------------------------------
+\lesson{1.2}{Rates of Change}
+\begin{keyidea}
+The \textbf{average rate of change} of $f$ on the interval $[a,b]$ is
+\[ \frac{f(b)-f(a)}{b-a}. \]
+It is the slope of the \textbf{secant line} through $(a,f(a))$ and $(b,f(b))$. Its units are \emph{output units per input unit}.
+\end{keyidea}
+
+The \textbf{rate of change at a point} (instantaneous rate of change) can be approximated by average rates of change over smaller and smaller intervals that contain the point.
+
+\begin{example}
+Let $f(x)=x^2$. Find the average rate of change on $[1,3]$ and estimate the rate of change at $x=1$.
+\sol On $[1,3]$: $\dfrac{f(3)-f(1)}{3-1}=\dfrac{9-1}{2}=4$.\\
+On $[1,\,1.01]$: $\dfrac{1.0201-1}{0.01}=2.01$. The rate of change at $x=1$ is about $2$.
+\end{example}
+
+\begin{keyidea}[Sign of the rate of change]
+Where the rate of change is positive, $f$ is increasing; where it is negative, $f$ is decreasing. Where $f$ changes from increasing to decreasing (or the reverse), the rate of change changes sign.
+\end{keyidea}
+
+%------------------------------------------------
+\lesson{1.3}{Rates of Change in Linear and Quadratic Functions}
+\begin{keyidea}
+\begin{itemize}
+\item A \textbf{linear} function has a \emph{constant} average rate of change on every interval: its slope.
+\item For a \textbf{quadratic} function, the average rates of change over consecutive equal-length intervals change at a constant rate. In a table with equally spaced inputs, the \emph{first differences} change by a constant amount: the \emph{second differences} are constant.
+\end{itemize}
+\end{keyidea}
+
+\begin{example}
+\begin{center}\begin{tabular}{c|ccccc}
+$x$ & 0 & 1 & 2 & 3 & 4\\\hline
+$y$ & 1 & 4 & 9 & 16 & 25\\\hline
+1st differences & & 3 & 5 & 7 & 9\\
+2nd differences & & & 2 & 2 & 2
+\end{tabular}\end{center}
+\sol The second differences are constant, so the data can be modeled by a quadratic function. Here $y=(x+1)^2$.
+\end{example}
+
+For a quadratic $f(x)=ax^2+bx+c$: if $a>0$ the rate of change increases (concave up, minimum at the vertex); if $a<0$ it decreases (concave down, maximum at the vertex).
+
+%------------------------------------------------
+\lesson{1.4}{Polynomial Functions and Rates of Change}
+A \textbf{polynomial function} of degree $n$ has the form
+\[ p(x)=a_nx^n+a_{n-1}x^{n-1}+\dots+a_1x+a_0,\qquad a_n\neq 0. \]
+$a_n$ is the \textbf{leading coefficient} and $a_nx^n$ the \textbf{leading term}.
+
+\begin{keyidea}
+\begin{itemize}
+\item A \textbf{local (relative) maximum} occurs where $p$ changes from increasing to decreasing; a \textbf{local minimum} where it changes from decreasing to increasing.
+\item The greatest local maximum on the whole domain is the \textbf{global (absolute) maximum}; similarly for the minimum.
+\item A polynomial of degree $n$ has at most $n-1$ local extrema.
+\item A \textbf{point of inflection} is where the graph changes concavity: the rate of change goes from increasing to decreasing, or the reverse.
+\end{itemize}
+\end{keyidea}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[apaxis,xmin=-2.6,xmax=2.6,ymin=-3.5,ymax=3.5,xtick={-2,-1,1,2},ytick={-2,2}]
+\addplot[apblue,very thick,domain=-2.3:2.3]{x^3-3*x};
+\node[circle,fill=apred,inner sep=1.6pt,label={above:\scriptsize local max $(-1,2)$}] at (axis cs:-1,2){};
+\node[circle,fill=apgreen,inner sep=1.6pt,label={below:\scriptsize local min $(1,-2)$}] at (axis cs:1,-2){};
+\node[circle,fill=apgold,inner sep=1.6pt,label={right:\scriptsize inflection}] at (axis cs:0,0){};
+\end{axis}
+\end{tikzpicture}
+
+{\small $p(x)=x^3-3x$: increasing on $(-\infty,-1)$ and $(1,\infty)$, decreasing on $(-1,1)$, concave down on $(-\infty,0)$, concave up on $(0,\infty)$.}
+\end{center}
+
+%------------------------------------------------
+\lesson{1.5}{Polynomial Functions and Complex Zeros}
+\begin{keyidea}
+\begin{itemize}
+\item If $a$ is a real zero of $p$, then $(x-a)$ is a factor of $p(x)$, and $(a,0)$ is an $x$-intercept.
+\item A polynomial of degree $n$ has exactly $n$ complex zeros, counted with \textbf{multiplicity}.
+\item If $p$ has real coefficients, its non-real zeros come in \textbf{conjugate pairs}: if $a+bi$ is a zero, so is $a-bi$.
+\item At a real zero of \textbf{even} multiplicity, the graph \emph{touches} the $x$-axis and turns back. At a zero of \textbf{odd} multiplicity, it \emph{crosses} the $x$-axis (flattening out if the multiplicity is 3 or more).
+\end{itemize}
+\end{keyidea}
+
+\begin{example}
+Describe the zeros of $p(x)=(x-2)^2(x+1)(x^2+4)$.
+\sol $p$ has degree $2+1+2=5$, so it has 5 complex zeros: $x=2$ (multiplicity 2, the graph touches the axis), $x=-1$ (multiplicity 1, the graph crosses), and $x=\pm 2i$ (from $x^2+4=0$), which are not $x$-intercepts.
+\end{example}
+
+\begin{keyidea}[Even and odd functions]
+$f$ is \textbf{even} if $f(-x)=f(x)$ for all $x$ (graph symmetric about the $y$-axis). $f$ is \textbf{odd} if $f(-x)=-f(x)$ (graph symmetric about the origin).
+\end{keyidea}
+
+%------------------------------------------------
+\lesson{1.6}{Polynomial Functions and End Behavior}
+As $x\to\pm\infty$, a polynomial behaves like its leading term $a_nx^n$.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{l|c|c}
+& $a_n>0$ & $a_n<0$\\\hline
+$n$ even & $\displaystyle\lim_{x\to\pm\infty}p(x)=+\infty$ & $\displaystyle\lim_{x\to\pm\infty}p(x)=-\infty$\\\hline
+$n$ odd & $\displaystyle\lim_{x\to-\infty}p(x)=-\infty,\ \lim_{x\to\infty}p(x)=+\infty$ & $\displaystyle\lim_{x\to-\infty}p(x)=+\infty,\ \lim_{x\to\infty}p(x)=-\infty$
+\end{tabular}
+\end{center}
+
+\begin{example}
+Find the end behavior of $p(x)=(1-x)(x+2)^3$.
+\sol The leading term is $(-x)(x^3)=-x^4$: even degree, negative leading coefficient. So $\lim_{x\to-\infty}p(x)=-\infty$ and $\lim_{x\to\infty}p(x)=-\infty$.
+\end{example}
+
+%------------------------------------------------
+\lesson{1.7}{Rational Functions and End Behavior}
+A \textbf{rational function} is a quotient of polynomials, $r(x)=\dfrac{p(x)}{q(x)}$ with $q$ not the zero polynomial. Its end behavior is that of the quotient of the leading terms.
+
+\begin{keyidea}
+Let $\deg p=m$ and $\deg q=n$.
+\begin{itemize}
+\item $m<n$: horizontal asymptote $y=0$.
+\item $m=n$: horizontal asymptote $y=\dfrac{\text{leading coefficient of } p}{\text{leading coefficient of } q}$.
+\item $m=n+1$: slant asymptote $y=$ quotient of the polynomial division $p\div q$.
+\item $m>n+1$: no linear asymptote; $r$ behaves like a polynomial of degree $m-n$.
+\end{itemize}
+\end{keyidea}
+
+\begin{example}
+$r(x)=\dfrac{6x^2-1}{2x^2+x}$ has horizontal asymptote $y=\dfrac{6}{2}=3$, so $\lim_{x\to\pm\infty}r(x)=3$.
+\end{example}
+
+%------------------------------------------------
+\lesson{1.8}{Rational Functions and Zeros}
+\begin{keyidea}
+The zeros of $r=\dfrac{p}{q}$ are the real zeros of the numerator $p$ that are \emph{in the domain} of $r$ (that is, not zeros of $q$).
+\end{keyidea}
+\begin{example}
+$r(x)=\dfrac{x^2-4}{x+1}$ has zeros $x=2$ and $x=-2$. The function $s(x)=\dfrac{x^2-4}{x-2}$ has only one zero, $x=-2$: $x=2$ is not in its domain.
+\end{example}
+The sign of a rational function can only change at its zeros and at the values excluded from its domain. A sign chart on the intervals between these values solves inequalities such as $r(x)\ge 0$.
+
+%------------------------------------------------
+\lesson{1.9}{Rational Functions and Vertical Asymptotes}
+\begin{keyidea}
+If $a$ is a zero of the denominator and, after factoring, the factor $(x-a)$ appears more times in the denominator than in the numerator, then the line $x=a$ is a \textbf{vertical asymptote}: $r(x)\to+\infty$ or $-\infty$ as $x\to a^-$ and as $x\to a^+$.
+\end{keyidea}
+To decide between $+\infty$ and $-\infty$, test the sign of $r$ just to the left and just to the right of $a$.
+
+%------------------------------------------------
+\lesson{1.10}{Rational Functions and Holes}
+\begin{keyidea}
+If $(x-a)$ appears in the numerator at least as many times as in the denominator, the graph has a \textbf{hole} at $x=a$. Cancel the common factors; the hole is at $\big(a,\ \text{value of the simplified expression at } a\big)$, and $\lim_{x\to a}r(x)$ equals that value.
+\end{keyidea}
+
+\begin{example}
+Analyze $r(x)=\dfrac{x^2-x-6}{x^2-9}$.
+\sol Factor: $r(x)=\dfrac{(x-3)(x+2)}{(x-3)(x+3)}$.
+\begin{itemize}
+\item Hole at $x=3$: $\dfrac{3+2}{3+3}=\dfrac56$, so the hole is at $\left(3,\frac56\right)$.
+\item Vertical asymptote $x=-3$: $\lim_{x\to-3^-}r(x)=+\infty$, $\lim_{x\to-3^+}r(x)=-\infty$.
+\item Zero: $x=-2$. Horizontal asymptote: $y=1$.
+\end{itemize}
+\end{example}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[apaxis,xmin=-8,xmax=7,ymin=-6,ymax=6,xtick={-6,-3,3,6},ytick={-4,-2,2,4},width=8cm,height=6cm]
+\addplot[apblue,very thick,domain=-8:-3.15,samples=200]{(x+2)/(x+3)};
+\addplot[apblue,very thick,domain=-2.85:7,samples=200]{(x+2)/(x+3)};
+\draw[apred,dashed,thick] (axis cs:-3,-6)--(axis cs:-3,6);
+\draw[apgold!80!black,dashed,thick] (axis cs:-8,1)--(axis cs:7,1);
+\node[circle,draw=apblue,fill=white,inner sep=1.6pt,thick] at (axis cs:3,5/6){};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\begin{aptip}
+On the exam, justify every asymptote and hole with the factored form \emph{and} a limit statement, for example ``$\lim_{x\to-3^+}r(x)=-\infty$, so $x=-3$ is a vertical asymptote.''
+\end{aptip}
+
+%------------------------------------------------
+\lesson{1.11}{Equivalent Representations of Polynomial and Rational Expressions}
+The same function can be written in several forms; each reveals different information.
+\begin{itemize}
+\item \textbf{Standard form} $ax^2+bx+c$: the $y$-intercept and end behavior.
+\item \textbf{Factored form} $a(x-r_1)(x-r_2)$: the zeros.
+\item \textbf{Quotient form} from polynomial division $p(x)=d(x)\,q(x)+r(x)$: slant asymptotes and end behavior of rational functions.
+\end{itemize}
+
+\begin{example}[Polynomial division]
+Write $\dfrac{x^3+2x^2-5x+1}{x-1}$ as a quotient plus a remainder.
+\sol Synthetic division by $1$ on the coefficients $1,\ 2,\ -5,\ 1$ gives $1,\ 3,\ -2$ and remainder $-1$:
+\[ \frac{x^3+2x^2-5x+1}{x-1}=x^2+3x-2-\frac{1}{x-1}. \]
+\end{example}
+
+\begin{keyidea}[Binomial theorem]
+The coefficients of $(a+b)^n$ are the numbers in row $n$ of Pascal's triangle. For example, $(a+b)^3=a^3+3a^2b+3ab^2+b^3$, so $(x+2)^3=x^3+6x^2+12x+8$.
+\end{keyidea}
+
+%------------------------------------------------
+\lesson{1.12}{Transformations of Functions}
+\begin{keyidea}
+For $g(x)=a\,f\big(b(x-h)\big)+k$:
+\begin{itemize}
+\item $k$: vertical translation by $k$ units; $h$: horizontal translation by $h$ units.
+\item $|a|$: vertical dilation by a factor $|a|$; $a<0$ adds a reflection over the $x$-axis.
+\item $\left|\frac1b\right|$: horizontal dilation by a factor $\frac1{|b|}$; $b<0$ adds a reflection over the $y$-axis.
+\end{itemize}
+Horizontal changes affect the \emph{domain}; vertical changes affect the \emph{range}.
+\end{keyidea}
+
+\begin{example}
+$f$ has domain $[-2,4]$ and range $[0,6]$. Find the domain and range of $g(x)=3f(x-1)-2$.
+\sol Domain: shift right 1, so $[-1,5]$. Range: multiply by 3 then subtract 2, so $[3\cdot 0-2,\ 3\cdot 6-2]=[-2,16]$.
+\end{example}
+
+%------------------------------------------------
+\lesson{1.13}{Function Model Selection and Assumption Articulation}
+\begin{keyidea}[Choosing a model]
+\begin{itemize}
+\item \textbf{Linear}: the data show a roughly constant rate of change.
+\item \textbf{Quadratic}: roughly constant second differences, or a single maximum or minimum.
+\item \textbf{Cubic / higher polynomial}: several turning points or a change in concavity.
+\item \textbf{Rational}: a quantity that approaches a limiting value, or an inverse relationship (for example, cost per unit $=\frac{\text{total cost}}{\text{units}}$).
+\item \textbf{Piecewise}: different behavior on different intervals.
+\end{itemize}
+\end{keyidea}
+A model relies on \textbf{assumptions} (the pattern continues, the context allows only some inputs). State them, and restrict the domain and range to values that make sense in context.
+
+%------------------------------------------------
+\lesson{1.14}{Function Model Construction and Application}
+A model can be built from a geometric or verbal description, or from data with technology (linear, quadratic, cubic or quartic regression).
+
+\begin{example}
+A box without a lid is made from a $20$ cm by $30$ cm sheet by cutting a square of side $x$ cm from each corner and folding up the sides.
+\sol Volume: $V(x)=x(30-2x)(20-2x)$ cm$^3$. The side lengths must be positive, so the domain is $0<x<10$.
+For example, $V(3)=3\cdot24\cdot14=1008$ cm$^3$. A table or graph shows the maximum volume is about $1056$ cm$^3$, reached when $x\approx3.9$ cm.
+\end{example}
+
+\begin{aptip}
+When you use a model, give units and interpret your answer in context: ``When the squares have side 3 cm, the box holds 1008 cm$^3$.''
+\end{aptip}
+
+%------------------------------------------------
+\partheading{Unit 1 summary}
+\begin{multicols}{2}\small
+\begin{itemize}
+\item Average rate of change $=\dfrac{f(b)-f(a)}{b-a}$.
+\item Linear: constant rate of change. Quadratic: constant second differences.
+\item Degree $n$: $n$ complex zeros, at most $n-1$ turning points.
+\item Even multiplicity: touches. Odd: crosses.
+\item End behavior of a polynomial: its leading term.
+\item Rational end behavior: compare degrees.
+\item Zero of the denominator not cancelled: vertical asymptote.
+\item Common factor that cancels: hole.
+\item $a\,f(b(x-h))+k$: vertical changes act on the range, horizontal ones on the domain.
+\item Models: state assumptions, units, and a sensible domain.
+\end{itemize}
+\end{multicols}
+\end{document}
