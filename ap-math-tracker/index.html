@@ -117,11 +117,12 @@ details.unitlib summary .st{flex:1;min-width:0}
 .lessons-h{padding:8px 12px 2px;border-top:1px solid var(--line)}
 .lesson{border-top:0!important;padding-block:6px!important}
 .res{grid-column:2;display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
-.wspair{display:inline-flex}.wspair .rbtn:first-child{border-radius:6px 0 0 6px}.wspair .rbtn.key{border-radius:0 6px 6px 0;border-left:0;padding-inline:6px}
+.wspair{display:inline-flex}.wspair .rbtn:first-child{border-radius:6px 0 0 6px}.wspair .rbtn.key{border-radius:0 6px 6px 0;border-left:0;padding-inline:6px}.wspair .rbtn.key:not(:last-child){border-radius:0}
 .lesson.review{background:color-mix(in srgb,var(--hl) 12%,transparent)}
 .rbtn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font:inherit;font-size:.82rem;font-weight:700;padding:4px 10px;border-radius:6px;cursor:pointer;text-decoration:none}
 .rbtn .k{font-size:.66rem;letter-spacing:.06em;padding:1px 5px;border-radius:3px;background:var(--m0);color:var(--ink)}
 .rbtn.key .k{background:var(--m1);color:#16223A}
+.rbtn.quiz .k{background:var(--good);color:#fff}.wspair a.rbtn.quiz{border-radius:0 6px 6px 0;border-left:0;padding-inline:6px}
 .reader{position:fixed;inset:0;z-index:30;background:var(--bg);display:flex;flex-direction:column}
 .reader .bar{display:flex;gap:8px;align-items:center;padding:calc(8px + env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) 8px max(12px,env(safe-area-inset-left,0px));background:var(--paper);border-bottom:1px solid var(--line)}
 .reader .bar .rt{flex:1;min-width:0;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -169,6 +170,8 @@ details.unitlib summary .st{flex:1;min-width:0}
 </div>
 <script src="../vendor/pdfjs/pdf.js"></script>
 <script src="courses.js?v=6"></script>
+<script src="quiz-config.js?v=1"></script>
+<script src="quiz-bank.js?v=1"></script>
 
 <script>
 const COURSES={
@@ -303,6 +306,15 @@ function viewClass(){
         <input type="file" id="importFile" accept="application/json,.json" hidden>
         ${state.students.some(x=>/\(example\)$/.test(x.name))?'<button class="btn danger" id="clearEx">Remove example students</button>':""}
       </div>
+    </section>
+    <section class="panel"><h2>Online quizzes</h2>
+      <p class="muted" style="margin:0;font-size:.88rem">Students take quizzes and tests at <a href="quiz.html" target="_blank" rel="noopener">quiz.html</a> with their name and class code; answers are corrected automatically. ${(window.QUIZ_CONFIG||{}).endpoint?"Results arrive in your Google Sheet; import them here to add them to each student's scores.":"<b>Practice mode:</b> results are not collected until the Google Sheet is connected (see the setup guide in <code>apps-script/SETUP.md</code>)."}</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+        <button class="btn" id="copyQuiz">Copy quiz link</button>
+        <span class="muted num" style="font-size:.85rem;user-select:all">${esc(quizLink())}</span>
+      </div>
+      ${(window.QUIZ_CONFIG||{}).endpoint?`<form class="row" id="qimport"><label for="qkey">Teacher key (from the Settings tab)<input id="qkey" type="password" autocomplete="off" value="${esc(teacherKey())}"></label><button class="btn primary" type="submit" id="qbtn">Import results</button></form>
+      <div class="muted" style="font-size:.85rem">${(state.imported||[]).length} result${(state.imported||[]).length===1?"":"s"} imported so far.</div>`:""}
     </section></div>`;
 }
 
@@ -390,8 +402,10 @@ function pdfUrl(c,f){return "docs/"+c+"/"+f+".pdf"}
 function planLesson(u,l){
   const c=state.course,base=u.plan+l.n,lab=l.review?l.t:"Topic "+l.n;
   const notes=l.notes?`<button class="rbtn" data-pdf="${esc(pdfUrl(c,base+"-notes"))}" data-title="${esc(lab+" · Guided notes")}">Notes</button><button class="rbtn" data-pdf="${esc(pdfUrl(c,base+"-notes-filled"))}" data-title="${esc(lab+" · Notes (filled in)")}">Filled notes</button>`:"";
+  const qid=c+"-"+base,hasQ=(window.QUIZ_BANK||[]).some(q=>q.id===qid);
+  const quizb=hasQ?`<a class="rbtn quiz" href="quiz.html#${esc(qid)}" target="_blank" rel="noopener"><span class="k">ONLINE</span>Quiz</a>`:"";
   const wsb=l.ws.map(w=>`<span class="wspair"><button class="rbtn" data-pdf="${esc(pdfUrl(c,base+"-ws"+w))}" data-title="${esc(lab+" · Worksheet "+w)}">${w==="MEGA"?"MEGA":"WS "+w}</button><button class="rbtn key" data-pdf="${esc(pdfUrl(c,base+"-ws"+w+"-key"))}" data-title="${esc(lab+" · Worksheet "+w+" key")}" aria-label="Answer key for worksheet ${w}"><span class="k">KEY</span></button></span>`).join("");
-  return `<div class="lesson${l.review?" review":""}"><span class="ln">${l.review?"R":esc(l.n)}</span><span class="lt">${l.review?"<b>"+esc(l.t)+"</b>":esc(l.t)}</span><div class="res">${notes}${wsb}</div></div>`;
+  return `<div class="lesson${l.review?" review":""}"><span class="ln">${l.review?"R":esc(l.n)}</span><span class="lt">${l.review?"<b>"+esc(l.t)+"</b>":esc(l.t)}</span><div class="res">${notes}${quizb}${wsb}</div></div>`;
 }
 function viewCourses(){
   const lib=(window.COURSE_LIB||{})[state.course];
@@ -402,7 +416,8 @@ function viewCourses(){
     return `<details class="unitlib" id="lib-${u.id}"${open?" open":""}>
       <summary><span class="st">${u.n==="R"?"":`Unit ${esc(u.n)} · `}${esc(u.t)}${u.note?` <span class="chip" style="font-weight:400">${esc(u.note)}</span>`:""}</span>${(u.files||u.plan)?'<span class="chip ap">Available</span>':'<span class="muted" style="font-weight:400;font-size:.8rem">In preparation</span>'}</summary>
       ${u.files?`<div class="unitfiles">${FILES.filter(f=>u.files[f[0]]).map(f=>`<button class="rbtn ${f[3]}" data-pdf="${esc(pdfUrl(state.course,u.files[f[0]]))}" data-title="${esc((u.n==="R"?"":"Unit "+u.n+" · ")+f[1])}"><span class="k">${f[2]}</span>${f[1]}</button>`).join("")}</div>`:""}
-      ${u.tests?`<div class="lessons-h label">Self checks and unit tests</div><div class="unitfiles">${u.tests.map(x=>`<span class="wspair"><button class="rbtn" data-pdf="${esc(pdfUrl(state.course,u.plan+x.id))}" data-title="${esc(x.t)}">${esc(x.t)}</button><button class="rbtn key" data-pdf="${esc(pdfUrl(state.course,u.plan+x.id+"-key"))}" data-title="${esc(x.t+" · Answer key")}" aria-label="Answer key for ${esc(x.t)}"><span class="k">KEY</span></button></span>`).join("")}</div>`:""}
+      ${(window.QUIZ_BANK||[]).some(q=>q.id===state.course+"-"+u.id+"-aptest")?`<div class="unitfiles" style="padding-top:0"><a class="rbtn quiz" href="quiz.html#${esc(state.course+"-"+u.id+"-aptest")}" target="_blank" rel="noopener"><span class="k">ONLINE</span>Unit ${esc(u.n)} AP-style test (auto-corrected)</a></div>`:""}
+      ${u.tests?`<div class="lessons-h label">Self checks and unit tests</div><div class="unitfiles">${u.tests.map(x=>`<span class="wspair"><button class="rbtn" data-pdf="${esc(pdfUrl(state.course,u.plan+x.id))}" data-title="${esc(x.t)}">${esc(x.t)}</button><button class="rbtn key" data-pdf="${esc(pdfUrl(state.course,u.plan+x.id+"-key"))}" data-title="${esc(x.t+" · Answer key")}" aria-label="Answer key for ${esc(x.t)}"><span class="k">KEY</span></button>${(window.QUIZ_BANK||[]).some(q=>q.id===state.course+"-"+u.plan+x.id)?`<a class="rbtn quiz" href="quiz.html#${esc(state.course+"-"+u.plan+x.id)}" target="_blank" rel="noopener" aria-label="${esc(x.t)} online"><span class="k">ONLINE</span></a>`:""}</span>`).join("")}</div>`:""}
       <div class="lessons-h label">${u.plan?"Lessons: guided notes and worksheets":u.lessonFiles?"Lessons: notes, practice and key":"Lessons in this unit"}</div>
       ${u.plan?u.lessons.map(l=>planLesson(u,l)).join(""):u.lessons.map(l=>`<div class="lesson"><span class="ln">${esc(l.n)}</span><span class="lt">${esc(l.t)}</span>${u.lessonFiles?`<div class="res"><button class="rbtn" data-pdf="${esc(pdfUrl(state.course,u.lessonFiles+l.n+"-notes"))}" data-title="${esc("Lesson "+l.n+" · Notes")}">Notes</button><button class="rbtn" data-pdf="${esc(pdfUrl(state.course,u.lessonFiles+l.n+"-practice"))}" data-title="${esc("Lesson "+l.n+" · Practice")}">Practice</button><button class="rbtn key" data-pdf="${esc(pdfUrl(state.course,u.lessonFiles+l.n+"-key"))}" data-title="${esc("Lesson "+l.n+" · Answer key")}"><span class="k">KEY</span>Key</button></div>`:""}</div>`).join("")}
     </details>`}).join("");
@@ -492,19 +507,43 @@ function demoData(){
   ];
 }
 
+
+/* ---------- online quiz results ---------- */
+function quizLink(){try{return new URL("quiz.html",location.href).href}catch(e){return "quiz.html"}}
+function teacherKey(){try{return localStorage.getItem("apMathTracker.qkey")||""}catch(e){return ""}}
+const normName=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/\s+/g," ").trim();
+async function importResults(k){
+  const ep=(window.QUIZ_CONFIG||{}).endpoint;if(!ep)return;
+  try{localStorage.setItem("apMathTracker.qkey",k)}catch(e){}
+  const b=document.getElementById("qbtn");if(b){b.disabled=true;b.textContent="Importing…"}
+  let R=null;
+  try{const r=await fetch(ep,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({action:"results",key:k})});R=await r.json()}catch(e){}
+  if(!R||!R.ok){render();toast(R&&R.error==="key"?"The teacher key is not correct":"Could not reach the Google Sheet. Try again.");return}
+  const done=new Set(state.imported||[]);let added=0,created=0;
+  for(const x of R.results){
+    if(!x.id||done.has(x.id)||(x.course!=="pc"&&x.course!=="ab"))continue;
+    let s=state.students.find(st=>st.course===x.course&&normName(st.name)===normName(x.name));
+    if(!s){s={id:newId(),name:String(x.name).trim(),course:x.course,progress:{},scores:[],createdAt:new Date().toISOString()};state.students.push(s);created++}
+    s.scores=[...(s.scores||[]),{k:"q-"+x.id,label:(x.kind==="test"?"Test: ":"Quiz: ")+x.title,unit:null,pts:Number(x.score)||0,max:Number(x.total)||1,d:String(x.time).slice(0,10)}];
+    done.add(x.id);added++;
+  }
+  state.imported=[...done];persist();render();
+  toast(added?`${added} result${added>1?"s":""} imported${created?`, ${created} new student${created>1?"s":""}`:""}`:"No new results");
+}
 const STORE="apMathTracker.v1";
 function persist(){
   if(state.mode!=="local")return;
-  try{localStorage.setItem(STORE,JSON.stringify({v:1,students:state.students,plans:state.plans}))}
+  try{localStorage.setItem(STORE,JSON.stringify({v:1,students:state.students,plans:state.plans,imported:state.imported||[]}))}
   catch(e){toast("Could not save in this browser")}
 }
 function loadData(obj){
   if(!obj||!Array.isArray(obj.students))throw new Error("bad");
   state.students=obj.students.filter(s=>s&&s.id&&s.name&&(s.course==="pc"||s.course==="ab")).map(s=>({progress:{},scores:[],...s}));
   state.plans={pc:{},ab:{},...(obj.plans||{})};
+  state.imported=Array.isArray(obj.imported)?obj.imported:[];
 }
 function exportData(){
-  const blob=new Blob([JSON.stringify({v:1,exported:new Date().toISOString(),students:state.students,plans:state.plans},null,2)],{type:"application/json"});
+  const blob=new Blob([JSON.stringify({v:1,exported:new Date().toISOString(),students:state.students,plans:state.plans,imported:state.imported||[]},null,2)],{type:"application/json"});
   const a=document.createElement("a");a.href=URL.createObjectURL(blob);
   a.download="ap-math-tracker-"+key(new Date())+".json";document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);toast("Backup downloaded");
@@ -533,6 +572,7 @@ document.addEventListener("click",e=>{
   if(t.dataset.delscore){const s=state.students.find(x=>x.id===state.sel);if(!s)return;
     writeStudent(s,{scores:(s.scores||[]).filter(x=>x.k!==t.dataset.delscore)});toast("Score deleted");return}
   if(t.id==="exportBtn"){exportData();return}
+  if(t.id==="copyQuiz"){const l=quizLink();try{navigator.clipboard.writeText(l).then(()=>toast("Quiz link copied"),()=>toast("Select the link to copy it"))}catch(e){toast("Select the link to copy it")}return}
   if(t.id==="clearEx"){state.students=state.students.filter(x=>!/\(example\)$/.test(x.name));state.sel=null;persist();render();toast("Example students removed");return}
   if(t.id==="delAsk"){state.confirmDel=true;render();return}
   if(t.id==="delNo"){state.confirmDel=false;render();return}
@@ -545,6 +585,7 @@ document.addEventListener("change",e=>{
 });
 document.addEventListener("submit",e=>{
   e.preventDefault();
+  if(e.target.id==="qimport"){const k=document.getElementById("qkey").value.trim();if(k)importResults(k);return}
   if(e.target.id==="addStudent"){const n=$("#newName").value.trim();if(n)addStudent(n)}
   if(e.target.id==="addScore"){
     const s=state.students.find(x=>x.id===state.sel);if(!s)return;
