@@ -5,7 +5,7 @@
      ⚠ Toute modification du site doit s'accompagner d'un changement de VERSION.
    - documents PDF : copie locale d'abord, rafraîchie en arrière-plan
    - bibliothèques externes (KaTeX) : copie locale permanente */
-const VERSION = "v94";
+const VERSION = "v95";
 const SHELL = "shell-" + VERSION;
 const PDFS = "pdf-v1";          // nom stable : les documents enregistrés survivent aux mises à jour du site
 const EXT = "ext-v1";           // KaTeX ne change pas : inutile de le retélécharger à chaque version
@@ -100,7 +100,7 @@ async function prechargerDocs() {
 
 self.addEventListener("activate", e => {
   e.waitUntil((async () => {
-    const keep = [SHELL, PDFS, EXT];
+    const keep = [SHELL, PDFS, EXT, "ap-tracker"];
     for (const k of await caches.keys()) if (!keep.includes(k) && !k.startsWith("labo-")) await caches.delete(k);   // les caches du Labo virtuel (/labo/) lui appartiennent
     await self.clients.claim();
   })());
@@ -117,6 +117,22 @@ self.addEventListener("fetch", e => {
   const url = new URL(req.url);
 
   if (/\.(mp4|webm)$/i.test(url.pathname)) return;   // vidéos : lecture directe par le navigateur (requêtes partielles), jamais mises en cache
+
+  if (url.origin === location.origin && url.pathname.includes("/ap-math-tracker/")) {
+    // plateforme AP : réseau d'abord (contenu mis à jour souvent), copie locale seulement hors connexion
+    e.respondWith((async () => {
+      const c = await caches.open("ap-tracker");
+      try {
+        const res = await fetch(req, { cache: "no-cache" });
+        if (res.ok) c.put(req, res.clone());
+        return res;
+      } catch (err) {
+        return (await c.match(req, { ignoreSearch: true })) || Response.error();
+      }
+    })());
+    return;
+  }
+
 
   if (url.origin === location.origin && isPdf(url)) {
     // copie locale immédiate, puis mise à jour en arrière-plan si internet est disponible

@@ -166,7 +166,7 @@ details.unitlib summary .st{flex:1;min-width:0}
   <div class="scrollr" id="rScroll"><div class="pages" id="rWrap"></div></div>
 </div>
 <script src="../vendor/pdfjs/pdf.js"></script>
-<script src="courses.js"></script>
+<script src="courses.js?v=3"></script>
 
 <script>
 const COURSES={
@@ -546,6 +546,9 @@ document.addEventListener("submit",e=>{
   }
 });
 boot();
+/* the site's offline cache: check for a newer version, and reload once when it takes over */
+try{if("serviceWorker" in navigator){navigator.serviceWorker.getRegistration().then(r=>{if(r)r.update()}).catch(()=>{});
+  let swReloaded=false;navigator.serviceWorker.addEventListener("controllerchange",()=>{if(!swReloaded&&navigator.serviceWorker.controller){swReloaded=true;location.reload()}})}}catch(e){}
 </script>
 
 </body>
