@@ -10,9 +10,10 @@ pre = "\n".join(l for l in pre.splitlines() if not l.startswith("%%"))
 os.makedirs("build", exist_ok=True); os.makedirs("out/lessons", exist_ok=True)
 HEAD = r"""\documentclass[11pt]{article}
 \usepackage{ap}
-\newcommand{\choices}[4]{\par\smallskip
-  \begin{tabular}{@{}p{0.47\linewidth}p{0.47\linewidth}@{}}(A)\ #1 & (B)\ #2\\[3pt](C)\ #3 & (D)\ #4\end{tabular}\par}
-\newcommand{\answer}[2]{\begin{solution}\textbf{Answer: (#1).} #2\end{solution}}
+"""
+DIRECTIONS = r"""\begin{directions}
+Questions 1 to 5 are multiple choice: choose the best of the four answer choices. Question 6 is free response: show your work and justify your answers. Questions labeled \nocalctext\ must be done without a calculator; questions labeled \calctext\ require a graphing calculator. For questions with a graph, read the values you need from the grid.
+\end{directions}
 """
 jobs = []
 for n, title, body in blocks:
@@ -22,7 +23,20 @@ for n, title, body in blocks:
         doc = HEAD + ("\\keytrue\n" if key else "\\keyfalse\n")
         doc += f"\\setdoc{{{course}}}{{{unit}}}{{Lesson {n} practice{' \\textbullet\\ Answer key' if key else ''}}}\n"
         doc += pre + "\n\\begin{document}\n"
-        doc += f"\\titleband{{Lesson {n} \\textbullet\\ {title}}}{{4 multiple-choice questions and 1 free-response question{' \\textbullet\\ Answer key with explanations' if key else ''}}}\n"
+        doc += f"\\titleband{{Lesson {n} \\textbullet\\ {title}}}{{5 multiple-choice questions and 1 free-response question{' \\textbullet\\ Answer key with explanations' if key else ''}}}\n"
+        doc += DIRECTIONS
+        doc += body + "\n\\end{document}\n"
+        open(f"build/{name}.tex", "w").write(doc); jobs.append(name)
+notes_src = f"{base}-lesson-notes.tex"
+if os.path.exists(notes_src):
+    ns = open(notes_src).read()
+    nparts = re.split(r"^%%LESSON\s+(\S+)\s*\|\s*(.+)$", ns, flags=re.M)
+    npre = "\n".join(l for l in nparts[0].splitlines() if not l.startswith("%%"))
+    for i in range(1, len(nparts), 3):
+        n, title, body = nparts[i], nparts[i+1].strip(), nparts[i+2]
+        name = f"{base}-l{n}-notes"
+        doc = HEAD + f"\\setdoc{{{course}}}{{{unit}}}{{Lesson {n} notes}}\n" + npre + "\n\\begin{document}\n"
+        doc += f"\\titleband{{Lesson {n} \\textbullet\\ {title}}}{{Lesson notes \\textbullet\\ Learning goals, key ideas, worked examples, common mistakes, quick check}}\n"
         doc += body + "\n\\end{document}\n"
         open(f"build/{name}.tex", "w").write(doc); jobs.append(name)
 def run(name):

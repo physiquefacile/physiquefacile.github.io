@@ -20,6 +20,7 @@
 \RequirePackage{array}
 \RequirePackage{titlesec}
 \RequirePackage{environ}
+\RequirePackage{needspace}
 \RequirePackage[hidelinks]{hyperref}
 
 \definecolor{apnavy}{HTML}{16223A}
@@ -79,13 +80,29 @@
 \newif\ifkey
 \newcounter{exo}
 \newenvironment{exo}[2][]{\refstepcounter{exo}\par\medskip
-  \noindent{\sffamily\bfseries\color{apnavy}Question \theexo}\ifx&#1&\else\ {\sffamily\small\color{apgrey}(#1)}\fi\hfill{\color{apgold}#2}\par\nopagebreak}{\par}
+  \noindent{\sffamily\bfseries\color{apnavy}Question \theexo}\ifx&#1&\else\ {\sffamily\small\color{apgrey}(#1)}\fi\hfill\ifx&#2&\nocalc\else#2\fi\par\nopagebreak}{\par}
 \newcommand{\easy}{$\star$}\newcommand{\medium}{$\star\star$}\newcommand{\hard}{$\star\star\star$}
 \NewEnviron{solution}{\ifkey\begin{tcolorbox}[enhanced,breakable,colback=apgreen!6,colframe=apgreen,boxrule=0pt,leftrule=2.5pt,arc=0pt,left=8pt,top=3pt,bottom=3pt]{\sffamily\bfseries\small\color{apgreen}Solution}\par\BODY\end{tcolorbox}\fi}
 \newcommand{\partheading}[1]{\par\bigskip{\sffamily\bfseries\large\color{apnavy}\colorbox{apgold}{\,#1\,}}\par\smallskip}
+
+% Multiple choice: one answer choice per line
+\newcommand{\choices}[4]{\par\smallskip
+  \begin{tabular}{@{}l@{\hspace{6pt}}p{0.86\linewidth}@{}}(A)&#1\\[3pt](B)&#2\\[3pt](C)&#3\\[3pt](D)&#4\end{tabular}\par}
+\newcommand{\answer}[2]{\begin{solution}\textbf{Answer: (#1).} #2\end{solution}}
+% Calculator labels (second argument of exo)
+\newcommand{\nocalc}{\tcbox[on line,colback=apgrey!14,colframe=apgrey!14,boxrule=0pt,arc=2pt,left=4pt,right=4pt,top=1.5pt,bottom=1.5pt]{\sffamily\scriptsize\bfseries\color{apgrey}NO CALCULATOR}}
+\newcommand{\calcreq}{\tcbox[on line,colback=apblue,colframe=apblue,boxrule=0pt,arc=2pt,left=4pt,right=4pt,top=1.5pt,bottom=1.5pt]{\sffamily\scriptsize\bfseries\color{white}CALCULATOR}}
+% Directions box
+\newtcolorbox{directions}[1][Directions]{enhanced,breakable,colback=white,colframe=apnavy,boxrule=0.6pt,arc=0pt,
+  title={\sffamily\bfseries\small #1},colbacktitle=apnavy,coltitle=white,left=8pt,top=4pt,bottom=4pt,fontupper=\small}
+\pgfplotsset{gridaxis/.style={apaxis,xtick distance=1,ytick distance=1,minor tick num=0}}
 
 % Graph helpers
 \pgfplotsset{apaxis/.style={axis lines=middle,grid=both,grid style={line width=.1pt,draw=apgrey!25},major grid style={line width=.2pt,draw=apgrey!40},
   xlabel={$x$},ylabel={$y$},every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
   tick label style={font=\scriptsize},width=7cm,height=5.5cm,samples=150,clip=true}}
+
+% plain-text calculator labels for running text (badges overlap lines)
+\newcommand{\nocalctext}{\textsf{\footnotesize\bfseries NO CALCULATOR}}
+\newcommand{\calctext}{\textsf{\footnotesize\bfseries\color{apblue}CALCULATOR}}
 \endinput

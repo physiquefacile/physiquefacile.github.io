@@ -39,6 +39,16 @@ What is the instantaneous rate of change of $f(x)=3x+2$ at $x=5$?
 \choices{$17$}{$5$}{$2$}{$3$}
 \answer{D}{A linear function has the same rate of change, its slope, at every point.}
 \end{exo}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+The graph of the position $s(t)=t^2$ is shown with the secant line through the points where $t=1$ and $t=3$. What is the slope of this secant line (the average velocity on $[1,3]$)?
+\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,xmin=-0.5,xmax=4,ymin=-1,ymax=10.5,ytick distance=2,xlabel={$t$},ylabel={$s$},width=6.5cm,height=6cm]\addplot[apblue,very thick,domain=0:3.4,samples=80]{x^2};\addplot[apred,thick,domain=0.4:3.5]{4*x-3};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:1,1){};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:3,9){};\end{axis}\end{tikzpicture}\end{center}
+\choices{$4$}{$2$}{$8$}{$3$}
+\end{minipage}
+\answer{A}{$s(1)=1$ and $s(3)=9$, so the slope is $\dfrac{9-1}{3-1}=4$.}
+\end{exo}
 \begin{exo}[Free response]{}
 An object's position is $s(t)=t^3$ meters at time $t$ seconds.
 \begin{enumerate}[label=(\alph*)]
@@ -73,6 +83,16 @@ $\displaystyle\lim_{x\to0^-}g(x)=2$ and $\displaystyle\lim_{x\to0^+}g(x)=5$. Whi
 Let $f(x)=x^2$ for $x\neq1$ and $f(1)=7$. What is $\displaystyle\lim_{x\to1}f(x)$?
 \choices{$7$}{$8$}{It does not exist.}{$1$}
 \answer{D}{Near $x=1$ (but not at it), $f(x)=x^2$, which approaches $1$.}
+\end{exo}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+The graph of $f$ is shown. Which statement is true?
+\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,xmin=-0.5,xmax=4.5,ymin=-0.5,ymax=5.5,width=7.5cm,height=5.6cm]\addplot[apblue,very thick,domain=0:2,samples=2]{x/2};\addplot[apblue,very thick,domain=2:4,samples=2]{x+1};\node[circle,draw=apblue,fill=white,thick,inner sep=1.6pt] at (axis cs:2,1){};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:2,3){};\end{axis}\end{tikzpicture}\end{center}
+\choices{$\lim_{x\to2}f(x)=3$}{$\lim_{x\to2^-}f(x)=1$}{$\lim_{x\to2^-}f(x)=3$}{$\lim_{x\to2^+}f(x)=1$}
+\end{minipage}
+\answer{B}{From the left, the graph approaches the open circle at height $1$. From the right it approaches $3$, so $\lim_{x\to2}f(x)$ does not exist.}
 \end{exo}
 \begin{exo}[Free response]{}
 Let $f(x)=\begin{cases}x+2, & x<1\\ 5, & x=1\\ x^2+2, & x>1.\end{cases}$
@@ -110,6 +130,16 @@ For which value of $x$ in $(-3,4)$ does $\displaystyle\lim f(x)$ fail to exist?
 \choices{$x=2$}{$x=0$}{$x=3$}{$x=-1$}
 \answer{D}{At $x=-1$ the one-sided limits are $3$ and $1$.}
 \end{exo}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+Use the graph of $f$ above. What is $\displaystyle\lim_{x\to-3^+}f(x)$?
+
+\choices{$1$}{$-3$}{$0$}{It does not exist.}
+\end{minipage}
+\answer{A}{The graph starts at the filled point $(-3,1)$; as $x$ approaches $-3$ from the right, $f(x)=x+4$ approaches $1$.}
+\end{exo}
 \begin{exo}[Free response]{}
 Use the graph of $f$ above.
 \begin{enumerate}[label=(\alph*)]
@@ -146,6 +176,16 @@ Which is true about using a table to find a limit?
 \choices{A table always gives the exact limit.}{A table cannot suggest a limit.}{A table suggests a value but does not prove the limit.}{A table needs only values on one side.}
 \answer{C}{Tables give evidence; algebra or theorems confirm the value.}
 \end{exo}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+The graph of $y=\dfrac{\sin x}{x}$ is shown; it has a hole at $x=0$. Which is the best estimate of $\displaystyle\lim_{x\to0}\frac{\sin x}{x}$?
+\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,xmin=-10.5,xmax=10.5,ymin=-0.5,ymax=1.5,xtick distance=2,ytick distance=0.5,width=8cm,height=4.8cm]\addplot[apblue,very thick,domain=-10.5:-0.05,samples=200]{sin(deg(x))/x};\addplot[apblue,very thick,domain=0.05:10.5,samples=200]{sin(deg(x))/x};\node[circle,draw=apblue,fill=white,thick,inner sep=1.6pt] at (axis cs:0,1){};\end{axis}\end{tikzpicture}\end{center}
+\choices{$0$}{$\pi$}{$1$}{It does not exist.}
+\end{minipage}
+\answer{C}{The graph approaches the open circle at height $1$ from both sides, so the limit appears to be $1$ (this is proved with the squeeze theorem in Topic 1.8).}
+\end{exo}
 \begin{exo}[Free response]{}
 \begin{center}\begin{tabular}{c|cccccc}$x$&$-0.1$&$-0.01$&$-0.001$&$0.001$&$0.01$&$0.1$\\\hline$f(x)=\frac{e^x-1}{x}$&$0.9516$&$0.9950$&$0.9995$&$1.0005$&$1.0050$&$1.0517$\end{tabular}\end{center}
 \begin{enumerate}[label=(\alph*)]
@@ -180,6 +220,16 @@ If $\displaystyle\lim_{x\to c}f(x)=6$ and $\displaystyle\lim_{x\to c}g(x)=2$, th
 $\displaystyle\lim_{x\to\pi}\cos x$ is
 \choices{$0$}{$1$}{$\pi$}{$-1$}
 \answer{D}{$\cos x$ is continuous, so the limit is $\cos\pi=-1$.}
+\end{exo}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+The graphs of the lines $f$ (solid) and $g$ (dashed) are shown. What is $\displaystyle\lim_{x\to1}f(x)\,g(x)$?
+\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,xmin=-1.5,xmax=3.5,ymin=-1.5,ymax=5.5,width=7.5cm,height=5.6cm]\addplot[apblue,very thick,domain=-1.5:3.5,samples=2]{x+2};\addplot[apred,very thick,dashed,domain=-1.5:3.5]{2-x};\node[apblue,font=\small] at (axis cs:2.6,5){$f$};\node[apred,font=\small] at (axis cs:3,-0.5){$g$};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:1,3){};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:1,1){};\end{axis}\end{tikzpicture}\end{center}
+\choices{$4$}{$2$}{$1$}{$3$}
+\end{minipage}
+\answer{D}{From the graph, $\lim_{x\to1}f(x)=3$ and $\lim_{x\to1}g(x)=1$. By the product property the limit is $3\cdot1=3$.}
 \end{exo}
 \begin{exo}[Free response]{}
 $\displaystyle\lim_{x\to1}f(x)=3$, $\displaystyle\lim_{x\to1}g(x)=-2$ and $h(x)=x^2+1$. Find each limit, showing which properties you use.
@@ -217,6 +267,16 @@ $\displaystyle\lim_{x\to1}\frac{\frac1x-1}{x-1}$ is
 \choices{$1$}{$0$}{It does not exist.}{$-1$}
 \answer{D}{$\dfrac{\frac{1-x}{x}}{x-1}=-\dfrac1x\to-1$.}
 \end{exo}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+The graph of $f(x)=\dfrac{x^2-4}{x-2}$ is shown. What is $\displaystyle\lim_{x\to2}f(x)$?
+\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,xmin=-2.5,xmax=4.5,ymin=-0.5,ymax=6.5,width=7.5cm,height=5.6cm]\addplot[apblue,very thick,domain=-2.5:4.5,samples=2]{x+2};\node[circle,draw=apblue,fill=white,thick,inner sep=1.6pt] at (axis cs:2,4){};\end{axis}\end{tikzpicture}\end{center}
+\choices{$0$}{$4$}{$2$}{It does not exist.}
+\end{minipage}
+\answer{B}{The graph is the line $y=x+2$ with a hole at $(2,4)$. Algebraically, $\dfrac{(x-2)(x+2)}{x-2}=x+2\to4$.}
+\end{exo}
 \begin{exo}[Free response]{}
 Evaluate each limit. Show the algebra.
 \begin{enumerate}[label=(\alph*)]
@@ -252,6 +312,16 @@ $\displaystyle\lim_{x\to1}\frac{x^2+1}{x+1}$ is
 $\displaystyle\lim_{x\to4}\frac{|x-4|}{x-4}$ is
 \choices{$1$}{$-1$}{$0$}{It does not exist.}
 \answer{D}{The left-hand limit is $-1$ and the right-hand limit is $1$.}
+\end{exo}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+The graph of $f(x)=\dfrac{|x-1|}{x-1}$ is shown. What is $\displaystyle\lim_{x\to1}f(x)$?
+\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,xmin=-1.5,xmax=3.5,ymin=-2,ymax=2,width=7.5cm,height=4.5cm]\addplot[apblue,very thick,domain=-1.5:1,samples=2]{-1};\addplot[apblue,very thick,domain=1:3.5,samples=2]{1};\node[circle,draw=apblue,fill=white,thick,inner sep=1.6pt] at (axis cs:1,-1){};\node[circle,draw=apblue,fill=white,thick,inner sep=1.6pt] at (axis cs:1,1){};\end{axis}\end{tikzpicture}\end{center}
+\choices{$1$}{$-1$}{$0$}{It does not exist.}
+\end{minipage}
+\answer{D}{The left-hand limit is $-1$ and the right-hand limit is $1$; they are not equal.}
 \end{exo}
 \begin{exo}[Free response]{}
 For each limit, name the method you choose and evaluate the limit.
@@ -289,6 +359,16 @@ If $3-x^2\le f(x)\le3+x^2$ for all $x$, then $\displaystyle\lim_{x\to0}f(x)$ is
 \choices{$0$}{$6$}{It cannot be determined.}{$3$}
 \answer{D}{Both bounds approach $3$; by the squeeze theorem so does $f$.}
 \end{exo}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+The graph of $f(x)=x^2\sin\frac1x$ is shown between the dashed graphs of $y=x^2$ and $y=-x^2$. What is $\displaystyle\lim_{x\to0}f(x)$?
+\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,xmin=-0.55,xmax=0.55,ymin=-0.3,ymax=0.3,xtick distance=0.25,ytick distance=0.1,width=7.5cm,height=5.5cm]\addplot[apblue,very thick,domain=-0.5:-0.002,samples=1500]{x^2*sin(deg(1/x))};\addplot[apblue,very thick,domain=0.002:0.5,samples=1500]{x^2*sin(deg(1/x))};\addplot[apgrey,dashed,thick,domain=-0.5:0.5]{x^2};\addplot[apgrey,dashed,thick,domain=-0.5:0.5]{-x^2};\end{axis}\end{tikzpicture}\end{center}
+\choices{$0$}{$1$}{It does not exist because $f$ oscillates.}{$-1$}
+\end{minipage}
+\answer{A}{$f$ oscillates, but it is trapped between $-x^2$ and $x^2$, which both approach $0$. By the squeeze theorem the limit is $0$.}
+\end{exo}
 \begin{exo}[Free response]{}
 \begin{enumerate}[label=(\alph*)]
 \item Explain why $-|x|\le x\cos\frac1x\le|x|$ for $x\neq0$, and use it to find $\displaystyle\lim_{x\to0}x\cos\frac1x$.
@@ -323,6 +403,16 @@ A function $h$ has values $4.9$, $4.99$, $4.999$, $5.001$, $5.01$, $5.1$ at $x=0
 With $g(x)=x+1$, what is $\displaystyle\lim_{x\to3}g\big(f(x)\big)$?
 \choices{$4$}{$2$}{$5$}{$3$}
 \answer{D}{$\lim_{x\to3}f(x)=2$ and $g$ is continuous, so the limit is $g(2)=3$.}
+\end{exo}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+Use the graph of $f$ above. What is $\displaystyle\lim_{x\to-1^-}x\,f(x)$?
+
+\choices{$-1$}{$3$}{$-3$}{It does not exist.}
+\end{minipage}
+\answer{C}{$\lim_{x\to-1^-}x=-1$ and $\lim_{x\to-1^-}f(x)=3$, so the limit is $-3$.}
 \end{exo}
 \begin{exo}[Free response]{}
 Use the graph of $f$ above. The function $g$ is defined for all $x$, and $g(1.9)=-1.2$, $g(1.99)=-1.02$, $g(1.999)=-1.002$, $g(2.001)=-0.998$, $g(2.01)=-0.98$, $g(2.1)=-0.8$.
@@ -360,6 +450,16 @@ For the function $f$ graphed above, which describes its discontinuities at $x=-1
 \choices{Both removable}{Both jumps}{Removable at $-1$, jump at $2$}{Jump at $-1$, removable at $2$}
 \answer{D}{At $-1$ the one-sided limits are $3$ and $1$; at $2$ the limit is $4$ but $f(2)=1$.}
 \end{exo}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+The graph of $h$ is shown. What type of discontinuity does $h$ have at $x=1$?
+\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,xmin=-2.5,xmax=4.5,ymin=-4.5,ymax=4.5,width=7.5cm,height=5.6cm]\addplot[apblue,very thick,domain=-2.5:0.75,samples=120]{1/(x-1)};\addplot[apblue,very thick,domain=1.25:4.5,samples=120]{1/(x-1)};\draw[apred,dashed,thick](axis cs:1,-100)--(axis cs:1,100);\end{axis}\end{tikzpicture}\end{center}
+\choices{Removable}{Jump}{Infinite}{None; $h$ is continuous at $x=1$.}
+\end{minipage}
+\answer{C}{$\lim_{x\to1^-}h(x)=-\infty$ and $\lim_{x\to1^+}h(x)=+\infty$: an infinite discontinuity.}
+\end{exo}
 \begin{exo}[Free response]{}
 Let $g(x)=\begin{cases}x^2, & x<0\\ x+1, & 0\le x\le2\\ \dfrac{1}{x-3}, & x>2.\end{cases}$
 \begin{enumerate}[label=(\alph*)]
@@ -394,6 +494,16 @@ Why is $f(x)=\dfrac{x^2-9}{x-3}$ not continuous at $x=3$?
 Which function is continuous at $x=0$?
 \choices{$\dfrac1x$}{$\dfrac{|x|}{x}$}{$\dfrac{\sin x}{x}$}{$|x|$}
 \answer{D}{$|x|$ is defined at $0$ and its limit there is $0=|0|$. The others are undefined at $0$.}
+\end{exo}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+The graph of $f$ is shown. Which statement is true?
+\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,xmin=-1.5,xmax=4.5,ymin=-1.5,ymax=2.5,width=7.5cm,height=5.6cm]\addplot[apblue,very thick,domain=-1.5:1,samples=2]{x};\addplot[apblue,very thick,domain=1:3,samples=2]{2-x};\addplot[apblue,very thick,domain=3:4.5,samples=2]{1};\node[circle,draw=apblue,fill=white,thick,inner sep=1.6pt] at (axis cs:3,-1){};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:3,1){};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:1,1){};\end{axis}\end{tikzpicture}\end{center}
+\choices{$f$ is continuous at $x=3$ but not at $x=1$.}{$f$ is continuous at $x=1$ but not at $x=3$.}{$f$ is continuous at both $x=1$ and $x=3$.}{$f$ is continuous at neither $x=1$ nor $x=3$.}
+\end{minipage}
+\answer{B}{At $x=1$ both pieces meet at $(1,1)$: the limit is $1=f(1)$. At $x=3$ the left-hand limit is $-1$ and the right-hand limit is $1$, so the limit does not exist.}
 \end{exo}
 \begin{exo}[Free response]{}
 Let $f(x)=\begin{cases}x^2-1, & x<2\\ 3, & x=2\\ 5-x, & x>2.\end{cases}$
@@ -430,6 +540,16 @@ On which interval is $\tan x$ continuous?
 \choices{$[0,\pi]$}{$(0,\pi)$}{$\left[-\frac\pi2,\frac\pi2\right]$}{$\left(-\frac\pi2,\frac\pi2\right)$}
 \answer{D}{$\tan x$ is undefined at $\pm\frac\pi2$ and continuous between them.}
 \end{exo}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+The graph of $f$ on $[-2,4]$ is shown; it has a hole at $x=1$. On which of the following intervals is $f$ continuous?
+\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,xmin=-2.5,xmax=4.5,ymin=-0.5,ymax=5.5,width=7.5cm,height=5cm]\addplot[apblue,very thick,domain=-2:4,samples=100]{0.5*x^2-x+1};\node[circle,draw=apblue,fill=white,thick,inner sep=1.6pt] at (axis cs:1,0.5){};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:-2,5){};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:4,5){};\end{axis}\end{tikzpicture}\end{center}
+\choices{$[-2,0]$}{$[0,2]$}{$[-2,4]$}{$[1,3]$}
+\end{minipage}
+\answer{A}{$f$ is undefined at $x=1$, so it is not continuous on any interval that contains $1$. Only $[-2,0]$ avoids $x=1$.}
+\end{exo}
 \begin{exo}[Free response]{}
 Let $h(x)=\dfrac{\ln x}{x^2-9}$.
 \begin{enumerate}[label=(\alph*)]
@@ -462,6 +582,16 @@ For what value of $a$ is $f(x)=\begin{cases}ax+2, & x<3\\ x^2-a, & x\ge3\end{cas
 Let $f(x)=\dfrac{\sin x}{x}$ for $x\neq0$. What value of $f(0)$ makes $f$ continuous at $0$?
 \choices{$0$}{undefined}{$1$}{$\pi$}
 \answer{C}{$\lim_{x\to0}\frac{\sin x}{x}=1$.}
+\end{exo}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+For $x<2$, the graph of $f$ is the line shown, through $(0,1)$ and $(2,5)$. For $x\ge2$, $f(x)=x^2+k$. For what value of $k$ is $f$ continuous at $x=2$?
+\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,xmin=-0.5,xmax=3.5,ymin=-0.5,ymax=6.5,width=6cm,height=5cm]\addplot[apblue,very thick,domain=-0.5:2,samples=2]{2*x+1};\node[circle,draw=apblue,fill=white,thick,inner sep=1.6pt] at (axis cs:2,5){};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:0,1){};\end{axis}\end{tikzpicture}\end{center}
+\choices{$5$}{$-1$}{$9$}{$1$}
+\end{minipage}
+\answer{D}{From the graph, $\lim_{x\to2^-}f(x)=5$. Continuity needs $f(2)=4+k=5$, so $k=1$.}
 \end{exo}
 \begin{exo}[Free response]{}
 Let $f(x)=\begin{cases}2x+a, & x<1\\ bx^2+1, & x\ge1\end{cases}$ where $a$ and $b$ are constants, and $f(2)=9$.
@@ -498,6 +628,16 @@ $\displaystyle\lim_{x\to\frac\pi2^+}\tan x$ is
 \choices{$+\infty$}{$0$}{$1$}{$-\infty$}
 \answer{D}{Just to the right of $\frac\pi2$, $\sin x>0$ and $\cos x<0$ is near $0$, so $\tan x\to-\infty$.}
 \end{exo}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+The graph of $f(x)=\dfrac{1}{(x+1)^2}$ is shown. Which describes $\displaystyle\lim_{x\to-1}f(x)$?
+\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,xmin=-4.5,xmax=2.5,ymin=-0.5,ymax=5.5,width=7.5cm,height=5cm]\addplot[apblue,very thick,domain=-4.5:-1.45,samples=120]{1/(x+1)^2};\addplot[apblue,very thick,domain=-0.55:2.5,samples=120]{1/(x+1)^2};\draw[apred,dashed,thick](axis cs:-1,-100)--(axis cs:-1,100);\end{axis}\end{tikzpicture}\end{center}
+\choices{$+\infty$}{$-\infty$}{$0$}{$1$}
+\end{minipage}
+\answer{A}{The graph rises without bound on both sides of the asymptote $x=-1$.}
+\end{exo}
 \begin{exo}[Free response]{}
 Let $f(x)=\dfrac{x+2}{x^2-4x}$.
 \begin{enumerate}[label=(\alph*)]
@@ -531,6 +671,16 @@ $\displaystyle\lim_{x\to\infty}e^{-x}$ is
 $\displaystyle\lim_{x\to\infty}\frac{x^2}{e^x}$ is
 \choices{$\infty$}{$1$}{$e$}{$0$}
 \answer{D}{Exponential growth dominates polynomial growth.}
+\end{exo}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+The graph of $f(x)=\dfrac{2x}{\sqrt{x^2+1}}$ is shown with its two horizontal asymptotes. What is $\displaystyle\lim_{x\to-\infty}f(x)$?
+\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,xmin=-8.5,xmax=8.5,ymin=-3,ymax=3,xtick distance=2,width=8cm,height=4.8cm]\addplot[apblue,very thick,domain=-8.5:8.5,samples=150]{2*x/sqrt(x^2+1)};\draw[apgold!80!black,dashed,thick](axis cs:-100,2)--(axis cs:100,2);\draw[apgold!80!black,dashed,thick](axis cs:-100,-2)--(axis cs:100,-2);\end{axis}\end{tikzpicture}\end{center}
+\choices{$2$}{$0$}{$-2$}{$-\infty$}
+\end{minipage}
+\answer{C}{To the left the graph levels off toward $y=-2$. Algebraically, $\sqrt{x^2}=-x$ for $x<0$, so $f(x)\to\frac{2x}{-x}=-2$.}
 \end{exo}
 \begin{exo}[Free response]{}
 Let $f(x)=\dfrac{4x}{\sqrt{9x^2+1}}$.
@@ -569,7 +719,17 @@ $g$ is continuous with $g(0)=2$, $g(1)=-1$, $g(2)=1$, $g(3)=4$. What is the leas
 \choices{$0$}{$1$}{$3$}{$2$}
 \answer{D}{Sign changes on $[0,1]$ and on $[1,2]$ give at least two zeros.}
 \end{exo}
-\begin{exo}[Free response \textbullet\ calculator for (c)]{}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+The graph of the continuous function $f(x)=(x-1)(x-2)(x-3)+1$ on $[0,4]$ is shown with the line $y=1$ (dashed). How many values of $c$ in $[0,4]$ satisfy $f(c)=1$?
+\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,xmin=-0.5,xmax=4.5,ymin=-5.5,ymax=7.5,ytick distance=2,width=7cm,height=6cm]\addplot[apblue,very thick,domain=0:4,samples=150]{(x-1)*(x-2)*(x-3)+1};\draw[apgold!80!black,dashed,thick](axis cs:-100,1)--(axis cs:100,1);\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:0,-5){};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:4,7){};\end{axis}\end{tikzpicture}\end{center}
+\choices{Exactly one, as guaranteed by the IVT}{Exactly two}{Three}{None}
+\end{minipage}
+\answer{C}{The IVT guarantees at least one value, since $f(0)=-5<1<7=f(4)$. The graph shows that $f(c)=1$ at $c=1$, $2$ and $3$.}
+\end{exo}
+\begin{exo}[Free response]{\calcreq}
 Let $f(x)=x^3-2x-2$.
 \begin{enumerate}[label=(\alph*)]
 \item Use the IVT to show that $f$ has a zero in $[1,2]$.

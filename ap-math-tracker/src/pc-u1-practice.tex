@@ -1,20 +1,20 @@
 \documentclass[11pt]{article}
 \usepackage{ap}
-\newcommand{\choices}[4]{\par\smallskip
-  \begin{tabular}{@{}p{0.47\linewidth}p{0.47\linewidth}@{}}(A)\ #1 & (B)\ #2\\[3pt](C)\ #3 & (D)\ #4\end{tabular}\par}
-\newcommand{\answer}[2]{\begin{solution}\textbf{Answer: (#1).} #2\end{solution}}
 \input{mode}
 \ifkey\setdoc{AP Precalculus}{Unit 1}{Practice \textbullet\ Answer key}\else\setdoc{AP Precalculus}{Unit 1}{Practice}\fi
 \begin{document}
 \titleband{Polynomial and Rational Functions}{AP-style practice \textbullet\ Multiple choice and free response\ifkey\ \textbullet\ Answer key with explanations\fi}
 
-\begin{keyidea}[How to use this practice set]
-The questions follow the format of the AP Precalculus exam. \textbf{Part A}: multiple choice, no calculator. \textbf{Part B}: multiple choice, graphing calculator allowed. \textbf{Part C}: free response; show your work and justify your answers with words, as on the exam.\\
-Suggested timing: Part A 30 min \textbullet\ Part B 10 min \textbullet\ Part C 45 min.
+\begin{keyidea}[About this practice set]
+The questions follow the format of the AP Precalculus exam. Part A and Part B are multiple choice; Part C is free response. Each question is labeled \nocalctext\ or \calctext.\\
+Suggested timing: Part A 35 min \textbullet\ Part B 10 min \textbullet\ Part C 45 min.
 \end{keyidea}
 
 %=================================================
 \partheading{Part A \textbullet\ Multiple choice \textbullet\ No calculator}
+\begin{directions}[Directions \textbullet\ Part A]
+A calculator may \textbf{not} be used on this part. Solve each problem, then choose the best of the four answer choices. Unless otherwise stated, the domain of a function $f$ is the set of all real numbers $x$ for which $f(x)$ is a real number. Some questions refer to a graph: read the values you need from the grid.
+\end{directions}
 
 \begin{exo}[1.1]{}
 The table gives values of a function $f$ at selected values of $x$.
@@ -105,16 +105,89 @@ What is the solution set of $\dfrac{x-3}{x+1}\ge0$?
 \answer{D}{The sign can change only at the zero $x=3$ and at $x=-1$ (excluded). Test points: $x=-2$ gives $\frac{-5}{-1}>0$, $x=0$ gives $-3<0$, $x=4$ gives $\frac15>0$. Include $x=3$ (value 0) but not $x=-1$.}
 \end{exo}
 
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\begin{center}\textsf{\small\bfseries\color{apnavy}Questions \the\numexpr\value{exo}+1\relax\ to \the\numexpr\value{exo}+4\relax\ refer to the graph of the polynomial $p$ below.}\end{center}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-2.5,xmax=4.5,ymin=-5.5,ymax=3.5,width=8.5cm,height=7cm]
+\addplot[apblue,very thick,domain=-1.4:3.75]{x^2*(x-3)};
+\node[font=\small,apblue,fill=white,inner sep=1pt] at (axis cs:1.3,2.4){$y=p(x)$};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\end{minipage}
+
+\begin{exo}[1.5 \textbullet\ graph]{}
+Which of the following could be an expression for $p(x)$?
+\choices{$x(x-3)^2$}{$-x^2(x-3)$}{$x^2(x-3)$}{$x^2(x+3)$}
+\answer{C}{The graph touches the $x$-axis at $x=0$ (even multiplicity) and crosses at $x=3$ (odd multiplicity), and it rises to the right, so the leading coefficient is positive. Check: $p(2)=4(-1)=-4$ matches the graph.}
+\end{exo}
+
+\begin{exo}[1.4 \textbullet\ graph]{}
+On which interval is $p$ decreasing?
+\choices{$(-\infty,0)$}{$(0,2)$}{$(2,\infty)$}{$(0,3)$}
+\answer{B}{The graph falls from the local maximum $(0,0)$ to the local minimum $(2,-4)$ and rises elsewhere.}
+\end{exo}
+
+\begin{exo}[1.2 \textbullet\ graph]{}
+What is the average rate of change of $p$ on the interval $[1,3]$?
+\choices{$-2$}{$0$}{$2$}{$1$}
+\answer{D}{From the graph, $p(1)=-2$ and $p(3)=0$, so $\dfrac{0-(-2)}{3-1}=1$.}
+\end{exo}
+
+\begin{exo}[1.4 \textbullet\ graph]{}
+The graph of $p$ has a point of inflection at $(1,-2)$. On which interval is the graph of $p$ concave up?
+\choices{$(1,\infty)$}{$(-\infty,1)$}{$(0,2)$}{$(-\infty,0)$}
+\answer{A}{Left of $x=1$ the rate of change decreases (the graph bends downward); right of $x=1$ it increases, so the graph is concave up on $(1,\infty)$.}
+\end{exo}
+
+\Needspace{16\baselineskip}
+\begin{exo}[1.9 \textbullet\ graph]{}
+The graph of a rational function $s$ is shown. It has a vertical asymptote $x=2$ and a horizontal asymptote $y=0$, and it passes through $(3,1)$ and $(1,-1)$. Which could be an expression for $s(x)$?
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-2.5,xmax=6.5,ymin=-4.5,ymax=4.5,width=7.5cm,height=6cm]
+\addplot[apblue,very thick,domain=-2.5:1.78,samples=200]{1/(x-2)};
+\addplot[apblue,very thick,domain=2.22:6.5,samples=200]{1/(x-2)};
+\draw[apred,dashed,thick](axis cs:2,-4.5)--(axis cs:2,4.5);
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\choices{$\dfrac{1}{x+2}$}{$\dfrac{1}{x-2}$}{$\dfrac{x}{x-2}$}{$\dfrac{x-2}{x}$}
+\answer{B}{A vertical asymptote at $x=2$ needs the factor $x-2$ in the denominator only. $y=0$ as horizontal asymptote rules out (C) and (D) (their asymptote is $y=1$). Check: $\frac{1}{3-2}=1$ and $\frac{1}{1-2}=-1$.}
+\end{exo}
+
+\Needspace{16\baselineskip}
+\begin{exo}[1.12 \textbullet\ graph]{}
+The graphs of $f$ (solid) and $g$ (dashed) are shown. Which is an equation for $g$ in terms of $f$?
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-3.5,xmax=5.5,ymin=-1.5,ymax=3.5,width=8.5cm,height=5cm]
+\addplot[apblue,very thick] coordinates {(-3,0)(-1,2)(1,-1)(3,1)};
+\addplot[apred,very thick,dashed] coordinates {(-1,1)(1,3)(3,0)(5,2)};
+\node[font=\small,apblue] at (axis cs:-2.6,1.4){$f$};
+\node[font=\small,apred] at (axis cs:4.6,0.7){$g$};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\choices{$g(x)=f(x-2)+1$}{$g(x)=f(x+2)+1$}{$g(x)=f(x-2)-1$}{$g(x)=f(x+2)-1$}
+\answer{A}{Each point of $f$ moves 2 units right and 1 unit up: $(-3,0)\to(-1,1)$, $(-1,2)\to(1,3)$, $(1,-1)\to(3,0)$. That is $g(x)=f(x-2)+1$.}
+\end{exo}
+
 %=================================================
 \partheading{Part B \textbullet\ Multiple choice \textbullet\ Graphing calculator}
+\begin{directions}[Directions \textbullet\ Part B]
+A graphing calculator is \textbf{required} for the questions in this part. If the exact value of the correct answer is not one of the choices, choose the one that best approximates it.
+\end{directions}
 
-\begin{exo}[1.14]{}
+\begin{exo}[1.14]{\calcreq}
 An open box is made from a $16$ in by $10$ in sheet by cutting squares of side $x$ in from the corners. Its volume is $V(x)=x(16-2x)(10-2x)$ for $0<x<5$. What is the maximum volume of the box?
 \choices{$120$ in$^3$}{$144$ in$^3$}{$160$ in$^3$}{$168$ in$^3$}
 \answer{B}{Graph $V$ on $0<x<5$ and use the maximum feature: the maximum occurs at $x=2$, with $V(2)=2\cdot12\cdot6=144$ in$^3$.}
 \end{exo}
 
-\begin{exo}[1.14]{}
+\begin{exo}[1.14]{\calcreq}
 The height $h$, in meters, of a model rocket was measured at times $t$, in seconds.
 \begin{center}\begin{tabular}{c|ccccc}
 $t$ & 0 & 1 & 2 & 3 & 4\\\hline $h(t)$ & 1.2 & 6.1 & 9.0 & 9.9 & 8.6\end{tabular}\end{center}
@@ -125,8 +198,11 @@ Using a quadratic regression, what is the predicted height at $t=5$ seconds?
 
 %=================================================
 \partheading{Part C \textbullet\ Free response}
+\begin{directions}[Directions \textbullet\ Part C]
+Show all of your work: your answers are graded on the correctness and completeness of your methods as well as on the final answers. When a question asks you to justify or explain, give mathematical reasons in words. Use a calculator only on the question labeled \calctext. Decimal answers should be correct to three places after the decimal point.
+\end{directions}
 
-\begin{exo}[Function concepts \textbullet\ no calculator]{}
+\begin{exo}[Function concepts]{}
 The polynomial function $h$ has degree 3 and leading coefficient 1. Selected values of $h$ are given in the table.
 \begin{center}\begin{tabular}{c|cccccc}
 $x$ & $-2$ & $-1$ & $0$ & $1$ & $2$ & $3$\\\hline $h(x)$ & $-1$ & $3$ & $1$ & $-1$ & $3$ & $19$\end{tabular}\end{center}
@@ -146,7 +222,37 @@ $x$ & $-2$ & $-1$ & $0$ & $1$ & $2$ & $3$\\\hline $h(x)$ & $-1$ & $3$ & $1$ & $-
 \end{solution}
 \end{exo}
 
-\begin{exo}[Modeling a non-periodic context \textbullet\ calculator]{}
+\Needspace{16\baselineskip}
+\begin{exo}[Graph analysis]{}
+The graph of the rational function $r(x)=\dfrac{ax^2+bx+6}{x^2-2x-3}$, where $a$ and $b$ are constants, is shown. The graph has a vertical asymptote $x=-1$, a horizontal asymptote $y=2$, an $x$-intercept at $(1,0)$, and a hole at $(3,1)$.
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-6.5,xmax=6.5,ymin=-5.5,ymax=7.5,width=9cm,height=7.5cm]
+\addplot[apblue,very thick,domain=-6.5:-1.35,samples=200]{2*(x-1)/(x+1)};
+\addplot[apblue,very thick,domain=-0.6:6.5,samples=200]{2*(x-1)/(x+1)};
+\draw[apred,dashed,thick](axis cs:-1,-5.5)--(axis cs:-1,7.5);
+\draw[apgold!80!black,dashed,thick](axis cs:-6.5,2)--(axis cs:6.5,2);
+\node[circle,draw=apblue,fill=white,thick,inner sep=1.7pt] at (axis cs:3,1){};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\begin{enumerate}[label=(\Alph*)]
+\item (i) Write limit statements that describe the behavior of $r$ near $x=-1$, using the graph.\\
+(ii) Write a limit statement that describes the end behavior of $r$.
+\item Use the horizontal asymptote and the $x$-intercept to find the values of $a$ and $b$. Show that your expression has a hole at $(3,1)$.
+\item Using the graph, solve $r(x)<0$. Express your answer in interval notation.
+\end{enumerate}
+\begin{solution}
+\textbf{(A)(i)} $\displaystyle\lim_{x\to-1^-}r(x)=+\infty$ and $\displaystyle\lim_{x\to-1^+}r(x)=-\infty$.\\
+\textbf{(ii)} $\displaystyle\lim_{x\to\pm\infty}r(x)=2$.\\
+\textbf{(B)} Equal degrees, so the horizontal asymptote is $y=\frac a1$: $a=2$. Since $r(1)=0$, the numerator is $0$ at $x=1$: $2+b+6=0$, so $b=-8$. Then
+\[r(x)=\frac{2x^2-8x+6}{x^2-2x-3}=\frac{2(x-1)(x-3)}{(x+1)(x-3)}.\]
+The factor $(x-3)$ cancels, so there is a hole at $x=3$, with height $\dfrac{2(3-1)}{3+1}=1$: the hole is $(3,1)$.\\
+\textbf{(C)} The graph is below the $x$-axis between the asymptote $x=-1$ and the zero $x=1$: $(-1,1)$.
+\end{solution}
+\end{exo}
+
+\begin{exo}[Modeling a non-periodic context]{\calcreq}
 A theater studies how its revenue $R$, in dollars, depends on the ticket price $p$, in dollars.
 \begin{center}\begin{tabular}{c|ccccc}
 $p$ (dollars) & 10 & 15 & 20 & 25 & 30\\\hline $R$ (dollars) & 4000 & 5250 & 6000 & 6250 & 6000\end{tabular}\end{center}
@@ -167,7 +273,7 @@ $p$ (dollars) & 10 & 15 & 20 & 25 & 30\\\hline $R$ (dollars) & 4000 & 5250 & 600
 \end{solution}
 \end{exo}
 
-\begin{exo}[Symbolic manipulations \textbullet\ no calculator]{}
+\begin{exo}[Symbolic manipulations]{}
 Let $r(x)=\dfrac{2x^2+2x-4}{x^2-1}$ and $p(x)=x^3-2x^2-5x+6$.
 \begin{enumerate}[label=(\Alph*)]
 \item (i) Find the zeros of $r$ and the coordinates of any hole in the graph of $r$.\\

@@ -1,0 +1,759 @@
+%% Lesson notes, AP Calculus AB Unit 1. Shared preamble before the first %%LESSON line.
+\usetikzlibrary{positioning}
+\newcommand{\goals}[1]{\begin{keyidea}[Learning goals]\begin{itemize}#1\end{itemize}\end{keyidea}}
+\newcommand{\vocab}[1]{\par\textsf{\bfseries\small\color{apnavy}Vocabulary.}\ #1\par}
+\newtcolorbox{mistakes}{enhanced,breakable,colback=apred!5,colframe=apred,boxrule=0pt,leftrule=3pt,arc=0pt,
+  title={\sffamily\bfseries\small Common mistakes},coltitle=apred,colbacktitle=apred!5,attach title to upper={\par},left=8pt,top=4pt,bottom=4pt}
+\newtcolorbox{quickcheck}{enhanced,breakable,colback=white,colframe=apnavy,boxrule=0.6pt,arc=0pt,
+  title={\sffamily\bfseries\small Quick check},colbacktitle=apnavy,coltitle=white,left=8pt,top=4pt,bottom=4pt}
+\newcommand{\qcanswers}[1]{\par\smallskip{\footnotesize\color{apgrey}\textsf{\bfseries Answers.} #1}}
+\newcommand{\fgraph}{%
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-3.5,xmax=4.5,ymin=-0.5,ymax=4.5,width=7.5cm,height=5cm]
+\addplot[apblue,very thick,domain=-3:-1]{x+4};
+\addplot[apblue,very thick,domain=-1:2]{x^2};
+\addplot[apblue,very thick,domain=2:4]{8-2*x};
+\node[circle,draw=apblue,fill=white,thick,inner sep=1.6pt] at (axis cs:-1,3){};
+\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:-1,1){};
+\node[circle,draw=apblue,fill=white,thick,inner sep=1.6pt] at (axis cs:2,4){};
+\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:2,1){};
+\node[font=\small,apblue] at (axis cs:3.6,3.4){$y=f(x)$};
+\end{axis}
+\end{tikzpicture}
+\end{center}}
+
+%%LESSON 1.1 | Introducing Calculus: Can Change Occur at an Instant?
+\goals{\item Explain why an instantaneous rate of change cannot be computed with a single average rate of change.
+\item Estimate an instantaneous rate of change from average rates of change over shrinking intervals.}
+\vocab{average rate of change, instantaneous rate of change, secant line, tangent line, limit.}
+
+\subsection*{1. The problem of the instant}
+A speedometer shows a speed \emph{at an instant}, yet speed is distance divided by time, and in a single instant no time passes and no distance is covered: $\frac00$. Calculus resolves this by looking at what average rates of change \emph{approach} as the time interval shrinks.
+
+\subsection*{2. From secant lines to the tangent line}
+The average rate of change of $f$ on $[a,a+h]$ is $\dfrac{f(a+h)-f(a)}{h}$, the slope of a secant line. As $h\to0$ the secant lines approach the \textbf{tangent line} at $x=a$, and their slopes approach the instantaneous rate of change.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-0.5,xmax=3.5,ymin=-1,ymax=9.5,ytick distance=2,width=7cm,height=6cm,xlabel={$t$},ylabel={$s$}]
+\addplot[apblue,very thick,domain=0:3]{x^2};
+\addplot[apred!50,thick,domain=0:3.2]{4*x-3};
+\addplot[apred!75,thick,domain=0:3.2]{3*x-2};
+\addplot[apred,very thick,dashed,domain=0.2:3.2]{2*x-1};
+\node[circle,fill=apnavy,inner sep=1.6pt] at (axis cs:1,1){};
+\node[font=\scriptsize,apred] at (axis cs:2.6,8.8){$h=2$};
+\node[font=\scriptsize,apred] at (axis cs:3.3,6.4){$h=1$};
+\node[font=\scriptsize,apred] at (axis cs:3.1,4.1){tangent};
+\end{axis}
+\end{tikzpicture}
+
+{\small Secant lines of $s(t)=t^2$ from $t=1$ with slopes $4$ and $3$ approach the tangent line of slope $2$.}
+\end{center}
+
+\begin{example}[Example 1 \textbullet\ Algebra]
+For $s(t)=t^2$, find the average velocity on $[1,1+h]$ and the velocity at $t=1$.
+\sol $\dfrac{(1+h)^2-1}{h}=\dfrac{2h+h^2}{h}=2+h$ for $h\neq0$. As $h\to0$ this approaches $2$: the velocity at $t=1$ is $2$.
+\end{example}
+
+\begin{example}[Example 2 \textbullet\ Table]
+\begin{center}\begin{tabular}{c|cccc}$h$&$0.1$&$0.01$&$-0.01$&$-0.1$\\\hline$\frac{f(2+h)-f(2)}{h}$&$12.61$&$12.0601$&$11.9401$&$11.41$\end{tabular}\end{center}
+\sol The values approach $12$ from both sides, so the instantaneous rate of change of $f$ at $x=2$ is about $12$ (here $f(x)=x^3$).
+\end{example}
+
+\begin{mistakes}
+\begin{itemize}
+\item Substituting $h=0$ into $\frac{f(a+h)-f(a)}{h}$ before simplifying, which gives $\frac00$.
+\item Using only positive $h$: check that values from both sides agree.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. Simplify $\dfrac{(3+h)^2-9}{h}$ and find what it approaches as $h\to0$.\\
+2. What is the instantaneous rate of change of $f(x)=7-2x$ at any $x$?
+\qcanswers{1. $6+h\to6$. \ 2. $-2$, the slope.}
+\end{quickcheck}
+
+%%LESSON 1.2 | Defining Limits and Using Limit Notation
+\goals{\item Read and write limit notation, including one-sided limits.
+\item Decide whether a limit exists from its one-sided limits.}
+\vocab{limit, left-hand limit, right-hand limit, does not exist (DNE).}
+
+\subsection*{1. What a limit means}
+\begin{keyidea}
+$\displaystyle\lim_{x\to c}f(x)=L$ means that $f(x)$ gets arbitrarily close to $L$ for all $x$ sufficiently close to $c$, with $x\neq c$. The value $f(c)$, and even whether it exists, plays no role.
+\end{keyidea}
+
+\subsection*{2. One-sided limits}
+$\displaystyle\lim_{x\to c^-}f(x)$ uses only $x<c$; $\displaystyle\lim_{x\to c^+}f(x)$ uses only $x>c$.
+\begin{keyidea}[Existence]
+$\displaystyle\lim_{x\to c}f(x)$ exists and equals $L$ \textbf{if and only if} $\displaystyle\lim_{x\to c^-}f(x)=L$ and $\displaystyle\lim_{x\to c^+}f(x)=L$.
+\end{keyidea}
+
+\begin{example}[Example 1 \textbullet\ Three situations at $x=2$]
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=0,xmax=4,ymin=0,ymax=4,width=4.6cm,height=4.4cm,title={\small (a)}]
+\addplot[apblue,very thick,domain=0:4]{0.5*x+1};\end{axis}\end{tikzpicture}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=0,xmax=4,ymin=0,ymax=4,width=4.6cm,height=4.4cm,title={\small (b)}]
+\addplot[apblue,very thick,domain=0:4]{0.5*x+1};
+\node[circle,draw=apblue,fill=white,thick,inner sep=1.5pt] at (axis cs:2,2){};\node[circle,fill=apblue,inner sep=1.5pt] at (axis cs:2,3){};\end{axis}\end{tikzpicture}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=0,xmax=4,ymin=0,ymax=4,width=4.6cm,height=4.4cm,title={\small (c)}]
+\addplot[apblue,very thick,domain=0:2]{0.5*x};\addplot[apblue,very thick,domain=2:4]{0.5*x+2};
+\node[circle,draw=apblue,fill=white,thick,inner sep=1.5pt] at (axis cs:2,1){};\node[circle,fill=apblue,inner sep=1.5pt] at (axis cs:2,3){};\end{axis}\end{tikzpicture}
+\end{center}
+\sol (a) $\lim_{x\to2}f(x)=2=f(2)$. \ (b) $\lim_{x\to2}f(x)=2$ although $f(2)=3$. \ (c) Left limit $1$, right limit $3$: the limit does not exist.
+\end{example}
+
+\begin{example}[Example 2 \textbullet\ Piecewise formula]
+$g(x)=\begin{cases}x^2-1, & x<3\\ 2x+2, & x\ge3.\end{cases}$\quad
+\sol $\lim_{x\to3^-}g(x)=8$ and $\lim_{x\to3^+}g(x)=8$, so $\lim_{x\to3}g(x)=8$.
+\end{example}
+
+\begin{mistakes}
+\begin{itemize}
+\item Answering $\lim_{x\to c}f(x)=f(c)$ automatically. This is true only when $f$ is continuous at $c$.
+\item Saying a limit ``equals DNE''. Write ``the limit does not exist''.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. $\lim_{x\to1^-}h(x)=5$ and $\lim_{x\to1^+}h(x)=5$; $h(1)=0$. Find $\lim_{x\to1}h(x)$.\\
+2. Can $\lim_{x\to4}f(x)$ exist if $f(4)$ is undefined?
+\qcanswers{1. $5$. \ 2. Yes; for example $\frac{x^2-16}{x-4}\to8$.}
+\end{quickcheck}
+
+%%LESSON 1.3 | Estimating Limit Values from Graphs
+\goals{\item Read one-sided and two-sided limits from a graph.
+\item Recognize graphical reasons a limit fails to exist.}
+\vocab{open circle, filled dot, jump, vertical asymptote, oscillation.}
+
+\subsection*{1. Follow the graph toward $x=c$}
+Trace the graph from the left toward $x=c$ and note the height it approaches; repeat from the right. Open and filled circles only tell you the value $f(c)$.
+
+\fgraph
+\begin{example}[Example 1 \textbullet\ Using the graph of $f$ above]
+\sol
+\begin{tabular}{@{}lll@{}}
+$x=-3$ (endpoint): & $\lim_{x\to-3^+}f(x)=1$ & (only a right-hand limit)\\
+$x=-1$: & left $3$, right $1$ & limit does not exist; $f(-1)=1$\\
+$x=0$: & $\lim_{x\to0}f(x)=0$ & $f(0)=0$\\
+$x=2$: & left $4$, right $4$ & $\lim_{x\to2}f(x)=4$, but $f(2)=1$\\
+$x=3$: & $\lim_{x\to3}f(x)=2$ & $f(3)=2$
+\end{tabular}
+\end{example}
+
+\subsection*{2. Three ways a limit can fail}
+\begin{itemize}
+\item \textbf{Jump}: different one-sided limits.
+\item \textbf{Unbounded}: the graph rises or falls without bound (vertical asymptote).
+\item \textbf{Oscillation}: the graph keeps oscillating, as $\sin\frac1x$ does near $0$.
+\end{itemize}
+
+\begin{example}[Example 2 \textbullet\ Unbounded]
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-1.5,xmax=3.5,ymin=-0.5,ymax=5.5,width=5.5cm,height=4.8cm]
+\addplot[apblue,very thick,domain=-1.5:0.55,samples=100]{1/(x-1)^2};
+\addplot[apblue,very thick,domain=1.45:3.5,samples=100]{1/(x-1)^2};
+\draw[apred,dashed](axis cs:1,-1)--(axis cs:1,6);
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\sol Near $x=1$ the graph rises without bound on both sides: $\lim_{x\to1}\frac{1}{(x-1)^2}=\infty$. The limit does not exist as a real number.
+\end{example}
+
+\begin{mistakes}
+\begin{itemize}
+\item Reading the filled dot as the limit.
+\item Forgetting that at an endpoint of the domain only a one-sided limit makes sense.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+Use the graph of $f$ above. 1. $\lim_{x\to-1^-}f(x)$? \quad 2. $\lim_{x\to1}f(x)$? \quad 3. Is $\lim_{x\to2}f(x)=f(2)$?
+\qcanswers{1. $3$. \ 2. $1$. \ 3. No: $4\neq1$.}
+\end{quickcheck}
+
+%%LESSON 1.4 | Estimating Limit Values from Tables
+\goals{\item Estimate limits from numerical tables, approaching from both sides.
+\item Recognize the limitations of tables.}
+\vocab{table of values, numerical evidence, estimate.}
+
+\subsection*{1. Building a good table}
+Choose inputs closer and closer to $c$ from \emph{both} sides (for example $c\pm0.1$, $c\pm0.01$, $c\pm0.001$) and look for a value that the outputs approach.
+
+\begin{example}[Example 1]
+Estimate $\displaystyle\lim_{x\to0}\frac{\sin x}{x}$ ($x$ in radians).
+\begin{center}\begin{tabular}{c|cccccc}$x$&$-0.1$&$-0.01$&$-0.001$&$0.001$&$0.01$&$0.1$\\\hline$\frac{\sin x}{x}$&$0.99833$&$0.99998$&$1.00000$&$1.00000$&$0.99998$&$0.99833$\end{tabular}\end{center}
+\sol The values approach $1$ from both sides; the limit appears to be $1$.
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-10.5,xmax=10.5,ymin=-0.5,ymax=1.5,xtick distance=2,ytick distance=0.5,width=8cm,height=4.4cm]
+\addplot[apblue,very thick,domain=-10.5:-0.05,samples=200]{sin(deg(x))/x};
+\addplot[apblue,very thick,domain=0.05:10.5,samples=200]{sin(deg(x))/x};
+\node[circle,draw=apblue,fill=white,thick,inner sep=1.6pt] at (axis cs:0,1){};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\end{example}
+
+\subsection*{2. Tables suggest; they do not prove}
+\begin{example}[Example 2 \textbullet\ Different one-sided values]
+\begin{center}\begin{tabular}{c|cccccc}$x$&$0.9$&$0.99$&$0.999$&$1.001$&$1.01$&$1.1$\\\hline$g(x)$&$2.9$&$2.99$&$2.999$&$5.001$&$5.01$&$5.1$\end{tabular}\end{center}
+\sol The left-hand values approach $3$ and the right-hand values approach $5$, so $\lim_{x\to1}g(x)$ does not appear to exist.
+\end{example}
+A table can mislead: a function might behave differently between the listed inputs, or values may stabilize only extremely close to $c$. Confirm with algebra or theorems when possible.
+
+\begin{mistakes}
+\begin{itemize}
+\item Using degrees instead of radians for trigonometric limits.
+\item Reporting the last value in the table (such as $0.999$) instead of the value it approaches.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. Values of $f$ near $x=2$ are $3.9, 3.99, 3.999$ (left) and $4.001, 4.01, 4.1$ (right). Estimate $\lim_{x\to2}f(x)$.\\
+2. Why use values on both sides?
+\qcanswers{1. $4$. \ 2. The limit exists only if both one-sided limits agree.}
+\end{quickcheck}
+
+%%LESSON 1.5 | Determining Limits Using Algebraic Properties of Limits
+\goals{\item Use the sum, difference, constant multiple, product, quotient and power properties of limits.
+\item Evaluate limits by direct substitution when the function is continuous at the point.}
+\vocab{limit properties, direct substitution, composite function.}
+
+\subsection*{1. Properties of limits}
+\begin{keyidea}
+If $\lim_{x\to c}f(x)=L$ and $\lim_{x\to c}g(x)=M$ (real numbers), then
+\begin{itemize}
+\item $\lim(f\pm g)=L\pm M$, \quad $\lim(kf)=kL$, \quad $\lim(fg)=LM$;
+\item $\lim\dfrac fg=\dfrac LM$ if $M\neq0$; \quad $\lim f^n=L^n$; \quad $\lim\sqrt[n]{f}=\sqrt[n]{L}$ (with $L\ge0$ for even $n$).
+\end{itemize}
+\end{keyidea}
+
+\subsection*{2. Direct substitution}
+Polynomials, rational functions (where the denominator is not 0), roots, $\sin$, $\cos$, $e^x$ and $\ln x$ (on their domains) satisfy $\lim_{x\to c}f(x)=f(c)$.
+
+\begin{example}[Example 1]
+\sol $\displaystyle\lim_{x\to-1}\left(x^3-4x+2\right)=-1+4+2=5$; \quad $\displaystyle\lim_{x\to\pi/3}\left(2\cos x\right)=2\cdot\tfrac12=1$; \quad $\displaystyle\lim_{x\to1}\frac{e^x}{x+1}=\frac e2$.
+\end{example}
+
+\begin{example}[Example 2 \textbullet\ Using given limits and a graph]
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-0.5,xmax=4.5,ymin=-0.5,ymax=4.5,width=5.5cm,height=4.8cm]
+\addplot[apblue,very thick,domain=0:4]{0.25*(x-2)^2+1};
+\node[apblue,font=\small] at (axis cs:3.7,2.6){$g$};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+$\lim_{x\to2}f(x)=-3$, and the graph of $g$ is shown. Find $\lim_{x\to2}\big(f(x)\,g(x)-x^2\big)$.
+\sol From the graph, $\lim_{x\to2}g(x)=1$. So the limit is $(-3)(1)-4=-7$.
+\end{example}
+
+\begin{mistakes}
+\begin{itemize}
+\item Applying the quotient property when the denominator's limit is $0$.
+\item Using the product property when one of the limits does not exist.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+$\lim_{x\to5}f(x)=2$, $\lim_{x\to5}g(x)=-4$. Find: 1. $\lim(3f-g)$ \quad 2. $\lim\frac{g}{f^2}$ \quad 3. $\lim\sqrt{f+7}$
+\qcanswers{1. $10$. \ 2. $-1$. \ 3. $3$.}
+\end{quickcheck}
+
+%%LESSON 1.6 | Determining Limits Using Algebraic Manipulations
+\goals{\item Recognize the indeterminate form $\frac00$.
+\item Rewrite expressions by factoring, using conjugates, and combining fractions to evaluate limits.}
+\vocab{indeterminate form, factoring, conjugate, complex fraction.}
+
+\subsection*{1. Why $\frac00$ needs work}
+$\frac00$ is not a number: it signals that a common factor can usually be removed. The rewritten expression agrees with the original for $x\neq c$, so it has the same limit.
+
+\begin{example}[Example 1 \textbullet\ Factoring]
+$\displaystyle\lim_{x\to-3}\frac{x^2+x-6}{x^2-9}=\lim_{x\to-3}\frac{(x+3)(x-2)}{(x+3)(x-3)}=\frac{-5}{-6}=\frac56.$
+\end{example}
+
+\begin{example}[Example 2 \textbullet\ Conjugate]
+$\displaystyle\lim_{x\to9}\frac{\sqrt x-3}{x-9}=\lim_{x\to9}\frac{\sqrt x-3}{(\sqrt x-3)(\sqrt x+3)}=\frac16.$
+\end{example}
+
+\begin{example}[Example 3 \textbullet\ Complex fraction]
+$\displaystyle\lim_{h\to0}\frac{\frac{1}{x+h}-\frac1x}{h}=\lim_{h\to0}\frac{\frac{x-(x+h)}{x(x+h)}}{h}=\lim_{h\to0}\frac{-1}{x(x+h)}=-\frac{1}{x^2}.$
+\end{example}
+
+\begin{example}[Example 4 \textbullet\ Graph check]
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-2.5,xmax=4.5,ymin=-0.5,ymax=6.5,width=5.5cm,height=4.8cm]
+\addplot[apblue,very thick,domain=-2.5:4.5]{x+2};
+\node[circle,draw=apblue,fill=white,thick,inner sep=1.6pt] at (axis cs:2,4){};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\sol The graph of $\dfrac{x^2-4}{x-2}$ is the line $y=x+2$ with a hole at $(2,4)$, confirming $\lim_{x\to2}\frac{x^2-4}{x-2}=4$.
+\end{example}
+
+\begin{mistakes}
+\begin{itemize}
+\item Concluding that a $\frac00$ limit does not exist, or equals $0$ or $1$.
+\item Cancelling terms instead of factors: $\frac{x^2-4}{x-2}\neq x-2$.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. $\displaystyle\lim_{x\to1}\frac{x^3-1}{x-1}$ \quad 2. $\displaystyle\lim_{x\to0}\frac{\sqrt{1+x}-1}{x}$
+\qcanswers{1. $x^2+x+1\to3$. \ 2. $\frac{1}{\sqrt{1+x}+1}\to\frac12$.}
+\end{quickcheck}
+
+%%LESSON 1.7 | Selecting Procedures for Determining Limits
+\goals{\item Choose an efficient method for a limit based on what substitution gives.
+\item Handle $\frac{k}{0}$ forms, absolute values and piecewise functions.}
+\vocab{direct substitution, indeterminate, infinite limit, one-sided analysis.}
+
+\subsection*{1. A decision procedure}
+\begin{center}
+\begin{tikzpicture}[every node/.style={font=\small,align=center,text width=3.9cm,inner sep=4pt}]
+\node[draw=apnavy,fill=aptint,rounded corners,text width=3.2cm] (s) at (0,0) {Substitute $x=c$};
+\node[draw=apgreen,thick] (a) at (-4.6,-1.7) {A real number:\\that is the limit.};
+\node[draw=apblue,thick] (b) at (0,-1.7) {$\frac00$: factor, use a conjugate,\\combine fractions,\\or a trig limit.};
+\node[draw=apred,thick] (c) at (4.6,-1.7) {$\frac k0$ with $k\neq0$: infinite\\limit; check the sign\\on each side.};
+\draw[->,thick,apgrey](s)--(a.north);\draw[->,thick,apgrey](s)--(b);\draw[->,thick,apgrey](s)--(c.north);
+\end{tikzpicture}
+\end{center}
+For absolute values and piecewise functions, compute each one-sided limit separately.
+
+\begin{example}[Example 1 \textbullet\ $\frac k0$]
+$\displaystyle\lim_{x\to2}\frac{x+3}{x-2}$: substitution gives $\frac50$.
+\sol For $x<2$ the denominator is negative: $\lim_{x\to2^-}=-\infty$. For $x>2$: $\lim_{x\to2^+}=+\infty$. The two-sided limit does not exist (not even as $\pm\infty$).
+\end{example}
+
+\begin{example}[Example 2 \textbullet\ Absolute value]
+$\displaystyle\lim_{x\to-1}\frac{x^2-1}{|x+1|}$.
+\sol For $x<-1$: $|x+1|=-(x+1)$, so the quotient is $-(x-1)\to2$. For $x>-1$: it is $x-1\to-2$. The limit does not exist.
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-3.5,xmax=1.5,ymin=-3.5,ymax=4.5,width=5.5cm,height=5cm]
+\addplot[apblue,very thick,domain=-3.5:-1]{1-x};\addplot[apblue,very thick,domain=-1:1.5]{x-1};
+\node[circle,draw=apblue,fill=white,thick,inner sep=1.6pt] at (axis cs:-1,2){};\node[circle,draw=apblue,fill=white,thick,inner sep=1.6pt] at (axis cs:-1,-2){};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\end{example}
+
+\begin{mistakes}
+\begin{itemize}
+\item Treating $\frac50$ like $\frac00$ and trying to factor.
+\item Writing $|x+1|=x+1$ for all $x$.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. $\displaystyle\lim_{x\to0}\frac{x^2-3x}{x}$ \quad 2. $\displaystyle\lim_{x\to3^-}\frac{1}{x-3}$ \quad 3. $\displaystyle\lim_{x\to2}\frac{x^2+1}{x+3}$
+\qcanswers{1. $-3$. \ 2. $-\infty$. \ 3. $1$.}
+\end{quickcheck}
+
+%%LESSON 1.8 | Determining Limits Using the Squeeze Theorem
+\goals{\item State and apply the squeeze theorem.
+\item Use the limits $\lim_{x\to0}\frac{\sin x}{x}=1$ and $\lim_{x\to0}\frac{1-\cos x}{x}=0$.}
+\vocab{squeeze (sandwich) theorem, bounded function, oscillation.}
+
+\subsection*{1. The squeeze theorem}
+\begin{keyidea}
+If $g(x)\le f(x)\le h(x)$ for all $x$ near $c$ (except possibly at $c$), and $\lim_{x\to c}g(x)=\lim_{x\to c}h(x)=L$, then $\lim_{x\to c}f(x)=L$.
+\end{keyidea}
+
+\begin{example}[Example 1 \textbullet\ A bounded factor]
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-0.55,xmax=0.55,ymin=-0.3,ymax=0.3,xtick distance=0.25,ytick distance=0.1,width=7cm,height=5cm]
+\addplot[apblue,very thick,domain=-0.5:-0.002,samples=1500]{x^2*sin(deg(1/x))};
+\addplot[apblue,very thick,domain=0.002:0.5,samples=1500]{x^2*sin(deg(1/x))};
+\addplot[apgrey,dashed,thick,domain=-0.5:0.5]{x^2};\addplot[apgrey,dashed,thick,domain=-0.5:0.5]{-x^2};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\sol $-1\le\sin\frac1x\le1$, so $-x^2\le x^2\sin\frac1x\le x^2$. Both bounds approach $0$, so $\lim_{x\to0}x^2\sin\frac1x=0$.
+\end{example}
+
+\subsection*{2. Two special trigonometric limits}
+\begin{keyidea}
+$\displaystyle\lim_{x\to0}\frac{\sin x}{x}=1$ \qquad $\displaystyle\lim_{x\to0}\frac{1-\cos x}{x}=0$ \qquad ($x$ in radians)
+\end{keyidea}
+\begin{example}[Example 2]
+\sol $\displaystyle\lim_{x\to0}\frac{\sin 7x}{3x}=\frac73\cdot\lim_{x\to0}\frac{\sin7x}{7x}=\frac73$.\qquad
+$\displaystyle\lim_{x\to0}\frac{\tan x}{x}=\lim_{x\to0}\frac{\sin x}{x}\cdot\frac{1}{\cos x}=1$.
+\end{example}
+
+\begin{mistakes}
+\begin{itemize}
+\item Claiming $\lim_{x\to0}x\sin\frac1x$ does not exist because $\sin\frac1x$ oscillates. The factor $x$ forces the product to $0$.
+\item Simplifying $\frac{\sin7x}{3x}$ to $\frac{\sin7}{3}$.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. $\displaystyle\lim_{x\to0}\frac{\sin2x}{\sin5x}$ \quad 2. If $1-x^2\le f(x)\le\cos x$ near $0$, find $\lim_{x\to0}f(x)$.
+\qcanswers{1. $\frac25$. \ 2. Both bounds approach $1$, so $1$.}
+\end{quickcheck}
+
+%%LESSON 1.9 | Connecting Multiple Representations of Limits
+\goals{\item Combine limits read from graphs, tables and formulas.
+\item Evaluate limits of composite functions, paying attention to the side of approach.}
+\vocab{representation, composite limit, inner function, outer function.}
+
+\fgraph
+\subsection*{1. Combining representations}
+Evaluate each piece with the representation you are given, then combine with the limit properties.
+
+\begin{example}[Example 1]
+Using the graph of $f$ above and $g(x)=x^2-1$, find $\displaystyle\lim_{x\to2}\frac{f(x)}{g(x)}$.
+\sol $\lim_{x\to2}f(x)=4$ (graph), $\lim_{x\to2}g(x)=3$ (formula). Quotient: $\frac43$.
+\end{example}
+
+\subsection*{2. Composite limits}
+\begin{keyidea}
+To find $\lim_{x\to c}f(g(x))$: first find $b=\lim_{x\to c}g(x)$ and note \emph{from which side} $g(x)$ approaches $b$; then find the corresponding limit of $f$ at $b$.
+\end{keyidea}
+
+\begin{example}[Example 2]
+Using the graph of $f$, find $\displaystyle\lim_{x\to0}f\big(x-1\big)$ and $\displaystyle\lim_{x\to0^+}f\big(-1-x\big)$.
+\sol As $x\to0$, $x-1\to-1$ from both sides; $f$ has different one-sided limits at $-1$, so $\lim_{x\to0}f(x-1)$ does not exist. As $x\to0^+$, $-1-x\to-1$ from the \emph{left}, so $f(-1-x)\to3$.
+\end{example}
+
+\begin{example}[Example 3 \textbullet\ Table and graph]
+A table shows $h(x)\to2$ as $x\to3$, with $h(x)>2$ on both sides. Find $\lim_{x\to3}f(h(x))$.
+\sol The inputs to $f$ approach $2$ from the right, and $\lim_{x\to2^+}f(x)=4$. So the limit is $4$ (not $f(2)=1$).
+\end{example}
+
+\begin{mistakes}
+\begin{itemize}
+\item Evaluating $f$ \emph{at} the inner limit instead of finding the limit of $f$ there.
+\item Ignoring the direction from which the inner function approaches.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+With the graph of $f$: 1. $\lim_{x\to1}\big(f(x)+3x\big)$ \quad 2. $\lim_{x\to-1^-}\big(2f(x)\big)$
+\qcanswers{1. $1+3=4$. \ 2. $6$.}
+\end{quickcheck}
+
+%%LESSON 1.10 | Exploring Types of Discontinuities
+\goals{\item Classify discontinuities as removable, jump, or infinite.
+\item Justify the classification with limits.}
+\vocab{continuous, discontinuity, removable, jump, infinite.}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-0.2,xmax=3.2,ymin=-0.2,ymax=3.2,width=4.6cm,height=4.4cm,title={\small removable}]
+\addplot[apblue,very thick,domain=0:3]{0.5*x+0.5};\node[circle,draw=apblue,fill=white,thick,inner sep=1.5pt] at (axis cs:1.5,1.25){};\node[circle,fill=apblue,inner sep=1.5pt] at (axis cs:1.5,2.5){};\end{axis}\end{tikzpicture}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-0.2,xmax=3.2,ymin=-0.2,ymax=3.2,width=4.6cm,height=4.4cm,title={\small jump}]
+\addplot[apblue,very thick,domain=0:1.5]{0.5};\addplot[apblue,very thick,domain=1.5:3]{2};\node[circle,draw=apblue,fill=white,thick,inner sep=1.5pt] at (axis cs:1.5,0.5){};\node[circle,fill=apblue,inner sep=1.5pt] at (axis cs:1.5,2){};\end{axis}\end{tikzpicture}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-0.2,xmax=3.2,ymin=-0.2,ymax=3.2,width=4.6cm,height=4.4cm,title={\small infinite}]
+\addplot[apblue,very thick,domain=0:1.25,samples=80]{0.3/(1.5-x)};\addplot[apblue,very thick,domain=1.62:3,samples=80]{0.3/(x-1.5)};\draw[apred,dashed](axis cs:1.5,-1)--(axis cs:1.5,4);\end{axis}\end{tikzpicture}
+\end{center}
+
+\begin{keyidea}
+\begin{itemize}
+\item \textbf{Removable}: $\lim_{x\to c}f(x)$ exists, but $f(c)$ is undefined or different from it.
+\item \textbf{Jump}: both one-sided limits exist (finite) and are different.
+\item \textbf{Infinite}: at least one one-sided limit is $+\infty$ or $-\infty$.
+\end{itemize}
+\end{keyidea}
+
+\begin{example}[Example 1 \textbullet\ Formulas]
+\sol $\dfrac{x^2-9}{x-3}$ at $x=3$: limit $6$, undefined value: removable. \quad $\dfrac{|x|}{x}$ at $0$: limits $-1$ and $1$: jump. \quad $\dfrac{1}{x^2}$ at $0$: limit $+\infty$: infinite.
+\end{example}
+
+\begin{example}[Example 2 \textbullet\ Piecewise]
+$f(x)=\begin{cases}x+1, & x<1\\ 3, & x=1\\ 3-x, & x>1.\end{cases}$
+\sol $\lim_{x\to1^-}f(x)=2$ and $\lim_{x\to1^+}f(x)=2$, so the limit is $2$, but $f(1)=3$: removable discontinuity, fixed by redefining $f(1)=2$.
+\end{example}
+
+\begin{mistakes}
+\begin{itemize}
+\item Calling every point where $f$ is undefined an asymptote; check whether the limit is finite.
+\item Classifying a jump as removable because both one-sided limits exist.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+Classify at the given point: 1. $\frac{x+2}{x^2-4}$ at $x=-2$ \quad 2. same function at $x=2$ \quad 3. $\begin{cases}x^2,&x\le0\\x+1,&x>0\end{cases}$ at $0$.
+\qcanswers{1. Removable (limit $-\frac14$). \ 2. Infinite. \ 3. Jump.}
+\end{quickcheck}
+
+%%LESSON 1.11 | Defining Continuity at a Point
+\goals{\item State the three conditions for continuity at a point.
+\item Justify continuity or discontinuity with numbers, as required on the AP exam.}
+\vocab{continuous at a point, definition of continuity.}
+
+\begin{keyidea}[Definition]
+$f$ is continuous at $x=c$ when (1) $f(c)$ is defined, (2) $\lim_{x\to c}f(x)$ exists, and (3) $\lim_{x\to c}f(x)=f(c)$.
+\end{keyidea}
+
+\begin{example}[Example 1 \textbullet\ A complete justification]
+$f(x)=\begin{cases}x^2+1, & x\le2\\ 4x-3, & x>2.\end{cases}$ Is $f$ continuous at $x=2$?
+\sol $f(2)=5$. $\lim_{x\to2^-}f(x)=5$ and $\lim_{x\to2^+}f(x)=8-3=5$, so $\lim_{x\to2}f(x)=5$. Since $\lim_{x\to2}f(x)=f(2)$, $f$ is continuous at $x=2$.
+\end{example}
+
+\begin{example}[Example 2 \textbullet\ From a graph]
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-1.5,xmax=4.5,ymin=-1.5,ymax=2.5,width=6cm,height=4.6cm]
+\addplot[apblue,very thick,domain=-1.5:1]{x};\addplot[apblue,very thick,domain=1:3]{2-x};\addplot[apblue,very thick,domain=3:4.5]{1};
+\node[circle,draw=apblue,fill=white,thick,inner sep=1.6pt] at (axis cs:3,-1){};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:3,1){};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:1,1){};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\sol At $x=1$: $f(1)=1$ and both one-sided limits are $1$: continuous (a corner does not break continuity). At $x=3$: left limit $-1$, right limit $1$: condition (2) fails, so $f$ is not continuous at $x=3$.
+\end{example}
+
+\begin{mistakes}
+\begin{itemize}
+\item Checking only that the two pieces ``meet'' without checking the value $f(c)$.
+\item Writing ``the graph has no holes'' as a justification; the AP exam expects the three conditions with values.
+\end{itemize}
+\end{mistakes}
+
+\begin{aptip}
+Model sentence: ``$\lim_{x\to2^-}f(x)=5=\lim_{x\to2^+}f(x)$, so $\lim_{x\to2}f(x)=5=f(2)$. Therefore $f$ is continuous at $x=2$.''
+\end{aptip}
+
+\begin{quickcheck}
+1. Which condition fails for $f(x)=\frac{x^2-1}{x-1}$ at $x=1$?\\
+2. $g(3)=7$ and $\lim_{x\to3}g(x)=7$. Is $g$ continuous at $3$?
+\qcanswers{1. Condition (1): $f(1)$ is undefined. \ 2. Yes.}
+\end{quickcheck}
+
+%%LESSON 1.12 | Confirming Continuity over an Interval
+\goals{\item Identify intervals on which common functions are continuous.
+\item Use the continuity of sums, products, quotients and compositions.}
+\vocab{continuous on an interval, one-sided continuity, domain.}
+
+\subsection*{1. Continuous on an interval}
+$f$ is continuous on an open interval if it is continuous at every point of it; on $[a,b]$ we also require $\lim_{x\to a^+}f(x)=f(a)$ and $\lim_{x\to b^-}f(x)=f(b)$.
+
+\begin{keyidea}[Functions continuous on their domains]
+Polynomials (all reals); rational functions (except zeros of the denominator); $\sqrt x$ on $[0,\infty)$; $e^x$ (all reals); $\ln x$ on $(0,\infty)$; $\sin x,\cos x$ (all reals); $\tan x$ except at $\frac\pi2+k\pi$. Sums, products, quotients (nonzero denominator) and compositions of continuous functions are continuous.
+\end{keyidea}
+
+\begin{example}[Example 1]
+Where is $h(x)=\dfrac{\sqrt{x+2}}{x-1}$ continuous?
+\sol The root needs $x\ge-2$; the denominator is $0$ at $x=1$. $h$ is continuous on $[-2,1)\cup(1,\infty)$.
+\end{example}
+
+\begin{example}[Example 2 \textbullet\ From a graph]
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-2.5,xmax=4.5,ymin=-0.5,ymax=5.5,width=6cm,height=4.8cm]
+\addplot[apblue,very thick,domain=-2:4]{0.5*x^2-x+1};
+\node[circle,draw=apblue,fill=white,thick,inner sep=1.6pt] at (axis cs:1,0.5){};
+\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:-2,5){};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:4,5){};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\sol $f$ is defined on $[-2,4]$ except $x=1$. It is continuous on $[-2,1)$ and on $(1,4]$, so on any closed interval that avoids $1$ (such as $[2,4]$), but not on $[0,2]$.
+\end{example}
+
+\begin{mistakes}
+\begin{itemize}
+\item Forgetting domain restrictions from roots and logarithms.
+\item Including an endpoint where the function is undefined.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+Where is each function continuous? 1. $\ln(4-x)$ \quad 2. $\dfrac{x}{x^2+1}$ \quad 3. $\sqrt{x}\,e^x$
+\qcanswers{1. $(-\infty,4)$. \ 2. All real numbers. \ 3. $[0,\infty)$.}
+\end{quickcheck}
+
+%%LESSON 1.13 | Removing Discontinuities
+\goals{\item Redefine a function at a point to remove a removable discontinuity.
+\item Find constants that make a piecewise function continuous.}
+\vocab{removable discontinuity, extended function, piecewise function, parameter.}
+
+\subsection*{1. Filling a hole}
+If $\lim_{x\to c}f(x)=L$ exists but $f(c)\neq L$ (or is undefined), defining $f(c)=L$ makes $f$ continuous at $c$. Jump and infinite discontinuities cannot be removed this way.
+
+\begin{example}[Example 1]
+$f(x)=\dfrac{x^2-x-12}{x-4}$, $x\neq4$. What value of $f(4)$ makes $f$ continuous?
+\sol $\dfrac{(x-4)(x+3)}{x-4}=x+3\to7$, so define $f(4)=7$.
+\end{example}
+
+\subsection*{2. Matching pieces}
+At a boundary point, set the left-hand limit, the right-hand limit and the function value equal.
+
+\begin{example}[Example 2 \textbullet\ One constant]
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-0.5,xmax=3.5,ymin=-0.5,ymax=7.5,width=5.5cm,height=5cm]
+\addplot[apblue,very thick,domain=-0.5:2]{2*x+1};\addplot[apblue,very thick,dashed,domain=2:2.75]{x^2+1};
+\node[circle,draw=apblue,fill=white,thick,inner sep=1.6pt] at (axis cs:2,5){};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+$f(x)=\begin{cases}2x+1, & x<2\\ x^2+k, & x\ge2.\end{cases}$
+\sol Left: $5$. Right and $f(2)$: $4+k$. So $4+k=5$ and $k=1$ (the dashed piece shows $x^2+1$).
+\end{example}
+
+\begin{example}[Example 3 \textbullet\ Two constants]
+$g(x)=\begin{cases}ax+b, & x<1\\ 5, & x=1\\ x^2+bx, & x>1\end{cases}$ is continuous at $x=1$. Find $a$ and $b$.
+\sol Right: $1+b=5$, so $b=4$. Left: $a+b=5$, so $a=1$.
+\end{example}
+
+\begin{mistakes}
+\begin{itemize}
+\item Setting only two of the three quantities equal when a separate value $f(c)$ is given.
+\item Trying to ``remove'' a jump discontinuity by redefining one point.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. Define $h(0)$ to make $h(x)=\frac{\sin 3x}{x}$ continuous at $0$.\\
+2. Find $k$ so that $\begin{cases}kx-1,&x<3\\ 2x+k,&x\ge3\end{cases}$ is continuous.
+\qcanswers{1. $h(0)=3$. \ 2. $3k-1=6+k$, so $k=\frac72$.}
+\end{quickcheck}
+
+%%LESSON 1.14 | Connecting Infinite Limits and Vertical Asymptotes
+\goals{\item Describe unbounded behavior with infinite limits.
+\item Connect infinite limits to vertical asymptotes, and determine signs.}
+\vocab{infinite limit, vertical asymptote, unbounded.}
+
+\begin{keyidea}
+If $\lim_{x\to c^-}f(x)$ or $\lim_{x\to c^+}f(x)$ is $+\infty$ or $-\infty$, the line $x=c$ is a vertical asymptote. Writing $\lim f(x)=\infty$ describes \emph{how} the limit fails to exist.
+\end{keyidea}
+
+\subsection*{1. Determining the sign}
+For $\frac{k}{0}$ forms, find the sign of the numerator and of each denominator factor just left and just right of $c$.
+
+\begin{example}[Example 1]
+$f(x)=\dfrac{x-4}{x(x-2)}$ near $x=2$.
+\sol The numerator is near $-2$ and $x$ is near $2$. For $x<2$, $x-2<0$: denominator negative, so $f>0$: $\lim_{x\to2^-}f(x)=+\infty$. For $x>2$: $\lim_{x\to2^+}f(x)=-\infty$.
+\end{example}
+
+\begin{example}[Example 2 \textbullet\ Other functions]
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-0.5,xmax=5.5,ymin=-3.5,ymax=2.5,width=5.5cm,height=4.6cm,title={\small $y=\ln x$}]
+\addplot[apblue,very thick,domain=0.04:5.5,samples=150]{ln(x)};\end{axis}\end{tikzpicture}\quad
+\begin{tikzpicture}
+\begin{axis}[apaxis,xmin=-2,xmax=2,ymin=-4.5,ymax=4.5,width=5.5cm,height=4.6cm,xtick={-1.5708,1.5708},xticklabels={$-\frac\pi2$,$\frac\pi2$},title={\small $y=\tan x$}]
+\addplot[apblue,very thick,domain=-1.35:1.35,samples=150]{tan(deg(x))};
+\draw[apred,dashed](axis cs:1.5708,-5)--(axis cs:1.5708,5);\draw[apred,dashed](axis cs:-1.5708,-5)--(axis cs:-1.5708,5);\end{axis}\end{tikzpicture}
+\end{center}
+\sol $\lim_{x\to0^+}\ln x=-\infty$; \quad $\lim_{x\to\frac\pi2^-}\tan x=+\infty$, $\lim_{x\to\frac\pi2^+}\tan x=-\infty$.
+\end{example}
+
+\begin{mistakes}
+\begin{itemize}
+\item Writing $\lim_{x\to c}f(x)=\infty$ when the two one-sided limits have opposite signs.
+\item Claiming every zero of a denominator gives an asymptote (check for cancellation first).
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. $\lim_{x\to-3^+}\dfrac{2}{x+3}$ \quad 2. $\lim_{x\to1}\dfrac{-1}{(x-1)^2}$ \quad 3. Vertical asymptotes of $\dfrac{x}{x^2-x}$?
+\qcanswers{1. $+\infty$. \ 2. $-\infty$. \ 3. $\frac{x}{x(x-1)}$: only $x=1$ (hole at $x=0$).}
+\end{quickcheck}
+
+%%LESSON 1.15 | Connecting Limits at Infinity and Horizontal Asymptotes
+\goals{\item Evaluate limits as $x\to\pm\infty$ of rational, radical and exponential expressions.
+\item Use relative growth rates to compare functions.}
+\vocab{limit at infinity, horizontal asymptote, dominant term, growth rate.}
+
+\subsection*{1. Rational functions}
+Divide numerator and denominator by the highest power of $x$ in the denominator, or compare leading terms: same rules as in Precalculus.
+
+\subsection*{2. Radicals: watch the sign}
+$\sqrt{x^2}=|x|$, which equals $-x$ when $x<0$.
+\begin{example}[Example 1]
+$\displaystyle\lim_{x\to\pm\infty}\frac{3x-1}{\sqrt{4x^2+5}}$.
+\sol For large $|x|$, $\sqrt{4x^2+5}\approx2|x|$. As $x\to\infty$: $\frac{3x}{2x}\to\frac32$. As $x\to-\infty$: $\frac{3x}{-2x}\to-\frac32$. Two horizontal asymptotes: $y=\pm\frac32$.
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-8.5,xmax=8.5,ymin=-2.5,ymax=2.5,xtick distance=2,width=7.5cm,height=4.4cm]
+\addplot[apblue,very thick,domain=-8.5:8.5,samples=150]{(3*x-1)/sqrt(4*x^2+5)};
+\addplot[apgold!80!black,dashed,thick,domain=-8.5:8.5]{1.5};\addplot[apgold!80!black,dashed,thick,domain=-8.5:8.5]{-1.5};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\end{example}
+
+\subsection*{3. Growth rates}
+\begin{keyidea}
+As $x\to\infty$: $\ln x$ grows slower than any power $x^p$ ($p>0$), which grows slower than any exponential $a^x$ ($a>1$). The fastest-growing term controls the limit.
+\end{keyidea}
+\begin{example}[Example 2]
+\sol $\displaystyle\lim_{x\to\infty}\frac{x^5}{e^x}=0$; \quad $\displaystyle\lim_{x\to\infty}\frac{\ln x}{\sqrt x}=0$; \quad $\displaystyle\lim_{x\to\infty}\frac{4e^x-x}{2e^x+3}=\lim_{x\to\infty}\frac{4-xe^{-x}}{2+3e^{-x}}=2$.
+\end{example}
+
+\begin{mistakes}
+\begin{itemize}
+\item Forgetting that $\sqrt{x^2}=-x$ for negative $x$, which flips the sign of the limit at $-\infty$.
+\item Assuming $\lim_{x\to-\infty}e^x$ is $-\infty$; it is $0$.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. $\lim_{x\to\infty}\frac{2-5x^2}{x^2+x}$ \quad 2. $\lim_{x\to-\infty}e^{x}$ \quad 3. $\lim_{x\to\infty}\frac{x^{100}}{1.01^x}$
+\qcanswers{1. $-5$. \ 2. $0$. \ 3. $0$.}
+\end{quickcheck}
+
+%%LESSON 1.16 | Working with the Intermediate Value Theorem
+\goals{\item State the Intermediate Value Theorem and its hypothesis.
+\item Use the IVT to justify the existence of solutions, with a complete AP-style justification.}
+\vocab{Intermediate Value Theorem (IVT), hypothesis, conclusion, existence.}
+
+\begin{keyidea}[Intermediate Value Theorem]
+If $f$ is continuous on $[a,b]$ and $k$ is a number between $f(a)$ and $f(b)$, then $f(c)=k$ for at least one $c$ in $[a,b]$.
+\end{keyidea}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-0.5,xmax=4.5,ymin=-5.5,ymax=7.5,ytick distance=2,width=6.5cm,height=5.5cm]
+\addplot[apblue,very thick,domain=0:4,samples=150]{(x-1)*(x-2)*(x-3)+1};
+\addplot[apgold!80!black,dashed,thick,domain=-0.5:4.5]{1};
+\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:0,-5){};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:4,7){};
+\node[font=\scriptsize,apgold!60!black] at (axis cs:0.6,1.8){$y=k$};
+\end{axis}
+\end{tikzpicture}
+
+{\small The IVT guarantees at least one $c$; here the line $y=1$ meets the graph three times.}
+\end{center}
+
+\begin{example}[Example 1 \textbullet\ Existence of a root]
+Show that $x^3+2x=5$ has a solution in $[1,2]$.
+\sol Let $f(x)=x^3+2x$, a polynomial, continuous on $[1,2]$. $f(1)=3$ and $f(2)=12$. Since $3<5<12$, the IVT guarantees a $c$ in $[1,2]$ with $f(c)=5$.
+\end{example}
+
+\begin{example}[Example 2 \textbullet\ Data in a table]
+A continuous function $W$ has $W(0)=8$, $W(2)=3$, $W(5)=6$, $W(9)=1$. How many solutions of $W(t)=4$ must there be on $[0,9]$?
+\sol $4$ is between $8$ and $3$ (on $[0,2]$), between $3$ and $6$ (on $[2,5]$), and between $6$ and $1$ (on $[5,9]$). At least three.
+\end{example}
+
+\begin{example}[Example 3 \textbullet\ When the IVT does not apply]
+$g(x)=\frac1x$ on $[-1,1]$ has $g(-1)=-1$ and $g(1)=1$, but never equals $0$. No contradiction: $g$ is not continuous on $[-1,1]$.
+\end{example}
+
+\begin{mistakes}
+\begin{itemize}
+\item Omitting the continuity statement in a justification.
+\item Concluding the IVT gives \emph{exactly} one solution, or tells you where it is.
+\end{itemize}
+\end{mistakes}
+
+\begin{aptip}
+Full-credit template: ``$f$ is continuous on $[a,b]$ because \dots. $f(a)=\dots$ and $f(b)=\dots$. Since $k$ is between $f(a)$ and $f(b)$, by the Intermediate Value Theorem there is a $c$ in $[a,b]$ with $f(c)=k$.''
+\end{aptip}
+
+\begin{quickcheck}
+1. Does $\cos x=x$ have a solution in $[0,1]$? Justify.\\
+2. $f$ is continuous, $f(1)=4$, $f(3)=4$. Does the IVT guarantee $f(c)=0$ for some $c$ in $[1,3]$?
+\qcanswers{1. Yes: $h(x)=\cos x-x$ is continuous, $h(0)=1>0$, $h(1)\approx-0.46<0$. \ 2. No: $0$ is not between $4$ and $4$.}
+\end{quickcheck}

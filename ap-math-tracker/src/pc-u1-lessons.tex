@@ -23,6 +23,16 @@ A car's distance $d$ (meters) from a stop sign is recorded: $d(0)=0$, $d(1)=10$,
 \choices{$d$ is decreasing and concave up.}{$d$ is increasing and concave down.}{$d$ is linear.}{$d$ is increasing and concave up.}
 \answer{D}{The changes $10, 30, 50$ are positive and increasing: increasing and concave up.}
 \end{exo}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+The graph of $f(x)=-x^3+3x$ is shown, with turning points at $(-1,-2)$ and $(1,2)$. On which interval is $f$ both increasing and concave down?
+\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,xmin=-2.5,xmax=2.5,ymin=-3.5,ymax=3.5,width=7.5cm,height=5.6cm]\addplot[apblue,very thick,domain=-2.2:2.2,samples=120]{-x^3+3*x};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:-1,-2){};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:1,2){};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:0,0){};\end{axis}\end{tikzpicture}\end{center}
+\choices{$(-1,0)$}{$(0,1)$}{$(1,2)$}{$(-2,-1)$}
+\end{minipage}
+\answer{B}{$f$ is increasing between its turning points, on $(-1,1)$. The graph bends downward (concave down) to the right of the inflection point $(0,0)$. Both hold on $(0,1)$.}
+\end{exo}
 \begin{exo}[Free response]{}
 The height $h$, in meters, of a ball is recorded every half second.
 \begin{center}\begin{tabular}{c|ccccc}$t$ (s)&0&0.5&1&1.5&2\\\hline$h(t)$ (m)&2&9&12&11&6\end{tabular}\end{center}
@@ -59,6 +69,16 @@ Using the interval $[2,\,2.001]$, which is the best estimate of the rate of chan
 \choices{$4$}{$6$}{$2.5$}{$5$}
 \answer{D}{$\dfrac{f(2.001)-f(2)}{0.001}=\dfrac{6.005001-6}{0.001}=5.001\approx5$.}
 \end{exo}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+The graph of $h$ consists of line segments through $(0,1)$, $(2,5)$, $(4,4)$ and $(6,0)$. What is the average rate of change of $h$ on $[0,4]$?
+\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,xmin=-0.5,xmax=6.5,ymin=-0.5,ymax=5.5,width=7.5cm,height=5.6cm]\addplot[apblue,very thick] coordinates {(0,1)(2,5)(4,4)(6,0)};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:0,1){};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:4,4){};\end{axis}\end{tikzpicture}\end{center}
+\choices{$\dfrac34$}{$1$}{$2$}{$-\dfrac12$}
+\end{minipage}
+\answer{A}{From the graph, $h(0)=1$ and $h(4)=4$, so $\dfrac{4-1}{4-0}=\dfrac34$.}
+\end{exo}
 \begin{exo}[Free response]{}
 The position of a cart, in meters, is $s(t)=t^2-4t+10$ for $0\le t\le6$ seconds.
 \begin{enumerate}[label=(\alph*)]
@@ -93,6 +113,16 @@ Let $f(x)=-(x-2)^2+5$. What is the average rate of change of $f$ on $[2,4]$?
 At what value of $x$ does the rate of change of $f(x)=3x^2-12x+1$ change from negative to positive?
 \choices{$x=2$}{$x=-2$}{$x=4$}{$x=12$}
 \answer{A}{The vertex is at $x=-\frac{b}{2a}=\frac{12}{6}=2$; $a>0$, so $f$ decreases before it and increases after it.}
+\end{exo}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+The graph of a quadratic function $f$ is shown. Its vertex is $(1,-4)$ and its zeros are $-1$ and $3$. What is the average rate of change of $f$ on $[1,3]$?
+\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,xmin=-2.5,xmax=4.5,ymin=-4.5,ymax=5.5,width=7.5cm,height=5.6cm]\addplot[apblue,very thick,domain=-2:4,samples=100]{(x-1)^2-4};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:1,-4){};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:3,0){};\end{axis}\end{tikzpicture}\end{center}
+\choices{$-2$}{$4$}{$2$}{$0$}
+\end{minipage}
+\answer{C}{$f(1)=-4$ and $f(3)=0$, so $\dfrac{0-(-4)}{3-1}=2$. On $[-1,1]$ it is $-2$: the rate of change increases, as for any quadratic with $a>0$.}
 \end{exo}
 \begin{exo}[Free response]{}
 \begin{center}\begin{tabular}{c|ccccc}$x$&0&1&2&3&4\\\hline$y$&5&2&1&2&5\end{tabular}\end{center}
@@ -129,6 +159,16 @@ A point of inflection on the graph of a polynomial occurs where
 \choices{the rate of change changes from increasing to decreasing, or the reverse.}{the function changes from increasing to decreasing.}{the graph crosses the $x$-axis.}{the function has a local minimum.}
 \answer{A}{A point of inflection is a change in concavity, that is, in the behavior of the rate of change.}
 \end{exo}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+The graph of the polynomial $p(x)=\frac14x^4-2x^2$ is shown. What is the absolute minimum value of $p$?
+\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,xmin=-3.5,xmax=3.5,ymin=-5.5,ymax=3.5,width=7.5cm,height=5.6cm]\addplot[apblue,very thick,domain=-3.1:3.1,samples=150]{0.25*x^4-2*x^2};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:-2,-4){};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:2,-4){};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:0,0){};\end{axis}\end{tikzpicture}\end{center}
+\choices{$0$}{$-2$}{$-5$}{$-4$}
+\end{minipage}
+\answer{D}{The lowest points of the graph are the two local minima $(-2,-4)$ and $(2,-4)$; the graph rises without bound at both ends, so the absolute minimum value is $-4$.}
+\end{exo}
 \begin{exo}[Free response]{}
 The polynomial $p(x)=x^3-6x^2+9x$ has a local maximum at $(1,4)$, a local minimum at $(3,0)$ and a point of inflection at $(2,2)$.
 \begin{enumerate}[label=(\alph*)]
@@ -163,6 +203,16 @@ A polynomial with real coefficients has zeros $3$ and $2i$. What is its least po
 Which function is odd?
 \choices{$f(x)=x^4+x$}{$f(x)=x^3+1$}{$f(x)=x^3-5x$}{$f(x)=|x|$}
 \answer{C}{$(-x)^3-5(-x)=-(x^3-5x)$, so $f(-x)=-f(x)$.}
+\end{exo}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+The graph of a cubic polynomial $q$ is shown. It passes through $(0,2)$. Which could be $q(x)$?
+\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,xmin=-3.5,xmax=2.5,ymin=-3.5,ymax=5.5,width=7.5cm,height=5.6cm]\addplot[apblue,very thick,domain=-2.6:2.1,samples=120]{(x+2)*(x-1)^2};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:0,2){};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:-2,0){};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:1,0){};\end{axis}\end{tikzpicture}\end{center}
+\choices{$(x+2)(x-1)^2$}{$(x-2)(x+1)^2$}{$(x+2)^2(x-1)$}{$-(x+2)(x-1)^2$}
+\end{minipage}
+\answer{A}{The graph crosses the axis at $x=-2$ (odd multiplicity), touches it at $x=1$ (even multiplicity) and rises to the right (positive leading coefficient). Check: $(0+2)(0-1)^2=2$.}
 \end{exo}
 \begin{exo}[Free response]{}
 Let $p(x)=(x-1)^2(x+3)(x^2+1)$.
@@ -199,6 +249,16 @@ The graph of a polynomial falls to the left and rises to the right. Its degree a
 \choices{even, positive}{even, negative}{odd, positive}{odd, negative}
 \answer{C}{Opposite end behaviors mean odd degree; rising to the right means positive leading coefficient.}
 \end{exo}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+The graph of a polynomial $r$ is shown. Its zeros are $\pm1$ and $\pm2$, and $r(0)=-2$. Which could be $r(x)$?
+\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,xmin=-2.8,xmax=2.8,ymin=-3.5,ymax=2.5,width=7.5cm,height=5.6cm]\addplot[apblue,very thick,domain=-2.4:2.4,samples=150]{-(x^4-5*x^2+4)/2};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:0,-2){};\end{axis}\end{tikzpicture}\end{center}
+\choices{$x^4-5x^2+4$}{$-x^3+4x$}{$-\frac12\left(x^4-5x^2+4\right)$}{$\frac12\left(x^4-5x^2+4\right)$}
+\end{minipage}
+\answer{C}{Both ends of the graph go down: even degree, negative leading coefficient. Only (C) has these zeros, a negative leading coefficient, and $r(0)=-\frac12(4)=-2$.}
+\end{exo}
 \begin{exo}[Free response]{}
 Let $f(x)=-2x^4+3x^3+x-7$ and $g(x)=x^2(3-x)(x+1)^2$.
 \begin{enumerate}[label=(\alph*)]
@@ -233,6 +293,16 @@ What is the slant asymptote of $r(x)=\dfrac{x^2+3x}{x-1}$?
 $\displaystyle\lim_{x\to-\infty}\frac{x^3}{x^2+1}$ is
 \choices{$1$}{$0$}{$+\infty$}{$-\infty$}
 \answer{D}{The quotient behaves like $\frac{x^3}{x^2}=x$, which goes to $-\infty$.}
+\end{exo}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+The graph of $r(x)=\dfrac{-2x^2}{x^2+1}$ is shown. What is $\displaystyle\lim_{x\to\infty}r(x)$?
+\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,xmin=-6.5,xmax=6.5,ymin=-3.5,ymax=1.5,width=7.5cm,height=5.6cm]\addplot[apblue,very thick,domain=-6.5:6.5,samples=150]{-2*x^2/(x^2+1)};\draw[apgold!80!black,dashed,thick](axis cs:-100,-2)--(axis cs:100,-2);\end{axis}\end{tikzpicture}\end{center}
+\choices{$0$}{$-2$}{$-\infty$}{$2$}
+\end{minipage}
+\answer{B}{The graph levels off toward the dashed line $y=-2$. Algebraically, equal degrees give $\frac{-2}{1}=-2$.}
 \end{exo}
 \begin{exo}[Free response]{}
 Let $r(x)=\dfrac{6x^2+x}{3x^2-12}$ and $s(x)=\dfrac{2x^2-x+3}{x+1}$.
@@ -269,6 +339,16 @@ What is the solution set of $\dfrac{x+2}{x-1}<0$?
 \choices{$(-\infty,-2)$}{$(1,\infty)$}{$(-\infty,-2)\cup(1,\infty)$}{$(-2,1)$}
 \answer{D}{The sign changes at $-2$ and $1$. Test $x=0$: $\frac{2}{-1}<0$. Outside the interval the quotient is positive.}
 \end{exo}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+The graph of $r(x)=\dfrac{(x+3)(x-2)}{x^2}$ is shown. It has zeros at $x=-3$ and $x=2$ and a vertical asymptote $x=0$. What is the solution set of $r(x)>0$?
+\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,xmin=-7.5,xmax=7.5,ymin=-8.5,ymax=3.5,width=8cm,height=5.6cm]\addplot[apblue,very thick,domain=-7.5:-0.6,samples=200]{(x+3)*(x-2)/x^2};\addplot[apblue,very thick,domain=0.55:7.5,samples=200]{(x+3)*(x-2)/x^2};\draw[apred,dashed,thick](axis cs:0,-100)--(axis cs:0,100);\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:-3,0){};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:2,0){};\end{axis}\end{tikzpicture}\end{center}
+\choices{$(-3,2)$}{$(-3,0)\cup(0,2)$}{$(-\infty,-3)\cup(2,\infty)$}{$(2,\infty)$}
+\end{minipage}
+\answer{C}{The graph is above the $x$-axis to the left of $x=-3$ and to the right of $x=2$. Between them it is below the axis on both sides of the asymptote.}
+\end{exo}
 \begin{exo}[Free response]{}
 Let $r(x)=\dfrac{x^2-x-2}{x^2-9}$.
 \begin{enumerate}[label=(\alph*)]
@@ -303,6 +383,16 @@ Which function has a vertical asymptote at $x=4$?
 \choices{$\dfrac{x-4}{x+4}$}{$\dfrac{x^2-16}{x-4}$}{$\dfrac{x}{(x-4)^2}$}{$\dfrac{(x-4)^2}{x}$}
 \answer{C}{$x=4$ is a zero of the denominator only. In (B) the factor cancels, giving a hole.}
 \end{exo}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+The graph of $r(x)=\dfrac{1}{x^2-4}$ is shown, with vertical asymptotes $x=-2$ and $x=2$. Which statement is true?
+\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,xmin=-5.5,xmax=5.5,ymin=-3.5,ymax=3.5,width=7.5cm,height=5.6cm]\addplot[apblue,very thick,domain=-5.5:-2.15,samples=120]{1/(x^2-4)};\addplot[apblue,very thick,domain=-1.85:1.85,samples=150]{1/(x^2-4)};\addplot[apblue,very thick,domain=2.15:5.5,samples=120]{1/(x^2-4)};\draw[apred,dashed,thick](axis cs:-2,-100)--(axis cs:-2,100);\draw[apred,dashed,thick](axis cs:2,-100)--(axis cs:2,100);\end{axis}\end{tikzpicture}\end{center}
+\choices{$\lim_{x\to2^-}r(x)=+\infty$}{$\lim_{x\to2^+}r(x)=-\infty$}{$\lim_{x\to-2^+}r(x)=+\infty$}{$\lim_{x\to2^-}r(x)=-\infty$}
+\end{minipage}
+\answer{D}{Between the asymptotes the graph goes down without bound at both ends, so $\lim_{x\to2^-}r(x)=-\infty$ and $\lim_{x\to-2^+}r(x)=-\infty$. Outside them it goes up: $\lim_{x\to2^+}r(x)=+\infty$.}
+\end{exo}
 \begin{exo}[Free response]{}
 Let $r(x)=\dfrac{x-1}{(x+2)(x-3)}$.
 \begin{enumerate}[label=(\alph*)]
@@ -336,6 +426,16 @@ What happens on the graph of $r(x)=\dfrac{x-2}{(x-2)^2}$ at $x=2$?
 $\displaystyle\lim_{x\to3}\frac{x^2-3x}{x-3}$ is
 \choices{$0$}{$1$}{$9$}{$3$}
 \answer{D}{$\dfrac{x(x-3)}{x-3}=x\to3$.}
+\end{exo}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+The graph of a rational function $r$ is shown: a line with a hole at $(2,3)$. Which could be $r(x)$?
+\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,xmin=-2.5,xmax=4.5,ymin=-1.5,ymax=5.5,width=7.5cm,height=5.6cm]\addplot[apblue,very thick,domain=-2.5:4.5,samples=2]{x+1};\node[circle,draw=apblue,fill=white,thick,inner sep=1.6pt] at (axis cs:2,3){};\end{axis}\end{tikzpicture}\end{center}
+\choices{$\dfrac{x^2-4}{x-2}$}{$\dfrac{x+1}{x-2}$}{$\dfrac{x^2-x-2}{x-2}$}{$x+1$}
+\end{minipage}
+\answer{C}{$\dfrac{x^2-x-2}{x-2}=\dfrac{(x-2)(x+1)}{x-2}=x+1$ for $x\neq2$, with a hole at $(2,3)$. Choice (A) is $x+2$ with a hole at $(2,4)$; (B) has an asymptote; (D) has no hole.}
 \end{exo}
 \begin{exo}[Free response]{}
 Let $r(x)=\dfrac{x^3-4x}{x^2+2x}$.
@@ -372,6 +472,16 @@ What is the coefficient of $x^3$ in the expansion of $(x+2)^5$?
 \choices{$10$}{$20$}{$80$}{$40$}
 \answer{D}{Row 5 is $1,5,10,10,5,1$. The $x^3$ term is $10\,x^3\cdot2^2=40x^3$.}
 \end{exo}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+The graph of a cubic polynomial $p$ with leading coefficient $1$ is shown. Its zeros are $-1$, $0$ and $3$. Which is $p(x)$ in standard form?
+\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,xmin=-2.5,xmax=4.5,ymin=-7.5,ymax=4.5,width=7.5cm,height=5.6cm]\addplot[apblue,very thick,domain=-1.6:3.7,samples=150]{x*(x+1)*(x-3)};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:1,-4){};\end{axis}\end{tikzpicture}\end{center}
+\choices{$x^3-2x^2-3x$}{$x^3+2x^2-3x$}{$-x^3+2x^2+3x$}{$x^3-3x$}
+\end{minipage}
+\answer{A}{$p(x)=x(x+1)(x-3)=x(x^2-2x-3)=x^3-2x^2-3x$. Check with the graph: $p(1)=1-2-3=-4$.}
+\end{exo}
 \begin{exo}[Free response]{}
 Let $p(x)=2x^3+x^2-13x+6$.
 \begin{enumerate}[label=(\alph*)]
@@ -406,6 +516,16 @@ The point $(4,-2)$ is on the graph of $f$. Which point must be on the graph of $
 How is the graph of $y=-f(x)$ obtained from the graph of $f$?
 \choices{Reflection over the $x$-axis}{Reflection over the $y$-axis}{Reflection over the line $y=x$}{Shift down 1 unit}
 \answer{A}{Each output is multiplied by $-1$.}
+\end{exo}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+The graphs of $f$ (solid) and $g$ (dashed) are shown. Which is an equation for $g$ in terms of $f$?
+\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,xmin=-0.5,xmax=4.5,ymin=-1.5,ymax=2.5,width=7.5cm,height=5.6cm]\addplot[apblue,very thick] coordinates {(0,0)(1,2)(3,2)(4,0)};\addplot[apred,very thick,dashed] coordinates {(0,1)(1,-1)(3,-1)(4,1)};\node[apblue,font=\small] at (axis cs:2,2.25){$f$};\node[apred,font=\small] at (axis cs:2,-1.25){$g$};\end{axis}\end{tikzpicture}\end{center}
+\choices{$g(x)=-f(x)-1$}{$g(x)=f(-x)+1$}{$g(x)=-f(x)+1$}{$g(x)=-f(x+1)$}
+\end{minipage}
+\answer{C}{Reflect $f$ over the $x$-axis and shift up 1: $(0,0)\to(0,1)$, $(1,2)\to(1,-1)$, $(3,2)\to(3,-1)$, $(4,0)\to(4,1)$.}
 \end{exo}
 \begin{exo}[Free response]{}
 Let $f(x)=x^2$ and $g(x)=-2(x-1)^2+8$.
@@ -442,6 +562,16 @@ A quadratic model $P(t)$ gives the number of fish in a pond after $t$ months; it
 \choices{All real numbers $t$}{$t<0$}{Only integer values of $P$}{$t\ge0$ and only while $P(t)\ge0$}
 \answer{D}{Time starts at 0 and a population cannot be negative.}
 \end{exo}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+A scatter plot of data is shown. Which type of function is the most appropriate model for the data?
+\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,xmin=-0.5,xmax=5.5,ymin=-0.5,ymax=9,width=7cm,height=5cm]\addplot[only marks,mark=*,mark size=2pt,apblue] coordinates {(0,8.1)(1,4.9)(2,3.2)(3,2.9)(4,4.1)(5,7.2)};\end{axis}\end{tikzpicture}\end{center}
+\choices{Linear}{Quadratic}{Constant}{Rational with a vertical asymptote}
+\end{minipage}
+\answer{B}{The data decrease, reach a single minimum, then increase, in a roughly symmetric way. That is the behavior of a quadratic function.}
+\end{exo}
 \begin{exo}[Free response]{}
 A phone plan costs \$20 per month, which includes 100 texts. Each additional text costs \$0.10.
 \begin{enumerate}[label=(\alph*)]
@@ -472,12 +602,22 @@ What is the maximum area of a rectangle with perimeter 40 cm?
 \choices{$400$ cm$^2$}{$200$ cm$^2$}{$100$ cm$^2$}{$80$ cm$^2$}
 \answer{C}{$A(w)=-(w-10)^2+100$, maximum $100$ at $w=10$.}
 \end{exo}
-\begin{exo}[calculator]{}
+\begin{exo}{\calcreq}
 An open box is made from a $12$ in by $12$ in square sheet by cutting squares of side $x$ from the corners. What is the maximum volume?
 \choices{$96$ in$^3$}{$108$ in$^3$}{$144$ in$^3$}{$128$ in$^3$}
 \answer{D}{$V(x)=x(12-2x)^2$ on $0<x<6$. The maximum is at $x=2$: $V(2)=2\cdot8^2=128$ in$^3$.}
 \end{exo}
-\begin{exo}[Free response \textbullet\ calculator]{}
+% graph-question
+\Needspace{12\baselineskip}
+\begin{exo}[graph]{}
+\begin{minipage}{\linewidth}
+The graph shows the volume $V(x)$, in cm$^3$, of an open box made from a $10$ cm by $16$ cm sheet with squares of side $x$ cm cut from the corners. Which value of $x$ gives the greatest volume?
+\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,xmin=-0.3,xmax=5.5,ymin=-10,ymax=170,ytick distance=20,xlabel={$x$},ylabel={$V$},width=7.5cm,height=6cm]\addplot[apblue,very thick,domain=0:5,samples=120]{x*(10-2*x)*(16-2*x)};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:2,144){};\end{axis}\end{tikzpicture}\end{center}
+\choices{$x=1$}{$x=2$}{$x=3$}{$x=5$}
+\end{minipage}
+\answer{B}{The highest point of the graph is at $x=2$, where $V(2)=2\cdot6\cdot12=144$ cm$^3$.}
+\end{exo}
+\begin{exo}[Free response]{\calcreq}
 A cylindrical can must hold $500$ cm$^3$. Let $r$ be its radius and $h$ its height, in centimeters.
 \begin{enumerate}[label=(\alph*)]
 \item Express $h$ in terms of $r$.
