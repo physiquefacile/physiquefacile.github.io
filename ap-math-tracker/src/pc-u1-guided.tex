@@ -1,0 +1,826 @@
+%% Guided notes, AP Precalculus Unit 1 (lesson plan: 1.1-1.6, 1.7, 1.8, 1.9-1.10, 1.11, 1.12, 1.13-1.14).
+%% \fillin{...} = blank for students / answer in the filled version; workspace = empty box / worked solution.
+
+%%DOC 1.1 | Change in Tandem
+\goals{\item Describe how output values change as input values increase.
+\item Identify intervals where a function is increasing or decreasing, and where its graph is concave up or concave down.
+\item Identify zeros and the sign of a function from a graph, a table or a formula.}
+\vocab{function, input, output, increasing, decreasing, rate of change, concave up, concave down, zero, $x$-intercept, positive, negative.}
+
+\subsection*{1. What is a function?}
+A \textbf{function} is a rule that assigns to each \fillin{input value} exactly \fillin{one} output value. We write $y=f(x)$: $x$ is the \fillin{input (independent variable)} and $f(x)$ is the \fillin{output (dependent variable)}. As the input values change, the output values change \emph{in tandem}.
+
+\subsection*{2. Increasing and decreasing}
+\begin{keyidea}
+On an interval, $f$ is \textbf{increasing} if, as the input values increase, the output values always \fillin{increase}: if $a<b$ then $f(a)$ \fillin{$<$} $f(b)$.\\
+$f$ is \textbf{decreasing} if, as the input values increase, the output values always \fillin{decrease}: if $a<b$ then $f(a)$ \fillin{$>$} $f(b)$.\\
+Intervals of increase and decrease are written with \fillin{input ($x$)} values.
+\end{keyidea}
+
+\subsection*{3. Concavity: how is the function changing?}
+\begin{keyidea}
+The graph of $f$ is \textbf{concave up} on an interval if the rate of change of $f$ is \fillin{increasing}: the graph bends \fillin{upward}.\\
+The graph is \textbf{concave down} if the rate of change is \fillin{decreasing}: the graph bends \fillin{downward}.
+\end{keyidea}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[apaxis,xmin=-0.3,xmax=4.3,ymin=-0.3,ymax=4.5,width=4.4cm,height=4cm,xtick=\empty,ytick=\empty,title={\scriptsize increasing, concave up}]
+\addplot[apblue,very thick,domain=0:4]{0.25*x^2};\end{axis}\end{tikzpicture}
+\begin{tikzpicture}
+\begin{axis}[apaxis,xmin=-0.3,xmax=4.3,ymin=-0.3,ymax=4.5,width=4.4cm,height=4cm,xtick=\empty,ytick=\empty,title={\scriptsize increasing, concave down}]
+\addplot[apblue,very thick,domain=0:4]{2*sqrt(x)};\end{axis}\end{tikzpicture}
+\begin{tikzpicture}
+\begin{axis}[apaxis,xmin=-0.3,xmax=4.3,ymin=-0.3,ymax=4.5,width=4.4cm,height=4cm,xtick=\empty,ytick=\empty,title={\scriptsize decreasing, concave up}]
+\addplot[apblue,very thick,domain=0:4]{4/(x+1)};\end{axis}\end{tikzpicture}
+\begin{tikzpicture}
+\begin{axis}[apaxis,xmin=-0.3,xmax=4.3,ymin=-0.3,ymax=4.5,width=4.4cm,height=4cm,xtick=\empty,ytick=\empty,title={\scriptsize decreasing, concave down}]
+\addplot[apblue,very thick,domain=0:4]{4-0.25*x^2};\end{axis}\end{tikzpicture}
+\end{center}
+
+\subsection*{4. Zeros and sign}
+A \textbf{zero} of $f$ is an input $a$ such that \fillin{$f(a)=0$}. Graphically, the real zeros are the \fillin{$x$-intercepts}. The function is \textbf{positive} where its graph is \fillin{above} the $x$-axis and \textbf{negative} where it is \fillin{below}. A function whose graph has no breaks can change sign only at a \fillin{zero}.
+
+\ex{Example 1 \textbullet\ Reading a graph}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-2.5,xmax=2.5,ymin=-3.5,ymax=3.5,width=6.5cm,height=5.5cm]
+\addplot[apblue,very thick,domain=-2.2:2.2,samples=120]{-x^3+3*x};
+\node[circle,fill=apblue,inner sep=1.5pt] at (axis cs:-1,-2){};\node[circle,fill=apblue,inner sep=1.5pt] at (axis cs:1,2){};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+The graph of $f(x)=-x^3+3x$ is shown. Find (a) the intervals where $f$ is increasing and decreasing, (b) where the graph is concave up and concave down, (c) the zeros, (d) where $f(x)>0$.
+\begin{workspace}[4.2cm]
+(a) Increasing on $(-1,1)$; decreasing on $(-\infty,-1)$ and $(1,\infty)$.\\
+(b) Concave up on $(-\infty,0)$; concave down on $(0,\infty)$. The change happens at the point $(0,0)$.\\
+(c) $-x^3+3x=-x(x^2-3)=0$ gives $x=0$ and $x=\pm\sqrt3\approx\pm1.73$.\\
+(d) $f(x)>0$ on $(-\infty,-\sqrt3)\cup(0,\sqrt3)$.
+\end{workspace}
+
+\ex{Example 2 \textbullet\ Reading a table}
+\begin{center}\begin{tabular}{c|cccccc}$x$&$0$&$1$&$2$&$3$&$4$&$5$\\\hline$g(x)$&$-6$&$-1$&$2$&$3$&$2$&$-1$\end{tabular}\end{center}
+Describe how $g$ changes. Where must $g$ have zeros (assume the graph of $g$ has no breaks)?
+\begin{workspace}[3.6cm]
+The outputs increase from $x=0$ to $x=3$, then decrease. The changes $5,3,1,-1,-3$ decrease steadily, so the graph is concave down.\\
+The sign changes between $x=1$ and $x=2$ and between $x=4$ and $x=5$: $g$ has a zero in each of these intervals.
+\end{workspace}
+
+\ex{Example 3 \textbullet\ In context}
+The temperature $T$ ($^\circ$C) of a cup of coffee is $90, 70, 56, 46, 40$ at $t=0,5,10,15,20$ minutes. Describe $T$.
+\begin{workspace}[2.8cm]
+$T$ is decreasing (the coffee cools). The changes are $-20,-14,-10,-6$: the temperature falls more and more slowly, so the rate of change is increasing and the graph is concave up.
+\end{workspace}
+
+\begin{mistakes}
+\begin{itemize}
+\item Writing intervals with $y$-values instead of $x$-values.
+\item Confusing ``decreasing'' with ``concave down''. A graph can be increasing and concave down at the same time.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. Outputs at $x=0,1,2,3$ are $10,7,5,4$. The function is \fillin{decreasing} and its graph is concave \fillin{up}.\\
+2. The zeros of $f(x)=(x-2)(x+5)$ are \fillin{$x=2$ and $x=-5$}.
+\end{quickcheck}
+
+%%DOC 1.2 | Rates of Change
+\goals{\item Compute the average rate of change of a function over an interval, from a formula, a table or a graph.
+\item Interpret an average rate of change in context, with units.
+\item Estimate the rate of change at a point, and relate its sign to increasing and decreasing behavior.}
+\vocab{average rate of change, secant line, slope, rate of change at a point, units.}
+
+\subsection*{1. Average rate of change}
+\begin{keyidea}
+The average rate of change of $f$ over the interval $[a,b]$ is
+\[\frac{\fillin{$f(b)-f(a)$}}{\fillin{$b-a$}}.\]
+It is the slope of the \fillin{secant} line through the points $\big(a,f(a)\big)$ and $\big(b,f(b)\big)$. Its units are \fillin{output units} per \fillin{input unit}.
+\end{keyidea}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-0.5,xmax=4.5,ymin=-0.5,ymax=9.5,ytick distance=2,width=6cm,height=5.5cm]
+\addplot[apblue,very thick,domain=0:3.2]{x^2};
+\addplot[apred,thick,domain=0.3:3.6]{4*x-3};
+\node[circle,fill=apred,inner sep=1.6pt] at (axis cs:1,1){};\node[circle,fill=apred,inner sep=1.6pt] at (axis cs:3,9){};
+\node[font=\small,apred] at (axis cs:3.9,7.8){secant};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\ex{Example 1 \textbullet\ From a formula}
+Find the average rate of change of $f(x)=x^2$ on $[1,3]$, and of $g(x)=x^3-4x$ on $[-2,1]$.
+\begin{workspace}[3cm]
+$\dfrac{f(3)-f(1)}{3-1}=\dfrac{9-1}{2}=4$.\qquad $g(1)=-3$, $g(-2)=-8+8=0$: $\dfrac{-3-0}{1-(-2)}=-1$.
+\end{workspace}
+
+\ex{Example 2 \textbullet\ From a graph}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-0.5,xmax=6.5,ymin=-0.5,ymax=5.5,width=6cm,height=4.8cm]
+\addplot[apblue,very thick] coordinates {(0,1)(2,5)(4,4)(6,0)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+Find the average rate of change of $h$ on $[0,2]$, $[2,6]$ and $[0,6]$.
+\begin{workspace}[2.6cm]
+$[0,2]$: $\frac{5-1}{2}=2$. \quad $[2,6]$: $\frac{0-5}{4}=-\frac54$. \quad $[0,6]$: $\frac{0-1}{6}=-\frac16$.
+\end{workspace}
+
+\subsection*{2. Interpreting in context}
+\begin{keyidea}[Template]
+``On average, [quantity] \fillin{increases or decreases} by [number] [output units] per [input unit] from [input $a$] to [input $b$].''
+\end{keyidea}
+
+\ex{Example 3 \textbullet\ Units}
+$V(t)$ is the number of visitors to a website $t$ hours after midnight; $V(2)=150$ and $V(6)=870$. Compute and interpret $\frac{V(6)-V(2)}{6-2}$.
+\begin{workspace}[2.4cm]
+$\frac{870-150}{4}=180$. From 2 a.m.\ to 6 a.m., the number of visitors increased on average by 180 visitors per hour.
+\end{workspace}
+
+\subsection*{3. Rate of change at a point}
+The rate of change at $x=a$ can be \fillin{estimated} by average rates of change over \fillin{smaller and smaller} intervals that contain $a$, using values on both sides.
+
+\ex{Example 4 \textbullet\ Estimating}
+Estimate the rate of change of $f(x)=x^3$ at $x=2$.
+\begin{workspace}[3cm]
+$[2,2.1]$: $\frac{9.261-8}{0.1}=12.61$. \ $[2,2.01]$: $12.0601$. \ $[1.99,2]$: $\frac{8-7.880599}{0.01}=11.9401$.\\
+The values approach $12$: the rate of change at $x=2$ is about $12$.
+\end{workspace}
+
+\begin{keyidea}[Sign of the rate of change]
+If the rate of change is positive on an interval, $f$ is \fillin{increasing} there; if it is negative, $f$ is \fillin{decreasing}. At a point where $f$ changes from increasing to decreasing, the rate of change changes from \fillin{positive to negative}.
+\end{keyidea}
+
+\begin{mistakes}
+\begin{itemize}
+\item Subtracting in different orders: $\frac{f(b)-f(a)}{a-b}$.
+\item Giving the change $f(b)-f(a)$ instead of the rate.
+\item Forgetting units in an interpretation.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. The average rate of change of $g(x)=5-x^2$ on $[-1,2]$ is \fillin{$-1$}.\\
+2. If $T(4)=21$ and $T(10)=9$ ($^\circ$C, hours), the average rate of change on $[4,10]$ is \fillin{$-2$ $^\circ$C per hour}.
+\end{quickcheck}
+
+%%DOC 1.3 | Rates of Change in Linear and Quadratic Functions
+\goals{\item Recognize linear functions by their constant rate of change.
+\item Recognize quadratic functions by their constant second differences, and find the quadratic from a table.
+\item Connect the sign of the leading coefficient to concavity and to the vertex.}
+\vocab{linear function, slope, quadratic function, first differences, second differences, vertex, axis of symmetry.}
+
+\subsection*{1. Linear functions}
+\begin{keyidea}
+A linear function $f(x)=mx+b$ has the \fillin{same} average rate of change, equal to \fillin{$m$ (the slope)}, over every interval. In a table with equally spaced inputs, the outputs change by a \fillin{constant amount}.
+\end{keyidea}
+
+\subsection*{2. Quadratic functions}
+\begin{keyidea}
+For a quadratic $f(x)=ax^2+bx+c$, the average rates of change over consecutive equal-length intervals change at a \fillin{constant} rate. With equally spaced inputs, the \fillin{second differences} are constant. When the input step is 1, the second differences equal \fillin{$2a$}.
+\end{keyidea}
+
+\ex{Example 1 \textbullet\ Classify each table}
+\begin{center}\begin{tabular}{c|cccc}$x$&0&1&2&3\\\hline A&4&7&10&13\\ B&1&2&5&10\\ C&1&2&4&8\end{tabular}\end{center}
+\begin{workspace}[2.8cm]
+A: differences $3,3,3$: linear. \quad B: differences $1,3,5$, second differences $2,2$: quadratic ($y=x^2+1$). \quad C: differences $1,2,4$, second differences $1,2$: neither linear nor quadratic (it doubles: exponential).
+\end{workspace}
+
+\ex{Example 2 \textbullet\ Finding the quadratic}
+\begin{center}\begin{tabular}{c|ccccc}$x$&$0$&$1$&$2$&$3$&$4$\\\hline$y$&$3$&$1$&$-3$&$-9$&$-17$\end{tabular}\end{center}
+Show that the data are quadratic and find the function.
+\begin{workspace}[3.6cm]
+First differences: $-2,-4,-6,-8$. Second differences: $-2,-2,-2$. Quadratic with $2a=-2$, so $a=-1$.\\
+$c=y(0)=3$. Using $x=1$: $-1+b+3=1$, so $b=-1$. \quad $y=-x^2-x+3$.
+\end{workspace}
+
+\subsection*{3. Concavity and the vertex}
+\begin{keyidea}
+If $a>0$, the rate of change is \fillin{increasing}: the parabola is concave \fillin{up} and has a \fillin{minimum} at the vertex.\\
+If $a<0$, it is concave \fillin{down} with a \fillin{maximum}. The vertex is at $x=$ \fillin{$-\frac{b}{2a}$}; there the rate of change changes sign.
+\end{keyidea}
+
+\ex{Example 3 \textbullet\ From a graph}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-1.5,xmax=5.5,ymin=-1.5,ymax=5.5,width=6cm,height=5.5cm]
+\addplot[apblue,very thick,domain=-0.5:4.5]{-(x-2)^2+5};
+\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:2,5){};\node[circle,fill=apblue,inner sep=1.6pt] at (axis cs:0,1){};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+Write an equation for this parabola and compute the average rates of change on $[0,1]$, $[1,2]$, $[2,3]$.
+\begin{workspace}[3cm]
+Vertex $(2,5)$: $f(x)=a(x-2)^2+5$. Through $(0,1)$: $4a+5=1$, $a=-1$. So $f(x)=-(x-2)^2+5$.\\
+$f(0)=1$, $f(1)=4$, $f(2)=5$, $f(3)=4$: rates $3$, $1$, $-1$. They decrease by $2$ each step (concave down).
+\end{workspace}
+
+\begin{mistakes}
+\begin{itemize}
+\item Using differences when the inputs are not equally spaced.
+\item Thinking the second difference equals $a$; it equals $2a$ when the step is 1.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. Outputs $2,5,10,17$ at $x=0,1,2,3$ come from a \fillin{quadratic} function.\\
+2. Second differences of $6$ (step 1) mean $a=$ \fillin{$3$}, and the graph is concave \fillin{up}.
+\end{quickcheck}
+
+%%DOC 1.4 | Polynomial Functions and Rates of Change
+\goals{\item Identify the degree, leading term and leading coefficient of a polynomial in any form.
+\item Locate local and global extrema from a graph, including on closed intervals.
+\item Identify points of inflection and describe the rate of change between turning points.}
+\vocab{polynomial, degree, leading term, leading coefficient, local (relative) extremum, global (absolute) extremum, point of inflection.}
+
+\subsection*{1. Polynomial functions}
+A polynomial of degree $n$ is $p(x)=a_nx^n+a_{n-1}x^{n-1}+\dots+a_0$ with $a_n$ \fillin{$\neq0$}. $a_nx^n$ is the \fillin{leading term} and $a_n$ the \fillin{leading coefficient}. The degree of a product is the \fillin{sum} of the degrees of the factors.
+
+\ex{Example 1}
+Give the degree and leading coefficient of $p(x)=-2x(x-1)^2(x+3)^3$.
+\begin{workspace}[2.2cm]
+Degree $1+2+3=6$. Leading term $-2x\cdot x^2\cdot x^3=-2x^6$: leading coefficient $-2$.
+\end{workspace}
+
+\subsection*{2. Extrema}
+\begin{keyidea}
+\begin{itemize}
+\item A \textbf{local maximum} occurs where $p$ changes from \fillin{increasing to decreasing}.
+\item A \textbf{local minimum} occurs where $p$ changes from \fillin{decreasing to increasing}.
+\item The \textbf{global maximum} on an interval is the \fillin{greatest} output value on that interval; on a closed interval it can occur at an \fillin{endpoint}.
+\item A polynomial of degree $n$ has at most \fillin{$n-1$} local extrema.
+\end{itemize}
+\end{keyidea}
+
+\ex{Example 2 \textbullet\ Reading extrema}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-3.5,xmax=3.5,ymin=-5.5,ymax=3.5,width=7cm,height=6cm]
+\addplot[apblue,very thick,domain=-3.1:3.1,samples=150]{0.25*x^4-2*x^2};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+The graph of $p(x)=\frac14x^4-2x^2$ is shown. Find all local extrema, the global extrema on $(-\infty,\infty)$, and the global maximum on $[0,3]$.
+\begin{workspace}[3.2cm]
+Local minima $(-2,-4)$ and $(2,-4)$; local maximum $(0,0)$.\\
+Global minimum value $-4$; no global maximum (the ends go up).\\
+On $[0,3]$: compare $p(0)=0$, $p(2)=-4$, $p(3)=\frac{81}{4}-18=2.25$. Global maximum $2.25$ at $x=3$ (an endpoint).
+\end{workspace}
+
+\subsection*{3. Points of inflection}
+\begin{keyidea}
+A point of inflection is where the graph changes \fillin{concavity}: the rate of change switches from increasing to decreasing, or the reverse. Between a local maximum and the next local minimum there is at least one point of inflection.
+\end{keyidea}
+
+\ex{Example 3}
+$p(x)=x^3-6x^2+9x$ has a local maximum at $(1,4)$, a local minimum at $(3,0)$ and a point of inflection at $(2,2)$. Describe $p$ and its rate of change.
+\begin{workspace}[3.2cm]
+Increasing on $(-\infty,1)$, decreasing on $(1,3)$, increasing on $(3,\infty)$.\\
+The rate of change decreases until $x=2$ (concave down on $(-\infty,2)$) and increases after (concave up on $(2,\infty)$). On $(1,2)$ the function decreases faster and faster; on $(2,3)$ it decreases more and more slowly.
+\end{workspace}
+
+\begin{mistakes}
+\begin{itemize}
+\item Giving the $x$-value when asked for the extreme \emph{value}, or the reverse.
+\item Forgetting the endpoints when looking for global extrema on a closed interval.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. A degree-6 polynomial has at most \fillin{5} turning points.\\
+2. A cubic with no local extrema: \fillin{$p(x)=x^3$}.
+\end{quickcheck}
+
+%%DOC 1.5 | Polynomial Functions and Complex Zeros
+\goals{\item Connect real zeros, linear factors and $x$-intercepts.
+\item Use multiplicity to predict the graph near each zero.
+\item Apply the Fundamental Theorem of Algebra and the conjugate pairs rule; write polynomials from their zeros.
+\item Determine whether a function is even, odd, or neither.}
+\vocab{zero, factor, multiplicity, complex number, imaginary unit $i$, conjugate, even function, odd function.}
+
+\subsection*{1. Zeros, factors and intercepts}
+\begin{keyidea}
+For a polynomial $p$ and a real number $a$, these statements are equivalent: $a$ is a \fillin{zero} of $p$; $(x-a)$ is a \fillin{factor} of $p(x)$; $(a,0)$ is an \fillin{$x$-intercept} of the graph.
+\end{keyidea}
+
+\subsection*{2. Multiplicity}
+If $(x-a)^k$ is a factor of $p(x)$ but $(x-a)^{k+1}$ is not, $a$ is a zero of multiplicity \fillin{$k$}.
+\begin{keyidea}
+Even multiplicity: the graph \fillin{touches the $x$-axis and turns back}.\\
+Odd multiplicity: the graph \fillin{crosses the $x$-axis}; for multiplicity $3$ or more it also \fillin{flattens} as it crosses.
+\end{keyidea}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[apaxis,xmin=-1.6,xmax=1.6,ymin=-1.6,ymax=1.6,width=4.4cm,height=4cm,xtick=\empty,ytick=\empty,title={\scriptsize multiplicity 1}]
+\addplot[apblue,very thick,domain=-1.5:1.5]{x};\end{axis}\end{tikzpicture}
+\begin{tikzpicture}
+\begin{axis}[apaxis,xmin=-1.6,xmax=1.6,ymin=-1.6,ymax=1.6,width=4.4cm,height=4cm,xtick=\empty,ytick=\empty,title={\scriptsize multiplicity 2}]
+\addplot[apblue,very thick,domain=-1.2:1.2]{x^2};\end{axis}\end{tikzpicture}
+\begin{tikzpicture}
+\begin{axis}[apaxis,xmin=-1.6,xmax=1.6,ymin=-1.6,ymax=1.6,width=4.4cm,height=4cm,xtick=\empty,ytick=\empty,title={\scriptsize multiplicity 3}]
+\addplot[apblue,very thick,domain=-1.15:1.15]{x^3};\end{axis}\end{tikzpicture}
+\end{center}
+
+\subsection*{3. Complex zeros}
+\begin{keyidea}
+\textbf{Fundamental Theorem of Algebra}: a polynomial of degree $n$ has exactly \fillin{$n$} complex zeros, counted with multiplicity.\\
+\textbf{Conjugate pairs}: if a polynomial with real coefficients has the zero $a+bi$, it also has the zero \fillin{$a-bi$}. Non-real zeros are \fillin{not} $x$-intercepts.
+\end{keyidea}
+
+\ex{Example 1 \textbullet\ Finding all zeros}
+Find all zeros of $p(x)=x^4-5x^2-36$.
+\begin{workspace}[2.6cm]
+$x^4-5x^2-36=(x^2-9)(x^2+4)=(x-3)(x+3)(x^2+4)$. Zeros: $3$, $-3$ (real, $x$-intercepts) and $\pm2i$ (non-real).
+\end{workspace}
+
+\ex{Example 2 \textbullet\ Building a polynomial}
+Write a polynomial of least degree with real coefficients, leading coefficient 1, and zeros $-1$ (multiplicity 2) and $2i$. Give its degree.
+\begin{workspace}[2.6cm]
+$-2i$ is also a zero. $p(x)=(x+1)^2(x-2i)(x+2i)=(x+1)^2(x^2+4)$, degree 4.
+\end{workspace}
+
+\ex{Example 3 \textbullet\ From a graph}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-3.5,xmax=2.5,ymin=-3.5,ymax=5.5,width=5.5cm,height=5.5cm]
+\addplot[apblue,very thick,domain=-2.6:2.1,samples=120]{(x+2)*(x-1)^2};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+The graph of a cubic $q$ is shown. Write $q(x)$.
+\begin{workspace}[2.6cm]
+Crosses at $-2$ (odd multiplicity), touches at $1$ (even): $q(x)=a(x+2)(x-1)^2$. The $y$-intercept is $2$: $a\cdot2\cdot1=2$, $a=1$. So $q(x)=(x+2)(x-1)^2$.
+\end{workspace}
+
+\subsection*{4. Even and odd functions}
+\begin{keyidea}
+$f$ is \textbf{even} if $f(-x)=$ \fillin{$f(x)$} for every $x$; its graph is symmetric about the \fillin{$y$-axis}.\\
+$f$ is \textbf{odd} if $f(-x)=$ \fillin{$-f(x)$}; its graph is symmetric about the \fillin{origin}.
+\end{keyidea}
+
+\ex{Example 4}
+Classify $f(x)=x^4-3x^2$, $g(x)=x^3-5x$, $h(x)=x^3+1$.
+\begin{workspace}[2.4cm]
+$f(-x)=x^4-3x^2=f(x)$: even. \ $g(-x)=-x^3+5x=-g(x)$: odd. \ $h(-x)=-x^3+1$, equal to neither $h(x)$ nor $-h(x)$: neither.
+\end{workspace}
+
+\begin{mistakes}
+\begin{itemize}
+\item Listing non-real zeros as $x$-intercepts.
+\item Writing the factor for the zero $-3$ as $(x-3)$.
+\item Forgetting the conjugate when building a polynomial with real coefficients.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. A degree-4 polynomial with real coefficients can have \fillin{0, 2 or 4} real zeros (with multiplicity).\\
+2. $f(x)=x^5-2x^3+x$ is \fillin{odd}.
+\end{quickcheck}
+
+%%DOC 1.6 | Polynomial Functions and End Behavior
+\goals{\item Describe end behavior with limit notation.
+\item Determine end behavior from the degree and the sign of the leading coefficient, in standard or factored form.
+\item Sketch a polynomial from its zeros, multiplicities and end behavior.}
+\vocab{end behavior, limit, $\lim_{x\to\infty}$, $\lim_{x\to-\infty}$, increases without bound, leading term.}
+
+\subsection*{1. Limit notation}
+$\displaystyle\lim_{x\to\infty}p(x)=\infty$ means: as $x$ \fillin{increases without bound}, $p(x)$ \fillin{increases without bound}.\\
+$\displaystyle\lim_{x\to-\infty}p(x)=-\infty$ means: as $x$ \fillin{decreases without bound}, $p(x)$ \fillin{decreases without bound}.
+
+\subsection*{2. The leading term controls the ends}
+\begin{keyidea}
+\begin{center}\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{l|c|c}
+& $a_n>0$ & $a_n<0$\\\hline
+$n$ even & left \fillin{$\infty$}, right \fillin{$\infty$} & left \fillin{$-\infty$}, right \fillin{$-\infty$}\\\hline
+$n$ odd & left \fillin{$-\infty$}, right \fillin{$\infty$} & left \fillin{$\infty$}, right \fillin{$-\infty$}
+\end{tabular}\end{center}
+\end{keyidea}
+
+\ex{Example 1}
+Describe the end behavior of $p(x)=3x^2-2x^5+7$.
+\begin{workspace}[2.2cm]
+Leading term $-2x^5$ (highest power, not the first term written): odd degree, negative. $\lim_{x\to-\infty}p(x)=\infty$, $\lim_{x\to\infty}p(x)=-\infty$.
+\end{workspace}
+
+\ex{Example 2 \textbullet\ Factored form}
+Describe the end behavior of $q(x)=-x(x-2)^2(3-x)$.
+\begin{workspace}[2.2cm]
+Leading term: $-x\cdot x^2\cdot(-x)=x^4$. Even degree, positive: $\lim_{x\to\pm\infty}q(x)=\infty$.
+\end{workspace}
+
+\ex{Example 3 \textbullet\ Sketching}
+Sketch $p(x)=(x+1)^2(x-2)$ using zeros, multiplicity, $y$-intercept and end behavior.
+\begin{workspace}[5.2cm]
+Zeros: $-1$ (multiplicity 2, touches), $2$ (crosses). $y$-intercept $p(0)=(1)(-2)=-2$. Leading term $x^3$: down on the left, up on the right.
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-2.5,xmax=3,ymin=-4.5,ymax=3.5,width=5cm,height=4.2cm]
+\addplot[apblue,very thick,domain=-2.2:2.6,samples=100]{(x+1)^2*(x-2)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\end{workspace}
+
+\begin{mistakes}
+\begin{itemize}
+\item Using the first written term as the leading term.
+\item In factored form, missing a negative sign hidden in a factor like $(3-x)$.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. $\lim_{x\to-\infty}(4-x^3)=$ \fillin{$\infty$}.\\
+2. Both ends go down when the degree is \fillin{even} and the leading coefficient is \fillin{negative}.
+\end{quickcheck}
+
+%%DOC 1.7 | Rational Functions and End Behavior
+\goals{\item Determine the end behavior of a rational function by comparing the degrees of numerator and denominator.
+\item Find horizontal and slant asymptotes, and write end behavior with limits.}
+\vocab{rational function, horizontal asymptote, slant asymptote, quotient of leading terms.}
+
+\subsection*{1. Quotient of leading terms}
+For $r(x)=\dfrac{p(x)}{q(x)}$, as $x\to\pm\infty$ the function behaves like \fillin{$\dfrac{\text{leading term of }p}{\text{leading term of }q}$}.
+
+\begin{keyidea}
+\begin{tabular}{@{}ll@{}}
+$\deg p<\deg q$: & horizontal asymptote \fillin{$y=0$}\\[2pt]
+$\deg p=\deg q$: & horizontal asymptote $y=$ \fillin{ratio of the leading coefficients}\\[2pt]
+$\deg p=\deg q+1$: & \fillin{slant} asymptote, found by polynomial division\\[2pt]
+$\deg p>\deg q+1$: & behaves like a \fillin{polynomial} of degree $\deg p-\deg q$
+\end{tabular}
+\end{keyidea}
+
+\ex{Example 1 \textbullet\ Limits at infinity}
+Find $\lim_{x\to\infty}$ for $\dfrac{3x+1}{x^2-4}$, \ $\dfrac{8x^2-x}{2x^2+5}$, \ $\dfrac{x^3}{x^2+1}$.
+\begin{workspace}[2.6cm]
+$0$ (degree of the denominator is larger). \quad $\frac82=4$. \quad Behaves like $x$: $\infty$ (and as $x\to-\infty$, $-\infty$).
+\end{workspace}
+
+\ex{Example 2 \textbullet\ Slant asymptote}
+Find the slant asymptote of $s(x)=\dfrac{x^2+x-1}{x-1}$.
+\begin{workspace}[5cm]
+$x^2+x-1=(x-1)(x+2)+1$, so $s(x)=x+2+\dfrac{1}{x-1}$. As $x\to\pm\infty$, $\frac{1}{x-1}\to0$: slant asymptote $y=x+2$.
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-4.5,xmax=5.5,ymin=-4.5,ymax=8.5,ytick distance=2,width=5.5cm,height=4.4cm]
+\addplot[apblue,very thick,domain=-4.5:0.8,samples=150]{x+2+1/(x-1)};
+\addplot[apblue,very thick,domain=1.15:5.5,samples=150]{x+2+1/(x-1)};
+\addplot[apgold!80!black,dashed,thick,domain=-4.5:5.5]{x+2};
+\draw[apred,dashed](axis cs:1,-10)--(axis cs:1,10);
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\end{workspace}
+
+\ex{Example 3 \textbullet\ From a graph}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-6.5,xmax=6.5,ymin=-3.5,ymax=1.5,width=7cm,height=4cm]
+\addplot[apblue,very thick,domain=-6.5:6.5,samples=150]{-2*x^2/(x^2+1)};
+\draw[apgold!80!black,dashed,thick](axis cs:-7,-2)--(axis cs:7,-2);
+\end{axis}
+\end{tikzpicture}
+\end{center}
+The graph of $r(x)=\frac{-2x^2}{x^2+1}$ is shown. Write the end behavior with limits.
+\begin{workspace}[1.8cm]
+$\lim_{x\to\infty}r(x)=-2$ and $\lim_{x\to-\infty}r(x)=-2$ (horizontal asymptote $y=-2$).
+\end{workspace}
+
+\begin{mistakes}
+\begin{itemize}
+\item Reading the asymptote from the constant terms.
+\item Believing a graph can never cross a horizontal asymptote: it can, for moderate $x$.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. Horizontal asymptote of $\dfrac{5-2x^3}{x^3+x}$: \fillin{$y=-2$}.\\
+2. Slant asymptote of $\dfrac{2x^2+3x}{x+1}$: \fillin{$y=2x+1$}.
+\end{quickcheck}
+
+%%DOC 1.8 | Rational Functions and Zeros
+\goals{\item Find the real zeros of a rational function, checking the domain.
+\item Solve rational inequalities with a sign chart.}
+\vocab{zero, domain, excluded value, sign chart, test value, interval notation.}
+
+\subsection*{1. Zeros}
+\begin{keyidea}
+The real zeros of $r=\dfrac pq$ are the real zeros of \fillin{$p$} that are \fillin{in the domain of $r$} (not zeros of $q$). Always \fillin{factor} first.
+\end{keyidea}
+
+\ex{Example 1}
+Find the zeros of $r(x)=\dfrac{x^2-3x}{x^2-9}$ and of $s(x)=\dfrac{x^2-4}{x+1}$.
+\begin{workspace}[2.6cm]
+$r(x)=\frac{x(x-3)}{(x-3)(x+3)}$: numerator zeros $0,3$, but $x=3$ is excluded. Zero: $x=0$ only.\\
+$s$: zeros $x=2$ and $x=-2$ (neither is excluded).
+\end{workspace}
+
+\subsection*{2. Sign charts}
+The sign of a rational function can change only at its \fillin{zeros} and at \fillin{values excluded from its domain}. Mark these on a number line, test \fillin{one value in each interval}, and read off the sign.
+
+\ex{Example 2 \textbullet\ Solve $r(x)\le0$}
+Solve $\dfrac{(x+1)(x-4)}{x-2}\le0$.
+\begin{workspace}[4.6cm]
+Key values: $-1$, $2$, $4$.
+\begin{center}
+\begin{tikzpicture}[x=1cm]
+\draw[->,apgrey](-2.5,0)--(5.5,0);
+\foreach \p in {-1,2,4}{\draw (\p,0.12)--(\p,-0.12) node[below]{\small$\p$};}
+\node[apred] at (-1.8,0.35){$-$};\node[apgreen] at (0.5,0.35){$+$};\node[apred] at (3,0.35){$-$};\node[apgreen] at (4.8,0.35){$+$};
+\node[circle,fill=apnavy,inner sep=1.5pt] at (-1,0){};\node[circle,draw=apnavy,fill=white,inner sep=1.5pt] at (2,0){};\node[circle,fill=apnavy,inner sep=1.5pt] at (4,0){};
+\end{tikzpicture}
+\end{center}
+Tests: $x=-2$: negative; $x=0$: positive; $x=3$: negative; $x=5$: positive. Include zeros, exclude $x=2$: $(-\infty,-1]\cup(2,4]$.
+\end{workspace}
+
+\ex{Example 3 \textbullet\ From a graph}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-7.5,xmax=7.5,ymin=-8.5,ymax=3.5,width=7.5cm,height=5cm]
+\addplot[apblue,very thick,domain=-7.5:-0.6,samples=200]{(x+3)*(x-2)/x^2};
+\addplot[apblue,very thick,domain=0.55:7.5,samples=200]{(x+3)*(x-2)/x^2};
+\draw[apred,dashed,thick](axis cs:0,-10)--(axis cs:0,10);
+\end{axis}
+\end{tikzpicture}
+\end{center}
+The graph of $r(x)=\frac{(x+3)(x-2)}{x^2}$ is shown. Solve $r(x)>0$.
+\begin{workspace}[1.8cm]
+The graph is above the axis for $x<-3$ and $x>2$: $(-\infty,-3)\cup(2,\infty)$.
+\end{workspace}
+
+\begin{mistakes}
+\begin{itemize}
+\item Including excluded values in the solution of $\le$ or $\ge$.
+\item Multiplying both sides of an inequality by an expression whose sign is unknown.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. Zeros of $\dfrac{x^2-1}{x+1}$: \fillin{$x=1$ only}.\qquad 2. $\dfrac{x}{x-3}>0$ on \fillin{$(-\infty,0)\cup(3,\infty)$}.
+\end{quickcheck}
+
+%%DOC 1.9-1.10 | Rational Functions and Asymptotes
+\goals{\item Locate vertical asymptotes and holes of a rational function from its factored form.
+\item Describe behavior near a vertical asymptote with one-sided limits, determining signs.
+\item Find the coordinates of a hole.}
+\vocab{vertical asymptote, hole, one-sided limit, $\lim_{x\to a^-}$, $\lim_{x\to a^+}$, multiplicity, simplified form.}
+
+\subsection*{1. Vertical asymptotes or holes?}
+\begin{keyidea}
+Factor numerator and denominator completely. For a zero $a$ of the denominator:
+\begin{itemize}
+\item if $(x-a)$ appears \fillin{more} times in the denominator than in the numerator, $x=a$ is a \fillin{vertical asymptote};
+\item if it appears \fillin{at least as many} times in the numerator, there is a \fillin{hole} at $x=a$.
+\end{itemize}
+\end{keyidea}
+
+\subsection*{2. Behavior near a vertical asymptote}
+Near $x=a$, $|r(x)|$ grows \fillin{without bound}. To decide $+\infty$ or $-\infty$, check the \fillin{sign} of each factor just left and just right of $a$. If $(x-a)$ remains an \fillin{odd} number of times in the denominator, the sign flips across the asymptote; an \fillin{even} number of times, it stays the same.
+
+\ex{Example 1}
+Describe $r(x)=\dfrac{x+1}{(x-2)^2}$ and $s(x)=\dfrac{x-1}{(x+2)(x-3)}$ near their vertical asymptotes.
+\begin{workspace}[4cm]
+$r$: numerator near $3>0$, $(x-2)^2>0$ on both sides: $\lim_{x\to2^-}r=\lim_{x\to2^+}r=+\infty$.\\
+$s$ at $-2$: numerator near $-3$, $x-3$ near $-5$. For $x<-2$ the denominator is positive, so $s<0$: $-\infty$; for $x>-2$: $+\infty$.\\
+$s$ at $3$: numerator near $2$, $x+2$ near $5$. Left: $-\infty$; right: $+\infty$.
+\end{workspace}
+
+\subsection*{3. Holes}
+\begin{keyidea}
+To find the hole at $x=a$: cancel the common factors, then substitute $a$ into the \fillin{simplified} expression. The hole is at $\big(a,\ \text{that value}\big)$, and $\lim_{x\to a}r(x)$ equals \fillin{that value}.
+\end{keyidea}
+
+\ex{Example 2 \textbullet\ Full analysis}
+Analyze $r(x)=\dfrac{x^2-x-6}{x^2-9}$: hole, vertical asymptote, zero, end behavior. Then sketch.
+\begin{workspace}[6cm]
+$r(x)=\dfrac{(x-3)(x+2)}{(x-3)(x+3)}$. Hole at $x=3$: $\frac{5}{6}$, so $\left(3,\frac56\right)$. Vertical asymptote $x=-3$: $\lim_{x\to-3^-}r=+\infty$, $\lim_{x\to-3^+}r=-\infty$. Zero $x=-2$. Horizontal asymptote $y=1$.
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-8,xmax=7,ymin=-5,ymax=6,xtick distance=2,width=6cm,height=4.6cm]
+\addplot[apblue,very thick,domain=-8:-3.18,samples=200]{(x+2)/(x+3)};
+\addplot[apblue,very thick,domain=-2.83:7,samples=200]{(x+2)/(x+3)};
+\draw[apred,dashed,thick] (axis cs:-3,-6)--(axis cs:-3,7);\draw[apgold!80!black,dashed,thick] (axis cs:-8,1)--(axis cs:7,1);
+\node[circle,draw=apblue,fill=white,inner sep=1.6pt,thick] at (axis cs:3,5/6){};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\end{workspace}
+
+\ex{Example 3 \textbullet\ A hole on the axis}
+$r(x)=\dfrac{(x-1)^2}{x-1}$. Is $x=1$ a zero?
+\begin{workspace}[2cm]
+No. $r(x)=x-1$ for $x\neq1$, but $r(1)$ is undefined. The graph has a hole at $(1,0)$, not a zero.
+\end{workspace}
+
+\begin{aptip}
+Justify each feature with the factored form \emph{and} a limit: ``$\lim_{x\to-3^+}r(x)=-\infty$, so $x=-3$ is a vertical asymptote''; ``$\lim_{x\to3}r(x)=\frac56$ and $r(3)$ is undefined, so there is a hole at $\left(3,\frac56\right)$.''
+\end{aptip}
+
+\begin{mistakes}
+\begin{itemize}
+\item Calling every zero of the denominator a vertical asymptote without checking for cancellation.
+\item Finding the hole's height in the original expression ($\frac00$).
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. $\dfrac{x-3}{x^2-9}$ has a vertical asymptote at \fillin{$x=-3$} and a hole at \fillin{$\left(3,\frac16\right)$}.\\
+2. $\lim_{x\to0^-}\dfrac{2}{x^3}=$ \fillin{$-\infty$}.
+\end{quickcheck}
+
+%%DOC 1.11 | Rational Functions and Concept of Limit
+\goals{\item Use limit notation to describe the behavior of rational functions near holes, near vertical asymptotes, and at the ends.
+\item Rewrite rational expressions (factoring, polynomial division) to evaluate limits and find asymptotes.
+\item Use the remainder theorem and the binomial theorem to work with equivalent forms of polynomials.}
+\vocab{limit, one-sided limit, equivalent expression, polynomial division, remainder theorem, binomial theorem, Pascal's triangle.}
+
+\subsection*{1. Three kinds of limit statements}
+\begin{keyidea}
+\begin{tabular}{@{}lll@{}}
+Hole at $x=a$: & $\displaystyle\lim_{x\to a}r(x)=$ \fillin{a real number $L$} & ($r(a)$ undefined)\\[6pt]
+Vertical asymptote $x=a$: & $\displaystyle\lim_{x\to a^\pm}r(x)=$ \fillin{$\pm\infty$} & \\[6pt]
+Horizontal asymptote $y=b$: & $\displaystyle\lim_{x\to\pm\infty}r(x)=$ \fillin{$b$} &
+\end{tabular}
+\end{keyidea}
+
+\ex{Example 1 \textbullet\ Describe everything with limits}
+$r(x)=\dfrac{2x^2+2x-4}{x^2-1}$.
+\begin{workspace}[3.6cm]
+$r(x)=\dfrac{2(x+2)(x-1)}{(x-1)(x+1)}$. Hole: $\lim_{x\to1}r(x)=\frac{2(3)}{2}=3$. Asymptote: $\lim_{x\to-1^-}r(x)=-\infty$, $\lim_{x\to-1^+}r(x)=+\infty$ (numerator of $\frac{2(x+2)}{x+1}$ near $2$). Ends: $\lim_{x\to\pm\infty}r(x)=2$.
+\end{workspace}
+
+\subsection*{2. Equivalent forms reveal limits}
+\begin{keyidea}
+Dividing $p(x)$ by $(x-a)$ gives $p(x)=(x-a)q(x)+R$, and the \textbf{remainder theorem} says $R=$ \fillin{$p(a)$}. So $(x-a)$ is a factor exactly when \fillin{$p(a)=0$}.\\
+Writing $\dfrac{p(x)}{d(x)}=q(x)+\dfrac{R(x)}{d(x)}$ shows that the graph approaches $y=q(x)$ as $x\to\pm\infty$ when $\deg R<\deg d$.
+\end{keyidea}
+
+\ex{Example 2 \textbullet\ Synthetic division}
+Divide $2x^3-3x^2-11x+6$ by $x-3$ and factor completely.
+\begin{workspace}[3.4cm]
+\begin{tabular}{r|rrrr}$3$&$2$&$-3$&$-11$&$6$\\&&$6$&$9$&$-6$\\\hline&$2$&$3$&$-2$&$0$\end{tabular}\qquad
+Quotient $2x^2+3x-2=(2x-1)(x+2)$, remainder $0$.\\
+$2x^3-3x^2-11x+6=(x-3)(2x-1)(x+2)$; zeros $3,\ \frac12,\ -2$.
+\end{workspace}
+
+\ex{Example 3 \textbullet\ A limit and an asymptote from division}
+Let $r(x)=\dfrac{x^3+2x^2-5x+1}{x-1}$. Find $\lim_{x\to1^+}r(x)$ and describe the end behavior.
+\begin{workspace}[3cm]
+Synthetic division by $1$: $1,3,-2$, remainder $-1$: $r(x)=x^2+3x-2-\dfrac{1}{x-1}$.\\
+As $x\to1^+$, $-\frac{1}{x-1}\to-\infty$: $\lim_{x\to1^+}r(x)=-\infty$. As $x\to\pm\infty$, $r$ behaves like $x^2+3x-2$: $\lim_{x\to\pm\infty}r(x)=\infty$.
+\end{workspace}
+
+\subsection*{3. The binomial theorem}
+The coefficients of $(a+b)^n$ are row $n$ of \fillin{Pascal's triangle}: row 4 is \fillin{$1,4,6,4,1$}.
+\ex{Example 4}
+Expand $(x-2)^4$ and $(2x+1)^3$.
+\begin{workspace}[2.4cm]
+$(x-2)^4=x^4-8x^3+24x^2-32x+16$.\qquad $(2x+1)^3=8x^3+12x^2+6x+1$.
+\end{workspace}
+
+\begin{mistakes}
+\begin{itemize}
+\item Writing $\lim_{x\to a}r(x)=\infty$ when the one-sided limits have opposite signs.
+\item Leaving out zero coefficients in synthetic division ($x^3+5$ is $1,0,0,5$).
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. The remainder when $x^4-3x+1$ is divided by $x+1$ is \fillin{$5$}.\\
+2. $\lim_{x\to2}\dfrac{x^2-4}{x-2}=$ \fillin{$4$}. \quad 3. The coefficient of $x^2$ in $(x+3)^3$ is \fillin{$9$}.
+\end{quickcheck}
+
+%%DOC 1.12 | Transformations of Functions
+\goals{\item Describe translations, dilations and reflections, and their order.
+\item Write $g$ in terms of $f$ from a description, a table or a graph.
+\item Find the domain and range of a transformed function and the image of a point.}
+\vocab{translation, vertical dilation, horizontal dilation, reflection, image of a point, domain, range.}
+
+\subsection*{1. The four parameters}
+\begin{keyidea}
+For $g(x)=a\,f\big(b(x-h)\big)+k$:
+\begin{itemize}
+\item $k$: vertical translation, \fillin{up} if $k>0$. \quad $h$: horizontal translation, \fillin{right} if $h>0$.
+\item $a$: vertical dilation by a factor of \fillin{$|a|$}; if $a<0$, also a reflection over the \fillin{$x$-axis}.
+\item $b$: horizontal dilation by a factor of \fillin{$\frac1{|b|}$}; if $b<0$, also a reflection over the \fillin{$y$-axis}.
+\end{itemize}
+A point $(x,y)$ on $f$ moves to \fillin{$\left(\frac{x}{b}+h,\ ay+k\right)$} on $g$. Horizontal changes affect the \fillin{domain}; vertical changes affect the \fillin{range}.
+\end{keyidea}
+
+\ex{Example 1 \textbullet\ Describe the transformations}
+Describe how to obtain $g(x)=-2(x+3)^2+5$ from $f(x)=x^2$.
+\begin{workspace}[2.2cm]
+Shift left 3, vertical dilation by a factor of 2, reflection over the $x$-axis, shift up 5. The vertex moves from $(0,0)$ to $(-3,5)$.
+\end{workspace}
+
+\ex{Example 2 \textbullet\ From a graph}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-1.5,xmax=6.5,ymin=-0.5,ymax=6.5,width=6cm,height=5cm]
+\addplot[apblue,very thick] coordinates {(0,0)(1,2)(2,0)};
+\addplot[apred,very thick,dashed] coordinates {(3,1)(4,5)(5,1)};
+\node[apblue,font=\small] at (axis cs:0.6,2.4){$f$};\node[apred,font=\small] at (axis cs:4.6,5.4){$g$};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+Write $g$ in terms of $f$.
+\begin{workspace}[2.4cm]
+Same width; height above the base doubles ($2\to4$); moved right 3 and up 1: $g(x)=2f(x-3)+1$. Check: $2f(1)+1=5$ at $x=4$.
+\end{workspace}
+
+\ex{Example 3 \textbullet\ Domain, range and points}
+$f$ has domain $[-4,2]$ and range $[-1,3]$, and $(2,3)$ is on its graph. For $g(x)=-f(2x)+1$, find the domain, the range and the image of $(2,3)$.
+\begin{workspace}[2.6cm]
+Domain: $2x\in[-4,2]$, so $[-2,1]$. Range: $-f\in[-3,1]$, then $+1$: $[-2,2]$.\\
+Image of $(2,3)$: $x=\frac22=1$, $y=-3+1=-2$: $(1,-2)$.
+\end{workspace}
+
+\ex{Example 4 \textbullet\ From a table}
+\begin{center}\begin{tabular}{c|ccccc}$x$&$-2$&$-1$&$0$&$1$&$2$\\\hline$f(x)$&$5$&$2$&$1$&$2$&$5$\\$g(x)$&$2$&$1$&$2$&$5$&$10$\end{tabular}\end{center}
+Write $g$ in terms of $f$.
+\begin{workspace}[2cm]
+The values of $g$ are those of $f$ one input earlier: $g(-2)=f(-1)$, $g(-1)=f(0)$, $g(0)=f(1)$, $g(1)=f(2)$. So $g(x)=f(x+1)$: the graph of $f$ shifted 1 unit left.
+\end{workspace}
+
+\begin{mistakes}
+\begin{itemize}
+\item Shifting the wrong way: $f(x+3)$ moves the graph \emph{left}.
+\item Thinking $f(2x)$ stretches horizontally; it compresses by a factor of $\frac12$.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. $(2,5)$ is on $f$. Then \fillin{$(1,2)$} is on $y=f(x+1)-3$.\\
+2. $y=-\frac12f(x)$ is a vertical dilation by \fillin{$\frac12$} and a reflection over the \fillin{$x$-axis}.
+\end{quickcheck}
+
+%%DOC 1.13-1.14 | Function Model Construction
+\goals{\item Choose an appropriate function type for data or a context, and state the assumptions.
+\item Build models from geometric or verbal descriptions, and from data with regression.
+\item Use models to predict and interpret, with units and a sensible domain.}
+\vocab{model, linear, quadratic, cubic, rational, piecewise, regression, assumption, restricted domain, extrapolation.}
+
+\subsection*{1. Choosing a model}
+\begin{keyidea}
+\begin{tabular}{@{}ll@{}}
+Roughly constant rate of change & \fillin{linear}\\
+Constant second differences; one maximum or minimum & \fillin{quadratic}\\
+Two turning points or a change in concavity & \fillin{cubic}\\
+Approaches a limiting value; ``per unit'' quantities & \fillin{rational}\\
+Different rules on different intervals & \fillin{piecewise}
+\end{tabular}
+\end{keyidea}
+
+\ex{Example 1 \textbullet\ Which model?}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[gridaxis,xmin=-0.5,xmax=6.5,ymin=-0.5,ymax=6.5,width=5.5cm,height=4.6cm,xlabel={hours},ylabel={}]
+\addplot[only marks,mark=*,mark size=2pt,apblue] coordinates {(0,0.5)(1,2.4)(2,3.6)(3,4.3)(4,4.7)(5,4.9)(6,5.0)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+The concentration of a medicine rises, then levels off near 5. Which model fits?
+\begin{workspace}[2cm]
+The data approach a limiting value: a rational model with horizontal asymptote $y=5$ fits. A polynomial would eventually grow without bound.
+\end{workspace}
+
+\subsection*{2. Assumptions and domain}
+Every model assumes the pattern \fillin{continues}. Restrict the domain to inputs that make sense in context (for example, time $\ge0$, lengths \fillin{positive}). Predictions far outside the data (\fillin{extrapolation}) are less reliable.
+
+\subsection*{3. Building a model from a description}
+\ex{Example 2 \textbullet\ Optimization}
+A farmer has 60 m of fence for a rectangular pen along a wall (no fence on the wall side). Model the area and find the largest area.
+\begin{workspace}[4.6cm]
+Let $x$ = length of each side perpendicular to the wall. The parallel side is $60-2x$. $A(x)=x(60-2x)$, domain $0<x<30$.\\
+$A(x)=-2(x-15)^2+450$: maximum area $450$ m$^2$ when $x=15$ m (and the parallel side is $30$ m).
+\end{workspace}
+
+\ex{Example 3 \textbullet\ Piecewise}
+A phone plan costs \$20 per month including 100 texts, plus \$0.10 per extra text. Write $C(n)$ and find $C(250)$.
+\begin{workspace}[2.6cm]
+$C(n)=20$ for $0\le n\le100$; $C(n)=20+0.10(n-100)$ for $n>100$. $C(250)=35$: 250 texts cost \$35.
+\end{workspace}
+
+\subsection*{4. Building a model from data}
+\ex{Example 4 \textbullet\ Regression (calculator)}
+A ball's height (m) at $t=0,1,2,3,4$ s is $1.2,\ 6.1,\ 9.0,\ 9.9,\ 8.6$. Find a quadratic model and predict the height at $t=5$.
+\begin{workspace}[2.6cm]
+Quadratic regression: $h(t)\approx-1.029t^2+5.974t+1.183$. $h(5)\approx5.3$ m. Maximum about $9.9$ m at $t\approx2.9$ s.
+\end{workspace}
+
+\begin{aptip}
+Keep regression coefficients stored in the calculator and round only the final answer (three decimal places). Always state units and the meaning in context.
+\end{aptip}
+
+\begin{mistakes}
+\begin{itemize}
+\item Leaving two variables in a model: use the constraint to eliminate one.
+\item Using a model for inputs outside its domain (negative times, negative lengths).
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. ``The value drops by \$1200 each year'' suggests a \fillin{linear} model.\\
+2. A box with a square base of side $x$ and volume 32 has height \fillin{$\frac{32}{x^2}$}.
+\end{quickcheck}

@@ -5,18 +5,30 @@
    Units without files are shown as "in preparation".
    Topic numbers and titles follow the College Board Course and Exam Descriptions. */
 const L=(n,t,r)=>({n,t,r:r||{}});
+/* lesson-plan units: W = lesson with guided notes (blank + filled) and worksheets; R = review with worksheets only.
+   Files: docs/<course>/<plan><n>-notes.pdf, -notes-filled.pdf, -ws<letter>.pdf, -ws<letter>-key.pdf */
+const ws=s=>Array.isArray(s)?s:s.split("");
+const W=(n,t,s)=>({n,t,notes:true,ws:ws(s)});
+const R=(n,t,s)=>({n,t,review:true,ws:ws(s)});
 window.COURSE_LIB={
   pc:{
     name:"AP Precalculus",
     units:[
-      {id:"u1",n:"1",t:"Polynomial and Rational Functions",files:{notes:"u1-notes",practice:"u1-practice",key:"u1-key"},lessonFiles:"u1-l",lessons:[
-        L("1.1","Change in Tandem"),L("1.2","Rates of Change"),L("1.3","Rates of Change in Linear and Quadratic Functions"),
-        L("1.4","Polynomial Functions and Rates of Change"),L("1.5","Polynomial Functions and Complex Zeros"),
-        L("1.6","Polynomial Functions and End Behavior"),L("1.7","Rational Functions and End Behavior"),
-        L("1.8","Rational Functions and Zeros"),L("1.9","Rational Functions and Vertical Asymptotes"),
-        L("1.10","Rational Functions and Holes"),L("1.11","Equivalent Representations of Polynomial and Rational Expressions"),
-        L("1.12","Transformations of Functions"),L("1.13","Function Model Selection and Assumption Articulation"),
-        L("1.14","Function Model Construction and Application")]},
+      {id:"u1",n:"1",t:"Polynomial and Rational Functions",files:{notes:"u1-notes",practice:"u1-practice",key:"u1-key"},plan:"u1-",lessons:[
+        W("1.1","Change in Tandem","A"),
+        W("1.2","Rates of Change","ABCD"),
+        W("1.3","Rates of Change in Linear and Quadratic Functions","AB"),
+        W("1.4","Polynomial Functions and Rates of Change","A"),
+        W("1.5","Polynomial Functions and Complex Zeros","ABCDE"),
+        W("1.6","Polynomial Functions and End Behavior","A"),
+        R("R1.1-1.6","Review 1.1 to 1.6","ABCD"),
+        W("1.7","Rational Functions and End Behavior","A"),
+        W("1.8","Rational Functions and Zeros","A"),
+        W("1.9-1.10","Rational Functions and Asymptotes","AB"),
+        W("1.11","Rational Functions and Concept of Limit","AB"),
+        R("R1.7-1.11","Review 1.7 to 1.11","AB"),
+        W("1.12","Transformations of Functions",["A","B","C","MEGA"]),
+        W("1.13-1.14","Function Model Construction","A")]},
       {id:"u2",n:"2",t:"Exponential and Logarithmic Functions",lessons:[
         L("2.1","Change in Arithmetic and Geometric Sequences"),L("2.2","Change in Linear and Exponential Functions"),
         L("2.3","Exponential Functions"),L("2.4","Exponential Function Manipulation"),
