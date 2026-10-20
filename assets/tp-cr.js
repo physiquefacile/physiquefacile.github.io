@@ -86,9 +86,10 @@ window.TPCR = {
   },
   oscillo: {
     parts: {
-      A: { min: 3, fill: [{ k: "U", h: "E = d × S (V)" }] },
-      B: { min: 4, fill: [{ k: "Um", h: "U_m (V)" }, { k: "T", h: "T (ms)" }, { k: "f", h: "f mesurée (Hz)" }, { k: "Ueff", h: "U_eff = U_m/√2 (V)" }], plot: { x: (r, f) => r.fa, y: (r, f) => f.f, xl: "f affichée (Hz)", yl: "f mesurée (Hz)", xmin: 0, ymin: 0, fit: true, eq: R => "f = " + R.a.toFixed(3).replace(".", ",") + " f_aff " + (R.b < 0 ? "− " : "+ ") + Math.abs(R.b).toFixed(3).replace(".", ",") } },
-      C: { min: 4, fill: [{ k: "phi", h: "φ = 360°·τ/T (°)" }], plot: { x: (r, f) => r.fa, y: (r, f) => f.phi, xl: "f affichée (Hz)", yl: "φ (°)", xmin: 0, ymin: 0, join: true } }
+      A: { min: 3, fill: [{ k: "U", h: "E = d × S (V)", ref: r => r.d * r.S, tol: 0.3, warn: "E = d × S : déviation en divisions multipliée par la sensibilité S (V/div)." }] },
+      B: { min: 4, aide: "U<sub>m</sub> = (crête à crête en div) × S / 2   •   T = (période en div) × B   •   f = 1 / T : avec T en ms, f = 1000 / T en Hz   •   U<sub>eff</sub> = U<sub>m</sub> / √2",
+        fill: [{ k: "Um", h: "U_m (V)", ref: r => r.ypp * r.S / 2, tol: 0.3, warn: "U_m est l'amplitude : la moitié de la hauteur crête à crête, en volts : U_m = (crête à crête × S) / 2." }, { k: "T", h: "T (ms)", ref: r => r.x * r.B, tol: 0.3, warn: "T = (largeur d'une période en div) × B (ms/div)." }, { k: "f", h: "f mesurée (Hz)", ref: r => 1000 / (r.x * r.B), tol: 0.3, warn: "f = 1/T. Avec T en ms, f = 1000 / T en hertz." }, { k: "Ueff", h: "U_eff = U_m/√2 (V)", ref: r => r.ypp * r.S / 2 / Math.SQRT2, tol: 0.3, warn: "U_eff = U_m / √2 ; compare avec l'indication du voltmètre." }], plot: { x: (r, f) => r.fa, y: (r, f) => f.f, xl: "f affichée (Hz)", yl: "f mesurée (Hz)", xmin: 0, ymin: 0, fit: true, eq: R => "f = " + R.a.toFixed(3).replace(".", ",") + " f_aff " + (R.b < 0 ? "− " : "+ ") + Math.abs(R.b).toFixed(3).replace(".", ",") } },
+      C: { min: 4, aide: "φ = 360° × τ / T, avec τ et T lus en divisions sur l'écran (même base de temps).", fill: [{ k: "phi", h: "φ = 360°·τ/T (°)", ref: r => 360 * r.tau / r.Tdiv, tol: 0.3, warn: "φ = 360° × τ / T, avec τ et T en divisions." }], plot: { x: (r, f) => r.fa, y: (r, f) => f.phi, xl: "f affichée (Hz)", yl: "φ (°)", xmin: 0, ymin: 0, join: true } }
     },
     calc: [
       { k: "E", h: "Partie A : tension continue E (moyenne de tes mesures)", u: "V" },
