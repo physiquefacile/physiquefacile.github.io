@@ -170,12 +170,12 @@
       const resDraw = (x1, x2, y, k) => {
         const bd = bands(P.R[k].nom), w = x2 - x1;
         return `<rect x="${x1}" y="${y - 13}" width="${w}" height="26" rx="9" fill="#e8d3a9" stroke="var(--fg)" stroke-width="1.5"/>`
-          + bd.map((b, i) => `<rect x="${x1 + 14 + i * (w - 40) / 3 + (i === 3 ? 10 : 0)}" y="${y - 13}" width="8" height="26" fill="${COL[b]}"/>`).join("");
+          + bd.map((b, i) => `<rect x="${x1 + 14 + i * (w - 40) / 3 + (i === 3 ? 10 : 0)}" y="${y - 13}" width="8" height="26" fill="${b === "or" ? "url(#msGold)" : COL[b]}"${b === "or" ? ` stroke="#8a6d12" stroke-width="0.8"` : ""}/>`).join("");
       };
       const lead = (from, to, col) => { const [x1, y1] = from, [x2, y2] = to, mx = (x1 + x2) / 2 + 30, my = Math.max(y1, y2) + 40; return `<path d="M${x1},${y1} Q${mx},${my} ${x2},${y2}" stroke="${col}" stroke-width="5" fill="none" stroke-linecap="round" opacity=".92"/><circle cx="${x2}" cy="${y2}" r="6" fill="${col}" stroke="#fff" stroke-width="1.5"/>`; };
       T.draw = () => {
         const C = S.f === "OFF" ? null : CAL[S.f][S.c];
-        let h = `<svg viewBox="0 0 640 400" role="img" aria-label="Multimètre et montage">`;
+        let h = `<svg viewBox="0 0 640 400" role="img" aria-label="Multimètre et montage"><defs><linearGradient id="msGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8c6a12"/><stop offset=".45" stop-color="#f7e08a"/><stop offset=".55" stop-color="#d4af37"/><stop offset="1" stop-color="#7a5c0e"/></linearGradient></defs>`;
         // ---- multimètre ----
         h += `<rect x="18" y="16" width="214" height="368" rx="22" fill="#f0b323" stroke="#6b4a00" stroke-width="2"/><rect x="30" y="28" width="190" height="344" rx="16" fill="#2b2b2b"/>`
           + `<rect x="42" y="42" width="166" height="70" rx="6" fill="#b9c8a6" stroke="#6f7f5c"/>`
@@ -218,7 +218,11 @@
           if (se) { tipR = [600, 165]; tipB = [600, 245]; } else { tipR = [430, 100]; tipB = [540, 100]; }
         } else {
           h += `<line x1="380" y1="200" x2="410" y2="200" stroke="var(--fg)" stroke-width="3"/><line x1="540" y1="200" x2="570" y2="200" stroke="var(--fg)" stroke-width="3"/>` + resDraw(410, 540, 200, S.k)
-            + `<text x="475" y="172" text-anchor="middle" font-size="15" font-weight="700" fill="var(--fg)" ${F}>${RES[S.k]}</text><text x="475" y="246" text-anchor="middle" font-size="11" fill="var(--muted)" ${F}>résistor hors circuit</text>`;
+            + `<text x="475" y="172" text-anchor="middle" font-size="15" font-weight="700" fill="var(--fg)" ${F}>${RES[S.k]}</text><text x="475" y="246" text-anchor="middle" font-size="11" fill="var(--muted)" ${F}>résistor hors circuit</text>`
+            + `<text x="300" y="30" font-size="11" font-weight="700" fill="var(--fg)" ${F}>Code des couleurs</text>`
+            + NOMC.map((n, i) => `<rect x="${300 + i * 29}" y="38" width="22" height="16" rx="2" fill="${COL[n]}" stroke="#888" stroke-width="0.6"/><text x="${311 + i * 29}" y="68" text-anchor="middle" font-size="10" fill="var(--fg)" ${F}>${i}</text>`).join("")
+            + `<rect x="${300 + 10 * 29 + 4}" y="38" width="22" height="16" rx="2" fill="url(#msGold)" stroke="#8a6d12" stroke-width="0.6"/><text x="${315 + 10 * 29}" y="68" text-anchor="middle" font-size="10" fill="var(--fg)" ${F}>or ±5 %</text>`
+            + `<text x="300" y="86" font-size="10" fill="var(--muted)" ${F}>anneaux 1 et 2 : chiffres • anneau 3 : puissance de 10</text>`;
           tipR = [380, 200]; tipB = [570, 200];
         }
         if (S.inv) [tipR, tipB] = [tipB, tipR];
