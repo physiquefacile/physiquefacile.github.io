@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Préparation en ligne à l'examen AP Precalculus et AP Calculus AB, avec le Dr Papa Touty Traoré. Unité 1 gratuite, cours complets, exercices corrigés, quiz et rapport de progrès pour les parents.">
+<meta property="og:title" content="AP Math Online · Dr Papa Touty Traoré">
+<meta property="og:description" content="Préparation à l'examen AP Precalculus et AP Calculus AB. Essayez l'unité 1 gratuitement.">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}</style>
+<title>AP Math Online</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: graph-paper editorial page; hero with a drawn function and its tangent, then sections down one column, two columns on wide screens */
+:root{
+  --paper:#F6F8FB; --sheet:#FFFFFF; --grid:#E1E7F0; --ink:#14213D; --muted:#56627A; --line:#D3DBE7;
+  --accent:#2747C9; --accent-ink:#FFFFFF; --mark:#FFD24A; --good:#1F6F4A; --red:#C2412D;
+  --f-display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --f-body:"Atkinson Hyperlegible",ui-sans-serif,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0E1424; --sheet:#151D31; --grid:#1B2439; --ink:#E7ECF6; --muted:#98A4BC; --line:#2A3550;
+  --accent:#8AA2FF; --accent-ink:#0E1424; --mark:#E9BE3A; --good:#5CC48E; --red:#F07560; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0E1424; --sheet:#151D31; --grid:#1B2439; --ink:#E7ECF6; --muted:#98A4BC; --line:#2A3550;
+  --accent:#8AA2FF; --accent-ink:#0E1424; --mark:#E9BE3A; --good:#5CC48E; --red:#F07560; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.6;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);line-height:1.08;margin:0;text-wrap:balance}
+h1{font-size:clamp(2.2rem,6.2vw,4rem);font-weight:800;letter-spacing:-.02em}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);font-weight:800;letter-spacing:-.01em}
+h3{font-size:1.15rem;font-weight:700}
+p{margin:0;max-width:65ch}
+a{color:var(--accent)}
+.mark{text-decoration-line:underline;text-decoration-color:var(--mark);text-decoration-thickness:.2em;text-underline-offset:.06em;text-decoration-skip-ink:none}
+.eyebrow{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.muted{color:var(--muted)}
+.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:inherit;font-weight:700;text-decoration:none;padding:13px 20px;border-radius:10px;border:2px solid var(--ink);color:var(--ink);background:var(--sheet);cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--mark);outline-offset:3px}
+@media (prefers-reduced-motion:no-preference){.btn{transition:transform .12s}.btn:hover{transform:translateY(-1px)}}
+
+/* top bar */
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:16px}
+.brand{font-family:var(--f-display);font-weight:800;font-size:1.15rem;text-decoration:none;color:var(--ink)}
+.brand span{font-family:var(--f-mono);font-size:.72rem;font-weight:700;color:var(--muted);letter-spacing:.04em;margin-left:8px}
+.topbar nav{display:flex;gap:16px;font-weight:700;font-size:.95rem}
+.topbar nav a{color:var(--ink);text-decoration:none}
+@media (max-width:700px){.topbar nav{display:none}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:36px;align-items:center;padding-block:28px 48px}
+.hero>*{min-width:0}
+.hero .lead{font-size:1.15rem;margin-top:18px}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.hero .fine{margin-top:12px;font-size:.92rem}
+.board{background:var(--sheet);border:2px solid var(--ink);border-radius:14px;padding:16px;box-shadow:8px 8px 0 var(--ink)}
+.board svg{width:100%;height:auto;display:block}
+.board .cap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:10px;font-size:.85rem}
+.count{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.count div{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:10px 14px;min-width:0}
+.count b{display:block;font-family:var(--f-display);font-size:1.7rem;line-height:1}
+.count small{color:var(--muted);font-size:.82rem}
+@media (max-width:820px){.hero{grid-template-columns:1fr}.board{box-shadow:5px 5px 0 var(--ink)}}
+
+section{padding-block:48px;border-top:1px solid var(--line)}
+.sec-head{display:grid;gap:10px;margin-bottom:26px}
+
+/* teacher */
+.teacher{display:grid;grid-template-columns:280px 1fr;gap:32px;align-items:start}
+.teacher>*{min-width:0}
+.teacher figure{margin:0}
+.teacher img{width:100%;max-width:280px;height:auto;border-radius:14px;border:2px solid var(--ink);display:block}
+.teacher figcaption{font-size:.82rem;color:var(--muted);margin-top:8px}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}
+.facts div{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:12px}
+.facts b{display:block;font-family:var(--f-display);font-size:1.6rem;line-height:1}
+.facts small{font-size:.85rem;color:var(--muted);display:block}
+.facts div{min-width:0}
+@media (max-width:480px){.facts small{font-size:.76rem}.facts b{font-size:1.35rem}}
+.cv{display:grid;gap:8px;padding:0;margin:0;list-style:none}
+.cv li{padding-left:18px;position:relative}
+.cv li::before{content:"";position:absolute;left:0;top:.7em;width:8px;height:2px;background:var(--accent)}
+@media (max-width:760px){.teacher{grid-template-columns:1fr}.facts{grid-template-columns:1fr 1fr 1fr}}
+
+/* what you get */
+.items{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.item{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:6px;align-content:start}
+.item .tag{font-family:var(--f-mono);font-size:.72rem;font-weight:700;color:var(--accent);letter-spacing:.05em}
+.item p{font-size:.95rem;color:var(--muted)}
+
+/* parents */
+.parents{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+.parents>*{min-width:0}
+.report{background:var(--sheet);border:2px solid var(--ink);border-radius:12px;padding:16px;display:grid;gap:10px;font-size:.92rem}
+.report .r-h{display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:8px}
+.report .bars{display:grid;gap:6px}
+.report .bar{display:grid;grid-template-columns:4.2em 1fr 5.6em;gap:8px;align-items:center}
+.report .bar i{display:block;height:8px;border-radius:4px;background:var(--line);position:relative;overflow:hidden}
+.report .bar i::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--w);background:var(--accent);border-radius:4px}
+.report .note{border-left:3px solid var(--mark);padding-left:10px;font-style:italic}
+.sample{font-family:var(--f-mono);font-size:.7rem;font-weight:700;letter-spacing:.06em;color:var(--red)}
+.checks{display:grid;gap:12px;padding:0;margin:0;list-style:none}
+.checks li{display:grid;grid-template-columns:28px 1fr;gap:10px}
+.checks li::before{content:"✓";display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--good);color:#fff;font-weight:700;font-size:.8rem;margin-top:2px}
+@media (max-width:820px){.parents{grid-template-columns:1fr}}
+
+/* program */
+.program{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.program>*{min-width:0}
+.course{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:16px}
+.course h3{display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap}
+.course .exam{font-family:var(--f-mono);font-size:.78rem;color:var(--muted);font-weight:500}
+.units{list-style:none;padding:0;margin:12px 0 0;display:grid}
+.units li{display:grid;grid-template-columns:2.4em 1fr auto;gap:8px;padding:8px 0;border-top:1px dashed var(--line);align-items:baseline;font-size:.94rem}
+.units .n{font-family:var(--f-mono);color:var(--muted);font-size:.82rem}
+.st{font-size:.76rem;font-weight:700;white-space:nowrap;padding:1px 8px;border-radius:999px;border:1px solid var(--line);font-family:var(--f-mono)}
+.st.free{background:var(--good);border-color:var(--good);color:#fff}
+.st.soon{color:var(--accent);border-color:var(--accent)}
+.st.opt{color:var(--muted)}
+@media (max-width:820px){.program{grid-template-columns:1fr}}
+
+/* pricing */
+.prices{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.price{background:var(--sheet);border:2px solid var(--ink);border-radius:14px;padding:20px;display:grid;gap:10px;align-content:start}
+.price .amt{font-family:var(--f-display);font-weight:800;font-size:2.2rem;line-height:1}
+.price ul{margin:0;padding-left:1.1em;display:grid;gap:4px;font-size:.95rem}
+.trust{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.trust span{background:var(--sheet);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.88rem;font-weight:700}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;counter-reset:s;padding:0;margin:0;list-style:none}
+.steps li{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:16px;counter-increment:s;display:grid;gap:6px;align-content:start}
+.steps li::before{content:counter(s);font-family:var(--f-display);font-weight:800;font-size:1.6rem;color:var(--accent);line-height:1}
+.steps p{font-size:.94rem;color:var(--muted)}
+@media (max-width:860px){.steps{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.steps{grid-template-columns:1fr}}
+
+/* faq */
+.faq{display:grid;gap:10px;max-width:780px}
+.faq details{background:var(--sheet);border:1px solid var(--line);border-radius:10px}
+.faq summary{cursor:pointer;padding:14px 16px;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--f-mono);color:var(--accent);font-size:1.1rem}
+.faq details[open] summary::after{content:"−"}
+.faq details>div{padding:0 16px 16px;display:grid;gap:8px}
+
+/* final */
+.final{background:var(--ink);color:var(--paper);border-radius:16px;padding:32px;display:grid;gap:16px;justify-items:start}
+.final p{color:color-mix(in srgb,var(--paper) 80%,var(--ink))}
+.final .btn.primary{background:var(--mark);border-color:var(--mark);color:#14213D}
+.final .btn{border-color:var(--paper);color:var(--paper);background:transparent}
+footer{padding-block:32px 48px;font-size:.88rem;color:var(--muted);display:grid;gap:8px}
+.contact{font-family:var(--f-mono);user-select:all}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="topbar">
+    <a class="brand" href="#">AP Math Online<span>Dakar</span></a>
+    <nav aria-label="Sections"><a href="#professeur">Le professeur</a><a href="#parents">Pour les parents</a><a href="#programme">Programme</a><a href="#tarifs">Tarifs</a><a href="#faq">Questions</a></nav>
+  </header>
+
+  <div class="hero">
+    <div>
+      <div class="eyebrow">AP Precalculus · AP Calculus AB · session de mai 2027</div>
+      <h1 style="margin-top:12px">Préparer l'examen AP de maths, <span class="mark">leçon par leçon</span>, avec un professeur.</h1>
+      <p class="lead">Des cours complets en ligne, des exercices corrigés, des quiz qui se corrigent tout seuls et un rapport de progrès chaque mois pour les parents. <b>L'unité 1 est gratuite</b> : essayez avant de vous engager.</p>
+      <div class="ctas">
+        <a class="btn primary" data-learn href="https://physiquefacile.github.io/ap-math-tracker/learn.html">Essayer l'unité 1 gratuitement</a>
+        <a class="btn" href="#programme">Voir le programme</a>
+      </div>
+      <p class="fine muted">Aucun paiement pour l'essai. Il suffit d'un nom.</p>
+      <div class="count" aria-label="Compte à rebours avant l'examen">
+        <div><b class="num" id="dAB">—</b><small>jours avant AP Calculus AB<br>lundi 10 mai 2027</small></div>
+        <div><b class="num" id="dPC">—</b><small>jours avant AP Precalculus<br>mardi 11 mai 2027</small></div>
+      </div>
+    </div>
+    <figure class="board" aria-label="Exemple : une fonction et sa tangente">
+      <svg viewBox="0 0 400 300" role="img" aria-label="Graphe d'une fonction cubique, avec la tangente au point x = 1">
+        <defs><pattern id="g" width="25" height="25" patternUnits="userSpaceOnUse"><path d="M25 0H0V25" fill="none" stroke="var(--grid)" stroke-width="1"/></pattern></defs>
+        <rect width="400" height="300" fill="url(#g)"/>
+        <line x1="0" y1="150" x2="400" y2="150" stroke="var(--muted)" stroke-width="1.2"/>
+        <line x1="200" y1="0" x2="200" y2="300" stroke="var(--muted)" stroke-width="1.2"/>
+        <path id="curve" fill="none" stroke="var(--accent)" stroke-width="3.2" stroke-linecap="round"/>
+        <line id="tan" stroke="var(--red)" stroke-width="2.2" stroke-dasharray="6 5"/>
+        <circle id="pt" r="6" fill="var(--mark)" stroke="var(--ink)" stroke-width="2"/>
+        <text x="16" y="28" fill="var(--accent)" font-family="JetBrains Mono, monospace" font-size="15" font-weight="700">f(x) = x³ − 3x</text>
+        <text id="lab" x="236" y="232" fill="var(--red)" font-family="JetBrains Mono, monospace" font-size="13" font-weight="700"></text>
+      </svg>
+      <figcaption class="cap"><span class="muted">Lesson 1-7 · Instantaneous rate of change</span><span class="num muted" id="slope"></span></figcaption>
+    </figure>
+  </div>
+
+  <section id="professeur">
+    <div class="teacher">
+      <figure>
+        <img src="../img/auteur-wyoming.jpg" width="800" height="864" alt="Le Dr Papa Touty Traoré à son poste de travail lors d'un atelier STEM à l'Université du Wyoming">
+        <figcaption>Atelier de pédagogie STEM, Université du Wyoming (États-Unis), juillet 2024.</figcaption>
+      </figure>
+      <div>
+        <div class="eyebrow">Votre professeur</div>
+        <h2 style="margin-top:8px">Dr Papa Touty Traoré</h2>
+        <p style="margin-top:10px">Enseignant-chercheur, docteur en physique de l'Université Cheikh Anta Diop de Dakar. Depuis dix ans, il enseigne à l'université, en école d'ingénieurs et en classes préparatoires, où le calcul différentiel et intégral est l'outil de tous les jours. Il a construit cette plateforme et en vérifie chaque leçon, chaque exercice et chaque quiz.</p>
+        <div class="facts">
+          <div><b class="num">10</b><small>ans d'enseignement</small></div>
+          <div><b class="num">36</b><small>publications indexées</small></div>
+          <div><b class="num">5</b><small>établissements</small></div>
+        </div>
+        <ul class="cv">
+          <li>Enseignant à la <b>Dakar American University of Science and Technology</b> (DAUST), cycle ingénieur.</li>
+          <li>Classes préparatoires à l'École Polytechnique Féminine (EPF) et à l'ERNAM.</li>
+          <li>Enseignant à l'Université Cheikh Anta Diop (2016 – 2025) et à l'Université Souleymane Niang de Matam.</li>
+          <li>Atelier de pédagogie des STEM, College of Engineering and Physical Sciences, Université du Wyoming, 2024.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contenu">
+    <div class="sec-head">
+      <div class="eyebrow">Ce que l'élève reçoit</div>
+      <h2>Tout ce qu'il faut pour travailler seul, et un professeur quand il bloque</h2>
+      <p class="muted">Le programme suit les thèmes de l'examen AP, dans un ordre pensé pour progresser. Les cours sont en anglais, comme l'examen.</p>
+    </div>
+    <div class="items">
+      <div class="item"><span class="tag">GUIDED NOTES</span><h3>Notes de cours à compléter</h3><p>Pour chaque leçon : une version à trous que l'élève remplit, et la version complète pour se corriger.</p></div>
+      <div class="item"><span class="tag">WORKSHEETS</span><h3>Exercices avec corrigés</h3><p>Plusieurs fiches par leçon, au format de l'examen : QCM, questions ouvertes, questions sur graphique, avec ou sans calculatrice.</p></div>
+      <div class="item"><span class="tag">QUIZ</span><h3>Quiz corrigés instantanément</h3><p>Chaque réponse est corrigée avec une explication. L'élève sait tout de suite ce qu'il doit revoir.</p></div>
+      <div class="item"><span class="tag">TESTS</span><h3>Tests chronométrés</h3><p>Self checks, tests d'unité et tests au format AP, en temps limité comme le jour de l'examen.</p></div>
+      <div class="item" data-opt="live"><span class="tag">EN DIRECT</span><h3>Séance de questions chaque semaine</h3><p id="liveText">Une heure en visioconférence pour poser ses questions au professeur.</p></div>
+      <div class="item" data-opt="group"><span class="tag">WHATSAPP</span><h3>Groupe d'entraide</h3><p>Un groupe WhatsApp avec le professeur, pour les questions entre deux séances.</p></div>
+    </div>
+  </section>
+
+  <section id="parents">
+    <div class="parents">
+      <div>
+        <div class="eyebrow">Pour les parents</div>
+        <h2 style="margin-top:8px">Vous savez où en est votre enfant, chaque mois</h2>
+        <p style="margin-top:12px">Les résultats de chaque quiz et de chaque test arrivent au professeur. À la fin de chaque mois, vous recevez un rapport clair sur WhatsApp ou par e-mail.</p>
+        <ul class="checks" style="margin-top:18px">
+          <li><span>Les notes du mois et leur évolution par rapport au mois précédent.</span></li>
+          <li><span>La maîtrise de chaque unité du programme.</span></li>
+          <li><span>Ce qu'il faut retravailler en priorité, et un commentaire du professeur.</span></li>
+          <li><span>Un reçu après chaque paiement, et un interlocuteur joignable.</span></li>
+        </ul>
+      </div>
+      <div class="report" aria-label="Exemple de rapport mensuel">
+        <div class="r-h"><b>Rapport de progrès · Novembre 2026</b><span class="sample">EXEMPLE</span></div>
+        <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><span>Élève : <b>Prénom N.</b> · AP Calculus AB</span><span class="num">Moyenne du mois <b>74 %</b> <span style="color:var(--good)">▲ +9</span></span></div>
+        <div class="bars">
+          <div class="bar"><span class="num">Unit 1</span><i style="--w:92%"></i><span class="num">Maîtrisé</span></div>
+          <div class="bar"><span class="num">Unit 2</span><i style="--w:70%"></i><span class="num">Acquis</span></div>
+          <div class="bar"><span class="num">Unit 3</span><i style="--w:35%"></i><span class="num">En cours</span></div>
+        </div>
+        <div><b>À retravailler :</b> règle de dérivation en chaîne (Lesson 2-3).</div>
+        <div class="note">« Bon mois, régulier sur les quiz. Refaire la fiche 2-3 B avant le test de l'unité 2. »</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="programme">
+    <div class="sec-head">
+      <div class="eyebrow">Programme et calendrier</div>
+      <h2>Une unité à la fois, publiée avant que l'élève n'en ait besoin</h2>
+      <p class="muted">L'unité 1 de chaque cours est déjà disponible et gratuite. Les dates ci-dessous sont celles de mise en ligne des unités suivantes.</p>
+    </div>
+    <div class="program" id="program"></div>
+  </section>
+
+  <section id="tarifs">
+    <div class="sec-head">
+      <div class="eyebrow">Tarifs</div>
+      <h2>Un paiement pour l'année scolaire, jusqu'à l'examen</h2>
+      <p class="muted">Paiement par Wave ou Orange Money. L'accès s'ouvre dès que le paiement est confirmé, et un reçu vous est envoyé.</p>
+    </div>
+    <div class="prices" id="prices"></div>
+    <div class="trust" id="trust"></div>
+  </section>
+
+  <section id="inscription">
+    <div class="sec-head">
+      <div class="eyebrow">Inscription</div>
+      <h2>Quatre étapes, depuis un téléphone</h2>
+    </div>
+    <ol class="steps">
+      <li><h3>Essayer gratuitement</h3><p>Ouvrez la plateforme, entrez le nom de l'élève et travaillez l'unité 1.</p></li>
+      <li><h3>Payer</h3><p>Dans « My access », choisissez le cours et envoyez le montant par Wave ou Orange Money.</p></li>
+      <li><h3>Recevoir le code</h3><p>L'élève reçoit aussitôt un code personnel, valable sur tous ses appareils.</p></li>
+      <li><h3>Commencer</h3><p>Après confirmation du paiement, toutes les unités s'ouvrent, et vous recevez le reçu.</p></li>
+    </ol>
+  </section>
+
+  <section id="faq">
+    <div class="sec-head"><div class="eyebrow">Questions fréquentes</div><h2>Ce que les parents nous demandent</h2></div>
+    <div class="faq">
+      <details><summary>Est-ce un programme officiel du College Board ?</summary><div><p>Non. AP Math Online est une préparation indépendante. Le programme suit les thèmes de l'examen publiés par le College Board, mais le College Board n'est pas affilié à cette plateforme et ne la cautionne pas.</p></div></details>
+      <details><summary>Comment mon enfant s'inscrit-il à l'examen AP ?</summary><div><p>L'inscription à l'examen ne se fait pas ici : elle se fait auprès d'un établissement autorisé à faire passer les examens AP, le plus souvent l'école de l'élève, par son coordinateur AP. Renseignez-vous tôt dans l'année.</p></div></details>
+      <details><summary>Mon enfant suit déjà un cours AP à l'école. Est-ce utile ?</summary><div><p>Oui : la plateforme sert alors de complément. L'élève y retrouve les leçons expliquées pas à pas, s'entraîne avec des corrigés et vérifie son niveau avec les quiz et les tests, au rythme de sa classe.</p></div></details>
+      <details><summary>En quelle langue sont les cours ?</summary><div><p>En anglais, comme l'examen. Les échanges avec le professeur peuvent se faire en français ou en anglais.</p></div></details>
+      <details><summary>De quel matériel a-t-on besoin ?</summary><div><p>Un téléphone, une tablette ou un ordinateur avec internet. Pour les questions marquées « Calculator », une calculatrice graphique (ou l'application gratuite Desmos pour s'entraîner).</p></div></details>
+      <details data-opt="guarantee"><summary>Et si cela ne convient pas à mon enfant ?</summary><div><p id="guaranteeText"></p></div></details>
+      <details><summary>Peut-on obtenir un résultat garanti à l'examen ?</summary><div><p>Personne ne peut garantir un score. Ce que nous garantissons, c'est un programme complet, un travail régulier suivi par le professeur, et une information claire pour les parents tout au long de l'année.</p></div></details>
+    </div>
+  </section>
+
+  <div class="final">
+    <h2>Commencez par l'unité 1, gratuitement</h2>
+    <p>Une unité complète : notes, exercices corrigés, quiz et test. Vous verrez la qualité du travail avant de payer quoi que ce soit.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:12px"><a class="btn primary" data-learn href="https://physiquefacile.github.io/ap-math-tracker/learn.html">Essayer gratuitement</a><a class="btn" href="#tarifs">Voir les tarifs</a></div>
+  </div>
+
+  <footer>
+    <div id="contactLine"></div>
+    <div>AP Math Online · Dr Papa Touty Traoré · Dakar, Sénégal</div>
+    <div>AP® est une marque déposée du College Board, qui n'est pas affilié à ce site et ne le cautionne pas.</div>
+  </footer>
+</div>
+
+<script src="../ap-math-tracker/quiz-config.js"></script>
+<script>
+/* ---------- settings of this page (check before publishing) ---------- */
+const SITE = {
+  learn: "https://physiquefacile.github.io/ap-math-tracker/learn.html",
+  liveSession: "Une heure en visioconférence chaque semaine pour poser ses questions au professeur.",  // "" to hide
+  whatsappGroup: true,                 // false to hide
+  guaranteeDays: 7,                    // 0 to hide the guarantee
+  receipt: true,
+  contact: { whatsapp: "", email: "" },  // shown in the footer and pricing when filled
+  /* release dates of the next units (YYYY-MM-DD); "free" = available and free, "opt" = optional */
+  calendar: {
+    pc: { name: "AP Precalculus", exam: "mardi 11 mai 2027", units: [
+      ["1", "Polynomial and Rational Functions", "free"],
+      ["2", "Exponential and Logarithmic Functions", "2026-11-15"],
+      ["3", "Trigonometric and Polar Functions", "2026-12-20"],
+      ["R", "AP Exam Review", "2027-03-15"],
+      ["4", "Parameters, Vectors, and Matrices", "opt"] ] },
+    ab: { name: "AP Calculus AB", exam: "lundi 10 mai 2027", units: [
+      ["1", "Limits, Continuity, and Differentiability", "free"],
+      ["2", "Derivatives", "2026-11-10"],
+      ["3", "Analyzing Derivatives", "2026-11-30"],
+      ["4", "Applications of Derivatives", "2026-12-20"],
+      ["5", "Antiderivatives", "2027-01-15"],
+      ["6", "Antiderivative Applications", "2027-01-31"],
+      ["7", "Motion Applications", "2027-02-15"],
+      ["8", "Specific Integral Applications", "2027-02-28"],
+      ["9", "Approximate Integral Applications", "2027-03-15"],
+      ["10", "General Integral Applications", "2027-03-31"],
+      ["11", "Area and Volume", "2027-04-10"],
+      ["12", "AP Test Review", "2027-04-20"] ] }
+  }
+};
+const PAY = ((window.QUIZ_CONFIG || {}).payment) || {};
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const money = n => Number(n).toLocaleString("fr-FR") + " " + (PAY.currency || "FCFA");
+const dayFmt = d => new Date(d + "T12:00:00").toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
+
+/* countdown */
+function daysTo(y, m, d) { const t = new Date(); t.setHours(0, 0, 0, 0); return Math.max(0, Math.round((new Date(y, m - 1, d) - t) / 864e5)); }
+$("#dAB").textContent = daysTo(2027, 5, 10); $("#dPC").textContent = daysTo(2027, 5, 11);
+
+/* program */
+$("#program").innerHTML = Object.values(SITE.calendar).map(c => `<div class="course"><h3>${esc(c.name)}<span class="exam">Examen : ${esc(c.exam)}</span></h3>
+  <ul class="units">${c.units.map(([n, t, s]) => `<li><span class="n">${n === "R" ? "Rév." : "U" + esc(n)}</span><span>${esc(t)}</span>${
+    s === "free" ? '<span class="st free">Gratuit</span>' : s === "opt" ? '<span class="st opt">Hors examen</span>' : `<span class="st soon">${esc(dayFmt(s))}</span>`}</li>`).join("")}</ul></div>`).join("");
+
+/* prices */
+const pr = PAY.prices || {}, has = Object.values(pr).some(v => v > 0);
+const incl = ["Toutes les unités, jusqu'à l'examen", "Notes, exercices et corrigés", "Quiz et tests corrigés en ligne", "Rapport mensuel pour les parents"];
+if (SITE.liveSession) incl.push("Séance de questions chaque semaine");
+$("#prices").innerHTML = ["pc", "ab"].map(c => `<div class="price"><div class="eyebrow">${esc(SITE.calendar[c].name)}</div>
+  <div class="amt">${has && pr[c] > 0 ? esc(money(pr[c])) : "Bientôt"}</div><div class="muted" style="font-size:.9rem">${has && pr[c] > 0 ? "pour l'année scolaire 2026 – 2027" : "Les tarifs seront communiqués très prochainement."}</div>
+  <ul>${incl.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`).join("");
+const trust = ["Unité 1 gratuite pour essayer", "Paiement Wave ou Orange Money"];
+if (SITE.receipt) trust.push("Reçu après chaque paiement");
+if (SITE.guaranteeDays) trust.push(`Satisfait ou remboursé ${SITE.guaranteeDays} jours`);
+$("#trust").innerHTML = trust.map(t => `<span>${esc(t)}</span>`).join("");
+
+/* optional items */
+if (!SITE.liveSession) document.querySelectorAll('[data-opt="live"]').forEach(e => e.remove()); else $("#liveText").textContent = SITE.liveSession;
+if (!SITE.whatsappGroup) document.querySelectorAll('[data-opt="group"]').forEach(e => e.remove());
+if (!SITE.guaranteeDays) document.querySelectorAll('[data-opt="guarantee"]').forEach(e => e.remove());
+else $("#guaranteeText").textContent = `Si l'élève n'est pas satisfait, vous pouvez demander le remboursement complet dans les ${SITE.guaranteeDays} jours qui suivent le paiement, sans avoir à vous justifier. Il suffit d'écrire au professeur.`;
+document.querySelectorAll("[data-learn]").forEach(a => a.href = SITE.learn);
+const ct = SITE.contact, wa = ct.whatsapp || PAY.contact || "";
+$("#contactLine").innerHTML = (wa || ct.email) ? `Contact : ${wa ? `WhatsApp <span class="contact">${esc(wa)}</span>` : ""}${wa && ct.email ? " · " : ""}${ct.email ? `<span class="contact">${esc(ct.email)}</span>` : ""}` : "";
+
+/* hero graph: f(x) = x^3 - 3x with its tangent at a moving point */
+(function () {
+  const X = x => 200 + x * 75, Y = y => 150 - y * 30, f = x => x * x * x - 3 * x, df = x => 3 * x * x - 3;
+  let d = ""; for (let x = -2.3; x <= 2.31; x += 0.05) d += (d ? "L" : "M") + X(x).toFixed(1) + " " + Y(f(x)).toFixed(1);
+  $("#curve").setAttribute("d", d);
+  function at(a) {
+    const s = df(a), x1 = a - 0.9, x2 = a + 0.9;
+    const t = $("#tan"); t.setAttribute("x1", X(x1)); t.setAttribute("y1", Y(f(a) + s * (x1 - a))); t.setAttribute("x2", X(x2)); t.setAttribute("y2", Y(f(a) + s * (x2 - a)));
+    $("#pt").setAttribute("cx", X(a)); $("#pt").setAttribute("cy", Y(f(a)));
+    $("#slope").textContent = `x = ${a.toFixed(2)}   pente f'(x) = ${s.toFixed(2)}`;
+    $("#lab").textContent = "";
+  }
+  at(1.6);
+  if (window.matchMedia && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    let t0 = performance.now();
+    (function loop(t) { at(1.6 * Math.cos((t - t0) / 3200)); requestAnimationFrame(loop); })(t0);
+  }
+})();
+</script>
+</body>
+</html>
