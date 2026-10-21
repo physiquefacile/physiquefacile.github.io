@@ -4,7 +4,23 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="Teacher dashboard to track unit progress, scores and exam review for AP Precalculus and AP Calculus AB.">
-<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}</style>
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}.rep{background:#fff;color:#16223A;border:1px solid var(--line);border-radius:10px;padding:22px;display:grid;gap:14px;max-width:760px;margin:0 auto;font-size:15px}
+.rep h2{color:#16223A}.rep .rmuted{color:#5B6880}
+.rep-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-end;border-bottom:3px solid #2A55D9;padding-bottom:10px}
+.rep-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.rep-kpis div{border:1px solid #CDD6E2;border-radius:8px;padding:10px}
+.rep-kpis b{display:block;font-family:var(--f-display);font-size:1.6rem;line-height:1.1}
+.rep-bars{display:grid;gap:7px}
+.rep-bar{display:grid;grid-template-columns:2.6em 1fr 8em;gap:10px;align-items:center;font-size:.9rem}
+.rep-bar i{display:block;height:9px;border-radius:5px;background:#E3E8EF;position:relative;overflow:hidden}
+.rep-bar i::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--w);background:#2A55D9;border-radius:5px}
+.rep table{width:100%;border-collapse:collapse;font-size:.9rem}.rep td,.rep th{padding:5px 6px;border-bottom:1px solid #E3E8EF;text-align:left}.rep .r{text-align:right}
+.rep textarea{font:inherit;width:100%;min-height:80px;border:1px solid #CDD6E2;border-radius:8px;padding:8px;color:#16223A;background:#fff}
+.rep .comment{border-left:4px solid #F4C430;padding:4px 10px;font-style:italic;white-space:pre-wrap}
+.rep-tools{display:flex;flex-wrap:wrap;gap:8px;align-items:end;max-width:760px;margin:0 auto 12px}
+@media print{body{background:#fff!important}header.top,#banner,nav.tabs,.rep-tools,.toast,.no-print{display:none!important}.wrap{padding:0!important;max-width:none}.rep{border:0;padding:0;max-width:none}.rep textarea{display:none}.rep .comment.print-only{display:block!important}}
+.print-only{display:none}
+</style>
 <title>AP Math Tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@500&display=swap">
@@ -262,7 +278,7 @@ function render(){
     (!state.writable?'<div class="banner">Read only: you can view the tracker but not edit it.</div>':"");
   const m=$("#main");
   if(state.mode==="loading"){m.innerHTML='<div class="panel"><p class="muted">Loading tracker…</p></div>';return}
-  m.innerHTML=state.view==="class"?viewClass():state.view==="student"?viewStudent():state.view==="courses"?viewCourses():viewPlan();
+  m.innerHTML=state.report?viewReport():state.view==="class"?viewClass():state.view==="student"?viewStudent():state.view==="courses"?viewCourses():viewPlan();
   if(state.view==="student")drawChart();
 }
 
@@ -327,7 +343,7 @@ function viewStudent(){
   const today=key(new Date());
   return `<div style="display:grid;gap:18px">
     <div class="panel">
-      <label class="label" for="pick">Student</label>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><label class="label" for="pick">Student</label><button class="btn sm primary" id="openReport">Parent report (French)</button></div>
       <select id="pick">${list.map(x=>`<option value="${x.id}"${x.id===s.id?" selected":""}>${esc(x.name)}</option>`).join("")}</select>
       <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:baseline">
         <div><div class="label">Last 3 average</div><div class="num" style="font-size:1.6rem">${p==null?"—":p+"%"}</div></div>
@@ -468,6 +484,74 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#reader").hidde
 $("#zIn").addEventListener("click",()=>{if(pdoc){zoom=Math.min(2.5,zoom*1.25);layoutPdf()}});
 $("#zOut").addEventListener("click",()=>{if(pdoc){zoom=Math.max(.5,zoom/1.25);layoutPdf()}});
 
+
+/* ---------- monthly report for parents (French) ---------- */
+const MOIS=["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+const LVFR=["Pas commencé","En cours","Acquis","Maîtrisé"];
+const monthKey=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
+const monthName=k=>{const [y,m]=k.split("-");return MOIS[+m-1]+" "+y};
+function prevMonth(k){const [y,m]=k.split("-").map(Number);return monthKey(new Date(y,m-2,1))}
+function reportData(s,k){
+  const C=COURSES[s.course],sc=(s.scores||[]).filter(x=>String(x.d).startsWith(k)).sort((a,b)=>a.d<b.d?-1:1);
+  const pv=(s.scores||[]).filter(x=>String(x.d).startsWith(prevMonth(k)));
+  const avg=a=>a.length?Math.round(a.reduce((t,x)=>t+pct(x),0)/a.length):null;
+  const a=avg(sc),b=avg(pv);
+  const units=C.units.filter(u=>u.w).map(u=>({u,l:mastery(s,u.id)}));
+  const strong=units.filter(x=>x.l>=2).map(x=>"Unit "+x.u.n);
+  const work=[...units.filter(x=>x.l===1).map(x=>"Unit "+x.u.n+" ("+x.u.t+")"),...sc.filter(x=>pct(x)<60).map(x=>x.label.replace(/^(Quiz|Test): /,""))];
+  const p=studentAvgPct(s);
+  return {C,sc,a,b,units,strong,work:[...new Set(work)].slice(0,4),ap:p==null?null:apEstimate(s.course,p)};
+}
+function viewReport(){
+  const s=state.students.find(x=>x.id===state.report.id);if(!s){state.report=null;return viewStudent()}
+  const k=state.report.month,R=reportData(s,k),com=((s.reports||{})[k]||"");
+  const trend=R.a!=null&&R.b!=null?(R.a-R.b):null;
+  const months=[...new Set([monthKey(new Date()),...(s.scores||[]).map(x=>String(x.d).slice(0,7))])].sort().reverse();
+  return `<div class="rep-tools">
+      <label for="repMonth" style="display:grid;gap:2px;font-size:.8rem;color:var(--muted)">Month<select id="repMonth">${months.map(m=>`<option value="${m}"${m===k?" selected":""}>${monthName(m)}</option>`).join("")}</select></label>
+      <label for="repPhone" style="display:grid;gap:2px;font-size:.8rem;color:var(--muted);flex:1 1 160px">Parent WhatsApp<input id="repPhone" value="${esc(s.parentPhone||"")}" placeholder="221 77 000 00 00" inputmode="tel"></label>
+      <button class="btn" id="repCopy">Copy WhatsApp message</button>
+      ${s.parentPhone?`<a class="btn" id="repWa" target="_blank" rel="noopener" href="https://wa.me/${esc(String(s.parentPhone).replace(/\D/g,""))}?text=${encodeURIComponent(reportText(s,k))}">Open WhatsApp</a>`:""}
+      <button class="btn primary" id="repPrint">Print / save as PDF</button>
+      <button class="btn" id="repClose">Back</button>
+    </div>
+    <article class="rep">
+      <div class="rep-head"><div><div class="label" style="color:#2A55D9">AP Math Online · Rapport de progrès</div><h2 style="margin-top:4px">${esc(s.name)}</h2><div class="rmuted">${esc(R.C.name)} · ${monthName(k)}</div></div>
+        <div class="rmuted" style="text-align:right;font-size:.85rem">Dr Papa Touty Traoré<br>Examen : ${R.C.exam.toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long",year:"numeric"})}</div></div>
+      <div class="rep-kpis">
+        <div><span class="rmuted">Évaluations du mois</span><b class="num">${R.sc.length}</b></div>
+        <div><span class="rmuted">Moyenne du mois</span><b class="num">${R.a==null?"—":R.a+" %"}</b>${trend!=null?`<span style="color:${trend>=0?"#1F6F4A":"#C2412D"};font-weight:700">${trend>=0?"▲ +":"▼ "}${trend} pts</span> <span class="rmuted">vs ${MOIS[+prevMonth(k).split("-")[1]-1]}</span>`:""}</div>
+        <div><span class="rmuted">Score AP estimé</span><b class="num">${R.ap??"—"}<small style="font-size:.9rem"> /5</small></b><span class="rmuted" style="font-size:.78rem">indicatif</span></div>
+        <div><span class="rmuted">Jours avant l'examen</span><b class="num">${Math.max(0,daysUntil(R.C.exam))}</b></div>
+      </div>
+      <div><h3 style="margin:0 0 8px">Maîtrise des unités</h3><div class="rep-bars">${R.units.map(x=>`<div class="rep-bar"><span class="num">U${x.u.n}</span><i style="--w:${[4,36,70,100][x.l]}%"></i><span>${LVFR[x.l]}</span></div>`).join("")}</div></div>
+      <div><h3 style="margin:0 0 6px">Évaluations du mois</h3>${R.sc.length?`<table><thead><tr><th>Date</th><th>Évaluation</th><th class="r">Note</th><th class="r">%</th></tr></thead><tbody>${R.sc.map(x=>`<tr><td class="num">${new Date(x.d+"T12:00").toLocaleDateString("fr-FR",{day:"numeric",month:"short"})}</td><td>${esc(x.label)}</td><td class="r num">${x.pts}/${x.max}</td><td class="r num" style="color:${pct(x)<50?"#C2412D":"inherit"}">${pct(x)}</td></tr>`).join("")}</tbody></table>`:'<p class="rmuted" style="margin:0">Aucune évaluation enregistrée ce mois-ci.</p>'}</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+        <div><h3 style="margin:0 0 6px">Points forts</h3><p style="margin:0">${R.strong.length?esc(R.strong.join(", ")):'<span class="rmuted">À venir.</span>'}</p></div>
+        <div><h3 style="margin:0 0 6px">À retravailler en priorité</h3><p style="margin:0">${R.work.length?esc(R.work.join(" ; ")):'<span class="rmuted">Rien de particulier ce mois-ci.</span>'}</p></div>
+      </div>
+      <div><h3 style="margin:0 0 6px">Commentaire du professeur</h3>
+        <textarea id="repComment" class="no-print" placeholder="Votre commentaire pour les parents (il apparaît dans le rapport imprimé et le message WhatsApp)">${esc(com)}</textarea>
+        <div class="comment print-only">${esc(com)||"—"}</div></div>
+      <div class="rmuted" style="font-size:.8rem;border-top:1px solid #E3E8EF;padding-top:8px">Le score AP estimé est une indication à partir des dernières évaluations ; il ne préjuge pas du résultat à l'examen. AP® est une marque déposée du College Board, qui n'est pas affilié à AP Math Online.</div>
+    </article>`;
+}
+function saveReport(){
+  const ta=document.getElementById("repComment");if(!ta||!state.report)return;
+  const s=state.students.find(x=>x.id===state.report.id);if(!s)return;
+  const v=ta.value,r={...(s.reports||{})};if((r[state.report.month]||"")===v)return;
+  r[state.report.month]=v;s.reports=r;persist();
+  const pc=document.querySelector(".comment.print-only");if(pc)pc.textContent=v||"—";
+}
+function reportText(s,k){
+  const R=reportData(s,k),com=((s.reports||{})[k]||"").trim(),trend=R.a!=null&&R.b!=null?R.a-R.b:null;
+  return [`Bonjour, voici le rapport de progrès de ${s.name} en ${R.C.name} pour ${monthName(k)}.`,
+    `• Évaluations : ${R.sc.length}${R.a!=null?` · moyenne ${R.a} %`:""}${trend!=null?` (${trend>=0?"+":""}${trend} pts par rapport au mois précédent)`:""}`,
+    R.units.some(x=>x.l>0)?`• Unités : ${R.units.filter(x=>x.l>0).map(x=>"U"+x.u.n+" "+LVFR[x.l].toLowerCase()).join(", ")}`:"",
+    R.work.length?`• À retravailler : ${R.work.join(" ; ")}`:"",
+    com?`• Commentaire : ${com}`:"",
+    `Dr Papa Touty Traoré · AP Math Online`].filter(Boolean).join("\n");
+}
 /* ---------- data ---------- */
 const queues={};
 function queued(id,fn){const q=(queues[id]||Promise.resolve()).then(fn).catch(e=>{console.warn(e);if(e&&e.code==="invalid_argument"){state.writable=false;render()}toast(e&&e.code==="quota_exceeded"?"Storage is full: delete some data":"Could not save. Try again.")});queues[id]=q;return q}
@@ -563,9 +647,10 @@ function boot(){
 /* ---------- interactions ---------- */
 document.addEventListener("click",e=>{
   const pb=e.target.closest("[data-pdf]");if(pb){openPdf(pb.dataset.pdf,pb.dataset.title);return}
+  const wa=e.target.closest("#repWa");if(wa){saveReport();const s=state.students.find(x=>x.id===state.report.id);wa.href="https://wa.me/"+String(s.parentPhone||"").replace(/\D/g,"")+"?text="+encodeURIComponent(reportText(s,state.report.month));return}
   const t=e.target.closest("button,[data-open]");if(!t)return;
   if(t.dataset.course){state.course=t.dataset.course;state.sel=null;state.confirmDel=false;savePref();render();return}
-  if(t.dataset.view){state.view=t.dataset.view;state.confirmDel=false;savePref();render();return}
+  if(t.dataset.view){state.report=null;state.view=t.dataset.view;state.confirmDel=false;savePref();render();return}
   if(t.dataset.open){state.sel=t.dataset.open;state.view="student";state.confirmDel=false;savePref();render();window.scrollTo({top:0});return}
   if(t.dataset.lv){const [u,l]=t.dataset.lv.split(":"),s=state.students.find(x=>x.id===state.sel);if(!s)return;
     writeStudent(s,{progress:{...(s.progress||{}),[u]:+l}});return}
@@ -574,11 +659,18 @@ document.addEventListener("click",e=>{
   if(t.id==="exportBtn"){exportData();return}
   if(t.id==="copyQuiz"){const l=quizLink();try{navigator.clipboard.writeText(l).then(()=>toast("Link copied"),()=>toast("Select the link to copy it"))}catch(e){toast("Select the link to copy it")}return}
   if(t.id==="clearEx"){state.students=state.students.filter(x=>!/\(example\)$/.test(x.name));state.sel=null;persist();render();toast("Example students removed");return}
+  if(t.id==="openReport"){state.report={id:state.sel,month:monthKey(new Date())};render();window.scrollTo({top:0});return}
+  if(t.id==="repClose"){saveReport();state.report=null;render();return}
+  if(t.id==="repPrint"){saveReport();window.print();return}
+  if(t.id==="repCopy"){saveReport();const s=state.students.find(x=>x.id===state.report.id),txt=reportText(s,state.report.month);try{navigator.clipboard.writeText(txt).then(()=>toast("Message copied"),()=>toast("Copy blocked: select the text in the report"))}catch(e){toast("Copy blocked")}return}
   if(t.id==="delAsk"){state.confirmDel=true;render();return}
   if(t.id==="delNo"){state.confirmDel=false;render();return}
   if(t.id==="delYes"){delStudent(state.sel);return}
 });
 document.addEventListener("change",e=>{
+  if(e.target.id==="repMonth"){saveReport();state.report.month=e.target.value;render();return}
+  if(e.target.id==="repPhone"){saveReport();const s=state.students.find(x=>x.id===state.report.id);if(s)writeStudent(s,{parentPhone:e.target.value.trim()});return}
+  if(e.target.id==="repComment"){saveReport();return}
   if(e.target.id==="pick"){state.sel=e.target.value;state.confirmDel=false;render()}
   if(e.target.id==="importFile"&&e.target.files[0]){importFile(e.target.files[0]);e.target.value=""}
   if(e.target.dataset.week)togglePlan(e.target.dataset.week,e.target.checked);
