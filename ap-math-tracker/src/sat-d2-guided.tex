@@ -1,0 +1,208 @@
+%% Guided notes, SAT Math, Domain 2: Advanced Math (skills 2.1 to 2.3).
+\newcommand{\gr}[2]{\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,#1]#2\end{axis}\end{tikzpicture}\end{center}}
+\newcommand{\pt}[1]{\node[circle,fill=apblue,inner sep=1.5pt] at (axis cs:#1){};}
+
+%%DOC 2.1 | Equivalent Expressions
+\goals{\item Add, subtract and multiply polynomials.
+\item Factor with a common factor, a difference of squares, a perfect square and a trinomial.
+\item Use exponent rules and rational exponents, and simplify rational expressions.}
+\vocab{polynomial, like terms, factor, difference of squares, perfect square trinomial, rational exponent, rational expression, excluded value.}
+
+\subsection*{1. Operations on polynomials}
+\begin{keyidea}
+To subtract a polynomial, distribute the \fillin{minus sign} to every term. To multiply, multiply \fillin{each term} of the first factor by each term of the second, then combine \fillin{like terms}.
+\end{keyidea}
+
+\ex{Example 1}
+Simplify $(3x^2-2x+5)-(x^2+4x-1)$ and $(2x+3)(x-4)$.
+\begin{workspace}[2.4cm]
+$3x^2-2x+5-x^2-4x+1=2x^2-6x+6$. \quad $(2x+3)(x-4)=2x^2-8x+3x-12=2x^2-5x-12$.
+\end{workspace}
+
+\subsection*{2. Factoring patterns}
+\begin{keyidea}
+\begin{tabular}{@{}ll@{}}
+Difference of squares: & $a^2-b^2=$ \fillin{$(a-b)(a+b)$}\\
+Perfect squares: & $a^2+2ab+b^2=$ \fillin{$(a+b)^2$}, \quad $a^2-2ab+b^2=$ \fillin{$(a-b)^2$}\\
+Trinomial $x^2+bx+c$: & find two numbers with product \fillin{$c$} and sum \fillin{$b$}
+\end{tabular}
+\end{keyidea}
+
+\ex{Example 2}
+Factor $9x^2-25$, $\;4x^2-12x+9$ and $x^2-5x-14$.
+\begin{workspace}[2.4cm]
+$(3x-5)(3x+5)$. \quad $(2x-3)^2$ since $2(2x)(3)=12x$. \quad $-7$ and $2$ have product $-14$ and sum $-5$: $(x-7)(x+2)$.
+\end{workspace}
+
+\ex{Example 3 \textbullet\ Matching coefficients}
+If $(ax+3)(2x-5)=6x^2+bx-15$ for all $x$, find $a$ and $b$.
+\begin{workspace}[2.2cm]
+Expand: $2ax^2+(6-5a)x-15$. So $2a=6$, $a=3$, and $b=6-5(3)=-9$.
+\end{workspace}
+
+\subsection*{3. Exponents and radicals}
+\begin{keyidea}
+$x^a\cdot x^b=$ \fillin{$x^{a+b}$}, \quad $\dfrac{x^a}{x^b}=$ \fillin{$x^{a-b}$}, \quad $(x^a)^b=$ \fillin{$x^{ab}$}, \quad $x^{-a}=\dfrac{1}{x^a}$, \quad $x^{m/n}=$ \fillin{$\sqrt[n]{x^m}$}.
+\end{keyidea}
+
+\ex{Example 4}
+Simplify $(2x^3y)(3x^2y^4)$ and write $x^{3/4}$ with a radical.
+\begin{workspace}[1.8cm]
+$6x^5y^5$. \quad $x^{3/4}=\sqrt[4]{x^3}$ (the denominator is the index of the root).
+\end{workspace}
+
+\subsection*{4. Rational expressions}
+\begin{keyidea}
+Factor the numerator and the denominator, then cancel common \fillin{factors} (never terms). To add fractions, use a common \fillin{denominator}.
+\end{keyidea}
+
+\ex{Example 5}
+Simplify $\dfrac{x^2-9}{x^2+5x+6}$ and $\dfrac{1}{x-1}+\dfrac{2}{x+1}$.
+\begin{workspace}[2.6cm]
+$\dfrac{(x-3)(x+3)}{(x+2)(x+3)}=\dfrac{x-3}{x+2}$ for $x\neq-3,-2$. \quad $\dfrac{(x+1)+2(x-1)}{(x-1)(x+1)}=\dfrac{3x-1}{x^2-1}$.
+\end{workspace}
+
+\begin{aptip}[SAT tip]
+To check that two expressions are equivalent, graph both in Desmos: equivalent expressions give the same graph. Or substitute a value such as $x=2$ in each.
+\end{aptip}
+
+\begin{mistakes}
+\begin{itemize}
+\item $(x+3)^2\neq x^2+9$: the middle term $6x$ is missing.
+\item Cancelling terms: $\dfrac{x+3}{x+5}$ does not simplify to $\dfrac35$.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. $x^2+8x+16=$ \fillin{$(x+4)^2$}. \quad 2. $x^{1/2}\cdot x^{3/2}=$ \fillin{$x^2$}. \quad 3. $25x^2-1=$ \fillin{$(5x-1)(5x+1)$}.
+\end{quickcheck}
+
+%%DOC 2.2 | Nonlinear Equations and Systems
+\goals{\item Solve quadratic equations by factoring, square roots and the quadratic formula.
+\item Use the discriminant to count real solutions.
+\item Solve radical, rational, absolute value and exponential equations, and linear-quadratic systems.}
+\vocab{quadratic equation, zero product property, quadratic formula, discriminant, extraneous solution, absolute value, system.}
+
+\subsection*{1. Quadratic equations}
+\begin{keyidea}
+For $ax^2+bx+c=0$: \[x=\frac{\fillin{$-b\pm\sqrt{b^2-4ac}$}}{\fillin{$2a$}}\]
+The discriminant $D=b^2-4ac$: $D>0$ gives \fillin{two} real solutions, $D=0$ gives \fillin{one}, $D<0$ gives \fillin{none}.\\
+Sum of the solutions $=-\frac ba$; product $=\frac ca$.
+\end{keyidea}
+
+\ex{Example 1 \textbullet\ Three methods}
+Solve $x^2-5x-14=0$, $\;(x-3)^2=25$ and $x^2-4x-1=0$.
+\begin{workspace}[2.6cm]
+$(x-7)(x+2)=0$: $x=7$ or $x=-2$. \quad $x-3=\pm5$: $x=8$ or $x=-2$. \quad $x=\frac{4\pm\sqrt{16+4}}{2}=2\pm\sqrt5$.
+\end{workspace}
+
+\ex{Example 2 \textbullet\ Discriminant}
+For which $k$ does $x^2+kx+9=0$ have exactly one solution? How many solutions does $2x^2-3x+5=0$ have?
+\begin{workspace}[2.2cm]
+$k^2-36=0$: $k=6$ or $k=-6$. \quad $D=9-40=-31<0$: no real solution.
+\end{workspace}
+
+\subsection*{2. Other equations}
+\begin{keyidea}
+\textbf{Radical}: isolate the root, square both sides, and \fillin{check} every answer: squaring can create \fillin{extraneous} solutions.\\
+\textbf{Rational}: multiply by the common denominator; reject values that make a denominator \fillin{zero}.\\
+\textbf{Absolute value}: $|A|=k$ with $k\ge0$ means $A=k$ or $A=$ \fillin{$-k$}.\\
+\textbf{Exponential}: write both sides with the same \fillin{base}, then set the exponents equal.
+\end{keyidea}
+
+\ex{Example 3}
+Solve $\sqrt{2x+3}=x$, $\;\dfrac{5}{x-2}=\dfrac3x$, $\;|x-4|=6$ and $2^{x+1}=32$.
+\begin{workspace}[3cm]
+$2x+3=x^2 \Rightarrow (x-3)(x+1)=0$; $x=-1$ fails ($\sqrt1\neq-1$), so $x=3$.\\
+$5x=3(x-2) \Rightarrow x=-3$. \quad $x-4=\pm6$: $x=10$ or $x=-2$. \quad $32=2^5$: $x+1=5$, $x=4$.
+\end{workspace}
+
+\subsection*{3. Linear-quadratic systems}
+\begin{keyidea}
+Substitute the linear equation into the quadratic one and solve the resulting quadratic. Its number of real solutions is the number of \fillin{intersection points}.
+\end{keyidea}
+
+\ex{Example 4}
+Solve $y=x^2$ and $y=4x-4$.
+\gr{xmin=-1.5,xmax=4.5,ymin=-1.5,ymax=9.5,width=5.5cm,height=5.6cm}{\addplot[apblue,very thick,domain=-1.5:3.1,samples=60]{x^2};\addplot[apred,very thick,domain=0.5:3.3]{4*x-4};\pt{2,4}}
+\begin{workspace}[1.8cm]
+$x^2=4x-4 \Rightarrow (x-2)^2=0$: one solution, $(2,4)$. The line is tangent to the parabola.
+\end{workspace}
+
+\begin{aptip}[SAT tip]
+In Desmos, graph each side of an equation as $y=\dots$ and read the intersections: they are the solutions. This is the fastest check for extraneous solutions too.
+\end{aptip}
+
+\begin{quickcheck}
+1. The sum of the solutions of $x^2-7x+10=0$ is \fillin{$7$}. \quad 2. $\sqrt{x}=-3$ has \fillin{no} solution. \quad 3. $3^{x}=81$ gives $x=$ \fillin{$4$}.
+\end{quickcheck}
+
+%%DOC 2.3 | Nonlinear Functions
+\goals{\item Read the vertex, intercepts and extreme value of a quadratic function in each form.
+\item Write and interpret exponential growth and decay models.
+\item Evaluate compositions and describe transformations of graphs.}
+\vocab{vertex, axis of symmetry, standard, vertex and factored forms, exponential growth, decay, growth factor, composition, translation.}
+
+\subsection*{1. Quadratic functions}
+\begin{keyidea}
+\begin{tabular}{@{}ll@{}}
+Vertex form $a(x-h)^2+k$: & vertex \fillin{$(h,k)$}; minimum $k$ if $a>0$, maximum if $a<0$\\
+Factored form $a(x-p)(x-q)$: & $x$-intercepts \fillin{$p$ and $q$}; vertex at $x=\frac{p+q}2$\\
+Standard form $ax^2+bx+c$: & $y$-intercept \fillin{$c$}; vertex at $x=$ \fillin{$-\frac{b}{2a}$}
+\end{tabular}
+\end{keyidea}
+
+\ex{Example 1}
+Find the vertex of $f(x)=x^2-6x+5$ and its $x$-intercepts.
+\begin{workspace}[2cm]
+$x=-\frac{-6}{2}=3$, $f(3)=9-18+5=-4$: vertex $(3,-4)$. $(x-1)(x-5)=0$: intercepts $1$ and $5$.
+\end{workspace}
+
+\ex{Example 2 \textbullet\ Projectile}
+A ball's height in feet is $h(t)=-16t^2+64t+5$. Find the maximum height and when it occurs.
+\begin{workspace}[2cm]
+$t=-\frac{64}{2(-16)}=2$ s; $h(2)=-64+128+5=69$ ft. The $5$ is the starting height.
+\end{workspace}
+
+\ex{Example 3 \textbullet\ From a graph}
+\gr{xmin=-2.5,xmax=4.5,ymin=-5,ymax=6,width=5.5cm,height=5.4cm}{\addplot[apblue,very thick,domain=-2:4,samples=60]{x^2-2*x-3};\pt{-1,0}\pt{3,0}\pt{1,-4}}
+Write an equation of the parabola shown.
+\begin{workspace}[1.6cm]
+Intercepts $-1$ and $3$: $y=a(x+1)(x-3)$. At $x=1$: $a(2)(-2)=-4$, $a=1$. So $y=(x+1)(x-3)$.
+\end{workspace}
+
+\subsection*{2. Exponential functions}
+\begin{keyidea}
+$f(x)=a\cdot b^{x}$: $a$ is the \fillin{initial value}; $b>1$ is growth, $0<b<1$ is decay.\\
+Increase by $r\%$: $b=$ \fillin{$1+r$}; decrease by $r\%$: $b=$ \fillin{$1-r$}.\\
+Multiplied by $m$ every $p$ units of time: $a\cdot m^{t/p}$.
+\end{keyidea}
+
+\ex{Example 4}
+A car worth $\$20{,}000$ loses $15\%$ of its value each year. A population of $500$ bacteria triples every $4$ hours. Write both models.
+\begin{workspace}[2cm]
+$V(t)=20000(0.85)^t$. \quad $P(t)=500\cdot3^{t/4}$.
+\end{workspace}
+
+\subsection*{3. Composition and transformations}
+\begin{keyidea}
+$f(g(x))$: evaluate the \fillin{inside} function first.\\
+$y=f(x-h)+k$ moves the graph of $f$ \fillin{right} $h$ and \fillin{up} $k$ (for $h,k>0$).
+\end{keyidea}
+
+\ex{Example 5}
+If $f(x)=x^2+1$ and $g(x)=2x-3$, find $f(g(2))$. Describe $y=f(x+4)-1$.
+\begin{workspace}[1.8cm]
+$g(2)=1$, $f(1)=2$. \quad The graph of $f$ moves $4$ left and $1$ down.
+\end{workspace}
+
+\begin{mistakes}
+\begin{itemize}
+\item $f(x-3)$ moves the graph right, not left.
+\item A $15\%$ decrease uses $0.85$, not $0.15$.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. The minimum of $g(x)=(x-2)^2+7$ is \fillin{$7$}. \quad 2. If $f(x)=a\cdot2^x$ and $f(3)=40$, then $a=$ \fillin{$5$}.
+\end{quickcheck}

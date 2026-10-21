@@ -93,7 +93,10 @@ window.COURSE_LIB={
         W("1.3","Linear Equations in Two Variables","A"),
         W("1.4","Systems of Two Linear Equations","A"),
         W("1.5","Linear Inequalities in One or Two Variables","A")]},
-      {id:"d2",n:"2",t:"Advanced Math",lessons:[L("2.1","Equivalent Expressions"),L("2.2","Nonlinear Equations and Systems of Equations"),L("2.3","Nonlinear Functions")]},
+      {id:"d2",n:"2",t:"Advanced Math",plan:"d2-",lessons:[
+        W("2.1","Equivalent Expressions","A"),
+        W("2.2","Nonlinear Equations and Systems of Equations","A"),
+        W("2.3","Nonlinear Functions","A")]},
       {id:"d3",n:"3",t:"Problem-Solving and Data Analysis",lessons:[L("3.1","Ratios, Rates, Proportions, and Units"),L("3.2","Percentages"),L("3.3","One-Variable Data: Distributions and Measures"),L("3.4","Two-Variable Data: Models and Scatterplots"),L("3.5","Probability and Conditional Probability"),L("3.6","Inference from Sample Statistics and Margin of Error"),L("3.7","Evaluating Statistical Claims")]},
       {id:"d4",n:"4",t:"Geometry and Trigonometry",lessons:[L("4.1","Area and Volume"),L("4.2","Lines, Angles, and Triangles"),L("4.3","Right Triangles and Trigonometry"),L("4.4","Circles")]},
       {id:"mt",n:"T",t:"Full Practice Tests",free:true,plan:"mt-",lessons:[],
