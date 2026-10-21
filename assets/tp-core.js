@@ -342,7 +342,8 @@
       tb.innerHTML = rows.length ? rows.map((r, i) => { const rc = p.cells(r, i).map(v => `<td>${v}</td>`), fc = p.fill.map(c => `<td class="fillc${susp(c, r, i) ? " susp" : ""}"${susp(c, r, i) ? ` title="${esc(c.warn || "Valeur très éloignée : vérifie ton calcul.")}"` : ""}><input data-f="${k}:${i}:${c.k}" value="${esc((S.fill[k][i] || {})[c.k] ?? "")}" inputmode="decimal" aria-label="${esc(c.h)}, ligne ${i + 1}"${lock ? " disabled" : ""}></td>`);
         return `<tr>${(nar ? [rc[0], ...fc, ...rc.slice(1)] : [...rc, ...fc]).join("")}<td class="x noprint">${lock ? "" : `<button type="button" data-del="${k}:${i}" aria-label="Supprimer la mesure ${i + 1}">×</button>`}</td></tr>`; }).join("")
         : `<tr class="empty"><td colspan="${p.cols.length + p.fill.length + 1}">Aucune mesure : fais les mesures sur la paillasse ci-dessus.</td></tr>`;
-      const m = $("#" + T.id + "-min-" + k); m.textContent = `${rows.length} mesure${rows.length > 1 ? "s" : ""} / ${p.min} minimum`; m.className = "minm" + (rows.length >= p.min ? " ok" : "");
+      const m = $("#" + T.id + "-min-" + k); const miss = p.need ? p.need.vals.filter(v => !rows.some(r => r[p.need.k] === v)).map(v => p.need.lab(v)) : [];   // éléments à mesurer au moins une fois (ex. R₁, R₂, R₃)
+      m.textContent = `${rows.length} mesure${rows.length > 1 ? "s" : ""} / ${p.min} minimum` + (miss.length ? ` — à mesurer aussi : ${miss.join(", ")}` : ""); m.className = "minm" + (rows.length >= p.min && !miss.length ? " ok" : "");
       plotPart(k); save(); updQD();
       const sh = $("#" + T.id + "-sh-" + k), tw = tb.closest(".tblwrap"); if (sh && tw) { sh.hidden = !(rows.length && tw.scrollWidth > tw.clientWidth + 4); sh.textContent = nar ? "↔ Fais glisser le tableau vers la gauche pour voir toutes tes mesures." : "↔ Fais glisser le tableau vers la gauche pour voir et remplir toutes les colonnes colorées."; }
     };
@@ -657,5 +658,5 @@
       const T = TPS.find(t => t.id === cur); if (T && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 58, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 59, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();
