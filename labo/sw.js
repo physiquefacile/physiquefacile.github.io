@@ -1,6 +1,6 @@
 /* Service worker du Labo Virtuel de Physique (/labo/) : ouverture rapide et TP hors connexion.
    Caches préfixés « labo- » : le site principal ne les touche pas. Changer VERSION à chaque mise à jour. */
-const VERSION = "labo-59-1";
+const VERSION = "labo-60-1";
 const SHELL = "labo-shell-" + VERSION, PDFS = "labo-pdf-v1";
 const SHELL_FILES = ["./", "index.html", "tp.html", "auteur.html", "manifest.webmanifest", "../assets/site.css", "../assets/acces.js", "../assets/config.js", "../assets/tp-core.js", "../assets/tp-cr.js", "../assets/tp-elec.js", "../assets/tp-meca.js", "../assets/tp-mesures.js", "../assets/tp-optique.js", "../assets/tp-oscillo.js", "../assets/tp-qd.js", "../icons/icon-192.png", "../icons/apple-touch-icon.png"];
 const DOCS = ["docs/Fascicule_TP_Physique_L1.pdf"];

@@ -4,7 +4,7 @@
 (function () {
   "use strict";
   /* page de début de chaque TP dans le fascicule (docs/Fascicule_TP_Physique_L1.pdf, numéro de page du fichier) */
-  const FASC = { 1: 11, 2: 17, 3: 22, 4: 27, 5: 33, 6: 39, 7: 45, 8: 51, 9: 55 };
+  const FASC = { 1: 11, 2: 17, 3: 22, 4: 27, 5: 33, 6: 39, 7: 46, 8: 52, 9: 56 };
   const $ = s => document.querySelector(s);
   const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
   const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -658,5 +658,5 @@
       const T = TPS.find(t => t.id === cur); if (T && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 59, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 60, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();
