@@ -34,6 +34,7 @@ main .wrap{padding-block:22px 10px;display:grid;gap:18px}
 .fiche .mat{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
 .mat li{font-family:var(--f-head);font-size:.82rem;background:var(--tint);color:var(--fg);border-radius:6px;padding:3px 9px}
 .formula{font-family:var(--f-mono);font-size:.9rem;background:var(--tint);border-radius:8px;padding:8px 12px;overflow-x:auto;white-space:pre}
+.formula.aide{white-space:normal;font-family:var(--f-head,inherit);font-size:.9rem;line-height:1.55;overflow-wrap:anywhere}
 .warn{background:var(--tint2);border-radius:8px;padding:8px 12px;font-size:.95rem}
 .lab{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;align-items:start}
 .bench{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:10px;display:grid;gap:8px;min-width:0}
@@ -172,20 +173,20 @@ fieldset.qcm input{width:auto;margin-top:4px;accent-color:var(--accent)}
 <footer><div class="wrap">Université Souleymane Niang de Matam • <a href="auteur.html">Plateforme développée par le Dr P. T. Traoré</a> • Les mesures sont simulées avec une incertitude réaliste. Chaque étudiant connecté reçoit son propre matériel : deux étudiants n'obtiennent pas les mêmes valeurs. • <a href="reparer.html?retour=tp.html">Affichage incomplet ? Mettre le site à jour</a></div></footer>
 
 <script>window.__tpErr = []; addEventListener("error", function (e) { window.__tpErr.push((e.message || "erreur") + " (" + String(e.filename || "").split("/").pop() + ":" + (e.lineno || "") + ")"); });</script>
-<script src="assets/config.js?v=55"></script>
-<script src="assets/tp-cr.js?v=55"></script>
-<script src="assets/tp-qd.js?v=55"></script>
-<script src="assets/tp-core.js?v=55"></script>
-<script src="assets/tp-meca.js?v=55"></script>
-<script src="assets/tp-elec.js?v=55"></script>
-<script src="assets/tp-oscillo.js?v=55"></script>
-<script src="assets/tp-mesures.js?v=55"></script>
-<script src="assets/tp-optique.js?v=55"></script>
+<script src="assets/config.js?v=56"></script>
+<script src="assets/tp-cr.js?v=56"></script>
+<script src="assets/tp-qd.js?v=56"></script>
+<script src="assets/tp-core.js?v=56"></script>
+<script src="assets/tp-meca.js?v=56"></script>
+<script src="assets/tp-elec.js?v=56"></script>
+<script src="assets/tp-oscillo.js?v=56"></script>
+<script src="assets/tp-mesures.js?v=56"></script>
+<script src="assets/tp-optique.js?v=56"></script>
 <script>
 /* Vérifie que tous les fichiers de la page sont de la même version ; sinon (copie ancienne gardée par le
    navigateur après une connexion lente), propose une remise à jour en un clic au lieu d'une page vide. */
 (function () {
-  var BUILD = 55;
+  var BUILD = 56;
   function repair(why) {
     var b = document.getElementById("tpLogin"); if (!b) return;
     var det = (window.__tpErr || []).concat(why ? [why] : []).join(" ; ");

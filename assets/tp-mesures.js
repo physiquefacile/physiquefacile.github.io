@@ -29,6 +29,7 @@
     st.textContent = `.ms-seg{flex-wrap:wrap}.ms-seg button{min-width:30%}
 .ms-board svg{width:100%;height:auto;display:block;background:var(--plot-bg);border-radius:10px;user-select:none}
 .ms-board .pos{cursor:pointer}.ms-board .pos:hover circle{stroke:var(--saff);stroke-width:3}
+.dtab{border-collapse:collapse;font-size:.86rem;margin:6px 0 10px;display:block;overflow-x:auto}.dtab th,.dtab td{border:1px solid var(--line);padding:4px 7px;white-space:nowrap;text-align:left}.dtab th{background:var(--tint)}
 .ms-board .sock{cursor:pointer}.ms-board .sock:hover .ring{stroke:var(--saff);stroke-width:4}`;
     document.head.appendChild(st);
   }
@@ -39,7 +40,10 @@
     objectifs: "utiliser un multimètre numérique en voltmètre, en ampèremètre et en ohmmètre ; choisir la fonction, la borne et le calibre adaptés ; brancher correctement l'appareil (dérivation ou série) ; évaluer l'incertitude d'une mesure à partir de la précision donnée par le constructeur et écrire correctement un résultat.",
     materiel: ["Multimètre numérique 2000 points (3 ½ digits)", "Pile 1,5 V, pile 9 V et capteur de faible tension", "Résistors R₁, R₂ et R₃ (code des couleurs)", "Fils et pointes de touche"],
     theorie: `<h4>Le multimètre numérique</h4><p>Un même appareil sert de <b>voltmètre</b> (V⎓), d'<b>ampèremètre</b> (A⎓) et d'<b>ohmmètre</b> (Ω). On choisit la fonction et le <b>calibre</b> avec le commutateur, et la <b>borne</b> où l'on branche la pointe rouge : <b>VΩ</b> pour les tensions et les résistances, <b>mA</b> pour les intensités jusqu'à 200 mA (protégée par un fusible), <b>10 A</b> pour les fortes intensités. La pointe noire est toujours sur <b>COM</b>.</p>
-      <h4>Calibre, résolution et dépassement</h4><p>Un multimètre « 2000 points » affiche au plus 1999 unités. Le <b>calibre</b> est la plus grande valeur mesurable ; la <b>résolution D</b> (un « digit ») est la plus petite variation affichée, c'est-à-dire la valeur du dernier chiffre : D = calibre / 2000. Sur le calibre 20 V, l'appareil affiche par exemple 9.27 : D = 0,01 V.</p>
+      <h4>Calibre, résolution et dépassement</h4><p>Un multimètre « 2000 points » affiche au plus 1999 unités. Le <b>calibre</b> est la plus grande valeur mesurable ; la <b>résolution D</b> (un « digit ») est la plus petite variation affichée, c'est-à-dire la valeur d'une unité du <b>dernier chiffre affiché</b>. Sur le calibre 20 V, l'appareil affiche par exemple 9.27 : D = 0,01 V. En général D = calibre / 2000, <b>sauf</b> sur les calibres 600 V et 10 A, limités par l'appareil : on y lit 9 V (D = 1 V) et 0.01 A (D = 0,01 A = 10 mA).</p>
+      <table class="dtab"><tr><th>Voltmètre</th><td>200 mV : D = 0,1 mV = 0,0001 V</td><td>2 V : 0,001 V</td><td>20 V : 0,01 V</td><td>200 V : 0,1 V</td><td>600 V : 1 V</td></tr>
+      <tr><th>Ampèremètre</th><td>200 µA : D = 0,1 µA = 0,0001 mA</td><td>2 mA : 0,001 mA</td><td>20 mA : 0,01 mA</td><td>200 mA : 0,1 mA</td><td>10 A : 0,01 A = 10 mA</td></tr>
+      <tr><th>Ohmmètre</th><td>200 Ω : D = 0,1 Ω</td><td>2 kΩ : 1 Ω</td><td>20 kΩ : 10 Ω</td><td>200 kΩ : 100 Ω</td><td>2 MΩ : 1000 Ω</td></tr></table>
       <p>Si la grandeur dépasse le calibre, l'appareil affiche <b>OL</b> (ou un « 1 » seul à gauche) : il faut prendre un calibre plus grand. On commence toujours par le plus grand calibre, puis on descend.</p>
       <h4>Précision et incertitude</h4><p>Le constructeur donne la précision sous la forme ±(p % de la lecture + n digits). L'incertitude absolue sur une lecture L est donc</p>
       <div class="formula">ΔX = p % · L + n · D</div>
@@ -239,7 +243,7 @@
         const C = S.f === "OFF" ? null : CAL[S.f][S.c];
         $("#msLcd").textContent = S.f === "OFF" ? "—" : cur.txt === "OL" ? "OL (dépassement)" : cur.txt + " " + C.u;
         $("#msFn").textContent = S.f === "OFF" ? "arrêt" : FN[S.f].split(" (")[0] + " — " + C.n;
-        $("#msD").textContent = C ? fr(C.d * C.k, C.dec) + " " + C.u : "—";
+        { const bu = { V: "V", A: "mA", O: "Ω" }[S.f], base = C ? fr(C.d, Math.max(0, -Math.floor(Math.log10(C.d)))) + " " + bu : "—"; $("#msD").textContent = !C ? "—" : (C.u === bu ? base : base + " (" + fr(C.d * C.k, C.dec) + " " + C.u + ")"); }
         if (!silent) { if (cur.r.msg) T.msg(cur.r.msg, cur.r.bad ? "bad" : ""); else if (cur.txt === "OL") T.msg("Dépassement (OL) : la valeur est supérieure au calibre. Choisis un calibre plus grand.", "bad"); else T.msg(""); }
         T.draw();
       }

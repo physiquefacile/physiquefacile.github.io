@@ -107,17 +107,27 @@ window.TPCR = {
   },
   mesures: {
     parts: {
-      A: { min: 6, fill: [{ k: "D", h: "Résolution D (V)", ref: r => window.TP_MES.CAL.V[r.c].d, warn: "La résolution D est la valeur du dernier chiffre affiché sur ce calibre (calibre / 2000), en volts." }, { k: "dU", h: "ΔU = 0,5 %·U + 2 D (V)" }, { k: "rel", h: "ΔU/U (%)" }] },
-      B: { min: 3, fill: [{ k: "D", h: "Résolution D (mA)", ref: r => window.TP_MES.CAL.A[r.c].d, warn: "La résolution D est la valeur du dernier chiffre affiché sur ce calibre, en milliampères." }, { k: "dI", h: "ΔI = 1 %·I + 2 D (mA) ; calibre 10 A : 2 %·I + 5 D" }, { k: "rel", h: "ΔI/I (%)" }] },
-      C: { min: 4, fill: [{ k: "nom", h: "R nominale, code des couleurs (Ω)" }, { k: "D", h: "Résolution D (Ω)", ref: r => window.TP_MES.CAL.O[r.c].d, warn: "La résolution D est la valeur du dernier chiffre affiché sur ce calibre, en ohms." }, { k: "dR", h: "ΔR = 0,8 %·R + 3 D (Ω)" }, { k: "ecart", h: "Écart à la valeur nominale (%)" }] }
+      A: { min: 6, aide: "<b>D</b> = valeur d'une unité du dernier chiffre affiché : 200 mV → 0,0001 V ; 2 V → 0,001 V ; 20 V → 0,01 V ; 200 V → 0,1 V ; <b>600 V → 1 V</b>.<br><b>ΔU = 0,005 × U + 2 × D</b> (en V) ; <b>ΔU/U (%) = ΔU / U × 100</b>.<br>Exemple : 1,592 V sur le calibre 2 V : ΔU = 0,005 × 1,592 + 2 × 0,001 = 0,00996 V ; ΔU/U = 0,63 %.",
+        fill: [{ k: "D", h: "Résolution D (V)", ref: r => window.TP_MES.CAL.V[r.c].d, tol: 0.01, warn: "D est la valeur d'une unité du dernier chiffre affiché, en volts (600 V → 1 V ; 20 V → 0,01 V ; 2 V → 0,001 V)." },
+          { k: "dU", h: "ΔU = 0,5 %·U + 2 D (V)", ref: r => 0.005 * r.L + 2 * window.TP_MES.CAL.V[r.c].d, tol: 0.3, warn: "ΔU = 0,005 × U + 2 × D, en volts." },
+          { k: "rel", h: "ΔU/U (%)", ref: r => (0.005 * r.L + 2 * window.TP_MES.CAL.V[r.c].d) / r.L * 100, tol: 0.3, warn: "ΔU/U (%) = ΔU / U × 100." }] },
+      B: { min: 3, aide: "Travaille en <b>mA</b> : sur le calibre 10 A, une lecture de 0,02 A vaut 20 mA.<br><b>D</b> (en mA) : 2 mA → 0,001 ; 20 mA → 0,01 ; 200 mA → 0,1 ; <b>10 A → 0,01 A = 10 mA</b>.<br><b>ΔI = 0,01 × I + 2 × D</b> ; sur le calibre 10 A : <b>ΔI = 0,02 × I + 5 × D</b> ; <b>ΔI/I (%) = ΔI / I × 100</b>.<br>Exemple : 8,60 mA sur 20 mA : ΔI = 0,01 × 8,60 + 2 × 0,01 = 0,106 mA ; ΔI/I = 1,23 %.",
+        fill: [{ k: "D", h: "Résolution D (mA)", ref: r => window.TP_MES.CAL.A[r.c].d, tol: 0.01, warn: "D en milliampères : 20 mA → 0,01 mA ; 200 mA → 0,1 mA ; 10 A → 0,01 A = 10 mA." },
+          { k: "dI", h: "ΔI = 1 %·I + 2 D (mA) ; calibre 10 A : 2 %·I + 5 D", ref: r => r.c === 4 ? 0.02 * r.L + 5 * window.TP_MES.CAL.A[4].d : 0.01 * r.L + 2 * window.TP_MES.CAL.A[r.c].d, tol: 0.3, warn: "ΔI = 0,01 × I + 2 × D (calibre 10 A : 0,02 × I + 5 × D), avec I et D en mA." },
+          { k: "rel", h: "ΔI/I (%)", ref: r => (r.c === 4 ? 0.02 * r.L + 5 * window.TP_MES.CAL.A[4].d : 0.01 * r.L + 2 * window.TP_MES.CAL.A[r.c].d) / r.L * 100, tol: 0.3, warn: "ΔI/I (%) = ΔI / I × 100 (ΔI et I dans la même unité)." }] },
+      C: { min: 4, aide: "Travaille en <b>Ω</b> : 0,990 kΩ = 990 Ω.<br><b>Code des couleurs</b> : R<sub>nom</sub> = (10 × a + b) × 10<sup>c</sup> (a, b : 1<sup>er</sup> et 2<sup>e</sup> anneaux ; c : 3<sup>e</sup> anneau). Ex. jaune-violet-noir : 47 × 10⁰ = 47 Ω ; marron-noir-rouge : 10 × 10² = 1000 Ω. Écris un nombre (47, 1000…).<br><b>D</b> (en Ω) : 200 Ω → 0,1 ; 2 kΩ → 1 ; 20 kΩ → 10 ; 200 kΩ → 100 ; 2 MΩ → 1000.<br><b>ΔR = 0,008 × R + 3 × D</b> ; <b>écart (%) = |R − R<sub>nom</sub>| / R<sub>nom</sub> × 100</b>.",
+        fill: [{ k: "nom", h: "R nominale, code des couleurs (Ω)" },
+          { k: "D", h: "Résolution D (Ω)", ref: r => window.TP_MES.CAL.O[r.c].d, tol: 0.01, warn: "D en ohms : 200 Ω → 0,1 ; 2 kΩ → 1 ; 20 kΩ → 10 ; 200 kΩ → 100." },
+          { k: "dR", h: "ΔR = 0,8 %·R + 3 D (Ω)", ref: r => 0.008 * r.L + 3 * window.TP_MES.CAL.O[r.c].d, tol: 0.3, warn: "ΔR = 0,008 × R + 3 × D, avec R et D en ohms." },
+          { k: "ecart", h: "Écart à la valeur nominale (%)" }] }
     },
     calc: [
-      { k: "E1", h: "Partie A : tension de la pile 1,5 V mesurée sur le meilleur calibre", u: "V" },
-      { k: "dE1", h: "Incertitude ΔE₁ sur ce calibre", u: "V" },
-      { k: "I", h: "Partie B : intensité I mesurée sur le meilleur calibre", u: "mA" },
-      { k: "R2", h: "Partie C : résistance R₂ mesurée sur le meilleur calibre", u: "Ω" },
-      { k: "Ical", h: "Intensité calculée I = E₂/R₂ (E₂ : pile 9 V mesurée en partie A)", u: "mA" },
-      { k: "ecart", h: "Écart relatif entre I calculée et I mesurée", u: "%" }
+      { k: "E1", h: "Partie A : tension E₁ de la pile 1,5 V lue sur le meilleur calibre (le plus petit calibre sans OL)", u: "V" },
+      { k: "dE1", h: "Incertitude ΔE₁ = 0,005 × E₁ + 2 × D sur ce calibre", u: "V" },
+      { k: "I", h: "Partie B : intensité I lue sur le meilleur calibre (le plus petit calibre sans OL)", u: "mA" },
+      { k: "R2", h: "Partie C : résistance R₂ lue sur le meilleur calibre, en ohms", u: "Ω" },
+      { k: "Ical", h: "Intensité calculée I = E₂ / R₂ × 1000 (E₂ en V : pile 9 V lue en partie A sur le meilleur calibre ; R₂ en Ω)", u: "mA" },
+      { k: "ecart", h: "Écart relatif = |I calculée − I mesurée| / I calculée × 100", u: "%" }
     ],
     qcm: [
       { q: "Le voltmètre se branche :", o: ["en série avec le dipôle", "en dérivation, aux bornes du dipôle", "à la place du dipôle", "entre les bornes COM et 10 A"] },
