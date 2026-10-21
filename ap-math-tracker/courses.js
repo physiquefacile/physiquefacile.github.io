@@ -82,5 +82,22 @@ window.COURSE_LIB={
       {id:"u10",n:"10",t:"General Integral Applications",lessons:[L("10-1","General FTC Applications"),L("10-2","Integral Analysis"),L("10-3","General Absolute Extrema")]},
       {id:"u11",n:"11",t:"Area and Volume",lessons:[L("11-1","Area Under Two Curves"),L("11-2","Area Between Two Curves"),L("11-3","Volumes of Square Cross Sections"),L("11-4","Basic Volumes of Revolution"),L("11-5","Advanced Volumes of Revolution")]},
       {id:"u12",n:"12",t:"AP Test Review",lessons:[L("12-1","Final exam preparation, Units 1 to 5"),L("12-2","Final exam preparation, Units 6 to 11"),L("12-3","Full practice exam")]}
+    ]},
+  sat:{
+    name:"SAT Math",
+    /* units are the four SAT Math domains; free:true on a lesson opens that skill only; "mt" holds the full adaptive practice tests */
+    units:[
+      {id:"d1",n:"1",t:"Algebra",plan:"d1-",lessons:[
+        {...W("1.1","Linear Equations in One Variable","A"),free:true},
+        W("1.2","Linear Functions","A"),
+        W("1.3","Linear Equations in Two Variables","A"),
+        W("1.4","Systems of Two Linear Equations","A"),
+        W("1.5","Linear Inequalities in One or Two Variables","A")]},
+      {id:"d2",n:"2",t:"Advanced Math",lessons:[L("2.1","Equivalent Expressions"),L("2.2","Nonlinear Equations and Systems of Equations"),L("2.3","Nonlinear Functions")]},
+      {id:"d3",n:"3",t:"Problem-Solving and Data Analysis",lessons:[L("3.1","Ratios, Rates, Proportions, and Units"),L("3.2","Percentages"),L("3.3","One-Variable Data: Distributions and Measures"),L("3.4","Two-Variable Data: Models and Scatterplots"),L("3.5","Probability and Conditional Probability"),L("3.6","Inference from Sample Statistics and Margin of Error"),L("3.7","Evaluating Statistical Claims")]},
+      {id:"d4",n:"4",t:"Geometry and Trigonometry",lessons:[L("4.1","Area and Volume"),L("4.2","Lines, Angles, and Triangles"),L("4.3","Right Triangles and Trigonometry"),L("4.4","Circles")]},
+      {id:"mt",n:"T",t:"Full Practice Tests",free:true,plan:"mt-",lessons:[],
+        mocks:[{id:"sat-mt-1",t:"Practice Test 1",note:"Free diagnostic"}],
+        tests:[T("MT1M1","Test 1 · Module 1"),T("MT1H","Test 1 · Module 2, harder"),T("MT1E","Test 1 · Module 2, easier")]}
     ]}
 };

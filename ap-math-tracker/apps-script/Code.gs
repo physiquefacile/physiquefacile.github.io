@@ -17,7 +17,7 @@ var RESULT_HEADERS = ["Received", "Name", "Code", "Course", "Unit", "Quiz id", "
                       "Score", "Out of", "Percent", "Time (s)", "Answers", "Result id", "Sent from device at"];
 var STUDENT_HEADERS = ["Access code", "Name", "Phone (WhatsApp)", "Email", "Courses", "Amount (FCFA)", "Paid with",
                        "Transaction reference", "Status", "Requested", "Activated", "Note"];
-var COURSE_NAMES = { pc: "AP Precalculus", ab: "AP Calculus AB" };
+var COURSE_NAMES = { pc: "AP Precalculus", ab: "AP Calculus AB", sat: "SAT Math" };
 
 /* ------------------------------------------------------------------ setup */
 function setup() {
@@ -32,7 +32,7 @@ function setup() {
       ["Access ends", "2027-05-31", ""],
       ["Email for new payment requests", email, ""],
       ["", "", ""],
-      ["Class codes", "Label", "Gives full access to (pc, ab, or pc ab)"],
+      ["Class codes", "Label", "Gives full access to (pc, ab, sat, or several: pc ab)"],
       ["APPC2026", "AP Precalculus class", ""],
       ["APAB2026", "AP Calculus AB class", ""],
       ["", "", ""]
@@ -81,9 +81,11 @@ function settings_() {
 
 function parseCourses_(x) {
   var t = String(x || "").toLowerCase(), out = [];
-  if (/\b(both|all|tous|les deux)\b/.test(t)) return ["pc", "ab"];
+  if (/\b(all|tous|tout)\b/.test(t)) return ["pc", "ab", "sat"];
+  if (/\b(both|les deux)\b/.test(t)) out.push("pc", "ab");
   if (/pc|precalc/.test(t)) out.push("pc");
-  if (/ab|calc(?!ulus)|calculus ab/.test(t.replace(/precalc\w*/g, ""))) out.push("ab");
+  if (/ab|calc(?!ulus)|calculus ab/.test(t.replace(/precalc\w*/g, "")) && out.indexOf("ab") < 0) out.push("ab");
+  if (/sat/.test(t)) out.push("sat");
   return out;
 }
 
@@ -117,7 +119,7 @@ function identify_(rawCode) {
   var s = settings_();
   var expired = s.accessEnds && new Date() > s.accessEnds;
   if (s.teacherKey && code === s.teacherKey.toUpperCase())
-    return { type: "teacher", name: "Teacher", status: "Active", courses: ["pc", "ab"], keys: keys_() };
+    return { type: "teacher", name: "Teacher", status: "Active", courses: ["pc", "ab", "sat"], keys: keys_() };
   if (code in s.classes) {
     var c = s.classes[code], courses = expired ? [] : c.courses;
     return { type: "class", name: "", label: c.label, status: "Active", courses: courses, keys: keysFor_(courses) };
@@ -158,7 +160,7 @@ function doPost(e) {
   /* a student asks for full access after paying */
   if (d.action === "request") {
     var name = String(d.name || "").trim().slice(0, 80), phone = String(d.phone || "").trim().slice(0, 30);
-    var courses = (d.courses || []).filter(function (c) { return c === "pc" || c === "ab"; });
+    var courses = (d.courses || []).filter(function (c) { return COURSE_NAMES.hasOwnProperty(c); });
     var ref = String(d.ref || "").trim().slice(0, 60);
     if (!name || !phone || !courses.length || !ref) return json_({ ok: false, error: "missing" });
     var lock = LockService.getScriptLock(); lock.waitLock(10000);
@@ -196,7 +198,7 @@ function doPost(e) {
       }
       rs.appendRow([new Date(), nm, String(d.code).trim().toUpperCase(), d.course || "", d.unit || "", d.quiz || "",
                     String(d.title || "").slice(0, 120), d.kind || "", Number(d.score) || 0, Number(d.total) || 0,
-                    Number(d.percent) || 0, Number(d.seconds) || 0, String(d.answers || "").slice(0, 200), id, d.client || ""]);
+                    Number(d.percent) || 0, Number(d.seconds) || 0, String(d.answers || "").slice(0, 400), id, d.client || ""]);
     } finally { lk.releaseLock(); }
     return json_({ ok: true });
   }

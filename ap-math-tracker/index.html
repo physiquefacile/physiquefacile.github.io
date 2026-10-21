@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Teacher dashboard to track unit progress, scores and exam review for AP Precalculus and AP Calculus AB.">
+<meta name="description" content="Teacher dashboard to track unit progress, scores and exam review for AP Precalculus, AP Calculus AB and SAT Math.">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}.rep{background:#fff;color:#16223A;border:1px solid var(--line);border-radius:10px;padding:22px;display:grid;gap:14px;max-width:760px;margin:0 auto;font-size:15px}
 .rep h2{color:#16223A}.rep .rmuted{color:#5B6880}
 .rep-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-end;border-bottom:3px solid #2A55D9;padding-bottom:10px}
@@ -155,12 +155,13 @@ details.unitlib summary .st{flex:1;min-width:0}
 <div class="wrap" id="app">
   <header class="top">
     <div>
-      <div class="label">Teacher dashboard · May 2027 exams</div>
+      <div class="label">Teacher dashboard · 2026–2027</div>
       <h1>AP Math Tracker</h1>
     </div>
     <div class="course" role="group" aria-label="Course">
       <button id="c-pc" data-course="pc">Precalculus</button>
       <button id="c-ab" data-course="ab">Calculus AB</button>
+      <button id="c-sat" data-course="sat">SAT Math</button>
     </div>
   </header>
   <div id="banner"></div>
@@ -185,9 +186,9 @@ details.unitlib summary .st{flex:1;min-width:0}
   <div class="scrollr" id="rScroll"><div class="pages" id="rWrap"></div></div>
 </div>
 <script src="../vendor/pdfjs/pdf.js"></script>
-<script src="courses.js?v=6"></script>
-<script src="quiz-config.js?v=1"></script>
-<script src="quiz-bank.js?v=1"></script>
+<script src="courses.js?v=8"></script>
+<script src="quiz-config.js?v=3"></script>
+<script src="quiz-bank.js?v=3"></script>
 
 <script>
 const COURSES={
@@ -208,10 +209,20 @@ const COURSES={
       {id:"u5",n:"5",t:"Analytical Applications of Differentiation",w:[15,18]},
       {id:"u6",n:"6",t:"Integration and Accumulation of Change",w:[17,20]},
       {id:"u7",n:"7",t:"Differential Equations",w:[6,12]},
-      {id:"u8",n:"8",t:"Applications of Integration",w:[10,15]}]}
+      {id:"u8",n:"8",t:"Applications of Integration",w:[10,15]}]},
+  /* SAT Math: units are the four domains, weighted by their share of the 44 questions; target date can be changed here */
+  sat:{name:"SAT Math",sat:true,exam:new Date(2027,2,6,8,0),examLabel:"Saturday, March 6, 2027 (other dates: December 5, 2026; May 1 and June 5, 2027)",
+    format:"Digital SAT in Bluebook: two adaptive modules of 22 questions, calculator allowed",
+    units:[
+      {id:"d1",n:"1",t:"Algebra",w:[30,34]},
+      {id:"d2",n:"2",t:"Advanced Math",w:[30,34]},
+      {id:"d3",n:"3",t:"Problem-Solving and Data Analysis",w:[11,16]},
+      {id:"d4",n:"4",t:"Geometry and Trigonometry",w:[11,16]}]}
 };
+const SHORT={pc:"Precalc",ab:"Calc AB",sat:"SAT"};
+const UL=c=>COURSES[c].sat?"Domain ":"Unit ",UA=c=>COURSES[c].sat?"D":"U";
 const LV=["Not started","In progress","Proficient","Mastered"];
-const state={course:"pc",view:"class",sel:null,students:[],plans:{pc:{},ab:{}},db:null,mode:"loading",confirmDel:false,writable:true};
+const state={course:"pc",view:"class",sel:null,students:[],plans:{pc:{},ab:{},sat:{}},db:null,mode:"loading",confirmDel:false,writable:true};
 try{const s=JSON.parse(localStorage.getItem("apMathTracker.prefs")||"{}");if(s.course)state.course=s.course;if(s.view)state.view=s.view}catch(e){}
 function savePref(){try{localStorage.setItem("apMathTracker.prefs",JSON.stringify({course:state.course,view:state.view}))}catch(e){}}
 
@@ -223,7 +234,8 @@ function toast(m){const t=$("#toast");t.textContent=m;t.hidden=false;clearTimeou
 /* ---------- calculations ---------- */
 function testedUnits(c){return COURSES[c].units.filter(u=>u.w)}
 function pct(s){return s.max>0?Math.round(100*s.pts/s.max):0}
-function apEstimate(c,p){const k=COURSES[c].cut;return p>=k[0]?5:p>=k[1]?4:p>=k[2]?3:p>=k[3]?2:1}
+function apEstimate(c,p){if(COURSES[c].sat)return Math.round((200+6*p)/10)*10;const k=COURSES[c].cut;return p>=k[0]?5:p>=k[1]?4:p>=k[2]?3:p>=k[3]?2:1}
+const estOf=c=>COURSES[c].sat?"/800":"/5";
 function lastScores(st,n){return [...(st.scores||[])].sort((a,b)=>a.d<b.d?-1:1).slice(-n)}
 function studentAvgPct(st){const l=lastScores(st,3);return l.length?Math.round(l.reduce((a,s)=>a+pct(s),0)/l.length):null}
 function mastery(st,uid){return (st.progress||{})[uid]||0}
@@ -255,14 +267,14 @@ function buildPlan(c){
     } else alloc=todo.map((u,i)=>i<teachN?1:0);
   }
   let d=new Date(start);
-  todo.forEach((u,i)=>{for(let j=0;j<(alloc[i]||0);j++){weeks.push({d:new Date(d),kind:"teach",title:"Unit "+u.n+" · "+u.t,sub:alloc[i]>1?"Week "+(j+1)+" of "+alloc[i]:"One week",uid:u.id});d.setDate(d.getDate()+7)}});
+  todo.forEach((u,i)=>{for(let j=0;j<(alloc[i]||0);j++){weeks.push({d:new Date(d),kind:"teach",title:UL(c)+u.n+" · "+u.t,sub:alloc[i]>1?"Week "+(j+1)+" of "+alloc[i]:"One week",uid:u.id});d.setDate(d.getDate()+7)}});
   // review: weakest units first
   const weak=[...tested].sort((a,b)=>classUnitAvg(list,a.id)-classUnitAvg(list,b.id));
   const revItems=[];
   for(let i=0;i<REV;i++){
-    if(i===REV-1&&REV>=2) revItems.push({title:"Full practice exam",sub:"Real conditions: multiple choice in Bluebook, then free response on paper"});
-    else if(i===REV-2&&REV>=3) revItems.push({title:"Past free-response questions (FRQs)",sub:"Grade with the official College Board scoring guidelines"});
-    else {const u=weak[i%weak.length];revItems.push({title:"Review · Unit "+u.n+" · "+u.t,sub:"One of the class's weakest units (average: "+LV[Math.round(classUnitAvg(list,u.id))].toLowerCase()+")",uid:u.id})}
+    if(i===REV-1&&REV>=2) revItems.push(C.sat?{title:"Full practice test",sub:"Real conditions in Bluebook: two adaptive modules, 70 minutes"}:{title:"Full practice exam",sub:"Real conditions: multiple choice in Bluebook, then free response on paper"});
+    else if(i===REV-2&&REV>=3) revItems.push(C.sat?{title:"Timed mixed practice",sub:"Questions from every domain, 1 min 35 s per question, Desmos on every question"}:{title:"Past free-response questions (FRQs)",sub:"Grade with the official College Board scoring guidelines"});
+    else {const u=weak[i%weak.length];revItems.push({title:"Review · "+UL(c)+u.n+" · "+u.t,sub:"One of the class's weakest units (average: "+LV[Math.round(classUnitAvg(list,u.id))].toLowerCase()+")",uid:u.id})}
   }
   revItems.forEach(r=>{weeks.push({d:new Date(d),kind:"rev",...r});d.setDate(d.getDate()+7)});
   weeks.push({d:examMon,kind:"exam",title:"Exam week",sub:C.examLabel});
@@ -287,7 +299,7 @@ function countdown(){
   return `<div class="panel">
     <div class="label">${esc(C.name)} exam</div>
     <div class="count"><span class="big num">${n}</span><span>days left · about <b class="num">${w}</b> weeks</span></div>
-    <div class="muted">${esc(C.examLabel)} · Multiple choice in Bluebook, free response on paper.</div>
+    <div class="muted">${esc(C.examLabel)} · ${esc(C.format||"Multiple choice in Bluebook, free response on paper")}.</div>
   </div>`;
 }
 
@@ -295,8 +307,8 @@ function viewClass(){
   const C=COURSES[state.course],list=courseStudents(),units=C.units;
   let heat;
   if(!list.length) heat=`<div class="empty">No students in ${esc(C.name)} yet.<br>Add the first one with the form below.</div>`;
-  else heat=`<div class="scroll"><table class="heat"><thead><tr><th class="name">Student</th>${units.map(u=>`<th title="${esc(u.t)}">U${u.n}${u.w?"":"*"}</th>`).join("")}</tr></thead><tbody>
-    ${list.map(s=>`<tr><td class="name"><button data-open="${s.id}">${esc(s.name)}</button></td>${units.map(u=>{const l=mastery(s,u.id);return `<td><span class="cell l${l}" title="${esc(s.name)} · U${u.n}: ${LV[l]}"></span></td>`}).join("")}</tr>`).join("")}
+  else heat=`<div class="scroll"><table class="heat"><thead><tr><th class="name">Student</th>${units.map(u=>`<th title="${esc(u.t)}">${UA(state.course)}${u.n}${u.w?"":"*"}</th>`).join("")}</tr></thead><tbody>
+    ${list.map(s=>`<tr><td class="name"><button data-open="${s.id}">${esc(s.name)}</button></td>${units.map(u=>{const l=mastery(s,u.id);return `<td><span class="cell l${l}" title="${esc(s.name)} · ${UA(state.course)}${u.n}: ${LV[l]}"></span></td>`}).join("")}</tr>`).join("")}
     <tr><td class="name muted">Average</td>${units.map(u=>{const a=classUnitAvg(list,u.id);return `<td><span class="cell l${Math.round(a)}" style="opacity:.75" title="Average ${a.toFixed(1)}/3"></span></td>`}).join("")}</tr>
     </tbody></table></div>`;
   const legend=`<div class="legend">${LV.map((l,i)=>`<span><i class="l${i}"></i>${l}</span>`).join("")}${state.course==="pc"?'<span>* Unit 4 is not on the exam</span>':""}</div>`;
@@ -305,14 +317,14 @@ function viewClass(){
     const behind=testedUnits(state.course).filter(u=>mastery(s,u.id)<=1&&classUnitAvg(list,u.id)>=2).length;
     return `<button class="srow" data-open="${s.id}">
       <span><b>${esc(s.name)}</b> <span class="muted" style="font-size:.85rem">${(s.scores||[]).length} assessment${(s.scores||[]).length!==1?"s":""}</span></span>
-      <span style="display:flex;gap:6px;flex-wrap:wrap;justify-content:end">${p!=null&&p<50?'<span class="chip warn">Needs attention</span>':""}${behind?`<span class="chip warn">${behind} unit${behind>1?"s":""} behind</span>`:""}${ap?`<span class="chip ap" title="Estimate based on the average of the last 3 assessments">AP ≈ ${ap}</span>`:'<span class="chip">No scores</span>'}</span>
+      <span style="display:flex;gap:6px;flex-wrap:wrap;justify-content:end">${p!=null&&p<50?'<span class="chip warn">Needs attention</span>':""}${behind?`<span class="chip warn">${behind} ${C.sat?"domain":"unit"}${behind>1?"s":""} behind</span>`:""}${ap?`<span class="chip ap" title="Estimate based on the average of the last 3 assessments">${C.sat?"SAT":"AP"} ≈ ${ap}</span>`:'<span class="chip">No scores</span>'}</span>
       <span class="bar">${C.units.map(u=>`<i class="l${mastery(s,u.id)}"></i>`).join("")}</span>
     </button>`}).join("");
   return `<div style="display:grid;gap:18px">
     ${countdown()}
-    <section class="panel"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap"><h2>Progress by unit</h2><span class="muted num">${list.length} student${list.length!==1?"s":""}</span></div>${heat}${list.length?legend:""}</section>
+    <section class="panel"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap"><h2>Progress by ${C.sat?"domain":"unit"}</h2><span class="muted num">${list.length} student${list.length!==1?"s":""}</span></div>${heat}${list.length?legend:""}</section>
     <section class="panel"><h2>Students</h2>${list.length?`<div class="students">${rows}</div>`:""}
-      ${state.writable?`<form class="row" id="addStudent"><label for="newName">Student name<input id="newName" required maxlength="60" placeholder="e.g. Aminata Diallo"></label><button class="btn primary" type="submit">Add to ${state.course==="pc"?"Precalc":"Calc AB"}</button></form>`:""}
+      ${state.writable?`<form class="row" id="addStudent"><label for="newName">Student name<input id="newName" required maxlength="60" placeholder="e.g. Aminata Diallo"></label><button class="btn primary" type="submit">Add to ${SHORT[state.course]}</button></form>`:""}
     </section>
     <section class="panel"><h2>Backup</h2>
       <p class="muted" style="margin:0;font-size:.88rem">Your data is saved in this browser only. Download a backup regularly, and restore it to use the tracker on another device. Restoring replaces the data in this browser.</p>
@@ -324,7 +336,7 @@ function viewClass(){
       </div>
     </section>
     <section class="panel"><h2>Student site and quizzes</h2>
-      <p class="muted" style="margin:0;font-size:.88rem">Students study and take quizzes and tests on <a href="learn.html" target="_blank" rel="noopener">the student site</a> with their name and a code (class code, or the personal code they get after paying); answers are corrected automatically. Unit 1 is free; other units need full access. ${(window.QUIZ_CONFIG||{}).endpoint?"Results arrive in your Google Sheet; import them here to add them to each student's scores.":"<b>Practice mode:</b> results are not collected until the Google Sheet is connected (see the setup guide in <code>apps-script/SETUP.md</code>)."}</p>
+      <p class="muted" style="margin:0;font-size:.88rem">Students study and take quizzes and tests on <a href="learn.html" target="_blank" rel="noopener">the student site</a> with their name and a code (class code, or the personal code they get after paying); answers are corrected automatically. Unit 1 of each AP course, SAT skill 1.1 and SAT Practice Test 1 are free; everything else needs full access. ${(window.QUIZ_CONFIG||{}).endpoint?"Results arrive in your Google Sheet; import them here to add them to each student's scores.":"<b>Practice mode:</b> results are not collected until the Google Sheet is connected (see the setup guide in <code>apps-script/SETUP.md</code>)."}</p>
       <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
         <button class="btn" id="copyQuiz">Copy student site link</button>
         <span class="muted num" style="font-size:.85rem;user-select:all">${esc(quizLink())}</span>
@@ -347,21 +359,21 @@ function viewStudent(){
       <select id="pick">${list.map(x=>`<option value="${x.id}"${x.id===s.id?" selected":""}>${esc(x.name)}</option>`).join("")}</select>
       <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:baseline">
         <div><div class="label">Last 3 average</div><div class="num" style="font-size:1.6rem">${p==null?"—":p+"%"}</div></div>
-        <div><div class="label">Estimated AP score</div><div class="num" style="font-size:1.6rem">${ap??"—"}<span class="muted" style="font-size:.9rem"> /5</span></div></div>
+        <div><div class="label">Estimated ${C.sat?"SAT Math":"AP"} score</div><div class="num" style="font-size:1.6rem">${ap??"—"}<span class="muted" style="font-size:.9rem"> ${estOf(state.course)}</span></div></div>
       </div>
-      <p class="muted" style="margin:0;font-size:.82rem">Rough estimate using approximate cutoffs (5 ≥ ${C.cut[0]}%, 4 ≥ ${C.cut[1]}%, 3 ≥ ${C.cut[2]}%). Adjust them against your practice exams.</p>
+      <p class="muted" style="margin:0;font-size:.82rem">${C.sat?"Rough estimate: 200 + 6 × the average percentage. The online practice tests give a better estimate (see the score in their title).":`Rough estimate using approximate cutoffs (5 ≥ ${C.cut[0]}%, 4 ≥ ${C.cut[1]}%, 3 ≥ ${C.cut[2]}%). Adjust them against your practice exams.`}</p>
     </div>
     <div class="grid2">
-      <section class="panel"><h2>Unit mastery</h2>
-        <div class="units">${C.units.map(u=>{const l=mastery(s,u.id);return `<div class="unit"><span class="u">U${u.n}</span><span class="t">${esc(u.t)}<small>${u.w?`${u.w[0]}–${u.w[1]}% of the exam`:"Not on the exam"}</small></span>
-          <span class="lv" role="group" aria-label="Unit ${u.n} level">${[0,1,2,3].map(i=>`<button class="b${i}" data-lv="${u.id}:${i}" aria-pressed="${l===i}" title="${LV[i]}"${state.writable?"":" disabled"}>${i}</button>`).join("")}</span></div>`}).join("")}</div>
+      <section class="panel"><h2>${C.sat?"Domain":"Unit"} mastery</h2>
+        <div class="units">${C.units.map(u=>{const l=mastery(s,u.id);return `<div class="unit"><span class="u">${UA(state.course)}${u.n}</span><span class="t">${esc(u.t)}<small>${u.w?`${u.w[0]}–${u.w[1]}% of the exam`:"Not on the exam"}</small></span>
+          <span class="lv" role="group" aria-label="${UL(state.course)}${u.n} level">${[0,1,2,3].map(i=>`<button class="b${i}" data-lv="${u.id}:${i}" aria-pressed="${l===i}" title="${LV[i]}"${state.writable?"":" disabled"}>${i}</button>`).join("")}</span></div>`}).join("")}</div>
         <div class="legend">${LV.map((l,i)=>`<span><b class="num">${i}</b> ${l}</span>`).join("")}</div>
       </section>
       <section class="panel"><h2>Scores</h2>
         <div id="chart"></div>
         ${state.writable?`<form class="row" id="addScore">
           <label for="sLabel">Assessment<input id="sLabel" required maxlength="60" placeholder="Quiz 2.3"></label>
-          <label for="sUnit">Unit<select id="sUnit"><option value="">Several / practice exam</option>${C.units.map(u=>`<option value="${u.id}">Unit ${u.n}</option>`).join("")}</select></label>
+          <label for="sUnit">${C.sat?"Domain":"Unit"}<select id="sUnit"><option value="">Several / practice exam</option>${C.units.map(u=>`<option value="${u.id}">${UL(state.course)}${u.n}</option>`).join("")}</select></label>
           <label for="sPts" style="flex-basis:70px">Points<input id="sPts" type="number" min="0" step="0.5" required inputmode="decimal"></label>
           <label for="sMax" style="flex-basis:70px">Out of<input id="sMax" type="number" min="1" step="0.5" value="20" required inputmode="decimal"></label>
           <label for="sDate">Date<input id="sDate" type="date" value="${today}" required></label>
@@ -416,11 +428,15 @@ function viewPlan(){
 const FILES=[["notes","Course notes","NOTES",""],["practice","AP practice: MCQ + FRQ","PRACTICE",""],["key","Answer key","KEY","key"]];
 function pdfUrl(c,f){return "docs/"+c+"/"+f+".pdf"}
 function planLesson(u,l){
-  const c=state.course,base=u.plan+l.n,lab=l.review?l.t:"Topic "+l.n;
+  const c=state.course,base=u.plan+l.n,lab=l.review?l.t:(c==="sat"?"Skill ":"Topic ")+l.n;
+  if(!u.free&&!l.free){   // encrypted files: the teacher opens them on the student site with the teacher key
+    const qid=c+"-"+base;
+    return `<div class="lesson"><span class="ln">${esc(l.n)}</span><span class="lt">${esc(l.t)}</span><div class="res"><a class="rbtn" href="learn.html#courses" target="_blank" rel="noopener">Open on the student site 🔒</a>${(window.QUIZ_LOCKED||[]).some(q=>q.id===qid)?`<a class="rbtn quiz" href="learn.html#${esc(qid)}" target="_blank" rel="noopener"><span class="k">ONLINE</span>Quiz 🔒</a>`:""}</div></div>`;
+  }
   const notes=l.notes?`<button class="rbtn" data-pdf="${esc(pdfUrl(c,base+"-notes"))}" data-title="${esc(lab+" · Guided notes")}">Notes</button><button class="rbtn" data-pdf="${esc(pdfUrl(c,base+"-notes-filled"))}" data-title="${esc(lab+" · Notes (filled in)")}">Filled notes</button>`:"";
   const qid=c+"-"+base,hasQ=(window.QUIZ_BANK||[]).some(q=>q.id===qid);
   const quizb=hasQ?`<a class="rbtn quiz" href="learn.html#${esc(qid)}" target="_blank" rel="noopener"><span class="k">ONLINE</span>Quiz</a>`:"";
-  const wsb=l.ws.map(w=>`<span class="wspair"><button class="rbtn" data-pdf="${esc(pdfUrl(c,base+"-ws"+w))}" data-title="${esc(lab+" · Worksheet "+w)}">${w==="MEGA"?"MEGA":"WS "+w}</button><button class="rbtn key" data-pdf="${esc(pdfUrl(c,base+"-ws"+w+"-key"))}" data-title="${esc(lab+" · Worksheet "+w+" key")}" aria-label="Answer key for worksheet ${w}"><span class="k">KEY</span></button></span>`).join("");
+  const wsb=l.ws.map(w=>`<span class="wspair"><button class="rbtn" data-pdf="${esc(pdfUrl(c,base+"-ws"+w))}" data-title="${esc(lab+(c==="sat"?" · Practice ":" · Worksheet ")+w)}">${w==="MEGA"?"MEGA":(c==="sat"?"Practice ":"WS ")+w}</button><button class="rbtn key" data-pdf="${esc(pdfUrl(c,base+"-ws"+w+"-key"))}" data-title="${esc(lab+" · Worksheet "+w+" key")}" aria-label="Answer key for worksheet ${w}"><span class="k">KEY</span></button></span>`).join("");
   return `<div class="lesson${l.review?" review":""}"><span class="ln">${l.review?"R":esc(l.n)}</span><span class="lt">${l.review?"<b>"+esc(l.t)+"</b>":esc(l.t)}</span><div class="res">${notes}${quizb}${wsb}</div></div>`;
 }
 function viewCourses(){
@@ -428,19 +444,20 @@ function viewCourses(){
   if(!lib)return '<div class="empty">The course library could not be loaded. Reload the page.</div>';
   const ready=lib.units.filter(u=>u.files||u.plan).length;
   const units=lib.units.map(u=>{
-    const k=state.course+u.id,open=(state.openUnits&&k in state.openUnits)?state.openUnits[k]:!!((u.files||u.plan)&&u.id==="u1");
+    const k=state.course+u.id,open=(state.openUnits&&k in state.openUnits)?state.openUnits[k]:!!((u.files||u.plan)&&(u.id==="u1"||u.id==="d1"));
     return `<details class="unitlib" id="lib-${u.id}"${open?" open":""}>
-      <summary><span class="st">${u.n==="R"?"":`Unit ${esc(u.n)} · `}${esc(u.t)}${u.note?` <span class="chip" style="font-weight:400">${esc(u.note)}</span>`:""}</span>${(u.files||u.plan)?'<span class="chip ap">Available</span>':'<span class="muted" style="font-weight:400;font-size:.8rem">In preparation</span>'}</summary>
+      <summary><span class="st">${u.n==="R"||u.n==="T"?"":`${UL(state.course)}${esc(u.n)} · `}${esc(u.t)}${u.note?` <span class="chip" style="font-weight:400">${esc(u.note)}</span>`:""}</span>${(u.files||u.plan)?'<span class="chip ap">Available</span>':'<span class="muted" style="font-weight:400;font-size:.8rem">In preparation</span>'}</summary>
       ${u.files?`<div class="unitfiles">${FILES.filter(f=>u.files[f[0]]).map(f=>`<button class="rbtn ${f[3]}" data-pdf="${esc(pdfUrl(state.course,u.files[f[0]]))}" data-title="${esc((u.n==="R"?"":"Unit "+u.n+" · ")+f[1])}"><span class="k">${f[2]}</span>${f[1]}</button>`).join("")}</div>`:""}
       ${(window.QUIZ_BANK||[]).some(q=>q.id===state.course+"-"+u.id+"-aptest")?`<div class="unitfiles" style="padding-top:0"><a class="rbtn quiz" href="learn.html#${esc(state.course+"-"+u.id+"-aptest")}" target="_blank" rel="noopener"><span class="k">ONLINE</span>Unit ${esc(u.n)} AP-style test (auto-corrected)</a></div>`:""}
-      ${u.tests?`<div class="lessons-h label">Self checks and unit tests</div><div class="unitfiles">${u.tests.map(x=>`<span class="wspair"><button class="rbtn" data-pdf="${esc(pdfUrl(state.course,u.plan+x.id))}" data-title="${esc(x.t)}">${esc(x.t)}</button><button class="rbtn key" data-pdf="${esc(pdfUrl(state.course,u.plan+x.id+"-key"))}" data-title="${esc(x.t+" · Answer key")}" aria-label="Answer key for ${esc(x.t)}"><span class="k">KEY</span></button>${(window.QUIZ_BANK||[]).some(q=>q.id===state.course+"-"+u.plan+x.id)?`<a class="rbtn quiz" href="learn.html#${esc(state.course+"-"+u.plan+x.id)}" target="_blank" rel="noopener" aria-label="${esc(x.t)} online"><span class="k">ONLINE</span></a>`:""}</span>`).join("")}</div>`:""}
-      <div class="lessons-h label">${u.plan?"Lessons: guided notes and worksheets":u.lessonFiles?"Lessons: notes, practice and key":"Lessons in this unit"}</div>
+      ${u.mocks?`<div class="lessons-h label">Online adaptive practice tests</div><div class="unitfiles">${u.mocks.map(m=>`<a class="rbtn quiz" href="learn.html#${esc(m.id)}" target="_blank" rel="noopener"><span class="k">ONLINE</span>${esc(m.t)}${m.note?" · "+esc(m.note):""}</a>`).join("")}</div>`:""}
+      ${u.tests?`<div class="lessons-h label">${state.course==="sat"?"Paper versions":"Self checks and unit tests"}</div><div class="unitfiles">${u.tests.map(x=>`<span class="wspair"><button class="rbtn" data-pdf="${esc(pdfUrl(state.course,u.plan+x.id))}" data-title="${esc(x.t)}">${esc(x.t)}</button><button class="rbtn key" data-pdf="${esc(pdfUrl(state.course,u.plan+x.id+"-key"))}" data-title="${esc(x.t+" · Answer key")}" aria-label="Answer key for ${esc(x.t)}"><span class="k">KEY</span></button>${(window.QUIZ_BANK||[]).some(q=>q.id===state.course+"-"+u.plan+x.id)?`<a class="rbtn quiz" href="learn.html#${esc(state.course+"-"+u.plan+x.id)}" target="_blank" rel="noopener" aria-label="${esc(x.t)} online"><span class="k">ONLINE</span></a>`:""}</span>`).join("")}</div>`:""}
+      ${u.plan&&!u.lessons.length?"":`<div class="lessons-h label">${u.plan?(state.course==="sat"?"Skills: guided notes and practice sets":"Lessons: guided notes and worksheets"):u.lessonFiles?"Lessons: notes, practice and key":(state.course==="sat"?"Skills in this domain":"Lessons in this unit")}</div>`}
       ${u.plan?u.lessons.map(l=>planLesson(u,l)).join(""):u.lessons.map(l=>`<div class="lesson"><span class="ln">${esc(l.n)}</span><span class="lt">${esc(l.t)}</span>${u.lessonFiles?`<div class="res"><button class="rbtn" data-pdf="${esc(pdfUrl(state.course,u.lessonFiles+l.n+"-notes"))}" data-title="${esc("Lesson "+l.n+" · Notes")}">Notes</button><button class="rbtn" data-pdf="${esc(pdfUrl(state.course,u.lessonFiles+l.n+"-practice"))}" data-title="${esc("Lesson "+l.n+" · Practice")}">Practice</button><button class="rbtn key" data-pdf="${esc(pdfUrl(state.course,u.lessonFiles+l.n+"-key"))}" data-title="${esc("Lesson "+l.n+" · Answer key")}"><span class="k">KEY</span>Key</button></div>`:""}</div>`).join("")}
     </details>`}).join("");
   return `<div style="display:grid;gap:18px">
     <section class="panel">
       <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap"><h2>${esc(lib.name)} course</h2><span class="muted num">${ready}/${lib.units.length} units available</span></div>
-      <p class="muted" style="margin:0;font-size:.88rem">Every lesson has guided notes (a blank copy for students and a filled-in copy) and worksheets with answer keys. Units also include review worksheets or self checks and unit tests, and an AP-format practice set.</p>
+      <p class="muted" style="margin:0;font-size:.88rem">${state.course==="sat"?"Each skill has guided notes (blank and filled in) and a practice set in SAT format, with multiple-choice and student-produced response questions and a worked answer key. Practice tests run online as on the digital SAT: Module 1, then an easier or harder Module 2, with an estimated score. Skill 1.1 and Practice Test 1 are free; the other skills are opened on the student site with full access or your teacher key.":"Every lesson has guided notes (a blank copy for students and a filled-in copy) and worksheets with answer keys. Units also include review worksheets or self checks and unit tests, and an AP-format practice set."}</p>
     </section>
     <section class="units">${units}</section></div>`;
 }
@@ -497,8 +514,9 @@ function reportData(s,k){
   const avg=a=>a.length?Math.round(a.reduce((t,x)=>t+pct(x),0)/a.length):null;
   const a=avg(sc),b=avg(pv);
   const units=C.units.filter(u=>u.w).map(u=>({u,l:mastery(s,u.id)}));
-  const strong=units.filter(x=>x.l>=2).map(x=>"Unit "+x.u.n);
-  const work=[...units.filter(x=>x.l===1).map(x=>"Unit "+x.u.n+" ("+x.u.t+")"),...sc.filter(x=>pct(x)<60).map(x=>x.label.replace(/^(Quiz|Test): /,""))];
+  const UF=C.sat?"Domaine ":"Unité ";
+  const strong=units.filter(x=>x.l>=2).map(x=>UF+x.u.n+" ("+x.u.t+")");
+  const work=[...units.filter(x=>x.l===1).map(x=>UF+x.u.n+" ("+x.u.t+")"),...sc.filter(x=>pct(x)<60).map(x=>x.label.replace(/^(Quiz|Test): /,""))];
   const p=studentAvgPct(s);
   return {C,sc,a,b,units,strong,work:[...new Set(work)].slice(0,4),ap:p==null?null:apEstimate(s.course,p)};
 }
@@ -521,10 +539,10 @@ function viewReport(){
       <div class="rep-kpis">
         <div><span class="rmuted">Évaluations du mois</span><b class="num">${R.sc.length}</b></div>
         <div><span class="rmuted">Moyenne du mois</span><b class="num">${R.a==null?"—":R.a+" %"}</b>${trend!=null?`<span style="color:${trend>=0?"#1F6F4A":"#C2412D"};font-weight:700">${trend>=0?"▲ +":"▼ "}${trend} pts</span> <span class="rmuted">vs ${MOIS[+prevMonth(k).split("-")[1]-1]}</span>`:""}</div>
-        <div><span class="rmuted">Score AP estimé</span><b class="num">${R.ap??"—"}<small style="font-size:.9rem"> /5</small></b><span class="rmuted" style="font-size:.78rem">indicatif</span></div>
+        <div><span class="rmuted">Score ${R.C.sat?"SAT Math":"AP"} estimé</span><b class="num">${R.ap??"—"}<small style="font-size:.9rem"> ${R.C.sat?"/800":"/5"}</small></b><span class="rmuted" style="font-size:.78rem">indicatif</span></div>
         <div><span class="rmuted">Jours avant l'examen</span><b class="num">${Math.max(0,daysUntil(R.C.exam))}</b></div>
       </div>
-      <div><h3 style="margin:0 0 8px">Maîtrise des unités</h3><div class="rep-bars">${R.units.map(x=>`<div class="rep-bar"><span class="num">U${x.u.n}</span><i style="--w:${[4,36,70,100][x.l]}%"></i><span>${LVFR[x.l]}</span></div>`).join("")}</div></div>
+      <div><h3 style="margin:0 0 8px">Maîtrise des ${R.C.sat?"domaines":"unités"}</h3><div class="rep-bars">${R.units.map(x=>`<div class="rep-bar"><span class="num">${R.C.sat?"D":"U"}${x.u.n}</span><i style="--w:${[4,36,70,100][x.l]}%"></i><span>${LVFR[x.l]}</span></div>`).join("")}</div></div>
       <div><h3 style="margin:0 0 6px">Évaluations du mois</h3>${R.sc.length?`<table><thead><tr><th>Date</th><th>Évaluation</th><th class="r">Note</th><th class="r">%</th></tr></thead><tbody>${R.sc.map(x=>`<tr><td class="num">${new Date(x.d+"T12:00").toLocaleDateString("fr-FR",{day:"numeric",month:"short"})}</td><td>${esc(x.label)}</td><td class="r num">${x.pts}/${x.max}</td><td class="r num" style="color:${pct(x)<50?"#C2412D":"inherit"}">${pct(x)}</td></tr>`).join("")}</tbody></table>`:'<p class="rmuted" style="margin:0">Aucune évaluation enregistrée ce mois-ci.</p>'}</div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
         <div><h3 style="margin:0 0 6px">Points forts</h3><p style="margin:0">${R.strong.length?esc(R.strong.join(", ")):'<span class="rmuted">À venir.</span>'}</p></div>
@@ -533,7 +551,7 @@ function viewReport(){
       <div><h3 style="margin:0 0 6px">Commentaire du professeur</h3>
         <textarea id="repComment" class="no-print" placeholder="Votre commentaire pour les parents (il apparaît dans le rapport imprimé et le message WhatsApp)">${esc(com)}</textarea>
         <div class="comment print-only">${esc(com)||"—"}</div></div>
-      <div class="rmuted" style="font-size:.8rem;border-top:1px solid #E3E8EF;padding-top:8px">Le score AP estimé est une indication à partir des dernières évaluations ; il ne préjuge pas du résultat à l'examen. AP® est une marque déposée du College Board, qui n'est pas affilié à AP Math Online.</div>
+      <div class="rmuted" style="font-size:.8rem;border-top:1px solid #E3E8EF;padding-top:8px">Le score ${R.C.sat?"SAT":"AP"} estimé est une indication à partir des dernières évaluations ; il ne préjuge pas du résultat à l'examen. ${R.C.sat?"SAT®":"AP®"} est une marque déposée du College Board, qui n'est pas affilié à AP Math Online.</div>
     </article>`;
 }
 function saveReport(){
@@ -547,7 +565,7 @@ function reportText(s,k){
   const R=reportData(s,k),com=((s.reports||{})[k]||"").trim(),trend=R.a!=null&&R.b!=null?R.a-R.b:null;
   return [`Bonjour, voici le rapport de progrès de ${s.name} en ${R.C.name} pour ${monthName(k)}.`,
     `• Évaluations : ${R.sc.length}${R.a!=null?` · moyenne ${R.a} %`:""}${trend!=null?` (${trend>=0?"+":""}${trend} pts par rapport au mois précédent)`:""}`,
-    R.units.some(x=>x.l>0)?`• Unités : ${R.units.filter(x=>x.l>0).map(x=>"U"+x.u.n+" "+LVFR[x.l].toLowerCase()).join(", ")}`:"",
+    R.units.some(x=>x.l>0)?`• ${R.C.sat?"Domaines":"Unités"} : ${R.units.filter(x=>x.l>0).map(x=>(R.C.sat?"D":"U")+x.u.n+" "+LVFR[x.l].toLowerCase()).join(", ")}`:"",
     R.work.length?`• À retravailler : ${R.work.join(" ; ")}`:"",
     com?`• Commentaire : ${com}`:"",
     `Dr Papa Touty Traoré · AP Math Online`].filter(Boolean).join("\n");
@@ -605,10 +623,10 @@ async function importResults(k){
   if(!R||!R.ok){render();toast(R&&R.error==="key"?"The teacher key is not correct":"Could not reach the Google Sheet. Try again.");return}
   const done=new Set(state.imported||[]);let added=0,created=0;
   for(const x of R.results){
-    if(!x.id||done.has(x.id)||(x.course!=="pc"&&x.course!=="ab"))continue;
+    if(!x.id||done.has(x.id)||!COURSES[x.course])continue;
     let s=state.students.find(st=>st.course===x.course&&normName(st.name)===normName(x.name));
     if(!s){s={id:newId(),name:String(x.name).trim(),course:x.course,progress:{},scores:[],createdAt:new Date().toISOString()};state.students.push(s);created++}
-    s.scores=[...(s.scores||[]),{k:"q-"+x.id,label:(x.kind==="test"?"Test: ":"Quiz: ")+x.title,unit:null,pts:Number(x.score)||0,max:Number(x.total)||1,d:String(x.time).slice(0,10)}];
+    s.scores=[...(s.scores||[]),{k:"q-"+x.id,label:(x.kind==="test"||x.kind==="sat"?"Test: ":"Quiz: ")+x.title,unit:null,pts:Number(x.score)||0,max:Number(x.total)||1,d:String(x.time).slice(0,10)}];
     done.add(x.id);added++;
   }
   state.imported=[...done];persist();render();
@@ -622,8 +640,8 @@ function persist(){
 }
 function loadData(obj){
   if(!obj||!Array.isArray(obj.students))throw new Error("bad");
-  state.students=obj.students.filter(s=>s&&s.id&&s.name&&(s.course==="pc"||s.course==="ab")).map(s=>({progress:{},scores:[],...s}));
-  state.plans={pc:{},ab:{},...(obj.plans||{})};
+  state.students=obj.students.filter(s=>s&&s.id&&s.name&&COURSES[s.course]).map(s=>({progress:{},scores:[],...s}));
+  state.plans={pc:{},ab:{},sat:{},...(obj.plans||{})};
   state.imported=Array.isArray(obj.imported)?obj.imported:[];
 }
 function exportData(){

@@ -133,7 +133,16 @@ def questions(body, pre):
             j = ex.index("]"); topic = ex[1:j]; i = j + 1
         hdr, i = group(ex, i)
         ex = ex[i:]
-        if "\\choices{" not in ex: continue
+        if "\\choices{" not in ex:
+            sp = find_cmd(ex, "\\spr", 3)
+            if not sp: continue
+            stem, g = extract_graphs(ex[:sp[0][0]], macros)
+            if not g and ctx and (strong or re.search(r"graph", stem, re.I)): g = ctx
+            if g: last = g
+            shown, acc, expl = sp[0][2]
+            out.append({"topic": topic, "calc": True, "stem": stem, "spr": [a.strip() for a in acc.split("|")],
+                        "shown": shown, "e": expl, "graphs": g})
+            continue
         k = ex.index("\\choices{")
         stem = ex[:k]
         ch, k2 = args(ex, k + len("\\choices"), 4)
@@ -185,10 +194,36 @@ for course, file, cname in (("pc", "pc-u1-worksheets.tex", "AP Precalculus"), ("
     qs = unit_test_questions(f"{course}-u1-practice.tex", "")
     add(f"{course}-u1-aptest", course, "u1", "Unit 1 AP-style test · multiple choice", "test", qs, "", minutes=2*len(qs)+5)
 
+# SAT Math: one domain per unit (d1 = Algebra ...); practice tests in unit "mt"
+for dom in ("d1", "d2", "d3", "d4"):
+    if not os.path.exists(os.path.join(SRC, f"sat-{dom}-worksheets.tex")): continue
+    pre, bl = blocks(f"sat-{dom}-worksheets.tex")
+    by, order = {}, []
+    for i, title, body in bl:
+        lesson = i[:-1]
+        if lesson not in by: by[lesson] = (title, []); order.append(lesson)
+        by[lesson][1].extend(questions(body, pre))
+    for lesson in order:
+        title, qs = by[lesson]
+        for q in qs: q["calc"] = True
+        add(f"sat-{dom}-{lesson}", "sat", dom, f"Skill {lesson} · {title}", "quiz", qs, pre, lesson=lesson)
+if os.path.exists(os.path.join(SRC, "sat-mt-worksheets.tex")):
+    pre, bl = blocks("sat-mt-worksheets.tex")
+    mods = {}
+    for i, title, body in bl:
+        m = re.match(r"MT(\d+)(M1|H|E)$", i)
+        n, part = m.group(1), {"M1": "m1", "H": "hard", "E": "easy"}[m.group(2)]
+        qs = questions(body, pre)
+        for q in qs: q["calc"] = True
+        mods.setdefault(n, {})[part] = qs
+    for n, md in sorted(mods.items()):
+        add(f"sat-mt-{n}", "sat", "mt", f"Practice Test {n} · full adaptive test (2 modules)", "sat", md["m1"], pre, minutes=35)
+        QUIZZES[-1]["modules"] = md; QUIZZES[-1]["cut"] = 13
+
 # ---------- compile graphs, write bank ----------
 jobs = {}
 for qz in QUIZZES:
-    for q in qz["qs"]:
+    for q in qz["qs"] + [q for qs in (qz.get("modules") or {}).values() for q in qs]:
         for g in q["graphs"]:
             jobs[(qz["pre"], g)] = None
 def comp(key):
@@ -199,21 +234,31 @@ with cf.ThreadPoolExecutor(8) as ex:
         jobs[key] = name
         if err: print("GRAPH ERROR", key[1][:80], err[-300:])
 
+def item(q, pre):
+    it = {"q": to_html(q["stem"]), "e": to_html(q["e"]), "calc": q["calc"], "topic": q["topic"],
+          "img": [jobs[(pre, g)] for g in q["graphs"] if jobs.get((pre, g))]}
+    if "spr" in q: it["spr"] = q["spr"]; it["ans"] = to_html(q["shown"])
+    else: it["c"] = [to_html(c) for c in q["choices"]]; it["a"] = q["a"]
+    return it
 bank = []
 for qz in QUIZZES:
     items = []
     for q in qz["qs"]:
-        items.append({"q": to_html(q["stem"]), "c": [to_html(c) for c in q["choices"]], "a": q["a"],
-                      "e": to_html(q["e"]), "calc": q["calc"], "topic": q["topic"],
-                      "img": [jobs[(qz["pre"], g)] for g in q["graphs"] if jobs.get((qz["pre"], g))]})
+        items.append(item(q, qz["pre"]))
     if not items: continue
-    bank.append({"id": qz["id"], "course": qz["course"], "unit": qz["unit"], "title": qz["title"], "kind": qz["kind"],
-                 "minutes": qz["minutes"], "lesson": qz["lesson"], "items": items})
-FREE_UNITS = {"u1"}          # free sample; every other unit is sealed with its unit key (see seal.py)
-free = [b for b in bank if b["unit"] in FREE_UNITS]
+    b = {"id": qz["id"], "course": qz["course"], "unit": qz["unit"], "title": qz["title"], "kind": qz["kind"],
+         "minutes": qz["minutes"], "lesson": qz["lesson"], "items": items}
+    if qz.get("modules"):
+        b["modules"] = {m: [item(q, qz["pre"]) for q in qs] for m, qs in qz["modules"].items()}
+        b["cut"] = qz["cut"]; b["items"] = b["modules"]["m1"]
+    bank.append(b)
+FREE_UNITS = {"pc-u1", "ab-u1", "sat-mt"}   # free samples; every other unit is sealed with its unit key (see seal.py)
+FREE_IDS = {"sat-d1-1.1"}                     # single free lessons inside a paid unit
+isfree = lambda b: b["course"] + "-" + b["unit"] in FREE_UNITS or b["id"] in FREE_IDS
+free = [b for b in bank if isfree(b)]
 locked, chunks = [], {}
 for b in bank:
-    if b["unit"] in FREE_UNITS: continue
+    if isfree(b): continue
     u = b["course"] + "-" + b["unit"]
     chunks.setdefault(u, []).append(b)
     locked.append({k: b[k] for k in ("id", "course", "unit", "title", "kind", "minutes", "lesson")} | {"count": len(b["items"]), "file": f"quiz-paid/{u}.enc", "key": u})
@@ -225,4 +270,4 @@ if chunks:
 open(os.path.join(SITE, "quiz-bank.js"), "w").write("/* generated by make_quiz.py — do not edit by hand */\nwindow.QUIZ_BANK=" + json.dumps(free, ensure_ascii=False, separators=(",", ":")) + ";\nwindow.QUIZ_LOCKED=" + json.dumps(locked, ensure_ascii=False, separators=(",", ":")) + ";\n")
 n = sum(len(b["items"]) for b in bank)
 print(f"{len(bank)} quizzes/tests, {n} questions, {len([v for v in jobs.values() if v])} graphs")
-for b in bank: print(" ", b["id"], b["kind"], len(b["items"]))
+for b in bank: print(" ", b["id"], b["kind"], len(b["items"]), {m: len(v) for m, v in b.get("modules", {}).items()} or "")

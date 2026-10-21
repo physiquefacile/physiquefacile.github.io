@@ -17,7 +17,7 @@ paid units stay locked, and nothing is sent.
 5. The sheet now has four tabs:
    - **Settings**: your **teacher key**, the **access end date** (31 May 2027), the email that receives
      payment notifications, and **class codes**. A class code can also give full access to a whole class:
-     write `pc`, `ab` or `pc ab` in column C.
+     write `pc`, `ab`, `sat` or several of them (`pc ab`) in column C.
    - **Students**: one row per student who declared a payment.
    - **Keys**: the keys that unlock paid units (see step 5).
    - **Results**: one row per quiz or test submitted.
@@ -46,7 +46,7 @@ Claude puts them in `quiz-config.js`:
 4. The student's units unlock the next time they open the site (or press **Check again**).
 
 To give access without payment (a scholarship, your own class), add a row yourself with a code of your choice
-(for example `AP-FREE-0001`), the name, the course (`pc`, `ab` or `pc ab`) and Status **Active**,
+(for example `AP-FREE-0001`), the name, the course (`pc`, `ab`, `sat`, or several such as `pc ab`) and Status **Active**,
 or use a class code with column C filled in.
 
 ## 5. When a new paid unit is published

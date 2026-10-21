@@ -121,4 +121,9 @@
 \newtcolorbox{quickcheck}{enhanced,breakable,colback=white,colframe=apnavy,boxrule=0.6pt,arc=0pt,
   title={\sffamily\bfseries\small Check your understanding},colbacktitle=apnavy,coltitle=white,left=8pt,top=4pt,bottom=4pt}
 \newcommand{\ex}[1]{\par\Needspace{9\baselineskip}\medskip\noindent{\sffamily\bfseries\small\color{apnavy}#1}\par\nopagebreak}
+
+% ---------- SAT: student-produced response (grid-in) ----------
+% \spr{shown answer}{accepted values separated by |}{explanation}
+\newcommand{\spr}[3]{\ifkey\else\par\smallskip{\sffamily\small\color{apgrey}Your answer:}\ \rule{3.6cm}{0.4pt}\par\fi\begin{solution}\textbf{Answer: #1.} #3\end{solution}}
+\newcommand{\sprtag}{\tcbox[on line,colback=apgold!25,colframe=apgold!25,boxrule=0pt,arc=2pt,left=4pt,right=4pt,top=1.5pt,bottom=1.5pt]{\sffamily\scriptsize\bfseries\color{apnavy}STUDENT-PRODUCED RESPONSE}}
 \endinput

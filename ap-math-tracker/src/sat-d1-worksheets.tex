@@ -1,0 +1,259 @@
+%% Practice sets, SAT Math, Domain 1: Algebra. Calculator (Desmos) allowed on every question.
+\renewcommand{\nocalc}{}
+\newcommand{\gr}[2]{\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,#1]#2\end{axis}\end{tikzpicture}\end{center}}
+\newcommand{\pt}[1]{\node[circle,fill=apblue,inner sep=1.5pt] at (axis cs:#1){};}
+\newcommand{\op}[1]{\node[circle,draw=apblue,fill=white,thick,inner sep=1.5pt] at (axis cs:#1){};}
+
+%%DOC 1.1A | Linear Equations in One Variable
+\begin{exo}{}
+What value of $x$ is the solution to $7x-4=3x+20$?
+\choices{$4$}{$6$}{$\dfrac{16}{10}$}{$24$}
+\answer{B}{$4x=24$, so $x=6$.}
+\end{exo}
+\begin{exo}{}
+If $2(x+5)-3=5x-8$, what is the value of $x$?
+\choices{$5$}{$\dfrac{5}{3}$}{$-5$}{$15$}
+\answer{A}{$2x+7=5x-8 \Rightarrow 15=3x \Rightarrow x=5$.}
+\end{exo}
+\begin{exo}{}
+In the equation $4(3x-1)=12x+c$, $c$ is a constant. If the equation has infinitely many solutions, what is the value of $c$?
+\choices{$4$}{$-1$}{$-4$}{$12$}
+\answer{C}{$12x-4=12x+c$ is true for every $x$ only when $c=-4$.}
+\end{exo}
+\begin{exo}{}
+If $3x+7=22$, what is the value of $6x-1$?
+\choices{$5$}{$29$}{$30$}{$43$}
+\answer{B}{Double the equation: $6x+14=44$, so $6x=30$ and $6x-1=29$.}
+\end{exo}
+\begin{exo}{}
+A gym charges a $\$50$ joining fee and $\$25$ per month. Awa has paid $\$325$ in total. Which equation gives the number of months $m$ she has paid for, and what is $m$?
+\choices{$50m+25=325$; $m=6$}{$25m-50=325$; $m=15$}{$50+25m=325$; $m=13$}{$50+25m=325$; $m=11$}
+\answer{D}{$25m=275$, so $m=11$.}
+\end{exo}
+\begin{exo}{}
+What is the solution to $\dfrac{x}{2}+\dfrac{x}{5}=14$?
+\choices{$20$}{$10$}{$\dfrac{98}{10}$}{$70$}
+\answer{A}{Multiply by $10$: $5x+2x=140$, $7x=140$, $x=20$.}
+\end{exo}
+\begin{exo}{\sprtag}
+What is the solution to $0.4(x-5)=0.3x+1.2$?
+\spr{32}{32}{$0.4x-2=0.3x+1.2 \Rightarrow 0.1x=3.2 \Rightarrow x=32$.}
+\end{exo}
+\begin{exo}{\sprtag}
+In the equation $5(x-k)=5x-35$, $k$ is a constant. If the equation has infinitely many solutions, what is the value of $k$?
+\spr{7}{7}{$5x-5k=5x-35$ for all $x$ when $5k=35$, $k=7$.}
+\end{exo}
+\begin{exo}{\sprtag}
+What value of $x$ satisfies $\dfrac{2x+1}{3}=\dfrac{x+4}{2}$?
+\spr{10}{10}{Cross-multiply: $2(2x+1)=3(x+4) \Rightarrow 4x+2=3x+12 \Rightarrow x=10$.}
+\end{exo}
+\begin{exo}{}
+Which equation has no solution?
+\choices{$2(x+1)=2x+2$}{$3x+1=2x+1$}{$2(x+1)=2x+3$}{$4x=0$}
+\answer{C}{$2x+2=2x+3$ simplifies to $2=3$, which is false for every $x$. A has infinitely many solutions; B and D have $x=0$.}
+\end{exo}
+
+%%DOC 1.2A | Linear Functions
+\begin{exo}{}
+The function $f$ is defined by $f(x)=3x-5$. What is the value of $f(4)$?
+\choices{$12$}{$7$}{$17$}{$-1$}
+\answer{B}{$3(4)-5=7$.}
+\end{exo}
+\Needspace{18\baselineskip}
+\begin{exo}{}
+The graph of the linear function $f$ is shown. Which equation defines $f$?
+\gr{xmin=-1.5,xmax=4.5,ymin=-5.5,ymax=3.5,width=5.5cm,height=5.2cm}{\addplot[apblue,very thick,domain=-1:4]{-2*x+2};\pt{0,2}\pt{3,-4}}
+\choices{$f(x)=2x+2$}{$f(x)=-2x-4$}{$f(x)=-\frac12x+2$}{$f(x)=-2x+2$}
+\answer{D}{The line passes through $(0,2)$ and $(3,-4)$: slope $\frac{-6}{3}=-2$, intercept $2$.}
+\end{exo}
+\begin{exo}{}
+The cost, in dollars, to rent a kayak for $n$ hours is $C(n)=12n+30$. What is the best interpretation of $12$?
+\choices{The fixed fee, in dollars}{The total cost of a 1-hour rental}{The cost per hour, in dollars}{The maximum number of hours}
+\answer{C}{$12$ is the slope: each additional hour adds $\$12$. The fixed fee is $30$; a 1-hour rental costs $42$.}
+\end{exo}
+\begin{exo}{}
+\begin{center}\begin{tabular}{c|ccc}$x$&$1$&$3$&$5$\\\hline$f(x)$&$7$&$13$&$19$\end{tabular}\end{center}
+The table shows three values of the linear function $f$. Which equation defines $f$?
+\choices{$f(x)=3x+4$}{$f(x)=6x+1$}{$f(x)=4x+3$}{$f(x)=x+6$}
+\answer{A}{Slope $\frac{13-7}{3-1}=3$; $7=3+b$ gives $b=4$.}
+\end{exo}
+\begin{exo}{\sprtag}
+For the linear function $f$, $f(2)=11$ and $f(6)=23$. What is the value of $f(10)$?
+\spr{35}{35}{Slope $\frac{12}{4}=3$, so $f(x)=3x+5$ and $f(10)=35$.}
+\end{exo}
+\begin{exo}{}
+A tank contains 500 liters of water and drains at a constant rate of 20 liters per minute. Which function gives the volume $V$, in liters, after $t$ minutes?
+\choices{$V(t)=20t-500$}{$V(t)=500-20t$}{$V(t)=500t-20$}{$V(t)=520t$}
+\answer{B}{Start at $500$ and subtract $20$ each minute.}
+\end{exo}
+\begin{exo}{}
+The function $f$ is defined by $f(x)=\frac23x+4$. For what value of $x$ does $f(x)=10$?
+\choices{$\dfrac{28}{3}$}{$4$}{$9$}{$6$}
+\answer{C}{$\frac23x=6 \Rightarrow x=9$.}
+\end{exo}
+\begin{exo}{\sprtag}
+The graph of the linear function $g$ passes through $(-1,5)$ and $(3,-3)$. What is the $y$-coordinate of its $y$-intercept?
+\spr{3}{3}{Slope $\frac{-3-5}{3-(-1)}=-2$; $5=-2(-1)+b$ gives $b=3$.}
+\end{exo}
+\begin{exo}{}
+If $h(x)=4x-7$, which expression is equal to $h(x+2)$?
+\choices{$4x-5$}{$4x+2$}{$4x-9$}{$4x+1$}
+\answer{D}{$4(x+2)-7=4x+8-7=4x+1$. Choice A is $h(x)+2$.}
+\end{exo}
+\begin{exo}{\sprtag}
+A plant is 6 cm tall and grows 1.5 cm per week. After how many weeks will it be 18 cm tall?
+\spr{8}{8}{$6+1.5w=18 \Rightarrow 1.5w=12 \Rightarrow w=8$.}
+\end{exo}
+
+%%DOC 1.3A | Linear Equations in Two Variables
+\begin{exo}{}
+What is the slope of the line $4x-2y=10$?
+\choices{$-2$}{$2$}{$4$}{$-5$}
+\answer{B}{$y=2x-5$, so the slope is $2$.}
+\end{exo}
+\begin{exo}{}
+Which equation represents the line that passes through $(2,3)$ and has slope $-4$?
+\choices{$y=-4x+11$}{$y=-4x-5$}{$y=-4x+3$}{$y=2x-4$}
+\answer{A}{$y-3=-4(x-2) \Rightarrow y=-4x+11$. Check: $-8+11=3$.}
+\end{exo}
+\begin{exo}{}
+Adult tickets cost $\$8$ and child tickets cost $\$5$. A group paid $\$100$ for $a$ adult tickets and $c$ child tickets, so $8a+5c=100$. If the group bought 5 adult tickets, how many child tickets did it buy?
+\choices{$8$}{$15$}{$12$}{$20$}
+\answer{C}{$40+5c=100 \Rightarrow c=12$.}
+\end{exo}
+\begin{exo}{}
+Which line is parallel to $y=3x-2$?
+\choices{$x+3y=7$}{$3x+y=7$}{$y=-3x+1$}{$6x-2y=7$}
+\answer{D}{$6x-2y=7$ gives $y=3x-3.5$: slope $3$. Choice A has slope $-\frac13$ (perpendicular).}
+\end{exo}
+\begin{exo}{\sprtag}
+What is the $x$-coordinate of the $x$-intercept of the line $3x+4y=36$?
+\spr{12}{12}{Set $y=0$: $3x=36$, $x=12$.}
+\end{exo}
+\Needspace{18\baselineskip}
+\begin{exo}{}
+Which equation represents the line shown?
+\gr{xmin=-2.5,xmax=3.5,ymin=-3.5,ymax=5.5,width=5.5cm,height=5.4cm}{\addplot[apblue,very thick,domain=-1.2:3.2]{2*x-1};\pt{0,-1}\pt{2,3}}
+\choices{$y=2x-1$}{$y=\frac12x-1$}{$y=-2x+3$}{$y=2x+3$}
+\answer{A}{Through $(0,-1)$ and $(2,3)$: slope $\frac42=2$, intercept $-1$.}
+\end{exo}
+\begin{exo}{}
+Which equation represents the line through the origin that is perpendicular to $y=\frac25x+1$?
+\choices{$y=\frac25x$}{$y=-\frac52x$}{$y=\frac52x$}{$y=-\frac25x$}
+\answer{B}{The negative reciprocal of $\frac25$ is $-\frac52$; through the origin, the intercept is $0$.}
+\end{exo}
+\begin{exo}{\sprtag}
+The point $(k,7)$ lies on the line $2x-3y=-5$. What is the value of $k$?
+\spr{8}{8}{$2k-21=-5 \Rightarrow 2k=16 \Rightarrow k=8$.}
+\end{exo}
+\begin{exo}{}
+A shop packs $x$ large boxes and $y$ small boxes so that $5x+2y=40$. If $x$ is on the horizontal axis, what does the $y$-intercept of the graph represent?
+\choices{8 large boxes and no small boxes}{The weight of a small box}{20 small boxes and no large boxes}{40 boxes in total}
+\answer{C}{At $x=0$, $2y=40$ so $y=20$: 20 small boxes and no large ones.}
+\end{exo}
+\begin{exo}{\sprtag}
+What is the slope of the line through $(-2,1)$ and $(4,4)$?
+\spr{$\frac12$ (or $0.5$)}{1/2|0.5}{$\frac{4-1}{4-(-2)}=\frac36=\frac12$.}
+\end{exo}
+
+%%DOC 1.4A | Systems of Two Linear Equations
+\begin{exo}{}
+If $x+y=10$ and $x-y=4$, what is the value of $x$?
+\choices{$3$}{$6$}{$7$}{$14$}
+\answer{C}{Add: $2x=14$, $x=7$.}
+\end{exo}
+\begin{exo}{}
+What is the solution $(x,y)$ to the system $2x+3y=12$ and $x=y+1$?
+\choices{$(3,2)$}{$(2,3)$}{$(4,3)$}{$(6,0)$}
+\answer{A}{$2(y+1)+3y=12 \Rightarrow y=2$, $x=3$.}
+\end{exo}
+\begin{exo}{}
+In the system $3x-2y=5$ and $6x-4y=k$, $k$ is a constant. For which value of $k$ does the system have infinitely many solutions?
+\choices{$5$}{$-10$}{$20$}{$10$}
+\answer{D}{The second equation must be twice the first: $k=2(5)=10$.}
+\end{exo}
+\Needspace{18\baselineskip}
+\begin{exo}{}
+The graphs of $y=x-1$ and $y=-2x+5$ are shown. What is the solution to the system?
+\gr{xmin=-1.5,xmax=4.5,ymin=-3.5,ymax=5.5,width=5.5cm,height=5.4cm}{\addplot[apblue,very thick,domain=-1.5:4.5]{x-1};\addplot[apred,very thick,domain=0:4]{-2*x+5};\pt{2,1}}
+\choices{$(1,2)$}{$(2,1)$}{$(0,5)$}{$(2.5,0)$}
+\answer{B}{The lines meet at $(2,1)$. Check: $2-1=1$ and $-4+5=1$.}
+\end{exo}
+\begin{exo}{\sprtag}
+If $4x+y=14$ and $2x-y=4$, what is the value of $xy$?
+\spr{6}{6}{Add: $6x=18$, $x=3$, $y=2$, so $xy=6$.}
+\end{exo}
+\begin{exo}{}
+Pens cost $\$2$ and notebooks cost $\$5$. Lina bought 12 items for $\$39$. How many notebooks did she buy?
+\choices{$7$}{$3$}{$6$}{$5$}
+\answer{D}{$p+n=12$, $2p+5n=39$: $2(12-n)+5n=39$, $3n=15$, $n=5$.}
+\end{exo}
+\begin{exo}{}
+How many solutions does the system $y=2x+3$ and $y=2x-1$ have?
+\choices{Zero}{Exactly one}{Exactly two}{Infinitely many}
+\answer{A}{Same slope, different intercepts: parallel lines, no intersection.}
+\end{exo}
+\begin{exo}{\sprtag}
+If $5x+2y=21$ and $3x+2y=15$, what is the value of $y$?
+\spr{3}{3}{Subtract: $2x=6$, $x=3$; then $15+2y=21$, $y=3$.}
+\end{exo}
+\begin{exo}{}
+If $2x+y=9$ and $x+2y=12$, what is the value of $x+y$?
+\choices{$3$}{$21$}{$7$}{$5$}
+\answer{C}{Add: $3x+3y=21$, so $x+y=7$.}
+\end{exo}
+\begin{exo}{\sprtag}
+In the system $ax+3y=7$ and $4x-6y=1$, $a$ is a constant. For which value of $a$ does the system have no solution?
+\spr{$-2$}{-2}{Slopes $-\frac a3$ and $\frac23$ are equal when $a=-2$. Then $-2x+3y=7$ is $4x-6y=-14$, parallel to $4x-6y=1$.}
+\end{exo}
+
+%%DOC 1.5A | Linear Inequalities
+\begin{exo}{}
+Which describes all solutions of $3x-5>7$?
+\choices{$x>4$}{$x<4$}{$x>\frac23$}{$x>12$}
+\answer{A}{$3x>12$, $x>4$.}
+\end{exo}
+\begin{exo}{}
+Which describes all solutions of $-2x+6\le14$?
+\choices{$x\le-4$}{$x\ge4$}{$x\ge-4$}{$x\le4$}
+\answer{C}{$-2x\le8$; dividing by $-2$ reverses the sign: $x\ge-4$.}
+\end{exo}
+\begin{exo}{}
+Sami has $\$60$. He buys a $\$12$ backpack and some notebooks that cost $\$4.50$ each. What is the greatest number of notebooks he can buy?
+\choices{$13$}{$11$}{$12$}{$10$}
+\answer{D}{$12+4.5n\le60 \Rightarrow n\le10.67$. Round down: $10$.}
+\end{exo}
+\begin{exo}{}
+Which point $(x,y)$ is a solution to $y>2x-3$?
+\choices{$(3,2)$}{$(2,1)$}{$(0,0)$}{$(4,4)$}
+\answer{C}{$0>-3$ is true. For A, $2>3$; for B, $1>1$; for D, $4>5$: all false.}
+\end{exo}
+\begin{exo}{\sprtag}
+What is the greatest integer $x$ that satisfies $5x+3<28$?
+\spr{4}{4}{$5x<25$, $x<5$. The greatest integer is $4$.}
+\end{exo}
+\Needspace{18\baselineskip}
+\begin{exo}{}
+The shaded region with its dashed boundary represents the solutions of which inequality?
+\gr{xmin=-4.5,xmax=4.5,ymin=-4.5,ymax=5.5,width=5.8cm,height=5.4cm}{\addplot[fill=apblue!18,draw=none] coordinates {(-4.5,-3.5) (4.5,5.5) (-4.5,5.5)} --cycle;\addplot[apblue,very thick,dashed,domain=-4.5:4.5]{x+1};\pt{0,1}\pt{2,3}}
+\choices{$y\ge x+1$}{$y<x+1$}{$y>x+1$}{$y>-x+1$}
+\answer{C}{The boundary $y=x+1$ is dashed (strict), and the region above it is shaded.}
+\end{exo}
+\begin{exo}{}
+A worker has at most 40 hours a week: $x$ hours in an office at $\$12$ per hour and $y$ hours in the field at $\$20$ per hour. She must earn at least $\$600$. Which system models this?
+\choices{$x+y\ge40$, $12x+20y\le600$}{$x+y\le40$, $12x+20y\ge600$}{$x+y\le40$, $20x+12y\ge600$}{$12x+20y\le40$, $x+y\ge600$}
+\answer{B}{``At most 40 hours'' gives $x+y\le40$; ``at least $\$600$'' gives $12x+20y\ge600$.}
+\end{exo}
+\begin{exo}{\sprtag}
+What is the smallest integer $x$ that satisfies $2\le\dfrac{x+4}{3}<5$?
+\spr{2}{2}{$6\le x+4<15 \Rightarrow 2\le x<11$. The smallest integer is $2$.}
+\end{exo}
+\begin{exo}{}
+If $a<b$, which statement must be true?
+\choices{$-3a<-3b$}{$a-3>b-3$}{$-3a>-3b$}{$3a>3b$}
+\answer{C}{Multiplying by $-3$ reverses the inequality.}
+\end{exo}
+\begin{exo}{\sprtag}
+A taxi charges $\$3$ plus $\$1.75$ per kilometer. What is the greatest whole number of kilometers a rider can travel for at most $\$24$?
+\spr{12}{12}{$3+1.75k\le24 \Rightarrow k\le12$.}
+\end{exo}

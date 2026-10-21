@@ -1,0 +1,299 @@
+%% Guided notes, SAT Math, Domain 1: Algebra (skills 1.1 to 1.5).
+\newcommand{\gr}[2]{\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,#1]#2\end{axis}\end{tikzpicture}\end{center}}
+\newcommand{\pt}[1]{\node[circle,fill=apblue,inner sep=1.5pt] at (axis cs:#1){};}
+
+%%DOC 1.1 | Linear Equations in One Variable
+\goals{\item Solve linear equations, including equations with parentheses, fractions and decimals.
+\item Decide whether a linear equation has one solution, no solution, or infinitely many solutions.
+\item Find the value of an expression without solving for $x$ first, and write equations from word problems.}
+\vocab{linear equation, solution, distributive property, least common denominator, no solution, infinitely many solutions.}
+
+\subsection*{1. The strategy}
+\begin{keyidea}
+To solve a linear equation: (1) \fillin{distribute} to remove parentheses; (2) multiply by the \fillin{least common denominator} to clear fractions; (3) collect the $x$-terms on one side and the \fillin{constants} on the other; (4) \fillin{divide} by the coefficient of $x$. Check by substituting.
+\end{keyidea}
+
+\ex{Example 1 \textbullet\ Parentheses}
+Solve $4(x-3)+5=2x+9$.
+\begin{workspace}[2.4cm]
+$4x-12+5=2x+9 \;\Rightarrow\; 4x-7=2x+9 \;\Rightarrow\; 2x=16 \;\Rightarrow\; x=8$. Check: $4(5)+5=25$ and $2(8)+9=25$.
+\end{workspace}
+
+\ex{Example 2 \textbullet\ Fractions}
+Solve $\dfrac{x}{3}+\dfrac{x+1}{4}=9$.
+\begin{workspace}[2.4cm]
+Multiply by $12$: $4x+3(x+1)=108 \;\Rightarrow\; 7x+3=108 \;\Rightarrow\; 7x=105 \;\Rightarrow\; x=15$.
+\end{workspace}
+
+\subsection*{2. How many solutions?}
+\begin{keyidea}
+After simplifying to the form $ax+b=cx+d$:
+\begin{itemize}
+\item if $a\neq c$: exactly \fillin{one} solution;
+\item if $a=c$ and $b\neq d$: \fillin{no} solution (the $x$-terms cancel and a false statement remains, like $5=7$);
+\item if $a=c$ and $b=d$: \fillin{infinitely many} solutions (both sides are identical).
+\end{itemize}
+\end{keyidea}
+
+\ex{Example 3}
+For which value of $k$ does $3(2x+k)=6x+12$ have infinitely many solutions? For which values does it have no solution?
+\begin{workspace}[2.4cm]
+$6x+3k=6x+12$. The $x$-terms are equal, so we need $3k=12$: $k=4$ gives infinitely many solutions. Any $k\neq4$ gives no solution.
+\end{workspace}
+
+\subsection*{3. Find the expression, not $x$}
+The SAT often asks for an expression such as $10x-4$. Look for a \fillin{multiple} of the given equation.
+
+\ex{Example 4}
+If $5x-7=13$, what is the value of $10x-4$?
+\begin{workspace}[2cm]
+Multiply by 2: $10x-14=26$, so $10x-4=26+10=36$. (Or: $x=4$, then $10(4)-4=36$.)
+\end{workspace}
+
+\subsection*{4. Word problems}
+\ex{Example 5}
+A plumber charges a $\$65$ call-out fee plus $\$40$ per hour. A bill was $\$245$. How many hours did the plumber work?
+\begin{workspace}[2cm]
+$65+40h=245 \;\Rightarrow\; 40h=180 \;\Rightarrow\; h=4.5$ hours.
+\end{workspace}
+
+\begin{aptip}[SAT tip]
+Use Desmos when an equation is messy: graph $y=$ left side and $y=$ right side and read the $x$-coordinate of the intersection. Parallel lines mean no solution; the same line means infinitely many.
+\end{aptip}
+
+\begin{mistakes}
+\begin{itemize}
+\item Distributing to only the first term: $-2(x-3)\neq-2x-3$; it is $-2x+6$.
+\item Multiplying only some terms by the common denominator.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. $7x-4=3x+20$ gives $x=$ \fillin{$6$}. \quad 2. $2(x+1)=2x+3$ has \fillin{no} solution. \quad 3. If $3x+7=22$, then $6x-1=$ \fillin{$29$}.
+\end{quickcheck}
+
+%%DOC 1.2 | Linear Functions
+\goals{\item Evaluate a linear function and solve $f(x)=k$.
+\item Find a linear function from two points, a table or a graph.
+\item Interpret the slope and the $y$-intercept in context.}
+\vocab{function, slope, rate of change, $y$-intercept, initial value, input, output.}
+
+\subsection*{1. The form $f(x)=mx+b$}
+\begin{keyidea}
+$m$ is the \fillin{slope}: the change in $f(x)$ when $x$ increases by $1$. $b$ is the \fillin{$y$-intercept}: the value $f(0)$, often the starting amount in context.
+\[m=\frac{\fillin{$y_2-y_1$}}{\fillin{$x_2-x_1$}}\]
+\end{keyidea}
+
+\ex{Example 1 \textbullet\ Two points}
+A linear function has $f(2)=11$ and $f(6)=23$. Find $f(x)$ and $f(10)$.
+\begin{workspace}[2.4cm]
+$m=\frac{23-11}{6-2}=3$. $11=3(2)+b$, so $b=5$: $f(x)=3x+5$. $f(10)=35$.
+\end{workspace}
+
+\ex{Example 2 \textbullet\ From a graph}
+\gr{xmin=-1.5,xmax=4.5,ymin=-5.5,ymax=3.5,width=5.5cm,height=5.2cm}{\addplot[apblue,very thick,domain=-1:4]{-2*x+2};\pt{0,2}\pt{3,-4}}
+Write the equation of the line shown.
+\begin{workspace}[2cm]
+It passes through $(0,2)$ and $(3,-4)$: $m=\frac{-4-2}{3-0}=-2$, $b=2$. $\;y=-2x+2$.
+\end{workspace}
+
+\subsection*{2. Slope and intercept in context}
+\begin{keyidea}[Template]
+Slope: ``For each additional [input unit], [output] \fillin{increases or decreases} by $m$ [output units].''\\
+Intercept: ``When [input] is $0$, [output] is $b$'', often a fixed fee or a starting amount.
+\end{keyidea}
+
+\ex{Example 3}
+The cost, in dollars, to rent a kayak for $n$ hours is $C(n)=12n+30$. Interpret $12$ and $30$.
+\begin{workspace}[2cm]
+$12$: each additional hour costs $\$12$. \quad $30$: a fixed fee of $\$30$, the cost before any hours are added.
+\end{workspace}
+
+\ex{Example 4 \textbullet\ Table}
+\begin{center}\begin{tabular}{c|ccc}$x$&$1$&$3$&$5$\\\hline$f(x)$&$7$&$13$&$19$\end{tabular}\end{center}
+\begin{workspace}[1.8cm]
+$m=\frac{13-7}{3-1}=3$; $7=3(1)+b$, $b=4$: $f(x)=3x+4$.
+\end{workspace}
+
+\begin{mistakes}
+\begin{itemize}
+\item Computing $\frac{x_2-x_1}{y_2-y_1}$ (upside down).
+\item Confusing $f(x+2)$ with $f(x)+2$: for $f(x)=4x-7$, $f(x+2)=4x+1$, while $f(x)+2=4x-5$.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. $f(x)=\frac23x+4$ and $f(x)=10$ give $x=$ \fillin{$9$}. \quad 2. A tank holds 500 L and drains 20 L per minute: $V(t)=$ \fillin{$500-20t$}.
+\end{quickcheck}
+
+%%DOC 1.3 | Linear Equations in Two Variables
+\goals{\item Move between slope-intercept, standard and point-slope forms.
+\item Find slopes and intercepts, and recognize parallel and perpendicular lines.
+\item Use equations like $8a+5c=100$ to model combinations in context.}
+\vocab{slope-intercept form, standard form, point-slope form, $x$-intercept, $y$-intercept, parallel, perpendicular.}
+
+\subsection*{1. Three forms of a line}
+\begin{keyidea}
+\begin{tabular}{@{}ll@{}}
+Slope-intercept: & $y=mx+b$\\
+Point-slope: & $y-y_1=m(x-x_1)$\\
+Standard: & $Ax+By=C$, with slope \fillin{$-\frac{A}{B}$}, $x$-intercept \fillin{$\frac CA$}, $y$-intercept \fillin{$\frac CB$}
+\end{tabular}
+\end{keyidea}
+
+\ex{Example 1}
+Find the slope and both intercepts of $4x-2y=10$.
+\begin{workspace}[2cm]
+$-2y=-4x+10 \Rightarrow y=2x-5$: slope $2$, $y$-intercept $(0,-5)$. $x$-intercept: $4x=10$, $(2.5,0)$.
+\end{workspace}
+
+\ex{Example 2 \textbullet\ Point and slope}
+Write the line through $(2,3)$ with slope $-4$.
+\begin{workspace}[1.8cm]
+$y-3=-4(x-2) \Rightarrow y=-4x+11$.
+\end{workspace}
+
+\subsection*{2. Parallel and perpendicular}
+\begin{keyidea}
+Parallel lines have \fillin{equal} slopes. Perpendicular lines have slopes whose product is \fillin{$-1$}: the slopes are negative \fillin{reciprocals} ($\frac25$ and $-\frac52$).
+\end{keyidea}
+
+\ex{Example 3}
+Which line is parallel to $y=3x-2$: $6x-2y=7$ or $x+3y=5$? Write the line perpendicular to $y=\frac25x+1$ through the origin.
+\begin{workspace}[2.2cm]
+$6x-2y=7$ has slope $\frac{6}{2}=3$: parallel. ($x+3y=5$ has slope $-\frac13$: perpendicular.) Perpendicular through the origin: $y=-\frac52x$.
+\end{workspace}
+
+\subsection*{3. Equations in context}
+\ex{Example 4}
+Adult tickets cost $\$8$ and child tickets $\$5$; a group paid $\$100$. Write an equation. If 5 adults went, how many children went?
+\begin{workspace}[2.2cm]
+$8a+5c=100$. With $a=5$: $40+5c=100$, $c=12$. The $y$-intercept ($a=0$) would mean 20 children and no adults.
+\end{workspace}
+
+\begin{mistakes}
+\begin{itemize}
+\item Reading the slope of $Ax+By=C$ as $A$; it is $-\frac AB$.
+\item Using the reciprocal without changing the sign for a perpendicular slope.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. The $x$-intercept of $3x+4y=36$ is \fillin{$12$}. \quad 2. The slope through $(-2,1)$ and $(4,4)$ is \fillin{$\frac12$}.
+\end{quickcheck}
+
+%%DOC 1.4 | Systems of Two Linear Equations
+\goals{\item Solve systems by substitution, elimination and graphing.
+\item Decide whether a system has one solution, no solution or infinitely many solutions.
+\item Write and solve systems from word problems.}
+\vocab{system, solution of a system, substitution, elimination, intersection point, consistent, parallel lines.}
+
+\subsection*{1. Methods}
+\begin{keyidea}
+\textbf{Substitution}: solve one equation for a variable and \fillin{substitute} into the other.\\
+\textbf{Elimination}: add or subtract the equations (after multiplying if needed) so that one variable \fillin{cancels}.\\
+\textbf{Graphing}: the solution is the \fillin{intersection point} of the two lines.
+\end{keyidea}
+
+\ex{Example 1 \textbullet\ Substitution}
+Solve $2x+3y=12$ and $x=y+1$.
+\begin{workspace}[2cm]
+$2(y+1)+3y=12 \Rightarrow 5y=10 \Rightarrow y=2$, $x=3$. Solution $(3,2)$.
+\end{workspace}
+
+\ex{Example 2 \textbullet\ Elimination}
+Solve $4x+y=14$ and $2x-y=4$.
+\begin{workspace}[2cm]
+Add: $6x=18$, $x=3$; then $y=14-12=2$. Solution $(3,2)$.
+\end{workspace}
+
+\ex{Example 3 \textbullet\ A shortcut}
+If $2x+y=9$ and $x+2y=12$, find $x+y$ without solving for $x$ and $y$.
+\begin{workspace}[1.8cm]
+Add: $3x+3y=21$, so $x+y=7$.
+\end{workspace}
+
+\subsection*{2. Number of solutions}
+\begin{keyidea}
+\begin{tabular}{@{}ll@{}}
+Different slopes & \fillin{one} solution\\
+Same slope, different intercepts & \fillin{no} solution (parallel lines)\\
+Same slope, same intercept & \fillin{infinitely many} solutions (same line)
+\end{tabular}
+For $ax+by=c$ and $dx+ey=f$: no solution when $\frac ad=\frac be\neq\frac cf$.
+\end{keyidea}
+
+\ex{Example 4}
+For which $a$ does $ax+3y=7$ and $4x-6y=1$ have no solution?
+\begin{workspace}[2.2cm]
+Slopes $-\frac a3$ and $\frac46=\frac23$. Equal when $a=-2$. Then $-2x+3y=7$ times $-2$ is $4x-6y=-14\neq1$: parallel lines, no solution. $a=-2$.
+\end{workspace}
+
+\ex{Example 5 \textbullet\ Context}
+Pens cost $\$2$ and notebooks $\$5$. Lina bought 12 items for $\$39$. How many notebooks?
+\begin{workspace}[2cm]
+$p+n=12$, $2p+5n=39$. $2(12-n)+5n=39 \Rightarrow 3n=15 \Rightarrow n=5$.
+\end{workspace}
+
+\begin{aptip}[SAT tip]
+In Desmos, type both equations exactly as given (Desmos accepts $3x-2y=5$) and click the intersection point.
+\end{aptip}
+
+\begin{quickcheck}
+1. $y=2x+3$ and $y=2x-1$ have \fillin{no} solution. \quad 2. $3x-2y=5$ and $6x-4y=k$ have infinitely many solutions when $k=$ \fillin{$10$}.
+\end{quickcheck}
+
+%%DOC 1.5 | Linear Inequalities in One or Two Variables
+\goals{\item Solve linear inequalities, reversing the sign when multiplying or dividing by a negative number.
+\item Write inequalities and systems of inequalities from word problems.
+\item Identify solutions and regions of inequalities in two variables.}
+\vocab{inequality, at least ($\ge$), at most ($\le$), more than ($>$), less than ($<$), solution region, boundary line.}
+
+\subsection*{1. Solving}
+\begin{keyidea}
+Solve like an equation, but when you multiply or divide by a \fillin{negative} number, \fillin{reverse} the inequality sign.\\
+``At least'' means \fillin{$\ge$}; ``at most'' means \fillin{$\le$}; ``no more than'' means \fillin{$\le$}.
+\end{keyidea}
+
+\ex{Example 1}
+Solve $-2x+6\le14$, and find the greatest integer $x$ with $5x+3<28$.
+\begin{workspace}[2.2cm]
+$-2x\le8 \Rightarrow x\ge-4$ (sign reversed). \quad $5x<25 \Rightarrow x<5$: the greatest integer is $4$.
+\end{workspace}
+
+\ex{Example 2 \textbullet\ Compound inequality}
+Solve $2\le\dfrac{x+4}{3}<5$.
+\begin{workspace}[1.8cm]
+Multiply by 3: $6\le x+4<15 \Rightarrow 2\le x<11$.
+\end{workspace}
+
+\subsection*{2. Word problems}
+\ex{Example 3}
+Sami has $\$60$. He buys one $\$12$ backpack and notebooks at $\$4.50$ each. What is the greatest number of notebooks he can buy?
+\begin{workspace}[2cm]
+$12+4.5n\le60 \Rightarrow n\le10.67$. He can buy at most $10$ notebooks (round \emph{down}).
+\end{workspace}
+
+\subsection*{3. Two variables}
+\begin{keyidea}
+The solutions of $y>mx+b$ are the points \fillin{above} the line; for $y<mx+b$, \fillin{below}. The boundary is \fillin{dashed} for $<$ or $>$ and \fillin{solid} for $\le$ or $\ge$. To test a point, substitute it.
+\end{keyidea}
+\gr{xmin=-4.5,xmax=4.5,ymin=-4.5,ymax=5.5,width=5.8cm,height=5.4cm}{\addplot[fill=apblue!18,draw=none] coordinates {(-4.5,-3.5) (4.5,5.5) (-4.5,5.5)} --cycle;\addplot[apblue,very thick,dashed,domain=-4.5:4.5]{x+1};}
+\begin{center}\small The region $y>x+1$: above a dashed line.\end{center}
+
+\ex{Example 4 \textbullet\ A system in context}
+A worker can work at most 40 hours a week, $x$ hours in the office at $\$12$ per hour and $y$ hours in the field at $\$20$ per hour, and must earn at least $\$600$. Write the system.
+\begin{workspace}[1.8cm]
+$x+y\le40$ and $12x+20y\ge600$ (with $x\ge0$, $y\ge0$).
+\end{workspace}
+
+\begin{mistakes}
+\begin{itemize}
+\item Forgetting to reverse the sign after dividing by a negative number.
+\item Rounding up in ``how many can you buy'' questions.
+\end{itemize}
+\end{mistakes}
+
+\begin{quickcheck}
+1. $3x-5>7$ gives \fillin{$x>4$}. \quad 2. Is $(0,0)$ a solution of $y>2x-3$? \fillin{Yes, $0>-3$}. \quad 3. If $a<b$, then $-3a$ \fillin{$>$} $-3b$.
+\end{quickcheck}

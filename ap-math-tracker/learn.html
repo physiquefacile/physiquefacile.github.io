@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="AP Precalculus and AP Calculus AB: guided notes, worksheets, quizzes and tests with automatic correction. Unit 1 is free.">
+<meta name="description" content="AP Precalculus, AP Calculus AB and SAT Math: guided notes, worksheets, quizzes and tests with automatic correction. Unit 1 and an SAT practice test are free.">
 <title>AP Math Online</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@500&display=swap">
@@ -43,6 +43,8 @@ p{margin:0}
 button:focus-visible,input:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--hl);outline-offset:2px}
 label.f{display:grid;gap:4px;font-size:.88rem;color:var(--muted)}
 input[type=text],input[type=tel],input[type=email],input:not([type]){font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;width:100%}
+.spr input{font-family:var(--f-mono);font-size:1.15rem;max-width:260px;border-width:2px;border-radius:10px}
+.spr input.right{border-color:var(--good);background:var(--good-bg)}.spr input.wrong{border-color:var(--bad);background:var(--bad-bg)}
 .banner{background:var(--hl);color:#16223A;border-radius:8px;padding:8px 12px;font-size:.9rem}
 .err{color:var(--bad);font-weight:700;font-size:.9rem}
 .top{display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap}
@@ -130,7 +132,7 @@ a{color:var(--accent)}
 <body>
 <div class="wrap">
   <header class="top">
-    <div><div class="label">AP Precalculus · AP Calculus AB</div><h1>AP Math Online</h1></div>
+    <div><div class="label">AP Precalculus · AP Calculus AB · SAT Math</div><h1>AP Math Online</h1></div>
     <div class="who" id="who"></div>
   </header>
   <div id="tabsWrap" hidden>
@@ -158,13 +160,13 @@ a{color:var(--accent)}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
 <script src="../vendor/pdfjs/pdf.js"></script>
-<script src="quiz-config.js?v=2"></script>
-<script src="courses.js?v=7"></script>
-<script src="quiz-bank.js?v=2"></script>
+<script src="quiz-config.js?v=3"></script>
+<script src="courses.js?v=8"></script>
+<script src="quiz-bank.js?v=3"></script>
 <script>
 const CFG=window.QUIZ_CONFIG||{endpoint:""},PAY=CFG.payment||{},LIB=window.COURSE_LIB||{};
 const FREE_BANK=window.QUIZ_BANK||[],LOCKED=window.QUIZ_LOCKED||[];
-const COURSE={pc:"AP Precalculus",ab:"AP Calculus AB"};
+const COURSE={pc:"AP Precalculus",ab:"AP Calculus AB",sat:"SAT Math"},SHORT={pc:"Precalc",ab:"Calc AB",sat:"SAT"};
 const online=!!CFG.endpoint;
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -175,7 +177,7 @@ function math(el){try{renderMathInElement(el,{delimiters:[{left:"$",right:"$",di
 function uid(){return (crypto.randomUUID&&crypto.randomUUID())||Date.now().toString(36)+Math.random().toString(36).slice(2)}
 async function post(o){const r=await fetch(CFG.endpoint,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(o)});return r.json()}
 const fmtMoney=n=>Number(n||0).toLocaleString("fr-FR")+" "+(PAY.currency||"FCFA");
-const payReady=()=>online&&((PAY.prices||{}).pc>0||(PAY.prices||{}).ab>0)&&(PAY.wave||PAY.orangeMoney);
+const payReady=()=>online&&Object.values(PAY.prices||{}).some(p=>p>0)&&(PAY.wave||PAY.orangeMoney);
 
 /* ---------- access and keys ---------- */
 const keys=()=>(S.acc&&S.acc.keys)||{};
@@ -216,8 +218,8 @@ function statusChip(){
   const a=S.acc;if(!S.id)return "";
   if(a&&a.type==="teacher")return '<span class="chip good">Teacher · all units</span>';
   if(a&&a.status==="Pending")return '<span class="chip mid">Payment being checked</span>';
-  if(a&&(a.courses||[]).length)return `<span class="chip good">Full access · ${a.courses.map(c=>c==="pc"?"Precalc":"Calc AB").join(" + ")}</span>`;
-  return '<span class="chip">Free: Unit 1</span>';
+  if(a&&(a.courses||[]).length)return `<span class="chip good">Full access · ${a.courses.map(c=>SHORT[c]||c).join(" + ")}</span>`;
+  return '<span class="chip">Free samples</span>';
 }
 function header(){
   $("#who").innerHTML=S.id?`<span>${esc(S.id.name||"Guest")}</span>${statusChip()}<button class="btn sm" id="signout">Sign out</button>`:"";
@@ -238,11 +240,11 @@ function signin(msg,nm,cc){
   header();
   $("#main").innerHTML=`<div class="panel">
     <h2>Welcome</h2>
-    <p class="muted">Guided notes, worksheets, quizzes and tests for AP Precalculus and AP Calculus AB, following a complete lesson plan. <b>Unit 1 is free.</b></p>
-    ${online?"":'<div class="banner"><b>Practice mode.</b> Unit 1 is open; accounts and payments are not active yet.</div>'}
+    <p class="muted">Guided notes, worksheets, quizzes and tests for AP Precalculus, AP Calculus AB and SAT Math. <b>Unit 1 of each AP course, one SAT skill and a full SAT practice test are free.</b></p>
+    ${online?"":'<div class="banner"><b>Practice mode.</b> The free content is open; accounts and payments are not active yet.</div>'}
     <form id="si" style="display:grid;gap:12px">
       <label class="f" for="nm">Your full name<input id="nm" autocomplete="name" maxlength="60" value="${esc(nm??S.id?.name??"")}"></label>
-      <label class="f" for="cc">Access code or class code (leave empty to try Unit 1)<input id="cc" autocomplete="off" autocapitalize="characters" maxlength="30" value="${esc(cc??"")}"></label>
+      <label class="f" for="cc">Access code or class code (leave empty to try the free content)<input id="cc" autocomplete="off" autocapitalize="characters" maxlength="30" value="${esc(cc??"")}"></label>
       ${msg?`<div class="err">${esc(msg)}</div>`:""}
       <button class="btn primary" type="submit" id="go">Continue</button>
     </form>
@@ -251,7 +253,7 @@ function signin(msg,nm,cc){
 }
 async function doSignin(name,code){
   if(!code){if(!name)return signin("Enter your name.",name,code);S.id={name,code:"",kind:"guest"};S.acc=null;LS.set("id",S.id);LS.set("access",null);return route()}
-  if(!online){S.id={name:name||"Student",code:"",kind:"guest"};LS.set("id",S.id);toast("Accounts are not active yet: Unit 1 is open");return route()}
+  if(!online){S.id={name:name||"Student",code:"",kind:"guest"};LS.set("id",S.id);toast("Accounts are not active yet: the free content is open");return route()}
   $("#go").disabled=true;$("#go").textContent="Checking…";
   try{const R=await post({action:"access",code});
     if(!R||!R.ok)return signin("This code is not recognized. Check it, or continue without a code.",name,code);
@@ -264,6 +266,8 @@ async function doSignin(name,code){
 
 /* ---------- courses ---------- */
 function pdfPath(c,f,locked){return "docs/"+c+"/"+f+".pdf"+(locked?".enc":"")}
+const unitName=(c,u)=>u.n==="R"||u.n==="T"?u.t:(c==="sat"?"Domain ":"Unit ")+u.n+" · "+u.t;
+const someFree=u=>!!(u.free||(u.lessons||[]).some(l=>l.free));
 function fileBtn(c,u,f,label,cls,k){
   const locked=!u.free,open=unitOpen(c,u);
   if(locked&&!open)return `<span class="rbtn locked" title="Full access">${k?`<span class="k">${k}</span>`:""}${label} 🔒</span>`;
@@ -278,7 +282,8 @@ function unitBody(c,u){
   if(!u.plan&&!u.files)return `<p class="muted">Coming soon. Lessons in this unit:</p><div>${u.lessons.map(l=>`<div class="lesson"><span class="ln">${esc(l.n)}</span><span>${esc(l.t)}</span></div>`).join("")}</div>`;
   const open=unitOpen(c,u),lab=l=>l.review?l.t:(c==="pc"?"Topic ":"Lesson ")+l.n;
   let h="";
-  if(!open)h+=`<div class="lockbox"><span>This unit is part of <b>full access</b> to ${COURSE[c]}.</span><button class="btn sm primary" data-tab="access">Get full access</button></div>`;
+  const fl=(u.lessons||[]).filter(l=>l.free);
+  if(!open)h+=`<div class="lockbox"><span>This ${c==="sat"?"domain":"unit"} is part of <b>full access</b> to ${COURSE[c]}.${fl.length?` ${c==="sat"?"Skill":"Lesson"} ${fl.map(l=>esc(l.n)).join(", ")} is free.`:""}</span><button class="btn sm primary" data-tab="access">Get full access</button></div>`;
   const uq=c+"-"+u.id+"-aptest";
   const top=[];
   if(u.files&&u.files.notes)top.push(fileBtn(c,u,u.files.notes,"Unit notes","", "NOTES"));
@@ -286,14 +291,17 @@ function unitBody(c,u){
   if(FREE_BANK.some(q=>q.id===uq)||LOCKED.some(q=>q.id===uq))top.push(`<button class="rbtn quiz" data-quiz="${esc(uq)}"><span class="k">ONLINE</span>Unit test${LOCKED.some(q=>q.id===uq&&!keys()[q.key])?" 🔒":""}</button>`);
   if(top.length)h+=`<div class="res" style="grid-column:auto">${top.join("")}</div>`;
   if(u.tests)h+=`<div class="label">Self checks and unit tests</div><div class="res" style="grid-column:auto">${u.tests.map(x=>`<span class="pair">${fileBtn(c,u,u.plan+x.id,x.t)}${fileBtn(c,u,u.plan+x.id+"-key","Key","key","KEY")}${quizBtn(c,c+"-"+u.plan+x.id)}</span>`).join("")}</div>`;
-  if(u.plan){
-    h+=`<div class="label">Lessons</div><div>${u.lessons.map(l=>{
+  if(u.mocks)h+=`<div class="label">Online adaptive tests (Module 1, then an easier or harder Module 2, with an estimated score)</div><div class="res" style="grid-column:auto">${u.mocks.map(m=>`<button class="rbtn quiz" data-quiz="${esc(m.id)}"><span class="k">ONLINE</span>${esc(m.t)}${m.note?` · ${esc(m.note)}`:""}${LOCKED.some(q=>q.id===m.id&&!keys()[q.key])?" 🔒":""}</button>`).join("")}</div><div class="label">Paper versions</div>`;
+  if(u.plan&&u.lessons.length){
+    h+=`<div class="label">${c==="sat"?"Skills":"Lessons"}</div><div>${u.lessons.map(L=>{
+      const l=L,uu=l.free?{...u,free:true}:u,u0=u;u=uu;
       const base=u.plan+l.n;
       const parts=[];
       if(l.notes)parts.push(fileBtn(c,u,base+"-notes","Notes"),fileBtn(c,u,base+"-notes-filled","Filled notes"));
       parts.push(quizBtn(c,c+"-"+base));
-      l.ws.forEach(w=>parts.push(`<span class="pair">${fileBtn(c,u,base+"-ws"+w,w==="MEGA"?"MEGA":"Worksheet "+w)}${fileBtn(c,u,base+"-ws"+w+"-key","Key","key","KEY")}</span>`));
-      return `<div class="lesson"><span class="ln">${l.review?"R":esc(l.n)}</span><span>${l.review?"<b>"+esc(l.t)+"</b>":esc(l.t)}</span><div class="res">${parts.join("")}</div></div>`}).join("")}</div>`;
+      l.ws.forEach(w=>parts.push(`<span class="pair">${fileBtn(c,u,base+"-ws"+w,w==="MEGA"?"MEGA":(c==="sat"?"Practice ":"Worksheet ")+w)}${fileBtn(c,u,base+"-ws"+w+"-key","Key","key","KEY")}</span>`));
+      u=u0;
+      return `<div class="lesson"><span class="ln">${l.review?"R":esc(l.n)}</span><span>${l.review?"<b>"+esc(l.t)+"</b>":esc(l.t)}${l.free&&!unitOpen(c,u)?' <span class="chip free">Free</span>':""}</span><div class="res">${parts.join("")}</div></div>`}).join("")}</div>`;
   }
   return h;
 }
@@ -301,32 +309,33 @@ function coursesView(){
   const lib=LIB[S.course];
   $("#main").innerHTML=`<div style="display:grid;gap:14px">${courseSwitch()}
     ${lib.units.map(u=>{const has=u.plan||u.files,open=unitOpen(S.course,u),k=S.course+u.id;
-      const chip=u.free?'<span class="chip free">Free</span>':!has?'<span class="chip">Coming soon</span>':open?'<span class="chip good">Unlocked</span>':'<span class="chip lock">🔒 Full access</span>';
-      const isOpen=k in S.open?S.open[k]:!!u.free;
-      return `<details class="unit" data-k="${k}"${isOpen?" open":""}><summary><span class="t">${u.n==="R"?"":"Unit "+esc(u.n)+" · "}${esc(u.t)}</span>${chip}</summary><div class="body">${unitBody(S.course,u)}</div></details>`}).join("")}
+      const chip=u.free?'<span class="chip free">Free</span>':!has?'<span class="chip">Coming soon</span>':open?'<span class="chip good">Unlocked</span>':someFree(u)?'<span class="chip lock">🔒 Free sample inside</span>':'<span class="chip lock">🔒 Full access</span>';
+      const isOpen=k in S.open?S.open[k]:someFree(u);
+      return `<details class="unit" data-k="${k}"${isOpen?" open":""}><summary><span class="t">${esc(unitName(S.course,u))}</span>${chip}</summary><div class="body">${unitBody(S.course,u)}</div></details>`}).join("")}
   </div>`;
 }
 
 /* ---------- quizzes list ---------- */
-function badge(id){const r=S.results[id];if(!r)return "";const p=r.best;return `<span class="chip ${p>=80?"good":p>=60?"mid":"bad"}">Best ${p}%</span>`}
+function badge(id){const r=S.results[id];if(!r)return "";if(r.sat)return `<span class="chip good">Best ${r.sat}</span>`;const p=r.best;return `<span class="chip ${p>=80?"good":p>=60?"mid":"bad"}">Best ${p}%</span>`}
 function quizzesView(){
   const lib=LIB[S.course];
   const all=[...FREE_BANK.filter(b=>b.course===S.course).map(b=>({...b,count:b.items.length})),...LOCKED.filter(b=>b.course===S.course)];
   const units=lib.units.filter(u=>all.some(b=>b.unit===u.id));
   $("#main").innerHTML=`<div style="display:grid;gap:14px">${courseSwitch()}
     ${online&&!(S.id&&S.id.code)?'<div class="banner">You are using the free version without a code: your scores stay on this device.</div>':""}
-    ${units.map(u=>{const qs=all.filter(b=>b.unit===u.id);return `<section class="panel"><div class="qhead"><h2>Unit ${esc(u.n)} · ${esc(u.t)}</h2>${u.free?'<span class="chip free">Free</span>':""}</div>
+    ${units.map(u=>{const qs=all.filter(b=>b.unit===u.id);return `<section class="panel"><div class="qhead"><h2>${esc(unitName(S.course,u))}</h2>${u.free?'<span class="chip free">Free</span>':""}</div>
+      ${qs.some(b=>b.kind==="sat")?`<div class="label">Full adaptive practice tests (2 modules, estimated score)</div><div class="list">${qs.filter(b=>b.kind==="sat").map(row).join("")}</div>`:""}
       ${qs.some(b=>b.kind==="test")?`<div class="label">Tests (timed, corrected at the end)</div><div class="list">${qs.filter(b=>b.kind==="test").map(row).join("")}</div>`:""}
-      <div class="label">Quizzes (instant feedback)</div><div class="list">${qs.filter(b=>b.kind==="quiz").map(row).join("")}</div></section>`}).join("")||'<div class="panel"><p class="muted">No quizzes yet for this course.</p></div>'}
+      ${qs.some(b=>b.kind==="quiz")?`<div class="label">Quizzes (instant feedback)</div><div class="list">${qs.filter(b=>b.kind==="quiz").map(row).join("")}</div>`:""}</section>`}).join("")||'<div class="panel"><p class="muted">No quizzes yet for this course.</p></div>'}
   </div>`;
 }
-function row(b){const lk=b.key&&!keys()[b.key];return `<button class="qrow ${lk?"locked":""}" data-quiz="${b.id}"><span><b>${esc(b.title)}</b></span><span style="display:flex;gap:6px">${b.kind==="test"?'<span class="chip test">Test</span>':""}${lk?'<span class="chip lock">🔒</span>':badge(b.id)}</span><small>${b.count} questions${b.minutes?` · ${b.minutes} min`:""}</small></button>`}
+function row(b){const lk=b.key&&!keys()[b.key];return `<button class="qrow ${lk?"locked":""}" data-quiz="${b.id}"><span><b>${esc(b.title)}</b></span><span style="display:flex;gap:6px">${b.kind==="test"||b.kind==="sat"?'<span class="chip test">Test</span>':""}${lk?'<span class="chip lock">🔒</span>':badge(b.id)}</span><small>${b.kind==="sat"?`${2*b.count} questions · 2 modules × ${b.minutes} min`:`${b.count} questions${b.minutes?` · ${b.minutes} min`:""}`}</small></button>`}
 
 /* ---------- my access / payment ---------- */
 function accessView(){
   const a=S.acc||{},id=S.id;
   let h="";
-  if(a.type==="teacher")h=`<div class="panel"><h2>Teacher access</h2><p>All units of both courses are unlocked on this device.</p></div>`;
+  if(a.type==="teacher")h=`<div class="panel"><h2>Teacher access</h2><p>All units of every course are unlocked on this device.</p></div>`;
   else if(a.type==="student"&&a.status==="Active"&&(a.courses||[]).length)h=`<div class="panel"><h2>Full access is active</h2>
       <p>${a.courses.map(c=>COURSE[c]).join(" and ")}${a.accessEnds?`, until <b>${esc(new Date(a.accessEnds+"T12:00").toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"}))}</b>`:""}.</p>
       <div class="label">Your access code</div><div class="codebox">${esc(id.code)}</div>
@@ -344,12 +353,12 @@ function accessView(){
 }
 function contact(){return PAY.contact?`<p class="muted" style="font-size:.9rem">Questions: <span class="num" style="user-select:all">${esc(PAY.contact)}</span></p>`:""}
 function buyView(){
-  if(!payReady())return `<div class="panel"><h2>Full access</h2><p>Full access unlocks every unit: guided notes, worksheets with answer keys, quizzes and timed tests, until the AP exam in May.</p><div class="banner">Online payment opens soon. Ask your teacher for an access code.</div>${contact()}</div>`;
+  if(!payReady())return `<div class="panel"><h2>Full access</h2><p>Full access unlocks every unit: guided notes, worksheets with answer keys, quizzes and timed tests, until 31 May 2027.</p><div class="banner">Online payment opens soon. Ask your teacher for an access code.</div>${contact()}</div>`;
   const pr=PAY.prices||{},courses=Object.keys(COURSE).filter(c=>pr[c]>0),methods=[PAY.wave?"Wave":"",PAY.orangeMoney?"Orange Money":""].filter(Boolean);
   const f=S.form||(S.form={courses:courses.length===1?[courses[0]]:[S.course].filter(c=>courses.includes(c)),method:methods[0]});
   const total=f.courses.reduce((s,c)=>s+(pr[c]||0),0),num=f.method==="Wave"?PAY.wave:PAY.orangeMoney;
   return `<div class="panel"><h2>Get full access</h2>
-    <p>Every unit of the course, until the AP exam in May 2027: guided notes (blank and filled in), worksheets with answer keys, quizzes with instant correction and timed tests.</p>
+    <p>Every unit of the course until 31 May 2027: guided notes (blank and filled in), worksheets with answer keys, quizzes with instant correction and timed tests. SAT Math also includes full adaptive practice tests.</p>
     <form id="buy" style="display:grid;gap:14px">
       <div class="label">1 · Choose your course${courses.length>1?"s":""}</div>
       <div class="offer">${courses.map(c=>`<label class="opt"><input type="checkbox" name="crs" value="${c}" ${f.courses.includes(c)?"checked":""}><span><b>${COURSE[c]}</b><br><span class="price">${fmtMoney(pr[c])}</span><br><span class="muted" style="font-size:.85rem">for the school year</span></span></label>`).join("")}</div>
@@ -427,24 +436,46 @@ async function findQuiz(id){
   if(!keys()[lk.key])return "locked";
   try{const qs=await lockedQuizzes(lk.key,lk.file);return qs.find(b=>b.id===id)||null}catch(e){toast("Could not load this quiz. Check your connection.");return null}
 }
+/* student-produced responses: "3/4", "0.75", "−2" and "2,5" are read as numbers and compared with every accepted value */
+function num(x){x=String(x??"").trim().replace(/[\u2212\u2013]/g,"-").replace(/,/g,".").replace(/\s+/g,"");if(!x)return NaN;
+  const m=x.match(/^(-?\d*\.?\d+)\/(-?\d*\.?\d+)$/);if(m)return +m[2]?(+m[1])/(+m[2]):NaN;return /^-?\d*\.?\d+$/.test(x)?+x:NaN}
+function isRight(it,a){if(a==null||a==="")return false;if(it.spr){const v=num(a);return !isNaN(v)&&it.spr.some(s=>Math.abs(num(s)-v)<=0.001)}return a===it.a}
+const shown=(it,a)=>a==null||a===""?"none":it.spr?esc(a):"("+"ABCD"[a]+")";
+const correct=it=>it.spr?it.ans:"("+"ABCD"[it.a]+") "+it.c[it.a];
+/* SAT adaptive test: Module 1, then the harder Module 2 if at least b.cut answers are right, otherwise the easier one */
+function modBlock(b,m){return {...b,kind:"test",mock:b,mod:m,items:b.modules[m],title:b.title.split(" · ")[0]+" · "+(m==="m1"?"Module 1":"Module 2"+(m==="hard"?" (harder)":" (easier)"))}}
+function satScore(total,hard){const v=hard?400+400*(total-13)/31:200+400*total/34;return Math.max(200,Math.min(800,Math.round(v/10)*10))}
 async function start(id){
   const b=await findQuiz(id);
   if(b==="locked"){S.tab="access";toast("This quiz is part of full access");return render()}
   if(!b)return render();
   S.course=b.course;
   const saved=LS.get("run",null);
+  if(b.kind==="sat"){
+    if(saved&&saved.id===id&&Date.now()<saved.end)S.run={...saved,b:modBlock(b,saved.mod)};
+    else S.run={id,b:modBlock(b,"m1"),mod:"m1",i:0,ans:Array(b.modules.m1.length).fill(null),lock:[],t0:Date.now(),end:Date.now()+b.minutes*60000,confirm:false};
+    try{history.replaceState(null,"","#"+id)}catch(e){}
+    return S.run.brk?breakView():view();
+  }
   if(saved&&saved.id===id&&b.kind==="test"&&Date.now()<saved.end)S.run={...saved,b};
   else S.run={id,b,i:0,ans:Array(b.items.length).fill(null),lock:Array(b.items.length).fill(false),t0:Date.now(),end:b.minutes?Date.now()+b.minutes*60000:0,confirm:false};
   try{history.replaceState(null,"","#"+id)}catch(e){}
   view();
 }
 function save(){if(S.run&&S.run.b.kind==="test"){const {b,...r}=S.run;LS.set("run",r)}}
+function breakView(){
+  header();clearInterval(tick);const R=S.run;
+  $("#main").innerHTML=`<div class="panel"><div class="label">${esc(R.b.mock.title)}</div><h2>Module 1 is complete</h2>
+    <p>Module 2 has ${R.b.mock.modules.hard.length} questions and ${R.b.mock.minutes} minutes. Its difficulty depends on your Module 1 answers, as on the real digital SAT. Take a short break if you need one: the timer starts when you click.</p>
+    <div class="nav"><span></span><button class="btn primary" id="mod2">Start Module 2</button></div></div>`;
+  window.scrollTo({top:0});
+}
 let tick=null;
 function view(){
   header();
   const R=S.run,b=R.b,it=b.items[R.i],test=b.kind==="test",n=b.items.length;
   clearInterval(tick);
-  const answered=R.ans.filter(a=>a!=null).length;
+  const answered=R.ans.filter(a=>a!=null&&a!=="").length;
   $("#main").innerHTML=`<div class="panel">
     <div class="qhead"><div><div class="label">${esc(b.title)}</div><span class="num muted">Question ${R.i+1} of ${n}</span></div>
       <div style="display:flex;gap:8px;align-items:center">${test?`<span class="timer" id="tm"></span>`:""}<button class="btn sm" id="quit">Exit</button></div></div>
@@ -452,43 +483,67 @@ function view(){
     <div><span class="calc ${it.calc?"on":""}">${it.calc?"CALCULATOR":"NO CALCULATOR"}</span></div>
     <div class="stem">${it.q}</div>
     ${it.img.map(src=>`<div class="fig"><img src="quiz-img/${src}" alt="Graph for question ${R.i+1}"></div>`).join("")}
-    <div class="choices">${it.c.map((c,k)=>{let cls="";if(!test&&R.lock[R.i]){if(k===it.a)cls="right";else if(k===R.ans[R.i])cls="wrong"}
-      return `<button class="choice ${cls}" data-pick="${k}" aria-pressed="${R.ans[R.i]===k}" ${!test&&R.lock[R.i]?"disabled":""}><span class="l">${"ABCD"[k]}</span><span>${c}</span></button>`}).join("")}</div>
-    ${!test&&R.lock[R.i]?`<div class="exp ${R.ans[R.i]===it.a?"":"no"}"><b>${R.ans[R.i]===it.a?"Correct.":"Not quite. The answer is ("+"ABCD"[it.a]+")."}</b> ${it.e}</div>`:""}
-    ${test?`<div class="dots">${b.items.map((_,k)=>`<button class="dot ${R.ans[k]!=null?"ans":""} ${k===R.i?"cur":""}" data-go="${k}" aria-label="Question ${k+1}">${k+1}</button>`).join("")}</div>`:""}
-    ${R.confirm?`<div class="confirm"><b>Submit your test?</b><span>${n-answered?`You have ${n-answered} unanswered question${n-answered>1?"s":""}. Unanswered questions count as wrong.`:"All questions are answered."}</span><div class="nav"><button class="btn" id="cancel">Keep working</button><button class="btn primary" id="finish">Submit test</button></div></div>`:""}
+    ${it.spr?`<label class="f spr" for="sprIn">Your answer <span class="muted" style="font-weight:400">(a number, a fraction like 3/4, or a decimal)</span>
+      <input id="sprIn" inputmode="text" autocomplete="off" maxlength="12" value="${esc(R.ans[R.i]??"")}" ${!test&&R.lock[R.i]?"disabled":""} class="${!test&&R.lock[R.i]?(isRight(it,R.ans[R.i])?"right":"wrong"):""}"></label>`
+    :`<div class="choices">${it.c.map((c,k)=>{let cls="";if(!test&&R.lock[R.i]){if(k===it.a)cls="right";else if(k===R.ans[R.i])cls="wrong"}
+      return `<button class="choice ${cls}" data-pick="${k}" aria-pressed="${R.ans[R.i]===k}" ${!test&&R.lock[R.i]?"disabled":""}><span class="l">${"ABCD"[k]}</span><span>${c}</span></button>`}).join("")}</div>`}
+    ${!test&&R.lock[R.i]?`<div class="exp ${isRight(it,R.ans[R.i])?"":"no"}"><b>${isRight(it,R.ans[R.i])?"Correct.":"Not quite. The answer is "+(it.spr?it.ans:"("+"ABCD"[it.a]+")")+"."}</b> ${it.e}</div>`:""}
+    ${test?`<div class="dots">${b.items.map((_,k)=>`<button class="dot ${R.ans[k]!=null&&R.ans[k]!==""?"ans":""} ${k===R.i?"cur":""}" data-go="${k}" aria-label="Question ${k+1}">${k+1}</button>`).join("")}</div>`:""}
+    ${R.confirm?`<div class="confirm"><b>${b.mock&&b.mod==="m1"?"Finish Module 1?":"Submit your test?"}</b><span>${n-answered?`You have ${n-answered} unanswered question${n-answered>1?"s":""}. Unanswered questions count as wrong.`:"All questions are answered."}</span><div class="nav"><button class="btn" id="cancel">Keep working</button><button class="btn primary" id="finish">${b.mock&&b.mod==="m1"?"Go on":"Submit test"}</button></div></div>`:""}
     <div class="nav">
       ${test?`<button class="btn" id="prev" ${R.i===0?"disabled":""}>Previous</button>`:"<span></span>"}
-      ${test?(R.i<n-1?`<button class="btn primary" id="next">Next</button>`:`<button class="btn primary" id="ask">Submit test</button>`)
-            :(R.lock[R.i]?`<button class="btn primary" id="next">${R.i<n-1?"Next question":"See my score"}</button>`:`<button class="btn primary" id="check" ${R.ans[R.i]==null?"disabled":""}>Check answer</button>`)}
+      ${test?(R.i<n-1?`<button class="btn primary" id="next">Next</button>`:`<button class="btn primary" id="ask">${b.mock&&b.mod==="m1"?"Finish Module 1":"Submit test"}</button>`)
+            :(R.lock[R.i]?`<button class="btn primary" id="next">${R.i<n-1?"Next question":"See my score"}</button>`:`<button class="btn primary" id="check" ${R.ans[R.i]==null||R.ans[R.i]===""?"disabled":""}>Check answer</button>`)}
     </div></div>`;
   math($("#main"));
+  const si=$("#sprIn");if(si){if(!(!test&&R.lock[R.i]))si.focus({preventScroll:true});si.addEventListener("input",()=>{R.ans[R.i]=si.value.trim();save();const c=$("#check");if(c)c.disabled=!R.ans[R.i];
+    const d=document.querySelector(`.dot[data-go="${R.i}"]`);if(d)d.classList.toggle("ans",!!R.ans[R.i])});
+    si.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();const c=$("#check")||$("#next");if(c&&!c.disabled)c.click()}})}
   if(test){const upd=()=>{const left=Math.max(0,R.end-Date.now()),m=Math.floor(left/60000),s=Math.floor(left/1000)%60;const el=$("#tm");if(el){el.textContent=`${m}:${String(s).padStart(2,"0")}`;el.classList.toggle("low",left<60000)}if(left<=0){clearInterval(tick);finish(true)}};upd();tick=setInterval(upd,1000)}
   window.scrollTo({top:0});
 }
+const ansText=(items,ans)=>items.map((it,k)=>ans[k]==null||ans[k]===""?"-":it.spr?"{"+ans[k]+"}":"ABCD"[ans[k]]).join("");
 async function finish(timeUp){
   clearInterval(tick);
-  const R=S.run,b=R.b,n=b.items.length;
-  const right=b.items.reduce((s,it,k)=>s+(R.ans[k]===it.a?1:0),0),pct=Math.round(100*right/n);
-  const prev=S.results[b.id]||{best:0,tries:0};S.results[b.id]={best:Math.max(prev.best,pct),last:pct,tries:prev.tries+1,at:new Date().toISOString()};LS.set("results",S.results);
-  LS.set("run",null);
-  const payload={action:"submit",id:uid(),name:S.id.name,code:S.id.code,course:b.course,unit:b.unit,quiz:b.id,title:b.title,kind:b.kind,score:right,total:n,percent:pct,seconds:Math.round((Date.now()-R.t0)/1000),answers:R.ans.map(a=>a==null?"":"ABCD"[a]).join(""),client:new Date().toISOString()};
-  results(b,R,right,pct,timeUp,"sending");
+  let R=S.run,b=R.b;
+  if(b.mock&&b.mod==="m1"){   // end of Module 1: route to Module 2
+    const r1=b.items.reduce((s,it,k)=>s+(isRight(it,R.ans[k])?1:0),0),m=r1>=b.mock.cut?"hard":"easy";
+    S.run={id:R.id,b:modBlock(b.mock,m),mod:m,m1:{ans:R.ans,right:r1},i:0,ans:Array(b.mock.modules[m].length).fill(null),lock:[],t0:R.t0,end:Date.now()+3600000,brk:true,confirm:false};
+    save();return breakView();
+  }
+  if(b.mock){   // end of Module 2: one result for the whole test
+    const mk=b.mock,i1=mk.modules.m1,items=[...i1,...b.items],ans=[...R.m1.ans,...R.ans];
+    R={...R,ans,timeUp,r1:R.m1.right};b={...mk,items,mod:b.mod};
+  }
+  const n=b.items.length;
+  const right=b.items.reduce((s,it,k)=>s+(isRight(it,R.ans[k])?1:0),0),pct=Math.round(100*right/n);
+  const sat=b.mod?satScore(right,b.mod==="hard"):0;
+  const prev=S.results[b.id]||{best:0,tries:0};S.results[b.id]={best:Math.max(prev.best,pct),last:pct,tries:prev.tries+1,at:new Date().toISOString(),...(sat?{sat:Math.max(sat,prev.sat||0)}:{})};LS.set("results",S.results);
+  LS.set("run",null);S.run=R;
+  const title=sat?`${b.title.split(" · ")[0]} · estimated ${sat} (Module 2 ${b.mod==="hard"?"harder":"easier"})`:b.title;
+  const payload={action:"submit",id:uid(),name:S.id.name,code:S.id.code,course:b.course,unit:b.unit,quiz:b.id,title,kind:b.kind,score:right,total:n,percent:pct,seconds:Math.round((Date.now()-R.t0)/1000),answers:ansText(b.items,R.ans),client:new Date().toISOString()};
+  results(b,R,right,pct,timeUp,"sending",sat);
   const st=await send(payload);const el=$("#sendst");if(el)el.innerHTML=sendText(st);
 }
 function sendText(st){return {practice:"Practice mode: this result was not sent.",guest:"Saved on this device only. Sign in with a code to send your results to your teacher.",teacher:"Teacher preview: not recorded.",sent:"✓ Sent to your teacher.",queued:"Saved on this device. It will be sent when you are online.",code:"Your code was refused. Sign out and sign in again.",sending:"Sending to your teacher…"}[st]}
-function results(b,R,right,pct,timeUp,st){
+function satReport(b,R,right,sat){
+  const doms={};b.items.forEach((it,k)=>{const d=it.topic||"Other";doms[d]=doms[d]||[0,0];doms[d][1]++;if(isRight(it,R.ans[k]))doms[d][0]++});
+  return `<div class="score"><span class="big num">${sat}</span><span>estimated SAT Math score<br><b class="num">${right}</b> of <b class="num">${b.items.length}</b> correct</span></div>
+    <p class="muted" style="font-size:.9rem">Module 1: <b class="num">${R.r1}</b> of ${b.modules.m1.length} correct, so Module 2 was the <b>${b.mod==="hard"?"harder":"easier"}</b> one${b.mod==="hard"?"":" (the easier module caps the score near 600)"}. This estimate is only indicative: the College Board uses its own scoring for each test form.</p>
+    <div class="tbl"><table><tr><td><b>Domain</b></td><td><b>Correct</b></td></tr>${Object.entries(doms).map(([d,[a,t]])=>`<tr><td>${esc(d)}</td><td class="num">${a} / ${t}</td></tr>`).join("")}</table></div>`;
+}
+function results(b,R,right,pct,timeUp,st,sat){
   const n=b.items.length;
   $("#main").innerHTML=`<div class="panel">
-    <div class="label">${esc(b.title)}</div>
+    <div class="label">${esc(sat?b.title.split(" · ")[0]:b.title)}</div>
     ${timeUp?'<div class="banner">Time is up. Your test was submitted automatically.</div>':""}
-    <div class="score"><span class="big num">${pct}%</span><span><b class="num">${right}</b> of <b class="num">${n}</b> correct</span></div>
+    ${sat?satReport(b,R,right,sat):`<div class="score"><span class="big num">${pct}%</span><span><b class="num">${right}</b> of <b class="num">${n}</b> correct</span></div>`}
     <div class="muted" id="sendst">${sendText(st)}</div>
     <div class="nav"><button class="btn" id="back">All quizzes</button>${b.kind==="quiz"?`<button class="btn primary" id="again">Try again</button>`:""}</div>
     <h2>Corrections</h2>
-    ${b.items.map((it,k)=>{const ok=R.ans[k]===it.a;return `<div class="rev"><div class="qhead"><b>Question ${k+1}</b><span class="chip ${ok?"good":"bad"}">${ok?"Correct":R.ans[k]==null?"No answer":"Incorrect"}</span></div>
+    ${b.items.map((it,k)=>{const ok=isRight(it,R.ans[k]),m1=sat?b.modules.m1.length:0;return `${sat&&k===0?"<h3>Module 1</h3>":""}${sat&&k===m1?`<h3>Module 2 (${b.mod==="hard"?"harder":"easier"})</h3>`:""}<div class="rev"><div class="qhead"><b>Question ${sat&&k>=m1?k-m1+1:k+1}</b>${it.topic&&sat?`<span class="muted" style="font-size:.85rem">${esc(it.topic)}</span>`:""}<span class="chip ${ok?"good":"bad"}">${ok?"Correct":R.ans[k]==null||R.ans[k]===""?"No answer":"Incorrect"}</span></div>
       <div class="stem">${it.q}</div>${it.img.map(src=>`<div class="fig"><img src="quiz-img/${src}" alt="Graph for question ${k+1}" loading="lazy"></div>`).join("")}
-      <div class="muted">Your answer: <b>${R.ans[k]==null?"none":"("+"ABCD"[R.ans[k]]+")"}</b> · Correct answer: <b>(${"ABCD"[it.a]})</b> ${it.c[it.a]}</div>
+      <div class="muted">Your answer: <b>${shown(it,R.ans[k])}</b> · Correct answer: <b>${correct(it)}</b></div>
       <div class="exp ${ok?"":"no"}">${it.e}</div></div>`}).join("")}
   </div>`;
   math($("#main"));window.scrollTo({top:0});
@@ -520,8 +575,9 @@ document.addEventListener("click",async e=>{
   if(t.id==="ask"){R.confirm=true;return view()}
   if(t.id==="cancel"){R.confirm=false;return view()}
   if(t.id==="finish")return finish(false);
-  if(t.id==="quit"){clearInterval(tick);if(R.b.kind==="test")save();S.run=null;S.tab="quizzes";try{history.replaceState(null,"","#")}catch(e){};return render()}
-  if(t.id==="again")return start(R.b.id);
+  if(t.id==="mod2"){R.brk=false;R.end=Date.now()+R.b.mock.minutes*60000;R.t0=R.t0||Date.now();save();return view()}
+  if(t.id==="quit"){clearInterval(tick);if(R.b.kind==="test")save();if(R.b.mock)toast("Your test is saved until its timer ends");S.run=null;S.tab="quizzes";try{history.replaceState(null,"","#")}catch(e){};return render()}
+  if(t.id==="again")return start(R.id||R.b.id);
   if(t.id==="back"){S.run=null;S.tab="quizzes";return render()}
 });
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#reader").hidden)closeReader()});
