@@ -307,10 +307,10 @@ function viewClass(){
         ${state.students.some(x=>/\(example\)$/.test(x.name))?'<button class="btn danger" id="clearEx">Remove example students</button>':""}
       </div>
     </section>
-    <section class="panel"><h2>Online quizzes</h2>
-      <p class="muted" style="margin:0;font-size:.88rem">Students take quizzes and tests at <a href="quiz.html" target="_blank" rel="noopener">quiz.html</a> with their name and class code; answers are corrected automatically. ${(window.QUIZ_CONFIG||{}).endpoint?"Results arrive in your Google Sheet; import them here to add them to each student's scores.":"<b>Practice mode:</b> results are not collected until the Google Sheet is connected (see the setup guide in <code>apps-script/SETUP.md</code>)."}</p>
+    <section class="panel"><h2>Student site and quizzes</h2>
+      <p class="muted" style="margin:0;font-size:.88rem">Students study and take quizzes and tests on <a href="learn.html" target="_blank" rel="noopener">the student site</a> with their name and a code (class code, or the personal code they get after paying); answers are corrected automatically. Unit 1 is free; other units need full access. ${(window.QUIZ_CONFIG||{}).endpoint?"Results arrive in your Google Sheet; import them here to add them to each student's scores.":"<b>Practice mode:</b> results are not collected until the Google Sheet is connected (see the setup guide in <code>apps-script/SETUP.md</code>)."}</p>
       <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
-        <button class="btn" id="copyQuiz">Copy quiz link</button>
+        <button class="btn" id="copyQuiz">Copy student site link</button>
         <span class="muted num" style="font-size:.85rem;user-select:all">${esc(quizLink())}</span>
       </div>
       ${(window.QUIZ_CONFIG||{}).endpoint?`<form class="row" id="qimport"><label for="qkey">Teacher key (from the Settings tab)<input id="qkey" type="password" autocomplete="off" value="${esc(teacherKey())}"></label><button class="btn primary" type="submit" id="qbtn">Import results</button></form>
@@ -403,7 +403,7 @@ function planLesson(u,l){
   const c=state.course,base=u.plan+l.n,lab=l.review?l.t:"Topic "+l.n;
   const notes=l.notes?`<button class="rbtn" data-pdf="${esc(pdfUrl(c,base+"-notes"))}" data-title="${esc(lab+" · Guided notes")}">Notes</button><button class="rbtn" data-pdf="${esc(pdfUrl(c,base+"-notes-filled"))}" data-title="${esc(lab+" · Notes (filled in)")}">Filled notes</button>`:"";
   const qid=c+"-"+base,hasQ=(window.QUIZ_BANK||[]).some(q=>q.id===qid);
-  const quizb=hasQ?`<a class="rbtn quiz" href="quiz.html#${esc(qid)}" target="_blank" rel="noopener"><span class="k">ONLINE</span>Quiz</a>`:"";
+  const quizb=hasQ?`<a class="rbtn quiz" href="learn.html#${esc(qid)}" target="_blank" rel="noopener"><span class="k">ONLINE</span>Quiz</a>`:"";
   const wsb=l.ws.map(w=>`<span class="wspair"><button class="rbtn" data-pdf="${esc(pdfUrl(c,base+"-ws"+w))}" data-title="${esc(lab+" · Worksheet "+w)}">${w==="MEGA"?"MEGA":"WS "+w}</button><button class="rbtn key" data-pdf="${esc(pdfUrl(c,base+"-ws"+w+"-key"))}" data-title="${esc(lab+" · Worksheet "+w+" key")}" aria-label="Answer key for worksheet ${w}"><span class="k">KEY</span></button></span>`).join("");
   return `<div class="lesson${l.review?" review":""}"><span class="ln">${l.review?"R":esc(l.n)}</span><span class="lt">${l.review?"<b>"+esc(l.t)+"</b>":esc(l.t)}</span><div class="res">${notes}${quizb}${wsb}</div></div>`;
 }
@@ -416,8 +416,8 @@ function viewCourses(){
     return `<details class="unitlib" id="lib-${u.id}"${open?" open":""}>
       <summary><span class="st">${u.n==="R"?"":`Unit ${esc(u.n)} · `}${esc(u.t)}${u.note?` <span class="chip" style="font-weight:400">${esc(u.note)}</span>`:""}</span>${(u.files||u.plan)?'<span class="chip ap">Available</span>':'<span class="muted" style="font-weight:400;font-size:.8rem">In preparation</span>'}</summary>
       ${u.files?`<div class="unitfiles">${FILES.filter(f=>u.files[f[0]]).map(f=>`<button class="rbtn ${f[3]}" data-pdf="${esc(pdfUrl(state.course,u.files[f[0]]))}" data-title="${esc((u.n==="R"?"":"Unit "+u.n+" · ")+f[1])}"><span class="k">${f[2]}</span>${f[1]}</button>`).join("")}</div>`:""}
-      ${(window.QUIZ_BANK||[]).some(q=>q.id===state.course+"-"+u.id+"-aptest")?`<div class="unitfiles" style="padding-top:0"><a class="rbtn quiz" href="quiz.html#${esc(state.course+"-"+u.id+"-aptest")}" target="_blank" rel="noopener"><span class="k">ONLINE</span>Unit ${esc(u.n)} AP-style test (auto-corrected)</a></div>`:""}
-      ${u.tests?`<div class="lessons-h label">Self checks and unit tests</div><div class="unitfiles">${u.tests.map(x=>`<span class="wspair"><button class="rbtn" data-pdf="${esc(pdfUrl(state.course,u.plan+x.id))}" data-title="${esc(x.t)}">${esc(x.t)}</button><button class="rbtn key" data-pdf="${esc(pdfUrl(state.course,u.plan+x.id+"-key"))}" data-title="${esc(x.t+" · Answer key")}" aria-label="Answer key for ${esc(x.t)}"><span class="k">KEY</span></button>${(window.QUIZ_BANK||[]).some(q=>q.id===state.course+"-"+u.plan+x.id)?`<a class="rbtn quiz" href="quiz.html#${esc(state.course+"-"+u.plan+x.id)}" target="_blank" rel="noopener" aria-label="${esc(x.t)} online"><span class="k">ONLINE</span></a>`:""}</span>`).join("")}</div>`:""}
+      ${(window.QUIZ_BANK||[]).some(q=>q.id===state.course+"-"+u.id+"-aptest")?`<div class="unitfiles" style="padding-top:0"><a class="rbtn quiz" href="learn.html#${esc(state.course+"-"+u.id+"-aptest")}" target="_blank" rel="noopener"><span class="k">ONLINE</span>Unit ${esc(u.n)} AP-style test (auto-corrected)</a></div>`:""}
+      ${u.tests?`<div class="lessons-h label">Self checks and unit tests</div><div class="unitfiles">${u.tests.map(x=>`<span class="wspair"><button class="rbtn" data-pdf="${esc(pdfUrl(state.course,u.plan+x.id))}" data-title="${esc(x.t)}">${esc(x.t)}</button><button class="rbtn key" data-pdf="${esc(pdfUrl(state.course,u.plan+x.id+"-key"))}" data-title="${esc(x.t+" · Answer key")}" aria-label="Answer key for ${esc(x.t)}"><span class="k">KEY</span></button>${(window.QUIZ_BANK||[]).some(q=>q.id===state.course+"-"+u.plan+x.id)?`<a class="rbtn quiz" href="learn.html#${esc(state.course+"-"+u.plan+x.id)}" target="_blank" rel="noopener" aria-label="${esc(x.t)} online"><span class="k">ONLINE</span></a>`:""}</span>`).join("")}</div>`:""}
       <div class="lessons-h label">${u.plan?"Lessons: guided notes and worksheets":u.lessonFiles?"Lessons: notes, practice and key":"Lessons in this unit"}</div>
       ${u.plan?u.lessons.map(l=>planLesson(u,l)).join(""):u.lessons.map(l=>`<div class="lesson"><span class="ln">${esc(l.n)}</span><span class="lt">${esc(l.t)}</span>${u.lessonFiles?`<div class="res"><button class="rbtn" data-pdf="${esc(pdfUrl(state.course,u.lessonFiles+l.n+"-notes"))}" data-title="${esc("Lesson "+l.n+" · Notes")}">Notes</button><button class="rbtn" data-pdf="${esc(pdfUrl(state.course,u.lessonFiles+l.n+"-practice"))}" data-title="${esc("Lesson "+l.n+" · Practice")}">Practice</button><button class="rbtn key" data-pdf="${esc(pdfUrl(state.course,u.lessonFiles+l.n+"-key"))}" data-title="${esc("Lesson "+l.n+" · Answer key")}"><span class="k">KEY</span>Key</button></div>`:""}</div>`).join("")}
     </details>`}).join("");
@@ -509,7 +509,7 @@ function demoData(){
 
 
 /* ---------- online quiz results ---------- */
-function quizLink(){try{return new URL("quiz.html",location.href).href}catch(e){return "quiz.html"}}
+function quizLink(){try{return new URL("learn.html",location.href).href}catch(e){return "learn.html"}}
 function teacherKey(){try{return localStorage.getItem("apMathTracker.qkey")||""}catch(e){return ""}}
 const normName=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/\s+/g," ").trim();
 async function importResults(k){
@@ -572,7 +572,7 @@ document.addEventListener("click",e=>{
   if(t.dataset.delscore){const s=state.students.find(x=>x.id===state.sel);if(!s)return;
     writeStudent(s,{scores:(s.scores||[]).filter(x=>x.k!==t.dataset.delscore)});toast("Score deleted");return}
   if(t.id==="exportBtn"){exportData();return}
-  if(t.id==="copyQuiz"){const l=quizLink();try{navigator.clipboard.writeText(l).then(()=>toast("Quiz link copied"),()=>toast("Select the link to copy it"))}catch(e){toast("Select the link to copy it")}return}
+  if(t.id==="copyQuiz"){const l=quizLink();try{navigator.clipboard.writeText(l).then(()=>toast("Link copied"),()=>toast("Select the link to copy it"))}catch(e){toast("Select the link to copy it")}return}
   if(t.id==="clearEx"){state.students=state.students.filter(x=>!/\(example\)$/.test(x.name));state.sel=null;persist();render();toast("Example students removed");return}
   if(t.id==="delAsk"){state.confirmDel=true;render();return}
   if(t.id==="delNo"){state.confirmDel=false;render();return}

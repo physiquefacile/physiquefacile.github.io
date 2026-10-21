@@ -10,12 +10,13 @@ const L=(n,t,r)=>({n,t,r:r||{}});
 const ws=s=>Array.isArray(s)?s:s.split("");
 const W=(n,t,s)=>({n,t,notes:true,ws:ws(s)});
 const R=(n,t,s)=>({n,t,review:true,ws:ws(s)});
-const T=(id,t)=>({id,t});  /* self checks and unit tests: docs/<course>/<plan><id>.pdf and -key.pdf */
+const T=(id,t)=>({id,t});
+/* free:true marks the free sample unit; files of every other unit are encrypted (<name>.pdf.enc) and unlocked with the unit key */  /* self checks and unit tests: docs/<course>/<plan><id>.pdf and -key.pdf */
 window.COURSE_LIB={
   pc:{
     name:"AP Precalculus",
     units:[
-      {id:"u1",n:"1",t:"Polynomial and Rational Functions",files:{notes:"u1-notes",practice:"u1-practice",key:"u1-key"},plan:"u1-",lessons:[
+      {id:"u1",n:"1",t:"Polynomial and Rational Functions",free:true,files:{notes:"u1-notes",practice:"u1-practice",key:"u1-key"},plan:"u1-",lessons:[
         W("1.1","Change in Tandem","A"),
         W("1.2","Rates of Change","ABCD"),
         W("1.3","Rates of Change in Linear and Quadratic Functions","AB"),
@@ -59,7 +60,7 @@ window.COURSE_LIB={
   ab:{
     name:"AP Calculus AB",
     units:[
-      {id:"u1",n:"1",t:"Limits, Continuity, and Differentiability",files:{practice:"u1-practice",key:"u1-key"},plan:"u1-",lessons:[
+      {id:"u1",n:"1",t:"Limits, Continuity, and Differentiability",free:true,files:{practice:"u1-practice",key:"u1-key"},plan:"u1-",lessons:[
         W("1-1","Limits to a Point on a Graph","A"),
         W("1-2","Limits to a Point of a Function","A"),
         W("1-3","Limits to Infinity and Horizontal Asymptotes","A"),

@@ -1,20 +1,25 @@
-# Quiz results: one-time setup (about 5 minutes)
+# AP Math Online: one-time setup (about 10 minutes)
 
-The online quizzes (`quiz.html`) send each student's score to a Google Sheet that you own.
-Until this is set up, quizzes run in **practice mode**: students see their score and
-corrections, but nothing is sent.
+The student site (`learn.html`) uses a Google Sheet that you own for three things:
+student accounts and payments, unlocking paid units, and quiz results.
+Until it is set up, the site runs in **practice mode**: Unit 1 is free and open,
+paid units stay locked, and nothing is sent.
 
 ## 1. Create the sheet and the script
 
-1. Go to <https://sheets.new> and name the sheet, for example **AP Math quiz results**.
+1. Go to <https://sheets.new> and name the sheet, for example **AP Math Online**.
 2. Open **Extensions → Apps Script**.
 3. Delete the code shown, paste the whole content of `Code.gs` (in this folder), and click **Save**.
 4. In the function menu at the top choose **setup**, then click **Run**.
    Google asks for permission the first time: choose your account, then
-   **Advanced → Go to … (unsafe) → Allow**. (The script only touches this sheet.)
-5. Back in the sheet you now have two tabs:
-   - **Settings**: your **teacher key**, and the **class codes** (`APPC2026`, `APAB2026`).
-     Change or add codes below the line "Class codes" (one per row; the label in column B is optional).
+   **Advanced → Go to … (unsafe) → Allow**. The script only uses this sheet and sends you
+   an email when a student declares a payment.
+5. The sheet now has four tabs:
+   - **Settings**: your **teacher key**, the **access end date** (31 May 2027), the email that receives
+     payment notifications, and **class codes**. A class code can also give full access to a whole class:
+     write `pc`, `ab` or `pc ab` in column C.
+   - **Students**: one row per student who declared a payment.
+   - **Keys**: the keys that unlock paid units (see step 5).
    - **Results**: one row per quiz or test submitted.
 
 ## 2. Publish it as a web app
@@ -24,27 +29,37 @@ corrections, but nothing is sent.
 3. Set **Execute as: Me** and **Who has access: Anyone**, then **Deploy**.
 4. Copy the **Web app URL** (it ends with `/exec`).
 
-## 3. Connect the site
+## 3. Send Claude the payment details
 
-Send the URL to Claude, or put it yourself in `ap-math-tracker/quiz-config.js`:
+Claude puts them in `quiz-config.js`:
 
-```js
-window.QUIZ_CONFIG = {
-  endpoint: "https://script.google.com/macros/s/…/exec",
-  className: "AP Math"
-};
-```
+- the Web app URL,
+- the price of each course for the school year (in FCFA),
+- the Wave number and/or Orange Money number that receive payments, and the name shown to students,
+- a WhatsApp number or email for students' questions.
 
-## 4. Give students the quiz link and class code
+## 4. Each time a student pays
 
-- Quiz page: <https://physiquefacile.github.io/ap-math-tracker/quiz.html>
-- Students sign in with their full name and the class code.
+1. You receive an email "new payment to check" with the student's name, amount and **transaction reference**.
+2. Check in your Wave or Orange Money app that the payment arrived with that reference.
+3. In the **Students** tab, set **Status** to **Active** (or **Refused**). The activation date fills in by itself.
+4. The student's units unlock the next time they open the site (or press **Check again**).
 
-## 5. Import results into the tracker
+To give access without payment (a scholarship, your own class), add a row yourself with a code of your choice
+(for example `AP-FREE-0001`), the name, the course (`pc`, `ab` or `pc ab`) and Status **Active**,
+or use a class code with column C filled in.
 
-In the tracker (Class tab → **Quiz results**), enter the teacher key from the Settings tab once,
-then click **Import results**. Each result is added to the student's scores (students are matched
-by name; a student who is not in your list yet is added).
+## 5. When a new paid unit is published
+
+Each paid unit is encrypted with its own key. When Claude publishes a unit, it gives you one line such as
+`pc-u2  2P9hyH633F9N…`. Add it as a new row in the **Keys** tab (Unit in column A, Key in column B).
+Without that row, even paying students cannot open the unit.
+Keep the keys private: anyone who has a key can open that unit.
+
+## 6. Results in the teacher tracker
+
+In the tracker (Class tab → **Student site and quizzes**), enter the teacher key from the Settings tab once,
+then click **Import results**. You can also sign in on the student site with the teacher key to see every unit.
 
 ## Changing the script later
 
