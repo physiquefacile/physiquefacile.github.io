@@ -152,7 +152,8 @@
         if (!isFinite(r.x)) { L = null; return { txt: (Math.random() < 0.5 ? "" : "-") + lcdTxt(C, (300 + Math.random() * 1500) * C.d), r }; }
         if (S.f === "O" && r.ol) { L = null; return { txt: "OL", r }; }   // circuit ouvert à l'ohmmètre
         const cal = (P.cal[S.f] || [])[S.c] || 0;
-        let x = r.x === 0 ? 0 : r.x * (1 + cal) + gauss() * 0.4 * C.d;
+        let x = r.x === 0 ? 0 : r.x * (1 + cal) + gauss() * 0.12 * C.d;   // bruit : le dernier chiffre peut varier d'une unité près d'un arrondi
+        if (r.x > 0) x = Math.max(0, x); else if (r.x < 0) x = Math.min(0, x);   // le bruit ne change jamais le signe (une résistance n'est jamais négative)
         if (Math.abs(x) >= lim(C)) { L = null; return { txt: "OL", r, ol: true }; }
         x = Math.round(x / C.d) * C.d; if (Math.abs(x) < C.d / 2) x = 0;
         L = x; return { txt: lcdTxt(C, x), r };
