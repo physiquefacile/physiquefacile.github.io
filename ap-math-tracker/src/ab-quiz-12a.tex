@@ -1,0 +1,323 @@
+\documentclass[11pt]{article}
+\usepackage{ap}
+\input{mode}
+\geometry{a4paper,margin=1.6cm,top=1.7cm,bottom=1.7cm,headheight=14pt}
+\setdoc{AP Calculus AB}{Unit 1}{Quiz 1 \textbullet\ Limits and Asymptotes (Lessons 1-1 to 1-3)\ifkey\ \textbullet\ Answer key\fi}
+\renewcommand{\nocalc}{}
+% five choices, one per line
+\newcommand{\choicesE}[5]{\par\vspace{2pt}\begin{tabular}{@{}l@{\hspace{5pt}}p{0.88\linewidth}@{}}(A)&#1\\[1pt](B)&#2\\[1pt](C)&#3\\[1pt](D)&#4\\[1pt](E)&#5\end{tabular}\par}
+\newcommand{\ans}[2]{\begin{solution}\textbf{Answer: (#1).} #2\end{solution}}
+\newcommand{\gr}[2]{\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,#1]#2\end{axis}\end{tikzpicture}\end{center}}
+\newcommand{\pt}[1]{\node[circle,fill=apblue,inner sep=1.5pt] at (axis cs:#1){};}
+\newcommand{\op}[1]{\node[circle,draw=apblue,fill=white,thick,inner sep=1.5pt] at (axis cs:#1){};}
+\newcommand{\va}[1]{\draw[apred,dashed,thick](axis cs:#1,-100)--(axis cs:#1,100);}
+\newcommand{\ha}[1]{\draw[apgold!80!black,dashed,thick](axis cs:-100,#1)--(axis cs:100,#1);}
+\newcommand{\sk}[2]{\begin{tikzpicture}\begin{axis}[axis lines=middle,xtick=\empty,ytick=\empty,xlabel={$x$},ylabel={$y$},width=4.6cm,height=3.8cm,clip=false,#1]#2\end{axis}\end{tikzpicture}}
+\newenvironment{qbox}{\par\Needspace{10\baselineskip}\refstepcounter{exo}\begin{tcolorbox}[enhanced,colback=white,colframe=apnavy!50,boxrule=0.5pt,arc=2pt,left=8pt,right=8pt,top=6pt,bottom=6pt,before skip=4pt,after skip=4pt]{\sffamily\bfseries\color{apnavy}\theexo.}\ }{\end{tcolorbox}}
+\begin{document}
+{\centering\sffamily\bfseries\Large\color{apnavy}The Senegalese American Bilingual School\par}\vspace{6pt}
+\titleband{Quiz 1 \textbullet\ Limits and Asymptotes (Lessons 1-1 to 1-3)}{12th A \textbullet\ AP Calculus AB \textbullet\ Unit 1\ifkey\ \textbullet\ Answer key with explanations\fi}
+
+\ifkey\else
+\begin{minipage}[t]{0.52\linewidth}\vspace{0pt}
+\begin{tcolorbox}[colback=white,colframe=apnavy,boxrule=0.6pt,arc=3pt,left=8pt,right=8pt]
+\sffamily Name: \rule{5.5cm}{0.4pt}\\[10pt] Date: \rule{2.6cm}{0.4pt}\quad Class: 12th A
+\end{tcolorbox}
+\begin{directions}
+\textbf{40 multiple-choice questions} \textbullet\ \textbf{120 minutes} \textbullet\ \textbf{Simple calculator allowed; no graphing calculator (no TI)}.\\
+Choose the one best answer for each question and fill in its bubble on the answer sheet. Each correct answer is worth 1 point; there is no penalty for a wrong answer.
+\end{directions}
+\vspace{6pt}
+\begin{center}
+\begin{tikzpicture}
+\draw[apnavy,thick] (0,0) circle (1.2); \draw[apnavy,thick] (-1.2,0)--(1.2,0);
+\node[font=\Large\sffamily] at (0,-0.55) {40};
+\node[font=\sffamily\bfseries,color=apnavy] at (0,1.55) {Score};
+\draw[apnavy,thick] (3.4,0) circle (1.2); \draw[apnavy,thick] (2.2,0)--(4.6,0);
+\node[font=\Large\sffamily] at (3.4,-0.55) {100};
+\node[font=\sffamily\bfseries,color=apnavy] at (3.4,1.55) {Grade};
+\node[font=\Large] at (1.7,0) {$\times2.5$};
+\end{tikzpicture}
+\end{center}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.42\linewidth}\vspace{0pt}
+\begin{tcolorbox}[colback=white,colframe=apnavy,boxrule=0.6pt,arc=3pt,title={\sffamily\bfseries Answer sheet},colbacktitle=apnavy]
+\centering
+\begin{tikzpicture}[x=0.52cm,y=0.56cm]
+\foreach \c [count=\i] in {A,B,C,D,E}{\node[font=\sffamily\small\bfseries] at (\i,1) {\c};\node[font=\sffamily\small\bfseries] at (\i+7,1) {\c};}
+\foreach \r in {1,...,20}{
+ \node[font=\sffamily\bfseries,anchor=east] at (0.5,-\r+1) {\r};
+ \foreach \i in {1,...,5}{\draw[apgrey] (\i,-\r+1) circle (0.2);}
+ \pgfmathtruncatemacro{\s}{\r+20}
+ \node[font=\sffamily\bfseries,anchor=east] at (7.5,-\r+1) {\s};
+ \foreach \i in {1,...,5}{\draw[apgrey] (\i+7,-\r+1) circle (0.2);}
+}
+\end{tikzpicture}
+\end{tcolorbox}
+\end{minipage}
+\newpage
+\fi
+
+\ifkey
+\begin{keyidea}[Answer key]
+\begin{tabular}{@{}*{10}{c@{\hspace{10pt}}}c@{}}
+1~C & 2~A & 3~B & 4~D & 5~E & 6~D & 7~A & 8~C & 9~D & 10~B\\
+11~B & 12~E & 13~A & 14~C & 15~B & 16~D & 17~A & 18~E & 19~B & 20~D\\
+21~A & 22~C & 23~D & 24~A & 25~E & 26~C & 27~D & 28~A & 29~C & 30~B\\
+31~E & 32~C & 33~D & 34~A & 35~B & 36~E & 37~A & 38~C & 39~D & 40~C
+\end{tabular}
+\end{keyidea}
+\fi
+
+\newcommand{\gF}{\gr{xmin=-5.5,xmax=5.5,ymin=-1.8,ymax=3.8,width=10cm,height=5.6cm,xtick={-5,-4,...,5},ytick={-1,1,2,3}}{\addplot[apblue,very thick] coordinates {(-5,1)(-1,3)};\addplot[apblue,very thick,domain=-1:1,samples=60]{3-(x+1)^2};\addplot[apblue,very thick] coordinates {(1,1)(3,3)};\addplot[apblue,very thick] coordinates {(3,2)(5,0)};\pt{-5,1}\op{-1,3}\pt{-1,1}\pt{1,-1}\op{1,1}\op{3,3}\op{3,2}\pt{5,0}\node[apblue,font=\small] at (axis cs:-3.6,3.2){$y=f(x)$};}}
+\Needspace{24\baselineskip}
+\begin{center}\textsf{\small\bfseries\color{apnavy}Questions 1 to 10 refer to the graph of $f$ on $[-5,5]$. $f(3)$ is not defined.}\end{center}
+\gF
+\begin{qbox}
+What is $\displaystyle\lim_{x\to-1}f(x)$?
+\choicesE{$1$}{$2$}{$3$}{$0$}{nonexistent}
+\ans{C}{From both sides the graph approaches the open circle at height $3$.}
+\end{qbox}
+
+\begin{qbox}
+What is $f(-1)$?
+\choicesE{$1$}{$3$}{$2$}{undefined}{$-1$}
+\ans{A}{The filled dot at $x=-1$ is at height $1$.}
+\end{qbox}
+
+\begin{qbox}
+What is $\displaystyle\lim_{x\to1^-}f(x)$?
+\choicesE{$1$}{$-1$}{$0$}{$3$}{nonexistent}
+\ans{B}{From the left, the curved piece comes down to the filled dot $(1,-1)$.}
+\end{qbox}
+
+\begin{qbox}
+What is $\displaystyle\lim_{x\to1^+}f(x)$?
+\choicesE{$-1$}{$0$}{$3$}{$1$}{nonexistent}
+\ans{D}{From the right, the graph approaches the open circle $(1,1)$.}
+\end{qbox}
+
+\newpage
+\begin{center}\textsf{\small\bfseries\color{apnavy}The graph of $f$ is repeated for questions 5 to 10.}\end{center}
+\gF
+\begin{qbox}
+What is $\displaystyle\lim_{x\to1}f(x)$?
+\choicesE{$-1$}{$1$}{$0$}{$2$}{nonexistent}
+\ans{E}{The one-sided limits are $-1$ and $1$: different, so the limit does not exist.}
+\end{qbox}
+
+\begin{qbox}
+What is $f(3)$?
+\choicesE{$3$}{$2$}{$\frac52$}{undefined}{$0$}
+\ans{D}{There is no filled dot at $x=3$: both ends are open circles.}
+\end{qbox}
+
+\begin{qbox}
+What is $\displaystyle\lim_{x\to3^+}f(x)$?
+\choicesE{$2$}{$3$}{$0$}{undefined}{nonexistent}
+\ans{A}{From the right, the last segment starts at the open circle $(3,2)$.}
+\end{qbox}
+
+\begin{qbox}
+For which values of $c$ in $(-5,5)$ does $\displaystyle\lim_{x\to c}f(x)$ \textbf{not} exist?
+\choicesE{$c=1$ only}{$c=-1$ and $c=1$ only}{$c=1$ and $c=3$ only}{$c=-1$, $c=1$ and $c=3$}{$c=3$ only}
+\ans{C}{At $c=1$ and $c=3$ the one-sided limits differ. At $c=-1$ the limit exists ($3$) even though $f(-1)=1$.}
+\end{qbox}
+
+\begin{qbox}
+What is $\displaystyle\lim_{x\to0}f(x)+f(1)$?
+\choicesE{$3$}{$2$}{$0$}{$1$}{nonexistent}
+\ans{D}{$\lim_{x\to0}f(x)=3-1=2$ and $f(1)=-1$: $2+(-1)=1$.}
+\end{qbox}
+
+\begin{qbox}
+Which statement about $f$ is true?
+\choicesE{$\displaystyle\lim_{x\to-1}f(x)=f(-1)$}{$\displaystyle\lim_{x\to4}f(x)=1$}{$\displaystyle\lim_{x\to3^-}f(x)=2$}{$f(1)=1$}{$\displaystyle\lim_{x\to-3}f(x)=3$}
+\ans{B}{On the last segment, the height at $x=4$ is $1$. (E): the height at $x=-3$ is $2$.}
+\end{qbox}
+
+\begin{qbox}
+If $\displaystyle\lim_{x\to2^-}g(x)=4$, $\displaystyle\lim_{x\to2^+}g(x)=4$ and $g(2)=7$, then $\displaystyle\lim_{x\to2}g(x)$ is
+\choicesE{$7$}{$4$}{$11$}{$\frac{11}{2}$}{nonexistent}
+\ans{B}{The one-sided limits are equal, so the limit is $4$. The value $g(2)$ does not change the limit.}
+\end{qbox}
+
+\begin{qbox}
+If $\displaystyle\lim_{x\to5^-}g(x)=3$ and $\displaystyle\lim_{x\to5^+}g(x)=-3$, then $\displaystyle\lim_{x\to5}g(x)$ is
+\choicesE{$0$}{$3$}{$-3$}{$9$}{nonexistent}
+\ans{E}{The left and right limits are different.}
+\end{qbox}
+
+\begin{qbox}
+The notation $\displaystyle\lim_{x\to c^-}f(x)$ means that $x$ approaches $c$
+\choicesE{with values less than $c$}{with values greater than $c$}{from both sides}{and $f(x)$ is negative}{and $x$ is negative}
+\ans{A}{The minus sign means ``from the left'': values of $x$ less than $c$.}
+\end{qbox}
+
+\begin{qbox}
+$\displaystyle\lim_{x\to-2}\left(x^3-3x+1\right)$ is
+\choicesE{$-13$}{$3$}{$-1$}{$15$}{nonexistent}
+\ans{C}{Plug in: $-8+6+1=-1$.}
+\end{qbox}
+
+\begin{qbox}
+$\displaystyle\lim_{x\to4}\sqrt{2x+1}$ is
+\choicesE{$9$}{$3$}{$\sqrt5$}{$4$}{nonexistent}
+\ans{B}{Plug in: $\sqrt{9}=3$.}
+\end{qbox}
+
+\begin{qbox}
+$\displaystyle\lim_{x\to3}(-5)$ is
+\choicesE{$3$}{$-15$}{$0$}{$-5$}{nonexistent}
+\ans{D}{The limit of a constant is the constant.}
+\end{qbox}
+
+\begin{qbox}
+Let $p(x)=\begin{cases}x^2-2x, & x<3\\ 2x-3, & x\ge3.\end{cases}$ \;Then $\displaystyle\lim_{x\to3}p(x)$ is
+\choicesE{$3$}{$0$}{$6$}{$9$}{nonexistent}
+\ans{A}{Left: $9-6=3$. Right: $6-3=3$. Equal, so the limit is $3$.}
+\end{qbox}
+
+\begin{qbox}
+Let $q(x)=\begin{cases}4x+1, & x\le-1\\ x^2-2, & x>-1.\end{cases}$ \;Then $\displaystyle\lim_{x\to-1}q(x)$ is
+\choicesE{$-3$}{$-1$}{$-2$}{$1$}{nonexistent}
+\ans{E}{Left: $-4+1=-3$. Right: $1-2=-1$. Different.}
+\end{qbox}
+
+\begin{qbox}
+For the same function $q$, what is $q(-1)$?
+\choicesE{$-1$}{$-3$}{undefined}{$-2$}{$3$}
+\ans{B}{$x=-1$ belongs to the top piece ($x\le-1$): $4(-1)+1=-3$.}
+\end{qbox}
+
+\begin{qbox}
+$\displaystyle\lim_{x\to6}\frac{x^2-36}{x-6}$ is
+\choicesE{$0$}{$6$}{$36$}{$12$}{nonexistent}
+\ans{D}{$\frac{(x-6)(x+6)}{x-6}=x+6\to12$.}
+\end{qbox}
+
+\begin{qbox}
+$\displaystyle\lim_{x\to-3}\frac{x^2+x-6}{x^2+3x}$ is
+\choicesE{$\frac53$}{$-\frac53$}{$0$}{$\frac23$}{nonexistent}
+\ans{A}{$\frac{(x+3)(x-2)}{x(x+3)}=\frac{x-2}{x}\to\frac{-5}{-3}=\frac53$.}
+\end{qbox}
+
+\begin{qbox}
+$\displaystyle\lim_{x\to1}\frac{x^2-1}{x^2+2x-3}$ is
+\choicesE{$0$}{$\frac14$}{$\frac12$}{$1$}{nonexistent}
+\ans{C}{$\frac{(x-1)(x+1)}{(x-1)(x+3)}=\frac{x+1}{x+3}\to\frac24=\frac12$.}
+\end{qbox}
+
+\begin{qbox}
+$\displaystyle\lim_{x\to0}\frac{x^2+7x}{3x}$ is
+\choicesE{$0$}{$7$}{$\frac13$}{$\frac73$}{nonexistent}
+\ans{D}{$\frac{x(x+7)}{3x}=\frac{x+7}{3}\to\frac73$.}
+\end{qbox}
+
+\begin{qbox}
+$\displaystyle\lim_{x\to2}\frac{x^2-4x+4}{x-2}$ is
+\choicesE{$0$}{$2$}{$4$}{$-2$}{nonexistent}
+\ans{A}{$\frac{(x-2)^2}{x-2}=x-2\to0$. A limit equal to $0$ is a real answer.}
+\end{qbox}
+
+\begin{qbox}
+$\displaystyle\lim_{x\to5}\frac{2x^2-9x-5}{x-5}$ is
+\choicesE{$10$}{$0$}{$9$}{$5$}{$11$}
+\ans{E}{$2x^2-9x-5=(2x+1)(x-5)$, so the expression is $2x+1\to11$.}
+\end{qbox}
+
+\begin{qbox}
+When you substitute $x=c$ into $\dfrac{p(x)}{q(x)}$ and get $\dfrac00$, what should you do?
+\choicesE{Write that the limit is $0$.}{Write that the limit does not exist.}{Factor, cancel the common factor, then substitute again.}{Write that the limit is $1$.}{Write that the limit is infinite.}
+\ans{C}{$\frac00$ is an indeterminate form: it asks for more work.}
+\end{qbox}
+
+\begin{qbox}
+$\displaystyle\lim_{x\to-1}\frac{x^3+1}{x+1}$ is
+\choicesE{$0$}{$1$}{$-1$}{$3$}{nonexistent}
+\ans{D}{$x^3+1=(x+1)(x^2-x+1)$, so the limit is $1+1+1=3$.}
+\end{qbox}
+
+\begin{qbox}
+Which describes the graph of $f(x)=\dfrac{x^2-4x}{x^2-16}$?
+\choicesE{A hole at $x=4$ and a vertical asymptote at $x=-4$}{Vertical asymptotes at $x=4$ and $x=-4$}{A hole at $x=-4$ and a vertical asymptote at $x=4$}{A hole at $x=0$ and a vertical asymptote at $x=4$}{No hole and no vertical asymptote}
+\ans{A}{$\frac{x(x-4)}{(x-4)(x+4)}$: $x-4$ cancels (hole at $x=4$); $x+4$ stays (asymptote $x=-4$).}
+\end{qbox}
+
+\begin{qbox}
+What is the $y$-coordinate of the hole in the graph of $f(x)=\dfrac{x^2-4x}{x^2-16}$?
+\choicesE{$0$}{$1$}{$\frac12$}{$-\frac12$}{$4$}
+\ans{C}{After cancelling, $\frac{x}{x+4}$ at $x=4$: $\frac48=\frac12$.}
+\end{qbox}
+
+\begin{qbox}
+For the same $f$, what is $\displaystyle\lim_{x\to-4^+}f(x)$?
+\choicesE{$+\infty$}{$-\infty$}{$1$}{$\frac12$}{$0$}
+\ans{B}{$\frac{x}{x+4}$: numerator near $-4$, denominator small and positive: $-\infty$.}
+\end{qbox}
+
+\begin{qbox}
+$\displaystyle\lim_{x\to\infty}\frac{7x^2-x}{2x^2+5}$ is
+\choicesE{$7$}{$0$}{$\frac{7}{5}$}{$-\frac15$}{$\frac72$}
+\ans{E}{Same degree: $\frac72$.}
+\end{qbox}
+
+\begin{qbox}
+$\displaystyle\lim_{x\to-\infty}\frac{3x+1}{x^2-2}$ is
+\choicesE{$3$}{$-\frac12$}{$0$}{$-\infty$}{nonexistent}
+\ans{C}{The bigger degree is on the bottom: $0$.}
+\end{qbox}
+
+\begin{qbox}
+$\displaystyle\lim_{x\to\infty}\frac{x^3-2x}{5x^2+1}$ is
+\choicesE{$\frac15$}{$0$}{$-2$}{nonexistent (it grows without bound)}{$5$}
+\ans{D}{The bigger degree is on top: the function goes to $\infty$; there is no horizontal asymptote.}
+\end{qbox}
+
+\begin{qbox}
+What is the horizontal asymptote of $y=\dfrac{1-4x^3}{2x^3+x}$?
+\choicesE{$y=-2$}{$y=\frac12$}{$y=0$}{$y=-4$}{There is none.}
+\ans{A}{Same degree: $\frac{-4}{2}=-2$.}
+\end{qbox}
+
+\begin{qbox}
+Which function has \textbf{no} horizontal asymptote?
+\choicesE{$\dfrac{x+1}{x^2-3}$}{$\dfrac{x^2+1}{x-3}$}{$\dfrac{5x^2}{x^2+1}$}{$\dfrac{2-x}{3x+4}$}{$\dfrac{1}{x}$}
+\ans{B}{The bigger degree is on top only in (B).}
+\end{qbox}
+
+\Needspace{22\baselineskip}
+\begin{center}\textsf{\small\bfseries\color{apnavy}Questions 36 and 37 refer to the graph of $g$ and its asymptotes $x=1$ and $y=-2$.}\end{center}
+\gr{xmin=-4.5,xmax=6.5,ymin=-7,ymax=4,width=8.5cm,height=5.4cm,xtick={-4,-2,1,2,4,6},ytick={-6,-4,-2,2}}{\addplot[apblue,very thick,domain=-4.5:0.4,samples=80]{-2+3/(x-1)};\addplot[apblue,very thick,domain=1.6:6.5,samples=80]{-2+3/(x-1)};\va{1}\ha{-2}\node[apblue,font=\small] at (axis cs:4.5,1.2){$y=g(x)$};}
+\begin{qbox}
+What is $\displaystyle\lim_{x\to\infty}g(x)$?
+\choicesE{$1$}{$+\infty$}{$0$}{$3$}{$-2$}
+\ans{E}{Far to the right the graph approaches the horizontal asymptote $y=-2$.}
+\end{qbox}
+
+\begin{qbox}
+What is $\displaystyle\lim_{x\to1^-}g(x)$?
+\choicesE{$-\infty$}{$+\infty$}{$-2$}{$1$}{$0$}
+\ans{A}{Just to the left of the vertical asymptote $x=1$, the graph goes down without bound.}
+\end{qbox}
+
+\begin{qbox}
+Which line or lines are vertical asymptotes of $y=\dfrac{x+2}{x^2-x-6}$?
+\choicesE{$x=3$ and $x=-2$}{$x=-2$ only}{$x=3$ only}{$y=0$ only}{There is none.}
+\ans{C}{$\frac{x+2}{(x-3)(x+2)}$: $x+2$ cancels (hole at $x=-2$); $x-3$ stays (asymptote $x=3$).}
+\end{qbox}
+
+\begin{qbox}
+$f$ is a rational function with $\displaystyle\lim_{x\to\infty}f(x)=5$. What is $\displaystyle\lim_{x\to-\infty}f(x)$?
+\choicesE{$-5$}{$0$}{$\infty$}{$5$}{It cannot be determined.}
+\ans{D}{For a rational function with a horizontal asymptote, the same asymptote holds on both ends.}
+\end{qbox}
+
+\begin{qbox}
+$\displaystyle\lim_{x\to3^-}\frac{2x}{x-3}$ is
+\choicesE{$+\infty$}{$2$}{$-\infty$}{$0$}{$6$}
+\ans{C}{Numerator near $6$, denominator small and negative: $-\infty$.}
+\end{qbox}
+
+\ifkey\else\vfill\begin{center}\small\color{apgrey}End of the quiz. Check that every answer is filled in on the answer sheet.\end{center}\fi
+\end{document}

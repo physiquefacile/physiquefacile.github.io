@@ -1,0 +1,334 @@
+\documentclass[11pt]{article}
+\usepackage{ap}
+\input{mode}
+\geometry{a4paper,margin=1.6cm,top=1.7cm,bottom=1.7cm,headheight=14pt}
+\setdoc{AP Calculus AB}{Unit 1}{Quiz 1 \textbullet\ Limits, Continuity, and Differentiability\ifkey\ \textbullet\ Answer key\fi}
+\renewcommand{\nocalc}{}
+% five choices, one per line
+\newcommand{\choicesE}[5]{\par\vspace{2pt}\begin{tabular}{@{}l@{\hspace{5pt}}p{0.88\linewidth}@{}}(A)&#1\\[1pt](B)&#2\\[1pt](C)&#3\\[1pt](D)&#4\\[1pt](E)&#5\end{tabular}\par}
+\newcommand{\ans}[2]{\begin{solution}\textbf{Answer: (#1).} #2\end{solution}}
+\newcommand{\gr}[2]{\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,#1]#2\end{axis}\end{tikzpicture}\end{center}}
+\newcommand{\pt}[1]{\node[circle,fill=apblue,inner sep=1.5pt] at (axis cs:#1){};}
+\newcommand{\op}[1]{\node[circle,draw=apblue,fill=white,thick,inner sep=1.5pt] at (axis cs:#1){};}
+\newcommand{\va}[1]{\draw[apred,dashed,thick](axis cs:#1,-100)--(axis cs:#1,100);}
+\newcommand{\ha}[1]{\draw[apgold!80!black,dashed,thick](axis cs:-100,#1)--(axis cs:100,#1);}
+\newcommand{\sk}[2]{\begin{tikzpicture}\begin{axis}[axis lines=middle,xtick=\empty,ytick=\empty,xlabel={$x$},ylabel={$y$},width=4.6cm,height=3.8cm,clip=false,#1]#2\end{axis}\end{tikzpicture}}
+\newenvironment{qbox}{\par\Needspace{10\baselineskip}\refstepcounter{exo}\begin{tcolorbox}[enhanced,colback=white,colframe=apnavy!50,boxrule=0.5pt,arc=2pt,left=8pt,right=8pt,top=6pt,bottom=6pt,before skip=4pt,after skip=4pt]{\sffamily\bfseries\color{apnavy}\theexo.}\ }{\end{tcolorbox}}
+\begin{document}
+{\centering\sffamily\bfseries\Large\color{apnavy}The Senegalese American Bilingual School\par}\vspace{6pt}
+\titleband{Quiz 1 \textbullet\ Limits, Continuity, and Differentiability}{12th B \textbullet\ AP Calculus AB \textbullet\ Unit 1\ifkey\ \textbullet\ Answer key with explanations\fi}
+
+\ifkey\else
+\begin{minipage}[t]{0.52\linewidth}\vspace{0pt}
+\begin{tcolorbox}[colback=white,colframe=apnavy,boxrule=0.6pt,arc=3pt,left=8pt,right=8pt]
+\sffamily Name: \rule{5.5cm}{0.4pt}\\[10pt] Date: \rule{2.6cm}{0.4pt}\quad Class: 12th B
+\end{tcolorbox}
+\begin{directions}
+\textbf{40 multiple-choice questions} \textbullet\ \textbf{120 minutes} \textbullet\ \textbf{Simple calculator allowed; no graphing calculator (no TI)}.\\
+Choose the one best answer for each question and fill in its bubble on the answer sheet. Each correct answer is worth 1 point; there is no penalty for a wrong answer.
+\end{directions}
+\vspace{6pt}
+\begin{center}
+\begin{tikzpicture}
+\draw[apnavy,thick] (0,0) circle (1.2); \draw[apnavy,thick] (-1.2,0)--(1.2,0);
+\node[font=\Large\sffamily] at (0,-0.55) {40};
+\node[font=\sffamily\bfseries,color=apnavy] at (0,1.55) {Score};
+\draw[apnavy,thick] (3.4,0) circle (1.2); \draw[apnavy,thick] (2.2,0)--(4.6,0);
+\node[font=\Large\sffamily] at (3.4,-0.55) {100};
+\node[font=\sffamily\bfseries,color=apnavy] at (3.4,1.55) {Grade};
+\node[font=\Large] at (1.7,0) {$\times2.5$};
+\end{tikzpicture}
+\end{center}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.42\linewidth}\vspace{0pt}
+\begin{tcolorbox}[colback=white,colframe=apnavy,boxrule=0.6pt,arc=3pt,title={\sffamily\bfseries Answer sheet},colbacktitle=apnavy]
+\centering
+\begin{tikzpicture}[x=0.52cm,y=0.56cm]
+\foreach \c [count=\i] in {A,B,C,D,E}{\node[font=\sffamily\small\bfseries] at (\i,1) {\c};\node[font=\sffamily\small\bfseries] at (\i+7,1) {\c};}
+\foreach \r in {1,...,20}{
+ \node[font=\sffamily\bfseries,anchor=east] at (0.5,-\r+1) {\r};
+ \foreach \i in {1,...,5}{\draw[apgrey] (\i,-\r+1) circle (0.2);}
+ \pgfmathtruncatemacro{\s}{\r+20}
+ \node[font=\sffamily\bfseries,anchor=east] at (7.5,-\r+1) {\s};
+ \foreach \i in {1,...,5}{\draw[apgrey] (\i+7,-\r+1) circle (0.2);}
+}
+\end{tikzpicture}
+\end{tcolorbox}
+\end{minipage}
+\newpage
+\fi
+
+\ifkey
+\begin{keyidea}[Answer key]
+\begin{tabular}{@{}*{10}{c@{\hspace{10pt}}}c@{}}
+1~C & 2~B & 3~C & 4~B & 5~E & 6~D & 7~D & 8~C & 9~A & 10~D\\
+11~B & 12~A & 13~E & 14~B & 15~C & 16~A & 17~D & 18~B & 19~D & 20~B\\
+21~B & 22~C & 23~D & 24~A & 25~E & 26~C & 27~A & 28~D & 29~B & 30~E\\
+31~C & 32~A & 33~B & 34~C & 35~D & 36~A & 37~D & 38~B & 39~E & 40~C
+\end{tabular}
+\end{keyidea}
+\fi
+
+\begin{qbox}
+\gr{xmin=-4.5,xmax=4.5,ymin=-2.8,ymax=2,width=8.5cm,height=4.8cm,xtick={-4,-3,...,4},ytick={-2,-1,1}}{\addplot[apblue,very thick] coordinates {(-4,-1)(-2,1)};\addplot[apblue,very thick,domain=-2:1,samples=60]{1-(x+2)^2/3};\addplot[apblue,very thick,domain=1:4,samples=150]{-1+sign(x-2)*abs(x-2)^(1/3)};\node[apblue,font=\small] at (axis cs:3.4,1.2){$y=f(x)$};}
+The graph of $f$ is shown for $-4\le x\le4$. The graph has sharp corners at $x=-2$ and $x=1$, and a vertical tangent line at $x=2$. For what values of $x$, $-4<x<4$, is $f$ \textbf{not} differentiable?
+\choicesE{$x=2$ only}{$x=-2$ and $x=1$ only}{$x=-2$, $x=1$ and $x=2$}{$x=1$ and $x=2$ only}{$x=-2$ only}
+\ans{C}{A function is not differentiable at a sharp corner ($x=-2$, $x=1$) or at a vertical tangent ($x=2$).}
+\end{qbox}
+
+\begin{qbox}
+$\displaystyle\lim_{x\to\infty}\frac{4x^3-2x}{1-2x^3}$ is
+\choicesE{$-4$}{$-2$}{$2$}{$4$}{nonexistent}
+\ans{B}{Same degree: ratio of the leading coefficients, $\frac{4}{-2}=-2$.}
+\end{qbox}
+
+\begin{qbox}
+$\displaystyle\lim_{x\to-\infty}\frac{6x^2+x}{3x^4-5}$ is
+\choicesE{$2$}{$\frac13$}{$0$}{$-\infty$}{nonexistent}
+\ans{C}{The bigger degree is on the bottom, so the limit is $0$.}
+\end{qbox}
+
+\begin{qbox}
+If $f$ is a continuous function defined by $f(x)=\begin{cases}x^2-bx, & x\le3\\ 2x+1, & x>3,\end{cases}$ then $b=$
+\choicesE{$-\frac23$}{$\frac23$}{$2$}{$3$}{$\frac43$}
+\ans{B}{Left and right must agree at $x=3$: $9-3b=7$, so $b=\frac23$.}
+\end{qbox}
+
+\begin{qbox}
+If $y=-2$ is a horizontal asymptote of a rational function $f$, which of the following must be true?
+\choicesE{$\displaystyle\lim_{x\to-2}f(x)=\infty$}{$\displaystyle\lim_{x\to0}f(x)=-2$}{$f(-2)=0$}{$\displaystyle\lim_{x\to\infty}f(x)=2$}{$\displaystyle\lim_{x\to\infty}f(x)=-2$}
+\ans{E}{A horizontal asymptote comes from a limit to infinity: $\lim_{x\to\infty}f(x)=-2$ (for a rational function, also at $-\infty$).}
+\end{qbox}
+
+\begin{qbox}
+For which of the following does $\displaystyle\lim_{x\to2}f(x)$ exist?\par\smallskip
+\begin{center}
+\begin{tabular}{ccc}
+\sk{xmin=0,xmax=4.2,ymin=0,ymax=4.2,xtick={2},xticklabels={$2$}}{\addplot[apblue,very thick,domain=0.2:4,samples=60]{2+sin(deg(1.4*x))};\op{2,2.335}\pt{2,3.8}} &
+\sk{xmin=0,xmax=4.2,ymin=0,ymax=4.2,xtick={2},xticklabels={$2$}}{\addplot[apblue,very thick,domain=0.2:2]{0.5*x+1};\addplot[apblue,very thick,domain=2:4]{0.5*x+2};\pt{2,2}\op{2,3}} &
+\sk{xmin=0,xmax=4.2,ymin=0,ymax=4.2,xtick={2},xticklabels={$2$}}{\addplot[apblue,very thick] coordinates {(0.3,0.8)(2,3.2)(4,1.4)};}\\
+I & II & III
+\end{tabular}
+\end{center}
+\choicesE{I only}{II only}{III only}{I and III only}{I, II and III}
+\ans{D}{I: hole, but both sides approach the same height, so the limit exists. II: jump, the one-sided limits differ. III: corner, continuous, so the limit exists.}
+\end{qbox}
+
+\begin{qbox}
+\gr{xmin=-3.5,xmax=4.5,ymin=-2.5,ymax=3,width=8.5cm,height=5cm,xtick={-3,-2,...,4}}{\addplot[apblue,very thick] coordinates {(-3,0)(-1,2)};\addplot[apblue,very thick,domain=-1:1,samples=60]{2-(x+1)^2};\addplot[apblue,very thick] coordinates {(1,-2)(3,0)};\addplot[apblue,very thick] coordinates {(3,2)(4,2)};\pt{-3,0}\op{-1,2}\pt{-1,-1}\pt{3,0}\op{3,2}\pt{4,2}\node[apblue,font=\small] at (axis cs:-2.6,2.4){$y=g(x)$};}
+The graph of $g$ is shown. For which values of $c$ is $\displaystyle\lim_{x\to c}g(x)=2$?
+\choicesE{$c=-1$ only}{$c=-1$ and $c=3$ only}{$c=3$ only}{$c=-1$ and every $c$ in $(3,4)$}{every $c$ in $(3,4)$ only}
+\ans{D}{At $c=-1$ both sides approach $2$ (the dot $g(-1)=-1$ does not matter). At $c=3$ the left limit is $0$ and the right limit is $2$: no limit. For every $c$ between $3$ and $4$ the graph is the horizontal segment at height $2$.}
+\end{qbox}
+
+\begin{qbox}
+If $f$ is a continuous function on the closed interval $[a,b]$, which of the following must be true?
+\choicesE{There is a number $c$ in $(a,b)$ such that $f(c)=0$.}{There is a number $c$ in $(a,b)$ such that $f'(c)=0$.}{There is a number $c$ in $[a,b]$ such that $f(c)\le f(x)$ for all $x$ in $[a,b]$.}{There is a number $c$ in $(a,b)$ such that $f(a)<f(c)<f(b)$.}{There is a number $c$ in $(a,b)$ such that $f'(c)=\dfrac{f(b)-f(a)}{b-a}$.}
+\ans{C}{EVT: continuous on a closed interval gives an absolute minimum. (B) and (E) need differentiability; (A) and (D) need extra information.}
+\end{qbox}
+
+\begin{qbox}
+\gr{xmin=-3.5,xmax=7.5,ymin=-5,ymax=3.5,width=8cm,height=5cm,xtick={-2,2,4,6},ytick={-3,-1,1,3}}{\addplot[apblue,very thick,domain=-3.5:1.75,samples=80]{-1+1/(x-2)};\addplot[apblue,very thick,domain=2.2:7.5,samples=80]{-1+1/(x-2)};\va{2}\ha{-1}}
+The function $f$ is given by $f(x)=\dfrac{ax+3}{x+b}$. The figure shows a portion of the graph of $f$ with its asymptotes $x=2$ and $y=-1$. Which could be the values of the constants $a$ and $b$?
+\choicesE{$a=-1$, $b=-2$}{$a=1$, $b=-2$}{$a=-1$, $b=2$}{$a=2$, $b=-1$}{$a=-2$, $b=1$}
+\ans{A}{The vertical asymptote $x=2$ means the denominator is $0$ at $x=2$: $b=-2$. The horizontal asymptote is the ratio of leading coefficients $\frac a1=-1$: $a=-1$.}
+\end{qbox}
+
+\begin{qbox}
+$\displaystyle\lim_{x\to3}\frac{x^2-2x-3}{x^2-9}$ is
+\choicesE{$0$}{$1$}{$\frac13$}{$\frac23$}{nonexistent}
+\ans{D}{$\frac{(x-3)(x+1)}{(x-3)(x+3)}=\frac{x+1}{x+3}\to\frac46=\frac23$.}
+\end{qbox}
+
+\begin{qbox}
+If $f$ is continuous at $x=a$, which of the following must be true?
+\choicesE{$f'(a)$ exists.}{$\displaystyle\lim_{x\to a}f(x)=f(a)$}{$f(a)=0$}{$f$ has a horizontal tangent at $x=a$.}{None of the above}
+\ans{B}{That is the continuity test. Continuity does not imply differentiability (think of a corner).}
+\end{qbox}
+
+\begin{qbox}
+\gr{xmin=-1.5,xmax=5.5,ymin=-0.5,ymax=4.5,width=7.5cm,height=4.6cm,xtick={2},xticklabels={$a$},ytick=\empty}{\addplot[apblue,very thick,domain=-1:5,samples=80]{1+0.12*(x+1)^2};\op{2,2.08}\pt{2,3.7}}
+The graph of a function $f$ is shown. Which of the following statements about $f$ is \textbf{false}?
+\choicesE{$f$ is continuous at $x=a$.}{$x=a$ is in the domain of $f$.}{$\displaystyle\lim_{x\to a^+}f(x)=\lim_{x\to a^-}f(x)$}{$\displaystyle\lim_{x\to a}f(x)$ exists.}{$f(a)$ is greater than $\displaystyle\lim_{x\to a}f(x)$.}
+\ans{A}{The limit exists (hole at height about $2$) but $f(a)$ is the dot above: limit $\neq f(a)$, a removable discontinuity.}
+\end{qbox}
+
+\begin{qbox}
+What is the average rate of change of $f(x)=x^3-4x$ on the closed interval $[-1,3]$?
+\choicesE{$12$}{$15$}{$\frac{15}{4}$}{$6$}{$3$}
+\ans{E}{$f(3)=27-12=15$ and $f(-1)=-1+4=3$: $\frac{15-3}{3-(-1)}=\frac{12}{4}=3$.}
+\end{qbox}
+
+\begin{qbox}
+\gr{xmin=-1.5,xmax=6.5,ymin=-4,ymax=6,width=7.5cm,height=5cm,xtick={2},ytick={1}}{\addplot[apblue,very thick,domain=-1.5:1.82,samples=80]{1-1/(x-2)};\addplot[apblue,very thick,domain=2.17:6.5,samples=80]{1-1/(x-2)};\va{2}\ha{1}}
+The graph of $f(x)=1-\dfrac{1}{x-2}$ is shown, with its asymptotes. Which statement is true?
+\choicesE{$\displaystyle\lim_{x\to2}f(x)=\infty$}{$\displaystyle\lim_{x\to2^-}f(x)=+\infty$}{$f(2)=1$}{$\displaystyle\lim_{x\to\infty}f(x)=0$}{$f$ has a removable discontinuity at $x=2$.}
+\ans{B}{Left of $x=2$ the graph rises without bound; right of $x=2$ it falls, so the two-sided limit is not $\infty$. $f(2)$ is undefined, $\lim_{x\to\infty}f(x)=1$, and the discontinuity is infinite.}
+\end{qbox}
+
+\begin{qbox}
+\begin{center}\begin{tabular}{|c|c|c|c|c|c|}\hline$x$&$0$&$1$&$2$&$3$&$4$\\\hline$f(x)$&$3$&$1$&$2$&$4$&$3$\\\hline\end{tabular}\end{center}
+The function $f$ is continuous and differentiable on $[0,4]$. The table gives selected values. Which of the following must be true?
+\choicesE{The minimum value of $f$ on $[0,4]$ is $1$.}{The maximum value of $f$ on $[0,4]$ is $4$.}{There is a $c$, $0<c<4$, with $f'(c)=0$.}{$f(x)>0$ for all $x$ in $[0,4]$.}{$f$ is increasing on $1<x<3$.}
+\ans{C}{MVT on $[0,4]$: $\frac{f(4)-f(0)}{4}=\frac{3-3}{4}=0$. The table does not show $f$ between the listed points, so (A), (B), (D) and (E) are not guaranteed.}
+\end{qbox}
+
+\begin{qbox}
+$f(x)=\begin{cases}3x-1, & x<2\\ 8-x, & x>2.\end{cases}$ \quad If $f$ is the function defined above, then $\displaystyle\lim_{x\to2^-}f(x)$ is
+\choicesE{$5$}{$6$}{$4$}{$7$}{nonexistent}
+\ans{A}{From the left use $3x-1$: $3(2)-1=5$.}
+\end{qbox}
+
+\begin{qbox}
+Let $f$ be a continuous function on the closed interval $[-2,4]$. If $f(-2)=5$ and $f(4)=-1$, then the Intermediate Value Theorem guarantees that
+\choicesE{$f(1)=2$}{$f'(c)=-1$ for at least one $c$ between $-2$ and $4$}{$-1\le f(x)\le5$ for all $x$ between $-2$ and $4$}{$f(c)=2$ for at least one $c$ between $-2$ and $4$}{$f(c)=0$ for at least one $c$ between $0$ and $4$}
+\ans{D}{$2$ is between $-1$ and $5$. (E) names the wrong interval: we only know the values at $-2$ and $4$.}
+\end{qbox}
+
+\begin{qbox}
+$\displaystyle\lim_{x\to\infty}\frac{2x^2+5}{x-4x^2}$ is
+\choicesE{$2$}{$-\frac12$}{$\frac12$}{$0$}{nonexistent}
+\ans{B}{Same degree: $\frac{2}{-4}=-\frac12$.}
+\end{qbox}
+
+\begin{qbox}
+\gr{xmin=-3,xmax=7.5,ymin=-0.5,ymax=6,width=8cm,height=4.6cm,xtick={-2,6},ytick=\empty}{\addplot[apblue,very thick,domain=-2:6,samples=80]{5-0.5*(x+2)-0.05*(x+2)*(x-6)};\pt{-2,5}\pt{6,1}\node[font=\small,anchor=south] at (axis cs:-2,5.1){$(-2,5)$};\node[font=\small,anchor=south west] at (axis cs:6,1.1){$(6,1)$};\node[apblue,font=\small] at (axis cs:4,4.4){$y=f(x)$};}
+The graph of $y=f(x)$ on the closed interval $[-2,6]$ is shown. If $f$ is continuous on $[-2,6]$ and differentiable on $(-2,6)$, then there exists a $c$, $-2<c<6$, such that
+\choicesE{$f(c)=0$}{$f'(c)$ is undefined}{$f'(c)=2$}{$f'(c)=-\frac12$}{$f'(c)=-4$}
+\ans{D}{MVT: $f'(c)=\frac{1-5}{6-(-2)}=-\frac48=-\frac12$.}
+\end{qbox}
+
+\begin{qbox}
+\gr{xmin=-3.2,xmax=3.2,ymin=-3,ymax=5,width=7.5cm,height=5cm,xtick={-2.5,-1,0,1},xticklabels={$a$,$b$,$c$,$d$},ytick=\empty}{\addplot[apblue,very thick,domain=-2.8:2.8,samples=80]{4-x^2};\pt{-2.5,-2.25}\pt{-1,3}\pt{0,4}\pt{1,3}}
+The figure shows the graph of a continuous function $f$. Which of the following has the greatest value?
+\choicesE{$f(a)$}{$f'(a)$}{$f'(c)$}{$f(d)-f(c)$}{$\dfrac{f(b)-f(a)}{b-a}$}
+\ans{B}{$f(a)<0$, $f'(c)=0$ (top of the curve) and $f(d)-f(c)<0$. The graph is concave down, so the tangent slope at $a$ is steeper than the secant slope from $a$ to $b$: $f'(a)$ is the greatest. (Here $f(x)=4-x^2$, $f'(a)=5$ and the secant slope is $3.5$.)}
+\end{qbox}
+
+
+\newcommand{\gH}{\gr{xmin=-3.5,xmax=3.5,ymin=-2.5,ymax=3.5,width=7cm,height=4.8cm,xtick={-3,-2,...,3}}{\addplot[apblue,very thick] coordinates {(-3,3)(1,-1)};\addplot[apblue,very thick] coordinates {(1,1)(3,3)};\pt{-3,3}\op{1,-1}\op{1,1}\pt{1,2}\pt{3,3}\node[apblue,font=\small] at (axis cs:-2.2,0.8){$y=h(x)$};}}
+\Needspace{22\baselineskip}
+\begin{center}\textsf{\small\bfseries\color{apnavy}Questions 21 and 22 refer to the graph of $h$.}\end{center}
+\begin{qbox}
+\gH
+What is $\displaystyle\lim_{x\to1^+}h(x)$?
+\choicesE{$-1$}{$1$}{$2$}{$0$}{nonexistent}
+\ans{B}{From the right, the graph approaches the open circle $(1,1)$.}
+\end{qbox}
+
+\begin{qbox}
+Using the graph of $h$ above, what is $h(1)+\displaystyle\lim_{x\to1^-}h(x)$?
+\choicesE{$3$}{$2$}{$1$}{$0$}{nonexistent}
+\ans{C}{$h(1)=2$ (the filled dot) and the left limit is $-1$: $2+(-1)=1$.}
+\end{qbox}
+
+\begin{qbox}
+$\displaystyle\lim_{x\to-4}\frac{x^2+2x-8}{x+4}$ is
+\choicesE{$0$}{$-2$}{$2$}{$-6$}{nonexistent}
+\ans{D}{$\frac{(x+4)(x-2)}{x+4}=x-2\to-6$.}
+\end{qbox}
+
+\begin{qbox}
+$\displaystyle\lim_{x\to0}\frac{5x^3-x}{2x}$ is
+\choicesE{$-\frac12$}{$0$}{$\frac52$}{$-1$}{nonexistent}
+\ans{A}{$\frac{x(5x^2-1)}{2x}=\frac{5x^2-1}{2}\to-\frac12$.}
+\end{qbox}
+
+\begin{qbox}
+$\displaystyle\lim_{x\to2}\frac{x^3-8}{x-2}$ is
+\choicesE{$0$}{$4$}{$8$}{$\infty$}{$12$}
+\ans{E}{$x^3-8=(x-2)(x^2+2x+4)$, so the expression is $x^2+2x+4\to4+4+4=12$.}
+\end{qbox}
+
+\begin{qbox}
+Which describes the graph of $f(x)=\dfrac{x^2+x-6}{x^2-4}$?
+\choicesE{Vertical asymptotes at $x=2$ and $x=-2$}{A hole at $x=-2$ and a vertical asymptote at $x=2$}{A hole at $x=2$ and a vertical asymptote at $x=-2$}{A hole at $x=-3$ and a vertical asymptote at $x=2$}{No hole and no vertical asymptote}
+\ans{C}{$\frac{(x+3)(x-2)}{(x+2)(x-2)}$: $x-2$ cancels (hole at $x=2$); $x+2$ stays (asymptote $x=-2$).}
+\end{qbox}
+
+\begin{qbox}
+For the same $f(x)=\dfrac{x^2+x-6}{x^2-4}$, what is $\displaystyle\lim_{x\to-2^+}f(x)$?
+\choicesE{$+\infty$}{$-\infty$}{$\frac54$}{$1$}{$0$}
+\ans{A}{$\frac{x+3}{x+2}$: numerator near $1$, denominator small and positive: $+\infty$.}
+\end{qbox}
+
+\begin{qbox}
+What is the horizontal asymptote of $g(x)=\dfrac{5-3x^2}{6x^2+x}$?
+\choicesE{$y=5$}{$y=-3$}{$y=0$}{$y=-\frac12$}{There is none.}
+\ans{D}{Same degree: $\frac{-3}{6}=-\frac12$.}
+\end{qbox}
+
+\begin{qbox}
+Which function has the horizontal asymptote $y=0$?
+\choicesE{$\dfrac{2x^2+1}{x^2+3}$}{$\dfrac{2x+1}{x^2+3}$}{$\dfrac{x^3}{x^2+1}$}{$\dfrac{4x-1}{2x+5}$}{$x^2+3$}
+\ans{B}{The bigger degree is on the bottom only in (B).}
+\end{qbox}
+
+\begin{qbox}
+For what value of $k$ is $f(x)=\begin{cases}kx+5, & x<-1\\ x^2-k, & x\ge-1\end{cases}$ continuous at $x=-1$?
+\choicesE{$-2$}{$2$}{$3$}{$-3$}{No value of $k$ works.}
+\ans{E}{$-k+5=1-k$ gives $5=1$: impossible.}
+\end{qbox}
+
+\begin{qbox}
+For what value of $a$ is $g(x)=\begin{cases}ax^2, & x\le2\\ 4x-a, & x>2\end{cases}$ continuous everywhere?
+\choicesE{$2$}{$\frac43$}{$\frac85$}{$\frac25$}{$8$}
+\ans{C}{$4a=8-a$, so $5a=8$ and $a=\frac85$.}
+\end{qbox}
+
+\begin{qbox}
+What type of discontinuity does $f(x)=\dfrac{x-3}{x^2-9}$ have at $x=-3$?
+\choicesE{Infinite (vertical asymptote)}{Removable}{Jump}{None, $f$ is continuous there.}{Endpoint}
+\ans{A}{$\frac{x-3}{(x-3)(x+3)}=\frac1{x+3}$: the factor $x+3$ does not cancel. (At $x=3$ the discontinuity is removable.)}
+\end{qbox}
+
+\begin{qbox}
+$g$ is continuous. \;\begin{tabular}{|c|c|c|c|c|}\hline$x$&$-1$&$0$&$2$&$5$\\\hline$g(x)$&$4$&$-2$&$-1$&$3$\\\hline\end{tabular}\; What is the least number of zeros of $g$ on $[-1,5]$?
+\choicesE{$1$}{$2$}{$3$}{$4$}{$0$}
+\ans{B}{Sign changes on $[-1,0]$ and on $[2,5]$ (IVT); none on $[0,2]$.}
+\end{qbox}
+
+\begin{qbox}
+Which function is guaranteed by the Extreme Value Theorem to have an absolute maximum on $[-1,1]$?
+\choicesE{$\dfrac1x$}{$\dfrac{x^2-1}{x-1}$}{$|x|$}{$\begin{cases}x, & x<0\\ x+1, & x\ge0\end{cases}$}{$\dfrac{1}{x+1}$}
+\ans{C}{$|x|$ is continuous on the closed interval. (A), (E): asymptote in $[-1,1]$. (B): undefined at $x=1$. (D): jump.}
+\end{qbox}
+
+\begin{qbox}
+The height of a plant is measured. \;\begin{tabular}{|c|c|c|c|}\hline$t$ (days)&$0$&$4$&$10$\\\hline$H(t)$ (cm)&$12$&$20$&$38$\\\hline\end{tabular}\; What is the average rate of change of $H$ on $4\le t\le10$?
+\choicesE{$18$ cm}{$2$ cm per day}{$\frac{13}{5}$ cm per day}{$3$ cm per day}{$\frac13$ day per cm}
+\ans{D}{$\frac{38-20}{10-4}=\frac{18}{6}=3$ cm per day.}
+\end{qbox}
+
+\begin{qbox}
+What is the average rate of change of $f(x)=\sqrt{x+5}$ on $[-1,4]$?
+\choicesE{$\frac15$}{$1$}{$5$}{$\frac13$}{$\frac12$}
+\ans{A}{$f(4)=3$, $f(-1)=2$: $\frac{3-2}{4-(-1)}=\frac15$.}
+\end{qbox}
+
+\begin{qbox}
+\gr{xmin=-0.3,xmax=6.6,ymin=-0.5,ymax=5.6,width=8cm,height=4.8cm,xtick={1,1.5708,2.5,4.712,6},xticklabels={$p$,$q$,$r$,$s$,$t$},ytick=\empty}{\addplot[apblue,very thick,domain=0:6.4,samples=100]{2*sin(deg(x))+3};\pt{1,4.683}\pt{1.5708,5}\pt{2.5,4.197}\pt{4.712,1}\pt{6,2.441}}
+The graph of $f$ is shown. At which labeled point is the rate of change of $f$ negative?
+\choicesE{$p$}{$q$}{$s$}{$r$}{$t$}
+\ans{D}{The graph falls at $r$. It rises at $p$ and $t$, and the tangent line is horizontal at $q$ and $s$.}
+\end{qbox}
+
+\begin{qbox}
+At which values of $x$ is $f(x)=|x^2-4|$ not differentiable?
+\choicesE{$x=2$ only}{$x=-2$ and $x=2$}{$x=0$ only}{$x=-2$, $x=0$ and $x=2$}{It is differentiable everywhere.}
+\ans{B}{The absolute value folds the parabola up where $x^2-4=0$, making sharp corners at $x=\pm2$. At $x=0$ the graph is smooth (a peak).}
+\end{qbox}
+
+\begin{qbox}
+$f$ is differentiable with $f(-1)=7$ and $f(3)=-5$. The Mean Value Theorem guarantees a $c$ in $(-1,3)$ with $f'(c)=$
+\choicesE{$-12$}{$3$}{$-\frac12$}{$-6$}{$-3$}
+\ans{E}{$\frac{-5-7}{3-(-1)}=\frac{-12}{4}=-3$.}
+\end{qbox}
+
+\begin{qbox}
+Why does the Mean Value Theorem \textbf{not} apply to $f(x)=\sqrt[3]{x^2}$ on $[-1,1]$?
+\choicesE{$f$ is not continuous on $[-1,1]$.}{$f(-1)\neq f(1)$}{$f$ is not differentiable at $x=0$.}{The interval is not closed.}{It does apply.}
+\ans{C}{The graph is continuous but has a cusp (vertical tangent from both sides) at $x=0$, so $f$ is not differentiable on $(-1,1)$.}
+\end{qbox}
+\ifkey\else\vfill\begin{center}\small\color{apgrey}End of the quiz. Check that every answer is filled in on the answer sheet.\end{center}\fi
+\end{document}

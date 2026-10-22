@@ -1,0 +1,178 @@
+\documentclass[11pt]{article}
+\usepackage{ap}
+\input{mode}
+\geometry{a4paper,margin=1.6cm,top=1.7cm,bottom=1.7cm,headheight=14pt}
+\setdoc{Calculus}{Unit 1}{Quiz 1 \textbullet\ Limits and Asymptotes (Lessons 1-1 to 1-3)\ifkey\ \textbullet\ Answer key\fi}
+\renewcommand{\nocalc}{}
+% five choices, one per line
+\newcommand{\choicesE}[5]{\par\vspace{2pt}\begin{tabular}{@{}l@{\hspace{5pt}}p{0.88\linewidth}@{}}(A)&#1\\[1pt](B)&#2\\[1pt](C)&#3\\[1pt](D)&#4\\[1pt](E)&#5\end{tabular}\par}
+\newcommand{\ans}[2]{\begin{solution}\textbf{Answer: (#1).} #2\end{solution}}
+\newcommand{\gr}[2]{\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,#1]#2\end{axis}\end{tikzpicture}\end{center}}
+\newcommand{\pt}[1]{\node[circle,fill=apblue,inner sep=1.5pt] at (axis cs:#1){};}
+\newcommand{\op}[1]{\node[circle,draw=apblue,fill=white,thick,inner sep=1.5pt] at (axis cs:#1){};}
+\newcommand{\va}[1]{\draw[apred,dashed,thick](axis cs:#1,-100)--(axis cs:#1,100);}
+\newcommand{\ha}[1]{\draw[apgold!80!black,dashed,thick](axis cs:-100,#1)--(axis cs:100,#1);}
+\newcommand{\sk}[2]{\begin{tikzpicture}\begin{axis}[axis lines=middle,xtick=\empty,ytick=\empty,xlabel={$x$},ylabel={$y$},width=4.6cm,height=3.8cm,clip=false,#1]#2\end{axis}\end{tikzpicture}}
+\newenvironment{qbox}{\par\Needspace{10\baselineskip}\refstepcounter{exo}\begin{tcolorbox}[enhanced,colback=white,colframe=apnavy!50,boxrule=0.5pt,arc=2pt,left=8pt,right=8pt,top=6pt,bottom=6pt,before skip=3pt,after skip=3pt]{\sffamily\bfseries\color{apnavy}\theexo.}\ }{\end{tcolorbox}}
+\begin{document}
+{\centering\sffamily\bfseries\Large\color{apnavy}The Senegalese American Bilingual School\par}\vspace{6pt}
+\titleband{Quiz 1 \textbullet\ Limits and Asymptotes (Lessons 1-1 to 1-3)}{12th A \textbullet\ Calculus \textbullet\ Unit 1\ifkey\ \textbullet\ Answer key with explanations\fi}
+
+\ifkey\else
+\begin{minipage}[t]{0.52\linewidth}\vspace{0pt}
+\begin{tcolorbox}[colback=white,colframe=apnavy,boxrule=0.6pt,arc=3pt,left=8pt,right=8pt]
+\sffamily Name: \rule{5.5cm}{0.4pt}\\[10pt] Date: \rule{2.6cm}{0.4pt}\quad Class: 12th A
+\end{tcolorbox}
+\begin{directions}
+\textbf{20 multiple-choice questions} \textbullet\ \textbf{60 minutes} \textbullet\ \textbf{Simple calculator allowed; no graphing calculator (no TI)}.\\
+Choose the one best answer for each question and fill in its bubble on the answer sheet. Each correct answer is worth 5 points; there is no penalty for a wrong answer.
+\end{directions}
+\vspace{6pt}
+\begin{center}
+\begin{tikzpicture}
+\draw[apnavy,thick] (0,0) circle (1.2); \draw[apnavy,thick] (-1.2,0)--(1.2,0);
+\node[font=\Large\sffamily] at (0,-0.55) {20};
+\node[font=\sffamily\bfseries,color=apnavy] at (0,1.55) {Score};
+\draw[apnavy,thick] (3.4,0) circle (1.2); \draw[apnavy,thick] (2.2,0)--(4.6,0);
+\node[font=\Large\sffamily] at (3.4,-0.55) {100};
+\node[font=\sffamily\bfseries,color=apnavy] at (3.4,1.55) {Grade};
+\node[font=\Large] at (1.7,0) {$\times5$};
+\end{tikzpicture}
+\end{center}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.42\linewidth}\vspace{0pt}
+\begin{tcolorbox}[colback=white,colframe=apnavy,boxrule=0.6pt,arc=3pt,title={\sffamily\bfseries Answer sheet},colbacktitle=apnavy]
+\centering
+\begin{tikzpicture}[x=0.52cm,y=0.75cm]
+\foreach \c [count=\i] in {A,B,C,D,E}{\node[font=\sffamily\small\bfseries] at (\i,1) {\c};\node[font=\sffamily\small\bfseries] at (\i+7,1) {\c};}
+\foreach \r in {1,...,10}{
+ \node[font=\sffamily\bfseries,anchor=east] at (0.5,-\r+1) {\r};
+ \foreach \i in {1,...,5}{\draw[apgrey] (\i,-\r+1) circle (0.2);}
+ \pgfmathtruncatemacro{\s}{\r+10}
+ \node[font=\sffamily\bfseries,anchor=east] at (7.5,-\r+1) {\s};
+ \foreach \i in {1,...,5}{\draw[apgrey] (\i+7,-\r+1) circle (0.2);}
+}
+\end{tikzpicture}
+\end{tcolorbox}
+\end{minipage}
+\newpage
+\fi
+
+\ifkey
+\begin{keyidea}[Answer key]
+\begin{tabular}{@{}*{9}{c@{\hspace{12pt}}}c@{}}
+1~C & 2~B & 3~D & 4~A & 5~E & 6~D & 7~B & 8~A & 9~C & 10~D\\
+11~E & 12~A & 13~B & 14~E & 15~C & 16~B & 17~A & 18~B & 19~D & 20~E
+\end{tabular}
+\end{keyidea}
+\fi
+
+\newcommand{\gF}{\gr{xmin=-4.5,xmax=4.5,ymin=-1.5,ymax=4.5,width=9cm,height=4.8cm,xtick={-4,-3,...,4},ytick={1,2,3,4}}{\addplot[apblue,very thick] coordinates {(-4,0)(-1,3)};\addplot[apblue,very thick] coordinates {(-1,3)(2,0)};\addplot[apblue,very thick] coordinates {(2,2)(4,4)};\pt{-4,0}\op{-1,3}\pt{-1,1}\pt{2,0}\op{2,2}\pt{4,4}\node[apblue,font=\small] at (axis cs:-3.2,3.6){$y=f(x)$};}}
+\Needspace{24\baselineskip}
+\begin{center}\textsf{\small\bfseries\color{apnavy}Questions 1 to 6 refer to the graph of $f$ below.}\end{center}
+\gF
+\begin{qbox}
+What is $\displaystyle\lim_{x\to0}f(x)$?
+\choicesE{$0$}{$1$}{$2$}{$3$}{does not exist}
+\ans{C}{Near $x=0$ the graph is the line $y=2-x$, which passes through $(0,2)$.}
+\end{qbox}
+\begin{qbox}
+What is the value of $f(-1)$?
+\choicesE{$3$}{$1$}{$0$}{$2$}{undefined}
+\ans{B}{The filled dot at $x=-1$ is at height $1$, so $f(-1)=1$.}
+\end{qbox}
+\begin{qbox}
+What is $\displaystyle\lim_{x\to-1}f(x)$?
+\choicesE{$1$}{$0$}{$2$}{$3$}{does not exist}
+\ans{D}{From both sides the graph approaches the open circle at height $3$. The limit is $3$ even though $f(-1)=1$.}
+\end{qbox}
+\begin{qbox}
+What is $\displaystyle\lim_{x\to2^-}f(x)$?
+\choicesE{$0$}{$2$}{$1$}{$4$}{does not exist}
+\ans{A}{From the left the line goes down to the point $(2,0)$.}
+\end{qbox}
+\begin{qbox}
+What is $\displaystyle\lim_{x\to2^+}f(x)$?
+\choicesE{$0$}{$4$}{$3$}{does not exist}{$2$}
+\ans{E}{From the right the graph starts at the open circle $(2,2)$.}
+\end{qbox}
+\begin{qbox}
+What is $\displaystyle\lim_{x\to2}f(x)$?
+\choicesE{$0$}{$2$}{$1$}{does not exist}{$4$}
+\ans{D}{The left limit is $0$ and the right limit is $2$. They are different, so the limit does not exist.}
+\end{qbox}
+\Needspace{14\baselineskip}\begin{center}\textsf{\small\bfseries\color{apnavy}Limits by calculation (substitution or factoring)}\end{center}
+\begin{qbox}
+$\displaystyle\lim_{x\to3}(2x+1)=$
+\choicesE{$6$}{$7$}{$5$}{$3$}{does not exist}
+\ans{B}{Direct substitution: $2(3)+1=7$.}
+\end{qbox}
+\begin{qbox}
+$\displaystyle\lim_{x\to2}(x^2-3x+5)=$
+\choicesE{$3$}{$5$}{$15$}{$1$}{does not exist}
+\ans{A}{Direct substitution: $4-6+5=3$.}
+\end{qbox}
+\begin{qbox}
+$\displaystyle\lim_{x\to4}\frac{x^2-16}{x-4}=$
+\choicesE{$0$}{$4$}{$8$}{$16$}{does not exist}
+\ans{C}{Substitution gives $\frac00$. Factor: $\frac{(x-4)(x+4)}{x-4}=x+4\to8$.}
+\end{qbox}
+\begin{qbox}
+$\displaystyle\lim_{x\to1}\frac{x^2+x-2}{x-1}=$
+\choicesE{$1$}{$2$}{$0$}{$3$}{does not exist}
+\ans{D}{$\frac{(x+2)(x-1)}{x-1}=x+2\to3$.}
+\end{qbox}
+\begin{qbox}
+$\displaystyle\lim_{x\to-2}\frac{x+5}{x+3}=$
+\choicesE{$-3$}{$1$}{$5$}{$0$}{$3$}
+\ans{E}{Direct substitution: $\frac{-2+5}{-2+3}=\frac31=3$.}
+\end{qbox}
+\Needspace{14\baselineskip}\begin{center}\textsf{\small\bfseries\color{apnavy}Questions 12 to 14 use the function}\\[3pt] $g(x)=\begin{cases}x+1, & x<2\\ 3x-1, & x\ge2\end{cases}$\end{center}
+\begin{qbox}
+$\displaystyle\lim_{x\to2^-}g(x)=$
+\choicesE{$3$}{$5$}{$2$}{$4$}{does not exist}
+\ans{A}{For $x<2$ use $g(x)=x+1$: $2+1=3$.}
+\end{qbox}
+\begin{qbox}
+$\displaystyle\lim_{x\to2^+}g(x)=$
+\choicesE{$3$}{$5$}{$6$}{$7$}{does not exist}
+\ans{B}{For $x\ge2$ use $g(x)=3x-1$: $6-1=5$.}
+\end{qbox}
+\begin{qbox}
+$\displaystyle\lim_{x\to2}g(x)=$
+\choicesE{$3$}{$5$}{$4$}{$8$}{does not exist}
+\ans{E}{The left limit ($3$) and the right limit ($5$) are not equal, so the limit does not exist.}
+\end{qbox}
+\Needspace{14\baselineskip}\begin{center}\textsf{\small\bfseries\color{apnavy}Asymptotes and holes}\end{center}
+\begin{qbox}
+What is the vertical asymptote of $f(x)=\dfrac{1}{x-3}$?
+\choicesE{$y=3$}{$x=-3$}{$x=3$}{$y=0$}{$x=0$}
+\ans{C}{The denominator is $0$ when $x=3$ and the numerator is not $0$ there.}
+\end{qbox}
+\begin{qbox}
+What is the horizontal asymptote of $f(x)=\dfrac{2x+1}{x-5}$?
+\choicesE{$y=0$}{$y=2$}{$x=5$}{$y=-5$}{$y=1$}
+\ans{B}{Same degree on top and bottom: $y=\frac{2}{1}=2$.}
+\end{qbox}
+\begin{qbox}
+What is the horizontal asymptote of $f(x)=\dfrac{4}{x^2+1}$?
+\choicesE{$y=0$}{$y=4$}{$y=1$}{$x=1$}{no horizontal asymptote}
+\ans{A}{The degree of the bottom is bigger than the degree of the top, so $y=0$.}
+\end{qbox}
+\begin{qbox}
+The function $f(x)=\dfrac{x-2}{(x-2)(x+1)}$ has a hole at
+\choicesE{$x=-1$}{$x=2$}{$x=1$}{$x=-2$}{no hole}
+\ans{B}{The factor $x-2$ cancels, so there is a hole at $x=2$ (and a vertical asymptote at $x=-1$).}
+\end{qbox}
+\begin{qbox}
+$\displaystyle\lim_{x\to\infty}\frac{3x^2+1}{x^2-4}=$
+\choicesE{$0$}{$\frac14$}{$-\frac14$}{$3$}{$\infty$}
+\ans{D}{Same degree: divide the leading coefficients, $\frac31=3$.}
+\end{qbox}
+\begin{qbox}
+What are the vertical asymptotes of $f(x)=\dfrac{x+1}{x^2-9}$?
+\choicesE{$x=3$ only}{$x=-3$ only}{$x=9$}{$x=-1$}{$x=3$ and $x=-3$}
+\ans{E}{$x^2-9=(x-3)(x+3)=0$ gives $x=3$ and $x=-3$; nothing cancels.}
+\end{qbox}
+\ifkey\else\vfill\begin{center}\small\color{apgrey}End of the quiz. Check that every answer is filled in on the answer sheet.\end{center}\fi
+\end{document}
