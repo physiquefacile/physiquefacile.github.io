@@ -405,14 +405,14 @@ $\displaystyle\lim_{x\to-2}\frac{x^2-4}{x+2}=$
 \answer{B}{}
 \end{exo}
 \begin{exo}{}
-$\displaystyle\lim_{x\to4}\frac{\sqrt x-2}{x-4}=$
-\choices{$\frac14$}{$\frac12$}{$0$}{$4$}
-\answer{A}{}
+$\displaystyle\lim_{x\to1}\frac{x^2+2x-3}{x-1}=$
+\choices{$4$}{$0$}{$2$}{It does not exist.}
+\answer{A}{$\frac{(x-1)(x+3)}{x-1}=x+3\to4$.}
 \end{exo}
 \begin{exo}[Free response]{}
-Find $\displaystyle\lim_{x\to0}\frac{x^2+5x}{x}$, $\displaystyle\lim_{x\to1}\frac{\frac1x-1}{x-1}$ and $\displaystyle\lim_{x\to0}\frac{\sin4x}{2x}$.
+Find $\displaystyle\lim_{x\to0}\frac{x^2+5x}{x}$, $\displaystyle\lim_{x\to-3}\frac{x^2-9}{x+3}$, and $\displaystyle\lim_{x\to2}j(x)$ for $j(x)=\begin{cases}x^2, & x<2\\ 6-x, & x\ge2.\end{cases}$
 \begin{solution}
-$5$; $-1$; $2$.
+$x+5\to5$; \;$x-3\to-6$; \;left $4$, right $4$: the limit is $4$.
 \end{solution}
 \end{exo}
 
@@ -438,9 +438,9 @@ Which condition for continuity fails for $f(x)=\frac{x^2-9}{x-3}$ at $x=3$?
 \answer{A}{$f(3)$ is undefined.}
 \end{exo}
 \begin{exo}[Free response]{}
-Let $f(x)=\dfrac{4x}{\sqrt{9x^2+1}}$. Find both horizontal asymptotes. Then classify the discontinuities of $g(x)=\frac{x+2}{x^2-4}$.
+Let $f(x)=\dfrac{2x^2-8}{x^2-x-2}$. Find the vertical asymptote, the hole and the horizontal asymptote. Then classify the discontinuities of $g(x)=\frac{x+2}{x^2-4}$.
 \begin{solution}
-$y=\frac43$ and $y=-\frac43$. $g$: removable at $x=-2$ (limit $-\frac14$), infinite at $x=2$.
+$f=\frac{2(x-2)(x+2)}{(x-2)(x+1)}$: VA $x=-1$; hole at $x=2$, height $\frac{2(4)}{3}=\frac83$; HA $y=2$. \;$g$: removable at $x=-2$ (limit $-\frac14$), infinite at $x=2$.
 \end{solution}
 \end{exo}
 
@@ -451,9 +451,9 @@ $\displaystyle\lim_{x\to-3}\frac{x^2+x-6}{x^2-9}=$
 \answer{A}{}
 \end{exo}
 \begin{exo}{}
-$\displaystyle\lim_{x\to\infty}\frac{x^2}{e^x}=$
-\choices{$\infty$}{$1$}{$e$}{$0$}
-\answer{D}{}
+$\displaystyle\lim_{x\to\infty}\frac{2x-x^3}{4x^3+1}=$
+\choices{$2$}{$-\frac14$}{$0$}{It does not exist.}
+\answer{B}{Same degree: $\frac{-1}{4}$.}
 \end{exo}
 \begin{exo}{}
 $\displaystyle\lim_{x\to-1}\frac{x^2-1}{|x+1|}$
@@ -498,9 +498,9 @@ Continuous on a closed interval (EVT). Max $5$ at $x=0$, min $1$ at $x=2$. Avera
 
 %%DOC SC1.4 | Self Check 1.4 \textbullet\ Lessons 1-7 to 1-9
 \begin{exo}{}
-$\displaystyle\lim_{h\to0}\frac{\frac1{2+h}-\frac12}{h}$ equals $k'(2)$ for $k(x)=\frac1x$. Its value is
-\choices{$\frac12$}{$-\frac14$}{$-\frac12$}{$\frac14$}
-\answer{B}{}
+$f$ is differentiable, with $f(0)=1$ and $f(3)=10$. The MVT guarantees a $c$ in $(0,3)$ with $f'(c)=$
+\choices{$9$}{$3$}{$\frac{10}{3}$}{$\frac13$}
+\answer{B}{$\frac{10-1}{3-0}=3$.}
 \end{exo}
 \begin{exo}{}
 Where is $f(x)=\sqrt[3]{x}$ continuous but not differentiable?
@@ -508,9 +508,9 @@ Where is $f(x)=\sqrt[3]{x}$ continuous but not differentiable?
 \answer{B}{Vertical tangent.}
 \end{exo}
 \begin{exo}{}
-For $k(x)=\frac1x$ on $[1,4]$, the MVT gives $c=$
-\choices{$2.5$}{$\sqrt{2}$}{$2$}{$3$}
-\answer{C}{}
+$f$ is continuous, $f(1)=2$ and $f(4)=8$. Which theorem guarantees $f(c)=5$ for some $c$ in $(1,4)$?
+\choices{MVT}{EVT}{IVT}{None of them}
+\answer{C}{A height between $f(1)$ and $f(4)$: the IVT.}
 \end{exo}
 \begin{exo}[Free response]{}
 A differentiable function has $f(1)=2$, $f(3)=8$, $f(6)=-1$. Which theorem guarantees each, and why? (a) $f(c)=5$ for some $c$ in $(1,3)$. (b) $f'(c)=3$ for some $c$ in $(1,3)$. (c) $f'(c)=-3$ for some $c$ in $(3,6)$.
@@ -526,19 +526,19 @@ Which function must have an absolute minimum on the interval?
 \answer{A}{}
 \end{exo}
 \begin{exo}{}
-For $f(x)=x^2$, $\frac{f(1+h)-f(1)}{h}=$
-\choices{$2$}{$2+h$}{$1+h$}{$h$}
-\answer{B}{}
+What is the average rate of change of $g(x)=x^2-2x$ on $[1,4]$?
+\choices{$2$}{$3$}{$9$}{$-3$}
+\answer{B}{$\frac{8-(-1)}{4-1}=3$.}
 \end{exo}
 \begin{exo}{}
-For $g(x)=x^3$ on $[0,3]$, the MVT value is $c=$
-\choices{$1.5$}{$3$}{$\sqrt3$}{$\sqrt[3]9$}
-\answer{C}{}
+$h$ is continuous on $[0,5]$ and its graph has a sharp corner at $x=2$. Which theorems are guaranteed to apply on $[0,5]$?
+\choices{MVT only}{IVT, EVT and MVT}{IVT and EVT only}{None of them}
+\answer{C}{The MVT also needs differentiability, which fails at the corner.}
 \end{exo}
 \begin{exo}[Free response]{}
-Use the definition to find $f'(x)$ for $f(x)=x^2-3x$, write the tangent line at $x=4$, and find the $c$ given by the MVT on $[0,4]$.
+$f$ is differentiable. \;\begin{tabular}{|c|c|c|c|c|}\hline$x$&$0$&$2$&$5$&$7$\\\hline$f(x)$&$3$&$-1$&$8$&$8$\\\hline\end{tabular}\; Justify each answer with a theorem. (a) Must $f(c)=0$ for some $c$ in $(0,2)$? (b) Must $f'(c)=3$ for some $c$ in $(2,5)$? (c) Must $f'(c)=0$ for some $c$ in $(5,7)$? (d) Must $f$ have an absolute maximum on $[0,7]$?
 \begin{solution}
-$f'(x)=2x-3$; $y-4=5(x-4)$; secant slope $\frac{4-0}{4}=1=2c-3$, $c=2$.
+(a) Yes, IVT: continuous (because differentiable) and $0$ is between $3$ and $-1$. (b) Yes, MVT: $\frac{8-(-1)}{3}=3$. (c) Yes, MVT: $\frac{8-8}{2}=0$. (d) Yes, EVT: continuous on the closed interval $[0,7]$.
 \end{solution}
 \end{exo}
 
@@ -560,9 +560,9 @@ $\displaystyle\lim_{x\to1^-}\frac{2}{x-1}$ is
 \answer{D}{}
 \end{exo}
 \begin{exo}{}
-$\displaystyle\lim_{x\to0}\frac{\sin3x}{x}$ is
-\choices{$0$}{$1$}{$3$}{$\frac13$}
-\answer{C}{}
+$\displaystyle\lim_{x\to2}\frac{x^2+x-6}{x-2}$ is
+\choices{$0$}{$1$}{$5$}{nonexistent}
+\answer{C}{$\frac{(x-2)(x+3)}{x-2}=x+3\to5$.}
 \end{exo}
 \fgraph
 \begin{exo}{}
@@ -586,9 +586,9 @@ $f$ is continuous on $[2,6]$, $f(2)=5$, $f(6)=-3$. Which must be true?
 \answer{B}{IVT. (D) needs differentiability.}
 \end{exo}
 \begin{exo}{}
-Which describes $\displaystyle\lim_{h\to0}\frac{(2+h)^3-8}{h}$?
-\choices{$f'(2)$ for $f(x)=x^3$, equal to $12$}{$f'(8)$, equal to $3$}{$0$}{$8$}
-\answer{A}{}
+$f$ is differentiable, $f(1)=2$ and $f(5)=10$. Which must be true?
+\choices{$f'(c)=2$ for some $c$ in $(1,5)$}{$f'(c)=8$ for some $c$ in $(1,5)$}{$f(3)=6$}{$f'(c)=0$ for some $c$ in $(1,5)$}
+\answer{A}{MVT: $\frac{10-2}{5-1}=2$.}
 \end{exo}
 \begin{exo}{}
 $f(x)=|x+1|$ is not differentiable at
@@ -637,9 +637,9 @@ $\displaystyle\lim_{x\to3^+}\frac{-1}{x-3}$ is
 \answer{C}{}
 \end{exo}
 \begin{exo}{}
-$\displaystyle\lim_{x\to0}\frac{\sin x}{4x}$ is
-\choices{$4$}{$\frac14$}{$1$}{$0$}
-\answer{B}{}
+$\displaystyle\lim_{x\to-2}\frac{x^2+5x+6}{x+2}$ is
+\choices{$0$}{$1$}{$-1$}{nonexistent}
+\answer{B}{$\frac{(x+2)(x+3)}{x+2}=x+3\to1$.}
 \end{exo}
 \ggraph
 \begin{exo}{}
@@ -659,18 +659,18 @@ For which $k$ is $f(x)=\begin{cases}2x+k, & x<1\\ kx^2+3, & x\ge1\end{cases}$ co
 \end{exo}
 \begin{exo}{}
 Which function must have an absolute maximum on $[0,2]$?
-\choices{$\frac{1}{x-1}$}{$\frac{1}{x+1}$}{$\tan(x)$ with $x$ in radians}{$\frac{1}{x}$}
-\answer{B}{Continuous on $[0,2]$. ($\tan$ is undefined at $\frac\pi2\approx1.57$.)}
+\choices{$\frac{1}{x-1}$}{$\frac{1}{x+1}$}{$\frac{1}{x-2}$}{$\frac{1}{x}$}
+\answer{B}{Continuous on the closed interval $[0,2]$ (EVT). The others have a vertical asymptote in $[0,2]$.}
 \end{exo}
 \begin{exo}{}
-$\displaystyle\lim_{x\to5}\frac{x^2-25}{x-5}$ represents $f'(5)$ for which $f$?
-\choices{$f(x)=x^2$}{$f(x)=x-5$}{$f(x)=x^2-25$ at $x=0$}{$f(x)=2x$}
-\answer{A}{$\frac{f(x)-f(5)}{x-5}$ with $f(5)=25$; value $10$.}
+Where is $f(x)=\sqrt[3]{x-1}$ not differentiable?
+\choices{$x=1$}{$x=0$}{$x=-1$}{nowhere}
+\answer{A}{Vertical tangent line at $x=1$.}
 \end{exo}
 \begin{exo}{}
-For $f(x)=x^2$ on $[2,6]$, the MVT gives $c=$
-\choices{$3$}{$5$}{$4$}{$8$}
-\answer{C}{Secant slope $\frac{36-4}{4}=8=2c$.}
+$f$ is differentiable with $f(2)=4$ and $f(6)=36$. The MVT guarantees a $c$ in $(2,6)$ with $f'(c)=$
+\choices{$3$}{$5$}{$8$}{$32$}
+\answer{C}{$\frac{36-4}{6-2}=8$.}
 \end{exo}
 \partheading{Part B \textbullet\ Free response}
 \begin{exo}[Free response]{}
@@ -684,16 +684,16 @@ Let $h(x)=\dfrac{x^2-x-2}{x^2-1}$.
 $h=\frac{(x-2)(x+1)}{(x-1)(x+1)}$. (a) $x=-1$: removable ($\lim=\frac{-3}{-2}=\frac32$). $x=1$: infinite ($\lim_{x\to1^-}=+\infty$, $\lim_{x\to1^+}=-\infty$). (b) $1$. (c) $\frac32$.
 \end{solution}
 \end{exo}
-\begin{exo}[Free response]{\calcreq}
+\begin{exo}[Free response]{}
 Let $f(x)=x^3-4x+1$.
 \begin{enumerate}[label=(\alph*)]
-\item Use the IVT to show $f$ has a zero in $(0,1)$.
-\item Find the value(s) of $c$ in $(0,2)$ guaranteed by the MVT, using $f'(x)=3x^2-4$.
-\item Use a calculator to find all zeros of $f$ in $(0,2)$.
+\item Use the IVT to show that $f$ has a zero in $(0,1)$.
+\item Find the average rate of change of $f$ on $[0,2]$.
+\item Explain why there is a $c$ in $(0,2)$ where the tangent line to the graph of $f$ is horizontal.
 \end{enumerate}
 \begin{solution}
-(a) Continuous; $f(0)=1>0>-2=f(1)$.\\
-(b) $\frac{f(2)-f(0)}{2}=\frac{1-1}{2}=0=3c^2-4$: $c=\frac{2}{\sqrt3}\approx1.155$.\\
-(c) $x\approx0.254$ and $x\approx1.861$.
+(a) $f$ is a polynomial, so it is continuous on $[0,1]$; $f(0)=1>0>-2=f(1)$, so the IVT gives a zero in $(0,1)$.\\
+(b) $\frac{f(2)-f(0)}{2-0}=\frac{1-1}{2}=0$.\\
+(c) $f$ is differentiable (a polynomial), so the MVT gives $c$ in $(0,2)$ with $f'(c)=0$: a horizontal tangent.
 \end{solution}
 \end{exo}

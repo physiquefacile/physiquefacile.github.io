@@ -42,7 +42,8 @@ GRAPH_RE = re.compile(r"\\begin\{center\}\s*\\begin\{tikzpicture\}.*?\\end\{tikz
 def extract_graphs(s, macros):
     """remove graphs from s; return (text, [graph latex])"""
     graphs = []
-    for name in ("\\fgraph", "\\ggraph"):
+    names = ["\\fgraph", "\\ggraph"] + ["\\" + m for m in re.findall(r"\\newcommand\{\\(\w+)\}\{\\gr\{", macros)]
+    for name in sorted(set(names), key=len, reverse=True):
         if name in s and name in macros:
             graphs.append(name); s = s.replace(name, "")
     for k, e, a in reversed(find_cmd(s, "\\gr", 2)):
@@ -88,7 +89,7 @@ def to_html(s):
     parts = re.split(r"(\$[^$]*\$)", s)   # text-mode spacing commands only outside math
     for k in range(0, len(parts), 2):
         parts[k] = re.sub(r"\\(medskip|smallskip|bigskip|par|noindent|qquad|quad|hfill)\b", " ", parts[k])
-        parts[k] = parts[k].replace("\\ ", " ").replace("\\,", " ")
+        parts[k] = parts[k].replace("\\ ", " ").replace("\\,", " ").replace("\\;", " ")
     s = "".join(parts)
     s = s.replace("\\\\", "<br>").replace("~", "&nbsp;").replace("\\%", "%").replace("\\$", "&#36;").replace("---", "—").replace("--", "–")
     s = re.sub(r"\s+", " ", s).strip()
@@ -185,12 +186,21 @@ for course, file, cname in (("pc", "pc-u1-worksheets.tex", "AP Precalculus"), ("
         lesson = i[:-4] if i.endswith("MEGA") else i[:-1]
         if lesson not in by: by[lesson] = (title, []); order.append(lesson)
         by[lesson][1].extend(questions(body, pre))
+    qfile = f"{course}-u1-quizzes.tex"          # online quizzes written to match the guided notes (preferred when present)
+    if os.path.exists(os.path.join(SRC, qfile)):
+        qpre, qbl = blocks(qfile)
+        for i, title, body in qbl:
+            qs = questions(body, qpre)
+            if i == "QTEST":
+                add(f"{course}-u1-aptest", course, "u1", re.sub(r"\\textbullet\\?\s*", "· ", title), "test", qs, qpre, minutes=2*len(qs)+5)
+            else:
+                lesson = i[1:]
+                add(f"{course}-u1-{lesson}", course, "u1", f"Lesson {lesson} · {title}", "quiz", qs, qpre, lesson=lesson)
+        continue
     for lesson in order:
         title, qs = by[lesson]
         label = ("Review " + lesson[1:]) if lesson.startswith("R") else (("Topic " if course == "pc" else "Lesson ") + lesson)
         add(f"{course}-u1-{lesson}", course, "u1", f"{label} · {title}", "quiz", qs, pre, lesson=lesson)
-    upre = open(os.path.join(SRC, f"{course}-u1-practice.tex")).read()
-    upre = upre[upre.index("\\begin{document}"):upre.index("\\begin{document}")] if False else ""
     qs = unit_test_questions(f"{course}-u1-practice.tex", "")
     add(f"{course}-u1-aptest", course, "u1", "Unit 1 AP-style test · multiple choice", "test", qs, "", minutes=2*len(qs)+5)
 
