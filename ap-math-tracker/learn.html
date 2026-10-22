@@ -127,6 +127,48 @@ details.unit .body{padding:0 14px 14px;display:grid;gap:10px}
 .reader .msg{max-width:480px;margin:40px auto;text-align:center;color:var(--muted)}
 a{color:var(--accent)}
 @media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+
+.course .sm{display:none}
+@media (max-width:640px){
+  body{font-size:17px}
+  .wrap{gap:14px;padding-block:12px 72px}
+  h1{font-size:1.45rem}h2{font-size:1.15rem}
+  .top{align-items:start}
+  .who{width:100%;justify-content:space-between}
+  nav.tabs{position:sticky;top:0;z-index:6;background:var(--bg);margin-inline:-16px;padding-inline:8px}
+  nav.tabs button{flex:1;padding:13px 6px;font-size:1rem}
+  .course{display:grid;grid-template-columns:repeat(3,1fr);width:100%}
+  .course button{padding:11px 4px;white-space:nowrap;font-size:.95rem}
+  .course .lg{display:none}.course .sm{display:inline}
+  .panel{padding:14px}
+  details.unit>summary{padding:15px 14px;font-size:1.02rem}
+  details.unit .body{padding:0 12px 14px;gap:12px}
+  .lesson{grid-template-columns:auto 1fr;gap:8px 10px;padding:14px 0;align-items:baseline}
+  .lesson>span:nth-child(2){font-weight:700;line-height:1.3}
+  .lesson .ln{font-size:.82rem;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:1px 7px}
+  .res{grid-column:1/-1!important;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .res>.rbtn.quiz{grid-column:1/-1}
+  .rbtn{min-height:46px;justify-content:center;font-size:.95rem;padding:8px 10px;border-radius:9px;text-align:center}
+  .pair{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .pair:has(>:nth-child(3)){border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--bg)}
+  .pair>:first-child:nth-last-child(3){grid-column:1/-1;background:var(--paper)}
+  .pair>:first-child:nth-last-child(2){grid-column:auto}
+  .body>.res{grid-template-columns:1fr}
+  .body>.res .rbtn{justify-content:flex-start;padding-inline:14px}
+  .pair .rbtn{min-width:0}
+  .lockbox{flex-direction:column;align-items:stretch;text-align:left}
+  .lockbox .btn{width:100%}
+  .label{font-size:.76rem}
+  .qrow{padding:15px 14px;gap:4px 10px}
+  .qrow b{font-size:1.02rem;line-height:1.3}
+  .stem{font-size:1.08rem}
+  .choice{min-height:54px;font-size:1.05rem;padding:12px}
+  .dot{width:42px;height:42px;font-size:.9rem}
+  .btn{min-height:46px}
+  .btn.sm{min-height:38px}
+  .nav .btn{flex:1}
+  .chip{font-size:.8rem;padding:3px 10px}
+}
 </style>
 </head>
 <body>
@@ -226,7 +268,8 @@ function header(){
   $("#tabsWrap").hidden=!S.id||!!S.run;
   document.querySelectorAll("nav.tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===S.tab));
 }
-function courseSwitch(){return `<div class="course" role="group" aria-label="Course">${Object.keys(COURSE).map(c=>`<button data-course="${c}" aria-pressed="${c===S.course}">${COURSE[c]}</button>`).join("")}</div>`}
+const MID={pc:"Precalculus",ab:"Calculus AB",sat:"SAT Math"};
+function courseSwitch(){return `<div class="course" role="group" aria-label="Course">${Object.keys(COURSE).map(c=>`<button data-course="${c}" aria-pressed="${c===S.course}"><span class="lg">${COURSE[c]}</span><span class="sm">${MID[c]}</span></button>`).join("")}</div>`}
 function render(){
   header();
   if(!S.id)return signin();
