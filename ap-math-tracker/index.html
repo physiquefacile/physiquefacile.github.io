@@ -77,6 +77,18 @@ form.row{display:flex;flex-wrap:wrap;gap:8px;align-items:end}
 form.row label{display:grid;gap:2px;font-size:.8rem;color:var(--muted);flex:1 1 120px;min-width:0}
 input,select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:7px 9px;width:100%}
 .scroll{overflow-x:auto}
+textarea.f{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:7px 9px;width:100%;min-height:70px}
+.cform{display:grid;gap:10px}.cform label{display:grid;gap:2px;font-size:.8rem;color:var(--muted)}
+.cform .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.arow{display:grid;gap:6px;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.arow.sel{border:2px solid var(--accent)}
+.crow{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--paper);text-align:left;font:inherit;color:var(--ink);cursor:pointer;width:100%}
+.crow small{grid-column:1/-1;color:var(--muted)}
+.pgimg{width:100%;border:1px solid var(--line);border-radius:8px;background:#fff;display:block;transition:transform .2s}
+.pgwrap{display:grid;gap:6px}
+.gradebar{position:sticky;bottom:0;background:var(--paper);border-top:2px solid var(--line);padding:12px 0 4px;display:grid;gap:8px}
+.gradebar .g{display:flex;gap:8px;align-items:center}.gradebar .g input{max-width:110px;font-size:1.3rem;font-weight:700;text-align:center}
+.chip.todo{background:var(--hl);color:#16223A;border-color:var(--hl)}
 table.heat{border-collapse:separate;border-spacing:3px;font-size:.85rem}
 table.heat th{font-weight:700;color:var(--muted);text-align:center;font-family:var(--f-mono);font-size:.78rem}
 table.heat th.name,table.heat td.name{text-align:left;white-space:nowrap;padding-right:8px;max-width:140px;overflow:hidden;text-overflow:ellipsis}
@@ -193,6 +205,7 @@ details.unitlib summary .st{flex:1;min-width:0}
     <button role="tab" id="t-student" data-view="student">Student</button>
     <button role="tab" id="t-plan" data-view="plan">Review plan</button>
     <button role="tab" id="t-courses" data-view="courses">Courses</button>
+    <button role="tab" id="t-copies" data-view="copies">Copies</button>
   </nav>
   <main id="main"></main>
 </div>
@@ -313,7 +326,7 @@ function render(){
     (!state.writable?'<div class="banner">Read only: you can view the tracker but not edit it.</div>':"");
   const m=$("#main");
   if(state.mode==="loading"){m.innerHTML='<div class="panel"><p class="muted">Loading tracker…</p></div>';return}
-  m.innerHTML=state.report?viewReport():state.view==="class"?viewClass():state.view==="student"?viewStudent():state.view==="courses"?viewCourses():viewPlan();
+  m.innerHTML=state.report?viewReport():state.view==="class"?viewClass():state.view==="student"?viewStudent():state.view==="courses"?viewCourses():state.view==="copies"?viewCopies():viewPlan();
   if(state.view==="student")drawChart();
 }
 
@@ -728,6 +741,119 @@ document.addEventListener("submit",e=>{
     writeStudent(s,{scores:[...(s.scores||[]),sc]});toast("Score saved");
   }
 });
+
+/* ---------- copies: written work sent as photos, graded here ---------- */
+const CP={data:null,loading:false,err:"",asg:null,sel:null,pages:{},rot:{},form:false};
+const FOR_OPT=[["all","All students with a code"],["pc","AP Precalculus"],["ab","AP Calculus AB"],["sat","SAT Math"],["bfem","3e (BFEM)"],["s1","Terminale S1"],["s2","Terminale S2"],["code","One class code…"]];
+async function cpPost(o){const ep=(window.QUIZ_CONFIG||{}).endpoint;const r=await fetch(ep,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({key:teacherKey(),...o})});return r.json()}
+async function cpLoad(){
+  CP.loading=true;CP.err="";
+  try{const R=await cpPost({action:"copies"});if(R&&R.ok){CP.data=R}else CP.err=R&&R.error==="key"?"key":"server"}
+  catch(e){CP.err="net"}
+  CP.loading=false;if(state.view==="copies")render();
+}
+const dk=iso=>{const d=new Date(iso);return isNaN(d)?"":d.toLocaleString("en-GB",{timeZone:"Africa/Dakar",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})};
+const forLabel=f=>{const o=FOR_OPT.find(x=>x[0]===String(f||"all").toLowerCase());return o?o[1]:"Class code "+f};
+function viewCopies(){
+  const ep=(window.QUIZ_CONFIG||{}).endpoint;
+  if(!ep)return `<div class="panel"><h2>Copies</h2><p class="muted">Connect the Google Sheet first (apps-script/SETUP.md).</p></div>`;
+  if(!teacherKey()||CP.err==="key")return `<div class="panel"><h2>Copies</h2><p class="muted" style="margin:0">Students send photos of their written work from the <b>Copies</b> tab of the student site. You grade them here.</p>
+    ${CP.err==="key"?'<div class="banner">The teacher key is not correct.</div>':""}
+    <form class="row" id="cpKey"><label for="cpk">Teacher key (from the Settings tab)<input id="cpk" type="password" autocomplete="off"></label><button class="btn primary">Open</button></form></div>`;
+  if(!CP.data){if(!CP.loading&&!CP.err)cpLoad();return `<div class="panel"><p class="muted">${CP.err?'Could not reach the Google Sheet. <button class="btn sm" id="cpReload">Try again</button>':"Loading the copies…"}</p></div>`}
+  if(CP.sel)return viewCopy();
+  const A=[...CP.data.assignments].sort((x,y)=>(y.created||"").localeCompare(x.created||"")),C=CP.data.copies;
+  const cnt=id=>{const l=C.filter(c=>c.assignment===id);return {n:l.length,todo:l.filter(c=>c.status!=="Graded").length}};
+  const todoAll=C.filter(c=>c.status!=="Graded").length;
+  const sel=CP.asg&&A.find(a=>a.id===CP.asg);
+  const list=(sel?C.filter(c=>c.assignment===sel.id):C.filter(c=>c.status!=="Graded")).sort((x,y)=>(x.status==="Graded")-(y.status==="Graded")||x.received.localeCompare(y.received));
+  return `<div style="display:grid;gap:18px">
+    <section class="panel"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap"><h2>Copies</h2><span style="display:flex;gap:6px"><span class="chip ${todoAll?"todo":""}">${todoAll} to grade</span><button class="btn sm" id="cpReload">↻ Refresh</button></span></div>
+      <p class="muted" style="margin:0;font-size:.88rem">Students do the work on paper and send a photo of each page from the <b>Copies</b> tab of the student site. Grade each copy here: the student sees the grade and your comment. The photos are saved in your Google Drive (folder “AP Math Online - Copies”) and listed in the Copies tab of the sheet.</p>
+      ${CP.form?newAsgForm():'<div><button class="btn primary" id="cpNew">+ New assignment</button></div>'}</section>
+    <section class="panel"><h2>Assignments</h2>${A.length?`<div style="display:grid;gap:8px">${A.map(a=>{const k=cnt(a.id);return `<div class="arow ${CP.asg===a.id?"sel":""}">
+      <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:baseline"><b>${esc(a.title)}</b><span style="display:flex;gap:6px;flex-wrap:wrap"><span class="chip">${esc(forLabel(a.forStr))}</span><span class="chip">/ ${a.outOf}</span>${a.open?'<span class="chip good">Open</span>':'<span class="chip">Closed</span>'}</span></div>
+      <div class="muted" style="font-size:.85rem">${a.due?"Due "+esc(dk(a.due))+" · ":""}${k.n} cop${k.n===1?"y":"ies"} received${k.todo?` · <b>${k.todo} to grade</b>`:""}${a.subject?" · subject PDF":""}</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn sm ${CP.asg===a.id?"primary":""}" data-cpasg="${esc(a.id)}">${CP.asg===a.id?"Showing its copies":"Show copies"}</button><button class="btn sm" data-cpopen="${esc(a.id)}" data-v="${a.open?0:1}">${a.open?"Close":"Reopen"}</button></div></div>`}).join("")}</div>`:'<div class="empty">No assignment yet. Create one above.</div>'}</section>
+    <section class="panel"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:baseline"><h2>${sel?esc(sel.title):"Copies to grade"}</h2>${sel?'<button class="btn sm" id="cpAll">Show all copies to grade</button>':""}</div>
+      ${list.length?`<div style="display:grid;gap:8px">${list.map(c=>`<button class="crow" data-cpsel="${esc(c.id)}"><b>${esc(c.name)}</b><span>${c.status==="Graded"?`<span class="chip good">${esc(String(c.grade))} / ${c.outOf}</span>`:'<span class="chip todo">To grade</span>'}</span><small>${sel?"":esc(c.title)+" · "}${esc(dk(c.received))} · ${c.pages} page${c.pages>1?"s":""}${c.late?" · late":""}${c.code?" · "+esc(c.code):""}</small></button>`).join("")}</div>`:`<div class="empty">${sel?"No copy received yet.":"Nothing to grade. 🎉"}</div>`}</section>
+  </div>`;
+}
+function newAsgForm(){return `<form class="cform" id="cpForm">
+  <label>Title<input id="caT" required maxlength="120" placeholder="e.g. Devoir n°1 · Fonctions logarithmes"></label>
+  <div class="two"><label>For<select id="caF">${FOR_OPT.map(o=>`<option value="${o[0]}">${o[1]}</option>`).join("")}</select></label>
+    <label id="caCW" hidden>Class code<input id="caC" maxlength="30" autocapitalize="characters" placeholder="e.g. TS2-2026"></label></div>
+  <div class="two"><label>Due (Dakar time)<input id="caD" type="datetime-local"></label><label>Graded out of<input id="caO" type="number" min="1" max="200" value="20"></label></div>
+  <label>Instructions for the students (optional)<textarea class="f" id="caI" maxlength="1000" placeholder="e.g. Exercices 1 et 2. Rédigez proprement, une photo par page."></textarea></label>
+  <label>Subject PDF (optional, 10 MB max)<input id="caP" type="file" accept="application/pdf,.pdf"></label>
+  <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn primary" id="caGo">Create the assignment</button><button class="btn" type="button" id="cpNoNew">Cancel</button></div></form>`}
+function viewCopy(){
+  const c=CP.data.copies.find(x=>x.id===CP.sel);if(!c){CP.sel=null;return viewCopies()}
+  const P=CP.pages[c.id]||[];
+  if(!CP.pages[c.id])cpPages(c);
+  const list=CP.data.copies.filter(x=>x.status!=="Graded"&&x.id!==c.id);
+  return `<div style="display:grid;gap:14px"><section class="panel">
+    <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:baseline"><button class="btn sm" id="cpBack">← Copies</button>${c.folder?`<a class="btn sm" href="${esc(c.folder)}" target="_blank" rel="noopener">Open in Drive</a>`:""}</div>
+    <div><h2 style="margin:0">${esc(c.name)}</h2><div class="muted" style="font-size:.88rem">${esc(c.title)} · received ${esc(dk(c.received))}${c.late?' · <b style="color:var(--bad)">late</b>':""} · ${c.pages} page${c.pages>1?"s":""}</div></div>
+    ${Array.from({length:c.pages},(_,i)=>`<div class="pgwrap"><div style="display:flex;justify-content:space-between;align-items:center"><span class="label">Page ${i+1}</span><span style="display:flex;gap:6px"><button class="btn sm" data-cprot="${i}">↻ Rotate</button>${P[i]?`<a class="btn sm" href="${P[i]}" target="_blank" rel="noopener">Full size</a>`:""}</span></div>
+      ${P[i]?`<img class="pgimg" src="${P[i]}" alt="Page ${i+1}" style="transform:rotate(${CP.rot[c.id+":"+i]||0}deg)">`:P[i]===null?'<div class="empty">This page could not be loaded.</div>':'<div class="empty">Loading…</div>'}</div>`).join("")}
+    <form class="gradebar" id="cpGrade">
+      <div class="g"><label for="cgN" style="font-weight:700">Grade</label><input id="cgN" inputmode="decimal" value="${c.grade===""?"":esc(String(c.grade))}" placeholder="—"><b>/ ${c.outOf}</b>${c.status==="Graded"?'<span class="chip good">Graded</span>':""}</div>
+      <textarea class="f" id="cgC" maxlength="2000" placeholder="Comment for the student (what is good, what to fix)">${esc(c.comment)}</textarea>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">${list.length?'<button class="btn primary" data-next="1">Save and next</button><button class="btn" data-next="0">Save</button>':'<button class="btn primary" data-next="0">Save</button>'}</div>
+    </form></section></div>`;
+}
+async function cpPages(c){
+  CP.pages[c.id]=[];
+  for(let i=0;i<c.pages;i++){
+    try{const R=await cpPost({action:"page",id:c.id,n:i});
+      if(R&&R.ok){const b=atob(R.data),u=new Uint8Array(b.length);for(let j=0;j<b.length;j++)u[j]=b.charCodeAt(j);CP.pages[c.id][i]=URL.createObjectURL(new Blob([u],{type:R.type||"image/jpeg"}))}else CP.pages[c.id][i]=null}
+    catch(e){CP.pages[c.id][i]=null}
+    if(state.view==="copies"&&CP.sel===c.id){const y=window.scrollY,g=$("#cgN")&&$("#cgN").value,m=$("#cgC")&&$("#cgC").value;render();if(g!=null){$("#cgN").value=g;$("#cgC").value=m}window.scrollTo(0,y)}
+  }
+}
+async function cpSaveGrade(next){
+  const c=CP.data.copies.find(x=>x.id===CP.sel);if(!c)return;
+  const g=$("#cgN").value.trim().replace(",","."),m=$("#cgC").value;
+  if(g!==""&&(isNaN(+g)||+g<0||+g>c.outOf)){toast("The grade must be between 0 and "+c.outOf);return}
+  let R=null;try{R=await cpPost({action:"grade",id:c.id,grade:g,comment:m})}catch(e){}
+  if(!R||!R.ok){toast("Not saved: check your connection");return}
+  c.grade=g===""?"":+g;c.comment=m;c.status=g===""?"To grade":"Graded";toast(g===""?"Saved":"Grade saved: the student can see it");
+  const nx=next&&CP.data.copies.filter(x=>x.status!=="Graded"&&(!CP.asg||x.assignment===CP.asg)).sort((x,y)=>x.received.localeCompare(y.received))[0];
+  CP.sel=nx?nx.id:null;render();window.scrollTo({top:0});
+}
+async function cpCreate(){
+  const t=$("#caT").value.trim();if(!t){toast("Give the assignment a title");return}
+  let f=$("#caF").value;if(f==="code"){f=$("#caC").value.trim().toUpperCase();if(!f){toast("Enter the class code");return}}
+  const file=$("#caP").files[0];let pdf="";
+  if(file){if(file.size>10*1048576){toast("The PDF is larger than 10 MB");return}
+    pdf=await new Promise(ok=>{const r=new FileReader();r.onload=()=>ok(r.result);r.readAsDataURL(file)})}
+  const b=$("#caGo");b.disabled=true;b.textContent="Creating…";
+  let R=null;try{R=await cpPost({action:"assign",title:t,forStr:f,due:$("#caD").value,outOf:+$("#caO").value||20,instructions:$("#caI").value,pdf,pdfName:file?file.name:""})}catch(e){}
+  if(!R||!R.ok){b.disabled=false;b.textContent="Create the assignment";toast("Not created: check your connection");return}
+  CP.form=false;CP.asg=R.id;toast("Assignment created: students see it in their Copies tab");cpLoad();
+}
+document.addEventListener("click",e=>{
+  if(state.view!=="copies")return;const t=e.target.closest("button");if(!t)return;
+  if(t.id==="cpReload"){CP.data=null;CP.err="";render();return}
+  if(t.id==="cpNew"){CP.form=true;render();return}
+  if(t.id==="cpNoNew"){CP.form=false;render();return}
+  if(t.id==="cpAll"){CP.asg=null;render();return}
+  if(t.id==="cpBack"){CP.sel=null;render();return}
+  if(t.dataset.cpasg){CP.asg=CP.asg===t.dataset.cpasg?null:t.dataset.cpasg;render();return}
+  if(t.dataset.cpsel){CP.sel=t.dataset.cpsel;render();window.scrollTo({top:0});return}
+  if(t.dataset.cprot!=null){const k=CP.sel+":"+t.dataset.cprot;CP.rot[k]=((CP.rot[k]||0)+90)%360;const im=t.closest(".pgwrap").querySelector("img");if(im)im.style.transform=`rotate(${CP.rot[k]}deg)`;return}
+  if(t.dataset.cpopen){const a=CP.data.assignments.find(x=>x.id===t.dataset.cpopen),v=t.dataset.v==="1";
+    cpPost({action:"setopen",id:a.id,open:v}).then(R=>{if(R&&R.ok){a.open=v;render();toast(v?"Reopened":"Closed: students can no longer send copies")}else toast("Not saved")}).catch(()=>toast("Not saved"));return}
+  if(t.dataset.next!=null){e.preventDefault();cpSaveGrade(t.dataset.next==="1");return}
+});
+document.addEventListener("change",e=>{if(e.target.id==="caF"){$("#caCW").hidden=e.target.value!=="code"}});
+document.addEventListener("submit",e=>{
+  if(e.target.id==="cpKey"){e.preventDefault();const k=$("#cpk").value.trim();if(!k)return;try{localStorage.setItem("apMathTracker.qkey",k)}catch(x){}CP.err="";CP.data=null;render();return}
+  if(e.target.id==="cpForm"){e.preventDefault();cpCreate();return}
+  if(e.target.id==="cpGrade"){e.preventDefault();cpSaveGrade(false);return}
+},true);
+
 boot();
 /* the site's offline cache: check for a newer version, and reload once when it takes over */
 try{if("serviceWorker" in navigator){navigator.serviceWorker.getRegistration().then(r=>{if(r)r.update()}).catch(()=>{});

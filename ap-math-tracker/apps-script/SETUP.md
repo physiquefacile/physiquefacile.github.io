@@ -78,3 +78,24 @@ The URL stays the same.
    Past sessions stay visible for 30 days, with the recording link if you add one.
 
 The Sessions tab is created automatically the first time the site asks for the sessions (or when you run **setup**).
+
+## 8. Copies: written tests sent as photos (tab "Copies")
+
+Students do the work on paper, take a photo of each page in the **Copies** tab of the student site, and send it.
+You grade each copy in the teacher tracker (tab **Copies**); the student sees the grade and your comment.
+
+**Once, after updating `Code.gs`** (this feature saves the photos in your Google Drive, so Google asks for one more permission):
+1. Paste the new `Code.gs`, click **Save**, choose **setup** in the function menu and click **Run**.
+   Accept the new permission (**Advanced → Go to … (unsafe) → Allow**). Two tabs appear: **Assignments** and **Copies**,
+   and a folder **AP Math Online - Copies** appears in your Google Drive.
+2. **Deploy → Manage deployments → Edit (pencil) → Version: New version → Deploy**. The URL stays the same.
+
+**Each assignment:**
+1. In the tracker, tab **Copies → + New assignment**: title, for whom (all students, a course, or one class code),
+   due date, out of how many points, instructions, and optionally the subject as a PDF.
+2. Students see it in their **Copies** tab, open the subject, and send their photos (up to 12 pages; they can replace
+   their copy until you grade it). A copy sent after the due date is marked **late**; click **Close** to stop receiving copies.
+3. In **Copies to grade**, open a copy, read the pages, enter the grade and a comment, then **Save and next**.
+
+For the Senegalese program, create class codes in the Settings tab with `bfem`, `s1` or `s2` in column C
+(for example `TS2-2026 | Terminale S2 | s2`), and choose that course or class code as "For" when you create the assignment.

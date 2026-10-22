@@ -135,6 +135,21 @@ a{color:var(--accent)}
 .sdate{display:grid;place-items:center;align-content:center;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:6px 0;height:max-content}
 .sdate b{font-family:var(--f-display);font-size:1.5rem;line-height:1}.sdate span{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
 .sbody{display:grid;gap:6px;min-width:0}
+.asg{display:grid;gap:8px;padding:14px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.asg h3{margin:0;font-size:1.08rem}
+.asg .ins{white-space:pre-wrap;font-size:.94rem}
+.asg.done{border-color:var(--good)}
+.gradebox{display:flex;gap:14px;align-items:center;background:var(--good-bg);border-radius:10px;padding:10px 14px}
+.gradebox b{font-family:var(--f-display);font-size:2rem;line-height:1;color:var(--good);white-space:nowrap}
+.gradebox{flex-wrap:wrap}.gradebox p{flex:1 1 180px;margin:0;white-space:pre-wrap;font-size:.95rem}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.thumb{position:relative;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--paper);display:grid}
+.thumb img{width:100%;height:170px;object-fit:contain;background:#fff}
+.thumb .tb{display:flex;justify-content:space-between;align-items:center;padding:4px 6px;font-size:.82rem;font-weight:700}
+.thumb .tb button{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:6px;font:inherit;min-width:34px;min-height:32px;cursor:pointer}
+.pick{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pick label{cursor:pointer;flex-direction:column;gap:2px;text-align:center;line-height:1.2;padding:12px 8px}
+.tips{font-size:.9rem;margin:0;padding-left:1.1em;color:var(--muted)}
 .btn.meet{background:#1A73E8;border-color:#1A73E8;color:#fff;font-size:1.05rem}
 @media (max-width:640px){
   body{font-size:17px}
@@ -189,6 +204,7 @@ a{color:var(--accent)}
       <button role="tab" data-tab="courses">Courses</button>
       <button role="tab" data-tab="quizzes">Quizzes</button>
       <button role="tab" data-tab="live">Live</button>
+      <button role="tab" data-tab="copies">Copies</button>
       <button role="tab" data-tab="access">My access</button>
     </nav>
   </div>
@@ -216,7 +232,7 @@ a{color:var(--accent)}
 <script>
 const CFG=window.QUIZ_CONFIG||{endpoint:""},PAY=CFG.payment||{},LIB=window.COURSE_LIB||{};
 const FREE_BANK=window.QUIZ_BANK||[],LOCKED=window.QUIZ_LOCKED||[];
-const COURSE={pc:"AP Precalculus",ab:"AP Calculus AB",sat:"SAT Math"},SHORT={pc:"Precalc",ab:"Calc AB",sat:"SAT"};
+const COURSE={pc:"AP Precalculus",ab:"AP Calculus AB",sat:"SAT Math"},SHORT={pc:"Precalc",ab:"Calc AB",sat:"SAT",bfem:"BFEM",s1:"S1",s2:"S2"},XNAME={bfem:"Maths 3e (BFEM)",s1:"Maths Terminale S1",s2:"Maths Terminale S2"};
 const online=!!CFG.endpoint;
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -284,6 +300,7 @@ function render(){
   if(S.tab==="quizzes")return quizzesView();
   if(S.tab==="access")return accessView();
   if(S.tab==="live")return liveView();
+  if(S.tab==="copies")return copiesView();
   return coursesView();
 }
 
@@ -425,13 +442,112 @@ async function liveView(){
 }
 setInterval(()=>{if(S.tab==="live"&&!S.run&&S.id&&$("#reader").hidden&&document.visibilityState==="visible")liveView()},30000);
 
+
+/* ---------- copies: written work sent as photos, graded by the teacher ---------- */
+const fr=d=>d.toLocaleString("en-GB",{timeZone:TZ,weekday:"long",day:"numeric",month:"long"})+", "+hm(d);
+async function loadCopies(){
+  try{const R=await post({action:"assignments",code:S.id.code,name:S.id.name});
+    if(R&&R.ok){S.cpl={a:R.assignments||[],c:R.copies||[],now:new Date(R.now||Date.now()).getTime()};return}
+    S.cpl={err:R&&R.error==="code"?"code":"net",a:[],c:[]}}
+  catch(e){S.cpl={err:"net",a:[],c:[]}}
+}
+function asgCard(a,mine){
+  const due=a.due?new Date(a.due):null,now=Date.now(),late=due&&now>due.getTime();
+  let st="",act="";
+  if(mine&&mine.status==="Graded"){
+    st=`<div class="gradebox"><b class="num">${esc(String(mine.grade).replace(".",","))} / ${mine.outOf}</b><p>${mine.comment?esc(mine.comment):'<span class="muted">No comment.</span>'}</p></div>`;
+  }else if(mine){
+    st=`<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center"><span class="chip good">✓ Sent · Envoyée</span><span class="muted" style="font-size:.86rem">${mine.pages} page${mine.pages>1?"s":""} · ${esc(fr(new Date(mine.received)))}${mine.late?" · late":""}</span></div><span class="muted" style="font-size:.86rem">Waiting for correction. En attente de correction.</span>`;
+    if(a.open)act=`<button class="btn sm" data-send="${esc(a.id)}">Replace my copy · Remplacer</button>`;
+  }else if(a.open)act=`<button class="btn primary" data-send="${esc(a.id)}">📷 Send my copy · Envoyer ma copie</button>`;
+  else st='<span class="muted">Closed. Fermé.</span>';
+  return `<div class="asg ${mine&&mine.status==="Graded"?"done":""}">
+    <div class="qhead"><h3>${esc(a.title)}</h3><span style="display:flex;gap:6px;flex-wrap:wrap"><span class="chip">/ ${a.outOf}</span>${!mine&&a.open&&due?`<span class="chip ${late?"bad":""}">${late?"Late · En retard":inDays(due.getTime()-now).replace("in ","")+" left"}</span>`:""}</span></div>
+    ${due?`<div class="muted" style="font-size:.88rem">Due · À rendre : <b>${esc(fr(due))}</b></div>`:""}
+    ${a.instructions?`<div class="ins">${esc(a.instructions)}</div>`:""}
+    ${a.subject?`<div><button class="btn sm" data-subject="${esc(a.id)}">📄 Subject · Sujet (PDF)</button></div>`:""}
+    ${st}${act?`<div>${act}</div>`:""}</div>`;
+}
+async function copiesView(){
+  const box=$("#main");
+  if(S.cp)return sendView();
+  if(!online||!S.id.code){box.innerHTML=`<div class="panel"><h2>Copies</h2><p>Here you send photos of your written tests and homework to your teacher, and you get your grade and comments.</p><p class="muted">Ici, tu envoies les photos de tes devoirs à ton professeur et tu reçois ta note.</p><div class="banner">${online?"Sign in with your class code or access code to see your assignments. Connecte-toi avec ton code.":"This will open once accounts are active."}</div></div>`;return}
+  if(!S.cpl)box.innerHTML='<div class="panel"><p class="muted">Loading… Chargement…</p></div>';
+  if(!S.cpl||S.cpl.stale)await loadCopies();
+  if(S.tab!=="copies"||S.run||S.cp)return;
+  const L=S.cpl,mine=id=>L.c.find(c=>c.assignment===id);
+  const todo=L.a.filter(a=>!mine(a.id)&&a.open),rest=L.a.filter(a=>!todo.includes(a)).sort((x,y)=>(y.created||"").localeCompare(x.created||""));
+  box.innerHTML=`<div style="display:grid;gap:14px">
+    <div class="panel"><h2>Copies</h2>
+      <p class="muted" style="margin:0">Do the work on paper, then send a photo of each page. Your teacher grades it and you see your grade here.<br>Fais le devoir sur papier, puis envoie une photo de chaque page. Ta note apparaîtra ici.</p>
+      ${L.err?`<div class="banner">${L.err==="code"?"Your code was refused. Sign out and sign in again.":"Could not load. Check your connection. Vérifie ta connexion."}</div>`:""}</div>
+    <section class="panel"><div class="label">To do · À faire</div>${todo.length?`<div class="list">${todo.map(a=>asgCard(a,null)).join("")}</div>`:'<p class="muted">Nothing to send for now. Rien à rendre pour le moment.</p>'}</section>
+    ${rest.length?`<section class="panel"><div class="label">Sent and graded · Envoyés et notés</div><div class="list">${rest.map(a=>asgCard(a,mine(a.id))).join("")}</div></section>`:""}
+  </div>`;
+}
+/* compress a photo: longest side 1600 px, JPEG */
+async function shrink(file,rot){
+  let src;
+  try{src=await createImageBitmap(file,{imageOrientation:"from-image"})}
+  catch(e){src=await new Promise((ok,ko)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=ko;i.src=URL.createObjectURL(file)})}
+  const w0=src.width,h0=src.height,k=Math.min(1,1600/Math.max(w0,h0)),w=Math.round(w0*k),h=Math.round(h0*k),q=rot%180!==0;
+  const cv=document.createElement("canvas");cv.width=q?h:w;cv.height=q?w:h;const g=cv.getContext("2d");
+  g.fillStyle="#fff";g.fillRect(0,0,cv.width,cv.height);g.translate(cv.width/2,cv.height/2);g.rotate(rot*Math.PI/180);g.drawImage(src,-w/2,-h/2,w,h);
+  return cv.toDataURL("image/jpeg",0.72);
+}
+function sendView(){
+  const c=S.cp,a=(S.cpl.a||[]).find(x=>x.id===c.id);if(!a){S.cp=null;return copiesView()}
+  const size=c.pages.reduce((n,p)=>n+p.data.length*0.75,0)/1048576;
+  $("#main").innerHTML=`<div style="display:grid;gap:14px"><div class="panel">
+    <div class="qhead"><h2>${esc(a.title)}</h2><button class="btn sm" id="cpBack">← Back</button></div>
+    <ul class="tips"><li>One photo per page, in order. Une photo par page, dans l'ordre.</li><li>Good light, the whole page in the frame, no shadow. Bonne lumière, toute la page.</li><li>Write your name on each page. Écris ton nom sur chaque page.</li></ul>
+    <div class="pick">
+      <label class="btn primary" for="cpCam">📷 Take a photo<br><small style="font-weight:400">Prendre une photo</small></label>
+      <label class="btn" for="cpGal">🖼 From gallery<br><small style="font-weight:400">Depuis la galerie</small></label>
+    </div>
+    <input type="file" id="cpCam" accept="image/*" capture="environment" hidden>
+    <input type="file" id="cpGal" accept="image/*" multiple hidden>
+    ${c.busy?`<p class="muted">${esc(c.busy)}</p>`:""}
+    ${c.pages.length?`<div class="thumbs">${c.pages.map((p,i)=>`<div class="thumb"><img src="${p.data}" alt="Page ${i+1}"><div class="tb"><span>p. ${i+1}</span><span style="display:flex;gap:4px">${i?`<button data-cpup="${i}" aria-label="Move page ${i+1} earlier">↑</button>`:""}<button data-cprot="${i}" aria-label="Rotate page ${i+1}">↻</button><button data-cpdel="${i}" aria-label="Remove page ${i+1}">✕</button></span></div></div>`).join("")}</div>`:'<p class="muted">No page yet. Aucune page pour le moment.</p>'}
+    ${c.err?`<div class="err">${esc(c.err)}</div>`:""}
+    <button class="btn primary" id="cpSend" ${!c.pages.length||c.sending||c.busy?"disabled":""}>${c.sending?"Sending… Envoi…":`Send ${c.pages.length} page${c.pages.length>1?"s":""} · Envoyer`}</button>
+    ${c.pages.length?`<span class="muted num" style="font-size:.82rem">${size.toFixed(1)} MB</span>`:""}
+  </div></div>`;
+}
+async function addPhotos(files){
+  const c=S.cp;files=[...files].filter(f=>/^image\//.test(f.type)||/\.(jpe?g|png|heic|webp)$/i.test(f.name));
+  for(let i=0;i<files.length;i++){
+    if(c.pages.length>=12){c.err="12 pages maximum.";break}
+    c.busy=`Preparing photo ${i+1} of ${files.length}…`;sendView();
+    try{c.pages.push({file:files[i],rot:0,data:await shrink(files[i],0)})}catch(e){c.err="This photo could not be read. Cette photo n'a pas pu être lue."}
+  }
+  c.busy="";if(S.cp===c&&S.tab==="copies")sendView();
+}
+async function sendCopy(){
+  const c=S.cp;c.sending=true;c.err="";sendView();
+  try{const R=await post({action:"upload",code:S.id.code,name:S.id.name,id:c.id,pages:c.pages.map(p=>p.data)});
+    if(R&&R.ok){S.cp=null;S.cpl=null;toast("✓ Copy sent · Copie envoyée");return copiesView()}
+    c.err={closed:"This assignment is closed. Ce devoir est fermé.",graded:"This copy is already graded. Cette copie est déjà notée.",toobig:"Too many pages or photos too large.",code:"Your code was refused.",name:"Enter your name: sign out and sign in again."}[R&&R.error]||"The copy was not sent. Try again. La copie n'a pas été envoyée, réessaie."}
+  catch(e){c.err="No connection. Your pages are kept here: try again. Pas de connexion, réessaie."}
+  c.sending=false;sendView();
+}
+async function openSubject(id){
+  const a=(S.cpl.a||[]).find(x=>x.id===id);toast("Loading the subject… Chargement…");
+  try{const R=await post({action:"subject",code:S.id.code,name:S.id.name,id});if(!R||!R.ok)throw 0;
+    const bin=atob(R.data),u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);
+    const url=URL.createObjectURL(new Blob([u],{type:R.type||"application/pdf"}));
+    if(/pdf/.test(R.type||"pdf"))openPdf(url,a?a.title:"Subject");else window.open(url,"_blank")}
+  catch(e){toast("Could not load the subject")}
+}
+document.addEventListener("change",async e=>{if(e.target.id==="cpCam"||e.target.id==="cpGal"){const f=e.target.files;if(f&&f.length&&S.cp)await addPhotos(f);e.target.value=""}});
+
 /* ---------- my access / payment ---------- */
 function accessView(){
   const a=S.acc||{},id=S.id;
   let h="";
   if(a.type==="teacher")h=`<div class="panel"><h2>Teacher access</h2><p>All units of every course are unlocked on this device.</p></div>`;
   else if(a.type==="student"&&a.status==="Active"&&(a.courses||[]).length)h=`<div class="panel"><h2>Full access is active</h2>
-      <p>${a.courses.map(c=>COURSE[c]).join(" and ")}${a.accessEnds?`, until <b>${esc(new Date(a.accessEnds+"T12:00").toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"}))}</b>`:""}.</p>
+      <p>${a.courses.map(c=>COURSE[c]||XNAME[c]).join(" and ")}${a.accessEnds?`, until <b>${esc(new Date(a.accessEnds+"T12:00").toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"}))}</b>`:""}.</p>
       <div class="label">Your access code</div><div class="codebox">${esc(id.code)}</div>
       <p class="muted" style="font-size:.9rem">Use this code to sign in on another phone or computer.</p></div>`;
   else if(a.type==="student"&&a.status==="Pending")h=`<div class="panel"><h2>Your payment is being checked</h2>
@@ -441,7 +557,7 @@ function accessView(){
       <div><button class="btn primary" id="recheck">Check again</button></div>${contact()}</div>`;
   else if(a.type==="student"&&a.status==="Refused")h=`<div class="panel"><h2>Payment not confirmed</h2><p>Your teacher could not confirm this payment. Please contact them with your transaction reference.</p>${contact()}</div>`;
   else if(a.type==="student"&&a.status==="Expired")h=`<div class="panel"><h2>Your access has ended</h2><p>Access was valid for the school year. Contact your teacher to renew.</p>${contact()}</div>`;
-  if(a.type==="class"&&(a.courses||[]).length)h=`<div class="panel"><h2>Class access</h2><p>Your class code gives you full access to ${a.courses.map(c=>COURSE[c]).join(" and ")}.</p></div>`;
+  if(a.type==="class"&&(a.courses||[]).length)h=`<div class="panel"><h2>Class access</h2><p>Your class code gives you full access to ${a.courses.map(c=>COURSE[c]||XNAME[c]).join(" and ")}.</p></div>`;
   if(!h||((a.type==="class"||a.type==="none"||!a.type)&&!(a.courses||[]).length))h+=buyView();
   $("#main").innerHTML=`<div style="display:grid;gap:14px">${h}</div>`;
 }
@@ -655,10 +771,17 @@ document.addEventListener("click",async e=>{
   const pb=e.target.closest("[data-pdf]");if(pb){openPdf(pb.dataset.pdf,pb.dataset.title,pb.dataset.unit);return}
   const t=e.target.closest("button");if(!t)return;
   if(t.id==="signout"){S.id=null;S.acc=null;S.run=null;LS.set("id",null);LS.set("access",null);S.bank={};return render()}
-  if(t.dataset.tab){if(S.run)return;S.tab=t.dataset.tab;try{history.replaceState(null,"","#"+S.tab)}catch(e){}if(S.tab==="access"&&S.acc&&S.acc.status==="Pending")await refreshAccess();if(S.tab==="live")S.live=null;return render()}
+  if(t.dataset.tab){if(S.run)return;S.tab=t.dataset.tab;try{history.replaceState(null,"","#"+S.tab)}catch(e){}if(S.tab==="access"&&S.acc&&S.acc.status==="Pending")await refreshAccess();if(S.tab==="live")S.live=null;if(S.tab==="copies"){S.cp=null;S.cpl=null}return render()}
   if(t.dataset.course){S.course=t.dataset.course;LS.set("course",S.course);return render()}
   if(t.dataset.quiz)return start(t.dataset.quiz);
   if(t.id==="recheck"){t.disabled=true;await refreshAccess();toast(S.acc&&S.acc.status==="Active"?"Full access is active":"Not confirmed yet");return render()}
+  if(t.dataset.send){S.cp={id:t.dataset.send,pages:[]};return copiesView()}
+  if(t.dataset.subject)return openSubject(t.dataset.subject);
+  if(t.id==="cpBack"){S.cp=null;return copiesView()}
+  if(t.id==="cpSend")return sendCopy();
+  if(S.cp&&t.dataset.cpdel!=null){S.cp.pages.splice(+t.dataset.cpdel,1);return sendView()}
+  if(S.cp&&t.dataset.cpup!=null){const i=+t.dataset.cpup,P=S.cp.pages;[P[i-1],P[i]]=[P[i],P[i-1]];return sendView()}
+  if(S.cp&&t.dataset.cprot!=null){const p=S.cp.pages[+t.dataset.cprot];p.rot=(p.rot+90)%360;try{p.data=await shrink(p.file,p.rot)}catch(e){}return sendView()}
   if(t.id==="haveCode"){S.id=null;LS.set("id",null);return signin("Enter the access code you received.")}
   const R=S.run;if(!R)return;
   if(t.dataset.pick!=null){if(R.b.kind==="quiz"&&R.lock[R.i])return;R.ans[R.i]=+t.dataset.pick;save();return view()}
@@ -678,7 +801,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#reader").hidde
 window.addEventListener("online",flush);
 function route(){
   const h=decodeURIComponent(location.hash.slice(1));
-  if(["courses","quizzes","access","live"].includes(h)){S.tab=h;return render()}
+  if(["courses","quizzes","access","live","copies"].includes(h)){S.tab=h;return render()}
   if(h&&(FREE_BANK.some(b=>b.id===h)||LOCKED.some(b=>b.id===h))&&S.id)return start(h);
   const saved=LS.get("run",null);
   if(S.id&&saved&&saved.end&&Date.now()<saved.end)return start(saved.id);
