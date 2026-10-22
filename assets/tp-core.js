@@ -517,6 +517,8 @@
         ctl.innerHTML = `<div class="qzintro"><p><b>QCM chronométré : ${N} questions, ${QSEC} s par question (${2 * QSEC} s pour celles qui portent sur ta droite).</b> Les questions s'affichent <b>une par une</b>, sans retour en arrière. Quand le temps d'une question est écoulé, on passe automatiquement à la suivante.</p><p><b>Dernière étape du TP :</b> en commençant le QCM, tes mesures, ton tableau et tes calculs sont <b>verrouillés définitivement</b>. Termine-les avant.</p><button type="button" class="btn primary" id="${T.id}-qzgo">Je réponds au QCM</button></div>`;
         $("#" + T.id + "-qzgo").onclick = () => {
           if (!keys.some(k => T.rows[k].length)) { T.msg("Fais d'abord tes mesures.", "bad"); return; }
+          { const manque = [...new Set([...host.querySelectorAll("#" + T.id + "-qbox fieldset.qd")].filter(f => f.dataset.ok !== "1").map(f => { const t = QDT(f.dataset.qd); return t ? t.part : "?"; }))];
+            if (manque.length) { T.msg("Certaines questions portent sur tes mesures de la partie " + manque.join(" et ") + ", qui ne sont pas encore faites (ou pas assez nombreuses). Fais d'abord ces mesures : chaque question doit pouvoir citer le numéro de ta mesure.", "bad"); return; } }
           if (!confirm("Commencer le QCM ?\n\nTes mesures, ton tableau et tes calculs seront verrouillés définitivement.\n" + N + " questions, " + QSEC + " s chacune (" + 2 * QSEC + " s pour celles qui portent sur ta droite), sans retour en arrière.")) return;
           S.qz = { deb: Date.now(), t: Date.now(), i: 0, d: [] }; save();
           T.renderAll(); cr.querySelectorAll("[data-calc]").forEach(x => x.disabled = true);
@@ -658,5 +660,5 @@
       const T = TPS.find(t => t.id === cur); if (T && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 62, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 63, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();

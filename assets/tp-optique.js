@@ -98,7 +98,12 @@
           const p = isFinite(v) ? 2 * mirrorGap - v : -Infinity, pinv = isFinite(p) ? 1 / p : 0, qinv = 1 / f - pinv;
           if (qinv <= 0) return { blur: null }; const q = 1 / qinv, xi = xl - q; return { blur: AP * Math.abs(xi - XO) / q, g: 1, xi }; }
         const xs = mode === "C" ? XO + D : xe, xi = imageOf(XO, xl, P.f);
-        if (!isFinite(xi) || xi <= xl) return { blur: null }; const v = xi - xl; return { blur: AP * Math.abs(xs - xi) / v, g: -v / (xl - XO), xi, xs };
+        if (!isFinite(xi) || xi <= xl) return { blur: null }; const v = xi - xl; let blur = AP * Math.abs(xs - xi) / v;
+        if (mode === "C") {   // Bessel : la netteté se juge sur la position de la lentille (profondeur de champ réaliste, ±0,25 cm),
+          const dis = D * D - 4 * D * P.f;   // sinon la position agrandie (près de l'objet) serait presque impossible à trouver
+          if (dis > 0) { const p = xl - XO, r = Math.sqrt(dis), dmin = Math.min(Math.abs(p - (D - r) / 2), Math.abs(p - (D + r) / 2)); blur = Math.min(blur, sharpThr * dmin / 0.25); }
+        }
+        return { blur, g: -v / (xl - XO), xi, xs };
       };
       const ui = () => {
         const fine = +$("#lnLf").value; xl = +$("#lnL").value + fine; xe = Math.max(+$("#lnE").value, xl + 1); D = +$("#lnD").value;
