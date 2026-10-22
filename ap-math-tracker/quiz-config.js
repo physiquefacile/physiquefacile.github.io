@@ -9,10 +9,10 @@ window.QUIZ_CONFIG = {
   className: "AP Math",
   payment: {
     currency: "FCFA",
-    prices: { pc: 0, ab: 0, sat: 0 },  // price per course for the school year (sat = SAT Math)
-    wave: "",                          // Wave number that receives payments, e.g. "77 123 45 67"
-    orangeMoney: "",                   // Orange Money number, e.g. "77 123 45 67"
-    payee: "",                         // name shown to the student for the transfer
-    contact: ""                        // WhatsApp number or email for questions
+    prices: { pc: 5000, ab: 5000, sat: 5000 },  // price per course for the school year (sat = SAT Math)
+    wave: "77 724 06 16",                          // Wave number that receives payments, e.g. "77 123 45 67"
+    orangeMoney: "77 724 06 16",                   // Orange Money number, e.g. "77 123 45 67"
+    payee: "Papa Touty Traoré",                         // name shown to the student for the transfer
+    contact: "WhatsApp +221 77 724 06 16"                        // WhatsApp number or email for questions
   }
 };
