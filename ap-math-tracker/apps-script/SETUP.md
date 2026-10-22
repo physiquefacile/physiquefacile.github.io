@@ -99,3 +99,19 @@ You grade each copy in the teacher tracker (tab **Copies**); the student sees th
 
 For the Senegalese program, create class codes in the Settings tab with `bfem`, `s1` or `s2` in column C
 (for example `TS2-2026 | Terminale S2 | s2`), and choose that course or class code as "For" when you create the assignment.
+
+## 9. AI correction proposal (optional, Claude)
+
+The tracker can ask Claude to read a copy and propose a grade question by question, with a comment.
+You always check and save the grade yourself; the student sees nothing before that.
+
+1. Create an account at <https://platform.claude.com>, add a little credit (**Billing**), then **Settings → API keys → Create key**.
+   Copy the key (it starts with `sk-ant-`).
+2. In the tracker, tab **Copies → AI correction: Set up**, paste the key and save. The key is stored in your Google script
+   (Script properties), never on the website. **Remove the key** there to switch the AI off.
+3. For each assignment, add the **answer key and grading scale** (button **+ Answer key**, or when you create the assignment):
+   the more precise the scale (points per question, points for the method), the better the proposal.
+4. Open a copy, click **Propose a correction**, check each line against the photos, then **Use this proposal**, edit if needed, and **Save**.
+
+Cost: about 0.03 to 0.05 US$ per copy of 4 pages with Claude Sonnet (paid to Anthropic from your API credit).
+The photos of the copy are sent to Anthropic's API to be read; tell students and parents that copies may be read by an AI assistant.

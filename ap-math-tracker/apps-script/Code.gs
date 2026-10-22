@@ -17,9 +17,11 @@
 var SETTINGS = "Settings", STUDENTS = "Students", KEYS = "Keys", RESULTS = "Results", SESSIONS = "Sessions";
 var ASSIGN = "Assignments", COPIES = "Copies";
 var ASSIGN_HEADERS = ["Id", "Title", "For (all, pc, ab, sat, bfem, s1, s2 or class codes)", "Instructions", "Due (yyyy-mm-dd hh:mm, Dakar)",
-                      "Out of", "Open (Yes/No)", "Subject (Drive file id)", "Created"];
+                      "Out of", "Open (Yes/No)", "Subject (Drive file id)", "Created",
+                      "Answer key and grading scale (for AI, never shown to students)", "Answer key PDF (Drive file id)"];
 var COPY_HEADERS = ["Received", "Copy id", "Assignment id", "Assignment", "Name", "Code", "Pages", "Files (Drive ids)",
-                    "Grade", "Out of", "Comment", "Graded", "Status", "Late", "Folder"];
+                    "Grade", "Out of", "Comment", "Graded", "Status", "Late", "Folder", "AI proposal", "AI at"];
+var AI_MODEL = "claude-sonnet-5-5";   /* Claude model used to propose a correction */
 var ALL_COURSES = ["pc", "ab", "sat", "bfem", "s1", "s2"];
 var SESSION_HEADERS = ["Date", "Time (Dakar)", "Duration (min)", "Course (pc, ab, sat or all)", "Topic", "Google Meet link", "Recording link (optional)"];
 var RESULT_HEADERS = ["Received", "Name", "Code", "Course", "Unit", "Quiz id", "Title", "Type",
@@ -237,7 +239,7 @@ function doPost(e) {
 
   /* written copies (photos of the student's paper, graded by the teacher) */
   if (d.action === "assignments" || d.action === "subject" || d.action === "upload") return copiesStudent_(d);
-  if (["copies", "page", "grade", "assign", "setopen"].indexOf(d.action) >= 0) {
+  if (["copies", "page", "grade", "assign", "setopen", "setkey", "setai", "aigrade"].indexOf(d.action) >= 0) {
     if (!d.key || String(d.key).trim().toUpperCase() !== settings_().teacherKey.toUpperCase()) return json_({ ok: false, error: "key" });
     return copiesTeacher_(d);
   }
@@ -246,8 +248,8 @@ function doPost(e) {
 }
 
 /* ------------------------------------------------------------------ copies: sheets and Drive */
-function assignSheet_() { return headerSheet_(ASSIGN, ASSIGN_HEADERS, [80, 260, 220, 300, 160, 70, 90, 200, 120]); }
-function copiesSheet_() { return headerSheet_(COPIES, COPY_HEADERS, [140, 110, 80, 220, 180, 120, 60, 200, 60, 60, 300, 140, 90, 60, 260]); }
+function assignSheet_() { return headerSheet_(ASSIGN, ASSIGN_HEADERS, [80, 260, 220, 300, 160, 70, 90, 200, 120, 400, 200]); }
+function copiesSheet_() { return headerSheet_(COPIES, COPY_HEADERS, [140, 110, 80, 220, 180, 120, 60, 200, 60, 60, 300, 140, 90, 60, 260, 300, 140]); }
 function headerSheet_(name, headers, widths) {
   var ss = SpreadsheetApp.getActiveSpreadsheet(), sh = ss.getSheetByName(name);
   if (!sh) {
@@ -256,6 +258,9 @@ function headerSheet_(name, headers, widths) {
     sh.getRange(1, 1, 1, headers.length).setFontWeight("bold");
     sh.setFrozenRows(1);
     for (var i = 0; i < widths.length; i++) sh.setColumnWidth(i + 1, widths[i]);
+  } else {
+    var have = sh.getRange(1, 1, 1, headers.length).getValues()[0];
+    for (var j = 0; j < headers.length; j++) if (!have[j]) sh.getRange(1, j + 1).setValue(headers[j]).setFontWeight("bold");
   }
   return sh;
 }
@@ -285,7 +290,8 @@ function assignments_() {
     return { row: i + 2, id: String(r[0]).trim(), title: String(r[1] || "").trim(), forStr: String(r[2] || "").trim(),
              instructions: String(r[3] || ""), due: dd ? dd.toISOString() : "", outOf: Number(r[5]) || 20,
              open: !/^(no|non|closed|ferm)/i.test(String(r[6] || "Yes").trim()), subject: String(r[7] || "").trim(),
-             created: r[8] instanceof Date ? r[8].toISOString() : String(r[8] || "") };
+             created: r[8] instanceof Date ? r[8].toISOString() : String(r[8] || ""),
+             answerKey: String(r[9] || ""), answerPdf: String(r[10] || "").trim() };
   }).filter(function (a) { return a.id && a.title; });
 }
 /** can this person (from identify_) see this assignment? */
@@ -304,7 +310,8 @@ function copies_() {
              title: String(r[3]), name: String(r[4]), code: String(r[5]), pages: Number(r[6]) || 0,
              files: String(r[7] || "").split(/\s+/).filter(String), grade: r[8] === "" ? "" : Number(r[8]), outOf: Number(r[9]) || 20,
              comment: String(r[10] || ""), graded: r[11] instanceof Date ? r[11].toISOString() : String(r[11] || ""),
-             status: String(r[12] || "To grade"), late: /^y/i.test(String(r[13] || "")), folder: String(r[14] || "") };
+             status: String(r[12] || "To grade"), late: /^y/i.test(String(r[13] || "")), folder: String(r[14] || ""),
+             ai: String(r[15] || ""), aiAt: r[16] instanceof Date ? r[16].toISOString() : String(r[16] || "") };
   });
 }
 function isMine_(c, who, code, name) {
@@ -365,7 +372,8 @@ function copiesStudent_(d) {
 function copiesTeacher_(d) {
   if (d.action === "copies") {
     return json_({ ok: true, now: new Date().toISOString(),
-      assignments: assignments_().map(function (a) { delete a.row; a.subject = !!a.subject; return a; }),
+      aiReady: !!aiKey_(),
+      assignments: assignments_().map(function (a) { delete a.row; a.subject = !!a.subject; a.answerPdf = !!a.answerPdf; return a; }),
       copies: copies_().filter(function (c) { return c.status !== "Replaced"; }).map(function (c) { delete c.row; c.files = c.files.length; return c; }) });
   }
   if (d.action === "page") {
@@ -385,18 +393,30 @@ function copiesTeacher_(d) {
       g === "" ? "" : new Date(), g === "" ? "To grade" : "Graded"]]);
     return json_({ ok: true });
   }
+  if (d.action === "setkey") {
+    var a3 = assignments_().filter(function (x) { return x.id === String(d.id || ""); })[0];
+    if (!a3) return json_({ ok: false, error: "assignment" });
+    assignSheet_().getRange(a3.row, 10).setValue(String(d.answerKey || "").slice(0, 20000));
+    if (d.pdf) assignSheet_().getRange(a3.row, 11).setValue(savePdf_(d.pdf, d.pdfName || "Corrigé " + a3.title, "Answer keys"));
+    return json_({ ok: true });
+  }
+  if (d.action === "setai") {
+    var k = String(d.apiKey || "").trim();
+    if (k && !/^sk-ant-/.test(k)) return json_({ ok: false, error: "apikey" });
+    if (k) PropertiesService.getScriptProperties().setProperty("CLAUDE_API_KEY", k);
+    else PropertiesService.getScriptProperties().deleteProperty("CLAUDE_API_KEY");
+    return json_({ ok: true, aiReady: !!k });
+  }
+  if (d.action === "aigrade") return aiGrade_(String(d.id || ""));
   if (d.action === "assign") {
     var title = String(d.title || "").trim().slice(0, 120);
     if (!title) return json_({ ok: false, error: "title" });
-    var subj = "";
-    if (d.pdf) {
-      var blob = Utilities.newBlob(Utilities.base64Decode(String(d.pdf).replace(/^data:[^,]*,/, "")), "application/pdf", cleanName_(d.pdfName || title).replace(/\.pdf$/i, "") + ".pdf");
-      subj = subFolder_(rootFolder_(), "Subjects").createFile(blob).getId();
-    }
+    var subj = d.pdf ? savePdf_(d.pdf, d.pdfName || title, "Subjects") : "";
+    var keyPdf = d.keyPdf ? savePdf_(d.keyPdf, d.keyPdfName || "Corrigé " + title, "Answer keys") : "";
     var id2 = "A-" + Utilities.getUuid().slice(0, 6).toUpperCase();
     var due = String(d.due || "").trim().replace("T", " ").slice(0, 16);
     assignSheet_().appendRow([id2, title, String(d.forStr || "all").trim().slice(0, 120), String(d.instructions || "").slice(0, 1000),
-      due ? "'" + due : "", Number(d.outOf) || 20, "Yes", subj, new Date()]);
+      due ? "'" + due : "", Number(d.outOf) || 20, "Yes", subj, new Date(), String(d.answerKey || "").slice(0, 20000), keyPdf]);
     return json_({ ok: true, id: id2 });
   }
   if (d.action === "setopen") {
@@ -456,4 +476,76 @@ function onEdit(e) {
     var act = sh.getRange(e.range.getRow(), 11);
     if (String(e.value) === "Active" && !act.getValue()) act.setValue(new Date());
   } catch (err) {}
+}
+
+/* ------------------------------------------------------------------ AI-assisted correction (Claude) */
+function savePdf_(dataUrl, name, sub) {
+  var blob = Utilities.newBlob(Utilities.base64Decode(String(dataUrl).replace(/^data:[^,]*,/, "")), "application/pdf",
+                               cleanName_(name).replace(/\.pdf$/i, "") + ".pdf");
+  return subFolder_(rootFolder_(), sub).createFile(blob).getId();
+}
+function aiKey_() { return PropertiesService.getScriptProperties().getProperty("CLAUDE_API_KEY") || ""; }
+
+var AI_SYSTEM = "You are a careful assistant helping a mathematics teacher grade a student's handwritten written test. " +
+  "You receive the subject, the teacher's answer key and grading scale (barème), and photos of the student's pages. " +
+  "Read the handwriting carefully. Grade question by question, strictly following the grading scale: give the points the scale gives " +
+  "for a correct result and for a correct justification; accept any correct method, even if it differs from the answer key; " +
+  "never give points for a result with no work when the scale requires justification. If no grading scale is given, use the usual " +
+  "practice of the exam (Senegalese BFEM/Bac or AP) and say so in the justification. If part of a page cannot be read, do not guess: " +
+  "list it in 'unreadable' and grade only what you can read. Questions that are not answered get 0. " +
+  "Write the justifications and the comment in the language of the subject (French for a French subject). " +
+  "The comment is addressed to the student: 2 to 4 sentences, kind and precise, saying what is right and what to work on. " +
+  "The teacher checks your proposal before the student sees anything. Always answer by calling the tool propose_grade.";
+
+var AI_TOOL = { name: "propose_grade", description: "Proposed correction of the copy, for the teacher to check.",
+  input_schema: { type: "object", required: ["questions", "total", "comment", "unreadable", "confidence"], properties: {
+    questions: { type: "array", items: { type: "object", required: ["label", "points", "max", "justification"], properties: {
+      label: { type: "string", description: "question number, e.g. Ex1 1a" }, points: { type: "number" }, max: { type: "number" },
+      justification: { type: "string", description: "one short sentence: what the student did and why these points" } } } },
+    total: { type: "number", description: "sum of the points, on the scale of the assignment" },
+    comment: { type: "string" },
+    unreadable: { type: "array", items: { type: "string" }, description: "parts that could not be read (page and place)" },
+    confidence: { type: "string", enum: ["high", "medium", "low"] } } } };
+
+function aiGrade_(copyId) {
+  var key = aiKey_();
+  if (!key) return json_({ ok: false, error: "nokey" });
+  var c = copies_().filter(function (x) { return x.id === copyId; })[0];
+  if (!c) return json_({ ok: false, error: "copy" });
+  var a = assignments_().filter(function (x) { return x.id === c.assignment; })[0];
+  if (!a) return json_({ ok: false, error: "assignment" });
+  var content = [];
+  var pdfBlock = function (id, title) {
+    try { content.push({ type: "document", title: title, source: { type: "base64", media_type: "application/pdf",
+      data: Utilities.base64Encode(DriveApp.getFileById(id).getBlob().getBytes()) } }); } catch (e) {}
+  };
+  if (a.subject) pdfBlock(a.subject, "Subject");
+  if (a.answerPdf) pdfBlock(a.answerPdf, "Answer key");
+  content.push({ type: "text", text: "Assignment: " + a.title + "\nGraded out of: " + c.outOf +
+    (a.instructions ? "\nInstructions given to the students: " + a.instructions : "") +
+    "\n\nAnswer key and grading scale from the teacher:\n" + (a.answerKey || (a.answerPdf ? "(see the Answer key document)" : "(none given: solve the subject yourself first)")) +
+    "\n\nThe " + c.files.length + " photos below are the student's pages, in order." });
+  c.files.forEach(function (fid, i) {
+    var b = DriveApp.getFileById(fid).getBlob();
+    content.push({ type: "text", text: "Page " + (i + 1) + ":" });
+    content.push({ type: "image", source: { type: "base64", media_type: b.getContentType() || "image/jpeg", data: Utilities.base64Encode(b.getBytes()) } });
+  });
+  var res = UrlFetchApp.fetch("https://api.anthropic.com/v1/messages", {
+    method: "post", contentType: "application/json", muteHttpExceptions: true,
+    headers: { "x-api-key": key, "anthropic-version": "2023-06-01" },
+    payload: JSON.stringify({ model: AI_MODEL, max_tokens: 4000, system: AI_SYSTEM, tools: [AI_TOOL],
+      tool_choice: { type: "tool", name: "propose_grade" }, messages: [{ role: "user", content: content }] }) });
+  var code = res.getResponseCode(), body = {};
+  try { body = JSON.parse(res.getContentText()); } catch (e) {}
+  if (code !== 200) {
+    var msg = (body.error && body.error.message) || ("HTTP " + code);
+    return json_({ ok: false, error: code === 401 ? "apikey" : code === 400 && /credit/i.test(msg) ? "credit" : "api", message: String(msg).slice(0, 300) });
+  }
+  var use = (body.content || []).filter(function (b) { return b.type === "tool_use"; })[0];
+  if (!use) return json_({ ok: false, error: "api", message: "no proposal" });
+  var p = use.input, u = body.usage || {};
+  p.total = Math.max(0, Math.min(c.outOf, Number(p.total) || 0));
+  p.tokens = { input: u.input_tokens || 0, output: u.output_tokens || 0 };
+  copiesSheet_().getRange(c.row, 16, 1, 2).setValues([[JSON.stringify(p), new Date()]]);
+  return json_({ ok: true, proposal: p });
 }
