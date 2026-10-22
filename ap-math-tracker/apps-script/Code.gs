@@ -12,7 +12,8 @@
  *   Results  : one row per submitted quiz or test.
  */
 
-var SETTINGS = "Settings", STUDENTS = "Students", KEYS = "Keys", RESULTS = "Results";
+var SETTINGS = "Settings", STUDENTS = "Students", KEYS = "Keys", RESULTS = "Results", SESSIONS = "Sessions";
+var SESSION_HEADERS = ["Date", "Time (Dakar)", "Duration (min)", "Course (pc, ab, sat or all)", "Topic", "Google Meet link", "Recording link (optional)"];
 var RESULT_HEADERS = ["Received", "Name", "Code", "Course", "Unit", "Quiz id", "Title", "Type",
                       "Score", "Out of", "Percent", "Time (s)", "Answers", "Result id", "Sent from device at"];
 var STUDENT_HEADERS = ["Access code", "Name", "Phone (WhatsApp)", "Email", "Courses", "Amount (FCFA)", "Paid with",
@@ -53,6 +54,7 @@ function setup() {
     ks.appendRow(["Unit", "Key", "Added"]);
     ks.getRange("A1:C1").setFontWeight("bold"); ks.setColumnWidth(2, 380);
   }
+  sessionsSheet_();
   var rs = ss.getSheetByName(RESULTS) || ss.insertSheet(RESULTS);
   if (rs.getLastRow() === 0) {
     rs.appendRow(RESULT_HEADERS);
@@ -214,7 +216,54 @@ function doPost(e) {
     }) });
   }
 
+  /* live sessions (Google Meet): everyone sees the schedule, only students with access to the course get the link */
+  if (d.action === "sessions") {
+    var w2 = d.code ? identify_(d.code) : null;
+    var mine = w2 ? (w2.type === "teacher" ? ["pc", "ab", "sat"] : w2.courses || []) : [];
+    return json_({ ok: true, sessions: sessions_(mine) });
+  }
+
   return json_({ ok: false, error: "unknown action" });
+}
+
+/* ------------------------------------------------------------------ live sessions */
+function sessionsSheet_() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet(), sh = ss.getSheetByName(SESSIONS);
+  if (!sh) {
+    sh = ss.insertSheet(SESSIONS);
+    sh.appendRow(SESSION_HEADERS);
+    sh.getRange(1, 1, 1, SESSION_HEADERS.length).setFontWeight("bold");
+    sh.setFrozenRows(1);
+    sh.setColumnWidth(5, 280); sh.setColumnWidth(6, 300); sh.setColumnWidth(7, 300);
+  }
+  return sh;
+}
+
+/** sessions from 30 days ago onward, sorted by start; the Meet link only for the courses in `mine` */
+function sessions_(mine) {
+  var sh = sessionsSheet_(), tz = SpreadsheetApp.getActiveSpreadsheet().getSpreadsheetTimeZone() || "GMT";
+  if (sh.getLastRow() < 2) return [];
+  var v = sh.getRange(2, 1, sh.getLastRow() - 1, SESSION_HEADERS.length).getValues(), out = [];
+  var from = new Date().getTime() - 30 * 864e5;
+  for (var i = 0; i < v.length; i++) {
+    var r = v[i];
+    if (!r[0]) continue;
+    var day = r[0] instanceof Date ? Utilities.formatDate(r[0], tz, "yyyy-MM-dd") : String(r[0]).trim();
+    var t = r[1] instanceof Date ? Utilities.formatDate(r[1], tz, "HH:mm") : String(r[1] || "18:00").trim().replace("h", ":");
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(day)) continue;
+    if (!/^\d{1,2}:\d{2}$/.test(t)) t = "18:00";
+    if (t.length === 4) t = "0" + t;
+    var start = new Date(day + "T" + t + ":00Z");               /* Dakar is GMT all year */
+    var mins = Number(r[2]) || 60, end = start.getTime() + mins * 60000;
+    if (end < from) continue;
+    var cs = parseCourses_(r[3]);
+    if (!cs.length) cs = ["pc", "ab", "sat"];
+    var open = cs.some(function (c) { return mine.indexOf(c) >= 0; });
+    out.push({ start: start.toISOString(), minutes: mins, courses: cs, topic: String(r[4] || "").slice(0, 200),
+               link: open ? String(r[5] || "").trim() : "", recording: open ? String(r[6] || "").trim() : "", locked: !open });
+  }
+  out.sort(function (a, b) { return a.start < b.start ? -1 : 1; });
+  return out;
 }
 
 /* Timestamp the activation when you set a student's Status to Active. */

@@ -65,3 +65,16 @@ then click **Import results**. You can also sign in on the student site with the
 
 After editing `Code.gs`, use **Deploy → Manage deployments → Edit (pencil) → Version: New version → Deploy**.
 The URL stays the same.
+
+## 7. Live sessions on Google Meet (tab "Live" of the student site)
+
+1. Create the meeting: open <https://meet.google.com>, click **New meeting → Create a meeting for later**, and copy the link
+   (or create an event in Google Calendar with "Add Google Meet video conferencing").
+2. In the **Sessions** tab of the sheet, add one row per session:
+   **Date** (2026-10-28), **Time (Dakar)** (18:00), **Duration (min)** (60), **Course** (`pc`, `ab`, `sat` or `all`),
+   **Topic**, **Google Meet link**, and later the **Recording link** if you record it.
+3. Students see the schedule in the **Live** tab. The **Join on Google Meet** button appears 15 minutes before the start,
+   and only for students with full access to that course (class code with access, paid code, or teacher key).
+   Past sessions stay visible for 30 days, with the recording link if you add one.
+
+The Sessions tab is created automatically the first time the site asks for the sessions (or when you run **setup**).

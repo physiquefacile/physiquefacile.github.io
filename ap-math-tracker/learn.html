@@ -129,6 +129,13 @@ a{color:var(--accent)}
 @media (prefers-reduced-motion:reduce){.bar i{transition:none}}
 
 .course .sm{display:none}
+.sess{display:grid;grid-template-columns:58px 1fr;gap:12px;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.sess.now{border:2px solid var(--good);background:var(--good-bg)}
+.sess.past{opacity:.8}
+.sdate{display:grid;place-items:center;align-content:center;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:6px 0;height:max-content}
+.sdate b{font-family:var(--f-display);font-size:1.5rem;line-height:1}.sdate span{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.sbody{display:grid;gap:6px;min-width:0}
+.btn.meet{background:#1A73E8;border-color:#1A73E8;color:#fff;font-size:1.05rem}
 @media (max-width:640px){
   body{font-size:17px}
   .wrap{gap:14px;padding-block:12px 72px}
@@ -181,6 +188,7 @@ a{color:var(--accent)}
     <nav class="tabs" role="tablist">
       <button role="tab" data-tab="courses">Courses</button>
       <button role="tab" data-tab="quizzes">Quizzes</button>
+      <button role="tab" data-tab="live">Live</button>
       <button role="tab" data-tab="access">My access</button>
     </nav>
   </div>
@@ -275,6 +283,7 @@ function render(){
   if(!S.id)return signin();
   if(S.tab==="quizzes")return quizzesView();
   if(S.tab==="access")return accessView();
+  if(S.tab==="live")return liveView();
   return coursesView();
 }
 
@@ -303,7 +312,7 @@ async function doSignin(name,code){
     if(R.type!=="student"&&R.type!=="teacher"&&!name)return signin("Enter your name.",name,code);
     S.id={name:R.type==="student"?R.name:(R.type==="teacher"?"Teacher":name),code,kind:R.type};
     S.acc={type:R.type,status:R.status,courses:R.courses,requested:R.requested,keys:R.keys||{},accessEnds:R.accessEnds,at:Date.now()};
-    LS.set("id",S.id);LS.set("access",S.acc);S.bank={};flush();route()}
+    LS.set("id",S.id);LS.set("access",S.acc);S.bank={};S.live=null;flush();route()}
   catch(e){signin("No connection. Check your internet and try again.",name,code)}
 }
 
@@ -373,6 +382,48 @@ function quizzesView(){
   </div>`;
 }
 function row(b){const lk=b.key&&!keys()[b.key];return `<button class="qrow ${lk?"locked":""}" data-quiz="${b.id}"><span><b>${esc(b.title)}</b></span><span style="display:flex;gap:6px">${b.kind==="test"||b.kind==="sat"?'<span class="chip test">Test</span>':""}${lk?'<span class="chip lock">🔒</span>':badge(b.id)}</span><small>${b.kind==="sat"?`${2*b.count} questions · 2 modules × ${b.minutes} min`:`${b.count} questions${b.minutes?` · ${b.minutes} min`:""}`}</small></button>`}
+
+/* ---------- live sessions (Google Meet) ---------- */
+const TZ="Africa/Dakar";
+const when=d=>d.toLocaleString("en-GB",{timeZone:TZ,weekday:"long",day:"numeric",month:"long"});
+const hm=d=>d.toLocaleTimeString("en-GB",{timeZone:TZ,hour:"2-digit",minute:"2-digit"});
+function gcal(x){const f=d=>d.toISOString().replace(/[-:]/g,"").replace(/\.\d{3}/,""),a=new Date(x.start),b=new Date(a.getTime()+x.minutes*60000);
+  return "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("AP Math Online · "+(x.topic||"Live session"))+"&dates="+f(a)+"/"+f(b)+"&details="+encodeURIComponent((x.link?"Google Meet: "+x.link+"\n":"")+"https://physiquefacile.github.io/ap-math-tracker/learn.html#live")}
+function inDays(ms){const d=Math.round(ms/864e5),h=Math.round(ms/36e5),m=Math.max(1,Math.round(ms/6e4));return d>=2?`in ${d} days`:h>=2?`in ${h} hours`:`in ${m} min`}
+async function loadLive(force){
+  if(!online){S.live={list:[],at:Date.now()};return}
+  if(!force&&S.live&&Date.now()-S.live.at<60000)return;
+  try{const R=await post({action:"sessions",code:(S.id&&S.id.code)||""});if(R&&R.ok)S.live={list:R.sessions||[],at:Date.now()}}catch(e){if(!S.live)S.live={list:[],at:Date.now(),err:true}}
+}
+function sessionCard(x,now){
+  const a=new Date(x.start),b=a.getTime()+x.minutes*60000,opens=a.getTime()-15*60000,live=now>=opens&&now<=b,past=now>b;
+  const chips=x.courses.map(c=>`<span class="chip">${esc(SHORT[c]||c)}</span>`).join("");
+  let act="";
+  if(x.locked)act=past?"":`<div class="lockbox"><span>🔒 Meet link for students with full access to ${x.courses.map(c=>SHORT[c]||c).join(" or ")}.</span><button class="btn sm primary" data-tab="access">Get full access</button></div>`;
+  else if(past)act=x.recording?`<a class="btn" href="${esc(x.recording)}" target="_blank" rel="noopener">▶ Watch the recording</a>`:`<span class="muted">This session has ended.</span>`;
+  else if(live&&x.link)act=`<a class="btn primary meet" href="${esc(x.link)}" target="_blank" rel="noopener">Join on Google Meet</a>`;
+  else act=`<span class="muted" style="font-size:.88rem">The Join button appears here 15 minutes before the start.</span><a class="btn" style="justify-self:start" href="${gcal(x)}" target="_blank" rel="noopener">📅 Add to my calendar</a>`;
+  return `<div class="sess ${live?"now":""} ${past?"past":""}">
+    <div class="sdate"><b>${esc(a.toLocaleDateString("en-GB",{timeZone:TZ,day:"numeric"}))}</b><span>${esc(a.toLocaleDateString("en-GB",{timeZone:TZ,month:"short"}))}</span></div>
+    <div class="sbody"><div class="qhead"><span class="num">${esc(hm(a))} – ${esc(hm(new Date(b)))}</span><span style="display:flex;gap:6px;flex-wrap:wrap">${live?'<span class="chip free">LIVE NOW</span>':past?"":`<span class="chip">${inDays(a.getTime()-now)}</span>`}${chips}</span></div>
+      <h3>${esc(x.topic||"Questions and answers")}</h3><div class="muted" style="font-size:.88rem">${esc(when(a))} · ${x.minutes} min · Dakar time (GMT)</div>${act}</div></div>`;
+}
+async function liveView(){
+  const box=()=>$("#main");
+  if(!S.live)box().innerHTML='<div class="panel"><p class="muted">Loading the sessions…</p></div>';
+  await loadLive();if(S.tab!=="live"||S.run)return;
+  const now=Date.now(),L=(S.live&&S.live.list)||[];
+  const up=L.filter(x=>new Date(x.start).getTime()+x.minutes*60000>=now),past=L.filter(x=>new Date(x.start).getTime()+x.minutes*60000<now).reverse();
+  box().innerHTML=`<div style="display:grid;gap:14px">
+    <div class="panel"><h2>Live sessions with your teacher</h2>
+      <p class="muted">Each week, a live video session on Google Meet to ask your questions, review a lesson or correct a test together. The link appears here 15 minutes before the start. Times are Dakar time (GMT).</p>
+      ${online?"":'<div class="banner">The schedule will appear here once accounts are active.</div>'}
+      ${S.live&&S.live.err?'<div class="banner">Could not load the sessions. Check your connection.</div>':""}</div>
+    <section class="panel"><div class="label">Upcoming</div>${up.length?`<div class="list">${up.map(x=>sessionCard(x,now)).join("")}</div>`:'<p class="muted">No session is scheduled yet. Check again soon.</p>'}</section>
+    ${past.length?`<section class="panel"><div class="label">Past sessions</div><div class="list">${past.map(x=>sessionCard(x,now)).join("")}</div></section>`:""}
+  </div>`;
+}
+setInterval(()=>{if(S.tab==="live"&&!S.run&&S.id&&$("#reader").hidden&&document.visibilityState==="visible")liveView()},30000);
 
 /* ---------- my access / payment ---------- */
 function accessView(){
@@ -604,7 +655,7 @@ document.addEventListener("click",async e=>{
   const pb=e.target.closest("[data-pdf]");if(pb){openPdf(pb.dataset.pdf,pb.dataset.title,pb.dataset.unit);return}
   const t=e.target.closest("button");if(!t)return;
   if(t.id==="signout"){S.id=null;S.acc=null;S.run=null;LS.set("id",null);LS.set("access",null);S.bank={};return render()}
-  if(t.dataset.tab){if(S.run)return;S.tab=t.dataset.tab;try{history.replaceState(null,"","#"+S.tab)}catch(e){}if(S.tab==="access"&&S.acc&&S.acc.status==="Pending")await refreshAccess();return render()}
+  if(t.dataset.tab){if(S.run)return;S.tab=t.dataset.tab;try{history.replaceState(null,"","#"+S.tab)}catch(e){}if(S.tab==="access"&&S.acc&&S.acc.status==="Pending")await refreshAccess();if(S.tab==="live")S.live=null;return render()}
   if(t.dataset.course){S.course=t.dataset.course;LS.set("course",S.course);return render()}
   if(t.dataset.quiz)return start(t.dataset.quiz);
   if(t.id==="recheck"){t.disabled=true;await refreshAccess();toast(S.acc&&S.acc.status==="Active"?"Full access is active":"Not confirmed yet");return render()}
@@ -627,7 +678,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#reader").hidde
 window.addEventListener("online",flush);
 function route(){
   const h=decodeURIComponent(location.hash.slice(1));
-  if(["courses","quizzes","access"].includes(h)){S.tab=h;return render()}
+  if(["courses","quizzes","access","live"].includes(h)){S.tab=h;return render()}
   if(h&&(FREE_BANK.some(b=>b.id===h)||LOCKED.some(b=>b.id===h))&&S.id)return start(h);
   const saved=LS.get("run",null);
   if(S.id&&saved&&saved.end&&Date.now()<saved.end)return start(saved.id);
