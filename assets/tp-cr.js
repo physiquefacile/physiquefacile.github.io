@@ -139,15 +139,18 @@ window.TPCR = {
   },
   lentilles: {
     parts: {
-      A: { min: 3, fill: [{ k: "f", h: "f′ = OA (cm)" }] },
-      B: { min: 5, fill: [{ k: "x", h: "1/OA (δ)" }, { k: "y", h: "1/OA′ (δ)" }], plot: { x: (r, f) => f.x, y: (r, f) => f.y, xl: "1/OA (δ)", yl: "1/OA′ (δ)", xmax: 0, ymin: 0, fit: true, eq: R => "1/OA′ = " + R.a.toFixed(2).replace(".", ",") + " · 1/OA + " + R.b.toFixed(2).replace(".", ","), mark0: R => "V = " + R.b.toFixed(2).replace(".", ",") + " δ pour 1/OA = 0" } },
-      C: { min: 2, fill: [{ k: "d", h: "d = x₂ − x₁ (cm)" }, { k: "f", h: "f′ = (D² − d²)/4D (cm)" }] }
+      A: { min: 3, aide: "En autocollimation, l'objet est au foyer : <b>f′ = position de la lentille − position de l'objet</b> (en cm). Ex. lentille à 17,1 cm, objet à 5,0 cm : f′ = 12,1 cm.",
+        fill: [{ k: "f", h: "f′ = lentille − objet (cm)", ref: r => r.xl - 5, tol: 0.1, warn: "f′ = position de la lentille − position de l'objet (5,0 cm)." }] },
+      B: { min: 5, aide: "Distances <b>algébriques</b> en cm : OA est <b>négatif</b> (objet avant la lentille), OA′ positif. Pour avoir des dioptries, il faut les distances en mètres : <b>1/OA (δ) = 100 / OA(cm)</b> et <b>1/OA′ (δ) = 100 / OA′(cm)</b>, <b>en gardant le signe</b>.<br>Ex. OA = −20,0 cm : 1/OA = 100 / (−20,0) = −5,00 δ ; OA′ = 30,5 cm : 1/OA′ = 100 / 30,5 = 3,28 δ.<br>Le graphe est une droite de pente 1 ; son ordonnée à l'origine est la vergence V, et <b>f′ (cm) = 100 / V</b>.",
+        fill: [{ k: "x", h: "1/OA (δ)", ref: r => 100 / r.OA, tol: 0.1, warn: "1/OA (δ) = 100 / OA, avec OA en cm et NÉGATIF : le résultat est négatif." }, { k: "y", h: "1/OA′ (δ)", ref: r => 100 / r.OAp, tol: 0.1, warn: "1/OA′ (δ) = 100 / OA′, avec OA′ en cm." }], plot: { x: (r, f) => f.x, y: (r, f) => f.y, xl: "1/OA (δ)", yl: "1/OA′ (δ)", xmax: 0, ymin: 0, fit: true, eq: R => "1/OA′ = " + R.a.toFixed(2).replace(".", ",") + " · 1/OA + " + R.b.toFixed(2).replace(".", ","), mark0: R => "V = " + R.b.toFixed(2).replace(".", ",") + " δ pour 1/OA = 0" } },
+      C: { min: 2, aide: "D = distance objet–écran (fixée) ; x₁ et x₂ = les deux positions de la lentille donnant une image nette.<br><b>d = x₂ − x₁</b> ; <b>f′ = (D² − d²) / (4 D)</b>, tout en cm. Il faut D &gt; 4 f′ pour trouver deux positions.<br>Ex. D = 80 cm, x₁ = 19,9 cm, x₂ = 70,1 cm : d = 50,2 cm ; f′ = (6400 − 2520) / 320 = 12,1 cm.",
+        fill: [{ k: "d", h: "d = x₂ − x₁ (cm)", ref: r => r.x2 - r.x1, tol: 0.1, warn: "d = x₂ − x₁ : distance entre les deux positions de la lentille." }, { k: "f", h: "f′ = (D² − d²)/4D (cm)", ref: r => { const d = r.x2 - r.x1; return (r.D * r.D - d * d) / (4 * r.D); }, tol: 0.1, warn: "f′ = (D² − d²) / (4 D), avec D et d en cm." }] }
     },
     calc: [
-      { k: "fA", h: "f′ par autocollimation (moyenne)", u: "cm" },
-      { k: "V", h: "Vergence V : ordonnée à l'origine de 1/OA′ = f(1/OA)", u: "δ" },
-      { k: "fB", h: "f′ par les plans conjugués (f′ = 1/V)", u: "cm" },
-      { k: "fC", h: "f′ par la méthode de Bessel (moyenne)", u: "cm" }
+      { k: "fA", h: "f′ par autocollimation (moyenne des mesures de la partie A)", u: "cm" },
+      { k: "V", h: "Vergence V : ordonnée à l'origine de la droite 1/OA′ = f(1/OA) (lue sur le graphe, environ 5 à 10 δ)", u: "δ" },
+      { k: "fB", h: "f′ par les plans conjugués : f′ = 100 / V (V en δ, f′ en cm)", u: "cm" },
+      { k: "fC", h: "f′ par la méthode de Bessel (moyenne de la partie C)", u: "cm" }
     ],
     qcm: [
       { q: "En autocollimation, l'image nette se forme dans le plan de l'objet lorsque :", o: ["l'objet est au foyer objet de la lentille", "l'objet est à 2f′", "le miroir est au foyer image", "la lentille touche l'objet"] },
@@ -178,17 +181,17 @@ window.TPCR = {
   },
   assoc: {
     parts: {
-      A: { min: 4, fill: [{ k: "x", h: "1/OA (δ)" }, { k: "y", h: "1/OA′ (δ)" }], plot: { x: (r, f) => f.x, y: (r, f) => f.y, xl: "1/OA (δ)", yl: "1/OA′ (δ)", xmax: 0, ymin: 0, fit: true, eq: R => "1/OA′ = " + R.a.toFixed(2).replace(".", ",") + " · 1/OA + " + R.b.toFixed(2).replace(".", ","), mark0: R => "V₁ = " + R.b.toFixed(2).replace(".", ",") + " δ pour 1/OA = 0" } },
-      B: { min: 4, fill: [{ k: "x", h: "1/OA (δ)" }, { k: "y", h: "1/OA′ (δ)" }], plot: { x: (r, f) => f.x, y: (r, f) => f.y, xl: "1/OA (δ)", yl: "1/OA′ (δ)", xmax: 0, ymin: 0, fit: true, eq: R => "1/OA′ = " + R.a.toFixed(2).replace(".", ",") + " · 1/OA + " + R.b.toFixed(2).replace(".", ","), mark0: R => "V = " + R.b.toFixed(2).replace(".", ",") + " δ (doublet)" } },
+      A: { min: 4, aide: "1/OA (δ) = 100 / OA(cm) — OA est <b>négatif</b>, garde le signe ; 1/OA′ (δ) = 100 / OA′(cm). f′ (cm) = 100 / V.", fill: [{ k: "x", h: "1/OA (δ)", ref: r => 100 / r.OA, tol: 0.1, warn: "1/OA (δ) = 100 / OA, avec OA en cm et NÉGATIF." }, { k: "y", h: "1/OA′ (δ)", ref: r => 100 / r.OAp, tol: 0.1, warn: "1/OA′ (δ) = 100 / OA′, avec OA′ en cm." }], plot: { x: (r, f) => f.x, y: (r, f) => f.y, xl: "1/OA (δ)", yl: "1/OA′ (δ)", xmax: 0, ymin: 0, fit: true, eq: R => "1/OA′ = " + R.a.toFixed(2).replace(".", ",") + " · 1/OA + " + R.b.toFixed(2).replace(".", ","), mark0: R => "V₁ = " + R.b.toFixed(2).replace(".", ",") + " δ pour 1/OA = 0" } },
+      B: { min: 4, aide: "1/OA (δ) = 100 / OA(cm) — OA est <b>négatif</b>, garde le signe ; 1/OA′ (δ) = 100 / OA′(cm). f′ (cm) = 100 / V.", fill: [{ k: "x", h: "1/OA (δ)", ref: r => 100 / r.OA, tol: 0.1, warn: "1/OA (δ) = 100 / OA, avec OA en cm et NÉGATIF." }, { k: "y", h: "1/OA′ (δ)", ref: r => 100 / r.OAp, tol: 0.1, warn: "1/OA′ (δ) = 100 / OA′, avec OA′ en cm." }], plot: { x: (r, f) => f.x, y: (r, f) => f.y, xl: "1/OA (δ)", yl: "1/OA′ (δ)", xmax: 0, ymin: 0, fit: true, eq: R => "1/OA′ = " + R.a.toFixed(2).replace(".", ",") + " · 1/OA + " + R.b.toFixed(2).replace(".", ","), mark0: R => "V = " + R.b.toFixed(2).replace(".", ",") + " δ (doublet)" } },
       C: { min: 4, aide: "Calcule 1/(f′₁ − e) avec <b>ta</b> valeur de f′₁ (partie A). Distances en cm : 1/(f′₁ − e) = 100/(f′₁ − e) en dioptries ; de même 1/x′ = 100/x′.", fill: [{ k: "x", h: "1/(f′₁ − e) (δ)" }, { k: "y", h: "1/x′ (δ)" }], plot: { x: (r, f) => f.x, y: (r, f) => f.y, xl: "1/(f′₁ − e) (δ)", yl: "1/x′ (δ)", xmin: 0, ymin: 0, fit: true, eq: R => "1/x′ = " + R.a.toFixed(2).replace(".", ",") + " · 1/(f′₁ − e) " + (R.b < 0 ? "− " : "+ ") + Math.abs(R.b).toFixed(2).replace(".", ","), mark0: R => "V₃ = " + R.b.toFixed(2).replace(".", ",") + " δ" } }
     },
     calc: [
       { k: "V1", h: "Partie A : vergence V₁ de L₁ (ordonnée à l'origine)", u: "δ" },
       { k: "V", h: "Partie B : vergence V du doublet L₁ + L₂", u: "δ" },
       { k: "V2", h: "Vergence de la lentille divergente V₂ = V − V₁", u: "δ" },
-      { k: "f2", h: "Distance focale f′₂ = 1/V₂", u: "cm" },
+      { k: "f2", h: "Distance focale f′₂ = 100 / V₂ (V₂ en δ, f′₂ en cm ; négative)", u: "cm" },
       { k: "V3", h: "Partie C : vergence V₃ de L₃ (ordonnée à l'origine)", u: "δ" },
-      { k: "f3", h: "Distance focale f′₃ = 1/V₃", u: "cm" }
+      { k: "f3", h: "Distance focale f′₃ = 100 / V₃ (V₃ en δ, f′₃ en cm)", u: "cm" }
     ],
     qcm: [
       { q: "Deux lentilles minces accolées de vergences V₁ et V₂ sont équivalentes à une lentille de vergence :", o: ["V₁ + V₂", "V₁ · V₂", "V₁ − V₂", "V₁V₂/(V₁ + V₂)"] },
