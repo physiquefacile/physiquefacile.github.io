@@ -1106,3 +1106,284 @@ A phone plan costs \$20 per month including 100 texts, plus \$0.10 per extra tex
 (b) $\frac{10+0.1n}{n}\to0.10$: the average cost per text approaches \$0.10.
 \end{solution}
 \end{exo}
+
+%%DOC SC1.1-1.3 | Quiz \textbullet\ Topics 1.1 to 1.3: Rates of Change in Functions
+%%PRE \let\apolddirections\directions\let\endapolddirections\enddirections
+%%PRE \RenewEnviron{directions}{\begin{apolddirections}Answer every question. Multiple-choice questions have one best answer. On free-response questions, show your work and justify your answers. \textbf{Graphing calculators are not allowed.} A simple (non-graphing) calculator may be used if necessary. For questions with a graph, read the values you need from the graph.\end{apolddirections}}
+%%PRE \newcommand{\pts}[1]{{\sffamily\small\bfseries\color{apnavy}#1 pts}}
+%%PRE \let\apoldband\titleband
+%%PRE \renewcommand{\titleband}[2]{{\centering\sffamily\bfseries\Large\color{apnavy}The Senegalese American Bilingual School\par}\vspace{6pt}\apoldband{#1}{#2\ifkey\else\quad Score: \rule{1.4cm}{0.4pt}\,/\,100\fi\par\vspace{2pt}{\small Duration: 120 minutes \textbullet\ Simple calculator only, no graphing calculator \textbullet\ 100 points}}}
+%%PRE \geometry{a4paper,margin=1.5cm,top=1.6cm,bottom=1.6cm,headheight=14pt}
+%%PRE \setlength{\columnsep}{0.8cm}\setlength{\columnseprule}{0.3pt}
+\renewcommand{\nocalc}{}
+\renewenvironment{exo}[2][]{\refstepcounter{exo}\par\Needspace{5\baselineskip}\vspace{3pt}\noindent{\sffamily\bfseries\color{apnavy}Question \theexo}\hfill\ifx&#2&\else#2\fi\par\nopagebreak}{\par}
+\renewcommand{\choices}[4]{\par\vspace{1pt}\begin{tabular}{@{}l@{\hspace{4pt}}p{0.89\linewidth}@{}}(A)&#1\\(B)&#2\\(C)&#3\\(D)&#4\end{tabular}\par}
+\renewcommand{\gr}[2]{\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,#1]#2\end{axis}\end{tikzpicture}\end{center}\vspace{-6pt}}
+\newcommand{\side}[2]{\par\noindent\begin{minipage}[c]{0.47\linewidth}#1\end{minipage}\hfill\begin{minipage}[c]{0.5\linewidth}#2\end{minipage}\par\medskip}
+\providecommand{\sk}[2]{\begin{center}\begin{tikzpicture}\begin{axis}[axis lines=middle,xtick=\empty,ytick=\empty,xlabel={$x$},ylabel={$y$},width=5.4cm,height=4.4cm,enlargelimits=false,clip=false,#1]#2\end{axis}\end{tikzpicture}\end{center}}
+\providecommand{\lab}[4]{\node[circle,fill=black,inner sep=1.4pt] at (axis cs:#1,#2){};\node[font=\small\bfseries,anchor=#4,inner sep=2.5pt] at (axis cs:#1,#2){#3};}
+\begin{center}\textsf{\bfseries\color{apnavy}Part A \textbullet\ Free response \textbullet\ No graphing calculator \textbullet\ 52 points}\end{center}
+
+\Needspace{10\baselineskip}
+\side{\gr{xmin=-6.5,xmax=6.5,ymin=-4,ymax=4,width=7.4cm,height=4.3cm}{\addplot[apblue,very thick,domain=-6:6,samples=150]{3*cos(deg(pi*x/4))};\pt{-6,0}\pt{6,0}\node[font=\small,apblue,fill=white,inner sep=1pt] at (axis cs:5,3.3){$y=f(x)$};}}{\begin{exo}[Free response]{\pts{8}}
+The graph of a function $f$ is shown for $-6\le x\le6$.
+\begin{enumerate}[label=(\alph*)]
+\item On what open intervals is $f$ increasing?
+\item On what open intervals is $f$ decreasing?
+\item On what open intervals is $f$ positive?
+\item On what open intervals is $f$ negative?
+\end{enumerate}
+\ifkey\else\vspace{1.2cm}\fi
+\begin{solution}
+\textit{Scoring: 2 points per part.}\\
+(a) $(-4,0)$ and $(4,6)$. \quad (b) $(-6,-4)$ and $(0,4)$. \quad (c) $(-2,2)$. \quad (d) $(-6,-2)$ and $(2,6)$.
+\end{solution}
+\end{exo}}
+
+\Needspace{10\baselineskip}
+\side{\gr{xmin=-0.5,xmax=8.5,ymin=-0.5,ymax=7,width=7.2cm,height=4.3cm}{\addplot[apblue,very thick] coordinates {(0,2) (2,6) (4,6)};\addplot[apblue,very thick,domain=4:7,samples=60]{6-(5/9)*(x-4)^2};\addplot[apblue,very thick] coordinates {(7,1) (8,3)};\pt{0,2}\pt{8,3}\node[font=\small,apblue,fill=white,inner sep=1pt] at (axis cs:6.8,5.5){$y=g(x)$};}}{\begin{exo}[Free response]{\pts{6}}
+The graph of a function $g$ is shown for $0\le x\le8$. It is made of line segments and a parabola.
+\begin{enumerate}[label=(\alph*)]
+\item On what open intervals is $g$ increasing?
+\item On what open intervals is $g$ decreasing?
+\item What is the rate of change of $g$ on the interval $(2,4)$? Explain.
+\end{enumerate}
+\ifkey\else\vspace{1cm}\fi
+\begin{solution}
+\textit{Scoring: 2 points per part.}\\
+(a) $(0,2)$ and $(7,8)$. \quad (b) $(4,7)$. \quad (c) $0$: $g$ is constant on $(2,4)$, so it is neither increasing nor decreasing there.
+\end{solution}
+\end{exo}}
+
+\Needspace{10\baselineskip}
+\side{\gr{xmin=-6.5,xmax=6.5,ymin=-4,ymax=4,width=7.4cm,height=4.3cm}{\addplot[apblue,very thick,domain=-6:6,samples=150]{3*sin(deg(pi*x/4))};\node[font=\small,apblue,fill=white,inner sep=1pt] at (axis cs:-4.8,3.3){$y=h(x)$};}}{\begin{exo}[Free response]{\pts{4}}
+The graph of a function $h$ is shown for $-6\le x\le6$.
+\begin{enumerate}[label=(\alph*)]
+\item On what open intervals is the graph of $h$ concave up?
+\item On what open intervals is the graph of $h$ concave down?
+\end{enumerate}
+\ifkey\else\vspace{1cm}\fi
+\begin{solution}
+\textit{Scoring: 2 points per part.}\\
+(a) $(-4,0)$ and $(4,6)$. \quad (b) $(-6,-4)$ and $(0,4)$. The concavity changes at $x=-4$, $0$ and $4$.
+\end{solution}
+\end{exo}}
+
+\Needspace{14\baselineskip}
+
+
+\Needspace{12\baselineskip}
+\begin{exo}[Free response]{\pts{8}}
+For each situation, decide whether the second quantity has a \textbf{positive} or a \textbf{negative} rate of change with respect to the first.
+\begin{enumerate}[label=(\alph*),itemsep=2pt]
+\item The number of minutes a phone has been charging, and its battery percentage. \ifkey\else\hfill\rule{2.2cm}{0.4pt}\fi
+\item The distance driven since the tank was filled, and the fuel left in the tank. \ifkey\else\hfill\rule{2.2cm}{0.4pt}\fi
+\item The number of hours a candle has burned, and the height of the candle. \ifkey\else\hfill\rule{2.2cm}{0.4pt}\fi
+\item The number of workers building a wall, and the time needed to finish it. \ifkey\else\hfill\rule{2.2cm}{0.4pt}\fi
+\item The number of concert tickets sold, and the money collected. \ifkey\else\hfill\rule{2.2cm}{0.4pt}\fi
+\item The altitude of a climber on a mountain, and the air temperature. \ifkey\else\hfill\rule{2.2cm}{0.4pt}\fi
+\item The amount of rain that falls in a month, and the water level of a reservoir. \ifkey\else\hfill\rule{2.2cm}{0.4pt}\fi
+\item The price of one mango, and the number of mangoes you can buy with 1000 FCFA. \ifkey\else\hfill\rule{2.2cm}{0.4pt}\fi
+\end{enumerate}
+\begin{solution}
+\textit{Scoring: 1 point per situation.}\\
+(a) positive \quad (b) negative \quad (c) negative \quad (d) negative \quad (e) positive \quad (f) negative \quad (g) positive \quad (h) negative.
+\end{solution}
+\end{exo}
+
+\Needspace{16\baselineskip}
+\begin{center}\textsf{\small\bfseries\color{apnavy}Questions 5 to 8: find the average rate of change of each function over the interval $[-2,\,2]$.}\end{center}
+\begin{multicols}{2}\raggedcolumns
+\noindent\begin{minipage}{\linewidth}
+\begin{exo}[Free response]{\pts{4}}
+$f(x)=x^3+x$
+\ifkey\else\vspace{1.6cm}\fi
+\begin{solution}
+\textit{Scoring: 4 points: 1 for each function value, 2 for the average rate of change.}\\
+$f(2)=10$, $f(-2)=-10$: $\dfrac{10-(-10)}{2-(-2)}=\dfrac{20}{4}=5$.
+\end{solution}
+\end{exo}
+\end{minipage}\par\vspace{8pt}
+\noindent\begin{minipage}{\linewidth}
+\begin{exo}[Free response]{\pts{4}}
+$g(x)=\dfrac{x+4}{x-3}$
+\ifkey\else\vspace{1.6cm}\fi
+\begin{solution}
+\textit{Scoring: 4 points: 1 for each function value, 2 for the average rate of change.}\\
+$g(2)=\frac{6}{-1}=-6$, $g(-2)=\frac{2}{-5}=-0.4$: $\dfrac{-6-(-0.4)}{4}=-1.4=-\dfrac75$.
+\end{solution}
+\end{exo}
+\end{minipage}\par\vspace{8pt}
+\noindent\begin{minipage}{\linewidth}
+\begin{exo}[Free response]{\pts{4}}
+\begin{center}\begin{tabular}{|c|c|}\hline$x$&$k(x)$\\\hline$-4$&$1$\\\hline$-2$&$-3$\\\hline$0$&$6$\\\hline$2$&$-3$\\\hline$4$&$2$\\\hline\end{tabular}\end{center}
+\ifkey\else\vspace{0.6cm}\fi
+\begin{solution}
+\textit{Scoring: 4 points: 1 for each function value, 2 for the average rate of change.}\\
+$\dfrac{-3-(-3)}{4}=0$, even though $k$ is not constant on the interval.
+\end{solution}
+\end{exo}
+\end{minipage}\par\vspace{8pt}
+\noindent\begin{minipage}{\linewidth}
+\begin{exo}[Free response]{\pts{4}}
+The graph of $q$:
+\gr{xmin=-4.5,xmax=4.5,ymin=-3,ymax=4,width=6.2cm,height=4.6cm}{\addplot[apblue,very thick] coordinates {(-4,-2) (0,2) (2,2)};\addplot[apblue,very thick] coordinates {(2,3) (4,1)};\pt{-4,-2}\pt{4,1}\op{2,2}\op{2,3}\pt{2,-1}}
+\ifkey\else\vspace{0.8cm}\fi
+\begin{solution}
+\textit{Scoring: 4 points: 1 for each function value, 2 for the average rate of change.}\\
+$q(-2)=0$ and $q(2)=-1$ (the filled point): $\dfrac{-1-0}{4}=-\dfrac14$.
+\end{solution}
+\end{exo}
+\end{minipage}\par\vspace{8pt}
+\noindent\begin{minipage}{\linewidth}
+\begin{center}\textsf{\small\bfseries\color{apnavy}Questions 9 and 10: find the constant from the given average rate of change.}\end{center}
+\begin{exo}[Free response]{\pts{5}}
+The function $f$ is defined by $f(x)=kx^2+x$, where $k$ is a constant. The average rate of change of $f$ over $[1,3]$ is $13$. Find $k$.
+\ifkey\else\vspace{1.6cm}\fi
+\begin{solution}
+\textit{Scoring: 5 points: 2 for the function values, 2 for the equation, 1 for the value of $k$.}\\
+$f(3)=9k+3$, $f(1)=k+1$: $\dfrac{8k+2}{2}=4k+1=13$, so $k=3$.
+\end{solution}
+\end{exo}
+\end{minipage}\par\vspace{8pt}
+\noindent\begin{minipage}{\linewidth}
+\begin{exo}[Free response]{\pts{5}}
+\begin{center}\begin{tabular}{|c|c|}\hline$x$&$w(x)$\\\hline$0$&$m$\\\hline$4$&$10$\\\hline$6$&$7$\\\hline\end{tabular}\end{center}
+The average rate of change of $w$ over $[0,4]$ is $-2$. Find the constant $m$.
+\ifkey\else\vspace{1.4cm}\fi
+\begin{solution}
+\textit{Scoring: 5 points: 3 for the equation, 2 for the value of $m$.}\\
+$\dfrac{10-m}{4-0}=-2$, so $10-m=-8$ and $m=18$.
+\end{solution}
+\end{exo}
+\end{minipage}\par\vspace{8pt}
+
+\end{multicols}
+
+\Needspace{16\baselineskip}
+\begin{center}\textsf{\bfseries\color{apnavy}Part B \textbullet\ Multiple choice \textbullet\ No graphing calculator \textbullet\ 16 questions, 3 points each (48 points)}\end{center}
+\begin{multicols}{2}\raggedcolumns
+\noindent\begin{minipage}{\linewidth}
+\gr{xmin=-6.5,xmax=6.5,ymin=-4,ymax=4,width=7.6cm,height=5cm}{\addplot[apblue,very thick,domain=-6:6,samples=150]{3*sin(deg(pi*x/6))};\node[font=\small,apblue,fill=white,inner sep=1pt] at (axis cs:-4.5,3.3){$y=g(x)$};}
+\begin{center}\textsf{\small\bfseries\color{apnavy}Question 11 refers to the graph of $g$ on $-6\le x\le6$.}\end{center}
+\begin{exo}{\pts{3}}
+On which interval is $g$ decreasing while its rate of change is increasing?
+\choices{$(-6,-3)$}{$(-3,3)$}{$(0,3)$}{$(3,6)$}
+\answer{A}{On $(-6,-3)$ the graph falls and is concave up, so the (negative) rate of change increases.}
+\end{exo}
+\end{minipage}\par\vspace{8pt}
+\noindent\begin{minipage}{\linewidth}
+\begin{exo}{\pts{3}}
+\par\noindent\begin{minipage}[t]{0.27\linewidth}\vspace{0pt}\centering\small\begin{tabular}{|c|c|}\hline$x$&$f(x)$\\\hline$0$&$1$\\\hline$1$&$3$\\\hline$3$&$7$\\\hline$6$&$13$\\\hline$10$&$21$\\\hline\end{tabular}\end{minipage}\hfill\begin{minipage}[t]{0.7\linewidth}\vspace{0pt}The table gives values of $f$. Which claim and explanation best fit these data?\end{minipage}\par
+\choices{$f$ is best modeled by a quadratic function because the average rate of change over each interval is constant.}{$f$ is best modeled by a linear function because the average rate of change over each interval changes linearly.}{$f$ is best modeled by a linear function because the average rate of change over each interval is constant.}{$f$ is best modeled by a quadratic function because the average rate of change over each interval changes linearly.}
+\answer{C}{The intervals have different lengths, but each average rate of change is $2$: $\frac21,\frac42,\frac63,\frac84$. A constant rate of change means linear.}
+\end{exo}
+\end{minipage}\par\vspace{8pt}
+\noindent\begin{minipage}{\linewidth}
+\begin{exo}{\pts{3}}
+\par\noindent\begin{minipage}[t]{0.27\linewidth}\vspace{0pt}\centering\small\begin{tabular}{|c|c|}\hline$x$&$k(x)$\\\hline$0$&$-2$\\\hline$3$&$-1$\\\hline$6$&$2$\\\hline$9$&$7$\\\hline$12$&$14$\\\hline\end{tabular}\end{minipage}\hfill\begin{minipage}[t]{0.7\linewidth}\vspace{0pt}The table gives values of $k$. Which claim and explanation best fit these data?\end{minipage}\par
+\choices{$k$ is best modeled by a linear function because the rates of change over consecutive equal-length intervals are constant.}{$k$ is best modeled by a quadratic function because the rates of change over consecutive equal-length intervals are constant.}{$k$ is best modeled by a linear function because the rates of change over consecutive equal-length intervals change by a constant amount.}{$k$ is best modeled by a quadratic function because the rates of change over consecutive equal-length intervals change by a constant amount.}
+\answer{D}{The rates over the intervals of length 3 are $\frac13,1,\frac53,\frac73$: they increase by $\frac23$ each time, which is the pattern of a quadratic function.}
+\end{exo}
+\end{minipage}\par\vspace{8pt}
+\noindent\begin{minipage}{\linewidth}
+\begin{exo}{\pts{3}}
+\par\noindent\begin{minipage}[t]{0.27\linewidth}\vspace{0pt}\centering\small\begin{tabular}{|c|c|}\hline$x$&$m(x)$\\\hline$1$&$2$\\\hline$2$&$3$\\\hline$3$&$5$\\\hline$4$&$9$\\\hline$5$&$17$\\\hline\end{tabular}\end{minipage}\hfill\begin{minipage}[t]{0.7\linewidth}\vspace{0pt}The table gives values of $m$. Which claim and explanation best fit these data?\end{minipage}\par
+\choices{The graph of $m$ could be concave up because the rates of change over consecutive equal-length intervals are positive.}{The graph of $m$ could be concave up because the rates of change over consecutive equal-length intervals are increasing.}{The graph of $m$ could be concave down because the rates of change over consecutive equal-length intervals are positive.}{The graph of $m$ could be concave down because the rates of change over consecutive equal-length intervals are decreasing.}
+\answer{B}{The rates are $1,2,4,8$: increasing, so concave up. Being positive tells us $m$ increases, not its concavity.}
+\end{exo}
+\end{minipage}\par\vspace{8pt}
+\noindent\begin{minipage}{\linewidth}
+\begin{exo}{\pts{3}}
+\par\noindent\begin{minipage}[t]{0.27\linewidth}\vspace{0pt}\centering\small\begin{tabular}{|c|c|}\hline$x$&$n(x)$\\\hline$0$&$20$\\\hline$3$&$18$\\\hline$6$&$14$\\\hline$9$&$6$\\\hline$12$&$-10$\\\hline\end{tabular}\end{minipage}\hfill\begin{minipage}[t]{0.7\linewidth}\vspace{0pt}The table gives values of $n$. Which claim and explanation best fit these data?\end{minipage}\par
+\choices{The graph of $n$ could be concave up because the rates of change over consecutive equal-length intervals are negative.}{The graph of $n$ could be concave up because the rates of change over consecutive equal-length intervals are increasing.}{The graph of $n$ could be concave down because the rates of change over consecutive equal-length intervals are negative.}{The graph of $n$ could be concave down because the rates of change over consecutive equal-length intervals are decreasing.}
+\answer{D}{The rates are $-\frac23,-\frac43,-\frac83,-\frac{16}3$: decreasing, so concave down. Negative rates only show that $n$ decreases.}
+\end{exo}
+\end{minipage}\par\vspace{8pt}
+\noindent\begin{minipage}{\linewidth}
+\begin{exo}{\pts{3}}
+The figure below shows the graph of a function $f$. Which statement best describes $f$?
+\sk{width=4.6cm,height=3.5cm,xmin=-0.3,xmax=5,ymin=-0.3,ymax=4.2}{\addplot[black,very thick,domain=0.25:4.6,samples=100]{1.2+0.9*ln(x/0.25)};}
+\choices{The rate of change of $f$ is positive and increasing.}{The rate of change of $f$ is positive and decreasing.}{The rate of change of $f$ is negative and increasing.}{The rate of change of $f$ is negative and decreasing.}
+\answer{B}{The graph rises (positive rate) and is concave down (decreasing rate).}
+\end{exo}
+\end{minipage}\par\vspace{8pt}
+\noindent\begin{minipage}{\linewidth}
+\begin{exo}{\pts{3}}
+The figure below shows the graph of a function $h$. Which statement about $h$ is correct?
+\sk{width=4.6cm,height=3.5cm,xmin=-0.3,xmax=4.4,ymin=-0.3,ymax=6}{\addplot[black,very thick,domain=0.2:4,samples=100]{0.4*exp(0.65*x)};}
+\choices{$h$ is increasing, and its rate of change is increasing.}{$h$ is increasing, and its rate of change is decreasing.}{$h$ is decreasing, and its rate of change is increasing.}{$h$ is decreasing, and its rate of change is decreasing.}
+\answer{A}{Rising and concave up.}
+\end{exo}
+\end{minipage}\par\vspace{8pt}
+\noindent\begin{minipage}{\linewidth}
+\begin{exo}{\pts{3}}
+The figure below shows the graph of a function $k$. Which statement about $k$ is correct?
+\sk{width=4.6cm,height=3.5cm,xmin=-0.3,xmax=3,ymin=-0.3,ymax=4.4}{\addplot[black,very thick,domain=0.2:2.6,samples=100]{4.2-exp(0.6*x)};}
+\choices{$k$ is increasing and the graph of $k$ is concave up.}{$k$ is increasing and the graph of $k$ is concave down.}{$k$ is decreasing and the graph of $k$ is concave up.}{$k$ is decreasing and the graph of $k$ is concave down.}
+\answer{D}{The graph falls more and more steeply: decreasing and concave down.}
+\end{exo}
+\end{minipage}\par\vspace{8pt}
+\noindent\begin{minipage}{\linewidth}
+\begin{exo}{\pts{3}}
+The figure below shows the graph of a function $g$. Which statement is correct?
+\sk{width=4.6cm,height=3.5cm,xmin=-0.3,xmax=4.6,ymin=-3.4,ymax=0.6}{\addplot[black,very thick,domain=0.15:4.3,samples=100]{-3+3*exp(-0.8*x)};}
+\choices{The rate of change of $g$ is positive and decreasing.}{The rate of change of $g$ is positive and increasing.}{The rate of change of $g$ is negative and increasing.}{The rate of change of $g$ is negative and decreasing.}
+\answer{C}{The graph falls (negative rate) and flattens out, concave up (the rate increases toward $0$).}
+\end{exo}
+\end{minipage}\par\vspace{8pt}
+\noindent\begin{minipage}{\linewidth}
+\begin{center}\textsf{\small\bfseries\color{apnavy}Questions 20 to 23 refer to the graph of $g$. A and E are endpoints, B and D are relative extrema and C is the point of inflection; the letters stand for $x$-coordinates.}\end{center}
+\sk{width=4.6cm,height=3.5cm,xmin=-0.3,xmax=6.6,ymin=0,ymax=16,width=6.6cm,height=4.4cm}{\addplot[black,very thick,domain=0:6,samples=100]{-x^3/3+3*x^2-5*x+6};\lab{0}{6}{A}{east}\lab{1}{3.667}{B}{north}\lab{3}{9}{C}{south east}\lab{5}{14.333}{D}{south}\lab{6}{12}{E}{west}}
+\begin{exo}{\pts{3}}
+On which interval is $g$ decreasing and the graph of $g$ concave up?
+\choices{From A to B}{From B to C}{From C to D}{From D to E}
+\answer{A}{From A to B the graph falls and bends upward.}
+\end{exo}
+\end{minipage}\par\vspace{8pt}
+\noindent\begin{minipage}{\linewidth}
+\begin{exo}{\pts{3}}
+On which interval is the rate of change of $g$ positive and decreasing?
+\choices{From A to B}{From B to C}{From C to D}{From D to E}
+\answer{C}{From C to D, $g$ increases and is concave down.}
+\end{exo}
+\end{minipage}\par\vspace{8pt}
+\noindent\begin{minipage}{\linewidth}
+\begin{exo}{\pts{3}}
+On which interval is $g$ increasing and the graph of $g$ concave up?
+\choices{From A to B}{From B to C}{From C to D}{From D to E}
+\answer{B}{From the minimum B to the inflection point C.}
+\end{exo}
+\end{minipage}\par\vspace{8pt}
+\noindent\begin{minipage}{\linewidth}
+\begin{exo}{\pts{3}}
+On which interval is the rate of change of $g$ negative and decreasing?
+\choices{From A to B}{From B to C}{From C to D}{From D to E}
+\answer{D}{After the maximum D, $g$ decreases and is concave down.}
+\end{exo}
+\end{minipage}\par\vspace{8pt}
+\noindent\begin{minipage}{\linewidth}
+\begin{center}\textsf{\small\bfseries\color{apnavy}Questions 24 to 26 refer to the graph of $k$. A and E are endpoints, B and D are relative extrema and C is the point of inflection.}\end{center}
+\gr{xmin=-5.8,xmax=5.8,ymin=-7,ymax=7,width=7.6cm,height=6.2cm}{\addplot[apblue,very thick,domain=-5:5,samples=150]{(27*x-x^3)/9};\pt{-5,-1.111}\pt{-3,-6}\pt{0,0}\pt{3,6}\pt{5,1.111}\node[font=\small\bfseries,anchor=south east,fill=white,inner sep=1pt] at (axis cs:-5,-1.111){A};\node[font=\small\bfseries,anchor=north,fill=white,inner sep=1pt] at (axis cs:-3,-6.2){B};\node[font=\small\bfseries,anchor=north west,fill=white,inner sep=1pt] at (axis cs:0.2,-0.2){C};\node[font=\small\bfseries,anchor=south,fill=white,inner sep=1pt] at (axis cs:3,6.2){D};\node[font=\small\bfseries,anchor=south west,fill=white,inner sep=1pt] at (axis cs:5,1.111){E};}
+\begin{exo}{\pts{3}}
+Which claim and explanation is correct?
+\choices{On the interval from B to C, $k$ is increasing because the graph of $k$ is concave up.}{On the interval from B to C, $k$ is increasing because the rate of change of $k$ is increasing.}{On the interval from B to C, $k$ is increasing because the graph of $k$ is negative.}{On the interval from B to C, $k$ is increasing because the rate of change of $k$ is positive.}
+\answer{D}{A function increases where its rate of change is positive. Concavity describes how the rate changes, not its sign.}
+\end{exo}
+\end{minipage}\par\vspace{8pt}
+\noindent\begin{minipage}{\linewidth}
+\begin{exo}{\pts{3}}
+Which claim and explanation is correct?
+\choices{On the interval from D to E, the graph of $k$ is concave down because the rate of change of $k$ is negative.}{On the interval from D to E, the graph of $k$ is concave down because the rate of change of $k$ is decreasing.}{On the interval from D to E, the graph of $k$ is concave up because the rate of change of $k$ is decreasing.}{On the interval from D to E, the graph of $k$ is concave up because the rate of change of $k$ is negative.}
+\answer{B}{Concave down means the rate of change is decreasing.}
+\end{exo}
+\end{minipage}\par\vspace{8pt}
+\noindent\begin{minipage}{\linewidth}
+\begin{exo}{\pts{3}}
+Which claim and explanation is correct?
+\choices{On the interval from C to D, the rate of change of $k$ is decreasing because the graph of $k$ is concave down.}{On the interval from C to D, the rate of change of $k$ is decreasing because $k$ is positive.}{On the interval from C to D, the rate of change of $k$ is negative because the graph of $k$ is concave down.}{On the interval from C to D, the rate of change of $k$ is increasing because $k$ is increasing.}
+\answer{A}{Between the inflection point C and the maximum D, the graph is concave down: the (positive) rate of change decreases.}
+\end{exo}
+\end{minipage}\par\vspace{8pt}
+
+\end{multicols}

@@ -5,7 +5,7 @@
               the student pays, enters the transaction reference, and you set Status to Active
               in the Students sheet. Leave a price at 0 to hide that course from the form. */
 window.QUIZ_CONFIG = {
-  endpoint: "",
+  endpoint: "https://script.google.com/macros/s/AKfycby2DieLxw0wmPLSiD0NsTArhQlao-3Zh09WfhBI7ziA1Yk9mA-uhqJUK7wIYUt1WjJG8g/exec",
   className: "AP Math",
   payment: {
     currency: "FCFA",

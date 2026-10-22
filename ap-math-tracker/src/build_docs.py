@@ -41,7 +41,7 @@ for i, title, body in bl:
         if only and i not in only: continue
         for key in (False, True):
             name = f"{base}-{i}" + ("-key" if key else "")
-            doc = HEAD + ("\\keytrue\n" if key else "\\keyfalse\n") + f"\\setdoc{{{course}}}{{{unit}}}{{{title.split(' |')[0]}" + (" \\textbullet\\ Answer key" if key else "") + "}\n" + pre
+            doc = HEAD + ("\\keytrue\n" if key else "\\keyfalse\n") + f"\\setdoc{{{course}}}{{{unit}}}{{{title.split(' |')[0]}" + (" \\textbullet\\ Answer key" if key else "") + "}\n" + pre + "\n" + "\n".join(l[6:] for l in body.splitlines() if l.startswith("%%PRE ")) + "\n"
             doc += "\n\\begin{document}\n" + f"\\titleband{{{title}}}{{" + ("Answer key with worked solutions" if key else "Name: \\rule{5cm}{0.4pt} \\quad Date: \\rule{2.5cm}{0.4pt}") + "}\n" + (SATDIR if base.startswith("sat") else WSDIR) + body + "\n\\end{document}\n"
             jobs.append((name, doc))
         continue
