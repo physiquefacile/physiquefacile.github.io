@@ -6,262 +6,169 @@
 \newcommand{\ha}[1]{\draw[apgold!80!black,dashed,thick](axis cs:-100,#1)--(axis cs:100,#1);}
 \newcommand{\fgraph}{\gr{xmin=-3.5,xmax=4.5,ymin=-0.5,ymax=4.5,width=7.5cm,height=5cm}{\addplot[apblue,very thick,domain=-3:-1]{x+4};\addplot[apblue,very thick,domain=-1:2]{x^2};\addplot[apblue,very thick,domain=2:4]{8-2*x};\op{-1,3}\pt{-1,1}\op{2,4}\pt{2,1}\pt{-3,1}\pt{4,0}\node[font=\small,apblue] at (axis cs:3.6,3.4){$y=f(x)$};}}
 
+\NewEnviron{nrow}[1]{\begin{tcolorbox}[enhanced,sidebyside,sidebyside align=top seam,lefthand width=2.7cm,sidebyside gap=12pt,colback=white,colframe=apnavy!55,boxrule=0.5pt,arc=0pt,left=5pt,right=6pt,top=5pt,bottom=5pt,before skip=0pt,after skip=-0.5pt,segmentation style={solid,apnavy!35,line width=0.5pt},fontupper=\sffamily\bfseries\color{apnavy}\raggedright]#1\tcblower\BODY\end{tcolorbox}}
+\newcommand{\sg}[2]{\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,#1]#2\end{axis}\end{tikzpicture}\end{center}}
+\newcommand{\tinyg}[2]{\begin{tikzpicture}\begin{axis}[gridaxis,width=4.6cm,height=4cm,xticklabels={},yticklabels={},#1]#2\end{axis}\end{tikzpicture}}
+
 %%DOC 1-1 | Limits to a Point on a Graph
-\goals{\item Read and write limit notation, including one-sided limits.
-\item Find limits from a graph and decide whether a limit exists.
-\item Distinguish the limit of $f$ at $c$ from the value $f(c)$.}
-\vocab{limit, left-hand limit, right-hand limit, open circle, closed (filled) dot, does not exist (DNE), unbounded, oscillating.}
-
-\subsection*{1. What a limit means}
-\begin{keyidea}
-$\displaystyle\lim_{x\to c}f(x)=L$ means: as $x$ gets closer and closer to \fillin{$c$} (from both sides, with $x\neq c$), the values $f(x)$ get closer and closer to \fillin{$L$}.
-The value of $f$ \emph{at} $c$ \fillin{does not affect} the limit; $f(c)$ may even be undefined.
-\end{keyidea}
-
-\subsection*{2. One-sided limits}
-$\displaystyle\lim_{x\to c^-}f(x)$ is the \fillin{left-hand} limit (uses $x<c$); $\displaystyle\lim_{x\to c^+}f(x)$ is the \fillin{right-hand} limit (uses $x>c$).
-\begin{keyidea}[When does a limit exist?]
-$\displaystyle\lim_{x\to c}f(x)=L$ exists if and only if $\displaystyle\lim_{x\to c^-}f(x)$ and $\displaystyle\lim_{x\to c^+}f(x)$ both exist and are \fillin{equal to $L$}.
-\end{keyidea}
-
-\fgraph
-\ex{Example 1 \textbullet\ Reading the graph of $f$}
-Complete the table.
-\begin{center}\renewcommand{\arraystretch}{1.5}
-\begin{tabular}{c|c|c|c|c}
-$c$ & $\lim_{x\to c^-}f(x)$ & $\lim_{x\to c^+}f(x)$ & $\lim_{x\to c}f(x)$ & $f(c)$\\\hline
-$-1$ & \fillin{$3$} & \fillin{$1$} & \fillin{DNE} & \fillin{$1$}\\
-$0$ & \fillin{$0$} & \fillin{$0$} & \fillin{$0$} & \fillin{$0$}\\
-$2$ & \fillin{$4$} & \fillin{$4$} & \fillin{$4$} & \fillin{$1$}\\
-$3$ & \fillin{$2$} & \fillin{$2$} & \fillin{$2$} & \fillin{$2$}\\
-$-3$ & \fillin{none} & \fillin{$1$} & \fillin{one-sided only} & \fillin{$1$}
+\begin{center}\textsf{\small\color{apgrey}Objective: find left-hand, right-hand and two-sided limits from a graph.}\end{center}
+\begin{nrow}{Limit notation}
+\begin{tabular}{@{}p{0.31\linewidth}p{0.31\linewidth}p{0.3\linewidth}@{}}
+\textbf{From the left} & \textbf{From the right} & \textbf{From both sides}\\[2pt]
+\fillin{$\displaystyle\lim_{x\to c^-}f(x)$} & \fillin{$\displaystyle\lim_{x\to c^+}f(x)$} & \fillin{$\displaystyle\lim_{x\to c}f(x)$}\\[4pt]
+\footnotesize $x$ approaches $c$ with values \fillin{less} than $c$ & \footnotesize $x$ approaches $c$ with values \fillin{greater} than $c$ & \footnotesize both one-sided limits are \fillin{equal}
 \end{tabular}
-\end{center}
-
-\subsection*{3. Three ways a limit fails to exist}
-\begin{keyidea}
-\begin{itemize}
-\item \textbf{Jump}: the one-sided limits are \fillin{different}.
-\item \textbf{Unbounded behavior}: $f(x)$ \fillin{increases or decreases without bound} (vertical asymptote).
-\item \textbf{Oscillation}: $f(x)$ keeps \fillin{oscillating} between values, like $\sin\frac1x$ near $0$.
-\end{itemize}
-\end{keyidea}
-
-\ex{Example 2 \textbullet\ A graph with an asymptote}
-\gr{xmin=-4.5,xmax=5.5,ymin=-4.5,ymax=6.5,width=8cm,height=6.5cm}{\addplot[apblue,very thick,domain=-4:-1]{2};\addplot[apblue,very thick,domain=-1:1]{x+1};\addplot[apblue,very thick,domain=1:2.33,samples=120]{4/(3-x)};\addplot[apblue,very thick,domain=3.34:5,samples=120]{2-2/(x-3)};\va{3}\op{-1,2}\op{-1,0}\pt{-1,3}\op{1,2}\pt{1,4}\node[font=\small,apblue,fill=white,inner sep=1pt] at (axis cs:-2.6,3.4){$y=g(x)$};}
-Find $\lim_{x\to-1}g(x)$, $\lim_{x\to1}g(x)$, $\lim_{x\to3^-}g(x)$, $\lim_{x\to3^+}g(x)$, and $\lim_{x\to0}g\big(g(x)\big)$.
-\begin{workspace}[3.6cm]
-At $-1$: left $2$, right $0$: DNE. At $1$: both sides approach $2$: the limit is $2$ (although $g(1)=4$).\\
-$\lim_{x\to3^-}g(x)=+\infty$, $\lim_{x\to3^+}g(x)=-\infty$.\\
-As $x\to0$, $g(x)=x+1\to1$ (never equal to $1$), so $g(g(x))\to\lim_{u\to1}g(u)=2$.
-\end{workspace}
-
-\begin{mistakes}
-\begin{itemize}
-\item Reading the filled dot as the limit.
-\item Writing ``$\lim f(x)=$ DNE''. Write ``the limit does not exist'' and give the reason.
-\end{itemize}
-\end{mistakes}
-
-\begin{quickcheck}
-1. If $\lim_{x\to4^-}h=5$, $\lim_{x\to4^+}h=5$ and $h(4)=0$, then $\lim_{x\to4}h(x)=$ \fillin{$5$}.\\
-2. If $\lim_{x\to1^-}k=2$ and $\lim_{x\to1^+}k=-2$, then $\lim_{x\to1}k(x)$ \fillin{does not exist}.
-\end{quickcheck}
+\end{nrow}
+\begin{nrow}{My first limits}
+\sg{xmin=-1.5,xmax=6.5,ymin=-0.5,ymax=6.5,width=8.5cm,height=5.6cm,xtick={-1,0,1,2,3,5,6},extra x ticks={4},extra x tick labels={$c$}}{\addplot[apblue,very thick,domain=-1:6,samples=80]{0.25*(x-2)^2+2};\draw[apred,dashed](axis cs:4,0)--(axis cs:4,3)--(axis cs:0,3);\pt{4,3}\node[apblue,font=\small] at (axis cs:5.6,4.8){$f(x)$};}
+Use the graph, with $c=4$.\par
+1) $\displaystyle\lim_{x\to4^-}f(x)=$ \fillin{$3$} \quad 2) $\displaystyle\lim_{x\to4^+}f(x)=$ \fillin{$3$} \quad 3) $\displaystyle\lim_{x\to4}f(x)=$ \fillin{$3$}\par
+\smallskip A limit is a \fillin{$y$-value} (a height): the height the graph \fillin{approaches} as $x$ gets close to $c$.
+\end{nrow}
+\begin{nrow}{Challenge}
+Draw the graph of a function whose left-hand and right-hand limits at $x=1$ are \textbf{not} the same.
+\sg{xmin=-4.5,xmax=4.5,ymin=-3.5,ymax=4.5,width=7cm,height=5.2cm}{\ifkey\addplot[apblue,very thick,domain=-4:1]{x+2};\addplot[apblue,very thick,domain=1:4]{-x+1};\pt{1,3}\op{1,0}\fi}
+\ifkey{\color{apnavy}\small Example: the left piece arrives at height $3$, the right piece starts at height $0$, so $\lim_{x\to1}f(x)$ does not exist.}\fi
+\end{nrow}
+\begin{nrow}{Example:\\ one-sided limits are not the same}
+\sg{xmin=-3.5,xmax=5,ymin=-0.5,ymax=4.2,width=8.5cm,height=5.4cm}{\addplot[apblue,very thick,domain=-3:2]{0.5*x+2};\addplot[apblue,very thick,domain=2:4.5,samples=60]{(x-3)^2};\pt{2,3}\op{2,1}\draw[apgrey,dashed](axis cs:2,0)--(axis cs:2,4);\node[apblue,font=\small] at (axis cs:4.3,3.4){$g(x)$};}
+1) $\displaystyle\lim_{x\to2^-}g(x)=$ \fillin{$3$} \qquad 2) $\displaystyle\lim_{x\to2^+}g(x)=$ \fillin{$1$}\par
+3) $\displaystyle\lim_{x\to2}g(x)=$ \fillin{DNE} \qquad 4) $g(2)=$ \fillin{$3$} \;{\small(the height \emph{at} $x=2$: the filled dot)}\par
+\smallskip If the left and right limits are different, the two-sided limit \fillin{does not exist} (DNE).
+\end{nrow}
+\begin{nrow}{Summary}
+\ifkey{\color{apnavy}A limit is the height the graph approaches. $\lim_{x\to c}f(x)$ exists only when the left and right limits are equal. The value $f(c)$ is the height of the filled dot at $c$; it can be different from the limit, or not exist.}\else\vspace{2.6cm}\fi
+\end{nrow}
 
 %%DOC 1-2 | Limits to a Point of a Function
-\goals{\item Evaluate limits by direct substitution and with the limit properties.
-\item Rewrite $\frac00$ forms by factoring, using conjugates, and combining fractions.
-\item Handle $\frac k0$ forms, piecewise and absolute value functions, and the special trigonometric limits.}
-\vocab{direct substitution, indeterminate form, conjugate, complex fraction, squeeze theorem.}
-
-\subsection*{1. Start with direct substitution}
-\begin{keyidea}
-Polynomials, rational functions (where defined), roots, $\sin$, $\cos$, $e^x$ and $\ln x$ are continuous on their domains, so $\lim_{x\to c}f(x)=$ \fillin{$f(c)$} for $c$ in the domain.\\
-Properties: limits of sums, differences, products and constant multiples are the sums, differences, products and multiples of the limits; for a quotient, the denominator's limit must be \fillin{nonzero}.
-\end{keyidea}
-\ex{Example 1}
-Evaluate $\lim_{x\to-1}(x^3-4x+2)$ and $\lim_{x\to\pi/3}2\cos x$. If $\lim_{x\to4}f(x)=3$ and $\lim_{x\to4}g(x)=-2$, find $\lim_{x\to4}\big(2f(x)-g(x)^2\big)$.
+\begin{center}\textsf{\small\color{apgrey}Objective: evaluate limits algebraically, including when plugging in fails.}\end{center}
+\begin{nrow}{Evaluating limits}
+\begin{tabular}{@{}p{0.31\linewidth}p{0.31\linewidth}p{0.31\linewidth}@{}}
+\textbf{Linear} $f(x)=2x-1$ & \textbf{Quadratic} $g(x)=x^2-3$ & \textbf{Constant} $h(x)=-2$\\
+\tinyg{xmin=-1.5,xmax=4.5,ymin=-3.5,ymax=6.5}{\addplot[apblue,very thick,domain=-1.2:3.7]{2*x-1};\pt{3,5}} &
+\tinyg{xmin=-3.5,xmax=3.5,ymin=-3.5,ymax=6.5}{\addplot[apblue,very thick,domain=-3:3,samples=60]{x^2-3};\pt{-2,1}} &
+\tinyg{xmin=-1.5,xmax=6.5,ymin=-3.5,ymax=3.5}{\addplot[apblue,very thick,domain=-1.5:6.5]{-2};\pt{5,-2}}\\
+$\displaystyle\lim_{x\to3}f(x)=$ \fillin{$5$} & $\displaystyle\lim_{x\to-2}g(x)=$ \fillin{$1$} & $\displaystyle\lim_{x\to5}h(x)=$ \fillin{$-2$}\\[6pt]
+$f(3)=$ \fillin{$5$} & $g(-2)=$ \fillin{$1$} & $h(5)=$ \fillin{$-2$}
+\end{tabular}\par
+\smallskip For polynomials (and constants), the limit equals the value: just \fillin{plug in} $c$.
+\end{nrow}
+\begin{nrow}{Limits of piecewise functions}
+\begin{minipage}[t]{0.56\linewidth}
+$j(x)=\begin{cases}x+3, & x\le1\\ x^2+1, & x>1\end{cases}$\par\smallskip
+$x=1$ is the \fillin{suspect point}: use the \fillin{top} piece for the left and the \fillin{bottom} piece for the right.\par\smallskip
+$\displaystyle\lim_{x\to1^-}j(x)=$ \fillin{$4$} \quad $\displaystyle\lim_{x\to1^+}j(x)=$ \fillin{$2$}\par
+$\displaystyle\lim_{x\to1}j(x)=$ \fillin{DNE} \quad $j(1)=$ \fillin{$4$}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.4\linewidth}\vspace{0pt}
+\tinyg{xmin=-3.5,xmax=2.5,ymin=-0.5,ymax=6,width=5.2cm,height=4.8cm}{\ifkey\addplot[apblue,very thick,domain=-3:1]{x+3};\addplot[apblue,very thick,domain=1:2.2,samples=40]{x^2+1};\pt{1,4}\op{1,2}\fi}
+\end{minipage}
+\end{nrow}
+\begin{nrow}{When plugging in fails}
+$\displaystyle\lim_{x\to3}\frac{x^2-9}{x^2-x-6}$\quad Plug in: \fillin{$\dfrac{0}{0}$}, the \fillin{indeterminate form}. It means: do more work!\par\smallskip
+\begin{minipage}[t]{0.3\linewidth}Three steps:\\ 1) \fillin{Factor}\\ 2) \fillin{Cancel}\\ 3) \fillin{Plug in}\end{minipage}\hfill
+\begin{minipage}[t]{0.66\linewidth}
 \begin{workspace}[2.4cm]
-$-1+4+2=5$. \quad $2\cdot\frac12=1$. \quad $2(3)-(-2)^2=2$.
+$\dfrac{(x-3)(x+3)}{(x-3)(x+2)}=\dfrac{x+3}{x+2}\;\to\;\dfrac{3+3}{3+2}=\dfrac65$
 \end{workspace}
-
-\subsection*{2. What substitution tells you}
-\begin{keyidea}
-\begin{tabular}{@{}ll@{}}
-a real number & that number is the limit\\
-$\frac00$ & \fillin{indeterminate}: rewrite (factor, conjugate, combine fractions, trig limit)\\
-$\frac k0$, $k\neq0$ & the limit is \fillin{infinite or does not exist}: check the sign on each side
-\end{tabular}
-\end{keyidea}
-
-\ex{Example 2 \textbullet\ Factoring}
-$\displaystyle\lim_{x\to3}\frac{x^2-9}{x^2-2x-3}$
-\begin{workspace}[2cm]
-$\dfrac{(x-3)(x+3)}{(x-3)(x+1)}=\dfrac{x+3}{x+1}\to\dfrac64=\dfrac32$.
-\end{workspace}
-\ex{Example 3 \textbullet\ Conjugate}
-$\displaystyle\lim_{x\to0}\frac{\sqrt{x+9}-3}{x}$
+\end{minipage}
+\end{nrow}
+\begin{nrow}{Example 1}
+$\displaystyle\lim_{x\to0}\frac{x^2-4x}{3x^2+x}$
 \begin{workspace}[2.2cm]
-$\dfrac{(\sqrt{x+9}-3)(\sqrt{x+9}+3)}{x(\sqrt{x+9}+3)}=\dfrac{x}{x(\sqrt{x+9}+3)}=\dfrac{1}{\sqrt{x+9}+3}\to\dfrac16$.
+$\frac00$. \;$\dfrac{x(x-4)}{x(3x+1)}=\dfrac{x-4}{3x+1}\to\dfrac{-4}{1}=-4$.
 \end{workspace}
-\ex{Example 4 \textbullet\ Complex fraction}
-$\displaystyle\lim_{x\to2}\frac{\frac1x-\frac12}{x-2}$
-\begin{workspace}[2cm]
-$\dfrac{\frac{2-x}{2x}}{x-2}=\dfrac{-1}{2x}\to-\dfrac14$.
+\end{nrow}
+\begin{nrow}{Example 2}
+$\displaystyle\lim_{x\to-3}\frac{x^2+6x+9}{x+3}$
+\begin{workspace}[2.2cm]
+$\frac00$. \;$\dfrac{(x+3)(x+3)}{x+3}=x+3\to-3+3=0$. \;(A limit of $0$ is a real answer, not DNE.)
 \end{workspace}
-\ex{Example 5 \textbullet\ $\frac k0$ and absolute value}
-$\displaystyle\lim_{x\to2}\frac{x+3}{x-2}$ \quad and \quad $\displaystyle\lim_{x\to-1}\frac{x^2-1}{|x+1|}$
-\begin{workspace}[3cm]
-First: $\frac50$. For $x<2$: $-\infty$; for $x>2$: $+\infty$. The limit does not exist.\\
-Second: for $x<-1$, $|x+1|=-(x+1)$, the quotient is $-(x-1)\to2$; for $x>-1$ it is $x-1\to-2$. Does not exist.
-\end{workspace}
-
-\subsection*{3. Trigonometric limits and the squeeze theorem}
-\begin{keyidea}
-$\displaystyle\lim_{x\to0}\frac{\sin x}{x}=$ \fillin{$1$} \qquad $\displaystyle\lim_{x\to0}\frac{1-\cos x}{x}=$ \fillin{$0$}\\[3pt]
-\textbf{Squeeze theorem}: if $g(x)\le f(x)\le h(x)$ near $c$ and $\lim_{x\to c}g=\lim_{x\to c}h=L$, then $\lim_{x\to c}f(x)=$ \fillin{$L$}.
-\end{keyidea}
-\ex{Example 6}
-$\displaystyle\lim_{x\to0}\frac{\sin5x}{x}$ \quad and \quad $\displaystyle\lim_{x\to0}x^2\sin\frac1x$
-\begin{workspace}[2.4cm]
-$5\cdot\dfrac{\sin5x}{5x}\to5$. \quad $-x^2\le x^2\sin\frac1x\le x^2$ and both bounds $\to0$: the limit is $0$.
-\end{workspace}
-
-\begin{mistakes}
-\begin{itemize}
-\item Concluding that a $\frac00$ limit is $0$, $1$ or does not exist without rewriting.
-\item Cancelling terms instead of factors.
-\end{itemize}
-\end{mistakes}
-
-\begin{quickcheck}
-1. $\lim_{x\to1}\frac{x^3-1}{x-1}=$ \fillin{$3$}. \quad 2. $\lim_{x\to0}\frac{\sin 2x}{\sin 5x}=$ \fillin{$\frac25$}. \quad 3. $\lim_{x\to3^-}\frac{1}{x-3}=$ \fillin{$-\infty$}.
-\end{quickcheck}
+\end{nrow}
+\begin{nrow}{Summary}
+\ifkey{\color{apnavy}Try plugging in first. A number means you are done; $\frac{0}{0}$ means factor, cancel, then plug in again. For a piecewise function, compare the left piece and the right piece at the suspect point.}\else\vspace{2.4cm}\fi
+\end{nrow}
 
 %%DOC 1-3 | Limits to Infinity and Horizontal Asymptotes
-\goals{\item Evaluate limits as $x\to\pm\infty$ for rational, radical and exponential expressions.
-\item Connect limits at infinity to horizontal asymptotes and infinite limits to vertical asymptotes.
-\item Compare growth rates of logarithmic, power and exponential functions.}
-\vocab{limit at infinity, horizontal asymptote, infinite limit, vertical asymptote, dominant term.}
-
-\subsection*{1. Horizontal and vertical asymptotes}
-\begin{keyidea}
-If $\lim_{x\to\infty}f(x)=L$ or $\lim_{x\to-\infty}f(x)=L$, the line \fillin{$y=L$} is a horizontal asymptote.\\
-If $\lim_{x\to c^-}f(x)$ or $\lim_{x\to c^+}f(x)$ is $\pm\infty$, the line \fillin{$x=c$} is a vertical asymptote.
-\end{keyidea}
-
-\subsection*{2. Rational functions}
-\begin{keyidea}
-Compare the degrees of numerator and denominator:
-smaller on top $\Rightarrow$ limit \fillin{$0$}; equal $\Rightarrow$ ratio of \fillin{leading coefficients}; larger on top $\Rightarrow$ \fillin{$\pm\infty$} (no horizontal asymptote).
-\end{keyidea}
-\ex{Example 1}
-$\displaystyle\lim_{x\to\infty}\frac{4x^3-x}{2x^3+7x^2}$, \quad $\displaystyle\lim_{x\to\infty}\frac{5x+1}{x^2-3}$, \quad $\displaystyle\lim_{x\to-\infty}\frac{x^3}{x^2+1}$
-\begin{workspace}[2cm]
-$2$. \quad $0$. \quad Behaves like $x$: $-\infty$.
+\begin{center}\textsf{\small\color{apgrey}Objective: (1) find vertical asymptotes and holes; (2) use the top/bottom rules for limits to infinity and horizontal asymptotes.}\end{center}
+\begin{nrow}{The graph}
+\sg{xmin=-5.5,xmax=6.5,ymin=-4.5,ymax=6.5,width=11cm,height=6.8cm}{\addplot[apblue,very thick,domain=-5.5:-1.18,samples=80]{(x+2)/(x+1)};\addplot[apblue,very thick,domain=-0.83:6.5,samples=100]{(x+2)/(x+1)};\va{-1}\ha{1}\op{2,1.3333}}
+\centering Graph of $f(x)=\dfrac{x^2-4}{x^2-x-2}$
+\end{nrow}
+\begin{nrow}{Vertical asymptotes (VA)}
+Factor: $f(x)=\dfrac{x^2-4}{x^2-x-2}=$ \fillin{$\dfrac{(x-2)(x+2)}{(x-2)(x+1)}$}\par\smallskip
+\textbf{Vertical asymptote}: the \fillin{denominator} is $0$ after cancelling: \fillin{$x=-1$}.\par
+\textbf{Hole}: a factor that \fillin{cancels}: \fillin{$x=2$}, at height $\frac{2+2}{2+1}=$ \fillin{$\frac43$}. A hole is a \fillin{removable} discontinuity.\par
+Near a VA the limit is \fillin{$\pm\infty$}: \;$\displaystyle\lim_{x\to-1^+}f(x)=$ \fillin{$+\infty$}, \;$\displaystyle\lim_{x\to-1^-}f(x)=$ \fillin{$-\infty$}.
+\end{nrow}
+\begin{nrow}{Horizontal asymptotes (HA)}
+A horizontal asymptote comes from a limit to \fillin{infinity}: $\displaystyle\lim_{x\to\infty}f(x)=$ \fillin{$1$}, so the HA is \fillin{$y=1$}.\par\smallskip
+Fun fact: for a rational function with a HA, \fillin{$\displaystyle\lim_{x\to\infty}f(x)=\lim_{x\to-\infty}f(x)$}: the same HA on both ends.
+\end{nrow}
+\begin{nrow}{Limits to infinity: top/bottom rules}
+Compare the \fillin{highest powers} (degrees) of the top and the bottom.\par\smallskip
+1) $\displaystyle\lim_{x\to\pm\infty}\frac{\textsf{BIG}}{\textsf{small}}=$ \fillin{$\pm\infty$ (DNE, no HA)} \quad bigger degree on top\par
+2) $\displaystyle\lim_{x\to\pm\infty}\frac{\textsf{small}}{\textsf{BIG}}=$ \fillin{$0$ (HA $y=0$)} \quad bigger degree on the bottom\par
+3) $\displaystyle\lim_{x\to\pm\infty}\frac{\textsf{same}}{\textsf{same}}=$ \fillin{ratio of the leading coefficients} \quad same degree
+\end{nrow}
+\begin{nrow}{Examples}
+1) $\displaystyle\lim_{x\to\infty}\frac{4x^3-x}{5-2x^2}=$ \fillin{DNE ($-\infty$)}\qquad
+2) $\displaystyle\lim_{x\to-\infty}\frac{3x}{x^2+7}=$ \fillin{$0$}\par\smallskip
+3) $\displaystyle\lim_{x\to\infty}\frac{6x^2+1}{3-2x^2}=$ \fillin{$\dfrac{6}{-2}=-3$}
+\begin{workspace}[1.6cm]
+1) degree $3>2$: grows without bound; $\frac{4x^3}{-2x^2}=-2x\to-\infty$. \;2) degree $1<2$: $0$. \;3) same degree $2$: $\frac{6}{-2}=-3$; HA $y=-3$.
 \end{workspace}
-
-\subsection*{3. Radicals: watch the sign}
-$\sqrt{x^2}=|x|$, which equals \fillin{$-x$} when $x<0$.
-\ex{Example 2}
-Find both horizontal asymptotes of $f(x)=\dfrac{3x-1}{\sqrt{4x^2+5}}$.
-\begin{workspace}[5cm]
-For large $|x|$, $\sqrt{4x^2+5}\approx2|x|$. As $x\to\infty$: $\frac{3x}{2x}\to\frac32$. As $x\to-\infty$: $\frac{3x}{-2x}\to-\frac32$. Asymptotes $y=\frac32$ and $y=-\frac32$.
-\gr{xmin=-8.5,xmax=8.5,ymin=-2.5,ymax=2.5,xtick distance=2,width=7cm,height=3.8cm}{\addplot[apblue,very thick,domain=-8.5:8.5]{(3*x-1)/sqrt(4*x^2+5)};\ha{1.5}\ha{-1.5}}
-\end{workspace}
-
-\subsection*{4. Growth rates}
-\begin{keyidea}
-As $x\to\infty$: $\ln x$ grows \fillin{slower} than $x^p$ ($p>0$), which grows \fillin{slower} than $a^x$ ($a>1$). The fastest-growing term controls the limit.
-\end{keyidea}
-\ex{Example 3}
-$\displaystyle\lim_{x\to\infty}\frac{x^3}{e^x}$, \quad $\displaystyle\lim_{x\to\infty}\frac{3e^x+x^2}{e^x-1}$, \quad $\displaystyle\lim_{x\to-\infty}e^x$, \quad $\displaystyle\lim_{x\to0^+}\ln x$
-\begin{workspace}[2.2cm]
-$0$. \quad Divide by $e^x$: $\frac{3+x^2e^{-x}}{1-e^{-x}}\to3$. \quad $0$. \quad $-\infty$ (vertical asymptote $x=0$).
-\end{workspace}
-
-\ex{Example 4 \textbullet\ Vertical asymptotes}
-For $f(x)=\dfrac{x+2}{x^2-4x}$, find the vertical asymptotes and the one-sided limits.
-\begin{workspace}[3cm]
-$f(x)=\frac{x+2}{x(x-4)}$. At $x=0$: numerator near $2$; for $x<0$, $x(x-4)>0$: $+\infty$; for $x>0$: $-\infty$. At $x=4$: numerator near $6$; left $-\infty$, right $+\infty$.
-\end{workspace}
-
-\begin{mistakes}
-\begin{itemize}
-\item Forgetting that $\sqrt{x^2}=-x$ for $x<0$.
-\item Thinking $\lim_{x\to-\infty}e^x=-\infty$; it is $0$.
-\end{itemize}
-\end{mistakes}
-
-\begin{quickcheck}
-1. $\lim_{x\to\infty}\frac{2-5x^2}{x^2+x}=$ \fillin{$-5$}. \quad 2. $\lim_{x\to\infty}\frac{x^{100}}{1.01^x}=$ \fillin{$0$}. \quad 3. $\lim_{x\to-\infty}\frac{2x}{\sqrt{x^2+5}}=$ \fillin{$-2$}.
-\end{quickcheck}
+\end{nrow}
+\begin{nrow}{Summary}
+\ifkey{\color{apnavy}Factor first: a cancelled factor gives a hole, a zero left in the denominator gives a vertical asymptote. For $x\to\pm\infty$, compare degrees: top bigger $\to\pm\infty$, bottom bigger $\to0$, equal $\to$ ratio of leading coefficients (the HA).}\else\vspace{2.4cm}\fi
+\end{nrow}
 
 %%DOC 1-4 | Continuity at a Point
-\goals{\item State and use the three conditions for continuity at a point.
-\item Classify discontinuities as removable, jump or infinite.
-\item Find constants that make a piecewise function continuous, and remove removable discontinuities.}
-\vocab{continuous, removable discontinuity, jump discontinuity, infinite discontinuity, piecewise function.}
-
-\subsection*{1. Definition}
-\begin{keyidea}
-$f$ is continuous at $x=c$ when:
-(1) \fillin{$f(c)$ is defined}; \quad (2) \fillin{$\lim_{x\to c}f(x)$ exists}; \quad (3) \fillin{$\lim_{x\to c}f(x)=f(c)$}.
-\end{keyidea}
-
-\subsection*{2. Types of discontinuity}
-\begin{center}
-\begin{tikzpicture}
-\begin{axis}[gridaxis,xmin=-0.2,xmax=3.2,ymin=-0.2,ymax=3.2,width=4.4cm,height=4.2cm,title={\small removable},xtick=\empty,ytick=\empty]
-\addplot[apblue,very thick,domain=0:3]{0.5*x+0.5};\op{1.5,1.25}\pt{1.5,2.5}\end{axis}\end{tikzpicture}
-\begin{tikzpicture}
-\begin{axis}[gridaxis,xmin=-0.2,xmax=3.2,ymin=-0.2,ymax=3.2,width=4.4cm,height=4.2cm,title={\small jump},xtick=\empty,ytick=\empty]
-\addplot[apblue,very thick,domain=0:1.5]{0.5};\addplot[apblue,very thick,domain=1.5:3]{2};\op{1.5,0.5}\pt{1.5,2}\end{axis}\end{tikzpicture}
-\begin{tikzpicture}
-\begin{axis}[gridaxis,xmin=-0.2,xmax=3.2,ymin=-0.2,ymax=3.2,width=4.4cm,height=4.2cm,title={\small infinite},xtick=\empty,ytick=\empty]
-\addplot[apblue,very thick,domain=0:1.25,samples=80]{0.3/(1.5-x)};\addplot[apblue,very thick,domain=1.62:3,samples=80]{0.3/(x-1.5)};\va{1.5}\end{axis}\end{tikzpicture}
-\end{center}
-\begin{keyidea}
-\textbf{Removable}: the limit exists but \fillin{does not equal $f(c)$ (or $f(c)$ is undefined)}.\\
-\textbf{Jump}: the one-sided limits \fillin{exist but are different}.\\
-\textbf{Infinite}: at least one one-sided limit is \fillin{$\pm\infty$}.
-\end{keyidea}
-
-\ex{Example 1 \textbullet\ A complete justification}
-$f(x)=\begin{cases}x^2+1, & x\le2\\ 4x-3, & x>2.\end{cases}$ Is $f$ continuous at $x=2$?
+\begin{center}\textsf{\small\color{apgrey}Objective: identify the types of discontinuities and prove continuity with the continuity test.}\end{center}
+\begin{nrow}{What does it mean to be continuous?}
+A graph is continuous if you can trace it \fillin{without lifting your pencil}.\par\smallskip
+Are these graphs continuous or discontinuous?\par
+\begin{tabular}{@{}cccc@{}}
+\tinyg{xmin=-2.5,xmax=2.5,ymin=-0.5,ymax=3.5,width=3.6cm,height=3.3cm}{\addplot[apblue,very thick,domain=-2.4:2.4,samples=40]{x^2/2};} &
+\tinyg{xmin=-2.5,xmax=3.5,ymin=-2.5,ymax=4.5,width=3.6cm,height=3.3cm}{\addplot[apred,very thick,domain=-2.4:1]{x};\addplot[apred,very thick,domain=1:3.4]{x+2};\op{1,1}\pt{1,3}} &
+\tinyg{xmin=-3.5,xmax=3.5,ymin=-2.5,ymax=2.5,width=3.6cm,height=3.3cm}{\addplot[apgreen,very thick,domain=-3.4:3.4,samples=60]{1.5*sin(deg(x))};} &
+\tinyg{xmin=-2.5,xmax=4,ymin=-4,ymax=4,width=3.6cm,height=3.3cm}{\addplot[apgold!80!black,very thick,domain=-2.4:0.75,samples=40]{1/(x-1)};\addplot[apgold!80!black,very thick,domain=1.25:3.9,samples=40]{1/(x-1)};\va{1}}\\
+\fillin{continuous} & \fillin{discontinuous} & \fillin{continuous} & \fillin{discontinuous}
+\end{tabular}
+\end{nrow}
+\begin{nrow}{Types of discontinuities}
+\begin{tabular}{@{}ccc@{}}
+\tinyg{xmin=-2.5,xmax=3.5,ymin=-1.5,ymax=4.5,width=4.6cm,height=3.9cm}{\addplot[apblue,very thick,domain=-2.4:3.4]{x+1};\op{1,2}\pt{1,-0.5}} &
+\tinyg{xmin=-2.5,xmax=3.5,ymin=-1.5,ymax=4.5,width=4.6cm,height=3.9cm}{\addplot[apblue,very thick,domain=-2.4:1]{0.5*x+1};\addplot[apblue,very thick,domain=1:3.4]{0.5*x+2.5};\pt{1,1.5}\op{1,3}} &
+\tinyg{xmin=-2.5,xmax=4,ymin=-1,ymax=5,width=4.6cm,height=3.9cm}{\addplot[apblue,very thick,domain=-2.4:0.55,samples=40]{1/(x-1)^2};\addplot[apblue,very thick,domain=1.45:3.9,samples=40]{1/(x-1)^2};\va{1}}\\
+\fillin{Removable (hole)} & \fillin{Jump} & \fillin{Infinite (VA)}\\[2pt]
+\footnotesize the limit \fillin{exists} but & \footnotesize the one-sided limits & \footnotesize the function goes\\
+\footnotesize is not equal to $f(c)$ & \footnotesize are \fillin{different} & \footnotesize to \fillin{$\pm\infty$}
+\end{tabular}\par\smallskip
+An \textbf{endpoint} (like the start of $y=\sqrt x$ at $x=0$) only needs the one-sided limit from the \fillin{inside} of the domain.
+\end{nrow}
+\begin{nrow}{Continuity test}
+$f$ is continuous at $x=c$ when
+\[\fillin{$\displaystyle\lim_{x\to c^-}f(x)$}\;=\;\fillin{$\displaystyle\lim_{x\to c^+}f(x)$}\;=\;\fillin{$f(c)$}\]
+\centering{\small\color{apgrey}\qquad left \hspace{2.4cm} right \hspace{2.2cm} actual height}
+\end{nrow}
+\begin{nrow}{Example 1}
+$h(x)=\begin{cases}2x-1, & x\le3\\ x^2-4, & x>3\end{cases}$\qquad Prove that $h$ is continuous at $x=3$.
+\begin{workspace}[2.6cm]
+Left: $\lim_{x\to3^-}h(x)=2(3)-1=5$. \;Right: $\lim_{x\to3^+}h(x)=3^2-4=5$. \;Height: $h(3)=2(3)-1=5$.\\
+$5=5=5$, so $h$ is continuous at $x=3$ because it passes the continuity test.
+\end{workspace}
+\end{nrow}
+\begin{nrow}{Example 2}
+For what value of $k$ is $g$ continuous at $x=1$? \qquad $g(x)=\begin{cases}3x^2-k, & x\le1\\ kx+5, & x>1\end{cases}$
 \begin{workspace}[2.8cm]
-$f(2)=5$. $\lim_{x\to2^-}f(x)=5$ and $\lim_{x\to2^+}f(x)=5$, so $\lim_{x\to2}f(x)=5$. Since $\lim_{x\to2}f(x)=f(2)$, $f$ is continuous at $x=2$.
+Set left $=$ right at $x=1$: $3(1)^2-k=k(1)+5$, so $3-k=k+5$, $-2=2k$, $k=-1$.\\
+Check: left $3-(-1)=4$, right $-1+5=4$, $g(1)=4$. Continuous.
 \end{workspace}
-
-\ex{Example 2 \textbullet\ Classify}
-Classify the discontinuities: $\dfrac{x^2-9}{x-3}$ at $3$; \ $\dfrac{|x|}{x}$ at $0$; \ $\dfrac1{x^2}$ at $0$.
-\begin{workspace}[2.2cm]
-Removable (limit $6$, undefined value). \ Jump (limits $-1$ and $1$). \ Infinite ($+\infty$).
-\end{workspace}
-
-\subsection*{3. Making a function continuous}
-\ex{Example 3 \textbullet\ Find the constant}
-For which $k$ is $f(x)=\begin{cases}kx+1, & x<2\\ x^2-k, & x\ge2\end{cases}$ continuous?
-\begin{workspace}[2.2cm]
-Left limit $2k+1$; right limit and $f(2)$: $4-k$. $2k+1=4-k$, so $k=1$.
-\end{workspace}
-\ex{Example 4 \textbullet\ Two constants}
-$g(x)=\begin{cases}ax+b, & x<1\\ 5, & x=1\\ x^2+bx, & x>1\end{cases}$ is continuous at $x=1$. Find $a$ and $b$.
-\begin{workspace}[2.2cm]
-Right: $1+b=5$, $b=4$. Left: $a+b=5$, $a=1$.
-\end{workspace}
-
-\subsection*{4. Continuity on an interval}
-Polynomials, rational functions, roots, exponentials, logarithms and trigonometric functions are continuous \fillin{on their domains}. Example: $h(x)=\frac{\sqrt{x+2}}{x-1}$ is continuous on \fillin{$[-2,1)\cup(1,\infty)$}.
-
-\begin{aptip}
-Model sentence: ``$\lim_{x\to2^-}f(x)=5=\lim_{x\to2^+}f(x)$, so $\lim_{x\to2}f(x)=5=f(2)$. Therefore $f$ is continuous at $x=2$.''
-\end{aptip}
-
-\begin{quickcheck}
-1. For $f(x)=\frac{x^2-1}{x-1}$ at $x=1$, condition \fillin{(1)} fails.\\
-2. $\frac{x+2}{x^2-4}$ has a \fillin{removable} discontinuity at $x=-2$ and an \fillin{infinite} one at $x=2$.
-\end{quickcheck}
+\end{nrow}
+\begin{nrow}{Summary}
+\ifkey{\color{apnavy}Continuous means no hole, no jump and no asymptote at the point. To prove it, show left limit $=$ right limit $=f(c)$. To find a constant, set the two pieces equal at the suspect point and solve.}\else\vspace{2.4cm}\fi
+\end{nrow}
 
 %%DOC 1-5 | IVT and EVT
 \goals{\item State the Intermediate Value Theorem and the Extreme Value Theorem, with their hypotheses.
