@@ -86,12 +86,15 @@ def to_html(s):
             if not hits: break
             k, e, a = hits[0]; s = s[:k] + "<%s>%s</%s>" % (tag, a[0], tag) + s[e:]
     s = s.replace("\\nocalctext", "no calculator").replace("\\calctext", "calculator")
-    parts = re.split(r"(\$[^$]*\$)", s)   # text-mode spacing commands only outside math
+    s = s.replace("\\$", "\x00")             # escaped dollar signs are text, not math delimiters
+    parts = re.split(r"(\$[^$]*\$)", s)   # text-mode commands only outside math ($...$ is left to KaTeX)
     for k in range(0, len(parts), 2):
         parts[k] = re.sub(r"\\(medskip|smallskip|bigskip|par|noindent|qquad|quad|hfill)\b", " ", parts[k])
         parts[k] = parts[k].replace("\\ ", " ").replace("\\,", " ").replace("\\;", " ")
+        parts[k] = parts[k].replace("\\\\", "<br>").replace("~", "&nbsp;").replace("---", "—").replace("--", "–")
+    for k in range(1, len(parts), 2): parts[k] = parts[k].replace("\x00", "\\text{\\textdollar}")   # a dollar sign that cannot close the formula
     s = "".join(parts)
-    s = s.replace("\\\\", "<br>").replace("~", "&nbsp;").replace("\\%", "%").replace("\\$", "&#36;").replace("---", "—").replace("--", "–")
+    s = s.replace("\\%", "%").replace("\x00", "&#36;")
     s = re.sub(r"\s+", " ", s).strip()
     return s
 
