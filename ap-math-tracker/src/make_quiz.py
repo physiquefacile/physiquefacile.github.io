@@ -46,8 +46,13 @@ def extract_graphs(s, macros):
     for name in sorted(set(names), key=len, reverse=True):
         if name in s and name in macros:
             graphs.append(name); s = s.replace(name, "")
-    for k, e, a in reversed(find_cmd(s, "\\gr", 2)):
-        graphs.insert(0, "\\gr{%s}{%s}" % (a[0], a[1])); s = s[:k] + s[e:]
+    two = ["gr"] + re.findall(r"\\(?:provide|new)command\{\\(\w+)\}\[2\]\{\\begin\{center\}\\begin\{tikzpicture\}", macros)
+    found = []
+    for nm in set(two):
+        for k, e, a in find_cmd(s, "\\" + nm, 2):
+            if re.match(r"\\%s\s*\{" % nm, s[k:]): found.append((k, e, "\\%s{%s}{%s}" % (nm, a[0], a[1])))
+    for k, e, g in sorted(found, reverse=True):
+        graphs.insert(0, g); s = s[:k] + s[e:]
     for m in reversed(list(GRAPH_RE.finditer(s))):
         g = m.group(0)
         g = re.sub(r"^\\begin\{center\}|\\end\{center\}$", "", g.strip()).strip()
@@ -103,7 +108,7 @@ def graph_svg(latex, pre):
     h = hashlib.sha1((pre + latex).encode()).hexdigest()[:12]
     out = os.path.join(IMG, h + ".svg")
     if os.path.exists(out): return h + ".svg", None
-    tex = "\\documentclass[border=4pt]{standalone}\n\\usepackage{ap}\n" + pre + "\n\\providecommand{\\gr}{}\\renewcommand{\\gr}[2]{\\begin{tikzpicture}\\begin{axis}[gridaxis,#1]#2\\end{axis}\\end{tikzpicture}}\n\\begin{document}\n" + latex + "\n\\end{document}\n"
+    tex = "\\documentclass[border=4pt]{standalone}\n\\usepackage{ap}\n" + pre + "\n\\providecommand{\\gr}{}\\renewcommand{\\gr}[2]{\\begin{tikzpicture}\\begin{axis}[gridaxis,#1]#2\\end{axis}\\end{tikzpicture}}\n\\renewenvironment{center}{}{}\n\\begin{document}\n" + latex + "\n\\end{document}\n"
     base = os.path.join(BUILD, h)
     open(base + ".tex", "w").write(tex)
     r = subprocess.run(["pdflatex", "-interaction=nonstopmode", "-halt-on-error", "-output-directory", BUILD, base + ".tex"],
@@ -119,16 +124,25 @@ def blocks(path):
     pre = "\n".join(l for l in parts[0].splitlines() if not l.startswith("%%"))
     return pre, [(parts[i], parts[i+1].strip(), parts[i+2]) for i in range(1, len(parts), 3)]
 
+def block_defs(body):
+    """macro definitions written inside a block (\\providecommand, \\newcommand, \\renewcommand lines)"""
+    return "\n".join(l for l in body.splitlines() if re.match(r"\\(provide|new|renew)command", l.strip()))
+
 def questions(body, pre):
     """yield dicts for each multiple-choice question in a block, with graphs"""
-    macros = pre
-    out, ctx, last, strong = [], [], [], False
-    pos = 0
+    macros = pre + "\n" + block_defs(body)
+    out, ctx, last, strong, rng = [], [], [], False, None
+    pos = 0; qn = 0
     for m in re.finditer(r"\\begin\{exo\}", body):
+        qn += 1
         between = body[pos:m.start()]
-        if "\\partheading" in between: ctx, strong = [], False
+        if "\\partheading" in between: ctx, strong, rng = [], False, None
         _, g = extract_graphs(between, macros)
-        if g: ctx = g; strong = bool(re.search(r"refer to the graph", between))
+        if g:
+            ctx = g; strong = bool(re.search(r"refers? to the graph", between)); rng = None
+            h = re.search(r"Questions? (\d+)(?:\s*(?:and|to)\s*(\d+))?", between)
+            if h: rng = (int(h.group(1)), int(h.group(2) or h.group(1)))
+        if rng and not (rng[0] <= qn <= rng[1]): strong = False; ctx = []
         end = body.index("\\end{exo}", m.end())
         ex = body[m.end():end]; pos = end + len("\\end{exo}")
         # header [topic]{calc}
@@ -182,9 +196,10 @@ for course, file, cname in (("pc", "pc-u1-worksheets.tex", "AP Precalculus"), ("
     for i, title, body in bl:
         if i.startswith(("SC", "PRETEST", "FIXUP")):
             qs = questions(body, pre)
+            bpre = pre + "\n" + block_defs(body)
             kind = "test" if i.startswith(("PRETEST", "FIXUP")) else "quiz"
             nice = re.sub(r"\\textbullet\\?\s*", "· ", title)
-            add(f"{course}-u1-{i}", course, "u1", nice, kind, qs, pre, minutes=(2*len(qs)+5 if kind == "test" else None))
+            add(f"{course}-u1-{i}", course, "u1", nice, kind, qs, bpre, minutes=(2*len(qs)+5 if kind == "test" else None))
             continue
         lesson = i[:-4] if i.endswith("MEGA") else i[:-1]
         if lesson not in by: by[lesson] = (title, []); order.append(lesson)

@@ -6,106 +6,94 @@
 \titleband{Limits and Continuity}{AP-style practice \textbullet\ Multiple choice and free response\ifkey\ \textbullet\ Answer key with explanations\fi}
 
 \begin{keyidea}[About this practice set]
-The questions follow the format of the AP Calculus AB exam. Part A and Part B are multiple choice; Part C is free response. Each question is labeled \nocalctext\ or \calctext.\\
-Suggested timing: Part A 40 min \textbullet\ Part B 8 min \textbullet\ Part C 45 min.
+The questions follow the format of the AP Calculus AB exam and cover exactly lessons 1-1 to 1-9 of the guided notes. Part A and Part B are multiple choice; Part C is free response. \textbf{No calculator} on any part. Each question shows the lesson it practices.\\
+Suggested timing: Part A 30 min \textbullet\ Part B 15 min \textbullet\ Part C 45 min.
 \end{keyidea}
 
 %=================================================
 \partheading{Part A \textbullet\ Multiple choice \textbullet\ No calculator}
 \begin{directions}[Directions \textbullet\ Part A]
-A calculator may \textbf{not} be used on this part. Solve each problem, then choose the best of the four answer choices. Unless otherwise stated, the domain of a function $f$ is the set of all real numbers $x$ for which $f(x)$ is a real number. Some questions refer to a graph: read the values you need from the grid.
+A calculator may \textbf{not} be used. Solve each problem, then choose the best of the four answer choices.
 \end{directions}
 
-\begin{exo}[1.6]{}
+\begin{exo}[1-2]{}
 $\displaystyle\lim_{x\to3}\frac{x^2-9}{x^2-2x-3}$ is
 \choices{$0$}{$\dfrac32$}{$3$}{nonexistent}
-\answer{B}{$\dfrac{(x-3)(x+3)}{(x-3)(x+1)}=\dfrac{x+3}{x+1}$ for $x\neq3$, and $\dfrac{6}{4}=\dfrac32$.}
+\answer{B}{$\dfrac{(x-3)(x+3)}{(x-3)(x+1)}=\dfrac{x+3}{x+1}\to\dfrac64=\dfrac32$.}
 \end{exo}
-
-\begin{exo}[1.6]{}
-$\displaystyle\lim_{x\to0}\frac{\sqrt{x+9}-3}{x}$ is
-\choices{$0$}{$\dfrac13$}{$\dfrac16$}{$3$}
-\answer{C}{Multiply by the conjugate: $\dfrac{(x+9)-9}{x\left(\sqrt{x+9}+3\right)}=\dfrac{1}{\sqrt{x+9}+3}\to\dfrac16$.}
+\begin{exo}[1-2]{}
+If $f(x)=\begin{cases}x^2+1, & x<2\\ 3x-1, & x\ge2,\end{cases}$ then $\displaystyle\lim_{x\to2}f(x)$ is
+\choices{$5$}{$4$}{$6$}{nonexistent}
+\answer{A}{Left: $5$. Right: $6-1=5$. Equal, so the limit is $5$.}
 \end{exo}
-
-\begin{exo}[1.8]{}
-$\displaystyle\lim_{x\to0}\frac{\sin(5x)}{x}$ is
-\choices{$5$}{$1$}{$\dfrac15$}{$0$}
-\answer{A}{$\dfrac{\sin5x}{x}=5\cdot\dfrac{\sin5x}{5x}\to5\cdot1=5$.}
-\end{exo}
-
-\begin{exo}[1.15]{}
+\begin{exo}[1-3]{}
 $\displaystyle\lim_{x\to\infty}\frac{4x^3-x}{2x^3+7x^2}$ is
-\choices{$0$}{$\dfrac47$}{$\infty$}{$2$}
-\answer{D}{Equal degrees: the limit is the ratio of the leading coefficients, $\frac42=2$.}
+\choices{$0$}{$\dfrac47$}{$2$}{nonexistent}
+\answer{C}{Same degree: ratio of the leading coefficients, $\frac42=2$.}
 \end{exo}
-
-\begin{exo}[1.15]{}
-$\displaystyle\lim_{x\to-\infty}\frac{2x}{\sqrt{x^2+5}}$ is
-\choices{$2$}{$-2$}{$0$}{$-\infty$}
-\answer{B}{For $x<0$, $\sqrt{x^2+5}\approx|x|=-x$, so the quotient approaches $\dfrac{2x}{-x}=-2$.}
-\end{exo}
-
-\begin{exo}[1.7]{}
-$\displaystyle\lim_{x\to2^-}\frac{|x-2|}{x-2}$ is
-\choices{$1$}{$0$}{$-1$}{nonexistent}
-\answer{C}{For $x<2$, $|x-2|=-(x-2)$, so the quotient equals $-1$.}
-\end{exo}
-
-\begin{exo}[1.4]{}
-\begin{center}\begin{tabular}{c|cccccc}
-$x$ & $0.9$ & $0.99$ & $0.999$ & $1.001$ & $1.01$ & $1.1$\\\hline
-$f(x)$ & $2.71$ & $2.97$ & $2.997$ & $3.003$ & $3.03$ & $3.31$\end{tabular}\end{center}
-Based on the table, which is the best estimate of $\displaystyle\lim_{x\to1}f(x)$?
-\choices{$2.997$}{$3$}{$3.003$}{The limit does not exist.}
-\answer{B}{The values approach $3$ from both the left and the right.}
-\end{exo}
-
-\begin{exo}[1.11]{}
-Let $f(x)=\begin{cases}x^2+1, & x<1\\ 3x-1, & x\ge1.\end{cases}$ Which statement is true?
-\choices{$\lim_{x\to1}f(x)$ does not exist.}{$\lim_{x\to1}f(x)$ exists, but $f$ is not continuous at $x=1$.}{$f$ is continuous at $x=1$.}{$f(1)$ is undefined.}
-\answer{C}{$\lim_{x\to1^-}f(x)=2$, $\lim_{x\to1^+}f(x)=2$ and $f(1)=3-1=2$. All three conditions of continuity hold.}
-\end{exo}
-
-\begin{exo}[1.13]{}
-For what value of $k$ is $f(x)=\begin{cases}kx+3, & x\le2\\ x^2-k, & x>2\end{cases}$ continuous at $x=2$?
-\choices{$-\dfrac13$}{$\dfrac13$}{$1$}{$7$}
-\answer{B}{Left: $2k+3$. Right: $4-k$. Then $2k+3=4-k$, so $3k=1$ and $k=\frac13$.}
-\end{exo}
-
-\begin{exo}[1.10]{}
-What type of discontinuity does $g(x)=\dfrac{x^2-4}{x-2}$ have at $x=2$?
-\choices{Jump}{Infinite}{Removable}{None; $g$ is continuous at $x=2$.}
-\answer{C}{$g(2)$ is undefined, but $\lim_{x\to2}g(x)=\lim_{x\to2}(x+2)=4$ exists: a removable discontinuity.}
-\end{exo}
-
-\begin{exo}[1.14]{}
+\begin{exo}[1-3]{}
 Which line or lines are vertical asymptotes of the graph of $h(x)=\dfrac{x+1}{x^2-1}$?
-\choices{$x=1$ only}{$x=-1$ only}{$x=1$ and $x=-1$}{$y=0$ only}
-\answer{A}{$h(x)=\dfrac{x+1}{(x-1)(x+1)}=\dfrac{1}{x-1}$ for $x\neq-1$. At $x=-1$ there is a hole (the limit is $-\frac12$); at $x=1$ the one-sided limits are infinite. $y=0$ is a horizontal asymptote.}
+\choices{$x=1$ and $x=-1$}{$x=-1$ only}{$y=0$ only}{$x=1$ only}
+\answer{D}{$\frac{x+1}{(x-1)(x+1)}$: $x+1$ cancels (hole at $x=-1$); $x-1$ stays (asymptote $x=1$).}
 \end{exo}
-
-\begin{exo}[1.8]{}
-$\displaystyle\lim_{x\to0}x^2\cos\!\left(\frac1x\right)$ is
-\choices{$1$}{$0$}{$-1$}{nonexistent}
-\answer{B}{$-x^2\le x^2\cos\frac1x\le x^2$ and both bounds approach $0$. By the squeeze theorem, the limit is $0$.}
+\begin{exo}[1-3]{}
+$\displaystyle\lim_{x\to2^-}\frac{x+1}{x-2}$ is
+\choices{$-\infty$}{$+\infty$}{$-\dfrac32$}{$0$}
+\answer{A}{Numerator near $3$, denominator small and negative: $-\infty$.}
 \end{exo}
-
-\begin{exo}[1.16]{}
+\begin{exo}[1-4]{}
+For what value of $k$ is $f(x)=\begin{cases}kx+3, & x\le2\\ x^2-k, & x>2\end{cases}$ continuous at $x=2$?
+\choices{$1$}{$\dfrac13$}{$-\dfrac13$}{$\dfrac73$}
+\answer{B}{$2k+3=4-k$, so $3k=1$ and $k=\frac13$.}
+\end{exo}
+\begin{exo}[1-4]{}
+What type of discontinuity does $g(x)=\dfrac{x^2-4}{x-2}$ have at $x=2$?
+\choices{Jump}{Infinite}{Removable}{None}
+\answer{C}{$\lim_{x\to2}g(x)=\lim(x+2)=4$ exists, but $g(2)$ is undefined: a hole.}
+\end{exo}
+\begin{exo}[1-5]{}
 The function $f$ is continuous on $[1,5]$ with $f(1)=-2$ and $f(5)=6$. Which statement must be true?
-\choices{$f(c)=8$ for some $c$ in $(1,5)$.}{$f(3)=2$.}{$f$ is increasing on $[1,5]$.}{$f(c)=4$ for some $c$ in $(1,5)$.}
-\answer{D}{$4$ is between $-2$ and $6$, and $f$ is continuous, so the IVT guarantees such a $c$. Nothing forces $f(3)=2$ or monotonicity, and $8$ is not between the endpoint values.}
+\choices{$f(3)=2$}{$f$ is increasing on $[1,5]$.}{The maximum of $f$ on $[1,5]$ is $6$.}{$f(c)=0$ for some $c$ in $(1,5)$.}
+\answer{D}{IVT: $0$ is between $-2$ and $6$.}
+\end{exo}
+\begin{exo}[1-5]{}
+Which function is guaranteed by the Extreme Value Theorem to have an absolute maximum on the given interval?
+\choices{$f(x)=x^2-3x$ on $[0,4]$}{$f(x)=\dfrac1x$ on $(0,1]$}{$f(x)=x$ on $(0,2)$}{$f(x)=\dfrac{1}{x-1}$ on $[0,2]$}
+\answer{A}{Continuous on a closed interval.}
+\end{exo}
+\begin{exo}[1-6]{}
+What is the average rate of change of $f(x)=x^3-2x$ on $[-1,2]$?
+\choices{$3$}{$1$}{$\dfrac53$}{$-1$}
+\answer{B}{$f(2)=4$, $f(-1)=1$: $\frac{4-1}{3}=1$.}
+\end{exo}
+\begin{exo}[1-6]{}
+$V(t)$ is the volume of water in a tank, in liters, $t$ minutes after noon, with $V(2)=50$ and $V(8)=20$. Which is the average rate of change of $V$ on $[2,8]$?
+\choices{$-30$ liters}{$5$ liters per minute}{$-5$ liters per minute}{$-\dfrac15$ minutes per liter}
+\answer{C}{$\frac{20-50}{8-2}=-5$ liters per minute.}
+\end{exo}
+\begin{exo}[1-7]{}
+At which point is $f(x)=|x-2|+1$ continuous but not differentiable?
+\choices{$x=0$}{$x=1$}{$x=-2$}{$x=2$}
+\answer{D}{Sharp corner at $x=2$.}
+\end{exo}
+\begin{exo}[1-8]{}
+The function $f$ is differentiable with $f(1)=4$ and $f(5)=-4$. Which statement must be true?
+\choices{$f'(c)=-2$ for some $c$ in $(1,5)$}{$f'(c)=2$ for some $c$ in $(1,5)$}{$f'(c)=-8$ for some $c$ in $(1,5)$}{$f(3)=0$}
+\answer{A}{MVT: $\frac{-4-4}{5-1}=-2$.}
+\end{exo}
+\begin{exo}[1-9]{}
+The depth of a river, $D(t)$, is differentiable. A question asks: ``Was the depth ever changing at exactly the average rate for the day?'' Which theorem answers it?
+\choices{Intermediate Value Theorem}{Mean Value Theorem}{Extreme Value Theorem}{None of them}
+\answer{B}{A rate of change (slope) equal to an average rate: MVT.}
 \end{exo}
 
-\begin{exo}[1.15]{}
-$\displaystyle\lim_{x\to\infty}\frac{3e^x+x^2}{e^x-1}$ is
-\choices{$0$}{$1$}{$3$}{$\infty$}
-\answer{C}{$e^x$ dominates $x^2$ and constants as $x\to\infty$. Dividing by $e^x$: $\dfrac{3+x^2e^{-x}}{1-e^{-x}}\to\dfrac{3+0}{1-0}=3$.}
-\end{exo}
-
-
+%=================================================
+\partheading{Part B \textbullet\ Multiple choice with a graph \textbullet\ No calculator}
+\begin{directions}[Directions \textbullet\ Part B]
+A calculator may \textbf{not} be used. Read the values you need from the graph.
+\end{directions}
 \par\medskip\noindent\begin{minipage}{\linewidth}
-\begin{center}\textsf{\small\bfseries\color{apnavy}Questions \the\numexpr\value{exo}+1\relax\ to \the\numexpr\value{exo}+5\relax\ refer to the graph of the function $g$ below.}\end{center}
+\begin{center}\textsf{\small\bfseries\color{apnavy}Questions \the\numexpr\value{exo}+1\relax\ to \the\numexpr\value{exo}+6\relax\ refer to the graph of the function $g$ below.}\end{center}
 \begin{center}
 \begin{tikzpicture}
 \begin{axis}[gridaxis,xmin=-4.5,xmax=5.5,ymin=-4.5,ymax=6.5,width=9cm,height=8cm]
@@ -129,59 +117,42 @@ $\displaystyle\lim_{x\to\infty}\frac{3e^x+x^2}{e^x-1}$ is
 \end{center}
 \end{minipage}
 
-\begin{exo}[1.3 \textbullet\ graph]{}
+
+\begin{exo}[1-1]{}
 Which of the following limits does \textbf{not} exist?
 \choices{$\displaystyle\lim_{x\to1}g(x)$}{$\displaystyle\lim_{x\to-1^+}g(x)$}{$\displaystyle\lim_{x\to-1}g(x)$}{$\displaystyle\lim_{x\to4}g(x)$}
-\answer{C}{At $x=-1$ the left-hand limit is $2$ and the right-hand limit is $0$. The other limits are $2$, $0$ and $0$.}
+\answer{C}{At $x=-1$ the left-hand limit is $2$ and the right-hand limit is $0$.}
 \end{exo}
-
-\begin{exo}[1.3 \textbullet\ graph]{}
+\begin{exo}[1-1]{}
 What is $\displaystyle\lim_{x\to1}g(x)$?
-\choices{$4$}{$2$}{$1$}{It does not exist.}
-\answer{B}{Both pieces approach the open circle at $(1,2)$. The filled dot $g(1)=4$ does not affect the limit.}
+\choices{$4$}{$2$}{$3$}{nonexistent}
+\answer{B}{Both pieces approach the open circle $(1,2)$; $g(1)=4$ does not change the limit.}
 \end{exo}
-
-\begin{exo}[1.14 \textbullet\ graph]{}
+\begin{exo}[1-3]{}
 Which statement about the behavior of $g$ near $x=3$ is true?
-\choices{$\lim_{x\to3^-}g(x)=+\infty$ and $\lim_{x\to3^+}g(x)=-\infty$}{$\lim_{x\to3^-}g(x)=-\infty$ and $\lim_{x\to3^+}g(x)=+\infty$}{$\lim_{x\to3}g(x)=+\infty$}{$\lim_{x\to3}g(x)=2$}
-\answer{A}{To the left of $x=3$ the graph rises without bound; to the right it falls without bound.}
+\choices{$\displaystyle\lim_{x\to3^-}g(x)=+\infty$ and $\displaystyle\lim_{x\to3^+}g(x)=-\infty$}{$\displaystyle\lim_{x\to3}g(x)=+\infty$}{$\displaystyle\lim_{x\to3}g(x)=2$}{$g(3)=2$}
+\answer{A}{The graph rises without bound on the left of $x=3$ and falls without bound on the right.}
 \end{exo}
-
-\begin{exo}[1.10 \textbullet\ graph]{}
+\begin{exo}[1-4]{}
 At which value of $x$ does $g$ have a removable discontinuity?
 \choices{$x=-1$}{$x=3$}{$x=-4$}{$x=1$}
-\answer{D}{At $x=1$, $\lim_{x\to1}g(x)=2$ exists but $g(1)=4$. At $x=-1$ the discontinuity is a jump; at $x=3$ it is infinite.}
+\answer{D}{At $x=1$ the limit is $2$ but $g(1)=4$.}
 \end{exo}
-
-\Needspace{16\baselineskip}
-\begin{exo}[1.9 \textbullet\ graph]{}
-What is $\displaystyle\lim_{x\to0}g\big(g(x)\big)$?
-\choices{$1$}{$4$}{$2$}{It does not exist.}
-\answer{C}{As $x\to0$, $g(x)=x+1\to1$, taking values close to $1$ but not equal to $1$ (from below when $x<0$, from above when $x>0$). As the input approaches $1$ from either side, $g$ approaches $2$. So the limit is $2$, not $g(1)=4$.}
+\begin{exo}[1-6]{}
+What is the average rate of change of $g$ on $[-4,0]$?
+\choices{$\dfrac14$}{$-1$}{$-\dfrac14$}{$\dfrac34$}
+\answer{C}{$g(-4)=2$, $g(0)=1$: $\frac{1-2}{4}=-\frac14$.}
 \end{exo}
-
-%=================================================
-\partheading{Part B \textbullet\ Multiple choice \textbullet\ Graphing calculator}
-\begin{directions}[Directions \textbullet\ Part B]
-A graphing calculator is \textbf{required} for the questions in this part. If the exact value of the correct answer is not one of the choices, choose the one that best approximates it.
-\end{directions}
-
-\begin{exo}[1.4]{\calcreq}
-Using a table of values or a graph, what is $\displaystyle\lim_{x\to0}\frac{2^x-1}{x}$, to three decimal places?
-\choices{$0.500$}{$0.693$}{$1.000$}{$1.443$}
-\answer{B}{Values at $x=\pm0.001$ are about $0.6929$ and $0.6934$, so the limit is about $0.693$ (it equals $\ln2$).}
-\end{exo}
-
-\begin{exo}[1.16]{\calcreq}
-How many values of $c$ in the open interval $(0,2)$ satisfy $c^3-4c+1=0$?
-\choices{None}{One}{Two}{Three}
-\answer{C}{Graphing $y=x^3-4x+1$ shows zeros at $x\approx-2.115$, $0.254$ and $1.861$. Two of them are in $(0,2)$.}
+\begin{exo}[1-7]{}
+At which value of $x$ in $(-4,3)$ is $g$ differentiable?
+\choices{$x=0$}{$x=-1$}{$x=1$}{$x=3$}
+\answer{A}{At $x=0$ the graph is a straight line (slope $1$). $g$ is not continuous at $x=-1$ (jump), $x=1$ (hole) or $x=3$ (asymptote), so it is not differentiable there.}
 \end{exo}
 
 %=================================================
-\partheading{Part C \textbullet\ Free response}
+\partheading{Part C \textbullet\ Free response \textbullet\ No calculator}
 \begin{directions}[Directions \textbullet\ Part C]
-Show all of your work: your answers are graded on the correctness and completeness of your methods as well as on the final answers. Justify answers with mathematical reasons, naming the theorem or definition you use. Use a calculator only on the question labeled \calctext. Decimal answers should be correct to three places after the decimal point.
+Show all of your work: your answers are graded on the correctness and completeness of your methods as well as on the final answers. Justify answers with mathematical reasons, naming the theorem or definition you use.
 \end{directions}
 
 \Needspace{16\baselineskip}
@@ -203,13 +174,13 @@ The graph of the function $f$ on $[-3,4]$ is shown. It consists of a line segmen
 \begin{enumerate}[label=(\alph*)]
 \item Find $\displaystyle\lim_{x\to-1^-}f(x)$ and $\displaystyle\lim_{x\to-1^+}f(x)$. Does $\displaystyle\lim_{x\to-1}f(x)$ exist? Give a reason for your answer.
 \item Find $\displaystyle\lim_{x\to2}f(x)$. Is $f$ continuous at $x=2$? Name the type of discontinuity, if any, and explain how $f(2)$ could be redefined to make $f$ continuous at $x=2$.
-\item Find $\displaystyle\lim_{x\to3}f\big(f(x)\big)$. Show the work that leads to your answer.
+\item Is $f$ differentiable at $x=-1$? At $x=0$? Explain each answer.
 \item $f(1)=1$ and $f(3)=2$. Explain why the Intermediate Value Theorem cannot be used to guarantee a value $c$ in $[1,3]$ with $f(c)=1.5$. Does such a value exist? Justify.
 \end{enumerate}
 \begin{solution}
 \textbf{(a)} $\lim_{x\to-1^-}f(x)=3$ and $\lim_{x\to-1^+}f(x)=(-1)^2=1$. The one-sided limits are not equal, so $\lim_{x\to-1}f(x)$ does not exist.\\
 \textbf{(b)} $\lim_{x\to2^-}f(x)=2^2=4$ and $\lim_{x\to2^+}f(x)=8-2(2)=4$, so $\lim_{x\to2}f(x)=4$. But $f(2)=1\neq4$, so $f$ is not continuous at $x=2$. This is a removable discontinuity; redefining $f(2)=4$ makes $f$ continuous at $x=2$.\\
-\textbf{(c)} For $x$ near 3, $f(x)=8-2x\to2$. As $x\to3^-$, $f(x)\to2$ from above; as $x\to3^+$, $f(x)\to2$ from below. In both cases $f(f(x))$ approaches $\lim_{y\to2}f(y)=4$ (from part (b)). So $\lim_{x\to3}f(f(x))=4$. (Note that this is not $f(2)=1$.)\\
+\textbf{(c)} At $x=-1$: no, $f$ is not continuous there (jump), and a function is not differentiable where it is not continuous. At $x=0$: yes, the graph is the smooth parabola $y=x^2$ there, with a horizontal tangent line (slope $0$).\\
 \textbf{(d)} The IVT requires $f$ to be continuous on $[1,3]$, but $f$ is not continuous at $x=2$. Such a value does exist: on $[1,2)$, $f(x)=x^2=1.5$ when $c=\sqrt{1.5}\approx1.22$, which is in $[1,3]$.
 \end{solution}
 \end{exo}
@@ -232,21 +203,21 @@ At $x=-2$: the numerator of $\dfrac{x+3}{x+2}$ approaches $1$ and the denominato
 \end{solution}
 \end{exo}
 
-\begin{exo}[Table and theorems]{\calcreq}
-The temperature $W$, in degrees Celsius, of a greenhouse is a continuous function of time $t$, in hours, for $0\le t\le10$. Selected values are given in the table.
-\begin{center}\begin{tabular}{c|ccccc}
-$t$ (hours) & 0 & 3 & 5 & 8 & 10\\\hline $W(t)$ ($^\circ$C) & 20 & 24 & 31 & 27 & 22\end{tabular}\end{center}
+\begin{exo}[Table and theorems]{}
+The temperature $W$, in degrees Celsius, of a greenhouse is a differentiable function of time $t$, in hours, for $0\le t\le10$. Selected values are given in the table.
+\begin{center}\begin{tabular}{|c|c|c|c|c|c|}\hline
+$t$ (hours) & 0 & 3 & 5 & 8 & 10\\\hline $W(t)$ ($^\circ$C) & 20 & 24 & 31 & 27 & 22\\\hline\end{tabular}\end{center}
 \begin{enumerate}[label=(\alph*)]
 \item Must there be a time $t$ in $[0,10]$ at which $W(t)=30$? Justify your answer.
 \item Explain why there must be at least two times in $[0,10]$ at which $W(t)=25$.
-\item Use the data to estimate the rate at which the temperature is changing at $t=4$ hours. Show the computation and give units.
-\item A function $f$ satisfies $4x-x^2\le f(x)\le x^2-4x+8$ for all $x$. Find $\displaystyle\lim_{x\to2}f(x)$, and name the theorem you use.
+\item Find the average rate of change of $W$ on $3\le t\le8$. Give units and interpret it.
+\item Must there be a time $t$ in $(5,8)$ at which $W'(t)=-\frac43$? Justify. Must $W$ have an absolute maximum on $[0,10]$? Justify.
 \end{enumerate}
 \begin{solution}
-\textbf{(a)} Yes. $W$ is continuous on $[3,5]$, $W(3)=24$ and $W(5)=31$. Since $24<30<31$, the IVT guarantees a $t$ in $[3,5]$ with $W(t)=30$.\\
-\textbf{(b)} $W$ is continuous on $[3,5]$ with $24<25<31$, so $W(t)=25$ for some $t$ in $[3,5]$. $W$ is continuous on $[8,10]$ with $22<25<27$, so $W(t)=25$ for some $t$ in $[8,10]$. These intervals do not overlap, so there are at least two such times.\\
-\textbf{(c)} $\dfrac{W(5)-W(3)}{5-3}=\dfrac{31-24}{2}=3.5$ degrees Celsius per hour.\\
-\textbf{(d)} At $x=2$: $4(2)-2^2=4$ and $2^2-4(2)+8=4$. Both bounding functions are polynomials, so $\lim_{x\to2}(4x-x^2)=4$ and $\lim_{x\to2}(x^2-4x+8)=4$. By the squeeze theorem, $\lim_{x\to2}f(x)=4$.
+\textbf{(a)} Yes. $W$ is differentiable, so it is continuous on $[3,5]$; $W(3)=24$ and $W(5)=31$. Since $24<30<31$, the IVT guarantees a $t$ in $(3,5)$ with $W(t)=30$.\\
+\textbf{(b)} On $[3,5]$: $24<25<31$, so $W(t)=25$ for some $t$ in $(3,5)$. On $[8,10]$: $22<25<27$, so $W(t)=25$ for some $t$ in $(8,10)$. These intervals do not overlap: at least two times (IVT twice).\\
+\textbf{(c)} $\dfrac{W(8)-W(3)}{8-3}=\dfrac{27-24}{5}=0.6$ $^\circ$C per hour: between hours $3$ and $8$ the temperature rose on average $0.6$ degrees per hour.\\
+\textbf{(d)} Yes: $W$ is differentiable on $(5,8)$ and continuous on $[5,8]$, and $\dfrac{27-31}{8-5}=-\dfrac43$, so the MVT applies. Yes: $W$ is continuous on the closed interval $[0,10]$, so the EVT guarantees an absolute maximum (at least $31$).
 \end{solution}
 \end{exo}
 

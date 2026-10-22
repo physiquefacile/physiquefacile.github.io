@@ -1,416 +1,571 @@
 %% Worksheets, self checks and tests, AP Calculus AB Unit 1 (Limits, Continuity, and Differentiability).
+%% Written to match the guided notes 1-1 to 1-9 (two-column version). No calculator.
 \newcommand{\gr}[2]{\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,#1]#2\end{axis}\end{tikzpicture}\end{center}}
 \newcommand{\pt}[1]{\node[circle,fill=apblue,inner sep=1.5pt] at (axis cs:#1){};}
 \newcommand{\op}[1]{\node[circle,draw=apblue,fill=white,thick,inner sep=1.5pt] at (axis cs:#1){};}
 \newcommand{\va}[1]{\draw[apred,dashed,thick](axis cs:#1,-100)--(axis cs:#1,100);}
 \newcommand{\ha}[1]{\draw[apgold!80!black,dashed,thick](axis cs:-100,#1)--(axis cs:100,#1);}
+\newcommand{\work}[1]{\ifkey\else\par\vspace{#1}\fi}
+\newcommand{\gfig}[1]{\Needspace{20\baselineskip}\begin{center}\textsf{\small\bfseries\color{apnavy}#1}\end{center}}
 \newcommand{\fgraph}{\gr{xmin=-3.5,xmax=4.5,ymin=-0.5,ymax=4.5,width=7.5cm,height=5cm}{\addplot[apblue,very thick,domain=-3:-1]{x+4};\addplot[apblue,very thick,domain=-1:2]{x^2};\addplot[apblue,very thick,domain=2:4]{8-2*x};\op{-1,3}\pt{-1,1}\op{2,4}\pt{2,1}\pt{-3,1}\pt{4,0}\node[font=\small,apblue] at (axis cs:3.6,3.4){$y=f(x)$};}}
 \newcommand{\ggraph}{\gr{xmin=-4.5,xmax=5.5,ymin=-4.5,ymax=6.5,width=8cm,height=6.5cm}{\addplot[apblue,very thick,domain=-4:-1]{2};\addplot[apblue,very thick,domain=-1:1]{x+1};\addplot[apblue,very thick,domain=1:2.33,samples=120]{4/(3-x)};\addplot[apblue,very thick,domain=3.34:5,samples=120]{2-2/(x-3)};\va{3}\op{-1,2}\op{-1,0}\pt{-1,3}\op{1,2}\pt{1,4}\pt{-4,2}\pt{5,1}\node[font=\small,apblue,fill=white,inner sep=1pt] at (axis cs:-2.6,3.4){$y=g(x)$};}}
+% 1-1: limits from a graph
+\newcommand{\gWa}{\gr{xmin=-4.5,xmax=5.5,ymin=-1.5,ymax=4.5,width=8.5cm,height=5.4cm}{\addplot[apblue,very thick] coordinates {(-4,1)(-2,3)};\addplot[apblue,very thick,domain=-2:1,samples=60]{3-(x+2)^2/3};\addplot[apblue,very thick] coordinates {(1,2)(3,4)};\addplot[apblue,very thick] coordinates {(3,1)(5,-1)};\pt{-4,1}\op{-2,3}\pt{-2,1}\pt{1,0}\op{1,2}\pt{3,4}\op{3,1}\pt{5,-1}\node[apblue,font=\small] at (axis cs:4.4,2.6){$y=f(x)$};}}
+% 1-4: types of discontinuities
+\newcommand{\gWd}{\gr{xmin=-4.5,xmax=5.5,ymin=-5.5,ymax=5.5,width=8.5cm,height=6cm}{\addplot[apblue,very thick] coordinates {(-4,1)(1,3.5)};\op{-2,2}\pt{-2,4}\pt{-4,1}\pt{1,3.5}\addplot[apblue,very thick,domain=1:2.8,samples=60]{1/(3-x)};\op{1,0.5}\addplot[apblue,very thick,domain=3.2:5,samples=60]{-1/(x-3)};\pt{5,-0.5}\va{3}\node[apblue,font=\small] at (axis cs:4.3,3.5){$y=g(x)$};}}
+% 1-7: tangent slopes
+\newcommand{\gWt}{\gr{xmin=-0.3,xmax=6.8,ymin=-0.5,ymax=5,width=8cm,height=5cm,xtick={0.5,2.057,3.5,4.943,6.2},xticklabels={$a$,$b$,$c$,$d$,$e$},ytick=\empty}{\addplot[apblue,very thick,domain=0:6.5,samples=120]{0.15*(x-1)*(x-3.5)*(x-6)+3};\pt{0.5,1.763}\pt{2.057,3.902}\pt{3.5,3}\pt{4.943,2.098}\pt{6.2,3.421}}}
+% 1-7: where a function is not differentiable
+\newcommand{\gWf}{\gr{xmin=-4.5,xmax=6.5,ymin=-1.5,ymax=5,width=9.5cm,height=5.6cm,xtick={-4,-3,...,6}}{\addplot[apblue,very thick] coordinates {(-4,2)(-2,-1)(1,2)};\pt{-4,2}\addplot[apblue,very thick,domain=1:4,samples=140]{3.26+sign(x-3)*abs(x-3)^(1/3)};\op{1,2}\pt{4,4.26}\addplot[apblue,very thick] coordinates {(4,1)(6,2)};\op{4,1}\pt{6,2}\node[apblue,font=\small] at (axis cs:-3,4.3){$y=h(x)$};}}
 
 %%DOC 1-1A | Limits to a Point on a Graph
-\Needspace{20\baselineskip}
-\begin{center}\textsf{\small\bfseries\color{apnavy}Questions 1 to 5 refer to the graph of $f$.}\end{center}
-\fgraph
+\gfig{Questions 1 to 8 refer to the graph of $f$ on $[-4,5]$.}
+\gWa
 \begin{exo}{}
-What is $\displaystyle\lim_{x\to-1^-}f(x)$?
-\choices{$3$}{$1$}{$2$}{It does not exist.}
-\answer{A}{From the left the segment approaches the open circle at height $3$.}
+What is $\displaystyle\lim_{x\to-2}f(x)$?
+\choices{$1$}{$3$}{It does not exist.}{$0$}
+\answer{B}{From both sides the graph approaches the open circle at height $3$.}
 \end{exo}
 \begin{exo}{}
-What is $\displaystyle\lim_{x\to2}f(x)$?
-\choices{$1$}{$2$}{$4$}{It does not exist.}
-\answer{C}{Both pieces approach $(2,4)$.}
+What is $f(-2)$?
+\choices{$3$}{$0$}{$1$}{It does not exist.}
+\answer{C}{$f(-2)$ is the height of the filled dot at $x=-2$.}
 \end{exo}
 \begin{exo}{}
-For which value of $x$ in $(-3,4)$ does $\lim f(x)$ fail to exist?
-\choices{$x=2$}{$x=0$}{$x=3$}{$x=-1$}
-\answer{D}{One-sided limits $3$ and $1$.}
+What is $\displaystyle\lim_{x\to1^-}f(x)$?
+\choices{$0$}{$2$}{It does not exist.}{$1$}
+\answer{A}{From the left, the curved piece comes down to the filled dot $(1,0)$.}
 \end{exo}
 \begin{exo}{}
-What is $\displaystyle\lim_{x\to1}\big(f(x)+2x\big)$?
-\choices{$1$}{$3$}{$2$}{$4$}
-\answer{B}{$1+2=3$.}
+What is $\displaystyle\lim_{x\to1}f(x)$?
+\choices{$0$}{$2$}{$1$}{It does not exist.}
+\answer{D}{Left limit $0$, right limit $2$: different, so the limit does not exist.}
+\end{exo}
+\begin{exo}{}
+What is $\displaystyle\lim_{x\to3^+}f(x)$?
+\choices{$4$}{$1$}{It does not exist.}{$3$}
+\answer{B}{From the right, the graph approaches the open circle at $(3,1)$.}
+\end{exo}
+\begin{exo}{}
+What is $f(3)$?
+\choices{$1$}{It does not exist.}{$4$}{$3$}
+\answer{C}{The filled dot at $x=3$ is at height $4$.}
+\end{exo}
+\begin{exo}{}
+For which values of $x$ in $(-4,5)$ does $\displaystyle\lim f(x)$ fail to exist?
+\choices{$x=1$ and $x=3$}{$x=1$ only}{$x=-2$ and $x=1$}{$x=-2$, $x=1$ and $x=3$}
+\answer{A}{At $x=1$ and $x=3$ the one-sided limits differ. At $x=-2$ the limit exists ($3$), even though $f(-2)=1$.}
 \end{exo}
 \begin{exo}{}
 Which statement is true?
-\choices{$\lim_{x\to2}f(x)=f(2)$}{$\lim_{x\to-1^+}f(x)=f(-1)$}{$\lim_{x\to-1}f(x)=1$}{$f(2)=4$}
-\answer{B}{$\lim_{x\to-1^+}f(x)=1=f(-1)$. The limit at $2$ is $4$ but $f(2)=1$.}
+\choices{$\displaystyle\lim_{x\to-2}f(x)=f(-2)$}{$\displaystyle\lim_{x\to3^-}f(x)=1$}{$\displaystyle\lim_{x\to4}f(x)=0$}{$f(1)=2$}
+\answer{C}{On the last piece, the height at $x=4$ is $0$.}
 \end{exo}
-\Needspace{24\baselineskip}
-\begin{center}\textsf{\small\bfseries\color{apnavy}Question 6 refers to the graph of $g$.}\end{center}
-\ggraph
+\Needspace{14\baselineskip}
 \begin{exo}[Free response]{}
-Use the graph of $g$.
 \begin{enumerate}[label=(\alph*)]
-\item Find $\lim_{x\to-1^-}g(x)$, $\lim_{x\to-1^+}g(x)$ and $g(-1)$. Does $\lim_{x\to-1}g(x)$ exist?
-\item Find $\lim_{x\to1}g(x)$ and $g(1)$.
-\item Describe the behavior of $g$ near $x=3$ with limit notation.
-\item Find $\lim_{x\to0}g\big(g(x)\big)$.
+\item Using the graph of $f$, find $\lim_{x\to-3}f(x)$, $\lim_{x\to3^-}f(x)$ and $\lim_{x\to3}f(x)$.
+\item On the grid, sketch a function $g$ with $\lim_{x\to2}g(x)=3$ but $g(2)=1$.
+\item Explain the difference between $\lim_{x\to c}f(x)$ and $f(c)$.
 \end{enumerate}
+\gr{xmin=-1.5,xmax=4.5,ymin=-0.5,ymax=4.5,width=6cm,height=4.5cm}{\ifkey\addplot[apblue,very thick,domain=-1:4]{0.5*x+2};\op{2,3}\pt{2,1}\fi}
+\work{4cm}
 \begin{solution}
-(a) $2$, $0$, $3$; no (one-sided limits differ). (b) $2$; $g(1)=4$. (c) $\lim_{x\to3^-}g(x)=+\infty$, $\lim_{x\to3^+}g(x)=-\infty$. (d) $g(x)\to1$ without equaling $1$, and $g(u)\to2$ as $u\to1$: the limit is $2$.
+(a) $2$; $4$; does not exist ($4\neq1$). \;(b) Example: a line through $(2,3)$ with an open circle there, and a filled dot at $(2,1)$. \;(c) The limit is the height the graph approaches near $c$; $f(c)$ is the actual height at $c$. They can be different, and either one can fail to exist.
 \end{solution}
 \end{exo}
 
 %%DOC 1-2A | Limits to a Point of a Function
 \begin{exo}{}
-$\displaystyle\lim_{x\to3}\frac{x^2-9}{x^2-2x-3}$ is
-\choices{$0$}{$\frac32$}{$3$}{nonexistent}
-\answer{B}{$\frac{x+3}{x+1}\to\frac64$.}
+What is $\displaystyle\lim_{x\to2}\left(3x^2-x+1\right)$?
+\choices{$11$}{$13$}{$9$}{It does not exist.}
+\answer{A}{Plug in: $12-2+1=11$.}
 \end{exo}
 \begin{exo}{}
-$\displaystyle\lim_{x\to0}\frac{\sqrt{x+9}-3}{x}$ is
-\choices{$0$}{$\frac13$}{$\frac16$}{$3$}
-\answer{C}{Conjugate: $\frac{1}{\sqrt{x+9}+3}$.}
+What is $\displaystyle\lim_{x\to-1}\left(x^3+2x\right)$?
+\choices{$3$}{$-3$}{$1$}{$-1$}
+\answer{B}{$-1-2=-3$.}
 \end{exo}
 \begin{exo}{}
-$\displaystyle\lim_{x\to0}\frac{\sin(5x)}{x}$ is
-\choices{$5$}{$1$}{$\frac15$}{$0$}
-\answer{A}{}
+What is $\displaystyle\lim_{x\to4}7$?
+\choices{$4$}{$0$}{$7$}{$28$}
+\answer{C}{A constant function: the limit is the constant.}
 \end{exo}
 \begin{exo}{}
-$\displaystyle\lim_{x\to2^-}\frac{|x-2|}{x-2}$ is
-\choices{$1$}{$0$}{$-1$}{nonexistent}
-\answer{C}{}
+Let $p(x)=\begin{cases}x^2-3, & x<2\\ 2x-3, & x\ge2.\end{cases}$ What is $\displaystyle\lim_{x\to2}p(x)$?
+\choices{It does not exist.}{$1$}{$4$}{$-1$}
+\answer{B}{Left: $4-3=1$. Right: $4-3=1$. The limit is $1$.}
 \end{exo}
 \begin{exo}{}
-$\displaystyle\lim_{x\to4}\frac{x+1}{(x-4)^2}$ is
-\choices{$0$}{$-\infty$}{$\frac54$}{$\infty$}
-\answer{D}{$\frac50$ with a positive denominator on both sides.}
+Let $q(x)=\begin{cases}5-x, & x\le3\\ x^2-6, & x>3.\end{cases}$ What is $\displaystyle\lim_{x\to3}q(x)$?
+\choices{$2$}{$3$}{It does not exist.}{$\frac52$}
+\answer{C}{Left: $5-3=2$. Right: $9-6=3$. Different: DNE.}
 \end{exo}
 \begin{exo}{}
-$\displaystyle\lim_{x\to0}x^2\cos\frac1x$ is
-\choices{$1$}{$0$}{$-1$}{nonexistent}
-\answer{B}{Squeeze between $\pm x^2$.}
+For the same $q$, what is $q(3)$?
+\choices{$2$}{$3$}{It does not exist.}{$5$}
+\answer{A}{$x=3$ belongs to the top piece: $5-3=2$.}
 \end{exo}
+\begin{exo}{}
+What is $\displaystyle\lim_{x\to5}\frac{x^2-25}{x-5}$?
+\choices{$0$}{$10$}{$5$}{It does not exist.}
+\answer{B}{$\frac00$. $\frac{(x-5)(x+5)}{x-5}=x+5\to10$.}
+\end{exo}
+\begin{exo}{}
+What is $\displaystyle\lim_{x\to-2}\frac{x^2+5x+6}{x^2-4}$?
+\choices{$\frac14$}{$0$}{It does not exist.}{$-\frac14$}
+\answer{D}{$\frac{(x+2)(x+3)}{(x+2)(x-2)}=\frac{x+3}{x-2}\to\frac{1}{-4}$.}
+\end{exo}
+\begin{exo}{}
+What is $\displaystyle\lim_{x\to0}\frac{2x^2+6x}{x^2-3x}$?
+\choices{$-2$}{$2$}{$0$}{It does not exist.}
+\answer{A}{$\frac{2x(x+3)}{x(x-3)}=\frac{2(x+3)}{x-3}\to\frac{6}{-3}=-2$.}
+\end{exo}
+\Needspace{14\baselineskip}
 \begin{exo}[Free response]{}
-Evaluate each limit, showing your work.
-(a) $\displaystyle\lim_{x\to5}\frac{x^2-3x-10}{x-5}$ \quad (b) $\displaystyle\lim_{x\to2}\frac{x^3-8}{x-2}$ \quad (c) $\displaystyle\lim_{h\to0}\frac{\frac1{2+h}-\frac12}{h}$ \quad (d) $\displaystyle\lim_{x\to9}\frac{x-9}{\sqrt x-3}$ \quad (e) $\displaystyle\lim_{x\to0}\frac{\sin2x}{\sin3x}$
+\begin{enumerate}[label=(\alph*)]
+\item Find $\displaystyle\lim_{x\to3}\frac{x^2-x-6}{x^2-9}$. Show the three steps.
+\item Let $h(x)=\begin{cases}x+4, & x<1\\ x^2+4, & x\ge1.\end{cases}$ Find $\lim_{x\to1^-}h(x)$, $\lim_{x\to1^+}h(x)$, $\lim_{x\to1}h(x)$ and $h(1)$.
+\item A classmate says: ``Plugging in gives $\frac00$, so the limit is $0$.'' Explain the mistake.
+\end{enumerate}
+\work{4cm}
 \begin{solution}
-(a) $x+2\to7$. (b) $x^2+2x+4\to12$. (c) $\frac{-1}{2(2+h)}\to-\frac14$. (d) $\sqrt x+3\to6$. (e) $\frac23$.
-\end{solution}
-\end{exo}
-\begin{exo}[Free response]{}
-Let $f(x)=\begin{cases}x^2-1, & x<3\\ 2x+2, & x\ge3.\end{cases}$ Find $\lim_{x\to3^-}f(x)$, $\lim_{x\to3^+}f(x)$ and $\lim_{x\to3}f(x)$.
-\begin{solution}
-$8$, $8$, $8$.
+(a) $\frac00$. Factor: $\frac{(x-3)(x+2)}{(x-3)(x+3)}$; cancel: $\frac{x+2}{x+3}$; plug in: $\frac56$.\\
+(b) $5$, $5$, $5$, $5$.\\
+(c) $\frac00$ is an indeterminate form, not a value. We must factor, cancel and plug in again.
 \end{solution}
 \end{exo}
 
 %%DOC 1-3A | Limits to Infinity and Horizontal Asymptotes
 \begin{exo}{}
-$\displaystyle\lim_{x\to\infty}\frac{4x^3-x}{2x^3+7x^2}$ is
-\choices{$0$}{$\frac47$}{$\infty$}{$2$}
-\answer{D}{}
+Which describes the graph of $f(x)=\dfrac{x+1}{x^2-4x-5}$?
+\choices{A hole at $x=-1$ and a vertical asymptote at $x=5$}{Vertical asymptotes at $x=-1$ and $x=5$}{A hole at $x=5$ and a vertical asymptote at $x=-1$}{No hole and no vertical asymptote}
+\answer{A}{$\frac{x+1}{(x-5)(x+1)}$: $x+1$ cancels (hole), $x-5$ stays (asymptote).}
 \end{exo}
 \begin{exo}{}
-$\displaystyle\lim_{x\to-\infty}\frac{2x}{\sqrt{x^2+5}}$ is
-\choices{$2$}{$-2$}{$0$}{$-\infty$}
-\answer{B}{$\sqrt{x^2}=-x$ for $x<0$.}
+What is the $y$-coordinate of the hole in the graph of $f(x)=\dfrac{x+1}{x^2-4x-5}$?
+\choices{$0$}{$-\frac16$}{$\frac16$}{$-\frac14$}
+\answer{B}{After cancelling, $\frac{1}{x-5}$ at $x=-1$: $-\frac16$.}
 \end{exo}
 \begin{exo}{}
-$\displaystyle\lim_{x\to\infty}\frac{3e^x+x^2}{e^x-1}$ is
-\choices{$0$}{$1$}{$3$}{$\infty$}
-\answer{C}{}
+For the same $f$, what is $\displaystyle\lim_{x\to5^+}f(x)$?
+\choices{$-\infty$}{$0$}{$+\infty$}{$\frac16$}
+\answer{C}{$\frac{1}{x-5}$ with $x-5$ small and positive: $+\infty$.}
 \end{exo}
 \begin{exo}{}
-Which line or lines are vertical asymptotes of $h(x)=\dfrac{x+1}{x^2-1}$?
-\choices{$x=1$ only}{$x=-1$ only}{$x=1$ and $x=-1$}{$y=0$ only}
-\answer{A}{Hole at $x=-1$.}
+What is $\displaystyle\lim_{x\to\infty}\frac{2x^2-3}{5x^2+x}$?
+\choices{$\frac25$}{$0$}{$-3$}{It does not exist.}
+\answer{A}{Same degree: $\frac25$.}
 \end{exo}
 \begin{exo}{}
-The graph of $f(x)=\frac{2x}{\sqrt{x^2+1}}$ is shown. Which are its horizontal asymptotes?
-\gr{xmin=-8.5,xmax=8.5,ymin=-3,ymax=3,xtick distance=2,width=7.5cm,height=4.2cm}{\addplot[apblue,very thick,domain=-8.5:8.5]{2*x/sqrt(x^2+1)};\ha{2}\ha{-2}}
-\choices{$y=2$ only}{$y=0$}{$y=2$ and $y=-2$}{$x=2$ and $x=-2$}
-\answer{C}{}
+What is $\displaystyle\lim_{x\to\infty}\frac{8x-1}{2x^3+5}$?
+\choices{$4$}{$8$}{It does not exist.}{$0$}
+\answer{D}{The bigger degree is on the bottom: $0$.}
 \end{exo}
+\begin{exo}{}
+What is $\displaystyle\lim_{x\to-\infty}\frac{x^3+1}{4x-x^2}$?
+\choices{$-1$}{It does not exist (the function grows without bound).}{$0$}{$\frac14$}
+\answer{B}{The bigger degree is on top, so there is no horizontal asymptote ($\frac{x^3}{-x^2}=-x\to+\infty$).}
+\end{exo}
+\begin{exo}{}
+Which are all the asymptotes of $y=\dfrac{3x^2+1}{x^2-9}$?
+\choices{$x=3$ and $y=3$ only}{$x=-3$, $x=3$ and $y=0$}{$x=-3$, $x=3$ and $y=3$}{$y=3$ only}
+\answer{C}{Nothing cancels: $x=\pm3$ are vertical asymptotes. Same degree: HA $y=\frac31=3$.}
+\end{exo}
+\Needspace{16\baselineskip}
+\begin{exo}{}
+The graph of $g$ is shown, with its asymptotes. What is $\displaystyle\lim_{x\to-2^-}g(x)$?
+\gr{xmin=-6.5,xmax=4.5,ymin=-5,ymax=6,width=7.5cm,height=5.2cm}{\addplot[apblue,very thick,domain=-6.5:-2.4,samples=60]{1+2/(x+2)};\addplot[apblue,very thick,domain=-1.65:4.5,samples=60]{1+2/(x+2)};\va{-2}\ha{1}}
+\choices{$1$}{$+\infty$}{$0$}{$-\infty$}
+\answer{D}{Just to the left of $x=-2$, the graph goes down without bound.}
+\end{exo}
+\Needspace{14\baselineskip}
 \begin{exo}[Free response]{}
-Let $f(x)=\dfrac{x+2}{x^2-4x}$.
+Let $k(x)=\dfrac{2x^2-2}{x^2+2x-3}$.
 \begin{enumerate}[label=(\alph*)]
-\item Find the vertical asymptotes and both one-sided limits at each.
-\item Find $\lim_{x\to\pm\infty}f(x)$ and the horizontal asymptote.
+\item Factor $k$. Find the vertical asymptote and the hole (both coordinates).
+\item Find $\lim_{x\to\infty}k(x)$ and $\lim_{x\to-\infty}k(x)$. What is the horizontal asymptote?
+\item Find $\lim_{x\to-3^+}k(x)$.
 \end{enumerate}
+\work{4cm}
 \begin{solution}
-(a) $x=0$: $\lim_{x\to0^-}=+\infty$, $\lim_{x\to0^+}=-\infty$. $x=4$: $\lim_{x\to4^-}=-\infty$, $\lim_{x\to4^+}=+\infty$.\\
-(b) $0$; $y=0$.
-\end{solution}
-\end{exo}
-\begin{exo}[Free response]{}
-Find: (a) $\displaystyle\lim_{x\to\infty}\frac{x^3}{e^x}$ \quad (b) $\displaystyle\lim_{x\to\infty}\frac{\ln x}{\sqrt x}$ \quad (c) $\displaystyle\lim_{x\to0^+}\ln x$ \quad (d) $\displaystyle\lim_{x\to\frac\pi2^-}\tan x$
-\begin{solution}
-(a) $0$. (b) $0$. (c) $-\infty$. (d) $+\infty$.
+(a) $k=\frac{2(x-1)(x+1)}{(x-1)(x+3)}$. VA $x=-3$; hole at $x=1$, height $\frac{2(2)}{4}=1$: $(1,1)$.\\
+(b) Same degree: both limits are $2$; HA $y=2$.\\
+(c) $\frac{2(x+1)}{x+3}$: numerator near $-4$, denominator small and positive: $-\infty$.
 \end{solution}
 \end{exo}
 
 %%DOC 1-4A | Continuity at a Point
+\gfig{Questions 1 to 4 refer to the graph of $g$ on $[-4,5]$.}
+\gWd
 \begin{exo}{}
-Let $f(x)=\begin{cases}x^2+1, & x<1\\ 3x-1, & x\ge1.\end{cases}$ Which is true?
-\choices{$\lim_{x\to1}f(x)$ does not exist.}{The limit exists but $f$ is not continuous at $x=1$.}{$f$ is continuous at $x=1$.}{$f(1)$ is undefined.}
-\answer{C}{Limits $2$ and $2$, $f(1)=2$.}
+What type of discontinuity does $g$ have at $x=-2$?
+\choices{Removable (hole)}{Jump}{Infinite}{None}
+\answer{A}{The limit exists ($2$) but $g(-2)=4$.}
 \end{exo}
 \begin{exo}{}
-For what value of $k$ is $f(x)=\begin{cases}kx+3, & x\le2\\ x^2-k, & x>2\end{cases}$ continuous?
-\choices{$-\frac13$}{$\frac13$}{$1$}{$7$}
-\answer{B}{$2k+3=4-k$.}
+What type of discontinuity does $g$ have at $x=1$?
+\choices{Removable}{Jump}{Infinite}{None}
+\answer{B}{Left limit $3.5$, right limit $0.5$.}
 \end{exo}
 \begin{exo}{}
-What type of discontinuity does $g(x)=\dfrac{x^2-4}{x-2}$ have at $x=2$?
-\choices{jump}{infinite}{removable}{none}
-\answer{C}{}
+What type of discontinuity does $g$ have at $x=3$?
+\choices{Removable}{Jump}{Infinite}{None}
+\answer{C}{A vertical asymptote: $g\to+\infty$ from the left and $-\infty$ from the right.}
 \end{exo}
 \begin{exo}{}
-The graph of $f$ is shown. Which statement is true?
-\gr{xmin=-1.5,xmax=4.5,ymin=-1.5,ymax=2.5,width=6cm,height=4.4cm}{\addplot[apblue,very thick,domain=-1.5:1]{x};\addplot[apblue,very thick,domain=1:3]{2-x};\addplot[apblue,very thick,domain=3:4.5]{1};\op{3,-1}\pt{3,1}\pt{1,1}}
-\choices{continuous at $x=3$ but not at $x=1$}{continuous at $x=1$ but not at $x=3$}{continuous at both}{continuous at neither}
-\answer{B}{}
+At $x=-2$, which part of the continuity test fails?
+\choices{The left limit does not equal the right limit.}{$g(-2)$ is not defined.}{The limit is infinite.}{The limit does not equal $g(-2)$.}
+\answer{D}{Left $=$ right $=2$, but $g(-2)=4$.}
 \end{exo}
 \begin{exo}{}
-On which interval is $h(x)=\dfrac{\sqrt{x+2}}{x-1}$ continuous?
-\choices{$(-2,\infty)$}{$[-2,1)\cup(1,\infty)$}{$(1,\infty)$}{all real numbers except $1$}
-\answer{B}{}
+Let $h(x)=\begin{cases}x^2+2, & x\le1\\ 4x-1, & x>1.\end{cases}$ Which is true at $x=1$?
+\choices{$h$ is continuous: $3=3=3$.}{Jump discontinuity.}{Removable discontinuity.}{$h(1)$ is undefined.}
+\answer{A}{Left $3$, right $3$, $h(1)=3$.}
 \end{exo}
+\begin{exo}{}
+For what value of $k$ is $g(x)=\begin{cases}kx-1, & x<2\\ x^2+k, & x\ge2\end{cases}$ continuous at $x=2$?
+\choices{$3$}{$5$}{$-5$}{$1$}
+\answer{B}{$2k-1=4+k$, so $k=5$.}
+\end{exo}
+\begin{exo}{}
+For what value of $k$ is $f(x)=\begin{cases}kx^2, & x\le-1\\ 2x+k, & x>-1\end{cases}$ continuous at $x=-1$?
+\choices{$1$}{$-1$}{No value of $k$ works.}{Every value of $k$ works.}
+\answer{C}{$k=-2+k$ gives $0=-2$: impossible.}
+\end{exo}
+\begin{exo}{}
+Which function is continuous at $x=0$?
+\choices{$\dfrac{x^2-x}{x}$}{$\begin{cases}1, & x<0\\ 0, & x\ge0\end{cases}$}{$\dfrac{1}{x^2}$}{$|x|$}
+\answer{D}{(A): hole at $0$. (B): jump. (C): infinite.}
+\end{exo}
+\Needspace{14\baselineskip}
 \begin{exo}[Free response]{}
-Let $f(x)=\begin{cases}2x+a, & x<1\\ bx^2+1, & x\ge1\end{cases}$ and $f(2)=9$.
 \begin{enumerate}[label=(\alph*)]
-\item Find $b$, then the value of $a$ that makes $f$ continuous at $x=1$.
-\item Verify continuity at $x=1$ using the definition.
+\item Let $p(x)=\begin{cases}3x-2, & x\le2\\ x^2, & x>2.\end{cases}$ Prove that $p$ is continuous at $x=2$ with the continuity test.
+\item Find $k$ so that $q(x)=\begin{cases}x^2+k, & x<3\\ kx+1, & x\ge3\end{cases}$ is continuous at $x=3$.
+\item Find and classify the discontinuities of $r(x)=\dfrac{x^2-1}{x^2-x}$.
 \end{enumerate}
+\work{5cm}
 \begin{solution}
-(a) $4b+1=9$, $b=2$; $2+a=3$, $a=1$. (b) $f(1)=3$; both one-sided limits are $3$; so $\lim_{x\to1}f(x)=f(1)$.
-\end{solution}
-\end{exo}
-\begin{exo}[Free response]{}
-Let $h(x)=\dfrac{x^2+x-6}{x^2-4}$. Find each discontinuity, classify it, and justify with limits. What value of $h(2)$ would remove the removable one?
-\begin{solution}
-$h=\frac{(x+3)(x-2)}{(x+2)(x-2)}$. At $x=2$: $\lim h=\frac54$, removable; define $h(2)=\frac54$. At $x=-2$: $\lim_{x\to-2^-}h=-\infty$, $\lim_{x\to-2^+}h=+\infty$: infinite.
+(a) Left $3(2)-2=4$; right $2^2=4$; $p(2)=4$. $4=4=4$: continuous.\\
+(b) $9+k=3k+1$, so $k=4$.\\
+(c) $r=\frac{(x-1)(x+1)}{x(x-1)}$: removable at $x=1$ (limit $2$), infinite at $x=0$.
 \end{solution}
 \end{exo}
 
 %%DOC 1-5A | IVT and EVT
 \begin{exo}{}
-$f$ is continuous on $[1,5]$ with $f(1)=-2$ and $f(5)=6$. Which must be true?
-\choices{$f(c)=8$ for some $c$}{$f(3)=2$}{$f$ is increasing}{$f(c)=4$ for some $c$ in $(1,5)$}
-\answer{D}{IVT.}
+$f$ is continuous on $[-1,3]$, with $f(-1)=5$ and $f(3)=-2$. Which must be true?
+\choices{$f(1)=1.5$}{$f(c)=0$ for some $c$ in $(-1,3)$}{The minimum of $f$ is $-2$.}{$f$ is decreasing.}
+\answer{B}{IVT: $0$ is between $5$ and $-2$.}
+\end{exo}
+\begin{exo}{}
+$f$ is continuous on $[2,5]$, with $f(2)=3$ and $f(5)=11$. The IVT guarantees that $f(c)$ equals which value for some $c$ in $(2,5)$?
+\choices{$12$}{$2$}{$7$}{$0$}
+\answer{C}{Only $7$ is between $3$ and $11$.}
+\end{exo}
+\begin{exo}{}
+$h$ is continuous. \;\begin{tabular}{|c|c|c|c|c|c|}\hline$x$&$0$&$1$&$3$&$4$&$6$\\\hline$h(x)$&$-2$&$3$&$1$&$-1$&$2$\\\hline\end{tabular}\; What is the least number of zeros of $h$ on $[0,6]$?
+\choices{$1$}{$2$}{$3$}{$4$}
+\answer{C}{Sign changes on $[0,1]$, $[3,4]$ and $[4,6]$.}
 \end{exo}
 \begin{exo}{}
 Which function is guaranteed to have an absolute maximum on the given interval?
-\choices{$\frac1x$ on $(0,1]$}{$x^2$ on $(-1,2)$}{$\sqrt{x}$ on $[0,4]$}{$\tan x$ on $\left[0,\frac\pi2\right)$}
-\answer{C}{Continuous on a closed interval (EVT).}
+\choices{$x^3$ on $[0,2]$}{$\frac1x$ on $(0,1]$}{$x^2$ on $(-1,1)$}{$\frac{1}{x-3}$ on $[2,4]$}
+\answer{A}{EVT: continuous on a closed interval.}
 \end{exo}
 \begin{exo}{}
-$g$ is continuous with $g(0)=2$, $g(1)=-1$, $g(2)=1$, $g(3)=4$. What is the least number of zeros of $g$ on $[0,3]$?
-\choices{$0$}{$1$}{$3$}{$2$}
-\answer{D}{}
+Which interval matches $1\le x<4$?
+\choices{$(1,4)$}{$[1,4]$}{$(1,4]$}{$[1,4)$}
+\answer{D}{$1$ included (bracket), $4$ excluded (parenthesis).}
 \end{exo}
 \begin{exo}{}
-The graph of $f(x)=(x-1)(x-2)(x-3)+1$ on $[0,4]$ is shown with the line $y=1$. How many values of $c$ in $[0,4]$ satisfy $f(c)=1$?
-\gr{xmin=-0.5,xmax=4.5,ymin=-5.5,ymax=7.5,ytick distance=2,width=6cm,height=5cm}{\addplot[apblue,very thick,domain=0:4]{(x-1)*(x-2)*(x-3)+1};\ha{1}\pt{0,-5}\pt{4,7}}
-\choices{exactly one}{exactly two}{three}{none}
-\answer{C}{$c=1,2,3$; the IVT only guarantees one.}
+What does $f(c)\le f(x)$ for every $x$ in $[a,b]$ mean?
+\choices{$f$ has an absolute minimum at $x=c$.}{$f$ has an absolute maximum at $x=c$.}{$f(c)=0$.}{$f$ is decreasing.}
+\answer{A}{The height at $c$ is below all the others.}
 \end{exo}
-\begin{exo}[Free response]{\calcreq}
-Let $f(x)=x^3-2x-2$.
-\begin{enumerate}[label=(\alph*)]
-\item Use the IVT to show that $f$ has a zero in $[1,2]$.
-\item Explain why $f$ has an absolute maximum and minimum on $[0,2]$, and use a calculator to find them.
-\item Approximate the zero in $[1,2]$ to three decimal places.
-\end{enumerate}
-\begin{solution}
-(a) Continuous (polynomial); $f(1)=-3<0<2=f(2)$.\\
-(b) Continuous on the closed interval $[0,2]$ (EVT). The graph's lowest point is at $x=\sqrt{2/3}\approx0.816$: minimum $\approx-3.089$; maximum $f(2)=2$.\\
-(c) $x\approx1.769$.
-\end{solution}
+\begin{exo}{}
+$f(x)=\frac1x$ has $f(-1)=-1$ and $f(1)=1$, but $f(x)$ is never $0$. Why doesn't this contradict the IVT?
+\choices{$0$ is not between $-1$ and $1$.}{The interval is open.}{$f$ is not continuous on $[-1,1]$.}{The IVT only works for polynomials.}
+\answer{C}{$f$ has a vertical asymptote at $x=0$.}
 \end{exo}
+\Needspace{14\baselineskip}
+\begin{exo}{}
+The graph of $f$ on the open interval $(0,4)$ is shown. Which is true?
+\gr{xmin=-0.5,xmax=4.5,ymin=-0.5,ymax=4.5,width=6cm,height=4.4cm}{\addplot[apblue,very thick,domain=0:4]{0.9*x+0.2};\op{0,0.2}\op{4,3.8}}
+\choices{$f$ has a maximum at $x=4$.}{$f$ has a maximum and a minimum on $(0,4)$.}{$f$ has no maximum and no minimum on $(0,4)$.}{The EVT guarantees a maximum.}
+\answer{C}{The endpoints are not included, so the highest and lowest heights are never reached. The EVT needs a closed interval.}
+\end{exo}
+\Needspace{14\baselineskip}
 \begin{exo}[Free response]{}
-The temperature $W$ ($^\circ$C) in a greenhouse is continuous; $W(0)=20$, $W(3)=24$, $W(5)=31$, $W(8)=27$, $W(10)=22$.
+The temperature $T(t)$, in $^\circ$C, is continuous. \;\begin{tabular}{|c|c|c|c|c|}\hline$t$ (h)&$0$&$2$&$5$&$8$\\\hline$T(t)$&$12$&$18$&$15$&$9$\\\hline\end{tabular}
 \begin{enumerate}[label=(\alph*)]
-\item Must there be a time when $W(t)=30$? Justify.
-\item Explain why there are at least two times when $W(t)=25$.
-\item Must $W$ have an absolute maximum on $[0,10]$? Is it at least $31$?
+\item Must $T(t)=16$ for some $t$ in $(0,2)$? Justify.
+\item What is the least number of times $T(t)=16$ on $[0,8]$? Explain.
+\item Must $T$ have an absolute maximum on $[0,8]$? What can you say about its value?
 \end{enumerate}
+\work{4cm}
 \begin{solution}
-(a) Yes: continuous on $[3,5]$ and $24<30<31$ (IVT).\\
-(b) $[3,5]$: $24<25<31$; $[8,10]$: $22<25<27$; two separate intervals.\\
-(c) Yes (EVT: continuous on a closed interval). Yes, since $W(5)=31$.
+(a) Yes: $T$ is continuous on $[0,2]$ and $12<16<18$ (IVT).\\
+(b) At least $2$: once in $(0,2)$ and once in $(2,5)$, since $18>16>15$.\\
+(c) Yes, EVT (continuous on the closed interval $[0,8]$). The maximum is at least $18$.
 \end{solution}
 \end{exo}
 
 %%DOC 1-6A | Average Rate of Change
 \begin{exo}{}
-What is the average rate of change of $f(x)=x^3-2x$ on $[-1,2]$?
-\choices{$3$}{$\frac53$}{$1$}{$-1$}
-\answer{C}{}
+What is the average rate of change of $f(x)=x^2-4x$ on $[1,5]$?
+\choices{$2$}{$8$}{$-2$}{$4$}
+\answer{A}{$f(5)=5$, $f(1)=-3$: $\frac{8}{4}=2$.}
 \end{exo}
 \begin{exo}{}
-For $f(x)=x^2+x$, which is $\dfrac{f(2+h)-f(2)}{h}$ for $h\neq0$?
-\choices{$5$}{$5+h$}{$4+h$}{$h^2+5h$}
-\answer{B}{$\frac{(2+h)^2+(2+h)-6}{h}=\frac{5h+h^2}{h}$.}
+What is the average rate of change of $g(x)=x^3$ on $[-1,2]$?
+\choices{$9$}{$3$}{$\frac73$}{$1$}
+\answer{B}{$\frac{8-(-1)}{3}=3$.}
 \end{exo}
 \begin{exo}{}
-The position (m) of a particle is graphed. What is its average velocity on $[2,6]$?
-\gr{xmin=-0.5,xmax=6.5,ymin=-0.5,ymax=8.5,ytick distance=2,width=6cm,height=4.8cm,xlabel={$t$},ylabel={$s$}}{\addplot[apblue,very thick] coordinates {(0,0)(2,6)(4,6)(6,2)};}
-\choices{$-1$ m/s}{$-2$ m/s}{$1$ m/s}{$0$ m/s}
-\answer{A}{$\frac{2-6}{4}=-1$.}
+What is the average rate of change of $h(x)=\sqrt x$ on $[4,9]$?
+\choices{$5$}{$1$}{$\frac15$}{$\frac{3}{9}$}
+\answer{C}{$\frac{3-2}{9-4}=\frac15$.}
 \end{exo}
 \begin{exo}{}
-$V(t)$ is a volume in liters, $t$ in minutes. Units of $\frac{V(8)-V(2)}{6}$?
-\choices{liters}{minutes per liter}{liters per minute}{liters per minute per minute}
-\answer{C}{}
+\begin{tabular}{|c|c|c|c|c|}\hline$t$ (h)&$0$&$3$&$5$&$9$\\\hline$P(t)$ (people)&$120$&$150$&$210$&$300$\\\hline\end{tabular}\; What is the average rate of change of $P$ on $3\le t\le9$?
+\choices{$150$ people}{$30$ people per hour}{$20$ people per hour}{$25$ people per hour}
+\answer{D}{$\frac{300-150}{9-3}=25$ people per hour.}
 \end{exo}
+\begin{exo}{}
+$C(x)$ is the cost, in FCFA, of $x$ kilograms of rice. What are the units of $\dfrac{C(10)-C(4)}{10-4}$?
+\choices{FCFA}{FCFA per kilogram}{kilograms per FCFA}{kilograms}
+\answer{B}{Output units per input unit.}
+\end{exo}
+\Needspace{14\baselineskip}
+\begin{exo}{}
+The graph of $f$ is shown. What is the average rate of change of $f$ on $[-1,3]$?
+\gr{xmin=-1.5,xmax=3.5,ymin=-4.5,ymax=4.5,width=6cm,height=5cm}{\addplot[apblue,very thick,domain=-1.3:3.3,samples=60]{x^2/2-3*x+0.5};\pt{-1,4}\pt{3,-4}}
+\choices{$2$}{$-8$}{$-2$}{$-\frac12$}
+\answer{C}{$f(-1)=4$, $f(3)=-4$: $\frac{-8}{4}=-2$.}
+\end{exo}
+\begin{exo}{}
+The average rate of change of $f$ on $[0,4]$ is $3$, and $f(0)=5$. What is $f(4)$?
+\choices{$17$}{$12$}{$8$}{$7$}
+\answer{A}{$\frac{f(4)-5}{4}=3$, so $f(4)=17$.}
+\end{exo}
+\begin{exo}{}
+On a graph, the average rate of change on $[a,b]$ is the slope of
+\choices{the tangent line at $a$}{the $x$-axis}{the tangent line at $b$}{the secant line through $(a,f(a))$ and $(b,f(b))$}
+\answer{D}{Slope between the two points.}
+\end{exo}
+\Needspace{14\baselineskip}
 \begin{exo}[Free response]{}
-\begin{center}\begin{tabular}{c|ccccc}$t$ (hours)&$0$&$4$&$8$&$12$&$16$\\\hline$T(t)$ ($^\circ$F)&$52$&$48$&$57$&$71$&$66$\end{tabular}\end{center}
+A tank is drained. \;\begin{tabular}{|c|c|c|c|c|c|}\hline$t$ (min)&$0$&$10$&$20$&$30$&$40$\\\hline$V(t)$ (L)&$500$&$420$&$360$&$320$&$300$\\\hline\end{tabular}
 \begin{enumerate}[label=(\alph*)]
-\item Find and interpret the average rate of change of $T$ on $[4,12]$.
-\item On which interval of length 4 did $T$ increase fastest on average?
-\item For $s(t)=t^3$, simplify $\frac{s(1+h)-s(1)}{h}$ and evaluate it for $h=0.1$.
+\item Find the average rate of change of $V$ on $[0,40]$. Give units and interpret it.
+\item Find the average rate of change of $V$ on $[20,40]$.
+\item Find the average rates on $[0,10]$, $[10,20]$, $[20,30]$, $[30,40]$. Is the water leaving faster or slower over time?
 \end{enumerate}
+\work{4.5cm}
 \begin{solution}
-(a) $\frac{23}{8}=2.875$ $^\circ$F per hour, on average, from 4 a.m.\ to noon. (b) $[8,12]$ ($3.5$). (c) $3+3h+h^2$; $3.31$.
+(a) $\frac{300-500}{40}=-5$ L/min: on average the tank loses $5$ liters per minute.\\
+(b) $\frac{300-360}{20}=-3$ L/min.\\
+(c) $-8$, $-6$, $-4$, $-2$ L/min: the rates increase toward $0$, so the water leaves more and more slowly.
 \end{solution}
 \end{exo}
 
 %%DOC 1-7A | Instantaneous Rates of Change
+\gfig{Questions 1 to 3 refer to the graph of $f$.}
+\gWt
 \begin{exo}{}
-$\displaystyle\lim_{h\to0}\frac{(3+h)^2-9}{h}$ is
-\choices{$9$}{$0$}{$6$}{$3$}
-\answer{C}{It is $f'(3)$ for $f(x)=x^2$.}
+At which labeled point is $f'(x)<0$?
+\choices{$a$}{$b$}{$c$}{$e$}
+\answer{C}{The graph falls at $c$.}
 \end{exo}
 \begin{exo}{}
-$\displaystyle\lim_{h\to0}\frac{\sqrt{4+h}-2}{h}$ represents $f'(a)$ for which $f$ and $a$?
-\choices{$f(x)=\sqrt x$, $a=4$}{$f(x)=\sqrt x$, $a=2$}{$f(x)=\sqrt{x+4}$, $a=2$}{$f(x)=x^2$, $a=4$}
-\answer{A}{}
+At which two labeled points is $f'(x)=0$?
+\choices{$b$ and $d$}{$a$ and $e$}{$b$ and $c$}{$c$ and $d$}
+\answer{A}{The peak $b$ and the valley $d$ have horizontal tangent lines.}
 \end{exo}
 \begin{exo}{}
-Using $g'(x)=3x^2$ for $g(x)=x^3$, which is the tangent line to $y=x^3$ at $x=1$?
-\choices{$y=3x-2$}{$y=3x+1$}{$y=x$}{$y=3x$}
-\answer{A}{Point $(1,1)$, slope $3$: $y-1=3(x-1)$.}
+Which statement about $f'(a)$ and $f'(e)$ is true?
+\choices{Both are negative.}{$f'(a)>0$ and $f'(e)<0$.}{Both are zero.}{Both are positive.}
+\answer{D}{The graph rises at $a$ and at $e$.}
 \end{exo}
 \begin{exo}{}
-At which point is $f(x)=|x-2|+1$ continuous but not differentiable?
-\choices{$x=1$}{$x=2$}{$x=-2$}{nowhere}
-\answer{B}{Corner.}
+$\dfrac{dy}{dx}$ at $x=c$ means
+\choices{the average rate of change on $[0,c]$}{the slope of the tangent line at $x=c$}{the value $y(c)$}{the area under the graph}
+\answer{B}{Instantaneous rate of change $=$ derivative $=$ slope of the tangent line.}
 \end{exo}
 \begin{exo}{}
-$s$ is differentiable; $s(2)=9$, $s(4)=20$, $s(6)=35$. Which is the best estimate of $s'(4)$?
-\choices{$5.5$}{$6.5$}{$7.5$}{$20$}
-\answer{B}{$\frac{35-9}{4}$.}
+Where is $f(x)=|x+1|$ not differentiable?
+\choices{$x=1$}{$x=0$}{$x=-1$}{nowhere}
+\answer{C}{Sharp corner at $x=-1$.}
 \end{exo}
+\gfig{Questions 6 and 7 refer to the graph of $h$ on $[-4,6]$.}
+\gWf
+\begin{exo}{}
+At which $x$ does $h$ have a sharp corner?
+\choices{$x=-2$}{$x=1$}{$x=3$}{$x=4$}
+\answer{A}{Two straight pieces with different slopes meet at $x=-2$.}
+\end{exo}
+\begin{exo}{}
+Why is $h$ not differentiable at $x=3$?
+\choices{It has a hole there.}{It has a jump there.}{It has a sharp corner there.}{It has a vertical tangent line there.}
+\answer{D}{The graph is continuous but becomes vertical at $x=3$.}
+\end{exo}
+\begin{exo}{}
+Which statement is true?
+\choices{Continuous implies differentiable.}{Differentiable implies continuous.}{A function is differentiable at a jump.}{A function is differentiable at a vertical tangent.}
+\answer{B}{If $f$ is differentiable at $c$, it is continuous at $c$; the converse is false.}
+\end{exo}
+\Needspace{12\baselineskip}
 \begin{exo}[Free response]{}
-\begin{enumerate}[label=(\alph*)]
-\item Use the definition to find $f'(x)$ for $f(x)=x^2-3x$.
-\item Write the tangent line at $x=4$.
-\item Is $g(x)=\begin{cases}x^2, & x\le1\\ 2x-1, & x>1\end{cases}$ differentiable at $x=1$? Explain.
-\end{enumerate}
+Use the graph of $h$ above. List every $x$ in $[-4,6]$ where $h$ is not differentiable, and give the reason for each.
+\work{3.5cm}
 \begin{solution}
-(a) $\frac{(x+h)^2-3(x+h)-x^2+3x}{h}=2x+h-3\to2x-3$.\\
-(b) $f(4)=4$, $f'(4)=5$: $y-4=5(x-4)$.\\
-(c) Continuous at $1$ (both give $1$); slopes $2$ and $2$ match: yes, $g'(1)=2$.
+$x=-4$: endpoint. $x=-2$: sharp corner. $x=1$: hole (discontinuous). $x=3$: vertical tangent. $x=4$: jump (discontinuous). $x=6$: endpoint.
 \end{solution}
 \end{exo}
 
 %%DOC 1-8A | MVT
 \begin{exo}{}
-For $f(x)=x^2$ on $[0,4]$, which value of $c$ satisfies the MVT?
-\choices{$1$}{$2$}{$3$}{$4$}
-\answer{B}{Secant slope $4=2c$.}
+What does the MVT need on $[a,b]$?
+\choices{$f$ continuous on $[a,b]$ and differentiable on $(a,b)$}{$f$ increasing}{$f(a)=f(b)$}{$f$ continuous on $(a,b)$ only}
+\answer{A}{Both conditions.}
 \end{exo}
 \begin{exo}{}
-For which function does the MVT apply on $[-1,1]$?
-\choices{$|x|$}{$\frac1x$}{$x^3$}{$\sqrt[3]{x}$}
-\answer{C}{$|x|$ has a corner and $\sqrt[3]x$ a vertical tangent at $0$; $\frac1x$ is discontinuous.}
+$f$ is differentiable, $f(0)=-2$ and $f(4)=10$. The MVT guarantees a $c$ in $(0,4)$ with $f'(c)=$
+\choices{$12$}{$3$}{$2$}{$\frac13$}
+\answer{B}{$\frac{10-(-2)}{4}=3$.}
 \end{exo}
 \begin{exo}{}
-$f$ is differentiable, $f(1)=4$ and $f(5)=-4$. Which must be true?
-\choices{$f'(c)=-2$ for some $c$ in $(1,5)$}{$f'(3)=-2$}{$f(c)=0$ only once}{$f'(c)=0$ for some $c$}
-\answer{A}{$\frac{-8}{4}=-2$.}
+For which function does the MVT apply on $[0,2]$?
+\choices{$|x-1|$}{$\frac{1}{x-1}$}{$x^2-3x$}{$\begin{cases}x, & x<1\\ x+1, & x\ge1\end{cases}$}
+\answer{C}{A polynomial. The others have a corner, an asymptote or a jump at $x=1$.}
 \end{exo}
-\begin{exo}[Free response]{}
-Find all values of $c$ guaranteed by the MVT. (Use $g'(x)=3x^2$ and $k'(x)=-\frac1{x^2}$.)
-(a) $g(x)=x^3$ on $[0,3]$ \quad (b) $k(x)=\frac1x$ on $[1,4]$ \quad (c) $g(x)=x^3$ on $[-2,2]$
-\begin{solution}
-(a) $9=3c^2$: $c=\sqrt3$. (b) $-\frac14=-\frac1{c^2}$: $c=2$. (c) $\frac{8-(-8)}{4}=4=3c^2$: $c=\pm\frac{2}{\sqrt3}\approx\pm1.155$ (both in $(-2,2)$).
-\end{solution}
+\begin{exo}{}
+$h$ is differentiable. \;\begin{tabular}{|c|c|c|c|}\hline$x$&$1$&$4$&$6$\\\hline$h(x)$&$2$&$11$&$5$\\\hline\end{tabular}\; The MVT guarantees a $c$ in $(4,6)$ with $h'(c)=$
+\choices{$3$}{$6$}{$-6$}{$-3$}
+\answer{D}{$\frac{5-11}{6-4}=-3$.}
 \end{exo}
+\begin{exo}{}
+$f$ is differentiable and $f(1)=f(5)=3$. What does the MVT guarantee?
+\choices{A $c$ in $(1,5)$ with $f'(c)=0$ (a horizontal tangent)}{$f(3)=3$}{$f$ is constant.}{A $c$ in $(1,5)$ with $f(c)=0$}
+\answer{A}{Average rate $\frac{3-3}{4}=0$.}
+\end{exo}
+\Needspace{14\baselineskip}
+\begin{exo}{}
+The graph of $g(x)=|x-2|+1$ on $[0,4]$ is shown. Does the MVT guarantee a $c$ in $(0,4)$ with $g'(c)=\frac{g(4)-g(0)}{4-0}$?
+\gr{xmin=-0.5,xmax=4.5,ymin=-0.5,ymax=3.5,width=6cm,height=4.4cm}{\addplot[apblue,very thick] coordinates {(0,3)(2,1)(4,3)};\pt{0,3}\pt{4,3}}
+\choices{Yes, $c=2$.}{No: $g$ is not differentiable at $x=2$.}{Yes, because $g$ is continuous.}{No, because $g(0)=g(4)$.}
+\answer{B}{The corner at $x=2$ breaks the conditions; the slopes are only $-1$ and $1$, never $0$.}
+\end{exo}
+\begin{exo}{}
+In words, the MVT says that somewhere the slope of a \underline{\hspace{1.5cm}} equals the slope of the \underline{\hspace{1.5cm}}.
+\choices{secant line; tangent line}{tangent line; $x$-axis}{tangent line; secant line}{graph; table}
+\answer{C}{Instantaneous rate (tangent) $=$ average rate (secant).}
+\end{exo}
+\Needspace{14\baselineskip}
 \begin{exo}[Free response]{}
-A car's position $s(t)$ (miles) is differentiable; $s(0)=0$, $s(1.5)=90$, $s(3)=165$.
+The water level $W(t)$, in meters, is differentiable. \;\begin{tabular}{|c|c|c|c|c|}\hline$t$ (h)&$0$&$4$&$6$&$10$\\\hline$W(t)$&$2$&$5$&$9$&$7$\\\hline\end{tabular}
 \begin{enumerate}[label=(\alph*)]
-\item Must the car's velocity have been exactly 60 mph at some time in $(0,1.5)$? Justify.
-\item Must it have been exactly 50 mph at some time in $(1.5,3)$? Justify.
+\item Explain why there must be a time $t$ in $(4,6)$ with $W'(t)=2$.
+\item Must there be a time in $(0,10)$ when the level rises at $0.5$ m/h? Justify.
+\item Does the MVT apply to $g(x)=|x-3|+1$ on $[1,5]$? Explain.
 \end{enumerate}
+\work{4.5cm}
 \begin{solution}
-(a) $\frac{90}{1.5}=60$; MVT: yes. (b) $\frac{165-90}{1.5}=50$; MVT: yes.
+(a) $W$ is differentiable (so continuous) on $[4,6]$; $\frac{9-5}{2}=2$: MVT.\\
+(b) Yes: $\frac{7-2}{10}=0.5$, MVT on $[0,10]$.\\
+(c) No: $g$ has a sharp corner at $x=3$, so it is not differentiable on $(1,5)$.
 \end{solution}
 \end{exo}
 
 %%DOC 1-9A | IVT, EVT, and MVT
 \begin{exo}{}
-``Was there a time when the water level was exactly 3 m?'' Which theorem answers this?
-\choices{IVT}{EVT}{MVT}{none}
-\answer{A}{}
+A runner's distance $D(t)$ is differentiable. ``Was the runner ever going exactly as fast as her average speed?'' Which theorem answers this?
+\choices{IVT}{EVT}{MVT}{None}
+\answer{C}{A speed (slope) equal to an average rate: MVT.}
 \end{exo}
 \begin{exo}{}
-``Was the water level ever rising at exactly 0.5 m per hour?'' Which theorem answers this?
-\choices{IVT}{EVT}{MVT}{none}
-\answer{C}{}
+The height $h(t)$ of a kite is continuous on $[0,30]$. ``Was the kite ever exactly $25$ m high?'' given $h(0)=2$ and $h(30)=40$. Which theorem answers this?
+\choices{IVT}{EVT}{MVT}{None}
+\answer{A}{A height between $h(0)$ and $h(30)$: IVT.}
 \end{exo}
 \begin{exo}{}
-The graph of $f$ on $[0,4]$ has a corner at $x=2$ and no breaks. Which theorems are guaranteed to apply on $[0,4]$?
-\choices{IVT only}{IVT and EVT}{EVT and MVT}{IVT, EVT and MVT}
-\answer{B}{Not differentiable at $x=2$.}
+``Was there a highest point of the kite on $[0,30]$?'' Which theorem answers this?
+\choices{IVT}{MVT}{None}{EVT}
+\answer{D}{Continuous on a closed interval: an absolute maximum exists (EVT).}
 \end{exo}
-\begin{exo}[Free response \textbullet\ AP style]{}
-A differentiable function $f$ has the values below.
-\begin{center}\begin{tabular}{c|ccccc}$x$&$0$&$2$&$5$&$7$&$10$\\\hline$f(x)$&$4$&$-2$&$3$&$9$&$5$\end{tabular}\end{center}
-\begin{enumerate}[label=(\alph*)]
-\item Must $f(c)=0$ for some $c$ in $(0,2)$? Justify.
-\item Must $f'(c)=3$ for some $c$ in $(5,7)$? Justify.
-\item Must $f$ attain an absolute minimum on $[0,10]$? Justify.
-\item Must $f'(c)=0$ for some $c$ in $(0,10)$? Justify.
-\end{enumerate}
-\begin{solution}
-$f$ is differentiable, so continuous.\\
-(a) Yes, IVT: $f(0)=4>0>-2=f(2)$. (b) Yes, MVT: $\frac{9-3}{2}=3$. (c) Yes, EVT (continuous on a closed interval).\\
-(d) Yes: by the IVT, $f(b)=4$ for some $b$ in $(5,7)$; then the MVT on $[0,b]$ gives $f'(c)=\frac{4-4}{b}=0$.
-\end{solution}
+\begin{exo}{}
+Which theorem needs a \textbf{closed} interval and gives an absolute maximum and minimum?
+\choices{IVT}{EVT}{MVT}{All three}
+\answer{B}{The EVT.}
 \end{exo}
+\gfig{Questions 5 to 7 refer to the table. $f$ is differentiable.}
+\begin{center}\begin{tabular}{|c|c|c|c|c|}\hline$x$&$0$&$3$&$5$&$8$\\\hline$f(x)$&$2$&$-4$&$6$&$6$\\\hline\end{tabular}\end{center}
+\begin{exo}{}
+Which statement is guaranteed?
+\choices{$f(c)=0$ for some $c$ in $(5,8)$}{$f(c)=0$ for some $c$ in $(0,3)$}{$f'(c)=0$ for some $c$ in $(0,3)$}{$f'(c)=-2$ for some $c$ in $(3,5)$}
+\answer{B}{IVT: $0$ is between $2$ and $-4$.}
+\end{exo}
+\begin{exo}{}
+The MVT guarantees a $c$ in $(3,5)$ with $f'(c)=$
+\choices{$1$}{$-5$}{$5$}{$10$}
+\answer{C}{$\frac{6-(-4)}{2}=5$.}
+\end{exo}
+\begin{exo}{}
+Must there be a $c$ in $(5,8)$ with $f'(c)=0$?
+\choices{Yes, by the MVT.}{Yes, by the IVT.}{No, $f$ is constant there.}{No, the MVT needs $f(a)\neq f(b)$.}
+\answer{A}{$\frac{6-6}{3}=0$ and $f$ is differentiable.}
+\end{exo}
+\begin{exo}{}
+$h$ is continuous on $[0,4]$ with a sharp corner at $x=2$. Which theorems apply on $[0,4]$?
+\choices{All three}{MVT only}{IVT and EVT only}{None}
+\answer{C}{The MVT also needs differentiability.}
+\end{exo}
+\Needspace{14\baselineskip}
 \begin{exo}[Free response]{}
-Let $h(x)=x+1$ for $0\le x\le2$ and $h(x)=3-\frac12(x-2)^2$ for $2<x\le4$. Near $x=2$, the left piece has slope $1$ and the right piece has slope $0$.
+$g$ is differentiable. \;\begin{tabular}{|c|c|c|c|c|}\hline$x$&$1$&$2$&$4$&$7$\\\hline$g(x)$&$6$&$1$&$5$&$11$\\\hline\end{tabular}
 \begin{enumerate}[label=(\alph*)]
-\item Is $h$ continuous at $x=2$? Is it differentiable at $x=2$? Justify.
-\item Which of the IVT, EVT and MVT apply to $h$ on $[0,4]$? Explain.
-\item Does the MVT apply on $[2,4]$? If so, what is the guaranteed value of $h'(c)$?
+\item Must $g(c)=3$ for some $c$ in $(1,2)$? Justify.
+\item Must $g'(c)=2$ for some $c$ in $(2,4)$? Justify.
+\item Must $g$ have an absolute minimum on $[1,7]$? Justify.
+\item $k(x)=\frac{1}{x-3}$ has $k(2)=-1$ and $k(4)=1$. Does the IVT guarantee $k(c)=0$ in $(2,4)$? Explain.
 \end{enumerate}
+\work{5cm}
 \begin{solution}
-(a) $h(2)=3$ and both one-sided limits are $3$: continuous. The slopes $1$ and $0$ differ (a corner): not differentiable at $x=2$.\\
-(b) IVT and EVT apply ($h$ is continuous on $[0,4]$). The MVT does not ($h$ is not differentiable at $x=2$).\\
-(c) Yes: on $[2,4]$, $h$ is given by $3-\frac12(x-2)^2$, continuous and differentiable. $h'(c)=\frac{h(4)-h(2)}{4-2}=\frac{1-3}{2}=-1$.
+(a) Yes, IVT: $g$ is continuous (differentiable) and $1<3<6$.\\
+(b) Yes, MVT: $\frac{5-1}{4-2}=2$.\\
+(c) Yes, EVT: continuous on the closed interval $[1,7]$; the minimum is at most $1$.\\
+(d) No: $k$ is not continuous at $x=3$ (vertical asymptote), so the IVT does not apply.
 \end{solution}
 \end{exo}
 
 %%DOC SC1.1 | Self Check 1.1 \textbullet\ Lessons 1-1 and 1-2
-\fgraph
+\gfig{Questions 1 and 2 refer to the graph of $f$.}
+\gWa
 \begin{exo}{}
-Using the graph of $f$, $\displaystyle\lim_{x\to-1^+}f(x)=$
-\choices{$3$}{$1$}{$0$}{It does not exist.}
-\answer{B}{}
+Using the graph of $f$, $\displaystyle\lim_{x\to-3}f(x)=$
+\choices{$1$}{$2$}{$3$}{It does not exist.}
+\answer{B}{On the first piece, the height at $x=-3$ is $2$.}
 \end{exo}
 \begin{exo}{}
-Using the graph of $f$, $\displaystyle\lim_{x\to3}f(x)=$
-\choices{$1$}{$3$}{$2$}{$4$}
-\answer{C}{$8-6=2$.}
-\end{exo}
-\begin{exo}{}
-$\displaystyle\lim_{x\to-2}\frac{x^2-4}{x+2}=$
-\choices{$0$}{$-4$}{$4$}{It does not exist.}
-\answer{B}{}
+Using the graph of $f$, $\displaystyle\lim_{x\to3^-}f(x)=$
+\choices{$1$}{$3$}{It does not exist.}{$4$}
+\answer{D}{From the left, the graph rises to the filled dot $(3,4)$.}
 \end{exo}
 \begin{exo}{}
 $\displaystyle\lim_{x\to1}\frac{x^2+2x-3}{x-1}=$
 \choices{$4$}{$0$}{$2$}{It does not exist.}
 \answer{A}{$\frac{(x-1)(x+3)}{x-1}=x+3\to4$.}
 \end{exo}
+\begin{exo}{}
+Let $j(x)=\begin{cases}2x+3, & x<-1\\ x^2, & x\ge-1.\end{cases}$ Then $\displaystyle\lim_{x\to-1}j(x)=$
+\choices{$-1$}{It does not exist.}{$1$}{$3$}
+\answer{C}{Left: $-2+3=1$. Right: $(-1)^2=1$.}
+\end{exo}
 \begin{exo}[Free response]{}
 Find $\displaystyle\lim_{x\to0}\frac{x^2+5x}{x}$, $\displaystyle\lim_{x\to-3}\frac{x^2-9}{x+3}$, and $\displaystyle\lim_{x\to2}j(x)$ for $j(x)=\begin{cases}x^2, & x<2\\ 6-x, & x\ge2.\end{cases}$
+\work{3cm}
 \begin{solution}
 $x+5\to5$; \;$x-3\to-6$; \;left $4$, right $4$: the limit is $4$.
 \end{solution}
@@ -439,6 +594,7 @@ Which condition for continuity fails for $f(x)=\frac{x^2-9}{x-3}$ at $x=3$?
 \end{exo}
 \begin{exo}[Free response]{}
 Let $f(x)=\dfrac{2x^2-8}{x^2-x-2}$. Find the vertical asymptote, the hole and the horizontal asymptote. Then classify the discontinuities of $g(x)=\frac{x+2}{x^2-4}$.
+\work{3.5cm}
 \begin{solution}
 $f=\frac{2(x-2)(x+2)}{(x-2)(x+1)}$: VA $x=-1$; hole at $x=2$, height $\frac{2(4)}{3}=\frac83$; HA $y=2$. \;$g$: removable at $x=-2$ (limit $-\frac14$), infinite at $x=2$.
 \end{solution}
@@ -448,7 +604,7 @@ $f=\frac{2(x-2)(x+2)}{(x-2)(x+1)}$: VA $x=-1$; hole at $x=2$, height $\frac{2(4)
 \begin{exo}{}
 $\displaystyle\lim_{x\to-3}\frac{x^2+x-6}{x^2-9}=$
 \choices{$\frac56$}{$0$}{$-\frac56$}{It does not exist.}
-\answer{A}{}
+\answer{A}{$\frac{(x+3)(x-2)}{(x+3)(x-3)}=\frac{x-2}{x-3}\to\frac{-5}{-6}$.}
 \end{exo}
 \begin{exo}{}
 $\displaystyle\lim_{x\to\infty}\frac{2x-x^3}{4x^3+1}=$
@@ -456,20 +612,22 @@ $\displaystyle\lim_{x\to\infty}\frac{2x-x^3}{4x^3+1}=$
 \answer{B}{Same degree: $\frac{-1}{4}$.}
 \end{exo}
 \begin{exo}{}
-$\displaystyle\lim_{x\to-1}\frac{x^2-1}{|x+1|}$
-\choices{$2$}{$-2$}{$0$}{does not exist}
-\answer{D}{Left $2$, right $-2$.}
+Let $j(x)=\begin{cases}x+3, & x<1\\ 2x, & x\ge1.\end{cases}$ Then $\displaystyle\lim_{x\to1}j(x)=$
+\choices{$2$}{$4$}{$3$}{It does not exist.}
+\answer{D}{Left $4$, right $2$.}
 \end{exo}
-\ggraph
+\gfig{Question 4 and the free response refer to the graph of $g$.}
+\gWd
 \begin{exo}{}
 Using the graph of $g$, at which $x$ is the discontinuity removable?
-\choices{$x=-1$}{$x=3$}{$x=-4$}{$x=1$}
-\answer{D}{}
+\choices{$x=-2$}{$x=1$}{$x=3$}{$x=-4$}
+\answer{A}{The limit at $x=-2$ is $2$, but $g(-2)=4$.}
 \end{exo}
 \begin{exo}[Free response]{}
-Using the graph of $g$, classify the discontinuities at $x=-1$, $1$ and $3$, with limit statements.
+Using the graph of $g$, classify the discontinuities at $x=-2$, $1$ and $3$, with limit statements.
+\work{3cm}
 \begin{solution}
-$-1$: jump (limits $2$ and $0$). $1$: removable ($\lim=2\neq4=g(1)$). $3$: infinite ($+\infty$ and $-\infty$).
+$-2$: removable ($\lim=2\neq4=g(-2)$). $1$: jump (left $3.5$, right $0.5$). $3$: infinite ($+\infty$ from the left, $-\infty$ from the right).
 \end{solution}
 \end{exo}
 
@@ -491,6 +649,7 @@ What is the average rate of change of $h(x)=\frac{12}{x}$ on $[2,6]$?
 \end{exo}
 \begin{exo}[Free response]{}
 Find the absolute maximum and minimum of $f(x)=x^2-4x+5$ on $[0,3]$, and explain why they must exist. Then find the average rate of change of $f$ on $[0,3]$.
+\work{3.5cm}
 \begin{solution}
 Continuous on a closed interval (EVT). Max $5$ at $x=0$, min $1$ at $x=2$. Average rate $\frac{2-5}{3}=-1$.
 \end{solution}
@@ -514,6 +673,7 @@ $f$ is continuous, $f(1)=2$ and $f(4)=8$. Which theorem guarantees $f(c)=5$ for 
 \end{exo}
 \begin{exo}[Free response]{}
 A differentiable function has $f(1)=2$, $f(3)=8$, $f(6)=-1$. Which theorem guarantees each, and why? (a) $f(c)=5$ for some $c$ in $(1,3)$. (b) $f'(c)=3$ for some $c$ in $(1,3)$. (c) $f'(c)=-3$ for some $c$ in $(3,6)$.
+\work{3.5cm}
 \begin{solution}
 (a) IVT ($2<5<8$, continuous). (b) MVT ($\frac{8-2}{2}=3$). (c) MVT ($\frac{-1-8}{3}=-3$).
 \end{solution}
@@ -522,7 +682,7 @@ A differentiable function has $f(1)=2$, $f(3)=8$, $f(6)=-1$. Which theorem guara
 %%DOC SC1.3-1.4 | Self Check 1.3 and 1.4 \textbullet\ Lessons 1-5 to 1-9
 \begin{exo}{}
 Which function must have an absolute minimum on the interval?
-\choices{$\frac1x$ on $[1,3]$}{$\frac1x$ on $(0,3]$}{$x$ on $(0,1)$}{$\ln x$ on $(0,1]$}
+\choices{$\frac1x$ on $[1,3]$}{$\frac1x$ on $(0,3]$}{$x$ on $(0,1)$}{$\frac{1}{x-2}$ on $[1,3]$}
 \answer{A}{}
 \end{exo}
 \begin{exo}{}
@@ -537,6 +697,7 @@ $h$ is continuous on $[0,5]$ and its graph has a sharp corner at $x=2$. Which th
 \end{exo}
 \begin{exo}[Free response]{}
 $f$ is differentiable. \;\begin{tabular}{|c|c|c|c|c|}\hline$x$&$0$&$2$&$5$&$7$\\\hline$f(x)$&$3$&$-1$&$8$&$8$\\\hline\end{tabular}\; Justify each answer with a theorem. (a) Must $f(c)=0$ for some $c$ in $(0,2)$? (b) Must $f'(c)=3$ for some $c$ in $(2,5)$? (c) Must $f'(c)=0$ for some $c$ in $(5,7)$? (d) Must $f$ have an absolute maximum on $[0,7]$?
+\work{3.5cm}
 \begin{solution}
 (a) Yes, IVT: continuous (because differentiable) and $0$ is between $3$ and $-1$. (b) Yes, MVT: $\frac{8-(-1)}{3}=3$. (c) Yes, MVT: $\frac{8-8}{2}=0$. (d) Yes, EVT: continuous on the closed interval $[0,7]$.
 \end{solution}
@@ -603,6 +764,7 @@ Let $g(x)=\begin{cases}\dfrac{x^2+x-6}{x-2}, & x<2\\[4pt] cx+1, & x\ge2.\end{cas
 \item Find $c$ so that $g$ is continuous at $x=2$; justify with the definition.
 \item With this $c$, is $g$ differentiable at $x=2$? (The left piece simplifies to $x+3$.)
 \end{enumerate}
+\work{3.5cm}
 \begin{solution}
 (a) $x+3\to5$. (b) $2c+1=5$, $c=2$; $g(2)=5=\lim$. (c) Left slope $1$, right slope $2$: not differentiable (corner).
 \end{solution}
@@ -612,10 +774,11 @@ A differentiable function $W$ (temperature, $^\circ$C) has $W(0)=20$, $W(3)=24$,
 \begin{enumerate}[label=(\alph*)]
 \item Must $W(t)=30$ for some $t$ in $(3,5)$? Justify.
 \item Must $W'(t)=3.5$ for some $t$ in $(3,5)$? Justify.
-\item Estimate $W'(4)$, with units.
+\item Must $W$ have an absolute maximum on $[0,8]$? Justify.
 \end{enumerate}
+\work{3.5cm}
 \begin{solution}
-(a) Yes, IVT ($24<30<31$; differentiable implies continuous). (b) Yes, MVT ($\frac{31-24}{2}=3.5$). (c) About $3.5$ $^\circ$C per hour.
+(a) Yes, IVT ($24<30<31$; differentiable implies continuous). (b) Yes, MVT ($\frac{31-24}{2}=3.5$). (c) Yes, EVT: $W$ is continuous on the closed interval $[0,8]$; the maximum is at least $31$.
 \end{solution}
 \end{exo}
 
@@ -680,6 +843,7 @@ Let $h(x)=\dfrac{x^2-x-2}{x^2-1}$.
 \item Find $\lim_{x\to\pm\infty}h(x)$.
 \item What value of $h$ at the removable discontinuity makes $h$ continuous there?
 \end{enumerate}
+\work{3.5cm}
 \begin{solution}
 $h=\frac{(x-2)(x+1)}{(x-1)(x+1)}$. (a) $x=-1$: removable ($\lim=\frac{-3}{-2}=\frac32$). $x=1$: infinite ($\lim_{x\to1^-}=+\infty$, $\lim_{x\to1^+}=-\infty$). (b) $1$. (c) $\frac32$.
 \end{solution}
@@ -691,6 +855,7 @@ Let $f(x)=x^3-4x+1$.
 \item Find the average rate of change of $f$ on $[0,2]$.
 \item Explain why there is a $c$ in $(0,2)$ where the tangent line to the graph of $f$ is horizontal.
 \end{enumerate}
+\work{3.5cm}
 \begin{solution}
 (a) $f$ is a polynomial, so it is continuous on $[0,1]$; $f(0)=1>0>-2=f(1)$, so the IVT gives a zero in $(0,1)$.\\
 (b) $\frac{f(2)-f(0)}{2-0}=\frac{1-1}{2}=0$.\\
