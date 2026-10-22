@@ -7,6 +7,7 @@
 \newcommand{\fgraph}{\gr{xmin=-3.5,xmax=4.5,ymin=-0.5,ymax=4.5,width=7.5cm,height=5cm}{\addplot[apblue,very thick,domain=-3:-1]{x+4};\addplot[apblue,very thick,domain=-1:2]{x^2};\addplot[apblue,very thick,domain=2:4]{8-2*x};\op{-1,3}\pt{-1,1}\op{2,4}\pt{2,1}\pt{-3,1}\pt{4,0}\node[font=\small,apblue] at (axis cs:3.6,3.4){$y=f(x)$};}}
 
 \NewEnviron{nrow}[1]{\begin{tcolorbox}[enhanced,sidebyside,sidebyside align=top seam,lefthand width=2.7cm,sidebyside gap=12pt,colback=white,colframe=apnavy!55,boxrule=0.5pt,arc=0pt,left=5pt,right=6pt,top=5pt,bottom=5pt,before skip=0pt,after skip=-0.5pt,segmentation style={solid,apnavy!35,line width=0.5pt},fontupper=\sffamily\bfseries\color{apnavy}\raggedright]#1\tcblower\BODY\end{tcolorbox}}
+\newcommand{\cellans}[1]{\ifkey{\color{apblue}\raggedright #1}\else\rule{0pt}{1.2cm}\fi}
 \newcommand{\sg}[2]{\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,#1]#2\end{axis}\end{tikzpicture}\end{center}}
 \newcommand{\tinyg}[2]{\begin{tikzpicture}\begin{axis}[gridaxis,width=4.6cm,height=4cm,xticklabels={},yticklabels={},#1]#2\end{axis}\end{tikzpicture}}
 
@@ -171,248 +172,200 @@ Check: left $3-(-1)=4$, right $-1+5=4$, $g(1)=4$. Continuous.
 \end{nrow}
 
 %%DOC 1-5 | IVT and EVT
-\goals{\item State the Intermediate Value Theorem and the Extreme Value Theorem, with their hypotheses.
-\item Use the IVT to justify that an equation has a solution.
-\item Use the EVT to justify that absolute extrema exist, and find them from graphs and tables.}
-\vocab{Intermediate Value Theorem (IVT), Extreme Value Theorem (EVT), closed interval, absolute maximum, absolute minimum, hypothesis, conclusion.}
-
-\subsection*{1. Intermediate Value Theorem}
-\begin{keyidea}[IVT]
-If $f$ is \fillin{continuous} on the \fillin{closed} interval $[a,b]$ and $k$ is any number \fillin{between $f(a)$ and $f(b)$}, then there is at least one $c$ in $[a,b]$ with \fillin{$f(c)=k$}.
-\end{keyidea}
-\gr{xmin=-0.5,xmax=4.5,ymin=-5.5,ymax=7.5,ytick distance=2,width=6cm,height=5cm}{\addplot[apblue,very thick,domain=0:4]{(x-1)*(x-2)*(x-3)+1};\ha{1}\pt{0,-5}\pt{4,7}}
-\ex{Example 1}
-Show that $x^3+2x=5$ has a solution in $[1,2]$.
-\begin{workspace}[2.6cm]
-$f(x)=x^3+2x$ is a polynomial, so it is continuous on $[1,2]$. $f(1)=3$, $f(2)=12$. Since $3<5<12$, by the IVT there is a $c$ in $[1,2]$ with $f(c)=5$.
+\begin{center}\textsf{\small\color{apgrey}Objective: use the Intermediate Value Theorem and the Extreme Value Theorem, and know what each one needs.}\end{center}
+\begin{nrow}{Symbolic notation of graphs}
+\sg{xmin=-2.5,xmax=6.5,ymin=-0.5,ymax=5,width=9cm,height=5.2cm,xtick={-1,2,4.5},xticklabels={$a$,$c$,$b$},ytick=\empty}{\addplot[apblue,very thick,domain=-2.3:6.3,samples=80]{-0.25*(x-2)^2+4};\pt{-1,1.75}\pt{2,4}\pt{4.5,2.4375}\ifkey\node[apnavy,font=\small,anchor=south east] at (axis cs:-1,1.75){$(a,f(a))$};\node[apnavy,font=\small,anchor=south] at (axis cs:2,4.1){$(c,f(c))$};\node[apnavy,font=\small,anchor=south west] at (axis cs:4.5,2.5){$(b,f(b))$};\fi}
+A point on the graph is written \fillin{$(x,f(x))$}: $f(a)$ is the \fillin{height} of the graph at $x=a$.\par\smallskip
+\begin{tabular}{@{}p{0.47\linewidth}p{0.47\linewidth}@{}}
+\textbf{Maximum} at $x=c$: & \textbf{Minimum} at $x=c$:\\
+\fillin{$f(c)\ge f(x)$} for every $x$ in the interval & \fillin{$f(c)\le f(x)$} for every $x$ in the interval\\
+\footnotesize one height, at $x=c$, is above \fillin{all} the other heights & \footnotesize one height is below all the others
+\end{tabular}
+\end{nrow}
+\begin{nrow}{Types of intervals}
+\begin{tabular}{@{}cc@{}}
+\tinyg{xmin=-0.5,xmax=4.5,ymin=-0.5,ymax=3.5,width=5.4cm,height=3.8cm}{\addplot[apblue,very thick,domain=0.5:4,samples=40]{1+sin(deg(x))*1.5};\pt{0.5,1.719}\pt{4,-0.135}} &
+\tinyg{xmin=-0.5,xmax=4.5,ymin=-0.5,ymax=3.5,width=5.4cm,height=3.8cm}{\addplot[apblue,very thick,domain=0.5:4,samples=40]{1+sin(deg(x))*1.5};\op{0.5,1.719}\op{4,-0.135}}\\
+\fillin{Closed} interval: endpoints included & \fillin{Open} interval: endpoints excluded\\
+inequality \fillin{$a\le x\le b$}, \;interval \fillin{$[a,b]$} & inequality \fillin{$a<x<b$}, \;interval \fillin{$(a,b)$}
+\end{tabular}
+\end{nrow}
+\begin{nrow}{Intermediate Value Theorem (IVT)}
+\begin{tabular}{|l|p{0.74\linewidth}|}\hline
+\textbf{Needs} & If $f$ is \fillin{continuous} on $[a,b]$,\\\hline
+\textbf{Proves} & then $f$ takes every \fillin{height (value)} between $f(a)$ and $f(b)$ at least \fillin{once}.\\\hline
+\end{tabular}\par\smallskip
+\begin{minipage}[t]{0.47\linewidth}\vspace{0pt}
+\tinyg{xmin=-0.5,xmax=5.5,ymin=-3,ymax=7,width=5.6cm,height=4.4cm}{\addplot[apblue,very thick,domain=1:5,samples=60]{-2+8*((x-1)/4)^0.6+sin(deg(3*x))};\pt{1,-1.86}\pt{5,6.65}\draw[apred,dashed](axis cs:-1,0)--(axis cs:6,0);}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.5\linewidth}\vspace{2pt}
+$f$ is continuous on $[1,5]$, $f(1)<0<f(5)$.\par The IVT guarantees a value $c$ in \fillin{$(1,5)$} with $f(c)=$ \fillin{$0$}: the graph cannot go from below the $x$-axis to above it without \fillin{crossing} it.
+\end{minipage}
+\par\smallskip
+\textbf{Try it.} $g$ is continuous. \;\begin{tabular}{|c|c|c|c|c|}\hline$x$&$0$&$2$&$4$&$6$\\\hline$g(x)$&$3$&$-1$&$5$&$8$\\\hline\end{tabular}\; At least how many zeros does $g$ have on $[0,6]$?
+\begin{workspace}[1.6cm]
+At least $2$: $g$ changes sign on $[0,2]$ ($3$ to $-1$) and on $[2,4]$ ($-1$ to $5$). The IVT gives a zero in each interval.
 \end{workspace}
-\ex{Example 2 \textbullet\ Table}
-$W$ is continuous with $W(0)=8$, $W(2)=3$, $W(5)=6$, $W(9)=1$. What is the least number of solutions of $W(t)=4$ on $[0,9]$?
-\begin{workspace}[2.2cm]
-$4$ is between $8$ and $3$, between $3$ and $6$, and between $6$ and $1$: at least three.
-\end{workspace}
-
-\subsection*{2. Extreme Value Theorem}
-\begin{keyidea}[EVT]
-If $f$ is \fillin{continuous} on the closed interval $[a,b]$, then $f$ has both an \fillin{absolute maximum} and an \fillin{absolute minimum} value on $[a,b]$. They occur at \fillin{endpoints} or at points where the graph turns (critical points).
-\end{keyidea}
-
-\ex{Example 3}
-Find the absolute maximum and minimum of $f(x)=x^2-4x+5$ on $[0,3]$. Why must they exist?
-\begin{workspace}[2.8cm]
-$f$ is a polynomial, continuous on $[0,3]$, so by the EVT both exist. Candidates: vertex $x=2$, $f(2)=1$; endpoints $f(0)=5$, $f(3)=2$. Absolute maximum $5$ at $x=0$; absolute minimum $1$ at $x=2$.
-\end{workspace}
-
-\ex{Example 4 \textbullet\ When the theorems do not apply}
-Explain why the conclusion can fail: (a) $g(x)=\frac1x$ on $[-1,1]$, IVT with $k=0$; (b) $h(x)=\frac1x$ on $(0,1]$, EVT.
-\begin{workspace}[2.6cm]
-(a) $g(-1)=-1$, $g(1)=1$, yet $g$ is never $0$: $g$ is not continuous on $[-1,1]$.\\
-(b) $h$ has no absolute maximum (it grows without bound near $0$): the interval is not closed.
-\end{workspace}
-
-\begin{aptip}
-An IVT or EVT justification names the hypothesis (``$f$ is continuous on $[a,b]$ because\dots''), the values used, and the conclusion.
-\end{aptip}
-
-\begin{quickcheck}
-1. $f$ continuous, $f(1)=4$, $f(3)=4$. Does the IVT guarantee $f(c)=0$ on $[1,3]$? \fillin{No}.\\
-2. Does a continuous function on $(0,5)$ always have an absolute maximum? \fillin{No; the interval must be closed}.
-\end{quickcheck}
+\end{nrow}
+\begin{nrow}{Extreme Value Theorem (EVT)}
+\begin{tabular}{|l|p{0.74\linewidth}|}\hline
+\textbf{Needs} & If $f$ is \fillin{continuous} on a \fillin{closed} interval $[a,b]$,\\\hline
+\textbf{Proves} & then $f$ has an absolute \fillin{maximum} and an absolute \fillin{minimum} on $[a,b]$.\\\hline
+\end{tabular}\par\smallskip
+\begin{tabular}{@{}cc@{}}
+\tinyg{xmin=-0.5,xmax=5.5,ymin=-0.5,ymax=4.5,width=5.4cm,height=3.8cm}{\addplot[apblue,very thick,domain=0.5:5,samples=60]{2+1.5*sin(deg(1.3*x))};\pt{0.5,2.9}\pt{5,2.32}\ifkey\node[apgreen,font=\scriptsize\bfseries] at (axis cs:1.2,4.1){max};\node[apred,font=\scriptsize\bfseries] at (axis cs:3.6,0.2){min};\fi} &
+\tinyg{xmin=-0.5,xmax=5.5,ymin=-0.5,ymax=4.5,width=5.4cm,height=3.8cm}{\addplot[apblue,very thick,domain=0.5:4.5]{0.8*x};\op{0.5,0.4}\op{4.5,3.6}}\\
+\footnotesize continuous on $[a,b]$: max and min \fillin{exist} & \footnotesize open interval: \fillin{no} max and \fillin{no} min
+\end{tabular}\par
+\footnotesize A horizontal segment on $[a,b]$ is a special case: every point is both a maximum and a minimum.
+\end{nrow}
+\begin{nrow}{Summary}
+\ifkey{\color{apnavy}IVT needs continuity on $[a,b]$ and proves that every height between $f(a)$ and $f(b)$ is reached. EVT needs continuity on a closed interval and proves that an absolute maximum and minimum exist.}\else\vspace{2.4cm}\fi
+\end{nrow}
 
 %%DOC 1-6 | Average Rate of Change
-\goals{\item Compute an average rate of change from a formula, a table or a graph.
-\item Interpret an average rate of change in context with units, including average velocity.
-\item Use the difference quotient $\frac{f(a+h)-f(a)}{h}$.}
-\vocab{average rate of change, secant line, difference quotient, average velocity, units.}
-
-\begin{keyidea}
-The average rate of change of $f$ on $[a,b]$ is \fillin{$\dfrac{f(b)-f(a)}{b-a}$}, the slope of the \fillin{secant line} through $(a,f(a))$ and $(b,f(b))$. On $[a,a+h]$ it is the \textbf{difference quotient} \fillin{$\dfrac{f(a+h)-f(a)}{h}$}.
-\end{keyidea}
-
-\ex{Example 1 \textbullet\ Formula}
-Find the average rate of change of $f(x)=x^3-2x$ on $[-1,2]$, and simplify $\dfrac{f(1+h)-f(1)}{h}$ for $f(x)=x^2$.
-\begin{workspace}[2.4cm]
-$\frac{4-1}{3}=1$. \quad $\frac{(1+h)^2-1}{h}=\frac{2h+h^2}{h}=2+h$.
+\begin{center}\textsf{\small\color{apgrey}Objective: find and interpret the average rate of change on an interval, with units.}\end{center}
+\begin{nrow}{Moussa's bike ride}
+Moussa rides his bike along the Corniche in Dakar. The distance he has ridden, in meters, $t$ minutes after he starts, is $D(t)$ for $0\le t\le40$.
+\begin{center}\begin{tabular}{|c|c|c|c|c|c|c|}\hline $t$ (min)&$0$&$5$&$10$&$20$&$30$&$40$\\\hline $D(t)$ (m)&$0$&$900$&$2000$&$4200$&$6900$&$9200$\\\hline\end{tabular}\end{center}
+\sg{xmin=-1,xmax=42,ymin=-300,ymax=9800,width=10cm,height=5.4cm,xtick={0,5,10,20,30,40},ytick={0,2000,4000,6000,8000},scaled y ticks=false,yticklabel style={font=\tiny}}{\addplot[only marks,mark=*,apblue] coordinates {(0,0)(5,900)(10,2000)(20,4200)(30,6900)(40,9200)};\ifkey\addplot[apred,thick] coordinates {(0,0)(40,9200)};\addplot[apgreen!70!black,thick] coordinates {(5,900)(20,4200)};\fi}
+\end{nrow}
+\begin{nrow}{Average rate of change}
+The average rate of change of $f$ on $a\le x\le b$:\qquad \fillin{$\dfrac{f(b)-f(a)}{b-a}$} $=\dfrac{\Delta y}{\Delta x}$\par\smallskip
+Graphically, it is the \fillin{slope} of the \fillin{secant line} through the two points $(a,f(a))$ and $(b,f(b))$.\par
+Units: \fillin{output units per input unit}.
+\end{nrow}
+\begin{nrow}{Example 1}
+a) Sketch the line that represents the average rate of change of $D$ over the whole interval.\\
+b) Find the average rate of change of $D$ on $0\le t\le40$. Give units.
+\begin{workspace}[2cm]
+a) The red line from $(0,0)$ to $(40,9200)$. \;b) $\dfrac{D(40)-D(0)}{40-0}=\dfrac{9200}{40}=230$ meters per minute.
 \end{workspace}
-
-\ex{Example 2 \textbullet\ Table, with units}
-\begin{center}\begin{tabular}{c|ccccc}$t$ (min)&$0$&$5$&$10$&$15$&$20$\\\hline$A(t)$ (L)&$40$&$52$&$61$&$66$&$68$\end{tabular}\end{center}
-Find and interpret the average rate of change of $A$ on $[5,15]$.
+\end{nrow}
+\begin{nrow}{Example 2}
+a) Sketch the line that represents the average rate of change of $D$ on $5\le t\le20$.\\
+b) Find it and interpret it in context.
 \begin{workspace}[2.2cm]
-$\frac{66-52}{10}=1.4$. From $t=5$ to $t=15$ minutes, the amount of water increased on average by $1.4$ liters per minute.
+a) The green line from $(5,900)$ to $(20,4200)$. \;b) $\dfrac{4200-900}{20-5}=\dfrac{3300}{15}=220$ m/min: between minute $5$ and minute $20$, Moussa rode on average $220$ meters per minute.
 \end{workspace}
-
-\ex{Example 3 \textbullet\ Average velocity from a graph}
-\gr{xmin=-0.5,xmax=6.5,ymin=-0.5,ymax=8.5,ytick distance=2,width=6cm,height=5cm,xlabel={$t$},ylabel={$s$}}{\addplot[apblue,very thick] coordinates {(0,0)(2,6)(4,6)(6,2)};}
-The position $s(t)$ (meters) of a particle is graphed. Find its average velocity on $[0,2]$, $[2,4]$ and $[0,6]$.
-\begin{workspace}[2.2cm]
-$\frac{6-0}{2}=3$ m/s. \quad $0$ m/s. \quad $\frac{2-0}{6}=\frac13$ m/s.
+\end{nrow}
+\begin{nrow}{Example 3}
+Find the average rate of change of $f(x)=x^2-2x$ on $[1,4]$.
+\begin{workspace}[1.8cm]
+$f(4)=8$, $f(1)=-1$: $\dfrac{8-(-1)}{4-1}=\dfrac93=3$.
 \end{workspace}
-
-\begin{mistakes}
-\begin{itemize}
-\item Giving the change $f(b)-f(a)$ instead of the rate.
-\item Forgetting units, or interpreting an average rate as a rate at an instant.
-\end{itemize}
-\end{mistakes}
-
-\begin{quickcheck}
-1. The average rate of change of $g(x)=\frac{12}{x}$ on $[2,6]$ is \fillin{$-1$}.\\
-2. For $f(x)=x^2+x$, $\frac{f(2+h)-f(2)}{h}=$ \fillin{$5+h$}.
-\end{quickcheck}
+\end{nrow}
+\begin{nrow}{Summary}
+\ifkey{\color{apnavy}Average rate of change $=\frac{f(b)-f(a)}{b-a}$, the slope of the secant line between two points. Always give units: output units per input unit (meters per minute).}\else\vspace{2.2cm}\fi
+\end{nrow}
 
 %%DOC 1-7 | Instantaneous Rates of Change
-\goals{\item Define the derivative at a point as the limit of a difference quotient.
-\item Compute derivatives of simple functions from the definition and estimate them from tables and graphs.
-\item Write the equation of a tangent line, and recognize where a function is not differentiable.}
-\vocab{instantaneous rate of change, derivative, $f'(a)$, tangent line, differentiable, corner, cusp, vertical tangent.}
-
-\subsection*{1. From average to instantaneous}
-\begin{keyidea}[Definition of the derivative]
-\[f'(a)=\lim_{h\to0}\fillin{$\dfrac{f(a+h)-f(a)}{h}$}\qquad\text{or}\qquad f'(a)=\lim_{x\to a}\fillin{$\dfrac{f(x)-f(a)}{x-a}$}.\]
-$f'(a)$ is the \fillin{instantaneous rate of change} of $f$ at $a$ and the \fillin{slope of the tangent line} at $(a,f(a))$.
-\end{keyidea}
-\gr{xmin=-0.5,xmax=3.5,ymin=-1,ymax=9.5,ytick distance=2,width=6cm,height=5.4cm}{\addplot[apblue,very thick,domain=0:3]{x^2};\addplot[apred!50,thick,domain=0:3.2]{4*x-3};\addplot[apred!75,thick,domain=0:3.2]{3*x-2};\addplot[apred,very thick,dashed,domain=0.2:3.2]{2*x-1};\pt{1,1}}
-\begin{center}\small Secant lines from $(1,1)$ on $y=x^2$ approach the tangent line of slope $2$.\end{center}
-
-\ex{Example 1 \textbullet\ From the definition}
-Find $f'(x)$ for $f(x)=x^2$, $g(x)=x^3$ and $k(x)=\frac1x$.
-\begin{workspace}[4.4cm]
-$\frac{(x+h)^2-x^2}{h}=2x+h\to2x$: $f'(x)=2x$.\\
-$\frac{(x+h)^3-x^3}{h}=3x^2+3xh+h^2\to3x^2$: $g'(x)=3x^2$.\\
-$\frac{\frac1{x+h}-\frac1x}{h}=\frac{-1}{x(x+h)}\to-\frac1{x^2}$: $k'(x)=-\frac1{x^2}$.
+\begin{center}\textsf{\small\color{apgrey}Objective: draw tangent lines, read the sign of the derivative, and recognize where a graph is not differentiable.}\end{center}
+\begin{nrow}{Rates on a graph}
+\sg{xmin=-0.3,xmax=6.8,ymin=-0.5,ymax=5,width=9.5cm,height=5.2cm,xtick={0.5,2.057,3.5,6.2},xticklabels={$a$,$b$,$c$,$d$},ytick=\empty}{\addplot[apblue,very thick,domain=0:6.5,samples=120]{0.15*(x-1)*(x-3.5)*(x-6)+3};\pt{0.5,1.763}\pt{2.057,3.902}\pt{3.5,3}\pt{6.2,3.421}\ifkey\addplot[apred,thick,domain=0.1:0.9]{1.763+3.113*(x-0.5)};\addplot[apred,thick,domain=1.5:2.6]{3.902};\addplot[apred,thick,domain=2.9:4.1]{3-0.9375*(x-3.5)};\addplot[apred,thick,domain=5.85:6.55]{3.421+2.343*(x-6.2)};\node[apred,font=\scriptsize] at (axis cs:0.9,3.3){$+$};\node[apred,font=\scriptsize] at (axis cs:2.057,4.4){$0$};\node[apred,font=\scriptsize] at (axis cs:4.1,3.1){$-$};\node[apred,font=\scriptsize] at (axis cs:5.7,4.3){$+$};\fi}
+The instantaneous rate of change at a point is the slope of the \fillin{tangent line}: the line that just touches the graph at that point.
+\end{nrow}
+\begin{nrow}{Synonyms}
+Instantaneous rate of change $=$ \fillin{slope of the tangent line} $=$ \fillin{derivative} $=$ \fillin{$f'(c)$} $=$ \fillin{$\dfrac{dy}{dx}$}
+\end{nrow}
+\begin{nrow}{Example 1}
+Sketch the tangent line at each point and decide whether the derivative is positive, negative or zero.\par
+\begin{minipage}[t]{0.6\linewidth}\vspace{0pt}
+\tinyg{xmin=-0.3,xmax=6.6,ymin=-0.5,ymax=5.5,width=7cm,height=4.6cm,xtick={0.5,1.5708,3,5.5},xticklabels={$a$,$b$,$c$,$d$}}{\addplot[apblue,very thick,domain=0:6.4,samples=100]{2.5+2*sin(deg(x))};\pt{0.5,3.459}\pt{1.5708,4.5}\pt{3,2.782}\pt{5.5,1.088}\ifkey\addplot[apred,thick,domain=0:1]{3.459+1.755*(x-0.5)};\addplot[apred,thick,domain=1:2.1]{4.5};\addplot[apred,thick,domain=2.5:3.5]{2.782-1.98*(x-3)};\addplot[apred,thick,domain=5:6]{1.088+1.418*(x-5.5)};\fi}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.36\linewidth}\vspace{6pt}
+$g'(a)$ \fillin{$>0$}\par\medskip $g'(b)$ \fillin{$=0$}\par\medskip $g'(c)$ \fillin{$<0$}\par\medskip $g'(d)$ \fillin{$>0$}
+\end{minipage}
+\end{nrow}
+\begin{nrow}{Differentiability}
+A function is \textbf{not differentiable} ($f'$ does not exist) at:\par
+1) \fillin{discontinuities: holes, jumps, vertical asymptotes, endpoints}\par
+2) \fillin{sharp corners (cusps)}\par
+3) \fillin{vertical tangent lines}
+\end{nrow}
+\begin{nrow}{Example 2}
+Find the $x$-coordinates where $h$ is not differentiable, and say why.
+\sg{xmin=-5.8,xmax=10.5,ymin=-3.5,ymax=7,width=11cm,height=6cm,xtick={-5,-3,-1,1,3,5,7,9}}{\addplot[apblue,very thick] coordinates {(-5,1)(-3,-1)(1,3)};\pt{-5,1}\pt{1,3}\addplot[apblue,very thick,domain=1.02:6.75,samples=140]{2+sign(x-3)*abs(x-3)^(1/3)+0.6/(7-x)};\op{1,0.89}\op{5,3.56}\addplot[apblue,very thick,domain=7.25:10.3,samples=60]{3-1.5/(x-7)};\va{7}}
+\begin{workspace}[2.4cm]
+$x=-5$: endpoint. \;$x=-3$: sharp corner. \;$x=1$: jump (discontinuous). \;$x=3$: vertical tangent. \;$x=5$: hole (discontinuous). \;$x=7$: vertical asymptote.
 \end{workspace}
-
-\ex{Example 2 \textbullet\ Tangent line}
-Write the equation of the tangent line to $y=x^3$ at $x=2$.
-\begin{workspace}[2cm]
-Point $(2,8)$; slope $g'(2)=3(4)=12$. \ $y-8=12(x-2)$.
-\end{workspace}
-
-\ex{Example 3 \textbullet\ Estimating from a table}
-\begin{center}\begin{tabular}{c|ccccc}$t$ (s)&$0$&$2$&$4$&$6$&$8$\\\hline$s(t)$ (m)&$0$&$9$&$20$&$35$&$52$\end{tabular}\end{center}
-Estimate $s'(4)$ and interpret it.
-\begin{workspace}[2.2cm]
-Use the closest values on both sides: $\frac{s(6)-s(2)}{6-2}=\frac{35-9}{4}=6.5$. At $t=4$ s the object moves at about $6.5$ m/s.
-\end{workspace}
-
-\subsection*{2. Differentiability}
-\begin{keyidea}
-If $f$ is differentiable at $a$, then $f$ is \fillin{continuous} at $a$. The converse is \fillin{false}.\\
-$f$ is \textbf{not} differentiable where its graph has a \fillin{corner}, a \fillin{cusp}, a \fillin{vertical tangent}, or a \fillin{discontinuity}.
-\end{keyidea}
-\begin{center}
-\begin{tikzpicture}
-\begin{axis}[gridaxis,xmin=-1.6,xmax=1.6,ymin=-0.5,ymax=1.8,width=4.2cm,height=3.8cm,title={\scriptsize corner: $|x|$},xtick=\empty,ytick=\empty]
-\addplot[apblue,very thick,domain=-1.5:1.5]{abs(x)};\end{axis}\end{tikzpicture}
-\begin{tikzpicture}
-\begin{axis}[gridaxis,xmin=-1.6,xmax=1.6,ymin=-0.5,ymax=1.8,width=4.2cm,height=3.8cm,title={\scriptsize cusp: $x^{2/3}$},xtick=\empty,ytick=\empty]
-\addplot[apblue,very thick,domain=-1.5:1.5,samples=200]{abs(x)^(2/3)};\end{axis}\end{tikzpicture}
-\begin{tikzpicture}
-\begin{axis}[gridaxis,xmin=-1.6,xmax=1.6,ymin=-1.4,ymax=1.4,width=4.2cm,height=3.8cm,title={\scriptsize vertical tangent: $\sqrt[3]{x}$},xtick=\empty,ytick=\empty]
-\addplot[apblue,very thick,domain=0:1.5,samples=200]{x^(1/3)};\addplot[apblue,very thick,domain=-1.5:0,samples=200]{-(-x)^(1/3)};\end{axis}\end{tikzpicture}
-\end{center}
-
-\ex{Example 4 \textbullet\ A piecewise function}
-Is $f(x)=\begin{cases}x^2, & x\le1\\ 2x-1, & x>1\end{cases}$ differentiable at $x=1$?
-\begin{workspace}[2.6cm]
-Continuous: both pieces give $1$ at $x=1$. Slopes: the left piece $x^2$ has slope $2(1)=2$; the right piece has slope $2$. The slopes match, so $f$ is differentiable at $x=1$ with $f'(1)=2$.
-\end{workspace}
-
-\begin{quickcheck}
-1. $\lim_{h\to0}\frac{(3+h)^2-9}{h}$ is $f'(3)$ for $f(x)=$ \fillin{$x^2$}, and equals \fillin{$6$}.\\
-2. $f(x)=|x-2|$ is continuous at $2$ but \fillin{not differentiable} there.
-\end{quickcheck}
+\end{nrow}
+\begin{nrow}{Summary}
+\ifkey{\color{apnavy}The derivative $f'(c)$ is the slope of the tangent line at $x=c$: positive where the graph rises, negative where it falls, zero at a peak or valley. It does not exist at discontinuities, sharp corners and vertical tangents.}\else\vspace{2.2cm}\fi
+\end{nrow}
 
 %%DOC 1-8 | MVT
-\goals{\item State the Mean Value Theorem and check its hypotheses.
-\item Find the value(s) of $c$ guaranteed by the MVT.
-\item Apply the MVT to tables and contexts.}
-\vocab{Mean Value Theorem (MVT), differentiable, open interval, secant slope, tangent slope.}
-
-\begin{keyidea}[Mean Value Theorem]
-If $f$ is \fillin{continuous} on $[a,b]$ and \fillin{differentiable} on $(a,b)$, then there is at least one $c$ in $(a,b)$ such that
-\[f'(c)=\fillin{$\dfrac{f(b)-f(a)}{b-a}$}.\]
-Some tangent line is \fillin{parallel} to the secant line: at some instant, the instantaneous rate of change equals the average rate of change.
-\end{keyidea}
-\gr{xmin=-0.5,xmax=3.5,ymin=-0.5,ymax=9.5,ytick distance=2,width=6cm,height=5.2cm}{\addplot[apblue,very thick,domain=0.5:3.2]{x^2};\addplot[apred,thick,domain=0.6:3.3]{4*x-3};\addplot[apgreen,thick,dashed,domain=0.8:3.2]{4*x-4};\pt{1,1}\pt{3,9}\pt{2,4}}
-\begin{center}\small $f(x)=x^2$ on $[1,3]$: secant slope $4$; the tangent at $c=2$ has slope $4$ too.\end{center}
-
-\ex{Example 1 \textbullet\ Finding $c$}
-Find the value(s) of $c$ guaranteed by the MVT for (a) $f(x)=x^2$ on $[1,3]$; (b) $g(x)=x^3$ on $[0,3]$; (c) $k(x)=\frac1x$ on $[1,4]$. (Use $f'(x)=2x$, $g'(x)=3x^2$, $k'(x)=-\frac1{x^2}$ from Lesson 1-7.)
-\begin{workspace}[3.6cm]
-(a) $\frac{9-1}{2}=4=2c$: $c=2$.\\
-(b) $\frac{27-0}{3}=9=3c^2$: $c=\sqrt3\approx1.732$ (the negative root is not in $(0,3)$).\\
-(c) $\frac{\frac14-1}{3}=-\frac14=-\frac1{c^2}$: $c=2$.
-\end{workspace}
-
-\ex{Example 2 \textbullet\ When the MVT does not apply}
-Explain why the MVT does not apply: (a) $f(x)=|x|$ on $[-1,1]$; (b) $g(x)=\frac1x$ on $[-1,1]$.
+\begin{center}\textsf{\small\color{apgrey}Objective: recognize when the Mean Value Theorem applies, and use it.}\end{center}
+\begin{nrow}{Review: differentiability}
+What is the instantaneous rate of change at each marked point: positive, negative, $0$ or DNE?\par
+\begin{minipage}[t]{0.62\linewidth}\vspace{0pt}
+\tinyg{xmin=-0.5,xmax=7.5,ymin=-0.5,ymax=4.5,width=7.4cm,height=4.6cm,xtick={1,2,3.5,4,7}}{\addplot[apblue,very thick,domain=0:4,samples=60]{3-(x-2)^2/2};\addplot[apblue,very thick] coordinates {(4,1)(7,4)};\pt{1,2.5}\pt{2,3}\pt{3.5,1.875}\pt{4,1}\pt{7,4}}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.35\linewidth}\vspace{2pt}\small
+$x=1$: \fillin{positive}\\ $x=2$: \fillin{$0$}\\ $x=3.5$: \fillin{negative}\\ $x=4$: \fillin{DNE (corner)}\\ $x=7$: \fillin{DNE (endpoint)}
+\end{minipage}
+\end{nrow}
+\begin{nrow}{The Mean Value Theorem (MVT)}
+\sg{xmin=-0.3,xmax=3.4,ymin=-0.5,ymax=3.5,width=8cm,height=4.8cm,xtick={0,1.732,3},xticklabels={$a$,$c$,$b$},ytick=\empty}{\addplot[apblue,very thick,domain=0:3.2,samples=60]{x^3/9};\pt{0,0}\pt{3,3}\ifkey\addplot[apred,thick] coordinates {(0,0)(3,3)};\addplot[apgreen!70!black,thick,domain=0.8:2.7]{0.5774+(x-1.732)};\pt{1.732,0.5774}\node[apred,font=\scriptsize] at (axis cs:2.3,2.7){secant};\node[apgreen!70!black,font=\scriptsize] at (axis cs:2.7,1.2){tangent};\fi}
+\begin{tabular}{|l|p{0.74\linewidth}|}\hline
+\textbf{Needs} & If $f$ is \fillin{continuous} on $[a,b]$ and \fillin{differentiable} on $(a,b)$,\\\hline
+\textbf{Proves} & then there is a $c$ in $(a,b)$ with \fillin{$f'(c)=\dfrac{f(b)-f(a)}{b-a}$}.\\\hline
+\end{tabular}\par\smallskip
+In words: the slope of the \fillin{tangent} at some point equals the slope of the \fillin{secant} (the average rate of change). The MVT is about \fillin{slopes}.
+\end{nrow}
+\begin{nrow}{Example 1}
+$f$ is a differentiable function with $f(2)=5$ and $f(7)=20$. Explain why there must be a value $c$, $2<c<7$, with $f'(c)=3$.
 \begin{workspace}[2.4cm]
-(a) Not differentiable at $x=0$ (corner). The secant slope is $0$, yet no tangent is horizontal.\\
-(b) Not continuous on $[-1,1]$ (undefined at $0$).
+$f$ is differentiable, so it is also continuous on $[2,7]$: the MVT applies. $\dfrac{f(7)-f(2)}{7-2}=\dfrac{20-5}{5}=3$, so there is a $c$ in $(2,7)$ with $f'(c)=3$.
 \end{workspace}
-
-\ex{Example 3 \textbullet\ A table in context}
-A car's position $s(t)$ (miles) is differentiable, with $s(0)=0$ and $s(2)=130$ ($t$ in hours). Must the car's speed have been exactly $65$ mph at some time?
-\begin{workspace}[2.4cm]
-$s$ is differentiable, so continuous; the MVT applies on $[0,2]$: $s'(c)=\frac{130-0}{2}=65$ for some $c$ in $(0,2)$. Yes: at some instant the velocity was $65$ mph.
+\end{nrow}
+\begin{nrow}{Example 2}
+\begin{minipage}[t]{0.45\linewidth}\vspace{0pt}
+\tinyg{xmin=-1.5,xmax=3.5,ymin=-1.5,ymax=3.5,width=5.4cm,height=4.4cm,xtick={-1,0,1,2,3}}{\addplot[apblue,very thick] coordinates {(-1,3)(1,-1)(3,3)};\pt{-1,3}\pt{3,3}\node[apblue,font=\scriptsize] at (axis cs:2.3,0.6){$g(x)$};}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.52\linewidth}\vspace{2pt}
+$g(x)=2|x-1|-1$ on $[-1,3]$. Find the average rate of change of $g$ on $[-1,3]$. Does the MVT guarantee a $c$ in $(-1,3)$ with $g'(c)$ equal to it?
+\end{minipage}
+\begin{workspace}[2cm]
+$\dfrac{g(3)-g(-1)}{3-(-1)}=\dfrac{3-3}{4}=0$. No: $g$ is not differentiable at $x=1$ (sharp corner), so the MVT does not apply. In fact no point has slope $0$: the slopes are only $-2$ and $2$.
 \end{workspace}
-
-\begin{mistakes}
-\begin{itemize}
-\item Forgetting to check differentiability (corners, cusps) or continuity.
-\item Giving a $c$ that is not inside the open interval.
-\end{itemize}
-\end{mistakes}
-
-\begin{quickcheck}
-1. For $f(x)=x^2$ on $[0,4]$, the MVT gives $c=$ \fillin{$2$}.\\
-2. If $f(2)=f(5)$ and $f$ satisfies the hypotheses, then $f'(c)=$ \fillin{$0$} for some $c$ in $(2,5)$.
-\end{quickcheck}
+\end{nrow}
+\begin{nrow}{Summary}
+\ifkey{\color{apnavy}MVT: if $f$ is continuous on $[a,b]$ and differentiable on $(a,b)$, some tangent slope equals the average rate of change $\frac{f(b)-f(a)}{b-a}$. Always check differentiability first: one corner is enough to break it.}\else\vspace{2.2cm}\fi
+\end{nrow}
 
 %%DOC 1-9 | IVT, EVT, and MVT
-\goals{\item Choose the right existence theorem for a question.
-\item Check the hypotheses of the IVT, EVT and MVT from formulas, tables and graphs.
-\item Write complete AP-style justifications.}
-\vocab{existence theorem, hypothesis, conclusion, justification.}
-
-\subsection*{1. Which theorem?}
-\begin{keyidea}
-\renewcommand{\arraystretch}{1.4}
-\begin{tabular}{@{}p{1.3cm}p{5cm}p{6.3cm}@{}}
-& \textbf{Hypothesis} & \textbf{Conclusion}\\\hline
-IVT & \fillin{continuous on $[a,b]$} & $f(c)=k$ for every $k$ between \fillin{$f(a)$ and $f(b)$}\\
-EVT & \fillin{continuous on $[a,b]$} & $f$ has an absolute \fillin{maximum and minimum} on $[a,b]$\\
-MVT & continuous on $[a,b]$ and \fillin{differentiable on $(a,b)$} & $f'(c)=$ \fillin{$\frac{f(b)-f(a)}{b-a}$} for some $c$ in $(a,b)$
-\end{tabular}
-\end{keyidea}
-Questions about a \fillin{value of $f$} point to the IVT; about the \fillin{largest or smallest value}, the EVT; about a \fillin{rate (value of $f'$)}, the MVT.
-
-\ex{Example 1 \textbullet\ A table (AP style)}
-A differentiable function $f$ has the values below.
-\begin{center}\begin{tabular}{c|ccccc}$x$&$0$&$2$&$5$&$7$&$10$\\\hline$f(x)$&$4$&$-2$&$3$&$9$&$5$\end{tabular}\end{center}
-(a) Must $f(c)=0$ for some $c$ in $[0,10]$? (b) Must $f'(c)=3$ for some $c$ in $(5,7)$? (c) Must $f$ have an absolute maximum on $[0,10]$? (d) Must $f'(c)=0$ for some $c$ in $(0,10)$?
-\begin{workspace}[5.2cm]
-$f$ is differentiable, hence continuous everywhere.\\
-(a) Yes: on $[0,2]$, $f(0)=4>0>-2=f(2)$; by the IVT there is $c$ with $f(c)=0$ (also on $[2,5]$).\\
-(b) Yes: $\frac{f(7)-f(5)}{7-5}=\frac{6}{2}=3$; by the MVT, $f'(c)=3$ for some $c$ in $(5,7)$.\\
-(c) Yes: $f$ is continuous on the closed interval $[0,10]$; by the EVT it has an absolute maximum.\\
-(d) Yes. $f(0)=4$, and since $3<4<9$, the IVT gives a $b$ in $(5,7)$ with $f(b)=4$. On $[0,b]$ the MVT gives $f'(c)=\frac{f(b)-f(0)}{b-0}=\frac{4-4}{b}=0$ for some $c$ in $(0,b)$.
+\begin{center}\textsf{\small\color{apgrey}Objective: know when to use IVT, EVT and MVT, and justify the answer.}\end{center}
+\begin{nrow}{Table review}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{|l|p{0.24\linewidth}|p{0.24\linewidth}|p{0.24\linewidth}|}\hline
+ & \centering\textbf{IVT} & \centering\textbf{EVT} & \centering\arraybackslash\textbf{MVT}\\\hline
+\textbf{Needs} & \cellans{continuous on $[a,b]$} & \cellans{continuous on a closed interval $[a,b]$} & \cellans{differentiable on $(a,b)$ (so also continuous)}\\\hline
+\textbf{Proves} & \cellans{heights (values)} & \cellans{absolute max and min} & \cellans{slopes: $f'(c)=\frac{f(b)-f(a)}{b-a}$}\\\hline
+\end{tabular}\par\smallskip
+Remember: differentiable $\Rightarrow$ \fillin{continuous}, but continuous does \fillin{not} imply differentiable.
+\end{nrow}
+\begin{nrow}{Example 1}
+$f$ is differentiable for all $x$. \;\begin{tabular}{|c|c|c|c|c|}\hline$x$&$1$&$3$&$5$&$8$\\\hline$f(x)$&$4$&$-2$&$6$&$10$\\\hline\end{tabular}\par
+a) Must there be a $c$ in $(1,3)$ with $f(c)=0$? \;b) Must there be a $c$ in $(3,5)$ with $f'(c)=4$? \;c) Must $f$ have an absolute maximum on $[1,8]$?
+\begin{workspace}[3cm]
+a) Yes, IVT: $f$ is continuous (because differentiable) and $0$ is between $f(1)=4$ and $f(3)=-2$.\\
+b) Yes, MVT: $\frac{f(5)-f(3)}{5-3}=\frac{6-(-2)}{2}=4$.\\
+c) Yes, EVT: $f$ is continuous on the closed interval $[1,8]$. The maximum is at least $10$.
 \end{workspace}
-
-\ex{Example 2 \textbullet\ Hypotheses fail}
-\gr{xmin=-0.5,xmax=4.5,ymin=-0.5,ymax=4.5,width=5.5cm,height=4.6cm}{\addplot[apblue,very thick,domain=0:2]{x+1};\addplot[apblue,very thick,domain=2:4]{3-0.5*(x-2)^2};\pt{0,1}\pt{4,1}\pt{2,3}}
-The graph of $f$ on $[0,4]$ is shown (a corner at $x=2$). Which theorems apply on $[0,4]$?
-\begin{workspace}[2.6cm]
-$f$ is continuous on $[0,4]$: the IVT and EVT apply. $f$ is not differentiable at $x=2$ (corner), so the MVT does not apply on $[0,4]$ (it does apply on $[2,4]$).
+\end{nrow}
+\begin{nrow}{Example 2}
+$g(x)=\dfrac{1}{x-2}$ on $[1,3]$, with $g(1)=-1$ and $g(3)=1$. Does the IVT guarantee a $c$ with $g(c)=0$?
+\begin{workspace}[2cm]
+No: $g$ is not continuous on $[1,3]$ (vertical asymptote at $x=2$), so the IVT does not apply. In fact $g(x)=0$ has no solution.
 \end{workspace}
-
-\begin{aptip}
-Never apply a theorem without stating why its hypotheses hold. On tables, ``$f$ is differentiable, so it is continuous'' covers both continuity and differentiability.
-\end{aptip}
-
-\begin{quickcheck}
-1. ``Is there a time when the temperature was exactly $70^\circ$?'' uses the \fillin{IVT}.\\
-2. ``Is there a time when the temperature was rising at $2^\circ$ per hour?'' uses the \fillin{MVT}.
-\end{quickcheck}
+\end{nrow}
+\begin{nrow}{Example 3}
+$h$ is continuous on $[0,4]$, but its graph has a sharp corner at $x=2$. Which theorems apply to $h$ on $[0,4]$?
+\begin{workspace}[2cm]
+IVT and EVT apply (they only need continuity on $[0,4]$). The MVT does not apply, because $h$ is not differentiable at $x=2$.
+\end{workspace}
+\end{nrow}
+\begin{nrow}{Summary}
+\ifkey{\color{apnavy}Name the theorem, check what it needs (continuous, closed interval, or differentiable), then state what it proves: a height (IVT), an absolute max or min (EVT), or a slope (MVT).}\else\vspace{2.2cm}\fi
+\end{nrow}
