@@ -152,6 +152,7 @@ a{color:var(--accent)}
 .pick{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .pick label{cursor:pointer;flex-direction:column;gap:2px;text-align:center;line-height:1.2;padding:12px 8px}
 .warn{border:2px solid var(--bad);background:var(--bad-bg);border-radius:10px;padding:10px 12px;font-size:.9rem;line-height:1.45}
+.waveqr .wq{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:6px}.waveqr img{border:1px solid var(--line);border-radius:8px;background:#fff;padding:4px}
 .tips{font-size:.9rem;margin:0;padding-left:1.1em;color:var(--muted)}
 .btn.meet{background:#1A73E8;border-color:#1A73E8;color:#fff;font-size:1.05rem}
 @media (max-width:640px){
@@ -230,7 +231,7 @@ a{color:var(--accent)}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
 <script src="../vendor/pdfjs/pdf.js"></script>
-<script src="quiz-config.js?v=9"></script>
+<script src="quiz-config.js?v=10"></script>
 <script src="courses.js?v=9"></script>
 <script src="quiz-bank.js?v=7"></script>
 <script>
@@ -583,7 +584,7 @@ function buyView(){
       <div class="offer">${courses.map(c=>`<label class="opt"><input type="checkbox" name="crs" value="${c}" ${f.courses.includes(c)?"checked":""}><span><b>${COURSE[c]}</b><br><span class="price">${fmtMoney(pr[c])}</span><br><span class="muted" style="font-size:.85rem">for the school year</span></span></label>`).join("")}</div>
       <div class="label">2 · Pay ${total?`<span class="num">${fmtMoney(total)}</span>`:""}</div>
       <div class="offer">${methods.map(m=>`<label class="opt"><input type="radio" name="mth" value="${m}" ${f.method===m?"checked":""}><span><b>${m}</b></span></label>`).join("")}</div>
-      ${total?`<ol class="steps"><li>Open <b>${esc(f.method)}</b> and send <b class="num">${fmtMoney(total)}</b> to <b class="num" style="user-select:all">${esc(num)}</b>${PAY.payee?` (${esc(PAY.payee)})`:""}.</li><li>Copy the <b>transaction reference</b> from the confirmation message.</li><li>Fill in the form below and send it.</li></ol>`:'<p class="muted">Choose at least one course.</p>'}
+      ${total?`<ol class="steps"><li>Open <b>${esc(f.method)}</b> and send <b class="num">${fmtMoney(total)}</b> to <b class="num" style="user-select:all">${esc(num)}</b>${PAY.payee?` (${esc(PAY.payee)})`:""}.</li>${f.method==="Wave"&&PAY.waveLink?`<li class="waveqr"><span>Or pay with the Wave QR code: scan it from another phone, or tap the button on this phone.</span><span class="wq">${PAY.waveQR?`<img src="${esc(PAY.waveQR)}" alt="Wave QR code to pay ${esc(PAY.payee||"")}" width="132" height="132">`:""}<a class="btn" href="${esc(PAY.waveLink)}" target="_blank" rel="noopener">Open Wave to pay</a></span></li>`:""}<li>Copy the <b>transaction reference</b> from the confirmation message.</li><li>Fill in the form below and send it.</li></ol>`:'<p class="muted">Choose at least one course.</p>'}
       <div class="label">3 · Your details</div>
       <label class="f" for="bn">Full name<input id="bn" required maxlength="60" autocomplete="name" value="${esc(f.name??S.id?.name??"")}"></label>
       <label class="f" for="bp">WhatsApp number<input id="bp" type="tel" required maxlength="30" autocomplete="tel" value="${esc(f.phone||"")}"></label>
