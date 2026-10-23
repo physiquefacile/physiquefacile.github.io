@@ -1,0 +1,134 @@
+\documentclass[11pt]{article}
+\usepackage{ap}
+\input{mode}
+\geometry{a4paper,margin=1.6cm,top=1.7cm,bottom=1.7cm,headheight=14pt}
+\setdoc{Calculus}{Unit 1}{Limits Quiz \textbullet\ Graphs and Substitution\ifkey\ \textbullet\ Answer key\fi}
+\renewcommand{\nocalc}{}
+% five choices, one per line
+\newcommand{\choicesE}[5]{\par\vspace{2pt}\begin{tabular}{@{}l@{\hspace{5pt}}p{0.88\linewidth}@{}}(A)&#1\\[1pt](B)&#2\\[1pt](C)&#3\\[1pt](D)&#4\\[1pt](E)&#5\end{tabular}\par}
+\newcommand{\ans}[2]{\begin{solution}\textbf{Answer: (#1).} #2\end{solution}}
+\newcommand{\gr}[2]{\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,#1]#2\end{axis}\end{tikzpicture}\end{center}}
+\newcommand{\pt}[1]{\node[circle,fill=apblue,inner sep=1.5pt] at (axis cs:#1){};}
+\newcommand{\op}[1]{\node[circle,draw=apblue,fill=white,thick,inner sep=1.5pt] at (axis cs:#1){};}
+\newcommand{\va}[1]{\draw[apred,dashed,thick](axis cs:#1,-100)--(axis cs:#1,100);}
+\newcommand{\ha}[1]{\draw[apgold!80!black,dashed,thick](axis cs:-100,#1)--(axis cs:100,#1);}
+\newcommand{\sk}[2]{\begin{tikzpicture}\begin{axis}[axis lines=middle,xtick=\empty,ytick=\empty,xlabel={$x$},ylabel={$y$},width=4.6cm,height=3.8cm,clip=false,#1]#2\end{axis}\end{tikzpicture}}
+\newenvironment{qbox}{\par\Needspace{10\baselineskip}\refstepcounter{exo}\begin{tcolorbox}[enhanced,colback=white,colframe=apnavy!50,boxrule=0.5pt,arc=2pt,left=8pt,right=8pt,top=6pt,bottom=6pt,before skip=3pt,after skip=3pt]{\sffamily\bfseries\color{apnavy}\theexo.}\ }{\end{tcolorbox}}
+\newcommand{\choicesD}[4]{\par\vspace{4pt}\begin{tabular}{@{}l@{\hspace{6pt}}p{0.85\linewidth}@{}}(A)&#1\\[3pt](B)&#2\\[3pt](C)&#3\\[3pt](D)&#4\end{tabular}\par}
+\begin{document}
+{\centering\sffamily\bfseries\Large\color{apnavy}The Senegalese American Bilingual School\par}\vspace{6pt}
+\titleband{Limits Quiz \textbullet\ Graphs and Substitution}{12th Grade \textbullet\ Calculus \textbullet\ Unit 1\ifkey\ \textbullet\ Answer key with explanations\fi}
+
+\ifkey\else
+\begin{minipage}[t]{0.56\linewidth}\vspace{0pt}
+\begin{tcolorbox}[colback=white,colframe=apnavy,boxrule=0.6pt,arc=3pt,left=8pt,right=8pt]
+\sffamily Name: \rule{5.8cm}{0.4pt}\\[10pt] Date: \rule{2.8cm}{0.4pt}\quad Class: 12th
+\end{tcolorbox}
+\begin{directions}
+\textbf{10 multiple-choice questions} \textbullet\ \textbf{45 minutes} \textbullet\ \textbf{Simple calculator allowed; no graphing calculator (no TI)}.\\
+Choose the one best answer for each question and fill in its bubble on the answer sheet. Each correct answer is worth 10 points.
+\end{directions}
+\vspace{4pt}
+\begin{tcolorbox}[colback=apgold!10,colframe=apgold!80!black,boxrule=0.5pt,arc=3pt,left=8pt,right=8pt,title={\sffamily\bfseries Remember},colbacktitle=apgold!80!black]
+\small
+\textbullet\ $\displaystyle\lim_{x\to a}f(x)$ is the height the graph \textbf{goes to} near $x=a$.\\[2pt]
+\textbullet\ $f(a)$ is the height of the \textbf{filled dot} at $x=a$. An open circle $\circ$ is a hole.\\[2pt]
+\textbullet\ Left limit and right limit different $\Rightarrow$ the limit does not exist.\\[2pt]
+\textbullet\ For a simple expression, \textbf{replace} $x$ by the number.
+\end{tcolorbox}
+\vspace{4pt}
+\begin{center}
+\begin{tikzpicture}
+\draw[apnavy,thick] (0,0) circle (1.1); \draw[apnavy,thick] (-1.1,0)--(1.1,0);
+\node[font=\Large\sffamily] at (0,-0.5) {10};
+\node[font=\sffamily\bfseries,color=apnavy] at (0,1.45) {Score};
+\draw[apnavy,thick] (3.4,0) circle (1.1); \draw[apnavy,thick] (2.3,0)--(4.5,0);
+\node[font=\Large\sffamily] at (3.4,-0.5) {100};
+\node[font=\sffamily\bfseries,color=apnavy] at (3.4,1.45) {Grade};
+\node[font=\Large] at (1.7,0) {$\times10$};
+\end{tikzpicture}
+\end{center}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.36\linewidth}\vspace{0pt}
+\begin{tcolorbox}[colback=white,colframe=apnavy,boxrule=0.6pt,arc=3pt,title={\sffamily\bfseries Answer sheet},colbacktitle=apnavy]
+\centering
+\begin{tikzpicture}[x=0.75cm,y=0.95cm]
+\foreach \c [count=\i] in {A,B,C,D}{\node[font=\sffamily\bfseries] at (\i,1) {\c};}
+\foreach \r in {1,...,10}{
+ \node[font=\sffamily\bfseries,anchor=east] at (0.45,-\r+1) {\r};
+ \foreach \i in {1,...,4}{\draw[apgrey,thick] (\i,-\r+1) circle (0.26);}
+}
+\end{tikzpicture}
+\end{tcolorbox}
+\end{minipage}
+\newpage
+\fi
+
+\ifkey
+\begin{keyidea}[Answer key]
+\begin{tabular}{@{}*{9}{c@{\hspace{12pt}}}c@{}}
+1~C & 2~B & 3~A & 4~C & 5~D & 6~C & 7~B & 8~A & 9~D & 10~B
+\end{tabular}
+\end{keyidea}
+\fi
+
+\newcommand{\gF}{\gr{xmin=-2.6,xmax=5.6,ymin=-0.8,ymax=5.8,width=11cm,height=7.2cm,xtick={-2,-1,...,5},ytick={1,2,3,4,5}}{\addplot[apblue,very thick] coordinates {(-2,0)(3,5)};\addplot[apblue,very thick] coordinates {(3,2)(5,2)};\pt{-2,0}\op{1,3}\pt{1,1}\pt{3,5}\op{3,2}\pt{5,2}\node[apblue,font=\small] at (axis cs:-1.3,4.6){$y=f(x)$};}}
+\newcommand{\gFs}{\gr{xmin=-2.6,xmax=5.6,ymin=-0.8,ymax=5.8,width=8.5cm,height=5.2cm,xtick={-2,-1,...,5},ytick={1,2,3,4,5}}{\addplot[apblue,very thick] coordinates {(-2,0)(3,5)};\addplot[apblue,very thick] coordinates {(3,2)(5,2)};\pt{-2,0}\op{1,3}\pt{1,1}\pt{3,5}\op{3,2}\pt{5,2}\node[apblue,font=\small] at (axis cs:-1.3,4.6){$y=f(x)$};}}
+\begin{center}\textsf{\bfseries\color{apnavy}Questions 1 to 6 refer to the graph of $f$ below.}\end{center}
+\gF
+\begin{qbox}
+What is $\displaystyle\lim_{x\to0}f(x)$?
+\choicesD{$0$}{$1$}{$2$}{$3$}
+\ans{C}{Follow the line to $x=0$: the graph is at height $2$.}
+\end{qbox}
+\begin{qbox}
+What is $\displaystyle\lim_{x\to1}f(x)$?
+\choicesD{$1$}{$3$}{$2$}{does not exist}
+\ans{B}{From both sides the line goes to the open circle at height $3$. The limit is $3$ (the hole does not change the limit).}
+\end{qbox}
+\begin{qbox}
+What is the value of $f(1)$?
+\choicesD{$1$}{$3$}{$0$}{undefined}
+\ans{A}{$f(1)$ is the filled dot at $x=1$: it is at height $1$.}
+\end{qbox}
+\begin{qbox}
+What is $\displaystyle\lim_{x\to3^-}f(x)$? \quad ($x\to3^-$ means: $x$ comes to $3$ from the left.)
+\choicesD{$2$}{$3$}{$5$}{does not exist}
+\ans{C}{From the left, the line goes up to the point $(3,5)$.}
+\end{qbox}
+\newpage
+\begin{center}\textsf{\bfseries\color{apnavy}The graph of $f$ again, for questions 5 and 6.}\end{center}
+\gF
+\begin{qbox}
+What is $\displaystyle\lim_{x\to3^+}f(x)$? \quad ($x\to3^+$ means: $x$ comes to $3$ from the right.)
+\choicesD{$5$}{$0$}{$3$}{$2$}
+\ans{D}{From the right, the graph is the flat line at height $2$.}
+\end{qbox}
+\begin{qbox}
+What is $\displaystyle\lim_{x\to3}f(x)$?
+\choicesD{$2$}{$5$}{does not exist}{$3$}
+\ans{C}{The left limit is $5$ and the right limit is $2$. They are different, so the limit does not exist.}
+\end{qbox}
+\ifkey\else\newpage\fi\begin{center}\textsf{\bfseries\color{apnavy}Questions 7 to 10: limits by substitution (replace $x$ by the number)}\end{center}
+\begin{qbox}
+$\displaystyle\lim_{x\to2}(x+5)=$
+\choicesD{$5$}{$7$}{$10$}{$2$}
+\ans{B}{Replace $x$ by $2$: $2+5=7$.}
+\end{qbox}
+\begin{qbox}
+$\displaystyle\lim_{x\to3}(2x)=$
+\choicesD{$6$}{$3$}{$5$}{$9$}
+\ans{A}{Replace $x$ by $3$: $2\times3=6$.}
+\end{qbox}
+\begin{qbox}
+$\displaystyle\lim_{x\to1}(x^2+4)=$
+\choicesD{$4$}{$1$}{$6$}{$5$}
+\ans{D}{Replace $x$ by $1$: $1^2+4=1+4=5$.}
+\end{qbox}
+\begin{qbox}
+$\displaystyle\lim_{x\to4}\frac{x-1}{3}=$
+\choicesD{$3$}{$1$}{$4$}{$0$}
+\ans{B}{Replace $x$ by $4$: $\dfrac{4-1}{3}=\dfrac33=1$.}
+\end{qbox}
+\ifkey\else\vfill\begin{center}\small\color{apgrey}End of the quiz. Check that every answer is filled in on the answer sheet.\end{center}\fi
+\end{document}
