@@ -47,6 +47,8 @@ input[type=text],input[type=tel],input[type=email],input:not([type]){font:inheri
 .spr input.right{border-color:var(--good);background:var(--good-bg)}.spr input.wrong{border-color:var(--bad);background:var(--bad-bg)}
 .banner{background:var(--hl);color:#16223A;border-radius:8px;padding:8px 12px;font-size:.9rem}
 .err{color:var(--bad);font-weight:700;font-size:.9rem}
+.founder{font-size:.85rem;color:var(--muted);margin-top:2px}.founder b{color:var(--ink)}
+.site-foot{text-align:center;font-size:.8rem;color:var(--muted);padding:8px 0 4px}
 .top{display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap}
 .who{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:.9rem}
 .course{display:inline-flex;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:3px}
@@ -197,7 +199,7 @@ a{color:var(--accent)}
 <body>
 <div class="wrap">
   <header class="top">
-    <div><div class="label">AP Precalculus · AP Calculus AB · SAT Math</div><h1>AP Math Online</h1></div>
+    <div><div class="label">AP Precalculus · AP Calculus AB · SAT Math</div><h1>AP Math Online</h1><div class="founder">Founded by <b>Dr P.T. Traoré</b></div></div>
     <div class="who" id="who"></div>
   </header>
   <div id="tabsWrap" hidden>
@@ -210,6 +212,7 @@ a{color:var(--accent)}
     </nav>
   </div>
   <main id="main"><div class="panel"><p class="muted">Loading…</p></div></main>
+  <footer class="site-foot">AP Math Online · Founded by Dr P.T. Traoré · Dakar, Senegal</footer>
 </div>
 <div class="toast" id="toast" hidden></div>
 <div class="reader" id="reader" hidden role="dialog" aria-modal="true" aria-labelledby="rTitle">
@@ -310,6 +313,7 @@ function signin(msg,nm,cc){
   header();
   $("#main").innerHTML=`<div class="panel">
     <h2>Welcome</h2>
+    <p style="margin:0">A platform founded by <b>Dr P.T. Traoré</b>, AP Math and Physics teacher and trainer of math teachers.</p>
     <p class="muted">Guided notes, worksheets, quizzes and tests for AP Precalculus, AP Calculus AB and SAT Math. <b>Unit 1 of each AP course, one SAT skill and a full SAT practice test are free.</b></p>
     ${online?"":'<div class="banner"><b>Practice mode.</b> The free content is open; accounts and payments are not active yet.</div>'}
     <form id="si" style="display:grid;gap:12px">
