@@ -13,7 +13,9 @@ window.QUIZ_CONFIG = {
     wave: "77 724 06 16",
     waveLink: "https://qr.wave.com/iVVNfc25faEdLZzlRdTE1UmpS/Bq2_Ic/BZC-78/p",  // Wave payment QR link (from the Wave app, "My Card")
     waveQR: "img/wave-qr.png",                          // Wave number that receives payments, e.g. "77 123 45 67"
-    orangeMoney: "77 724 06 16",                   // Orange Money number, e.g. "77 123 45 67"
+    orangeMoney: "77 724 06 16",
+    omLink: "https://qrcode.orange.sn/dcwvgF2nStmirhY9rXMKbyFXqO_",  // Orange Money QR link ("Ma carte QR")
+    omQR: "img/om-qr.png",                   // Orange Money number, e.g. "77 123 45 67"
     payee: "Papa Touty Traoré",                         // name shown to the student for the transfer
     contact: "WhatsApp +221 77 724 06 16"                        // WhatsApp number or email for questions
   }

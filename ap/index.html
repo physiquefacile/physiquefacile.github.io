@@ -128,7 +128,10 @@ section{padding-block:48px;border-top:1px solid var(--line)}
 /* pricing */
 .wavepay{display:flex;gap:20px;align-items:center;flex-wrap:wrap;margin-top:18px;background:var(--sheet);border:2px solid var(--line);border-radius:14px;padding:18px}
 .wavepay img{background:#fff;border-radius:8px;padding:4px;border:1px solid var(--line)}
-.wavepay>div{flex:1 1 260px;display:grid;gap:8px}.wavepay p{margin:0}.wavepay .btn{justify-self:start}
+.wavepay>div{flex:1 1 260px;display:grid;gap:8px}.wavepay p{margin:0}
+.wavepay .qrs{display:flex;gap:18px;flex-wrap:wrap;flex:1 1 320px}
+.wavepay figure{margin:0;display:grid;gap:8px;justify-items:center;text-align:center}
+.wavepay .btn{padding:9px 14px;font-size:.92rem}
 .prices{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
 .price{background:var(--sheet);border:2px solid var(--ink);border-radius:14px;padding:20px;display:grid;gap:10px;align-content:start}
 .price .amt{font-family:var(--f-display);font-weight:800;font-size:2.2rem;line-height:1}
@@ -290,10 +293,12 @@ footer{padding-block:32px 48px;font-size:.88rem;color:var(--muted);display:grid;
     <div class="prices" id="prices"></div>
     <div class="trust" id="trust"></div>
     <div class="wavepay" id="wavepay" hidden>
-      <img src="../ap-math-tracker/img/wave-qr.png" alt="Code QR Wave pour payer Papa Touty Traoré" width="150" height="150">
-      <div><h3>Payer par Wave avec le code QR</h3>
-        <p>Scannez ce code avec l'application Wave (ou touchez le bouton depuis votre téléphone), envoyez le montant du cours, puis déclarez le paiement dans « My access » avec la référence de la transaction.</p>
-        <a class="btn" id="waveBtn" href="#" target="_blank" rel="noopener">Ouvrir Wave pour payer</a></div>
+      <div><h3>Payer avec le code QR</h3>
+        <p>Scannez le code avec l'application Wave ou Orange Money (ou touchez le bouton depuis votre téléphone), envoyez le montant du cours, puis déclarez le paiement dans « My access » avec la référence de la transaction.</p></div>
+      <div class="qrs">
+        <figure id="qrWave" hidden><img src="../ap-math-tracker/img/wave-qr.png" alt="Code QR Wave pour payer Papa Touty Traoré" width="140" height="140"><figcaption><b>Wave</b></figcaption><a class="btn" id="waveBtn" href="#" target="_blank" rel="noopener">Ouvrir Wave</a></figure>
+        <figure id="qrOM" hidden><img src="../ap-math-tracker/img/om-qr.png" alt="Code QR Orange Money pour payer Papa Touty Traoré" width="140" height="140"><figcaption><b>Orange Money</b></figcaption><a class="btn" id="omBtn" href="#" target="_blank" rel="noopener">Ouvrir Orange Money</a></figure>
+      </div>
     </div>
   </section>
 
@@ -338,7 +343,7 @@ footer{padding-block:32px 48px;font-size:.88rem;color:var(--muted);display:grid;
   </footer>
 </div>
 
-<script src="../ap-math-tracker/quiz-config.js?v=10"></script>
+<script src="../ap-math-tracker/quiz-config.js?v=11"></script>
 <script>
 /* ---------- settings of this page (check before publishing) ---------- */
 const SITE = {
@@ -400,7 +405,8 @@ if (SITE.liveSession) incl.push("Séance de questions chaque semaine");
 $("#prices").innerHTML = ["pc", "ab", "sat"].map(c => `<div class="price"><div class="eyebrow">${esc(SITE.calendar[c].name)}</div>
   <div class="amt">${has && pr[c] > 0 ? esc(money(pr[c])) : "Bientôt"}</div><div class="muted" style="font-size:.9rem">${has && pr[c] > 0 ? "pour l'année scolaire 2026 – 2027" : "Les tarifs seront communiqués très prochainement."}</div>
   <ul>${incl.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`).join("");
-if (PAY.waveLink) { $("#wavepay").hidden = false; $("#waveBtn").href = PAY.waveLink; }
+if (PAY.waveLink) { $("#wavepay").hidden = false; $("#qrWave").hidden = false; $("#waveBtn").href = PAY.waveLink; }
+if (PAY.omLink) { $("#wavepay").hidden = false; $("#qrOM").hidden = false; $("#omBtn").href = PAY.omLink; }
 const trust = ["Essai gratuit : unité 1 et test blanc SAT", "Paiement Wave ou Orange Money"];
 if (SITE.receipt) trust.push("Reçu après chaque paiement");
 if (SITE.guaranteeDays) trust.push(`Satisfait ou remboursé ${SITE.guaranteeDays} jours`);
