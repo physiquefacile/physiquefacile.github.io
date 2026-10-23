@@ -752,8 +752,11 @@ const FOR_OPT=[["all","All students with a code"],["pc","AP Precalculus"],["ab",
 async function cpPost(o){const ep=(window.QUIZ_CONFIG||{}).endpoint;const r=await fetch(ep,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({key:teacherKey(),...o})});return r.json()}
 async function cpLoad(){
   CP.loading=true;CP.err="";
-  try{const R=await cpPost({action:"copies"});if(R&&R.ok){CP.data=R}else CP.err=R&&R.error==="key"?"key":"server"}
-  catch(e){CP.err="net"}
+  const ep=(window.QUIZ_CONFIG||{}).endpoint;let r;
+  try{r=await fetch(ep,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({key:teacherKey(),action:"copies"})})}catch(e){CP.err="net"}
+  if(r){const txt=await r.text();let R=null;try{R=JSON.parse(txt)}catch(e){}
+    if(R&&R.ok)CP.data=R;else if(R&&R.error==="key")CP.err="key";
+    else{CP.err="server";CP.detail=R?(R.error==="unknown action"?"The Google script is not up to date: the old version is still deployed (Deploy → Manage deployments → Edit → New version).":"Error from the Google script: "+R.error):"The Google script stopped with an error: "+txt.replace(/<[^>]*>/g," ").replace(/\s+/g," ").trim().slice(0,300)}}
   CP.loading=false;if(state.view==="copies")render();
 }
 const dk=iso=>{const d=new Date(iso);return isNaN(d)?"":d.toLocaleString("en-GB",{timeZone:"Africa/Dakar",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})};
@@ -764,7 +767,7 @@ function viewCopies(){
   if(!teacherKey()||CP.err==="key")return `<div class="panel"><h2>Copies</h2><p class="muted" style="margin:0">Students send photos of their written work from the <b>Copies</b> tab of the student site. You grade them here.</p>
     ${CP.err==="key"?'<div class="banner">The teacher key is not correct.</div>':""}
     <form class="row" id="cpKey"><label for="cpk">Teacher key (from the Settings tab)<input id="cpk" type="password" autocomplete="off"></label><button class="btn primary">Open</button></form></div>`;
-  if(!CP.data){if(!CP.loading&&!CP.err)cpLoad();return `<div class="panel"><p class="muted">${CP.err?'Could not reach the Google Sheet. <button class="btn sm" id="cpReload">Try again</button>':"Loading the copies…"}</p></div>`}
+  if(!CP.data){if(!CP.loading&&!CP.err)cpLoad();return `<div class="panel"><p class="muted">${CP.err?(CP.err==="server"?esc(CP.detail)+' ':'Could not reach the Google Sheet. ')+'<button class="btn sm" id="cpReload">Try again</button>':"Loading the copies…"}</p></div>`}
   if(CP.sel)return viewCopy();
   const A=[...CP.data.assignments].sort((x,y)=>(y.created||"").localeCompare(x.created||"")),C=CP.data.copies;
   const cnt=id=>{const l=C.filter(c=>c.assignment===id);return {n:l.length,todo:l.filter(c=>c.status!=="Graded").length}};

@@ -446,10 +446,12 @@ setInterval(()=>{if(S.tab==="live"&&!S.run&&S.id&&$("#reader").hidden&&document.
 /* ---------- copies: written work sent as photos, graded by the teacher ---------- */
 const fr=d=>d.toLocaleString("en-GB",{timeZone:TZ,weekday:"long",day:"numeric",month:"long"})+", "+hm(d);
 async function loadCopies(){
-  try{const R=await post({action:"assignments",code:S.id.code,name:S.id.name});
-    if(R&&R.ok){S.cpl={a:R.assignments||[],c:R.copies||[],now:new Date(R.now||Date.now()).getTime()};return}
-    S.cpl={err:R&&R.error==="code"?"code":"net",a:[],c:[]}}
-  catch(e){S.cpl={err:"net",a:[],c:[]}}
+  let r;
+  try{r=await fetch(CFG.endpoint,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({action:"assignments",code:S.id.code,name:S.id.name})})}
+  catch(e){S.cpl={err:"net",a:[],c:[]};return}
+  const txt=await r.text();let R=null;try{R=JSON.parse(txt)}catch(e){}
+  if(R&&R.ok){S.cpl={a:R.assignments||[],c:R.copies||[],now:new Date(R.now||Date.now()).getTime()};return}
+  S.cpl={err:R?(R.error==="code"?"code":R.error==="unknown action"?"old":"srv"):"crash",detail:R?String(R.error||""):txt.replace(/<[^>]*>/g," ").replace(/\s+/g," ").trim().slice(0,300),a:[],c:[]}
 }
 function asgCard(a,mine){
   const due=a.due?new Date(a.due):null,now=Date.now(),late=due&&now>due.getTime();
@@ -480,7 +482,7 @@ async function copiesView(){
   box.innerHTML=`<div style="display:grid;gap:14px">
     <div class="panel"><h2>Copies</h2>
       <p class="muted" style="margin:0">Do the work on paper, then send a photo of each page. Your teacher grades it and you see your grade here.<br>Fais le devoir sur papier, puis envoie une photo de chaque page. Ta note apparaîtra ici.</p>
-      ${L.err?`<div class="banner">${L.err==="code"?"Your code was refused. Sign out and sign in again.":"Could not load. Check your connection. Vérifie ta connexion."}</div>`:""}</div>
+      ${L.err?`<div class="banner">${{code:"Your code was refused. Sign out and sign in again.",net:"Could not load. Check your connection. Vérifie ta connexion.",old:"The Google script is not up to date (old version still deployed). Le script Google n'est pas à jour.",srv:"The Google script answered with an error: "+esc(L.detail),crash:"The Google script stopped with an error: "+esc(L.detail)}[L.err]}</div>`:""}</div>
     <section class="panel"><div class="label">To do · À faire</div>${todo.length?`<div class="list">${todo.map(a=>asgCard(a,null)).join("")}</div>`:'<p class="muted">Nothing to send for now. Rien à rendre pour le moment.</p>'}</section>
     ${rest.length?`<section class="panel"><div class="label">Sent and graded · Envoyés et notés</div><div class="list">${rest.map(a=>asgCard(a,mine(a.id))).join("")}</div></section>`:""}
   </div>`;
