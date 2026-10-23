@@ -1,3 +1,5 @@
+/* © 2026 Papa Touty Traoré — tous droits réservés.
+   Plateforme « Physique Facile » / « Labo Virtuel de Physique ». Reproduction, modification ou diffusion interdites sans autorisation écrite de l'auteur. */
 /* Exercices d'entraînement illustrés par un schéma dans un repère orthonormé.
    Chaque schéma est dessiné avec les valeurs tirées pour l'exercice (même échelle sur les deux axes).
    Un générateur peut renvoyer, en plus des champs habituels :

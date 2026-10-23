@@ -1,3 +1,5 @@
+/* © 2026 Papa Touty Traoré — tous droits réservés.
+   Plateforme « Physique Facile » / « Labo Virtuel de Physique ». Reproduction, modification ou diffusion interdites sans autorisation écrite de l'auteur. */
 /* =====================================================================
    ACCÈS À LA PLATEFORME — numéro de carte étudiant + code personnel
    ---------------------------------------------------------------------

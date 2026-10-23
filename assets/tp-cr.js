@@ -1,3 +1,5 @@
+/* © 2026 Papa Touty Traoré — tous droits réservés.
+   Plateforme « Physique Facile » / « Labo Virtuel de Physique ». Reproduction, modification ou diffusion interdites sans autorisation écrite de l'auteur. */
 /* Comptes rendus notés : ce que l'étudiant doit remplir.
    (Les valeurs attendues et les réponses des QCM sont uniquement sur le serveur de correction.)
    fill  : colonnes du tableau à calculer et remplir à la main, ligne par ligne

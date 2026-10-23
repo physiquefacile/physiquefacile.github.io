@@ -1,3 +1,5 @@
+/* © 2026 Papa Touty Traoré — tous droits réservés.
+   Plateforme « Physique Facile » / « Labo Virtuel de Physique ». Reproduction, modification ou diffusion interdites sans autorisation écrite de l'auteur. */
 /* Exercices d'entraînement d'optique géométrique (valeurs aléatoires, corrections détaillées).
    Même format que exos.js : titre, enonce, reponses [{nom, unite, val, tol|abs}], correction [étapes], figureCor facultative. */
 (function () {

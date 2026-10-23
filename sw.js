@@ -1,3 +1,5 @@
+/* © 2026 Papa Touty Traoré — tous droits réservés.
+   Plateforme « Physique Facile » / « Labo Virtuel de Physique ». Reproduction, modification ou diffusion interdites sans autorisation écrite de l'auteur. */
 /* Service worker : consultation hors connexion et ouverture rapide de la plateforme.
    - pages et ressources du site : servies immédiatement depuis la copie locale de la version installée ;
      une nouvelle version (VERSION ci-dessous) est téléchargée en arrière-plan — seuls les fichiers modifiés
@@ -5,7 +7,7 @@
      ⚠ Toute modification du site doit s'accompagner d'un changement de VERSION.
    - documents PDF : copie locale d'abord, rafraîchie en arrière-plan
    - bibliothèques externes (KaTeX) : copie locale permanente */
-const VERSION = "v130";
+const VERSION = "v131";
 const SHELL = "shell-" + VERSION;
 const PDFS = "pdf-v1";          // nom stable : les documents enregistrés survivent aux mises à jour du site
 const EXT = "ext-v1";           // KaTeX ne change pas : inutile de le retélécharger à chaque version
@@ -58,7 +60,7 @@ const DOC_FILES = [
   "docs/TD_Electricite_2_enonces.pdf"
 ];
 /* documents modifiés : augmenter le numéro force le remplacement de la copie enregistrée sur les appareils */
-const DOC_REV = { "docs/Fascicule_TP_Physique_L1.pdf": 8 };
+const DOC_REV = { "docs/Fascicule_TP_Physique_L1.pdf": 9 };
 const EXT_FILES = [
   "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css",
   "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js",

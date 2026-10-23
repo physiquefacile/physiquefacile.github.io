@@ -1,3 +1,5 @@
+/* © 2026 Papa Touty Traoré — tous droits réservés.
+   Plateforme « Physique Facile » / « Labo Virtuel de Physique ». Reproduction, modification ou diffusion interdites sans autorisation écrite de l'auteur. */
 /* Questions de QCM « déduites des mesures » : les propositions sont calculées à partir des mesures de chaque étudiant.
    Une photo des questions ne suffit pas pour répondre : il faut les valeurs de son propre tableau.
    (Les bonnes réponses sont uniquement sur le serveur de correction.) */

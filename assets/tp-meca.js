@@ -1,3 +1,5 @@
+/* © 2026 Papa Touty Traoré — tous droits réservés.
+   Plateforme « Physique Facile » / « Labo Virtuel de Physique ». Reproduction, modification ou diffusion interdites sans autorisation écrite de l'auteur. */
 /* TP de mécanique : n°1 pendule simple, n°2 oscillateur harmonique, n°3 pendule de torsion */
 (function () {
   "use strict";

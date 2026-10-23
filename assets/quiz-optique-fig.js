@@ -1,3 +1,5 @@
+/* © 2026 Papa Touty Traoré — tous droits réservés.
+   Plateforme « Physique Facile » / « Labo Virtuel de Physique ». Reproduction, modification ou diffusion interdites sans autorisation écrite de l'auteur. */
 /* Questions de quiz d'optique accompagnées d'un schéma (champ fig : SVG, figcap : légende). */
 (function () {
   const O = window.OPT_SVG, Q = window.QUIZ;

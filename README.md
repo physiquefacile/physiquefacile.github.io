@@ -12,3 +12,6 @@ Le site est publié avec GitHub Pages à partir de la branche `main`.
 - `docs/` : supports de cours et séries de TD (PDF)
 - `slides/` : diaporamas (PDF)
 - `img/` : vignettes des couvertures
+
+## Droits d'auteur
+© 2026 Papa Touty Traoré — tous droits réservés. Voir le fichier [LICENSE](LICENSE). Toute reproduction ou réutilisation du code ou des contenus est interdite sans autorisation écrite de l'auteur.

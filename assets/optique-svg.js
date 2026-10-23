@@ -1,3 +1,5 @@
+/* © 2026 Papa Touty Traoré — tous droits réservés.
+   Plateforme « Physique Facile » / « Labo Virtuel de Physique ». Reproduction, modification ou diffusion interdites sans autorisation écrite de l'auteur. */
 /* Petits schémas d'optique géométrique en SVG (couleurs liées au thème clair/sombre).
    Utilisé par le quiz et par les exercices d'entraînement d'optique. */
 (function () {
