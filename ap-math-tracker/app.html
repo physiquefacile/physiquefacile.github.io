@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>AP Math Online app</title>
+<meta name="description" content="Install the AP Math Online app on your phone: AP Precalculus, AP Calculus AB and SAT Math. Founded by Dr P.T. Traoré.">
+<meta name="theme-color" content="#14213D">
+<link rel="manifest" href="app.webmanifest">
+<link rel="icon" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="AP Math">
+<meta property="og:title" content="AP Math Online: the app">
+<meta property="og:description" content="AP Precalculus, AP Calculus AB and SAT Math on your phone. Founded by Dr P.T. Traoré.">
+<meta property="og:image" content="https://physiquefacile.github.io/ap-math-tracker/icons/icon-512.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+:root{--bg:#EEF2F6;--paper:#FFFFFF;--ink:#16223A;--muted:#56627A;--line:#CDD6E2;--accent:#2A55D9;--accent-ink:#FFFFFF;--navy:#14213D;--mark:#FFD24A}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F1522;--paper:#171F30;--ink:#E6ECF5;--muted:#A3AEC4;--line:#2A3650;--accent:#8AA2FF;--accent-ink:#0F1522}}
+:root[data-theme="dark"]{--bg:#0F1522;--paper:#171F30;--ink:#E6ECF5;--muted:#A3AEC4;--line:#2A3650;--accent:#8AA2FF;--accent-ink:#0F1522}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Atkinson Hyperlegible",system-ui,sans-serif;font-size:17px;line-height:1.55}
+.wrap{max-width:640px;margin:0 auto;padding:20px 16px 48px;display:grid;gap:16px}
+.hero{background:var(--navy);color:#fff;border-radius:18px;padding:24px 20px;display:grid;gap:14px;justify-items:center;text-align:center}
+.hero img{width:112px;height:112px;border-radius:26px;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+h1{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.9rem;line-height:1.1;margin:0}
+h2{font-family:"Bricolage Grotesque",sans-serif;font-size:1.2rem;margin:0}
+.hero p{margin:0;color:#D5DCE8}
+.founder{font-size:.92rem;color:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:12px 22px;border-radius:12px;font:inherit;font-weight:700;text-decoration:none;cursor:pointer;border:2px solid var(--line);background:var(--paper);color:var(--ink)}
+.btn.primary{background:var(--mark);border-color:var(--mark);color:#14213D;font-size:1.08rem;width:100%;max-width:340px}
+.btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.45)}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:10px}
+ol{margin:0;padding-left:1.3em;display:grid;gap:6px}
+.ok{background:#E3F2EA;color:#1F6F4A;border-radius:10px;padding:10px 12px;font-weight:700}
+.muted{color:var(--muted)}
+.qr{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.qr img{width:150px;height:150px;background:#fff;border-radius:10px;padding:6px;border:1px solid var(--line)}
+.qr div{flex:1 1 200px}
+.link{font-family:ui-monospace,Menlo,monospace;font-size:.88rem;word-break:break-all;user-select:all}
+footer{text-align:center;font-size:.82rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <img src="icons/icon-512.png" alt="AP Math Online app icon">
+    <h1>AP Math Online</h1>
+    <p>AP Precalculus, AP Calculus AB and SAT Math on your phone: lessons, quizzes, tests, live sessions and your graded copies.</p>
+    <div class="founder">Founded by <b>Dr P.T. Traoré</b></div>
+    <button class="btn primary" id="install" hidden>📲 Install the app</button>
+    <div class="ok" id="done" hidden>✓ The app is installed. Open it from your home screen.</div>
+    <a class="btn ghost" href="learn.html">Open in the browser</a>
+  </section>
+
+  <section class="panel" id="android">
+    <h2>Android (Chrome)</h2>
+    <ol>
+      <li>Open this page in <b>Chrome</b>.</li>
+      <li>Tap <b>Install the app</b> above. If the button does not appear, tap the menu <b>⋮</b> then <b>Install app</b> (or <b>Add to Home screen</b>).</li>
+      <li>The <b>AP Math</b> icon appears on your home screen.</li>
+    </ol>
+  </section>
+
+  <section class="panel" id="ios">
+    <h2>iPhone and iPad (Safari)</h2>
+    <ol>
+      <li>Open this page in <b>Safari</b>.</li>
+      <li>Tap the <b>Share</b> button (the square with an arrow).</li>
+      <li>Choose <b>Add to Home Screen</b>, then <b>Add</b>.</li>
+    </ol>
+  </section>
+
+  <section class="panel">
+    <h2>Share the app</h2>
+    <div class="qr">
+      <img src="img/app-qr.png" alt="QR code to this page">
+      <div><p style="margin:0 0 6px">Scan this code with a phone camera to open this page, or send the link:</p>
+        <div class="link">physiquefacile.github.io/ap-math-tracker/app.html</div></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Version française</h2>
+    <p style="margin:0">Pour installer l'application : sur Android, ouvrez cette page dans Chrome et touchez <b>Install the app</b> (ou menu ⋮ puis <b>Installer l'application</b>). Sur iPhone, ouvrez-la dans Safari, touchez <b>Partager</b> puis <b>Sur l'écran d'accueil</b>. L'icône <b>AP Math</b> apparaît sur votre écran d'accueil.</p>
+  </section>
+
+  <footer>AP Math Online · Founded by Dr P.T. Traoré · Dakar, Senegal<br>AP® and SAT® are registered trademarks of the College Board, which is not affiliated with this site.</footer>
+</div>
+<script>
+let deferred=null;
+const standalone=window.matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
+const ios=/iphone|ipad|ipod/i.test(navigator.userAgent);
+if(standalone)location.replace("learn.html");
+if(ios)document.querySelector(".wrap").insertBefore(document.getElementById("ios"),document.getElementById("android"));
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferred=e;document.getElementById("install").hidden=false});
+document.getElementById("install").addEventListener("click",async()=>{if(!deferred)return;deferred.prompt();const r=await deferred.userChoice;deferred=null;document.getElementById("install").hidden=true;if(r&&r.outcome==="accepted")document.getElementById("done").hidden=false});
+window.addEventListener("appinstalled",()=>{document.getElementById("install").hidden=true;document.getElementById("done").hidden=false});
+try{if("serviceWorker" in navigator)navigator.serviceWorker.register("app-sw.js",{scope:"./"}).catch(()=>{})}catch(e){}
+</script>
+</body>
+</html>

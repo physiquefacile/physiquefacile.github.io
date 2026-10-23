@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="AP Precalculus, AP Calculus AB and SAT Math: guided notes, worksheets, quizzes and tests with automatic correction. Unit 1 and an SAT practice test are free.">
 <title>AP Math Online</title>
+<meta name="theme-color" content="#14213D">
+<link rel="manifest" href="app.webmanifest">
+<link rel="icon" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="AP Math">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@500&display=swap">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
@@ -48,6 +54,8 @@ input[type=text],input[type=tel],input[type=email],input:not([type]){font:inheri
 .banner{background:var(--hl);color:#16223A;border-radius:8px;padding:8px 12px;font-size:.9rem}
 .err{color:var(--bad);font-weight:700;font-size:.9rem}
 .founder{font-size:.85rem;color:var(--muted);margin-top:2px}.founder b{color:var(--ink)}
+.installbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:.92rem}
+.installbar img{width:34px;height:34px;border-radius:8px}
 .site-foot{text-align:center;font-size:.8rem;color:var(--muted);padding:8px 0 4px}
 .top{display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap}
 .who{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:.9rem}
@@ -203,6 +211,7 @@ a{color:var(--accent)}
     <div><div class="label">AP Precalculus · AP Calculus AB · SAT Math</div><h1>AP Math Online</h1><div class="founder">Founded by <b>Dr P.T. Traoré</b></div></div>
     <div class="who" id="who"></div>
   </header>
+  <div class="installbar" id="installBar" hidden><span style="display:flex;gap:10px;align-items:center"><img src="icons/icon-192.png" alt=""><span><b>Get the app</b> · AP Math Online on your home screen</span></span><span style="display:flex;gap:6px"><button class="btn sm primary" id="installApp">Install</button><button class="btn sm" id="installNo" aria-label="Hide">✕</button></span></div>
   <div id="tabsWrap" hidden>
     <nav class="tabs" role="tablist">
       <button role="tab" data-tab="courses">Courses</button>
@@ -822,8 +831,17 @@ window.addEventListener("hashchange",()=>{if(!S.run)route()});
   route();
   if(S.id&&S.id.code){await refreshAccess();if(!S.run)render()}
   flush();
-  try{if("serviceWorker" in navigator){navigator.serviceWorker.getRegistration().then(r=>{if(r)r.update()}).catch(()=>{});
-    let re=false;navigator.serviceWorker.addEventListener("controllerchange",()=>{if(!re&&navigator.serviceWorker.controller&&!S.run){re=true;location.reload()}})}}catch(e){}
+  try{if("serviceWorker" in navigator){const had=!!navigator.serviceWorker.controller;
+    navigator.serviceWorker.register("app-sw.js",{scope:"./"}).then(r=>r.update()).catch(()=>{});
+    let re=false;navigator.serviceWorker.addEventListener("controllerchange",()=>{if(had&&!re&&!S.run){re=true;location.reload()}})}}catch(e){}
+  /* install the app (Add to Home Screen) */
+  const standalone=matchMedia("(display-mode: standalone)").matches||navigator.standalone===true,ios=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  let deferred=null;const bar=$("#installBar"),hidden=LS.get("noInstall",0)>Date.now();
+  window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferred=e;if(!hidden)bar.hidden=false});
+  if(ios&&!standalone&&!hidden)bar.hidden=false;
+  $("#installApp").addEventListener("click",async()=>{if(deferred){deferred.prompt();await deferred.userChoice;deferred=null;bar.hidden=true}else location.href="app.html"});
+  $("#installNo").addEventListener("click",()=>{bar.hidden=true;LS.set("noInstall",Date.now()+14*864e5)});
+  window.addEventListener("appinstalled",()=>{bar.hidden=true;toast("✓ App installed")});
 })();
 </script>
 </body>
