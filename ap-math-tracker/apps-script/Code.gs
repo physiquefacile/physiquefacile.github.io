@@ -495,7 +495,12 @@ var AI_SYSTEM = "You are a careful assistant helping a mathematics teacher grade
   "list it in 'unreadable' and grade only what you can read. Questions that are not answered get 0. " +
   "Write the justifications and the comment in the language of the subject (French for a French subject). " +
   "The comment is addressed to the student: 2 to 4 sentences, kind and precise, saying what is right and what to work on. " +
-  "The teacher checks your proposal before the student sees anything. Always answer by calling the tool propose_grade.";
+  "The teacher checks your proposal before the student sees anything. " +
+  "Also fill 'points_to_check': neutral observations the teacher may want to verify in person, such as a method or notation that is " +
+  "unusual for this level or not in the answer key (for example L'Hopital's rule in a first limits chapter), a solution that is complete and " +
+  "polished in a way that does not match the rest of the copy, or reasoning that is missing between a question and a perfect result. " +
+  "Never say the student cheated or used AI: describe only what you see. Leave the list empty when nothing stands out. " +
+  "Always answer by calling the tool propose_grade.";
 
 var AI_TOOL = { name: "propose_grade", description: "Proposed correction of the copy, for the teacher to check.",
   input_schema: { type: "object", required: ["questions", "total", "comment", "unreadable", "confidence"], properties: {
@@ -505,6 +510,7 @@ var AI_TOOL = { name: "propose_grade", description: "Proposed correction of the 
     total: { type: "number", description: "sum of the points, on the scale of the assignment" },
     comment: { type: "string" },
     unreadable: { type: "array", items: { type: "string" }, description: "parts that could not be read (page and place)" },
+    points_to_check: { type: "array", items: { type: "string" }, description: "neutral observations to verify with the student (methods not seen in class, results without reasoning); empty if none" },
     confidence: { type: "string", enum: ["high", "medium", "low"] } } } };
 
 function aiGrade_(copyId) {

@@ -149,6 +149,7 @@ a{color:var(--accent)}
 .thumb .tb button{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:6px;font:inherit;min-width:34px;min-height:32px;cursor:pointer}
 .pick{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .pick label{cursor:pointer;flex-direction:column;gap:2px;text-align:center;line-height:1.2;padding:12px 8px}
+.warn{border:2px solid var(--bad);background:var(--bad-bg);border-radius:10px;padding:10px 12px;font-size:.9rem;line-height:1.45}
 .tips{font-size:.9rem;margin:0;padding-left:1.1em;color:var(--muted)}
 .btn.meet{background:#1A73E8;border-color:#1A73E8;color:#fff;font-size:1.05rem}
 @media (max-width:640px){
@@ -482,6 +483,7 @@ async function copiesView(){
   box.innerHTML=`<div style="display:grid;gap:14px">
     <div class="panel"><h2>Copies</h2>
       <p class="muted" style="margin:0">Do the work on paper, then send a photo of each page. Your teacher grades it and you see your grade here.<br>Fais le devoir sur papier, puis envoie une photo de chaque page. Ta note apparaîtra ici.</p>
+      <div class="warn">⚠️ <b>Copies are checked.</b> Each copy is read with the help of an AI assistant that flags methods not seen in class and answers without reasoning, and your teacher compares the copies. Your teacher may ask you to explain any answer orally. Work on your own: a copied answer gets 0.<br><span style="opacity:.85">⚠️ <b>Les copies sont vérifiées.</b> Une IA aide à repérer les méthodes non vues en classe et les réponses sans raisonnement, et ton professeur compare les copies. Ton professeur peut te demander d'expliquer n'importe quelle réponse à l'oral. Travaille seul : une réponse copiée vaut 0.</span></div>
       ${L.err?`<div class="banner">${{code:"Your code was refused. Sign out and sign in again.",net:"Could not load. Check your connection. Vérifie ta connexion.",old:"The Google script is not up to date (old version still deployed). Le script Google n'est pas à jour.",srv:"The Google script answered with an error: "+esc(L.detail),crash:"The Google script stopped with an error: "+esc(L.detail)}[L.err]}</div>`:""}</div>
     <section class="panel"><div class="label">To do · À faire</div>${todo.length?`<div class="list">${todo.map(a=>asgCard(a,null)).join("")}</div>`:'<p class="muted">Nothing to send for now. Rien à rendre pour le moment.</p>'}</section>
     ${rest.length?`<section class="panel"><div class="label">Sent and graded · Envoyés et notés</div><div class="list">${rest.map(a=>asgCard(a,mine(a.id))).join("")}</div></section>`:""}
@@ -502,6 +504,7 @@ function sendView(){
   const size=c.pages.reduce((n,p)=>n+p.data.length*0.75,0)/1048576;
   $("#main").innerHTML=`<div style="display:grid;gap:14px"><div class="panel">
     <div class="qhead"><h2>${esc(a.title)}</h2><button class="btn sm" id="cpBack">← Back</button></div>
+    <div class="warn" style="font-size:.85rem">⚠️ <b>Copies are checked.</b> Each copy is read with the help of an AI assistant that flags methods not seen in class and answers without reasoning, and your teacher compares the copies. Your teacher may ask you to explain any answer orally. Work on your own: a copied answer gets 0.<br><span style="opacity:.85">⚠️ <b>Les copies sont vérifiées.</b> Une IA aide à repérer les méthodes non vues en classe et les réponses sans raisonnement, et ton professeur compare les copies. Ton professeur peut te demander d'expliquer n'importe quelle réponse à l'oral. Travaille seul : une réponse copiée vaut 0.</span></div>
     <ul class="tips"><li>One photo per page, in order. Une photo par page, dans l'ordre.</li><li>Good light, the whole page in the frame, no shadow. Bonne lumière, toute la page.</li><li>Write your name on each page. Écris ton nom sur chaque page.</li></ul>
     <div class="pick">
       <label class="btn primary" for="cpCam">📷 Take a photo<br><small style="font-weight:400">Prendre une photo</small></label>
