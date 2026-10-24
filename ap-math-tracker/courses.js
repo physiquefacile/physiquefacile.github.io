@@ -83,6 +83,26 @@ window.COURSE_LIB={
       {id:"u11",n:"11",t:"Area and Volume",lessons:[L("11-1","Area Under Two Curves"),L("11-2","Area Between Two Curves"),L("11-3","Volumes of Square Cross Sections"),L("11-4","Basic Volumes of Revolution"),L("11-5","Advanced Volumes of Revolution")]},
       {id:"u12",n:"12",t:"AP Test Review",lessons:[L("12-1","Final exam preparation, Units 1 to 5"),L("12-2","Final exam preparation, Units 6 to 11"),L("12-3","Full practice exam")]}
     ]},
+  p1:{
+    name:"AP Physics 1",
+    /* units and topics follow the AP Physics 1: Algebra-Based Course and Exam Description */
+    units:[
+      {id:"u1",n:"1",t:"Kinematics",free:true,plan:"u1-",lessons:[
+        W("1.1","Scalars and Vectors in One Dimension","A"),
+        W("1.2","Displacement, Velocity, and Acceleration","A"),
+        W("1.3","Representing Motion","A"),
+        W("1.4","Reference Frames and Relative Motion","A"),
+        W("1.5","Vectors and Motion in Two Dimensions","A")],
+        tests:[T("SC1.1","Self Check 1.1 (topics 1.1 to 1.3)"),T("SC1.2","Self Check 1.2 (topics 1.4 and 1.5)"),T("PRETEST1","Unit 1 Test (MCQ + FRQ)")]},
+      {id:"u2",n:"2",t:"Force and Translational Dynamics",lessons:[L("2.1","Systems and Center of Mass"),L("2.2","Forces and Free-Body Diagrams"),L("2.3","Newton's Third Law"),L("2.4","Newton's First Law"),L("2.5","Newton's Second Law"),L("2.6","Gravitational Force"),L("2.7","Kinetic and Static Friction"),L("2.8","Spring Forces"),L("2.9","Circular Motion")]},
+      {id:"u3",n:"3",t:"Work, Energy, and Power",lessons:[L("3.1","Translational Kinetic Energy"),L("3.2","Work"),L("3.3","Potential Energy"),L("3.4","Conservation of Energy"),L("3.5","Power")]},
+      {id:"u4",n:"4",t:"Linear Momentum",lessons:[L("4.1","Linear Momentum"),L("4.2","Change in Momentum and Impulse"),L("4.3","Conservation of Linear Momentum"),L("4.4","Elastic and Inelastic Collisions")]},
+      {id:"u5",n:"5",t:"Torque and Rotational Dynamics",lessons:[L("5.1","Rotational Kinematics"),L("5.2","Connecting Linear and Rotational Motion"),L("5.3","Torque"),L("5.4","Rotational Inertia"),L("5.5","Rotational Equilibrium and Newton's First Law in Rotational Form"),L("5.6","Newton's Second Law in Rotational Form")]},
+      {id:"u6",n:"6",t:"Energy and Momentum of Rotating Systems",lessons:[L("6.1","Rotational Kinetic Energy"),L("6.2","Torque and Work"),L("6.3","Angular Momentum and Angular Impulse"),L("6.4","Conservation of Angular Momentum"),L("6.5","Rolling"),L("6.6","Motion of Orbiting Satellites")]},
+      {id:"u7",n:"7",t:"Oscillations",lessons:[L("7.1","Defining Simple Harmonic Motion"),L("7.2","Frequency and Period of SHM"),L("7.3","Representing and Analyzing SHM"),L("7.4","Energy of Simple Harmonic Oscillators")]},
+      {id:"u8",n:"8",t:"Fluids",lessons:[L("8.1","Internal Structure and Density"),L("8.2","Pressure"),L("8.3","Fluids and Newton's Laws"),L("8.4","Fluids and Conservation Laws")]},
+      {id:"rev",n:"R",t:"AP Exam Review",lessons:[L("R.1","Practice multiple-choice set"),L("R.2","Practice free-response set (the 4 FRQ types)"),L("R.3","Full practice exam")]}
+    ]},
   sat:{
     name:"SAT Math",
     /* units are the four SAT Math domains; free:true on a lesson opens that skill only; "mt" holds the full adaptive practice tests */

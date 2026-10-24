@@ -22,13 +22,13 @@ var ASSIGN_HEADERS = ["Id", "Title", "For (all, pc, ab, sat, bfem, s1, s2 or cla
 var COPY_HEADERS = ["Received", "Copy id", "Assignment id", "Assignment", "Name", "Code", "Pages", "Files (Drive ids)",
                     "Grade", "Out of", "Comment", "Graded", "Status", "Late", "Folder", "AI proposal", "AI at"];
 var AI_MODEL = "claude-sonnet-5-5";   /* Claude model used to propose a correction */
-var ALL_COURSES = ["pc", "ab", "sat", "bfem", "s1", "s2"];
-var SESSION_HEADERS = ["Date", "Time (Dakar)", "Duration (min)", "Course (pc, ab, sat or all)", "Topic", "Google Meet link", "Recording link (optional)"];
+var ALL_COURSES = ["pc", "ab", "p1", "sat", "bfem", "s1", "s2"];
+var SESSION_HEADERS = ["Date", "Time (Dakar)", "Duration (min)", "Course (pc, ab, p1, sat or all)", "Topic", "Google Meet link", "Recording link (optional)"];
 var RESULT_HEADERS = ["Received", "Name", "Code", "Course", "Unit", "Quiz id", "Title", "Type",
                       "Score", "Out of", "Percent", "Time (s)", "Answers", "Result id", "Sent from device at"];
 var STUDENT_HEADERS = ["Access code", "Name", "Phone (WhatsApp)", "Email", "Courses", "Amount (FCFA)", "Paid with",
                        "Transaction reference", "Status", "Requested", "Activated", "Note"];
-var COURSE_NAMES = { pc: "AP Precalculus", ab: "AP Calculus AB", sat: "SAT Math", bfem: "Maths 3e (BFEM)", s1: "Maths Terminale S1", s2: "Maths Terminale S2" };
+var COURSE_NAMES = { pc: "AP Precalculus", ab: "AP Calculus AB", p1: "AP Physics 1", sat: "SAT Math", bfem: "Maths 3e (BFEM)", s1: "Maths Terminale S1", s2: "Maths Terminale S2" };
 
 /* ------------------------------------------------------------------ setup */
 function setup() {
@@ -43,7 +43,7 @@ function setup() {
       ["Access ends", "2027-05-31", ""],
       ["Email for new payment requests", email, ""],
       ["", "", ""],
-      ["Class codes", "Label", "Gives full access to (pc, ab, sat, bfem, s1, s2, or several: pc ab)"],
+      ["Class codes", "Label", "Gives full access to (pc, ab, p1, sat, bfem, s1, s2, or several: pc ab)"],
       ["APPC2026", "AP Precalculus class", ""],
       ["APAB2026", "AP Calculus AB class", ""],
       ["", "", ""]
@@ -94,11 +94,12 @@ function settings_() {
 
 function parseCourses_(x) {
   var t = String(x || "").toLowerCase(), out = [];
-  if (/\b(all|tous|tout)\b/.test(t)) return ["pc", "ab", "sat"];
+  if (/\b(all|tous|tout)\b/.test(t)) return ["pc", "ab", "p1", "sat"];
   if (/\b(both|les deux)\b/.test(t)) out.push("pc", "ab");
   if (/pc|precalc/.test(t)) out.push("pc");
   if (/ab|calc(?!ulus)|calculus ab/.test(t.replace(/precalc\w*/g, "")) && out.indexOf("ab") < 0) out.push("ab");
   if (/sat/.test(t)) out.push("sat");
+  if (/\bp1\b|physics/.test(t)) out.push("p1");
   if (/\bbfem\b/.test(t)) out.push("bfem");
   if (/\bs1\b/.test(t)) out.push("s1");
   if (/\bs2\b/.test(t)) out.push("s2");
@@ -233,7 +234,7 @@ function doPost(e) {
   /* live sessions (Google Meet): everyone sees the schedule, only students with access to the course get the link */
   if (d.action === "sessions") {
     var w2 = d.code ? identify_(d.code) : null;
-    var mine = w2 ? (w2.type === "teacher" ? ["pc", "ab", "sat"] : w2.courses || []) : [];
+    var mine = w2 ? (w2.type === "teacher" ? ALL_COURSES.slice() : w2.courses || []) : [];
     return json_({ ok: true, sessions: sessions_(mine) });
   }
 
@@ -459,7 +460,7 @@ function sessions_(mine) {
     var mins = Number(r[2]) || 60, end = start.getTime() + mins * 60000;
     if (end < from) continue;
     var cs = parseCourses_(r[3]);
-    if (!cs.length) cs = ["pc", "ab", "sat"];
+    if (!cs.length) cs = ["pc", "ab", "p1", "sat"];
     var open = cs.some(function (c) { return mine.indexOf(c) >= 0; });
     out.push({ start: start.toISOString(), minutes: mins, courses: cs, topic: String(r[4] || "").slice(0, 200),
                link: open ? String(r[5] || "").trim() : "", recording: open ? String(r[6] || "").trim() : "", locked: !open });

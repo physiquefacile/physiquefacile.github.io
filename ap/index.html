@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Préparation en ligne aux examens AP Precalculus, AP Calculus AB et SAT Math, avec le Dr Papa Touty Traoré, professeur d'AP et formateur d'enseignants. Unité 1 et test blanc SAT gratuits, cours complets, exercices corrigés, quiz et rapport de progrès pour les parents.">
+<meta name="description" content="Préparation en ligne aux examens AP Precalculus, AP Calculus AB, AP Physics 1 et SAT Math, avec le Dr Papa Touty Traoré, professeur d'AP et formateur d'enseignants. Unité 1 et test blanc SAT gratuits, cours complets, exercices corrigés, quiz et rapport de progrès pour les parents.">
 <meta property="og:title" content="AP Math Online · Dr Papa Touty Traoré">
-<meta property="og:description" content="Préparation aux examens AP Precalculus, AP Calculus AB et SAT Math. Essayez gratuitement.">
+<meta property="og:description" content="Préparation aux examens AP Precalculus, AP Calculus AB, AP Physics 1 et SAT Math. Essayez gratuitement.">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}</style>
 <title>AP Math Online</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -174,8 +174,8 @@ footer{padding-block:32px 48px;font-size:.88rem;color:var(--muted);display:grid;
 
   <div class="hero">
     <div>
-      <div class="eyebrow">AP Precalculus · AP Calculus AB · SAT Math · 2026 – 2027</div>
-      <h1 style="margin-top:12px">Préparer l'AP et le SAT de maths, <span class="mark">leçon par leçon</span>, avec un professeur d'AP.</h1>
+      <div class="eyebrow">AP Precalculus · AP Calculus AB · AP Physics 1 · SAT Math · 2026 – 2027</div>
+      <h1 style="margin-top:12px">Préparer l'AP de maths et de physique et le SAT, <span class="mark">leçon par leçon</span>, avec un professeur d'AP.</h1>
       <p class="lead">Par un enseignant qui a préparé des élèves aux examens AP de maths et de physique, et qui forme aujourd'hui les professeurs de maths d'un programme américain. Des cours complets en ligne, des exercices corrigés, des quiz qui se corrigent tout seuls et un rapport de progrès chaque mois pour les parents. <b>L'unité 1 de chaque cours AP et un test blanc SAT complet sont gratuits</b> : essayez avant de vous engager.</p>
       <div class="ctas">
         <a class="btn primary" data-learn href="https://physiquefacile.github.io/ap-math-tracker/learn.html">Essayer gratuitement</a>
@@ -185,6 +185,7 @@ footer{padding-block:32px 48px;font-size:.88rem;color:var(--muted);display:grid;
       <div class="count" aria-label="Compte à rebours avant l'examen">
         <div><b class="num" id="dAB">—</b><small>jours avant AP Calculus AB<br>lundi 10 mai 2027</small></div>
         <div><b class="num" id="dPC">—</b><small>jours avant AP Precalculus<br>mardi 11 mai 2027</small></div>
+        <div><b class="num" id="dP1">—</b><small>jours avant AP Physics 1<br>mercredi 5 mai 2027</small></div>
         <div><b class="num" id="dSAT">—</b><small>jours avant le SAT<br>samedi 6 mars 2027</small></div>
       </div>
     </div>
@@ -343,7 +344,7 @@ footer{padding-block:32px 48px;font-size:.88rem;color:var(--muted);display:grid;
   </footer>
 </div>
 
-<script src="../ap-math-tracker/quiz-config.js?v=11"></script>
+<script src="../ap-math-tracker/quiz-config.js?v=12"></script>
 <script>
 /* ---------- settings of this page (check before publishing) ---------- */
 const SITE = {
@@ -374,6 +375,16 @@ const SITE = {
       ["10", "General Integral Applications", "2027-03-31"],
       ["11", "Area and Volume", "2027-04-10"],
       ["12", "AP Test Review", "2027-04-20"] ] },
+    p1: { name: "AP Physics 1", exam: "mercredi 5 mai 2027", units: [
+      ["1", "Kinematics", "free"],
+      ["2", "Force and Translational Dynamics", "2026-11-20"],
+      ["3", "Work, Energy, and Power", "2026-12-15"],
+      ["4", "Linear Momentum", "2027-01-15"],
+      ["5", "Torque and Rotational Dynamics", "2027-02-05"],
+      ["6", "Energy and Momentum of Rotating Systems", "2027-02-25"],
+      ["7", "Oscillations", "2027-03-10"],
+      ["8", "Fluids", "2027-03-25"],
+      ["R", "AP Exam Review", "2027-04-10"] ] },
     sat: { name: "SAT Math", exam: "samedi 6 mars 2027", pre: "D", units: [
       ["1", "Algebra", "free1"],
       ["2", "Advanced Math", "ok"],
@@ -391,7 +402,7 @@ const dayFmt = d => new Date(d + "T12:00:00").toLocaleDateString("fr-FR", { day:
 
 /* countdown */
 function daysTo(y, m, d) { const t = new Date(); t.setHours(0, 0, 0, 0); return Math.max(0, Math.round((new Date(y, m - 1, d) - t) / 864e5)); }
-$("#dAB").textContent = daysTo(2027, 5, 10); $("#dPC").textContent = daysTo(2027, 5, 11); $("#dSAT").textContent = daysTo(2027, 3, 6);
+$("#dAB").textContent = daysTo(2027, 5, 10); $("#dPC").textContent = daysTo(2027, 5, 11); $("#dSAT").textContent = daysTo(2027, 3, 6); $("#dP1").textContent = daysTo(2027, 5, 5);
 
 /* program */
 $("#program").innerHTML = Object.values(SITE.calendar).map(c => `<div class="course"><h3>${esc(c.name)}<span class="exam">Examen : ${esc(c.exam)}</span></h3>
@@ -402,7 +413,7 @@ $("#program").innerHTML = Object.values(SITE.calendar).map(c => `<div class="cou
 const pr = PAY.prices || {}, has = Object.values(pr).some(v => v > 0);
 const incl = ["Toutes les unités, jusqu'à l'examen", "Notes, exercices et corrigés", "Quiz et tests corrigés en ligne", "Rapport mensuel pour les parents"];
 if (SITE.liveSession) incl.push("Séance de questions chaque semaine");
-$("#prices").innerHTML = ["pc", "ab", "sat"].map(c => `<div class="price"><div class="eyebrow">${esc(SITE.calendar[c].name)}</div>
+$("#prices").innerHTML = ["pc", "ab", "p1", "sat"].map(c => `<div class="price"><div class="eyebrow">${esc(SITE.calendar[c].name)}</div>
   <div class="amt">${has && pr[c] > 0 ? esc(money(pr[c])) : "Bientôt"}</div><div class="muted" style="font-size:.9rem">${has && pr[c] > 0 ? "pour l'année scolaire 2026 – 2027" : "Les tarifs seront communiqués très prochainement."}</div>
   <ul>${incl.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`).join("");
 if (PAY.waveLink) { $("#wavepay").hidden = false; $("#qrWave").hidden = false; $("#waveBtn").href = PAY.waveLink; }

@@ -171,7 +171,7 @@ a{color:var(--accent)}
   .who{width:100%;justify-content:space-between}
   nav.tabs{position:sticky;top:0;z-index:6;background:var(--bg);margin-inline:-16px;padding-inline:8px}
   nav.tabs button{flex:1;padding:13px 6px;font-size:1rem}
-  .course{display:grid;grid-template-columns:repeat(3,1fr);width:100%}
+  .course{display:grid;grid-template-columns:repeat(2,1fr);width:100%;border-radius:16px}
   .course button{padding:11px 4px;white-space:nowrap;font-size:.95rem}
   .course .lg{display:none}.course .sm{display:inline}
   .panel{padding:14px}
@@ -208,7 +208,7 @@ a{color:var(--accent)}
 <body>
 <div class="wrap">
   <header class="top">
-    <div><div class="label">AP Precalculus · AP Calculus AB · SAT Math</div><h1>AP Math Online</h1><div class="founder">Founded by <b>Dr P.T. Traoré</b></div></div>
+    <div><div class="label">AP Precalculus · AP Calculus AB · AP Physics 1 · SAT Math</div><h1>AP Math Online</h1><div class="founder">Founded by <b>Dr P.T. Traoré</b></div></div>
     <div class="who" id="who"></div>
   </header>
   <div class="installbar" id="installBar" hidden><span style="display:flex;gap:10px;align-items:center"><img src="icons/icon-192.png" alt=""><span><b>Get the app</b> · AP Math Online on your home screen</span></span><span style="display:flex;gap:6px"><button class="btn sm primary" id="installApp">Install</button><button class="btn sm" id="installNo" aria-label="Hide">✕</button></span></div>
@@ -240,13 +240,13 @@ a{color:var(--accent)}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
 <script src="../vendor/pdfjs/pdf.js"></script>
-<script src="quiz-config.js?v=11"></script>
-<script src="courses.js?v=9"></script>
-<script src="quiz-bank.js?v=7"></script>
+<script src="quiz-config.js?v=12"></script>
+<script src="courses.js?v=10"></script>
+<script src="quiz-bank.js?v=8"></script>
 <script>
 const CFG=window.QUIZ_CONFIG||{endpoint:""},PAY=CFG.payment||{},LIB=window.COURSE_LIB||{};
 const FREE_BANK=window.QUIZ_BANK||[],LOCKED=window.QUIZ_LOCKED||[];
-const COURSE={pc:"AP Precalculus",ab:"AP Calculus AB",sat:"SAT Math"},SHORT={pc:"Precalc",ab:"Calc AB",sat:"SAT",bfem:"BFEM",s1:"S1",s2:"S2"},XNAME={bfem:"Maths 3e (BFEM)",s1:"Maths Terminale S1",s2:"Maths Terminale S2"};
+const COURSE={pc:"AP Precalculus",ab:"AP Calculus AB",p1:"AP Physics 1",sat:"SAT Math"},SHORT={pc:"Precalc",ab:"Calc AB",p1:"Physics 1",sat:"SAT",bfem:"BFEM",s1:"S1",s2:"S2"},XNAME={bfem:"Maths 3e (BFEM)",s1:"Maths Terminale S1",s2:"Maths Terminale S2"};
 const online=!!CFG.endpoint;
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -306,7 +306,7 @@ function header(){
   $("#tabsWrap").hidden=!S.id||!!S.run;
   document.querySelectorAll("nav.tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===S.tab));
 }
-const MID={pc:"Precalculus",ab:"Calculus AB",sat:"SAT Math"};
+const MID={pc:"Precalculus",ab:"Calculus AB",p1:"Physics 1",sat:"SAT Math"};
 function courseSwitch(){return `<div class="course" role="group" aria-label="Course">${Object.keys(COURSE).map(c=>`<button data-course="${c}" aria-pressed="${c===S.course}"><span class="lg">${COURSE[c]}</span><span class="sm">${MID[c]}</span></button>`).join("")}</div>`}
 function render(){
   header();
@@ -324,7 +324,7 @@ function signin(msg,nm,cc){
   $("#main").innerHTML=`<div class="panel">
     <h2>Welcome</h2>
     <p style="margin:0">A platform founded by <b>Dr P.T. Traoré</b>, AP Math and Physics teacher and trainer of math teachers.</p>
-    <p class="muted">Guided notes, worksheets, quizzes and tests for AP Precalculus, AP Calculus AB and SAT Math. <b>Unit 1 of each AP course, one SAT skill and a full SAT practice test are free.</b></p>
+    <p class="muted">Guided notes, worksheets, quizzes and tests for AP Precalculus, AP Calculus AB, AP Physics 1 and SAT Math. <b>Unit 1 of each AP course, one SAT skill and a full SAT practice test are free.</b></p>
     ${online?"":'<div class="banner"><b>Practice mode.</b> The free content is open; accounts and payments are not active yet.</div>'}
     <form id="si" style="display:grid;gap:12px">
       <label class="f" for="nm">Your full name<input id="nm" autocomplete="name" maxlength="60" value="${esc(nm??S.id?.name??"")}"></label>
@@ -364,7 +364,7 @@ function quizBtn(c,qid){
 }
 function unitBody(c,u){
   if(!u.plan&&!u.files)return `<p class="muted">Coming soon. Lessons in this unit:</p><div>${u.lessons.map(l=>`<div class="lesson"><span class="ln">${esc(l.n)}</span><span>${esc(l.t)}</span></div>`).join("")}</div>`;
-  const open=unitOpen(c,u),lab=l=>l.review?l.t:(c==="pc"?"Topic ":"Lesson ")+l.n;
+  const open=unitOpen(c,u),lab=l=>l.review?l.t:(c==="pc"||c==="p1"?"Topic ":"Lesson ")+l.n;
   let h="";
   const fl=(u.lessons||[]).filter(l=>l.free);
   if(!open)h+=`<div class="lockbox"><span>This ${c==="sat"?"domain":"unit"} is part of <b>full access</b> to ${COURSE[c]}.${fl.length?` ${c==="sat"?"Skill":"Lesson"} ${fl.map(l=>esc(l.n)).join(", ")} is free.`:""}</span><button class="btn sm primary" data-tab="access">Get full access</button></div>`;

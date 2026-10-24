@@ -1,0 +1,254 @@
+%% Online quizzes, AP Physics 1 Unit 1 (Kinematics), aligned with the guided notes 1.1 to 1.5.
+\renewcommand{\nocalc}{}
+%% Blocks: one per topic (Q1.1 ... Q1.5) and the unit test (QTEST). Use g = 10 m/s^2.
+\newcommand{\gr}[2]{\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,#1]#2\end{axis}\end{tikzpicture}\end{center}}
+\newcommand{\ms}{\,\mathrm{m/s}}
+\newcommand{\mss}{\,\mathrm{m/s^2}}
+\newcommand{\m}{\,\mathrm{m}}
+\newcommand{\s}{\,\mathrm{s}}
+\newcommand{\gQx}{\gr{xmin=-0.3,xmax=6.6,ymin=-0.5,ymax=11.5,width=7.5cm,height=5cm,xlabel={$t$ (s)},ylabel={$x$ (m)},xtick={0,1,...,6},ytick={0,2,...,10}}{\addplot[apblue,very thick] coordinates {(0,2)(4,10)(6,10)};}}
+\newcommand{\gQv}{\gr{xmin=-0.3,xmax=5.6,ymin=-0.5,ymax=11.5,width=7.5cm,height=5cm,xlabel={$t$ (s)},ylabel={$v$ (m/s)},xtick={0,1,...,5},ytick={0,2,...,10}}{\addplot[apblue,very thick] coordinates {(0,10)(5,0)};}}
+\newcommand{\gVt}{\gr{xmin=-0.3,xmax=6.6,ymin=-0.5,ymax=7.5,width=7.5cm,height=5cm,xlabel={$t$ (s)},ylabel={$v$ (m/s)},xtick={0,1,...,6},ytick={0,2,4,6}}{\addplot[apblue,very thick] coordinates {(0,0)(2,6)(6,6)};}}
+
+%%DOC Q1.1 | Scalars and Vectors in One Dimension
+\begin{exo}{}
+Which of these quantities is a scalar?
+\choices{Velocity}{Displacement}{Acceleration}{Speed}
+\answer{D}{Speed has a magnitude only. The other three have a direction.}
+\end{exo}
+\begin{exo}{}
+Which of these quantities is a vector?
+\choices{Temperature}{Force}{Mass}{Time}
+\answer{B}{A force always acts in a direction.}
+\end{exo}
+\begin{exo}{}
+A bug moves along a ruler from $x=-2\m$ to $x=+6\m$. What is its displacement?
+\choices{$+4\m$}{$-8\m$}{$+8\m$}{$4\m$}
+\answer{C}{$\Delta x=x_f-x_i=6-(-2)=+8\m$.}
+\end{exo}
+\begin{exo}{}
+You walk $3\m$ north, then $3\m$ south. What are your distance and your displacement?
+\choices{$6\m$; $0$}{$0$; $6\m$}{$6\m$; $6\m$ north}{$3\m$; $3\m$}
+\answer{A}{Distance: $3+3=6\m$. You end where you started: displacement $0$.}
+\end{exo}
+\begin{exo}{}
+East is positive. A velocity of $-12\ms$ means the object moves
+\choices{at $12\ms$ east}{more and more slowly}{at $12\ms$ west}{nowhere: it is at rest}
+\answer{C}{The minus sign gives the direction: west, opposite to the positive direction.}
+\end{exo}
+\begin{exo}{}
+Which of these can be negative?
+\choices{Displacement}{Distance}{Speed}{A time interval}
+\answer{A}{Displacement is a vector: in one dimension its sign gives its direction. Distance, speed and time intervals are never negative.}
+\end{exo}
+
+%%DOC Q1.2 | Displacement, Velocity, and Acceleration
+\begin{exo}{}
+A car travels $150\m$ along a straight road in $10\s$. What is its average velocity?
+\choices{$15\ms$}{$1500\ms$}{$0.067\ms$}{$150\ms$}
+\answer{A}{$150/10=15\ms$.}
+\end{exo}
+\begin{exo}{}
+A car slows from $30\ms$ to $10\ms$ in $4\s$. What is its acceleration?
+\choices{$5\mss$}{$-5\mss$}{$-10\mss$}{$10\mss$}
+\answer{B}{$a=(10-30)/4=-5\mss$: negative because the car slows down while moving in the positive direction.}
+\end{exo}
+\begin{exo}{}
+An object has $v=+8\ms$ and $a=+3\mss$. The object is
+\choices{slowing down}{at rest}{speeding up}{moving backward}
+\answer{C}{Same signs: it speeds up in the positive direction.}
+\end{exo}
+\begin{exo}{}
+A cart starts from rest and accelerates at $2\mss$ for $5\s$. How far does it travel?
+\choices{$10\m$}{$50\m$}{$5\m$}{$25\m$}
+\answer{D}{$\Delta x=\frac12at^2=\frac12(2)(25)=25\m$.}
+\end{exo}
+\begin{exo}{}
+A rock is dropped from rest. What is its speed after $1.5\s$?
+\choices{$15\ms$}{$10\ms$}{$22.5\ms$}{$1.5\ms$}
+\answer{A}{$v=gt=10(1.5)=15\ms$.}
+\end{exo}
+\begin{exo}{}
+A ball is thrown straight up at $25\ms$. What maximum height does it reach?
+\choices{$62.5\m$}{$31.25\m$}{$25\m$}{$2.5\m$}
+\answer{B}{$0=25^2-2(10)h\Rightarrow h=625/20=31.25\m$.}
+\end{exo}
+
+%%DOC Q1.3 | Representing Motion
+\begin{exo}{}
+The position-time graph of an object is shown. What is its velocity between $t=0$ and $t=4\s$?
+\gQx
+\choices{$2\ms$}{$2.5\ms$}{$8\ms$}{$10\ms$}
+\answer{A}{Slope $=(10-2)/4=2\ms$.}
+\end{exo}
+\begin{exo}{}
+For the same position-time graph, what is the velocity at $t=5\s$?
+\gQx
+\choices{$10\ms$}{$0$}{$2\ms$}{$-2\ms$}
+\answer{B}{The graph is flat from $4$ to $6\s$: the object is at rest.}
+\end{exo}
+\begin{exo}{}
+The velocity-time graph of a cart is shown. What is its acceleration?
+\gQv
+\choices{$-10\mss$}{$2\mss$}{$10\mss$}{$-2\mss$}
+\answer{D}{Slope $=(0-10)/5=-2\mss$.}
+\end{exo}
+\begin{exo}{}
+For the same velocity-time graph, what is the displacement of the cart from $t=0$ to $t=5\s$?
+\gQv
+\choices{$50\m$}{$10\m$}{$25\m$}{$5\m$}
+\answer{C}{Area of the triangle: $\frac12(5)(10)=25\m$.}
+\end{exo}
+\begin{exo}{}
+On a position-time graph, the curve gets steeper and steeper. The object is
+\choices{speeding up}{slowing down}{moving at constant velocity}{at rest}
+\answer{A}{The slope is the velocity: a steeper slope means a greater speed.}
+\end{exo}
+\begin{exo}{}
+The area under an acceleration-time graph gives the
+\choices{position}{change in velocity}{acceleration}{distance}
+\answer{B}{Acceleration $\times$ time $=$ change in velocity.}
+\end{exo}
+
+%%DOC Q1.4 | Reference Frames and Relative Motion
+\begin{exo}{}
+A truck drives east at $20\ms$ and a car drives east at $30\ms$. What is the velocity of the car relative to the truck?
+\choices{$50\ms$ east}{$10\ms$ west}{$10\ms$ east}{$50\ms$ west}
+\answer{C}{$30-20=+10\ms$: east.}
+\end{exo}
+\begin{exo}{}
+In a train moving at constant velocity, a passenger tosses a ball straight up. Where does the ball land?
+\choices{Behind the passenger}{Back in the passenger's hand}{In front of the passenger}{It depends on the train's speed.}
+\answer{B}{In the train's frame the ball goes straight up and down: it keeps the same horizontal velocity as the passenger.}
+\end{exo}
+\begin{exo}{}
+A swimmer swims straight across a river at $1.5\ms$ relative to the water. The current is $2\ms$. What is her speed relative to the bank?
+\choices{$2.5\ms$}{$0.5\ms$}{$3.5\ms$}{$3\ms$}
+\answer{A}{Perpendicular velocities: $\sqrt{1.5^2+2^2}=2.5\ms$.}
+\end{exo}
+\begin{exo}{}
+The river in the previous question is $30\m$ wide. How long does the swimmer take to cross?
+\choices{$12\s$}{$15\s$}{$60\s$}{$20\s$}
+\answer{D}{Only the across velocity counts: $30/1.5=20\s$.}
+\end{exo}
+\begin{exo}{}
+A plane flies east at $100\ms$ relative to the air. The wind blows west at $20\ms$. What is the plane's velocity relative to the ground?
+\choices{$120\ms$ east}{$80\ms$ east}{$80\ms$ west}{$100\ms$ east}
+\answer{B}{$100-20=80\ms$ east: a headwind.}
+\end{exo}
+\begin{exo}{}
+Two observers move at a constant velocity relative to each other. Both measure the acceleration of a falling ball. Their results are
+\choices{the same}{different}{zero for one of them}{different, depending on the direction of motion}
+\answer{A}{Frames moving at constant velocity relative to each other agree on accelerations.}
+\end{exo}
+
+%%DOC Q1.5 | Vectors and Motion in Two Dimensions
+\begin{exo}{}
+A vector has components $5$ and $12$. What is its magnitude?
+\choices{$17$}{$13$}{$7$}{$60$}
+\answer{B}{$\sqrt{5^2+12^2}=13$.}
+\end{exo}
+\begin{exo}{}
+A ball is launched at $20\ms$ at $30^\circ$ above the horizontal. What is the vertical component of its initial velocity?
+\choices{$17.3\ms$}{$20\ms$}{$10\ms$}{$5\ms$}
+\answer{C}{$20\sin30^\circ=10\ms$.}
+\end{exo}
+\begin{exo}{}
+A ball rolls off a table $0.8\m$ high at $2\ms$. How long does it take to reach the floor?
+\choices{$0.4\s$}{$0.16\s$}{$0.8\s$}{$0.2\s$}
+\answer{A}{$0.8=\frac12(10)t^2\Rightarrow t^2=0.16$, $t=0.4\s$.}
+\end{exo}
+\begin{exo}{}
+How far from the edge of the table does the ball in the previous question land?
+\choices{$0.4\m$}{$1.6\m$}{$0.2\m$}{$0.8\m$}
+\answer{D}{$x=v_xt=2(0.4)=0.8\m$.}
+\end{exo}
+\begin{exo}{}
+At the highest point of a projectile's path, its velocity is
+\choices{zero}{vertical only}{horizontal only}{both horizontal and vertical}
+\answer{C}{$v_y=0$ at the top, but $v_x$ is unchanged.}
+\end{exo}
+\begin{exo}{}
+A ball is launched from level ground at $50\ms$ at $37^\circ$ ($\cos37^\circ=0.8$, $\sin37^\circ=0.6$). What is its range?
+\choices{$240\m$}{$300\m$}{$150\m$}{$120\m$}
+\answer{A}{$v_x=40\ms$, $v_{0y}=30\ms$; time of flight $2(30/10)=6\s$; range $40\times6=240\m$.}
+\end{exo}
+
+%%DOC QTEST | Unit 1 test \textbullet\ Kinematics
+\begin{exo}{}
+Which of these is NOT a vector?
+\choices{Displacement}{Speed}{Acceleration}{Force}
+\answer{B}{Speed is the magnitude of the velocity: a scalar.}
+\end{exo}
+\begin{exo}{}
+A car drives $60\m$ north, then $80\m$ east. What is the magnitude of its displacement?
+\choices{$140\m$}{$20\m$}{$100\m$}{$70\m$}
+\answer{C}{The two legs are perpendicular: $\sqrt{60^2+80^2}=100\m$.}
+\end{exo}
+\begin{exo}{}
+The velocity of a ball changes from $+6\ms$ to $-6\ms$ in $3\s$. What is its average acceleration?
+\choices{$0$}{$-4\mss$}{$4\mss$}{$-2\mss$}
+\answer{B}{$(-6-6)/3=-4\mss$.}
+\end{exo}
+\begin{exo}{}
+A motorcycle starts from rest and reaches $30\ms$ over a distance of $90\m$. What is its acceleration?
+\choices{$5\mss$}{$10\mss$}{$2.5\mss$}{$0.33\mss$}
+\answer{A}{$30^2=2a(90)\Rightarrow a=900/180=5\mss$.}
+\end{exo}
+\begin{exo}{}
+A stone is dropped from a height of $80\m$. How long does it take to reach the ground?
+\choices{$8\s$}{$2\s$}{$4\s$}{$16\s$}
+\answer{C}{$80=\frac12(10)t^2\Rightarrow t^2=16$, $t=4\s$.}
+\end{exo}
+\begin{exo}{}
+How fast is the stone in the previous question moving just before it lands?
+\choices{$80\ms$}{$20\ms$}{$16\ms$}{$40\ms$}
+\answer{D}{$v=gt=10(4)=40\ms$.}
+\end{exo}
+\begin{exo}{}
+The slope of a position-time graph gives the
+\choices{acceleration}{displacement}{velocity}{distance}
+\answer{C}{Slope $=\Delta x/\Delta t=$ velocity.}
+\end{exo}
+\begin{exo}{}
+The velocity-time graph of an object is a horizontal line at $v=-3\ms$. The object
+\choices{is at rest}{moves in the negative direction at constant speed}{is slowing down}{is speeding up}
+\answer{B}{Constant negative velocity: constant speed $3\ms$ in the negative direction, no acceleration.}
+\end{exo}
+\begin{exo}{}
+The velocity-time graph of a cart is shown. What is its displacement from $t=0$ to $t=6\s$?
+\gVt
+\choices{$18\m$}{$24\m$}{$36\m$}{$30\m$}
+\answer{D}{Triangle $\frac12(2)(6)=6\m$ plus rectangle $4\times6=24\m$: $30\m$.}
+\end{exo}
+\begin{exo}{}
+For the same graph, what is the acceleration of the cart between $t=0$ and $t=2\s$?
+\gVt
+\choices{$3\mss$}{$6\mss$}{$2\mss$}{$12\mss$}
+\answer{A}{Slope $=6/2=3\mss$.}
+\end{exo}
+\begin{exo}{}
+A moving walkway carries people at $1\ms$. A child walks against the walkway's motion at $1.5\ms$ relative to the walkway. What is the child's speed relative to the floor?
+\choices{$2.5\ms$}{$0.5\ms$}{$1.5\ms$}{$1\ms$}
+\answer{B}{Opposite directions: $1.5-1=0.5\ms$, in the direction the child walks.}
+\end{exo}
+\begin{exo}{}
+A ball is thrown horizontally at $10\ms$ from a height of $20\m$. How far away, horizontally, does it land?
+\choices{$10\m$}{$40\m$}{$20\m$}{$2\m$}
+\answer{C}{$20=5t^2\Rightarrow t=2\s$; $x=10\times2=20\m$.}
+\end{exo}
+\begin{exo}{}
+A ball is launched at $25\ms$ at $37^\circ$ above the horizontal ($\cos37^\circ=0.8$, $\sin37^\circ=0.6$). How long does it take to reach its highest point?
+\choices{$1.5\s$}{$2\s$}{$2.5\s$}{$3\s$}
+\answer{A}{$v_{0y}=15\ms$; $t=15/10=1.5\s$.}
+\end{exo}
+\begin{exo}{}
+What is the speed of the ball in the previous question at its highest point?
+\choices{$0$}{$15\ms$}{$25\ms$}{$20\ms$}
+\answer{D}{Only the horizontal component remains: $25\times0.8=20\ms$.}
+\end{exo}
+\begin{exo}{}
+Two projectiles are launched from level ground with the same speed, one at $30^\circ$ and one at $60^\circ$. Which one lands farther away?
+\choices{The one at $30^\circ$}{The one at $60^\circ$}{They land at the same distance.}{It depends on their masses.}
+\answer{C}{Complementary angles give the same range (the $60^\circ$ one goes higher and stays in the air longer, but moves more slowly horizontally).}
+\end{exo}

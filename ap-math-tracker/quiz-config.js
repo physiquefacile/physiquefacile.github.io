@@ -9,7 +9,7 @@ window.QUIZ_CONFIG = {
   className: "AP Math",
   payment: {
     currency: "FCFA",
-    prices: { pc: 5000, ab: 5000, sat: 5000 },  // price per course for the school year (sat = SAT Math)
+    prices: { pc: 5000, ab: 5000, p1: 5000, sat: 5000 },  // price per course for the school year (sat = SAT Math)
     wave: "77 724 06 16",
     waveLink: "https://qr.wave.com/iVVNfc25faEdLZzlRdTE1UmpS/Bq2_Ic/BZC-78/p",  // Wave payment QR link (from the Wave app, "My Card")
     waveQR: "img/wave-qr.png",                          // Wave number that receives payments, e.g. "77 123 45 67"

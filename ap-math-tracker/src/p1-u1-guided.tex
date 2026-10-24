@@ -1,0 +1,198 @@
+%% Guided notes, AP Physics 1 Unit 1: Kinematics (topics 1.1 to 1.5). Use g = 10 m/s^2.
+\newcommand{\gr}[2]{\begin{center}\begin{tikzpicture}\begin{axis}[gridaxis,#1]#2\end{axis}\end{tikzpicture}\end{center}}
+\newcommand{\pt}[1]{\node[circle,fill=apblue,inner sep=1.5pt] at (axis cs:#1){};}
+\NewEnviron{nrow}[1]{\begin{tcolorbox}[enhanced,sidebyside,sidebyside align=top seam,lefthand width=2.7cm,sidebyside gap=12pt,colback=white,colframe=apnavy!55,boxrule=0.5pt,arc=0pt,left=5pt,right=6pt,top=5pt,bottom=5pt,before skip=0pt,after skip=-0.5pt,segmentation style={solid,apnavy!35,line width=0.5pt},fontupper=\sffamily\bfseries\color{apnavy}\raggedright]#1\tcblower\BODY\end{tcolorbox}}
+\newcommand{\cellans}[1]{\ifkey{\color{apblue}\raggedright #1}\else\rule{0pt}{1.2cm}\fi}
+\newcommand{\ms}{\,\mathrm{m/s}}
+\newcommand{\mss}{\,\mathrm{m/s^2}}
+\newcommand{\m}{\,\mathrm{m}}
+\newcommand{\s}{\,\mathrm{s}}
+
+%%DOC 1.1 | Scalars and Vectors in One Dimension
+\begin{center}\textsf{\small\color{apgrey}Objective: tell scalars from vectors, and use signs to give the direction of a vector in one dimension.}\end{center}
+\begin{nrow}{Scalar or vector?}
+A \fillin{scalar} has a magnitude only (a number with a unit).\par
+A \fillin{vector} has a magnitude \textbf{and} a \fillin{direction}.\par\smallskip
+\begin{tabular}{@{}p{0.45\linewidth}p{0.45\linewidth}@{}}
+\textbf{Scalars} & \textbf{Vectors}\\
+\fillin{distance}, \fillin{speed}, time, mass & \fillin{displacement}, \fillin{velocity}, acceleration, force
+\end{tabular}
+\end{nrow}
+\begin{nrow}{Direction in one dimension}
+On a line, we choose a \fillin{positive} direction (for example: right, east, or up).\par
+A vector pointing that way has a \fillin{positive} sign; the opposite way, a \fillin{negative} sign.\par
+\smallskip The sign of a vector gives its \fillin{direction}, not its size: $-8\ms$ is \fillin{faster} than $+3\ms$.
+\end{nrow}
+\begin{nrow}{Example:\\ distance vs.\ displacement}
+\begin{center}\begin{tikzpicture}[x=0.9cm]
+\draw[->,thick](-0.5,0)--(10.5,0) node[right]{$x$ (m)};
+\foreach \i in {0,...,10}{\draw(\i,0.08)--(\i,-0.08) node[below,font=\scriptsize]{\i};}
+\draw[->,very thick,apblue](2,0.35)--(8,0.35) node[midway,above,font=\small]{first};
+\draw[->,very thick,apred](8,0.85)--(5,0.85) node[midway,above,font=\small]{then};
+\end{tikzpicture}\end{center}
+A cart moves from $x=2\m$ to $x=8\m$, then back to $x=5\m$.\par
+Distance $=$ \fillin{$6\m+3\m=9\m$} \qquad Displacement $\Delta x=x_f-x_i=$ \fillin{$5-2=+3\m$}\par
+\smallskip Distance is the total \fillin{path length} (never negative). Displacement is the \fillin{change in position}: it only depends on the start and the end.
+\end{nrow}
+\begin{nrow}{Adding vectors in one dimension}
+Add the signed values. A walker goes $+5\m$ then $-7\m$: total displacement $=$ \fillin{$-2\m$}, distance $=$ \fillin{$12\m$}.\par
+\smallskip Two forces on a box: $+30\,\mathrm{N}$ and $-12\,\mathrm{N}$. Net force $=$ \fillin{$+18\,\mathrm{N}$} (to the right).
+\end{nrow}
+\begin{nrow}{Check}
+A runner does one full lap of a $400\m$ track and stops at the start line.\par
+Distance $=$ \fillin{$400\m$} \qquad Displacement $=$ \fillin{$0\m$}
+\end{nrow}
+\begin{nrow}{Summary}
+\ifkey{\color{apnavy}Scalars have a size only; vectors have a size and a direction. In one dimension the direction is the sign, once a positive direction is chosen. Distance is the path length; displacement is final position minus initial position and can be negative or zero.}\else\vspace{2.4cm}\fi
+\end{nrow}
+
+%%DOC 1.2 | Displacement, Velocity, and Acceleration
+\begin{center}\textsf{\small\color{apgrey}Objective: define velocity and acceleration, and use the kinematic equations for constant acceleration.}\end{center}
+\begin{nrow}{Definitions}
+\begin{tabular}{@{}p{0.47\linewidth}p{0.47\linewidth}@{}}
+Average velocity: $v_\text{avg}=$ \fillin{$\dfrac{\Delta x}{\Delta t}$} & Average speed $=$ \fillin{$\dfrac{\text{distance}}{\Delta t}$}\\[10pt]
+Average acceleration: $a_\text{avg}=$ \fillin{$\dfrac{\Delta v}{\Delta t}$} & Units: $v$ in \fillin{m/s}, $a$ in \fillin{m/s$^2$}
+\end{tabular}\par\smallskip
+Acceleration is the rate of change of \fillin{velocity}: how much the velocity changes \fillin{each second}.
+\end{nrow}
+\begin{nrow}{Speeding up or slowing down?}
+\begin{tabular}{@{}p{0.47\linewidth}p{0.47\linewidth}@{}}
+$v$ and $a$ have the \textbf{same} sign: & $v$ and $a$ have \textbf{opposite} signs:\\
+the object is \fillin{speeding up}. & the object is \fillin{slowing down}.
+\end{tabular}\par\smallskip
+A negative acceleration does \fillin{not} always mean slowing down: a car moving in the $-x$ direction with $a<0$ \fillin{speeds up}.
+\end{nrow}
+\begin{nrow}{The kinematic equations\\ \normalfont\small (constant $a$ only)}
+\begin{tabular}{@{}l l@{}}
+1) $v=$ \fillin{$v_0+at$} & no $\Delta x$\\[4pt]
+2) $\Delta x=$ \fillin{$v_0t+\tfrac12at^2$} & no $v$\\[4pt]
+3) $v^2=$ \fillin{$v_0^2+2a\,\Delta x$} & no $t$
+\end{tabular}\par\smallskip
+Strategy: list the known quantities ($v_0$, $v$, $a$, $t$, $\Delta x$), find the one that is \fillin{not needed}, pick the equation without it.
+\end{nrow}
+\begin{nrow}{Example 1:\\ a car speeds up}
+A car goes from $4\ms$ to $16\ms$ in $3\s$ with constant acceleration.\par
+$a=\dfrac{\Delta v}{\Delta t}=$ \fillin{$\dfrac{16-4}{3}=4\mss$}\qquad $\Delta x=v_0t+\tfrac12at^2=$ \fillin{$12+18=30\m$}
+\end{nrow}
+\begin{nrow}{Example 2:\\ braking}
+A car moving at $20\ms$ brakes with $a=-5\mss$ until it stops. Time not given: use equation \fillin{3}.\par
+$0=20^2+2(-5)\Delta x\;\Rightarrow\;\Delta x=$ \fillin{$40\m$}\qquad Time to stop: $t=$ \fillin{$\dfrac{0-20}{-5}=4\s$}
+\end{nrow}
+\begin{nrow}{Free fall}
+Near Earth, an object in free fall (no air resistance) has $a=$ \fillin{$g\approx10\mss$} \fillin{downward}, whether it moves up or down.\par
+A stone is dropped from rest. After $2\s$: $v=$ \fillin{$20\ms$} downward; it has fallen \fillin{$\tfrac12(10)(2)^2=20\m$}.
+\end{nrow}
+\begin{nrow}{Summary}
+\ifkey{\color{apnavy}$v_\text{avg}=\Delta x/\Delta t$ and $a=\Delta v/\Delta t$. Same signs: speeding up; opposite signs: slowing down. With constant acceleration use $v=v_0+at$, $\Delta x=v_0t+\frac12at^2$, $v^2=v_0^2+2a\Delta x$. In free fall $a=g=10\mss$ downward.}\else\vspace{2.4cm}\fi
+\end{nrow}
+
+%%DOC 1.3 | Representing Motion
+\begin{center}\textsf{\small\color{apgrey}Objective: read and draw position, velocity and acceleration graphs, and move between them.}\end{center}
+\begin{nrow}{Position vs.\ time}
+On an $x$--$t$ graph, the \fillin{slope} is the velocity.\par
+Straight line: \fillin{constant velocity}. \quad Curved line: the velocity \fillin{changes} (acceleration).\par
+Horizontal line: the object is \fillin{at rest}.
+\end{nrow}
+\begin{nrow}{Velocity vs.\ time}
+On a $v$--$t$ graph:\par
+the \fillin{slope} is the acceleration; \quad the \fillin{area} between the graph and the $t$-axis is the displacement.\par
+Area below the axis counts as \fillin{negative} displacement. \quad Where the graph crosses the axis, the object \fillin{turns around}.
+\end{nrow}
+\begin{nrow}{Acceleration vs.\ time}
+On an $a$--$t$ graph, the \fillin{area} is the change in velocity $\Delta v$.
+\end{nrow}
+\begin{nrow}{Example:\\ a $v$--$t$ graph}
+\gr{xmin=-0.3,xmax=7.6,ymin=-0.5,ymax=7.5,width=8.4cm,height=5.2cm,xlabel={$t$ (s)},ylabel={$v$ (m/s)},xtick={0,1,...,7},ytick={0,2,4,6}}{\addplot[apblue,very thick] coordinates {(0,0)(3,6)(5,6)(7,0)};}
+Accelerations: $0$--$3\s$: \fillin{$2\mss$} \quad $3$--$5\s$: \fillin{$0$} \quad $5$--$7\s$: \fillin{$-3\mss$}\par
+Displacement $=$ total area $=$ \fillin{$9+12+6=27\m$}\par
+Average velocity over $7\s$: \fillin{$27/7\approx3.9\ms$}
+\end{nrow}
+\begin{nrow}{Motion diagrams}
+Dots show the position at equal time intervals.\par
+\begin{tikzpicture}[x=0.55cm]
+\foreach \x in {0,1,2,3,4,5}{\fill[apblue](\x*1.6,0) circle(2.5pt);}
+\node[right,font=\small] at (9,0){equal spacing: \fillin{constant velocity}};
+\foreach \x/\p in {0/0,1/0.4,2/1.2,3/2.4,4/4,5/6}{\fill[apred](\p*1.35,-0.7) circle(2.5pt);}
+\node[right,font=\small] at (9,-0.7){spacing grows: \fillin{speeding up}};
+\end{tikzpicture}
+\end{nrow}
+\begin{nrow}{Summary}
+\ifkey{\color{apnavy}Slope of $x$--$t$ = velocity; slope of $v$--$t$ = acceleration; area under $v$--$t$ = displacement; area under $a$--$t$ = change in velocity. A $v$--$t$ graph crossing the axis means a change of direction.}\else\vspace{2.4cm}\fi
+\end{nrow}
+
+%%DOC 1.4 | Reference Frames and Relative Motion
+\begin{center}\textsf{\small\color{apgrey}Objective: describe motion from different reference frames and add relative velocities.}\end{center}
+\begin{nrow}{Reference frames}
+Position and velocity depend on the \fillin{observer}: the reference frame.\par
+A passenger sitting in a moving bus is \fillin{at rest} relative to the bus and \fillin{moving} relative to the road.\par
+Two frames moving at constant velocity relative to each other measure the \fillin{same acceleration}.
+\end{nrow}
+\begin{nrow}{Adding relative velocities}
+$\vec v_{A\text{ rel }C}=$ \fillin{$\vec v_{A\text{ rel }B}+\vec v_{B\text{ rel }C}$}\par\smallskip
+A train moves at $20\ms$ east. A passenger walks at $1.5\ms$ relative to the train.\par
+Walking east: \fillin{$21.5\ms$} east relative to the ground. \quad Walking west: \fillin{$18.5\ms$} east relative to the ground.
+\end{nrow}
+\begin{nrow}{Example:\\ crossing a river}
+\begin{minipage}[t]{0.55\linewidth}
+A boat points straight across a river $80\m$ wide at $4\ms$ relative to the water. The water flows at $3\ms$.\par
+Speed relative to the bank: \fillin{$\sqrt{4^2+3^2}=5\ms$}\par
+Time to cross: \fillin{$80/4=20\s$} (only the \fillin{across} velocity matters)\par
+Drift downstream: \fillin{$3\times20=60\m$}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.4\linewidth}\vspace{0pt}
+\begin{tikzpicture}[scale=0.55]
+\fill[apblue!10](0,0) rectangle (6,4);\draw[thick](0,0)--(6,0)(0,4)--(6,4);
+\draw[->,very thick,apnavy](1,0.3)--(1,3.5) node[above,font=\small]{$4\ms$};
+\draw[->,very thick,apred](1,0.3)--(4,0.3) node[below,font=\small]{$3\ms$};
+\ifkey\draw[->,very thick,apgreen](1,0.3)--(4,3.5) node[right,font=\small]{$5\ms$};\fi
+\end{tikzpicture}
+\end{minipage}
+\end{nrow}
+\begin{nrow}{Check}
+Car A drives at $25\ms$ east, car B at $15\ms$ east. Velocity of A relative to B: \fillin{$10\ms$ east}. If B drives west at $15\ms$: \fillin{$40\ms$ east}.
+\end{nrow}
+\begin{nrow}{Summary}
+\ifkey{\color{apnavy}Motion is always described relative to a reference frame. Velocities add as vectors: $\vec v_{A/C}=\vec v_{A/B}+\vec v_{B/C}$. Frames moving at constant velocity relative to each other agree on accelerations.}\else\vspace{2.4cm}\fi
+\end{nrow}
+
+%%DOC 1.5 | Vectors and Motion in Two Dimensions
+\begin{center}\textsf{\small\color{apgrey}Objective: split vectors into components and analyze projectile motion.}\end{center}
+\begin{nrow}{Components}
+\begin{minipage}[t]{0.6\linewidth}
+A vector of magnitude $A$ at angle $\theta$ above the $+x$ axis:\par
+$A_x=$ \fillin{$A\cos\theta$} \qquad $A_y=$ \fillin{$A\sin\theta$}\par\smallskip
+Back: $A=$ \fillin{$\sqrt{A_x^2+A_y^2}$} \qquad $\tan\theta=$ \fillin{$\dfrac{A_y}{A_x}$}\par\smallskip
+Example: $v=10\ms$ at $37^\circ$ ($\cos37^\circ\approx0.8$, $\sin37^\circ\approx0.6$): $v_x=$ \fillin{$8\ms$}, $v_y=$ \fillin{$6\ms$}.
+\end{minipage}\hfill
+\begin{minipage}[t]{0.33\linewidth}\vspace{0pt}
+\begin{tikzpicture}[scale=0.42]
+\draw[->](0,0)--(9,0) node[right]{$x$};\draw[->](0,0)--(0,6.5) node[above]{$y$};
+\draw[->,very thick,apblue](0,0)--(8,6) node[above,font=\small]{$\vec A$};
+\draw[dashed,apgrey](8,0)--(8,6);\draw(1.6,0) arc(0:37:1.6);\node[font=\scriptsize] at (2.3,0.6){$\theta$};
+\end{tikzpicture}
+\end{minipage}
+\end{nrow}
+\begin{nrow}{Projectile motion}
+After launch (no air resistance) the two directions are \fillin{independent}:\par
+\begin{tabular}{@{}p{0.45\linewidth}p{0.45\linewidth}@{}}
+\textbf{Horizontal} & \textbf{Vertical}\\
+$a_x=$ \fillin{$0$}: constant $v_x$ & $a_y=$ \fillin{$-g=-10\mss$}\\
+$\Delta x=$ \fillin{$v_xt$} & $\Delta y=$ \fillin{$v_{0y}t-\tfrac12gt^2$}
+\end{tabular}\par\smallskip
+The \fillin{time} is the same in both directions: find it from the vertical motion.\par
+At the top of the path: $v_y=$ \fillin{$0$}, but the acceleration is still \fillin{$g$ downward}.
+\end{nrow}
+\begin{nrow}{Example 1:\\ horizontal launch}
+A ball rolls off a table $1.25\m$ high at $3\ms$.\par
+Time to fall: $1.25=\tfrac12(10)t^2\Rightarrow t=$ \fillin{$0.5\s$}\qquad Lands \fillin{$3\times0.5=1.5\m$} from the table.\par
+A ball \textbf{dropped} from the same height lands \fillin{at the same time}.
+\end{nrow}
+\begin{nrow}{Example 2:\\ launch at an angle}
+\gr{xmin=-1,xmax=36,ymin=-0.5,ymax=6.5,width=8.4cm,height=4cm,xlabel={$x$ (m)},ylabel={$y$ (m)},xtick={0,10,20,30},ytick={0,5}}{\addplot[apblue,very thick,domain=0:34.64,samples=80]{x/sqrt(3)-x^2/60};}
+$v_0=20\ms$ at $30^\circ$: $v_{0x}=$ \fillin{$17.3\ms$}, $v_{0y}=$ \fillin{$10\ms$}\par
+Time to the top: \fillin{$10/10=1\s$} \quad Max height: \fillin{$\dfrac{10^2}{2(10)}=5\m$}\par
+Total time (level ground): \fillin{$2\s$} \quad Range: \fillin{$17.3\times2\approx34.6\m$}
+\end{nrow}
+\begin{nrow}{Summary}
+\ifkey{\color{apnavy}Split vectors into components with $\cos$ and $\sin$. A projectile has constant horizontal velocity and a vertical acceleration of $g$ downward; both motions share the same time. At the top, $v_y=0$ but $a=g$.}\else\vspace{2.4cm}\fi
+\end{nrow}

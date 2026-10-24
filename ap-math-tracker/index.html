@@ -171,7 +171,7 @@ details.unitlib summary .st{flex:1;min-width:0}
   .wrap{gap:14px;padding-block:12px 64px}
   nav.tabs{position:sticky;top:0;z-index:6;background:var(--bg);margin-inline:-16px;padding-inline:8px}
   nav.tabs button{flex:1;padding:13px 4px;font-size:.98rem}
-  .course{display:grid;grid-template-columns:repeat(3,1fr);width:100%}
+  .course{display:grid;grid-template-columns:repeat(2,1fr);width:100%;border-radius:16px}
   .course button{padding:11px 4px;white-space:nowrap}
   .panel{padding:14px}
   details.unitlib summary{padding:14px 12px;font-size:1rem}
@@ -200,6 +200,7 @@ details.unitlib summary .st{flex:1;min-width:0}
     <div class="course" role="group" aria-label="Course">
       <button id="c-pc" data-course="pc">Precalculus</button>
       <button id="c-ab" data-course="ab">Calculus AB</button>
+      <button id="c-p1" data-course="p1">Physics 1</button>
       <button id="c-sat" data-course="sat">SAT Math</button>
     </div>
   </header>
@@ -226,9 +227,9 @@ details.unitlib summary .st{flex:1;min-width:0}
   <div class="scrollr" id="rScroll"><div class="pages" id="rWrap"></div></div>
 </div>
 <script src="../vendor/pdfjs/pdf.js"></script>
-<script src="courses.js?v=9"></script>
-<script src="quiz-config.js?v=11"></script>
-<script src="quiz-bank.js?v=7"></script>
+<script src="courses.js?v=10"></script>
+<script src="quiz-config.js?v=12"></script>
+<script src="quiz-bank.js?v=8"></script>
 
 <script>
 const COURSES={
@@ -250,6 +251,19 @@ const COURSES={
       {id:"u6",n:"6",t:"Integration and Accumulation of Change",w:[17,20]},
       {id:"u7",n:"7",t:"Differential Equations",w:[6,12]},
       {id:"u8",n:"8",t:"Applications of Integration",w:[10,15]}]},
+  /* AP Physics 1: unit weights from the Course and Exam Description; cutoffs are rough estimates */
+  p1:{name:"AP Physics 1",exam:new Date(2027,4,5,12,0),examLabel:"Wednesday, May 5, 2027, afternoon",
+    format:"42 multiple-choice questions (85 min) in Bluebook, then 4 free-response questions (95 min); calculator and equation sheet allowed",
+    cut:[70,55,40,28],
+    units:[
+      {id:"u1",n:"1",t:"Kinematics",w:[10,15]},
+      {id:"u2",n:"2",t:"Force and Translational Dynamics",w:[18,23]},
+      {id:"u3",n:"3",t:"Work, Energy, and Power",w:[18,23]},
+      {id:"u4",n:"4",t:"Linear Momentum",w:[10,15]},
+      {id:"u5",n:"5",t:"Torque and Rotational Dynamics",w:[10,15]},
+      {id:"u6",n:"6",t:"Energy and Momentum of Rotating Systems",w:[5,8]},
+      {id:"u7",n:"7",t:"Oscillations",w:[5,8]},
+      {id:"u8",n:"8",t:"Fluids",w:[10,15]}]},
   /* SAT Math: units are the four domains, weighted by their share of the 44 questions; target date can be changed here */
   sat:{name:"SAT Math",sat:true,exam:new Date(2027,2,6,8,0),examLabel:"Saturday, March 6, 2027 (other dates: December 5, 2026; May 1 and June 5, 2027)",
     format:"Digital SAT in Bluebook: two adaptive modules of 22 questions, calculator allowed",
@@ -259,10 +273,10 @@ const COURSES={
       {id:"d3",n:"3",t:"Problem-Solving and Data Analysis",w:[11,16]},
       {id:"d4",n:"4",t:"Geometry and Trigonometry",w:[11,16]}]}
 };
-const SHORT={pc:"Precalc",ab:"Calc AB",sat:"SAT"};
+const SHORT={pc:"Precalc",ab:"Calc AB",p1:"Physics 1",sat:"SAT"};
 const UL=c=>COURSES[c].sat?"Domain ":"Unit ",UA=c=>COURSES[c].sat?"D":"U";
 const LV=["Not started","In progress","Proficient","Mastered"];
-const state={course:"pc",view:"class",sel:null,students:[],plans:{pc:{},ab:{},sat:{}},db:null,mode:"loading",confirmDel:false,writable:true};
+const state={course:"pc",view:"class",sel:null,students:[],plans:{pc:{},ab:{},p1:{},sat:{}},db:null,mode:"loading",confirmDel:false,writable:true};
 try{const s=JSON.parse(localStorage.getItem("apMathTracker.prefs")||"{}");if(s.course)state.course=s.course;if(s.view)state.view=s.view}catch(e){}
 function savePref(){try{localStorage.setItem("apMathTracker.prefs",JSON.stringify({course:state.course,view:state.view}))}catch(e){}}
 
@@ -681,7 +695,7 @@ function persist(){
 function loadData(obj){
   if(!obj||!Array.isArray(obj.students))throw new Error("bad");
   state.students=obj.students.filter(s=>s&&s.id&&s.name&&COURSES[s.course]).map(s=>({progress:{},scores:[],...s}));
-  state.plans={pc:{},ab:{},sat:{},...(obj.plans||{})};
+  state.plans={pc:{},ab:{},p1:{},sat:{},...(obj.plans||{})};
   state.imported=Array.isArray(obj.imported)?obj.imported:[];
 }
 function exportData(){
@@ -748,7 +762,7 @@ document.addEventListener("submit",e=>{
 
 /* ---------- copies: written work sent as photos, graded here ---------- */
 const CP={data:null,loading:false,err:"",asg:null,sel:null,pages:{},rot:{},form:false,keyEdit:null,aiBusy:null,aiErr:{},aiSetup:false};
-const FOR_OPT=[["all","All students with a code"],["pc","AP Precalculus"],["ab","AP Calculus AB"],["sat","SAT Math"],["bfem","3e (BFEM)"],["s1","Terminale S1"],["s2","Terminale S2"],["code","One class code…"]];
+const FOR_OPT=[["all","All students with a code"],["pc","AP Precalculus"],["ab","AP Calculus AB"],["p1","AP Physics 1"],["sat","SAT Math"],["bfem","3e (BFEM)"],["s1","Terminale S1"],["s2","Terminale S2"],["code","One class code…"]];
 async function cpPost(o){const ep=(window.QUIZ_CONFIG||{}).endpoint;const r=await fetch(ep,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({key:teacherKey(),...o})});return r.json()}
 async function cpLoad(){
   CP.loading=true;CP.err="";
