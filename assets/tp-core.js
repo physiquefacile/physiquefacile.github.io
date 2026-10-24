@@ -34,12 +34,12 @@
   function scatter(cv, P, o) {
     const { c, w, h } = fit(cv, 0.66); c.fillStyle = css("--plot-bg"); c.fillRect(0, 0, w, h);
     const m = { l: 54, r: 14, t: 18, b: 40 }, W = w - m.l - m.r, H = h - m.t - m.b;
-    if (!P.length) { txt(c, "Le graphe se trace dès la première mesure.", w / 2, h / 2, css("--muted"), "center", "middle", "13px 'Fira Sans',Arial"); return null; }
+    if (!P.length) { txt(c, o.note ? o.note + " — le graphe se tracera ensuite." : "Le graphe se trace dès la première mesure.", w / 2, h / 2, css("--muted"), "center", "middle", "13px 'Fira Sans',Arial"); return null; }
     const xs = P.map(p => p[0]), ys = P.map(p => p[1]);
     const R0 = o.noFit ? null : linreg(P); if (R0 && o.xmin != null) ys.push(R0.a * o.xmin + R0.b); if (R0 && o.xmax != null) ys.push(R0.a * o.xmax + R0.b);   // la droite prolongée reste visible
     let x0 = o.xmin != null ? Math.min(o.xmin, ...xs) : Math.min(...xs), x1 = o.xmax != null ? Math.max(o.xmax, ...xs) : Math.max(...xs), y0 = o.ymin != null ? Math.min(o.ymin, ...ys) : Math.min(...ys), y1 = Math.max(...ys);
     const px = (x1 - x0) || Math.abs(x1) || 1, py = (y1 - y0) || Math.abs(y1) || 1;
-    if (o.xmax == null) x1 += px * 0.08; else x1 += px * 0.04; y1 += py * 0.12; if (o.xmin == null) x0 -= px * 0.08; if (o.ymin == null) y0 -= py * 0.1;
+    if (o.xmax == null) x1 += px * 0.08; else x1 += px * 0.04; y1 += py * 0.12; if (o.xmin == null || x0 < o.xmin) x0 -= px * 0.08; if (o.ymin == null || y0 < o.ymin) y0 -= py * 0.1;   // une ordonnée à l'origine négative n'est jamais collée au coin du cadre
     const X = x => m.l + (x - x0) / (x1 - x0) * W, Y = y => m.t + H - (y - y0) / (y1 - y0) * H;
     const ticks = (a, b) => { const s = Math.pow(10, Math.floor(Math.log10((b - a) / 4))); const st = [1, 2, 5, 10].map(k => k * s).find(k => (b - a) / k <= 6); const out = []; for (let t = Math.ceil(a / st) * st; t <= b + 1e-12; t += st) out.push(+t.toPrecision(8)); return out; };
     c.strokeStyle = css("--grid"); c.lineWidth = 1;
@@ -76,7 +76,7 @@
     }
     if (R && o.eq && P.length >= 2) txt(c, o.eq(R), m.l + W - 6, R.a >= 0 ? m.t + H - 10 : m.t + 14, css("--saff"), "right", "alphabetic", "600 13px 'Fira Sans',Arial");
     c.fillStyle = css("--accent"); P.forEach(([x, y]) => { c.beginPath(); c.arc(X(x), Y(y), 4.5, 0, 7); c.fill(); });
-    if (R && o.mark0 && P.length >= 2 && x0 <= 0 && x1 >= 0 && R.b !== 0 && Math.abs(R.b) < 0.1 * (y1 - y0)) zoom0(c, P, R, o, { m, W, H, X, Y });   // loupe sur l'ordonnée à l'origine
+    if (R && o.mark0 && !o.noZoom && P.length >= 2 && x0 <= 0 && x1 >= 0 && R.b !== 0 && Math.abs(R.b) < 0.1 * (y1 - y0)) zoom0(c, P, R, o, { m, W, H, X, Y });   // loupe sur l'ordonnée à l'origine
     if (o.note) txt(c, o.note, m.l + 10, m.t + 62, "#c0392b", "left", "alphabetic", "600 12px 'Fira Sans',Arial");
     return R;
   }
@@ -331,7 +331,7 @@
       const p = CR.parts[k]; if (!p.plot) return;
       const bad = [];   // valeurs saisies très éloignées de la valeur attendue (ex. t au lieu de T = t/n) : écartées du graphe
       const P = T.rows[k].map((r, i) => { const f = {}; p.fill.forEach(c => f[c.k] = parseNum((S.fill[k][i] || {})[c.k])); if (p.fill.some(c => suspect(c, r, (S.fill[k][i] || {})[c.k]))) { bad.push(i + 1); return [NaN, NaN]; } return [p.plot.x(r, f), p.plot.y(r, f)]; }).filter(q => isFinite(q[0]) && isFinite(q[1]));
-      scatter($("#" + T.id + "-gr-" + k), P, { xl: p.plot.xl, yl: p.plot.yl, noFit: !(p.plot.fit && P.length >= 2), xmin: p.plot.xmin, xmax: p.plot.xmax, ymin: p.plot.ymin, eq: p.plot.eq, mark0: p.plot.mark0, join: p.plot.join,
+      scatter($("#" + T.id + "-gr-" + k), P, { xl: p.plot.xl, yl: p.plot.yl, noFit: !(p.plot.fit && P.length >= 2), xmin: p.plot.xmin, xmax: p.plot.xmax, ymin: p.plot.ymin, eq: p.plot.eq, mark0: p.plot.mark0, join: p.plot.join, noZoom: p.plot.noZoom,
         note: bad.length ? `Ligne${bad.length > 1 ? "s" : ""} ${bad.join(", ")} écartée${bad.length > 1 ? "s" : ""} : valeur à vérifier (case rouge)` : "" });
     };
     T.renderPart = k => {
@@ -662,5 +662,5 @@
       const T = TPS.find(t => t.id === cur); if (T && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 64, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 65, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();

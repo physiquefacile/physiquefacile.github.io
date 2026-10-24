@@ -9,9 +9,9 @@
 window.TPCR = {
   pendule: {
     parts: {
-      A: { min: 5, fill: [{ k: "T", h: "T = t/n (s)", ref: r => r.t / r.n, warn: "Attention : T est la durée d'UNE oscillation, T = t / n (et non t)." }], plot: { x: (r, f) => (r.A * Math.PI / 180) ** 2, y: (r, f) => f.T, xl: "θ₀² (rad²)", yl: "T (s)", xmin: 0, ymin: 0, fit: true, eq: R => "T = " + R.a.toFixed(4).replace(".", ",") + " θ₀² + " + R.b.toFixed(3).replace(".", ","), mark0: R => "T₀ = " + R.b.toFixed(3).replace(".", ",") + " s (θ₀ = 0)" } },
+      A: { min: 5, aide: "<b>T = t / n</b> (durée d'une seule oscillation). Sur le graphe, θ₀² est en rad² : θ₀ (rad) = θ₀ (°) × π / 180. L'ordonnée à l'origine est T₀, la période des petites oscillations.", fill: [{ k: "T", h: "T = t/n (s)", ref: r => r.t / r.n, warn: "Attention : T est la durée d'UNE oscillation, T = t / n (et non t)." }], plot: { x: (r, f) => (r.A * Math.PI / 180) ** 2, y: (r, f) => f.T, xl: "θ₀² (rad²)", yl: "T (s)", xmin: 0, ymin: 0, fit: true, eq: R => "T = " + R.a.toFixed(4).replace(".", ",") + " θ₀² + " + R.b.toFixed(3).replace(".", ","), mark0: R => "T₀ = " + R.b.toFixed(3).replace(".", ",") + " s (θ₀ = 0)" } },
       B: { min: 3, fill: [{ k: "T", h: "T = t/n (s)", ref: r => r.t / r.n, warn: "Attention : T est la durée d'UNE oscillation, T = t / n (et non t)." }] },
-      C: { min: 5, fill: [{ k: "T", h: "T = t/n (s)", ref: r => r.t / r.n, warn: "Attention : T est la durée d'UNE oscillation, T = t / n (et non t)." }, { k: "T2", h: "T² (s²)" }], plot: { x: (r, f) => r.L, y: (r, f) => f.T2, xl: "L (m)", yl: "T² (s²)", xmin: 0, ymin: 0, fit: true, eq: R => "T² = " + R.a.toFixed(3).replace(".", ",") + " L " + (R.b < 0 ? "− " : "+ ") + Math.abs(R.b).toFixed(3).replace(".", ",") } }
+      C: { min: 5, aide: "<b>T = t / n</b> puis <b>T²</b>. La droite T² = f(L) (L en m) a pour pente <b>a = 4π² / g</b> (en s²/m), d'où <b>g = 4π² / a = 39,48 / a</b>. Ex. a = 4,04 s²/m : g = 9,77 m/s².", fill: [{ k: "T", h: "T = t/n (s)", ref: r => r.t / r.n, warn: "Attention : T est la durée d'UNE oscillation, T = t / n (et non t)." }, { k: "T2", h: "T² (s²)", ref: r => (r.t / r.n) ** 2, tol: 0.1, warn: "T² = (t / n)²." }], plot: { x: (r, f) => r.L, y: (r, f) => f.T2, xl: "L (m)", yl: "T² (s²)", xmin: 0, ymin: 0, fit: true, eq: R => "T² = " + R.a.toFixed(3).replace(".", ",") + " L " + (R.b < 0 ? "− " : "+ ") + Math.abs(R.b).toFixed(3).replace(".", ",") } }
     },
     calc: [
       { k: "varA", h: "Partie A : variation relative de T entre la plus petite et la plus grande amplitude", u: "%" },
@@ -29,11 +29,11 @@ window.TPCR = {
   },
   ressort: {
     parts: {
-      A: { min: 5, fill: [{ k: "F", h: "F = mg (N)" }, { k: "dl", h: "Δℓ = ℓ − ℓ₀ (cm)" }], plot: { x: (r, f) => f.dl, y: (r, f) => f.F, xl: "Δℓ (cm)", yl: "F (N)", xmin: 0, ymin: 0, fit: true, eq: R => "F = " + R.a.toFixed(3).replace(".", ",") + " Δℓ " + (R.b < 0 ? "− " : "+ ") + Math.abs(R.b).toFixed(3).replace(".", ",") } },
-      B: { min: 4, fill: [{ k: "T", h: "T₀ = t/n (s)", ref: r => r.t / r.n, warn: "Attention : T₀ est la durée d'UNE oscillation, T₀ = t / n (et non t)." }, { k: "T2", h: "T₀² (s²)", ref: r => (r.t / r.n) ** 2, warn: "T₀² est le carré de la période T₀ = t / n." }], plot: { x: (r, f) => r.m / 1000, y: (r, f) => f.T2, xl: "m (kg)", yl: "T₀² (s²)", xmin: 0, ymin: 0, fit: true, eq: R => "T₀² = " + R.a.toFixed(3).replace(".", ",") + " m + " + R.b.toFixed(4).replace(".", ","), mark0: R => "b = " + R.b.toFixed(4).replace(".", ",") + " s² pour m = 0" } }
+      A: { min: 5, aide: "<b>F = m × g</b> avec m en <b>kg</b> (m(g) / 1000) et g = 9,78 m/s². Ex. m = 150 g : F = 0,150 × 9,78 = 1,467 N. <b>Δℓ = ℓ − ℓ₀</b> en cm.<br>Le graphe est tracé avec Δℓ en cm : sa pente est en N/cm. <b>k (N/m) = 100 × pente</b> (ou trace F en fonction de Δℓ en m).", fill: [{ k: "F", h: "F = mg (N)", ref: r => r.m / 1000 * 9.78, tol: 0.1, warn: "F = m × g avec m en kg (g ÷ 1000) et g = 9,78 m/s²." }, { k: "dl", h: "Δℓ = ℓ − ℓ₀ (cm)", ref: r => r.l - r.l0, tol: 0.1, warn: "Δℓ = ℓ − ℓ₀ (allongement en cm)." }], plot: { x: (r, f) => f.dl, y: (r, f) => f.F, xl: "Δℓ (cm)", yl: "F (N)", xmin: 0, ymin: 0, fit: true, eq: R => "F = " + R.a.toFixed(3).replace(".", ",") + " Δℓ " + (R.b < 0 ? "− " : "+ ") + Math.abs(R.b).toFixed(3).replace(".", ",") } },
+      B: { min: 4, aide: "<b>T₀ = t / n</b> puis T₀². Le graphe T₀² = f(m), m en kg, est une droite de pente <b>a = 4π² / k</b> et d'ordonnée à l'origine <b>b = a × m<sub>r</sub> / 3</b>. D'où <b>k = 39,48 / a</b> et <b>m<sub>r</sub> = 3 b / a</b> (en kg, × 1000 pour des grammes).", fill: [{ k: "T", h: "T₀ = t/n (s)", ref: r => r.t / r.n, warn: "Attention : T₀ est la durée d'UNE oscillation, T₀ = t / n (et non t)." }, { k: "T2", h: "T₀² (s²)", ref: r => (r.t / r.n) ** 2, warn: "T₀² est le carré de la période T₀ = t / n." }], plot: { x: (r, f) => r.m / 1000, y: (r, f) => f.T2, xl: "m (kg)", yl: "T₀² (s²)", xmin: 0, ymin: 0, fit: true, eq: R => "T₀² = " + R.a.toFixed(3).replace(".", ",") + " m + " + R.b.toFixed(4).replace(".", ","), mark0: R => "b = " + R.b.toFixed(4).replace(".", ",") + " s² pour m = 0" } }
     },
     calc: [
-      { k: "kstat", h: "Raideur k par la méthode statique (pente de F = f(Δℓ), Δℓ en m)", u: "N/m" },
+      { k: "kstat", h: "Raideur k par la méthode statique : pente de F = f(Δℓ) avec Δℓ en m (= 100 × pente du graphe en cm)", u: "N/m" },
       { k: "kdyn", h: "Raideur k par la méthode dynamique (k = 4π²/pente de T₀² = f(m))", u: "N/m" },
       { k: "mr", h: "Masse du ressort déduite de l'ordonnée à l'origine (m_r = 3b/a)", u: "g" },
       { k: "ecart", h: "Écart relatif entre k dynamique et k statique", u: "%" }
@@ -48,13 +48,13 @@ window.TPCR = {
   },
   torsion: {
     parts: {
-      A: { min: 4, fill: [{ k: "d2", h: "d² (m²)" }, { k: "T", h: "T = t/n (s)" }, { k: "T2", h: "T² (s²)" }], plot: { x: (r, f) => f.d2, y: (r, f) => f.T2, xl: "d² (m²)", yl: "T² (s²)", xmin: 0, ymin: 0, fit: true, eq: R => "T² = " + R.a.toFixed(1).replace(".", ",") + " d² + " + R.b.toFixed(3).replace(".", ","), mark0: R => "b = " + R.b.toFixed(3).replace(".", ",") + " s² pour d = 0" } },
-      B: { min: 4, fill: [{ k: "T", h: "T = t/n (s)" }, { k: "T2", h: "T² (s²)" }], plot: { x: (r, f) => r.L / 100, y: (r, f) => f.T2, xl: "ℓ (m)", yl: "T² (s²)", xmin: 0, ymin: 0, fit: true, eq: R => "T² = " + R.a.toFixed(2).replace(".", ",") + " ℓ " + (R.b < 0 ? "− " : "+ ") + Math.abs(R.b).toFixed(3).replace(".", ",") } }
+      A: { min: 4, aide: "<b>d² en m²</b> : d (cm) / 100, au carré. Ex. d = 7,5 cm : d² = 0,075² = 0,005625 m². <b>T = t / n</b>, puis T².<br>Droite T² = a d² + b : <b>C = 8π² m / a</b> avec m = 0,2 kg (en N·m/rad ; × 1000 pour l'unité 10⁻³) et <b>J₀ = b × C / (4π²)</b> (× 1000 pour l'unité 10⁻³ kg·m²).", fill: [{ k: "d2", h: "d² (m²)", ref: r => (r.d / 100) ** 2, tol: 0.1, warn: "d² en m² : (d en cm ÷ 100)²." }, { k: "T", h: "T = t/n (s)", ref: r => r.t / r.n, tol: 0.1, warn: "T = t / n : durée d'une oscillation." }, { k: "T2", h: "T² (s²)", ref: r => (r.t / r.n) ** 2, tol: 0.1, warn: "T² = (t / n)²." }], plot: { x: (r, f) => f.d2, y: (r, f) => f.T2, xl: "d² (m²)", yl: "T² (s²)", xmin: 0, ymin: 0, fit: true, eq: R => "T² = " + R.a.toFixed(1).replace(".", ",") + " d² + " + R.b.toFixed(3).replace(".", ","), mark0: R => "b = " + R.b.toFixed(3).replace(".", ",") + " s² pour d = 0" } },
+      B: { min: 4, aide: "<b>T = t / n</b>, puis T². Sur le graphe, ℓ est en mètres (ℓ (cm) / 100) : T² = f(ℓ) est une droite qui passe par l'origine, car C est inversement proportionnelle à ℓ.", fill: [{ k: "T", h: "T = t/n (s)", ref: r => r.t / r.n, tol: 0.1, warn: "T = t / n : durée d'une oscillation." }, { k: "T2", h: "T² (s²)", ref: r => (r.t / r.n) ** 2, tol: 0.1, warn: "T² = (t / n)²." }], plot: { x: (r, f) => r.L / 100, y: (r, f) => f.T2, xl: "ℓ (m)", yl: "T² (s²)", xmin: 0, ymin: 0, fit: true, eq: R => "T² = " + R.a.toFixed(2).replace(".", ",") + " ℓ " + (R.b < 0 ? "− " : "+ ") + Math.abs(R.b).toFixed(3).replace(".", ",") } }
     },
     calc: [
       { k: "pente", h: "Partie A : pente a de la droite T² = f(d²)", u: "s²/m²" },
-      { k: "C", h: "Constante de torsion C = 8π²m/a (m = 0,2 kg)", u: "×10⁻³ N·m/rad" },
-      { k: "J0", h: "Moment d'inertie de la barre J₀ = b·C/(4π²)", u: "×10⁻³ kg·m²" },
+      { k: "C", h: "Constante de torsion C = 8π²m/a (m = 0,2 kg), exprimée en 10⁻³ N·m/rad (ex. 0,0228 N·m/rad → 22,8)", u: "×10⁻³ N·m/rad" },
+      { k: "J0", h: "Moment d'inertie de la barre J₀ = b·C/(4π²), exprimé en 10⁻³ kg·m² (ex. 0,0042 kg·m² → 4,2)", u: "×10⁻³ kg·m²" },
       { k: "penteB", h: "Partie B : pente de la droite T² = f(ℓ)", u: "s²/m" }
     ],
     qcm: [
@@ -67,12 +67,12 @@ window.TPCR = {
   },
   ohm: {
     parts: {
-      A: { min: 6, fill: [{ k: "R", h: "U/I (Ω)" }], plot: { x: (r, f) => r.I, y: (r, f) => r.U, xl: "I (mA)", yl: "U (V)", xmin: 0, ymin: 0, fit: true, eq: R => "U = " + R.a.toFixed(4).replace(".", ",") + " I " + (R.b < 0 ? "− " : "+ ") + Math.abs(R.b).toFixed(3).replace(".", ",") } },
-      B: { min: 4, aide: "<b>R corrigée</b> (r<sub>A</sub> = 2 Ω ; R<sub>V</sub> = 1 MΩ = 10⁶ Ω) — montage <b>amont</b> : R = R<sub>mes</sub> − r<sub>A</sub>  ;  montage <b>aval</b> : 1/R = 1/R<sub>mes</sub> − 1/R<sub>V</sub>, soit R = R<sub>mes</sub>·R<sub>V</sub> / (R<sub>V</sub> − R<sub>mes</sub>).", fill: [{ k: "Rm", h: "R_mes = U/I (Ω)" }, { k: "Rc", h: "R corrigée (Ω)" }] },
-      C: { min: 4, fill: [{ k: "Rm", h: "R_mes = U/I (Ω)" }] }
+      A: { min: 6, aide: "<b>R = U / I</b> avec I en <b>ampères</b> : <b>R (Ω) = U (V) / I (mA) × 1000</b>. Ex. U = 4,70 V, I = 10,0 mA : R = 470 Ω.<br>Le graphe U = f(I) est tracé avec I en mA : sa pente est en V/mA = kΩ. <b>R<sub>X</sub> (Ω) = 1000 × pente</b>.", fill: [{ k: "R", h: "U/I (Ω)", ref: r => r.U / (r.I / 1000), tol: 0.1, warn: "R = U / I avec I en A : U ÷ (I en mA ÷ 1000)." }], plot: { x: (r, f) => r.I, y: (r, f) => r.U, xl: "I (mA)", yl: "U (V)", xmin: 0, ymin: 0, fit: true, eq: R => "U = " + R.a.toFixed(4).replace(".", ",") + " I " + (R.b < 0 ? "− " : "+ ") + Math.abs(R.b).toFixed(3).replace(".", ",") } },
+      B: { min: 4, aide: "<b>R corrigée</b> (r<sub>A</sub> = 2 Ω ; R<sub>V</sub> = 1 MΩ = 10⁶ Ω) — montage <b>amont</b> : R = R<sub>mes</sub> − r<sub>A</sub>  ;  montage <b>aval</b> : 1/R = 1/R<sub>mes</sub> − 1/R<sub>V</sub>, soit R = R<sub>mes</sub>·R<sub>V</sub> / (R<sub>V</sub> − R<sub>mes</sub>).", fill: [{ k: "Rm", h: "R_mes = U/I (Ω)", ref: r => r.U / (r.I / 1000), tol: 0.1, warn: "R_mes = U / I avec I en A : U ÷ (I en mA ÷ 1000)." }, { k: "Rc", h: "R corrigée (Ω)" }] },
+      C: { min: 4, aide: "<b>R<sub>mes</sub> (Ω) = U (V) / I (mA) × 1000</b>. Série : R<sub>éq</sub> = R₁ + R₂ ; parallèle : R<sub>éq</sub> = R₁R₂ / (R₁ + R₂).", fill: [{ k: "Rm", h: "R_mes = U/I (Ω)", ref: r => r.U / (r.I / 1000), tol: 0.1, warn: "R_mes = U / I avec I en A : U ÷ (I en mA ÷ 1000)." }] }
     },
     calc: [
-      { k: "RX", h: "Résistance R_X déduite de la pente de U = f(I)", u: "Ω" },
+      { k: "RX", h: "Résistance R_X = 1000 × pente de U = f(I) (I en mA sur le graphe)", u: "Ω" },
       { k: "nom", h: "Valeur nominale de X lue avec le code des couleurs", u: "Ω" },
       { k: "ecart", h: "Écart relatif entre R_X mesurée et la valeur nominale", u: "%" },
       { k: "serie", h: "Résistance équivalente série calculée R₁ + R₂ (avec tes valeurs mesurées de R₁ et R₂)", u: "Ω" },
@@ -164,14 +164,16 @@ window.TPCR = {
   },
   microscope: {
     parts: {
-      A: { min: 5, fill: [{ k: "g", h: "|γ₁| = A₁B₁/AB" }], plot: { x: (r, f) => r.v, y: (r, f) => f.g, xl: "O₁A₁ (cm)", yl: "|γ₁|", xmin: 0, ymin: 0, fit: true, eq: R => "|γ₁| = " + R.a.toFixed(3).replace(".", ",") + " O₁A₁ " + (R.b < 0 ? "− " : "+ ") + Math.abs(R.b).toFixed(3).replace(".", ",") } },
-      B: { min: 4, fill: [{ k: "P", h: "P = α′/AB (δ)" }, { k: "G", h: "G_c = P/4" }], plot: { x: (r, f) => r.g1, y: (r, f) => f.P, xl: "|γ₁|", yl: "P (δ)", xmin: 0, ymin: 0, fit: true, eq: R => "P = " + R.a.toFixed(1).replace(".", ",") + " |γ₁| " + (R.b < 0 ? "− " : "+ ") + Math.abs(R.b).toFixed(3).replace(".", ",") } }
+      A: { min: 5, aide: "<b>|γ₁| = A₁B₁ / AB</b> avec AB = 2 mm (A₁B₁ en mm). Ex. A₁B₁ = 5,1 mm : |γ₁| = 2,55.<br>Relation de conjugaison 1/O₁A₁ − 1/O₁A = 1/f₁ ⟹ <b>|γ₁| = O₁A₁ / f₁ − 1</b> : droite de <b>pente 1/f₁</b> et d'<b>ordonnée à l'origine −1</b> (négative : c'est normal, la droite ne passe pas par l'origine).<br>Pente en cm⁻¹ (environ 0,15 à 0,25) ; <b>f₁ (cm) = 1 / pente</b>, positive (objectif convergent).",
+        fill: [{ k: "g", h: "|γ₁| = A₁B₁/AB", ref: r => r.ab1 / 2, tol: 0.1, warn: "|γ₁| = A₁B₁ / AB, avec A₁B₁ en mm et AB = 2 mm." }], plot: { x: (r, f) => r.v, y: (r, f) => f.g, xl: "O₁A₁ (cm)", yl: "|γ₁|", xmin: 0, ymin: 0, fit: true, eq: R => "|γ₁| = " + R.a.toFixed(3).replace(".", ",") + " O₁A₁ " + (R.b < 0 ? "− " : "+ ") + Math.abs(R.b).toFixed(3).replace(".", ","), mark0: R => "b = " + R.b.toFixed(2).replace(".", ",").replace("-", "−") + " (théorie : −1)", noZoom: true } },
+      B: { min: 4, aide: "<b>P = α′ / AB</b> avec α′ en <b>radians</b> et AB en <b>mètres</b> (0,002 m) : <b>P (δ) = α′(mrad) / 2</b>. Ex. α′ = 12,5 mrad : P = 6,25 δ. <b>G<sub>c</sub> = P / 4</b>.<br>Le microscope : <b>P = |γ₁| × P₂ = |γ₁| / f₂</b> ⟹ droite qui <b>passe par l'origine</b>, de pente 1/f₂ (en δ).<br><b>f₂ (cm) = 100 / pente</b>. Ex. pente 9,45 δ : f₂ = 10,6 cm. Grossissement pour |γ₁| = 5 : <b>G = 5 × pente / 4</b>.",
+        fill: [{ k: "P", h: "P = α′/AB (δ)", ref: r => r.a / 0.002, tol: 0.1, warn: "P = α′ / AB : α′ en rad (mrad ÷ 1000), AB = 0,002 m, soit P = α′(mrad) / 2." }, { k: "G", h: "G_c = P/4", ref: r => r.a / 0.002 / 4, tol: 0.1, warn: "G_c = P / 4 (P en dioptries)." }], plot: { x: (r, f) => r.g1, y: (r, f) => f.P, xl: "|γ₁|", yl: "P (δ)", xmin: 0, ymin: 0, fit: true, eq: R => "P = " + R.a.toFixed(2).replace(".", ",") + " |γ₁| " + (R.b < 0 ? "− " : "+ ") + Math.abs(R.b).toFixed(3).replace(".", ",") } }
     },
     calc: [
-      { k: "pente", h: "Partie A : pente de la droite |γ₁| = f(O₁A₁)", u: "cm⁻¹" },
-      { k: "f1", h: "Distance focale de l'objectif f₁", u: "cm" },
-      { k: "f2", h: "Distance focale de l'oculaire f₂ (pente de P = f(|γ₁|))", u: "cm" },
-      { k: "G5", h: "Grossissement commercial pour |γ₁| = 5", u: "" }
+      { k: "pente", h: "Partie A : pente de la droite |γ₁| = f(O₁A₁), en cm⁻¹ (environ 0,15 à 0,25)", u: "cm⁻¹" },
+      { k: "f1", h: "Distance focale de l'objectif f₁ = 1 / pente (positive)", u: "cm" },
+      { k: "f2", h: "Distance focale de l'oculaire f₂ = 100 / pente de P = f(|γ₁|) (pente en δ)", u: "cm" },
+      { k: "G5", h: "Grossissement commercial pour |γ₁| = 5 : G = 5 × pente de P = f(|γ₁|) / 4", u: "" }
     ],
     qcm: [
       { q: "L'objectif d'un microscope donne de l'objet une image :", o: ["virtuelle et réduite", "réelle et agrandie", "réelle et réduite", "à l'infini"] },
