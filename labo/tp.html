@@ -155,6 +155,19 @@ fieldset.qcm input{width:auto;margin-top:4px;accent-color:var(--accent)}
 .timer.warn{border-color:var(--saff)} .timer.warn .tleft{color:var(--saff)} .timer.warn .tbar i{background:var(--saff)}
 .timer.bad{border-color:var(--ko);background:var(--ko-bg)} .timer.bad .tleft{color:var(--ko)} .timer.bad .tbar i{background:var(--ko)}
 @media print{.login{display:none!important}}
+/* Grand écran : page plus large et plus aérée */
+@media (min-width:1200px){
+  .wrap{max-width:min(1600px,100%);padding-inline:clamp(24px,3.5vw,64px)}
+  body{font-size:17px}
+  main .wrap{gap:24px}
+  .tp{gap:24px}
+  .card{padding:24px 28px}
+  .lab{grid-template-columns:minmax(0,1fr) 340px;gap:24px}
+  .bench svg,.bench canvas{max-height:70vh}
+  .panel{padding:18px 20px}
+  .data{gap:24px}
+  .fiche .sec p,.fiche .sec li,.fiche .obj{max-width:120ch}
+}
 </style>
 </head>
 <body>
