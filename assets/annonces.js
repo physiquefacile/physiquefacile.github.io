@@ -17,6 +17,10 @@
      detail : consignes (facultatif)
    ===================================================================== */
 window.ANNONCES = [
+  { date: "2026-10-27", important: true,
+    titre: "Trois nouveaux TP du semestre 2 : prisme, circuit RC, circuit RLC",
+    texte: "Conformément au syllabus de l'EC TP de Physique 2 (LPCI1251) : TP 10 « Le prisme » (minimum de déviation, indice, loi de Cauchy), TP 11 « Charge et décharge d'un condensateur » (constante de temps τ = RC) et TP 12 « Circuit RLC série » (résonance, bande passante, facteur de qualité). Le fascicule de TP (72 pages) contient les trois nouveaux chapitres.",
+    lien: "tp.html#prisme" },
   { date: "2026-10-19", important: true,
     titre: "Nouveau TP 9 : association de lentilles",
     texte: "Lentilles accolées et lentilles séparées : mesure la vergence d'une lentille convergente, déduis celle d'une lentille divergente en l'accolant (V = V₁ + V₂), puis étudie deux lentilles séparées et vérifie la formule de Gullstrand. Le chapitre TP 9 est ajouté au fascicule.",

@@ -211,6 +211,108 @@ window.TPCR = {
       { q: "Avec f′₁ = 10 cm, f′₃ = 20 cm et e = 5 cm, la vergence du système vaut :", o: ["12,5 δ", "15 δ", "17,5 δ", "2,5 δ"] },
       { q: "Le graphe 1/x′ = f(1/(f′₁ − e)) est une droite de pente 1 et d'ordonnée à l'origine :", o: ["V₃", "V₁", "V₁ + V₃", "f′₃"] }
     ]
+  },
+  prisme: {
+    parts: {
+      A: { min: 3, aide: "Les deux faisceaux réfléchis font entre eux l'angle 2A : <b>A = |θ₂ − θ₁| / 2</b>. Ex. θ₁ = 222,40° et θ₂ = 342,58° : A = 60,09°.", fill: [{ k: "A", h: "A = |θ₂ − θ₁|/2 (°)", ref: r => Math.abs(r.t2 - r.t1) / 2, tol: 0.05, warn: "A est la MOITIÉ de l'écart entre les deux lectures θ₁ et θ₂." }] },
+      B: { min: 5, need: { k: "lam", vals: [404.7, 435.8, 491.6, 546.1, 578], lab: v => "raie " + String(v).replace(".", ",") + " nm" },
+        aide: "<b>D_m = θ_m − θ₀</b> ; <b>n = sin((A + D_m)/2) / sin(A/2)</b> avec <b>ton</b> angle A moyen (partie A), calculatrice en mode degrés. <b>1/λ²</b> avec λ en µm : λ = 546,1 nm = 0,5461 µm ⇒ 1/λ² = 3,353 µm⁻². La droite n = f(1/λ²) a pour pente b et pour ordonnée à l'origine a (loi de Cauchy).",
+        fill: [{ k: "D", h: "D_m = θ_m − θ₀ (°)", ref: r => r.th - r.th0, tol: 0.05, warn: "D_m = θ_m − θ₀ : lecture au minimum de déviation moins lecture du faisceau direct." },
+          { k: "n", h: "n", ref: r => (window.TPX && window.TPX.prismeN) ? window.TPX.prismeN(r) : NaN, tol: 0.02, warn: "n = sin((A + D_m)/2) / sin(A/2), calculatrice en mode DEGRÉS, avec ton A moyen." },
+          { k: "x", h: "1/λ² (µm⁻²)", ref: r => 1e6 / (r.lam * r.lam), tol: 0.05, warn: "λ en µm : 1/λ² = 1/(λ en µm)². Ex. 0,5461 µm ⇒ 3,353 µm⁻²." }],
+        plot: { x: (r, f) => f.x, y: (r, f) => f.n, xl: "1/λ² (µm⁻²)", yl: "n", fit: true, eq: R => "n = " + R.b.toFixed(4).replace(".", ",") + " + " + R.a.toFixed(4).replace(".", ",") + " / λ²" } }
+    },
+    calc: [
+      { k: "A", h: "Partie A : angle A du prisme (moyenne)", u: "°" },
+      { k: "Dv", h: "Partie B : minimum de déviation D_m pour la raie verte (546,1 nm)", u: "°" },
+      { k: "nv", h: "Indice n du verre pour la raie verte", u: "" },
+      { k: "a", h: "Loi de Cauchy : coefficient a (ordonnée à l'origine de n = f(1/λ²))", u: "" },
+      { k: "b", h: "Loi de Cauchy : coefficient b (pente de n = f(1/λ²))", u: "µm²" },
+      { k: "nD", h: "Indice n_D pour la raie jaune du sodium, λ = 589,3 nm (n_D = a + b/λ²)", u: "" }
+    ],
+    qcm: [
+      { q: "Au minimum de déviation, le trajet de la lumière dans le prisme est :", o: ["symétrique : i = i′ et r = r′ = A/2", "tel que i = 90°", "tel que r = 0", "tel que D = A"] },
+      { q: "Au minimum de déviation, l'indice du prisme vaut :", o: ["n = sin((A + D_m)/2) / sin(A/2)", "n = sin(A/2) / sin((A + D_m)/2)", "n = (A + D_m)/A", "n = sin(A + D_m) / sin A"] },
+      { q: "Dans la méthode de réflexion, les deux faisceaux réfléchis par les faces du prisme font entre eux l'angle :", o: ["A", "2A", "A/2", "180° − A"] },
+      { q: "Dans un verre, l'indice de réfraction :", o: ["est plus grand pour le violet que pour le jaune", "est le même pour toutes les couleurs", "est plus grand pour le jaune que pour le violet", "est inférieur à 1"] },
+      { q: "La radiation la plus déviée par le prisme est :", o: ["la radiation jaune", "la radiation violette", "la radiation verte", "toutes sont déviées de la même façon"] },
+      { q: "La loi de Cauchy s'écrit :", o: ["n = a + b/λ²", "n = a + bλ²", "n = a·λ", "n = a/λ"] },
+      { q: "Quand on fait tourner le prisme près du minimum de déviation, la raie observée dans la lunette :", o: ["se déplace toujours dans le même sens", "s'arrête puis repart en sens inverse", "disparaît", "change de couleur"] },
+      { q: "Avec A = 60,0° et D_m = 40,0°, l'indice du prisme vaut :", o: ["1,532", "1,667", "1,286", "0,653"] },
+      { q: "La lecture θ₀ du faisceau direct (sans prisme) sert à :", o: ["mesurer l'angle A", "calculer la déviation D = θ − θ₀", "régler la fente", "mesurer la longueur d'onde"] },
+      { q: "Pour la raie verte λ = 546,1 nm, 1/λ² (λ en µm) vaut :", o: ["3,353 µm⁻²", "1,831 µm⁻²", "0,298 µm⁻²", "3,353 × 10⁻⁶ µm⁻²"] },
+      { q: "Une erreur de 0,1° sur D_m entraîne sur n (A = 60°, D_m ≈ 40°) une erreur de l'ordre de :", o: ["10⁻³", "10⁻¹", "1", "10⁻⁶"] },
+      { q: "La décomposition de la lumière blanche par un prisme s'explique par :", o: ["la réflexion totale", "la variation de l'indice avec la longueur d'onde", "la diffraction par l'arête", "l'absorption du verre"] }
+    ]
+  },
+  rc: {
+    parts: {
+      A: { min: 6, aide: "<b>ln</b> est le logarithme <b>népérien</b> (touche ln, pas log). E − u_C en volts. La droite ln(E − u_C) = f(t) a pour pente <b>−1/τ</b> : τ = −1/pente. Ex. pente −2,13 s⁻¹ ⇒ τ = 0,469 s.",
+        fill: [{ k: "d", h: "E − u_C (V)", ref: r => r.E - r.u, tol: 0.05, warn: "E − u_C : différence entre la tension du générateur et celle du condensateur." },
+          { k: "y", h: "ln(E − u_C)", ref: r => { const y = Math.log(r.E - r.u); return Math.abs(y) < 0.2 ? NaN : y; }, tol: 0.1, warn: "Logarithme NÉPÉRIEN (touche ln) de E − u_C." }],
+        plot: { x: r => r.t, y: (r, f) => f.y, xl: "t (s)", yl: "ln(E − u_C)", xmin: 0, fit: true, eq: R => "ln(E − u_C) = " + R.a.toFixed(3).replace(".", ",") + " · t " + (R.b < 0 ? "− " : "+ ") + Math.abs(R.b).toFixed(3).replace(".", ",") } },
+      B: { min: 6, aide: "<b>ln u_C</b>, logarithme népérien. La droite ln(u_C) = f(t) a pour pente <b>−1/τ</b> et pour ordonnée à l'origine ln U₀.",
+        fill: [{ k: "y", h: "ln(u_C)", ref: r => { const y = Math.log(r.u); return Math.abs(y) < 0.2 ? NaN : y; }, tol: 0.1, warn: "Logarithme NÉPÉRIEN (touche ln) de u_C." }],
+        plot: { x: r => r.t, y: (r, f) => f.y, xl: "t (s)", yl: "ln(u_C)", xmin: 0, fit: true, eq: R => "ln(u_C) = " + R.a.toFixed(3).replace(".", ",") + " · t " + (R.b < 0 ? "− " : "+ ") + Math.abs(R.b).toFixed(3).replace(".", ",") } },
+      C: { min: 4, need: { k: "R", vals: [1000, 2200, 4700, 10000], lab: v => "R = " + (v / 1000 + "").replace(".", ",") + " kΩ" },
+        aide: "τ est l'instant où u_C atteint 0,63 E pendant la charge. La droite τ = f(R), avec <b>R en kΩ</b>, a pour pente C en s/kΩ : <b>C (µF) = 1000 × pente</b>. Ex. pente 0,0985 s/kΩ ⇒ C = 98,5 µF.",
+        fill: [], plot: { x: r => r.R / 1000, y: r => r.t, xl: "R (kΩ)", yl: "τ (s)", xmin: 0, ymin: 0, fit: true, eq: R => "τ = " + R.a.toFixed(4).replace(".", ",") + " · R " + (R.b < 0 ? "− " : "+ ") + Math.abs(R.b).toFixed(3).replace(".", ",") } }
+    },
+    calc: [
+      { k: "tauA", h: "Partie A : constante de temps τ déduite de la pente (charge)", u: "s" },
+      { k: "tauB", h: "Partie B : constante de temps τ déduite de la pente (décharge)", u: "s" },
+      { k: "pente", h: "Partie C : pente de la droite τ = f(R), R en kΩ", u: "s/kΩ" },
+      { k: "C", h: "Capacité C = 1000 × pente", u: "µF" },
+      { k: "ecart", h: "Écart relatif entre C mesurée et la valeur indiquée sur le condensateur", u: "%" }
+    ],
+    qcm: [
+      { q: "Pendant la charge d'un condensateur (initialement déchargé) à travers R sous la tension E, u_C(t) s'écrit :", o: ["E (1 − e^(−t/τ))", "E e^(−t/τ)", "E t/τ", "E (1 + e^(−t/τ))"] },
+      { q: "La constante de temps d'un circuit RC vaut :", o: ["τ = R/C", "τ = RC", "τ = 1/(RC)", "τ = √(RC)"] },
+      { q: "Pendant la charge, à t = τ, u_C vaut environ :", o: ["37 % de E", "50 % de E", "63 % de E", "100 % de E"] },
+      { q: "On considère le condensateur chargé (à 1 % près) au bout de :", o: ["τ", "2τ", "5τ", "100τ"] },
+      { q: "Pendant la décharge, à t = τ, u_C vaut environ :", o: ["37 % de U₀", "63 % de U₀", "50 % de U₀", "0"] },
+      { q: "Avec R = 4,7 kΩ et C = 100 µF, τ vaut :", o: ["0,47 s", "47 s", "4,7 ms", "470 s"] },
+      { q: "Pendant la décharge, la droite ln(u_C) = f(t) a pour pente :", o: ["−1/τ", "τ", "−τ", "1/τ"] },
+      { q: "Le produit RC s'exprime en :", o: ["ohms", "farads", "secondes", "volts"] },
+      { q: "Si l'on double R (C inchangée), la charge est :", o: ["deux fois plus rapide", "deux fois plus lente", "inchangée", "quatre fois plus lente"] },
+      { q: "Le graphe τ = f(R) est une droite passant par l'origine, de pente :", o: ["C", "1/C", "E", "R"] },
+      { q: "Juste après la fermeture de l'interrupteur (charge, condensateur déchargé), l'intensité vaut :", o: ["0", "E/R", "E·R", "E/(RC)"] },
+      { q: "La tension aux bornes d'un condensateur :", o: ["peut varier brusquement", "ne peut pas varier instantanément (elle est continue)", "est toujours égale à E", "est égale à R·i"] }
+    ]
+  },
+  rlc: {
+    parts: {
+      A: { min: 10, aide: "<b>Z = U / I</b> avec I en ampères : <b>Z (Ω) = 1000 × U / I(mA)</b>. Ex. U = 2,00 V et I = 40,0 mA ⇒ Z = 50,0 Ω. À la résonance, Z est minimale et vaut R + r. Δf = f₂ − f₁ où I = I₀/√2 ; Q = f₀/Δf.",
+        fill: [{ k: "Z", h: "Z = U/I (Ω)", ref: r => 1000 * r.U / r.I, tol: 0.05, warn: "I est en mA : Z (Ω) = 1000 × U / I." }],
+        plot: { x: r => r.f, y: r => r.I, xl: "f (Hz)", yl: "I (mA)", ymin: 0, join: true } },
+      B: { min: 8, aide: "Même calcul : Z (Ω) = 1000 × U / I(mA). Compare la largeur de cette courbe à celle de la partie A.",
+        fill: [{ k: "Z", h: "Z = U/I (Ω)", ref: r => 1000 * r.U / r.I, tol: 0.05, warn: "I est en mA : Z (Ω) = 1000 × U / I." }],
+        plot: { x: r => r.f, y: r => r.I, xl: "f (Hz)", yl: "I (mA)", ymin: 0, join: true } }
+    },
+    calc: [
+      { k: "f0", h: "Partie A : fréquence de résonance f₀", u: "Hz" },
+      { k: "I0", h: "Partie A : intensité maximale I₀", u: "mA" },
+      { k: "Rt", h: "Résistance totale R + r = U / I₀ (I₀ en ampères)", u: "Ω" },
+      { k: "r", h: "Résistance r de la bobine = (R + r) − 22", u: "Ω" },
+      { k: "df", h: "Partie A : bande passante Δf = f₂ − f₁", u: "Hz" },
+      { k: "Q", h: "Partie A : facteur de qualité Q = f₀ / Δf", u: "" },
+      { k: "L", h: "Inductance L = 1 / (4π² f₀² C), avec la valeur indiquée de C", u: "mH" },
+      { k: "dfB", h: "Partie B : bande passante Δf avec R = 100 Ω", u: "Hz" }
+    ],
+    qcm: [
+      { q: "La fréquence de résonance d'un circuit RLC série vaut :", o: ["f₀ = 1/(2π√(LC))", "f₀ = 2π√(LC)", "f₀ = 1/(LC)", "f₀ = √(L/C)"] },
+      { q: "À la résonance d'intensité, l'impédance du circuit est :", o: ["maximale", "minimale et égale à la résistance totale R + r", "nulle", "égale à Lω"] },
+      { q: "À la résonance, la tension u_R et la tension du générateur sont :", o: ["en quadrature", "en opposition de phase", "en phase", "décalées d'un quart de période"] },
+      { q: "La bande passante Δf = f₂ − f₁ est délimitée par les fréquences où :", o: ["I = I₀/2", "I = I₀/√2", "I = 0", "I = I₀√2"] },
+      { q: "Le facteur de qualité vaut :", o: ["Q = f₀/Δf", "Q = Δf/f₀", "Q = f₀·Δf", "Q = R/L"] },
+      { q: "Si l'on augmente la résistance du circuit, la résonance devient :", o: ["plus aiguë", "plus floue (bande passante plus large)", "impossible", "décalée vers les hautes fréquences"] },
+      { q: "La fréquence de résonance dépend :", o: ["de L et de C seulement", "de R seulement", "de R, L et C", "de la tension du générateur"] },
+      { q: "L'impédance d'un dipôle RLC série s'écrit :", o: ["Z = R + Lω + 1/(Cω)", "Z = √(R² + (Lω − 1/(Cω))²)", "Z = R·Lω/(Cω)", "Z = √(R² + L²ω²)"] },
+      { q: "Avec L = 0,10 H et C = 1,0 µF, f₀ vaut environ :", o: ["503 Hz", "3,16 kHz", "159 Hz", "50 Hz"] },
+      { q: "Pour f < f₀, le circuit RLC série a un comportement :", o: ["inductif", "capacitif", "purement résistif", "nul"] },
+      { q: "Un ampèremètre en position alternative (AC) indique :", o: ["la valeur maximale de i", "la valeur efficace de i", "la valeur moyenne de i", "la valeur crête à crête de i"] },
+      { q: "La résistance r de la bobine se déduit de l'intensité maximale I₀ par :", o: ["r = U/I₀ − R", "r = U·I₀", "r = R − U/I₀", "r = U/I₀"] }
+    ]
   }
 };
 
@@ -261,10 +363,23 @@ window.TPCR = {
       A: { cols: ["n°", "OA (cm)", "OA′ (cm)"], cells: (r, i) => [i + 1, fr(r.OA, 1), fr(r.OAp, 1)], r: { OA: 1, OAp: 1 }, titre: "Lentille convergente L₁ seule" },
       B: { cols: ["n°", "OA (cm)", "OA′ (cm)"], cells: (r, i) => [i + 1, fr(r.OA, 1), fr(r.OAp, 1)], r: { OA: 1, OAp: 1 }, titre: "Lentilles accolées L₁ + L₂" },
       C: { cols: ["n°", "e (cm)", "x′ = O₃A′ (cm)"], cells: (r, i) => [i + 1, fr(r.e, 1), fr(r.xp, 1)], r: { e: 1, xp: 1 }, titre: "Lentilles séparées L₁ et L₃ (objet à l'infini)" }
+    },
+    prisme: {
+      A: { cols: ["n°", "θ₁ (°)", "θ₂ (°)"], cells: (r, i) => [i + 1, fr(r.t1, 2), fr(r.t2, 2)], r: { t1: 2, t2: 2 }, titre: "Angle A du prisme (méthode de réflexion)" },
+      B: { cols: ["n°", "Raie", "λ (nm)", "θ₀ (°)", "θ_m (°)"], cells: (r, i) => [i + 1, ((window.TPX && window.TPX.LINES) || []).filter(l => l.lam === r.lam).map(l => l.nom)[0] || "", fr(r.lam, 1), fr(r.th0, 2), fr(r.th, 2)], r: { th0: 2, th: 2 }, titre: "Minimum de déviation pour chaque raie du mercure" }
+    },
+    rc: {
+      A: { cols: ["n°", "R (Ω)", "E (V)", "t (s)", "u_C (V)"], cells: (r, i) => [i + 1, r.R, fr(r.E, 2), s4(r.t), fr(r.u, 2)], r: { E: 2, t: "s4", u: 2 }, titre: "Charge du condensateur" },
+      B: { cols: ["n°", "R (Ω)", "U₀ (V)", "t (s)", "u_C (V)"], cells: (r, i) => [i + 1, r.R, fr(r.U0, 2), s4(r.t), fr(r.u, 2)], r: { U0: 2, t: "s4", u: 2 }, titre: "Décharge du condensateur" },
+      C: { cols: ["n°", "R (Ω)", "τ (s)"], cells: (r, i) => [i + 1, r.R, s4(r.t)], r: { t: "s4" }, titre: "Influence de R sur la constante de temps" }
+    },
+    rlc: {
+      A: { cols: ["n°", "R (Ω)", "U (V)", "f (Hz)", "I (mA)"], cells: (r, i) => [i + 1, r.R, fr(r.U, 2), s4(r.f), s4(r.I)], r: { U: 2, f: "s4", I: "s4" }, titre: "Courbe de résonance avec R = 22 Ω" },
+      B: { cols: ["n°", "R (Ω)", "U (V)", "f (Hz)", "I (mA)"], cells: (r, i) => [i + 1, r.R, fr(r.U, 2), s4(r.f), s4(r.I)], r: { U: 2, f: "s4", I: "s4" }, titre: "Courbe de résonance avec R = 100 Ω" }
     }
   };
   Object.keys(RAW).forEach(k => Object.keys(RAW[k]).forEach(p => Object.assign(window.TPCR[k].parts[p], RAW[k][p])));
-  window.TPCR_PARAMS = { ressort: "ressort_par", torsion: "torsion_par", ohm: "ohm_par", oscillo: "osc_par", mesures: "mes_par", lentilles: "lent_par", microscope: "micro_par", assoc: "assoc_par" };
+  window.TPCR_PARAMS = { ressort: "ressort_par", torsion: "torsion_par", ohm: "ohm_par", oscillo: "osc_par", mesures: "mes_par", lentilles: "lent_par", microscope: "micro_par", assoc: "assoc_par", prisme: "prisme_par", rc: "rc_par", rlc: "rlc_par" };
 })();
 
 /* Banque de questions : 12 par TP. Chaque étudiant connecté reçoit 5 questions tirées

@@ -6,7 +6,7 @@
 (function () {
   "use strict";
   /* page de début de chaque TP dans le fascicule (docs/Fascicule_TP_Physique_L1.pdf, numéro de page du fichier) */
-  const FASC = { 1: 11, 2: 17, 3: 22, 4: 27, 5: 33, 6: 39, 7: 46, 8: 52, 9: 56 };
+  const FASC = { 1: 12, 2: 18, 3: 23, 4: 28, 5: 34, 6: 40, 7: 47, 8: 53, 9: 57, 10: 62, 11: 66, 12: 70 };
   const $ = s => document.querySelector(s);
   const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
   const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -292,7 +292,7 @@
         <div class="data${!p.plot || p.cols.length + p.fill.length > 6 ? " solo" : ""}">
           <div class="tblcol"><p class="hint scrollhint" id="${T.id}-sh-${k}" hidden>↔ Fais glisser le tableau vers la gauche pour voir et remplir toutes les colonnes colorées.</p>
           <div class="tblwrap"><table><thead id="${T.id}-th-${k}"></thead><tbody id="${T.id}-tb-${k}"></tbody></table></div></div>
-          ${p.plot ? `<div class="graph"><canvas id="${T.id}-gr-${k}" aria-label="Graphe de la partie ${L[i]}"></canvas><p class="hint">Graphe tracé avec <b>tes</b> valeurs. Trace la droite moyenne et calcule sa pente toi-même.</p></div>` : ""}
+          ${p.plot ? `<div class="graph"><canvas id="${T.id}-gr-${k}" aria-label="Graphe de la partie ${L[i]}"></canvas><p class="hint">Graphe tracé avec <b>tes</b> valeurs. ${p.plot.join ? "Repère sur la courbe le maximum et les points où la grandeur vaut le maximum divisé par √2." : "Trace la droite moyenne et calcule sa pente toi-même."}</p></div>` : ""}
         </div></div>`; }).join("")}
       <div class="crblock"><h4>Résultats et calculs</h4><div class="calcs">
         ${CR.calc.map(c => `<div class="calc"><label for="${T.id}-c-${c.k}">${c.h}</label><div class="cin"><input id="${T.id}-c-${c.k}" data-calc="${c.k}" inputmode="decimal"><span>${esc(c.u)}</span></div></div>`).join("")}
@@ -642,13 +642,13 @@
         ["Mesures de tension, intensité, résistance (loi d'Ohm)", "ok", "TP 4 et TP 6"],
         ["Exploitation des données et rédaction des comptes rendus", "ok", "Compte rendu en ligne de chaque TP : tableaux, graphes, régression"]] },
     { code: "LPCI1251", titre: "TP de Physique 2", sous: "EC LPCI1251 • L1 Semestre 2 • optique et régime variable", ue: "Expérimentation 2 (LPCI125) • 4 crédits",
-      tps: ["lentilles", "microscope", "assoc", "oscillo"],
+      tps: ["lentilles", "microscope", "assoc", "prisme", "oscillo", "rc", "rlc"],
       obj: "Approfondir la démarche expérimentale à travers des manipulations d'optique géométrique et d'électricité en régime variable.",
       pre: "Suivre ou avoir suivi les EC Optique 1 et Électricité 2.",
       prog: [["Banc d'optique : focométrie des lentilles minces", "ok", "TP 7 et TP 9 ; instrument : TP 8 (microscope)"],
-        ["Étude d'un prisme et indices de réfraction", "soon", ""],
-        ["Charge et décharge d'un condensateur (circuit RC)", "part", "TP 5 : oscilloscope et circuit RC en régime sinusoïdal"],
-        ["Étude du circuit RLC et de la résonance", "soon", ""],
+        ["Étude d'un prisme et indices de réfraction", "ok", "TP 10"],
+        ["Charge et décharge d'un condensateur (circuit RC)", "ok", "TP 11 ; oscilloscope : TP 5"],
+        ["Étude du circuit RLC et de la résonance", "ok", "TP 12"],
         ["Traitement des données et comptes rendus", "ok", "Compte rendu en ligne de chaque TP"]] }
   ];
   function start() {
@@ -698,5 +698,5 @@
       const T = TPS.find(t => t.id === cur); if (T && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 67, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 68, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();

@@ -86,6 +86,30 @@
     A_b: { part: "A", g: 1, min: 3, q: "L'ordonnée à l'origine de ta droite 1/OA′ = f(1/OA) (partie A) vaut :", u: "δ", sig: 3, s: [R => H.fit(R, r => 100 / r.OA, r => 100 / r.OAp).b, R => H.fit(R, r => 1 / r.OA, r => 1 / r.OAp).b, R => H.fit(R, r => r.OA, r => r.OAp).b, R => H.fit(R, r => 100 / r.OA, r => 100 / r.OAp).a] },
     B_b: { part: "B", g: 1, min: 3, q: "L'ordonnée à l'origine de ta droite 1/OA′ = f(1/OA) (partie B) vaut :", u: "δ", sig: 3, s: [R => H.fit(R, r => r.OA, r => r.OAp).b, R => H.fit(R, r => 1 / r.OA, r => 1 / r.OAp).b, R => H.fit(R, r => 100 / r.OA, r => 100 / r.OAp).b, R => H.fit(R, r => 100 / r.OA, r => 100 / r.OAp).a] },
   };
+  Q.prisme = {
+    A_A: { part: "A", q: "Pour ta mesure n°{k} de la partie A, l'angle A du prisme vaut :", u: "°", sig: 4, f: [r => Math.abs(r.t2 - r.t1) / 2, r => Math.abs(r.t2 - r.t1)], s: ["o1","e","o2","o0"] },
+    B_Dm: { part: "B", q: "Pour ta mesure n°{k} de la partie B, le minimum de déviation D_m vaut :", u: "°", sig: 4, f: [r => r.th - r.th0, r => (r.th - r.th0) / 2], s: ["o0","o1","e","o2"] },
+    B_x: { part: "B", q: "Pour ta mesure n°{k} de la partie B, 1/λ² (λ en µm) vaut :", u: "µm⁻²", sig: 4, f: [r => 1e6 / (r.lam * r.lam), r => 1000 / r.lam], s: ["o1","o2","o0","e"] },
+    B_rad: { part: "B", q: "Pour ta mesure n°{k} de la partie B, le minimum de déviation D_m exprimé en radians vaut :", u: "rad", sig: 3, f: [r => (r.th - r.th0) * Math.PI / 180, r => (r.th - r.th0) * 180 / Math.PI], s: ["o0","o1","o2","e"] },
+    A_m: { part: "A", g: 1, min: 3, q: "D'après tes mesures de la partie A, l'angle A moyen du prisme vaut :", u: "°", sig: 4, s: [R => R.reduce((s, r) => s + Math.abs(r.t2 - r.t1) / 4, 0) / R.length, R => R.reduce((s, r) => s + Math.abs(r.t2 - r.t1), 0) / R.length, R => 180 - R.reduce((s, r) => s + Math.abs(r.t2 - r.t1) / 2, 0) / R.length, R => R.reduce((s, r) => s + Math.abs(r.t2 - r.t1) / 2, 0) / R.length] },
+    B_disp: { part: "B", g: 1, min: 3, q: "D'après tes mesures de la partie B, l'écart entre la plus grande et la plus petite déviation minimale vaut :", u: "°", sig: 3, s: [R => Math.min(...R.map(r => r.th - r.th0)), R => Math.max(...R.map(r => r.th - r.th0)), R => { const D = R.map(r => r.th - r.th0); return Math.max(...D) - Math.min(...D); }, R => (Math.max(...R.map(r => r.th - r.th0)) - Math.min(...R.map(r => r.th - r.th0))) / 2] },
+  };
+  Q.rc = {
+    A_d: { part: "A", q: "Pour ta mesure n°{k} de la partie A, E − u_C vaut :", u: "V", sig: 3, f: [r => r.E - r.u, r => r.E + r.u], s: ["o2","o1","o0","e"] },
+    A_ln: { part: "A", q: "Pour ta mesure n°{k} de la partie A, ln(E − u_C) vaut :", u: "", sig: 3, f: [r => Math.log(r.E - r.u), r => Math.log10(r.E - r.u)], s: ["o0","o1","e","o2"] },
+    B_ln: { part: "B", q: "Pour ta mesure n°{k} de la partie B, ln(u_C) vaut :", u: "", sig: 3, f: [r => Math.log(r.u), r => Math.log10(r.u)], s: ["o2","o0","o1","e"] },
+    C_tR: { part: "C", q: "Pour ta mesure n°{k} de la partie C, le rapport τ / R (R en kΩ) vaut :", u: "s/kΩ", sig: 3, f: [r => r.t / (r.R / 1000), r => r.t * r.R / 1000], s: ["o0","o2","o1","e"] },
+    A_tau: { part: "A", g: 1, min: 3, q: "La constante de temps τ déduite de ta droite ln(E − u_C) = f(t) (partie A) vaut :", u: "s", sig: 3, s: [R => -1 / H.fit(R, r => r.t, r => Math.log(r.E - r.u)).a, R => -0.5 / H.fit(R, r => r.t, r => Math.log(r.E - r.u)).a, R => H.fit(R, r => r.t, r => Math.log(r.E - r.u)).b, R => H.fit(R, r => r.t, r => Math.log(r.E - r.u)).a] },
+    B_tau: { part: "B", g: 1, min: 3, q: "La constante de temps τ déduite de ta droite ln(u_C) = f(t) (partie B) vaut :", u: "s", sig: 3, s: [R => H.fit(R, r => r.t, r => Math.log(r.u)).a, R => -0.5 / H.fit(R, r => r.t, r => Math.log(r.u)).a, R => H.fit(R, r => r.t, r => Math.log(r.u)).b, R => -1 / H.fit(R, r => r.t, r => Math.log(r.u)).a] },
+  };
+  Q.rlc = {
+    A_Z: { part: "A", q: "Pour ta mesure n°{k} de la partie A, l'impédance Z = U/I vaut :", u: "Ω", sig: 3, f: [r => 1000 * r.U / r.I, r => r.U / r.I], s: ["o0","o2","o1","e"] },
+    A_w: { part: "A", q: "Pour ta mesure n°{k} de la partie A, la pulsation ω vaut :", u: "rad/s", sig: 4, f: [r => 2 * Math.PI * r.f, r => r.f / (2 * Math.PI)], s: ["e","o1","o0","o2"] },
+    B_Z: { part: "B", q: "Pour ta mesure n°{k} de la partie B, l'impédance Z = U/I vaut :", u: "Ω", sig: 3, f: [r => 1000 * r.U / r.I, r => r.U / r.I], s: ["o1","o2","e","o0"] },
+    A_f0: { part: "A", g: 1, min: 3, q: "D'après tes mesures de la partie A, la fréquence où l'intensité est la plus grande vaut :", u: "Hz", sig: 4, s: [R => 2 * H.sortBy(R, r => -r.I)[0].f, R => H.sortBy(R, r => -r.I)[0].f / (2 * Math.PI), R => H.sortBy(R, r => r.I)[0].f, R => H.sortBy(R, r => -r.I)[0].f] },
+    A_I0: { part: "A", g: 1, min: 3, q: "D'après tes mesures de la partie A, I₀/√2 (I₀ : plus grande intensité mesurée) vaut :", u: "mA", sig: 3, s: [R => Math.max(...R.map(r => r.I)) * Math.SQRT2, R => Math.max(...R.map(r => r.I)) / Math.SQRT2, R => Math.max(...R.map(r => r.I)) / 2, R => Math.max(...R.map(r => r.I))] },
+    A_Rt: { part: "A", g: 1, min: 3, q: "D'après tes mesures de la partie A, la résistance totale R + r = U/I₀ vaut :", u: "Ω", sig: 3, s: [R => 1000 * R[0].U / Math.max(...R.map(r => r.I)), R => R[0].U / Math.max(...R.map(r => r.I)), R => 1000 * R[0].U / Math.min(...R.map(r => r.I)), R => 1000 * R[0].U / Math.max(...R.map(r => r.I)) / Math.SQRT2] },
+  };
 
   // valeurs des 4 propositions pour les mesures R (lignes de la partie), avec la graine k donnée par le serveur
   const near = (a, b) => !isFinite(a) || !isFinite(b) || Math.abs(a - b) <= 0.03 * Math.max(Math.abs(a), Math.abs(b)) || (Math.abs(a) < 1e-12 && Math.abs(b) < 1e-12);

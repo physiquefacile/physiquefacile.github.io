@@ -44,7 +44,9 @@ table.sy-prog{font-family:var(--f-body);font-size:.92rem}
 .fiche details{border-top:1px solid var(--line);padding-top:10px}
 .fiche summary{font-family:var(--f-head);font-weight:600;cursor:pointer;color:var(--fg)}
 .fiche summary::marker{color:var(--accent)}
-.fiche .sec{display:grid;gap:8px;margin-top:10px;font-size:.98rem}
+.fiche .sec{display:grid;gap:8px;margin-top:10px;font-size:.98rem;min-width:0}
+.fiche .sec>*,.fiche ol>li,.fiche ul>li{min-width:0}
+.fiche li .formula{max-width:100%}
 .fiche .sec p{margin:0}
 .fiche .sec h4{font-family:var(--f-head);font-size:.92rem;margin:6px 0 0;color:var(--accent)}
 .fiche ol,.fiche ul{margin:0;padding-left:22px;display:grid;gap:5px}
@@ -192,7 +194,7 @@ fieldset.qcm input{width:auto;margin-top:4px;accent-color:var(--accent)}
   <div class="uni">LABO VIRTUEL DE PHYSIQUE • PHYSIQUE L1</div>
   <h1>Travaux pratiques</h1>
   <p>Pour chaque TP : le protocole détaillé, un montage simulé pour faire les mesures, les tableaux et graphes, et le compte rendu à remplir en ligne.</p>
-  <p><a class="fasc" href="docs/Fascicule_TP_Physique_L1.pdf" target="_blank" rel="noopener">Télécharger le fascicule de TP (PDF, 59 pages)</a> <span class="fasc-sub">les 9 TP : théorie, schémas de montage, protocoles, tableaux de mesures — à lire avant chaque séance</span></p>
+  <p><a class="fasc" href="docs/Fascicule_TP_Physique_L1.pdf" target="_blank" rel="noopener">Télécharger le fascicule de TP (PDF, 72 pages)</a> <span class="fasc-sub">les 12 TP : théorie, schémas de montage, protocoles, tableaux de mesures — à lire avant chaque séance</span></p>
 </div></header>
 
 <main><div class="wrap">
@@ -203,20 +205,21 @@ fieldset.qcm input{width:auto;margin-top:4px;accent-color:var(--accent)}
 <footer><div class="wrap">Labo Virtuel de Physique • <a href="auteur.html">Plateforme développée par le Dr P. T. Traoré</a> • © 2026 Papa Touty Traoré — tous droits réservés • Les mesures sont simulées avec une incertitude réaliste. Chaque étudiant connecté reçoit son propre matériel : deux étudiants n'obtiennent pas les mêmes valeurs. • <a href="../reparer.html?retour=labo/tp.html">Affichage incomplet ? Mettre le site à jour</a></div></footer>
 
 <script>window.__tpErr = []; addEventListener("error", function (e) { window.__tpErr.push((e.message || "erreur") + " (" + String(e.filename || "").split("/").pop() + ":" + (e.lineno || "") + ")"); });</script>
-<script src="../assets/config.js?v=67"></script>
-<script src="../assets/tp-cr.js?v=67"></script>
-<script src="../assets/tp-qd.js?v=67"></script>
-<script src="../assets/tp-core.js?v=67"></script>
-<script src="../assets/tp-meca.js?v=67"></script>
-<script src="../assets/tp-elec.js?v=67"></script>
-<script src="../assets/tp-oscillo.js?v=67"></script>
-<script src="../assets/tp-mesures.js?v=67"></script>
-<script src="../assets/tp-optique.js?v=67"></script>
+<script src="../assets/config.js?v=68"></script>
+<script src="../assets/tp-cr.js?v=68"></script>
+<script src="../assets/tp-qd.js?v=68"></script>
+<script src="../assets/tp-core.js?v=68"></script>
+<script src="../assets/tp-meca.js?v=68"></script>
+<script src="../assets/tp-elec.js?v=68"></script>
+<script src="../assets/tp-oscillo.js?v=68"></script>
+<script src="../assets/tp-mesures.js?v=68"></script>
+<script src="../assets/tp-optique.js?v=68"></script>
+<script src="../assets/tp-s2.js?v=68"></script>
 <script>
 /* Vérifie que tous les fichiers de la page sont de la même version ; sinon (copie ancienne gardée par le
    navigateur après une connexion lente), propose une remise à jour en un clic au lieu d'une page vide. */
 (function () {
-  var BUILD = 67;
+  var BUILD = 68;
   function repair(why) {
     var b = document.getElementById("tpLogin"); if (!b) return;
     var det = (window.__tpErr || []).concat(why ? [why] : []).join(" ; ");
