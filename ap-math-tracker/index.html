@@ -227,9 +227,9 @@ details.unitlib summary .st{flex:1;min-width:0}
   <div class="scrollr" id="rScroll"><div class="pages" id="rWrap"></div></div>
 </div>
 <script src="../vendor/pdfjs/pdf.js"></script>
-<script src="courses.js?v=10"></script>
+<script src="courses.js?v=11"></script>
 <script src="quiz-config.js?v=12"></script>
-<script src="quiz-bank.js?v=8"></script>
+<script src="quiz-bank.js?v=9"></script>
 
 <script>
 const COURSES={
@@ -521,6 +521,13 @@ const pdfLib=window.pdfjsLib;
 if(pdfLib)pdfLib.GlobalWorkerOptions.workerSrc="../vendor/pdfjs/pdf.worker.js";
 let pdoc=null,zoom=1,pobs=null,ptoken=0,lastFocus=null;
 function baseWidth(){return Math.min(900,$("#rScroll").clientWidth-24)*zoom}
+const b64u=s=>{s=s.replace(/-/g,"+").replace(/_/g,"/");while(s.length%4)s+="=";const b=atob(s),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u};
+let UNIT_KEYS=null;
+async function unitKey(unit){
+  const ep=(window.QUIZ_CONFIG||{}).endpoint,k=teacherKey();if(!ep||!k)return "";
+  if(!UNIT_KEYS){try{const r=await fetch(ep,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({action:"access",code:k})});const R=await r.json();if(R&&R.ok)UNIT_KEYS=R.keys||{}}catch(e){}}
+  return (UNIT_KEYS||{})[unit]||"";
+}
 async function openPdf(url,title){
   lastFocus=document.activeElement;
   $("#rTitle").textContent=title;$("#rOpen").href=url;$("#rPages").textContent="";
@@ -528,9 +535,19 @@ async function openPdf(url,title){
   $("#reader").hidden=false;document.body.style.overflow="hidden";$("#rClose").focus();
   zoom=1;const my=++ptoken;
   let data;
-  try{const res=await fetch(url);if(!res.ok)throw new Error("http "+res.status);data=await res.arrayBuffer()}
+  let enc=false;
+  try{let res=await fetch(url);if(!res.ok){res=await fetch(url+".enc");enc=true}if(!res.ok)throw new Error("http "+res.status);data=await res.arrayBuffer()}
   catch(err){if(my===ptoken)wrap.innerHTML='<div class="msg">This document could not be loaded. Check your connection and try again.</div>';return}
   if(my!==ptoken)return;
+  if(enc){ /* paid unit: decrypt with the unit key, obtained with the teacher key */
+    const m=url.match(/docs\/([^/]+)\/([^/-]+)-/),unit=m?m[1]+"-"+m[2]:"";
+    const k=await unitKey(unit);
+    if(!k){wrap.innerHTML='<div class="msg">This document belongs to a paid unit. Enter your teacher key (Copies tab, or Class tab → Import results), check that the unit key is in the Keys sheet, then try again.</div>';return}
+    try{const key=await crypto.subtle.importKey("raw",b64u(k),"AES-GCM",false,["decrypt"]),b=new Uint8Array(data);data=await crypto.subtle.decrypt({name:"AES-GCM",iv:b.slice(0,12)},key,b.slice(12))}
+    catch(err){wrap.innerHTML='<div class="msg">This document could not be unlocked: the key in the Keys sheet does not match.</div>';return}
+    $("#rOpen").href=URL.createObjectURL(new Blob([data],{type:"application/pdf"}));
+    if(my!==ptoken)return;
+  }
   if(!pdfLib){wrap.innerHTML='<div class="msg">The built-in reader could not start in this browser. Use Open to view the PDF.</div>';return}
   try{pdoc=await pdfLib.getDocument({data:new Uint8Array(data)}).promise;if(my!==ptoken)return;$("#rPages").textContent=pdoc.numPages+" p.";layoutPdf()}
   catch(err){wrap.innerHTML='<div class="msg">The built-in reader could not display this document. Use Open to view the PDF.</div>'}
