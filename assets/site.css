@@ -36,6 +36,8 @@ a{color:var(--accent)}
 .back{font-family:var(--f-head);font-size:.88rem;color:var(--band-muted);text-decoration:none;width:max-content}
 .back:hover{color:var(--band-fg)}
 .uni{font-family:var(--f-head);font-weight:700;letter-spacing:.08em;color:var(--saff);font-size:.8rem;margin-top:8px}
+.uni{display:flex;align-items:center;gap:10px}
+.unilogo{width:40px;height:40px;flex:none;background:#fff;border-radius:9px;padding:2px;box-shadow:0 1px 3px rgba(0,0,0,.25)}
 .band h1{font-family:var(--f-head);font-weight:700;font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.15;margin:4px 0 2px;text-wrap:balance}
 .band p{margin:0;font-family:var(--f-head);color:var(--band-muted);font-size:.95rem;max-width:70ch}
 .pill-row{display:flex;flex-wrap:wrap;gap:6px}

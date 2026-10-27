@@ -7,7 +7,7 @@
      ⚠ Toute modification du site doit s'accompagner d'un changement de VERSION.
    - documents PDF : copie locale d'abord, rafraîchie en arrière-plan
    - bibliothèques externes (KaTeX) : copie locale permanente */
-const VERSION = "v141";
+const VERSION = "v142";
 const SHELL = "shell-" + VERSION;
 const PDFS = "pdf-v1";          // nom stable : les documents enregistrés survivent aux mises à jour du site
 const EXT = "ext-v1";           // KaTeX ne change pas : inutile de le retélécharger à chaque version
@@ -16,7 +16,7 @@ const SHELL_FILES = [
   "./", "index.html", "quiz.html", "simulations.html", "entrainement.html", "calendrier.html", "questions.html", "videos.html", "tp.html", "auteur.html",
   "assets/site.css", "assets/quiz-data.js", "assets/acces.js", "assets/exos.js", "assets/exos-reperes.js", "assets/exos-optique.js", "assets/optique-svg.js", "assets/quiz-optique-fig.js", "assets/annonces.js", "assets/config.js", "assets/videos.js", "assets/tp-cr.js", "assets/tp-qd.js", "assets/tp-core.js", "assets/tp-meca.js", "assets/tp-elec.js", "assets/tp-oscillo.js", "assets/tp-mesures.js", "assets/tp-optique.js", "manifest.webmanifest",
   "vendor/pdfjs/pdf.js", "vendor/pdfjs/pdf.worker.js",
-  "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png",
+  "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png", "img/usnm-logo.png",
   "img/Support_Chapitre_1_Calcul_vectoriel.jpg", "img/Support_Chapitre_2_Cinematique.jpg",
   "img/Support_Chapitre_3_Dynamique.jpg", "img/Support_Chapitre_4_Travail_energie.jpg",
   "img/Electricite_Chapitre_1_Electrostatique.jpg", "img/Electricite_Chapitre_2_Champ_potentiel.jpg", "img/Electricite_Chapitre_3_Dipole.jpg", "img/Fascicule_TP_Physique_L1.jpg", "img/Optique_Chapitre_1_Lois_fondamentales.jpg", "img/Optique_Chapitre_2_Formation_images.jpg", "img/Optique_Chapitre_3_Prisme_lame.jpg", "img/Optique_Chapitre_4_Miroirs_dioptres_spheriques.jpg", "img/Optique_Chapitre_5_Lentilles_minces.jpg"
