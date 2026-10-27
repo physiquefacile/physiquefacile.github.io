@@ -1,7 +1,7 @@
 /* AP Math Online app: service worker for the installed app (scope: /ap-math-tracker/).
    Pages and data: network first, so students always get the latest version; the saved copy is used only offline.
    Fonts and KaTeX: saved once. Bump VERSION when the list of core files changes. */
-const VERSION = "app-v5";
+const VERSION = "app-v6";
 const CORE = ["learn.html", "app.html", "courses.js", "quiz-config.js", "quiz-bank.js", "icons/icon-192.png", "icons/icon-512.png"];
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(VERSION).then(c => Promise.all(CORE.map(f => c.add(new Request(f, { cache: "reload" })).catch(() => {})))).then(() => self.skipWaiting()));

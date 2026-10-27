@@ -163,6 +163,36 @@ a{color:var(--accent)}
 .waveqr .wq{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:6px}.waveqr img{border:1px solid var(--line);border-radius:8px;background:#fff;padding:4px}
 .tips{font-size:.9rem;margin:0;padding-left:1.1em;color:var(--muted)}
 .btn.meet{background:#1A73E8;border-color:#1A73E8;color:#fff;font-size:1.05rem}
+/* Grand écran : page plus large et plus aérée */
+@media (min-width:900px){
+  body{font-size:17px}
+  .wrap{max-width:min(1600px,100%);padding-left:max(clamp(24px,4vw,64px),env(safe-area-inset-left,0px));padding-right:max(clamp(24px,4vw,64px),env(safe-area-inset-right,0px));padding-block:32px 80px;gap:26px}
+  h1{font-size:2.15rem}h2{font-size:1.35rem}
+  .founder{font-size:.95rem}
+  .panel{padding:24px 28px;gap:16px;border-radius:14px}
+  nav.tabs{gap:8px}
+  nav.tabs button{padding:12px 18px;font-size:1.06rem}
+  .course{padding:5px}
+  .course button{padding:10px 22px;font-size:1.04rem}
+  details.unit{border-radius:14px}
+  details.unit>summary{padding:20px 26px;font-size:1.12rem}
+  details.unit .body{padding:4px 26px 28px;gap:18px}
+  .label{font-size:.78rem;margin-top:8px}
+  .res{gap:10px}
+  .pair{gap:6px}
+  .rbtn{padding:9px 15px;font-size:.93rem;border-radius:8px}
+  .lessons{display:grid;grid-template-columns:repeat(auto-fill,minmax(520px,1fr));gap:16px}
+  .lesson{border:1px solid var(--line);border-radius:12px;background:var(--bg);padding:16px 20px;gap:12px 14px;align-content:start}
+  .lesson>span:nth-child(2){font-weight:700;font-size:1.06rem;line-height:1.3}
+  .lesson{grid-template-columns:2.6em 1fr}
+  .lesson .ln{font-size:.85rem;padding-top:3px}
+  .lesson .res{grid-column:1/-1;gap:8px}
+  .lesson .rbtn{padding:8px 12px}
+  .list{gap:12px}
+  .qrow{padding:16px 20px}
+  .lockbox{padding:14px 18px}
+  .panel.welcome{width:min(760px,100%);justify-self:center;padding:32px 36px}
+}
 @media (max-width:640px){
   body{font-size:17px}
   .wrap{gap:14px;padding-block:12px 72px}
@@ -321,7 +351,7 @@ function render(){
 /* ---------- sign in ---------- */
 function signin(msg,nm,cc){
   header();
-  $("#main").innerHTML=`<div class="panel">
+  $("#main").innerHTML=`<div class="panel welcome">
     <h2>Welcome</h2>
     <p style="margin:0">A platform founded by <b>Dr P.T. Traoré</b>, AP Math and Physics teacher and trainer of math teachers.</p>
     <p class="muted">Guided notes, worksheets, quizzes and tests for AP Precalculus, AP Calculus AB, AP Physics 1 and SAT Math. <b>Unit 1 of each AP course, one SAT skill and a full SAT practice test are free.</b></p>
@@ -363,7 +393,7 @@ function quizBtn(c,qid){
   return `<button class="rbtn quiz" data-quiz="${esc(qid)}"><span class="k">ONLINE</span>Quiz${(lk&&!keys()[lk.key])?" 🔒":""}</button>`;
 }
 function unitBody(c,u){
-  if(!u.plan&&!u.files)return `<p class="muted">Coming soon. Lessons in this unit:</p><div>${u.lessons.map(l=>`<div class="lesson"><span class="ln">${esc(l.n)}</span><span>${esc(l.t)}</span></div>`).join("")}</div>`;
+  if(!u.plan&&!u.files)return `<p class="muted">Coming soon. Lessons in this unit:</p><div class="lessons">${u.lessons.map(l=>`<div class="lesson"><span class="ln">${esc(l.n)}</span><span>${esc(l.t)}</span></div>`).join("")}</div>`;
   const open=unitOpen(c,u),lab=l=>l.review?l.t:(c==="pc"||c==="p1"?"Topic ":"Lesson ")+l.n;
   let h="";
   const fl=(u.lessons||[]).filter(l=>l.free);
@@ -377,7 +407,7 @@ function unitBody(c,u){
   if(u.tests)h+=`<div class="label">Self checks and unit tests</div><div class="res" style="grid-column:auto">${u.tests.map(x=>`<span class="pair">${fileBtn(c,u,u.plan+x.id,x.t)}${fileBtn(c,u,u.plan+x.id+"-key","Key","key","KEY")}${quizBtn(c,c+"-"+u.plan+x.id)}</span>`).join("")}</div>`;
   if(u.mocks)h+=`<div class="label">Online adaptive tests (Module 1, then an easier or harder Module 2, with an estimated score)</div><div class="res" style="grid-column:auto">${u.mocks.map(m=>`<button class="rbtn quiz" data-quiz="${esc(m.id)}"><span class="k">ONLINE</span>${esc(m.t)}${m.note?` · ${esc(m.note)}`:""}${LOCKED.some(q=>q.id===m.id&&!keys()[q.key])?" 🔒":""}</button>`).join("")}</div><div class="label">Paper versions</div>`;
   if(u.plan&&u.lessons.length){
-    h+=`<div class="label">${c==="sat"?"Skills":"Lessons"}</div><div>${u.lessons.map(L=>{
+    h+=`<div class="label">${c==="sat"?"Skills":"Lessons"}</div><div class="lessons">${u.lessons.map(L=>{
       const l=L,uu=l.free?{...u,free:true}:u,u0=u;u=uu;
       const base=u.plan+l.n;
       const parts=[];
