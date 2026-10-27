@@ -87,6 +87,23 @@ main .wrap{padding-block:26px 60px;display:grid;gap:30px}
 .eyebrow{font-family:var(--f-head);font-size:.76rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--warm)}
 .course-head h2{font-family:var(--f-head);font-size:1.6rem;margin:0;text-wrap:balance}
 .course-head p{margin:0;color:var(--muted);max-width:68ch}
+.syl{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 18px;min-width:0;overflow-wrap:anywhere}
+.syl summary{cursor:pointer;display:list-item;width:auto;font-size:1rem}
+.syl summary .eyebrow{display:inline;margin-right:10px}
+.syl summary::marker{color:var(--accent)}
+.sy-sum{font-family:var(--f-head);font-size:.92rem;color:var(--muted);display:inline}
+.sy-body{display:grid;gap:12px;margin-top:12px}
+.sy-body p{margin:0;max-width:95ch}
+.sy-facts{display:flex;flex-wrap:wrap;gap:8px}
+.sy-facts span{font-family:var(--f-head);font-size:.86rem;background:var(--tint);border-radius:8px;padding:5px 10px}
+.sy-prog{width:100%;border-collapse:collapse;font-size:.93rem}
+.sy-prog th{font-family:var(--f-head);font-size:.8rem;color:var(--muted);text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}
+.sy-prog td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.sy-prog td:last-child{width:38%;font-family:var(--f-head);font-size:.86rem;color:var(--muted)}
+.sy-st{display:inline-block;font-weight:600;font-size:.76rem;border-radius:999px;padding:1px 8px;margin-right:4px}
+.sy-ok{color:var(--ok,#1F6F4A);background:var(--ok-bg,#E3F2EA)}.sy-part{color:#9a6a00;background:rgba(240,174,54,.18)}.sy-soon{color:var(--muted);background:var(--tint)}
+.sy-pre{color:var(--muted);font-size:.9rem}
+@media (max-width:640px){.sy-prog,.sy-prog tbody,.sy-prog tr,.sy-prog td{display:block;width:auto!important}.sy-prog thead{display:none}.sy-prog td{border:0;padding:2px 0}.sy-prog tr{border-bottom:1px solid var(--line);padding:8px 0}}
 .chapters{display:grid;gap:16px}
 .chap{display:grid;grid-template-columns:120px minmax(0,1fr) 250px;gap:20px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;box-shadow:var(--shadow)}
 .cover{width:120px;aspect-ratio:210/297;max-width:100%;border-radius:4px;overflow:hidden;border:1px solid var(--line);background:var(--tint);cursor:pointer;padding:0}
@@ -171,7 +188,7 @@ footer .wrap{padding-block:18px}
   <canvas id="field" aria-hidden="true"></canvas>
   <div class="wrap">
     <div class="uni"><img class="unilogo" src="img/usnm-logo.png" alt="Logo de l’Université Souleymane Niang de Matam" width="56" height="56">UNIVERSITÉ SOULEYMANE NIANG DE MATAM</div>
-    <div class="ufr">UFR Sciences • Licence 1 • Année universitaire 2026 – 2027</div>
+    <div class="ufr">UFR des Sciences, des Technologies et de l’Innovation (UFR-STI) • Licence Physique-Chimie et Informatique (LPCI) • L1 – Semestre 1 • Année universitaire 2026 – 2027</div>
     <h1>Cours de Physique</h1>
     <div class="author"><a href="auteur.html" style="color:inherit;text-decoration:none"><b>Dr Papa Touty TRAORÉ</b>, Enseignant-Chercheur</a> • <a href="auteur.html" style="color:inherit">le développeur de la plateforme</a></div>
     <div class="stats" id="stats"></div>
@@ -243,7 +260,14 @@ footer .wrap{padding-block:18px}
 <script src="vendor/pdfjs/pdf.js"></script>
 <script>
 const COURSES=[
- {id:"meca",tab:"Mécanique",eyebrow:"Physique I",title:"Mécanique du point matériel",
+ {id:"meca",tab:"Mécanique 1",eyebrow:"UE Physique 1 (LPCI112) • EC LPCI1121 • L1 S1",title:"Mécanique 1 — mécanique du point matériel",
+  syl:{code:"LPCI1121",obj:"Maîtriser les concepts fondamentaux de la cinématique et de la dynamique du point matériel afin d'analyser et de résoudre des problèmes de mouvement dans différents référentiels.",
+   pre:"Mathématiques (vecteurs, dérivées, intégrales) et physique du niveau baccalauréat scientifique.",
+   prog:[["Rappels de calcul vectoriel ; systèmes de coordonnées (cartésiennes, polaires, cylindriques)","ok","Chapitres 1 et 2"],
+    ["Cinématique du point : position, vitesse, accélération ; mouvements particuliers","ok","Chapitre 2"],
+    ["Dynamique du point : lois de Newton, forces, quantité de mouvement","ok","Chapitre 3"],
+    ["Travail, puissance et énergie ; théorèmes de l'énergie cinétique et mécanique","ok","Chapitre 4"],
+    ["Moment cinétique ; introduction aux référentiels non galiléens","part","Moment cinétique : chapitre 3 ; mouvement relatif : chapitre 2"]]},
   intro:"Quatre chapitres, du calcul vectoriel au théorème de l'énergie. Chaque chapitre a son support de cours avec démonstrations détaillées, son diaporama (en ligne et en PowerPoint) et sa série de TD avec corrigé.",
   chapters:[
    {n:1,title:"Calcul vectoriel",key:"Support_Chapitre_1_Calcul_vectoriel",pages:19,slides:39,pptx:true,
@@ -259,7 +283,15 @@ const COURSES=[
     td:{e:"TD4_Travail_energie_enonces",ep:4,c:"TD4_Travail_energie_corrige",cp:9},
     toc:["Introduction et outils","Travail d'une force","Travail dans les différents systèmes de coordonnées","Travail de quelques forces usuelles","Puissance d'une force","Énergie cinétique","Forces conservatives et énergie potentielle","Énergie mécanique","Équilibre et stabilité"]}
   ]},
- {id:"elec",tab:"Électricité",eyebrow:"Électricité",title:"Électrostatique",
+ {id:"elec",tab:"Électricité 1",eyebrow:"UE Physique 1 (LPCI112) • EC LPCI1122 • L1 S1",title:"Électricité 1 — électrostatique",
+  syl:{code:"LPCI1122",obj:"Acquérir les bases de l'électrostatique et de l'électrocinétique du courant continu pour analyser les champs, potentiels et circuits électriques simples.",
+   pre:"Calcul vectoriel et notions d'électricité du niveau baccalauréat.",
+   prog:[["Charges électriques, loi de Coulomb et champ électrostatique","ok","Chapitres 1 et 2"],
+    ["Potentiel électrostatique, circulation et énergie","ok","Chapitre 2"],
+    ["Théorème de Gauss et applications ; conducteurs en équilibre, condensateurs","part","Théorème de Gauss : chapitre 2 et série de TD n°1"],
+    ["Courant continu : intensité, tension, loi d'Ohm, puissance","part","TP 4 (loi d'Ohm) et TP 6 (multimètre)"],
+    ["Réseaux électriques : lois de Kirchhoff, théorèmes de Thévenin et Norton","soon",""]],
+   extra:"Le dipôle électrostatique (chapitre 3) est un complément du cours d'électrostatique."},
   intro:"Trois chapitres : la charge et la loi de Coulomb ; le champ, le potentiel et le théorème de Gauss ; le dipôle électrostatique. Chaque chapitre a son support de cours et son diaporama (en ligne et en PowerPoint). Les distributions classiques (fil, anneau, disque, boule) sont traitées dans la série de TD.",
   chapters:[
    {n:1,title:"Généralités sur l'électrostatique",key:"Electricite_Chapitre_1_Electrostatique",pages:11,slides:22,pptx:true,
@@ -321,13 +353,26 @@ function pptBtn(key,n,t){
   return `<button type="button" class="btn" data-pdf="slides/${key}_diapo" data-title="${esc(t)}"><span class="k k-ppt">DIAPO</span><span class="lbl">Diaporama</span><span class="n">${n} diap.</span></button>`;
 }
 
+function sylCard(c){
+  const y=c.syl,ST={ok:["sy-ok","Disponible"],part:["sy-part","En partie"],soon:["sy-soon","À venir"]};
+  return `<details class="syl"><summary><span class="eyebrow">Syllabus de l'EC ${esc(y.code)}</span><span class="sy-sum">Objectifs, programme, volume horaire et évaluation</span></summary>
+    <div class="sy-body">
+      <p><b>Objectif général.</b> ${esc(y.obj)}</p>
+      <div class="sy-facts"><span><b>UE</b> Physique 1 (LPCI112) • 6 crédits</span><span><b>Volume</b> CM 24 h • TD 18 h • TPE 18 h • total 60 h</span><span><b>Évaluation</b> contrôle continu 30 % • travail individuel ou de groupe 20 % • examen final 50 % (écrit, 3 h)</span></div>
+      <table class="sy-prog"><thead><tr><th>Programme du syllabus</th><th>Sur la plateforme</th></tr></thead><tbody>
+      ${y.prog.map((r,i)=>`<tr><td><b>${i+1}.</b> ${esc(r[0])}</td><td><span class="sy-st ${ST[r[1]][0]}">${ST[r[1]][1]}</span>${r[2]?` ${esc(r[2])}`:""}</td></tr>`).join("")}
+      </tbody></table>
+      <p class="sy-pre"><b>Prérequis.</b> ${esc(y.pre)}${y.extra?` ${esc(y.extra)}`:""}</p>
+    </div></details>`;
+}
+
 function render(){
   document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected",t.dataset.id===current));
   const c=COURSES.find(x=>x.id===current);
   const q=norm($("#q").value.trim());
   const match=ch=>!q||norm(ch.title+" "+ch.toc.join(" ")).includes(q);
   const chs=c.chapters.filter(match);
-  let h=`<section class="course-head"><div class="eyebrow">${esc(c.eyebrow)}</div><h2>${esc(c.title)}</h2><p>${esc(c.intro)}</p></section><div class="chapters">`;
+  let h=`<section class="course-head"><div class="eyebrow">${esc(c.eyebrow)}</div><h2>${esc(c.title)}</h2><p>${esc(c.intro)}</p></section>${c.syl&&!q?sylCard(c):""}<div class="chapters">`;
   chs.forEach(ch=>{
     const open=q?" open":"";
     h+=`<article class="chap">
