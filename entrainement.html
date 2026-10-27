@@ -86,6 +86,7 @@ main .wrap{padding-block:24px 10px;display:grid;gap:20px}
 <script src="assets/exos-reperes.js"></script>
 <script src="assets/optique-svg.js"></script>
 <script src="assets/exos-optique.js"></script>
+<script src="assets/exos-electro.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
 <script>
@@ -98,7 +99,7 @@ let key=KEYS.includes(location.hash.slice(1))?location.hash.slice(1):KEYS[0],idx
 let tried=0,won=0;
 
 function picker(){
-  const groups={"Mécanique":KEYS.filter(k=>k.startsWith("meca")),"Électricité":KEYS.filter(k=>k.startsWith("elec")),"Optique":KEYS.filter(k=>k.startsWith("opt"))};
+  const groups={"Mécanique 1":KEYS.filter(k=>/^meca\d$/.test(k)),"Électricité 1":KEYS.filter(k=>/^elec\d$/.test(k)),"Optique 1":KEYS.filter(k=>/^opt\d$/.test(k)),"Électricité 2":KEYS.filter(k=>/^elec2\d$/.test(k))};
   $("#picker").innerHTML=Object.entries(groups).map(([g,ks])=>`<div class="grp"><div class="grp-t">${g}</div><div class="pill-row">${ks.map(k=>`<button type="button" class="pill" data-k="${k}" aria-pressed="${k===key}">${esc(TT[k])}</button>`).join("")}</div></div>`).join("");
 }
 $("#picker").addEventListener("click",e=>{const b=e.target.closest("[data-k]");if(!b)return;key=b.dataset.k;idx=0;history.replaceState(null,"","#"+key);picker();gen()});

@@ -2,7 +2,7 @@
    Plateforme « Physique Facile » / « Labo Virtuel de Physique ». Reproduction, modification ou diffusion interdites sans autorisation écrite de l'auteur. */
 window.QUIZ={
 "meca1": {
-"course": "Mécanique",
+"course": "Mécanique 1",
 "title": "Chapitre 1 — Calcul vectoriel",
 "qs": [
 {
@@ -128,7 +128,7 @@ window.QUIZ={
 ]
 },
 "meca2": {
-"course": "Mécanique",
+"course": "Mécanique 1",
 "title": "Chapitre 2 — Cinématique du point",
 "qs": [
 {
@@ -254,7 +254,7 @@ window.QUIZ={
 ]
 },
 "meca3": {
-"course": "Mécanique",
+"course": "Mécanique 1",
 "title": "Chapitre 3 — Dynamique du point matériel",
 "qs": [
 {
@@ -380,7 +380,7 @@ window.QUIZ={
 ]
 },
 "meca4": {
-"course": "Mécanique",
+"course": "Mécanique 1",
 "title": "Chapitre 4 — Travail et énergie",
 "qs": [
 {
@@ -506,7 +506,7 @@ window.QUIZ={
 ]
 },
 "elec1": {
-"course": "Électricité",
+"course": "Électricité 1",
 "title": "Chapitre 1 — Généralités sur l'électrostatique",
 "qs": [
 {
@@ -632,7 +632,7 @@ window.QUIZ={
 ]
 },
 "elec2": {
-"course": "Électricité",
+"course": "Électricité 1",
 "title": "Chapitre 2 — Champ et potentiel",
 "qs": [
 {
@@ -758,7 +758,7 @@ window.QUIZ={
 ]
 },
 "elec3": {
-"course": "Électricité",
+"course": "Électricité 1",
 "title": "Chapitre 3 — Le dipôle électrostatique",
 "qs": [
 {
@@ -888,7 +888,7 @@ window.QUIZ={
 /* ===================== OPTIQUE ===================== */
 Object.assign(window.QUIZ, {
 "opt1": {
-"course": "Optique",
+"course": "Optique 1",
 "title": "Chapitre 1 — Lois fondamentales de l'optique géométrique",
 "qs": [
 {
@@ -1014,7 +1014,7 @@ Object.assign(window.QUIZ, {
 ]
 },
 "opt2": {
-"course": "Optique",
+"course": "Optique 1",
 "title": "Chapitre 2 — Formation des images et systèmes plans",
 "qs": [
 {
@@ -1140,7 +1140,7 @@ Object.assign(window.QUIZ, {
 ]
 },
 "opt3": {
-"course": "Optique",
+"course": "Optique 1",
 "title": "Chapitre 3 — Prisme et lame à faces parallèles",
 "qs": [
 {
@@ -1266,7 +1266,7 @@ Object.assign(window.QUIZ, {
 ]
 },
 "opt4": {
-"course": "Optique",
+"course": "Optique 1",
 "title": "Chapitre 4 — Miroirs et dioptres sphériques",
 "qs": [
 {
@@ -1392,7 +1392,7 @@ Object.assign(window.QUIZ, {
 ]
 },
 "opt5": {
-"course": "Optique",
+"course": "Optique 1",
 "title": "Chapitre 5 — Les lentilles minces",
 "qs": [
 {
@@ -1514,6 +1514,262 @@ Object.assign(window.QUIZ, {
 "a": 1,
 "e": "Les dispersions des deux verres se compensent alors que les vergences ne s'annulent pas.",
 "s": "Aberrations"
+}
+]
+}
+});
+
+/* ===================== ÉLECTRICITÉ 1 (ch. 4) ET ÉLECTRICITÉ 2 (ch. 1) ===================== */
+Object.assign(window.QUIZ, {
+"elec4": {
+"course": "Électricité 1",
+"title": "Chapitre 4 — Électrocinétique",
+"qs": [
+{
+"q": "Une charge de $6$ C traverse une section d'un conducteur en $3$ s, à débit constant. L'intensité du courant vaut :",
+"c": [
+"$0{,}5$ A",
+"$2$ A",
+"$18$ A",
+"$3$ A"
+],
+"a": 1,
+"e": "$I=\\dfrac{\\Delta q}{\\Delta t}=\\dfrac{6}{3}=2$ A : l'ampère est un coulomb par seconde.",
+"s": "Courant et tension en régime continu"
+},
+{
+"q": "Deux résistances $R_1=6\\ \\Omega$ et $R_2=3\\ \\Omega$ sont associées en parallèle. La résistance équivalente vaut :",
+"c": [
+"$9\\ \\Omega$",
+"$4{,}5\\ \\Omega$",
+"$2\\ \\Omega$",
+"$0{,}5\\ \\Omega$"
+],
+"a": 2,
+"e": "$R=\\dfrac{R_1R_2}{R_1+R_2}=\\dfrac{18}{9}=2\\ \\Omega$ : elle est plus petite que la plus petite des deux.",
+"s": "Dipôles passifs et dipôles actifs"
+},
+{
+"q": "Un générateur de f.é.m. $e=12$ V et de résistance interne $r=1\\ \\Omega$ débite $I=2$ A. La tension à ses bornes vaut :",
+"c": [
+"$14$ V",
+"$12$ V",
+"$10$ V",
+"$24$ V"
+],
+"a": 2,
+"e": "En convention générateur, $U=e-rI=12-1\\times2=10$ V : une partie de la f.é.m. est « perdue » dans la résistance interne.",
+"s": "Dipôles passifs et dipôles actifs"
+},
+{
+"q": "Un réseau comporte $b=5$ branches et $n=3$ nœuds. Le nombre de mailles indépendantes est :",
+"c": [
+"$2$",
+"$3$",
+"$5$",
+"$8$"
+],
+"a": 1,
+"e": "$m=b-n+1=5-3+1=3$. Avec les $n-1=2$ équations de nœuds, on obtient bien $5$ équations pour $5$ courants inconnus.",
+"s": "Réseaux électriques linéaires"
+},
+{
+"q": "La loi des nœuds traduit :",
+"c": [
+"la conservation de l'énergie",
+"la conservation de la charge électrique",
+"la loi d'Ohm",
+"l'additivité des tensions"
+],
+"a": 1,
+"e": "En régime permanent, la charge ne s'accumule pas en un nœud : ce qui arrive est égal à ce qui repart. La loi des mailles, elle, traduit l'additivité des tensions.",
+"s": "Les lois de Kirchhoff"
+},
+{
+"q": "Le théorème de superposition NE s'applique PAS au calcul :",
+"c": [
+"des intensités",
+"des tensions",
+"des potentiels",
+"des puissances"
+],
+"a": 3,
+"e": "La puissance $RI^2$ est quadratique : $(I'+I'')^2\\ne I'^2+I''^2$. On superpose d'abord les courants, puis on calcule la puissance.",
+"s": "Théorème de superposition"
+},
+{
+"q": "Pour obtenir la résistance de Thévenin $R_{Th}$ d'un réseau vu entre $A$ et $B$, on :",
+"c": [
+"mesure la tension à vide entre $A$ et $B$",
+"calcule la résistance vue entre $A$ et $B$, sources de tension remplacées par des courts-circuits",
+"court-circuite $A$ et $B$",
+"additionne toutes les résistances du réseau"
+],
+"a": 1,
+"e": "On éteint les sources (une source de tension idéale devient un fil) et on calcule la résistance vue des bornes. La tension à vide donne $E_{Th}$.",
+"s": "Théorèmes de Thévenin et de Norton"
+},
+{
+"q": "Deux branches arrivent au nœud $N$ : $(12\\ \\text{V},\\ 2\\ \\Omega)$ et une résistance seule de $2\\ \\Omega$ reliée à la masse. Le théorème de Millman donne $V_N=$",
+"c": [
+"$12$ V",
+"$6$ V",
+"$3$ V",
+"$24$ V"
+],
+"a": 1,
+"e": "$V_N=\\dfrac{12/2+0/2}{1/2+1/2}=6$ V (c'est ici un simple diviseur de tension).",
+"s": "Théorème de Millman"
+},
+{
+"q": "Un triangle de trois résistances identiques $R=30\\ \\Omega$ est équivalent à une étoile de trois résistances de :",
+"c": [
+"$90\\ \\Omega$",
+"$30\\ \\Omega$",
+"$15\\ \\Omega$",
+"$10\\ \\Omega$"
+],
+"a": 3,
+"e": "$R_A=\\dfrac{R_{AB}R_{AC}}{R_{AB}+R_{BC}+R_{CA}}=\\dfrac{30\\times30}{90}=10\\ \\Omega$ : pour des résistances égales, $R_Y=R_\\Delta/3$.",
+"s": "Transformation triangle–étoile (Kennelly)"
+},
+{
+"q": "En régime permanent continu, un condensateur se comporte comme :",
+"c": [
+"un fil (court-circuit)",
+"un interrupteur ouvert",
+"une résistance nulle",
+"un générateur de tension"
+],
+"a": 1,
+"e": "$i=C\\,\\dfrac{\\dd u}{\\dd t}=0$ quand la tension est constante : aucun courant ne traverse le condensateur. Une bobine idéale se comporte au contraire comme un fil.",
+"s": "Introduction aux régimes variables"
+}
+]
+},
+"elec21": {
+"course": "Électricité 2",
+"title": "Chapitre 1 — Le champ magnétique",
+"qs": [
+{
+"q": "Dans le Système international, le champ magnétique s'exprime en :",
+"c": [
+"weber (Wb)",
+"tesla (T)",
+"henry (H)",
+"gauss (G)"
+],
+"a": 1,
+"e": "Le tesla ; le gauss ($1\\ \\text{G}=10^{-4}$ T) est une ancienne unité. Le weber mesure un flux, le henry une inductance.",
+"s": "Le champ magnétique : généralités"
+},
+{
+"q": "La loi de Biot et Savart pour un élément de courant s'écrit :",
+"c": [
+"$\\vec{\\dd B}=\\dfrac{\\mu_0}{4\\pi}\\dfrac{I\\,\\vec{\\dd\\ell}\\cdot\\vec u}{r^2}$",
+"$\\vec{\\dd B}=\\dfrac{\\mu_0}{4\\pi}\\dfrac{I\\,\\vec{\\dd\\ell}\\wedge\\vec u}{r^2}$",
+"$\\vec{\\dd B}=\\dfrac{\\mu_0}{4\\pi}\\dfrac{I\\,\\vec{\\dd\\ell}\\wedge\\vec u}{r}$",
+"$\\vec{\\dd B}=\\dfrac{1}{4\\pi\\varepsilon_0}\\dfrac{I\\,\\dd\\ell}{r^2}\\,\\vec u$"
+],
+"a": 1,
+"e": "Le produit vectoriel rend $\\vec{\\dd B}$ perpendiculaire à $\\vec{\\dd\\ell}$ et à $\\vec u=\\vec{PM}/PM$ ; l'intensité décroît en $1/r^2$.",
+"s": "Loi de Biot et Savart"
+},
+{
+"q": "Si un plan est un plan de symétrie de la distribution de courants, le champ magnétique en un point de ce plan est :",
+"c": [
+"contenu dans le plan",
+"perpendiculaire au plan",
+"nul",
+"quelconque"
+],
+"a": 1,
+"e": "$\\vec B$ est un pseudo-vecteur : il est perpendiculaire aux plans de symétrie des courants et contenu dans leurs plans d'antisymétrie (c'est l'inverse de $\\vec E$).",
+"s": "Loi de Biot et Savart"
+},
+{
+"q": "Un fil rectiligne infini est parcouru par $I=10$ A. À $d=2$ cm du fil, le champ vaut ($\\mu_0=4\\pi\\times10^{-7}$ H/m) :",
+"c": [
+"$10^{-4}$ T",
+"$2\\times10^{-4}$ T",
+"$10^{-2}$ T",
+"$6{,}3\\times10^{-4}$ T"
+],
+"a": 0,
+"e": "$B=\\dfrac{\\mu_0I}{2\\pi d}=\\dfrac{2\\times10^{-7}\\times10}{0{,}02}=10^{-4}$ T.",
+"s": "Applications de la loi de Biot et Savart"
+},
+{
+"q": "Un solénoïde très long comporte $n=1000$ spires par mètre parcourues par $I=2$ A. Le champ intérieur vaut environ :",
+"c": [
+"$1{,}3\\times10^{-3}$ T",
+"$2{,}5\\times10^{-3}$ T",
+"$2\\times10^{-4}$ T",
+"$2{,}5$ T"
+],
+"a": 1,
+"e": "$B=\\mu_0nI=4\\pi\\times10^{-7}\\times1000\\times2\\approx2{,}5\\times10^{-3}$ T, uniforme à l'intérieur.",
+"s": "Applications de la loi de Biot et Savart"
+},
+{
+"q": "Le flux du champ magnétique à travers une surface fermée est :",
+"c": [
+"égal à $\\mu_0$ fois le courant intérieur",
+"toujours nul",
+"égal à la charge intérieure divisée par $\\varepsilon_0$",
+"positif"
+],
+"a": 1,
+"e": "$\\oiint\\vec B\\cdot\\vec{\\dd S}=0$ ($\\operatorname{div}\\vec B=0$) : il n'existe pas de « charge magnétique », les lignes de champ se referment sur elles-mêmes.",
+"s": "Flux magnétique et potentiel vecteur"
+},
+{
+"q": "Un contour fermé enlace un courant $I_1=3$ A dans le sens positif et un courant $I_2=1$ A dans le sens opposé. La circulation de $\\vec B$ sur ce contour vaut :",
+"c": [
+"$4\\mu_0$",
+"$2\\mu_0$",
+"$3\\mu_0$",
+"$0$"
+],
+"a": 1,
+"e": "Théorème d'Ampère : $\\oint\\vec B\\cdot\\vec{\\dd\\ell}=\\mu_0\\sum I_{\\text{enlacés}}=\\mu_0(3-1)=2\\mu_0$ (en SI).",
+"s": "Théorème d'Ampère"
+},
+{
+"q": "Une particule chargée se déplace dans un champ magnétique seul. Son énergie cinétique :",
+"c": [
+"augmente",
+"diminue",
+"reste constante",
+"oscille"
+],
+"a": 2,
+"e": "La force $q\\vec v\\wedge\\vec B$ est perpendiculaire à la vitesse : elle ne travaille pas. Seule la direction de $\\vec v$ change.",
+"s": "Forces magnétiques"
+},
+{
+"q": "Deux fils rectilignes parallèles parcourus par des courants de même sens :",
+"c": [
+"s'attirent",
+"se repoussent",
+"n'exercent aucune force l'un sur l'autre",
+"subissent un couple"
+],
+"a": 0,
+"e": "Chaque fil est placé dans le champ de l'autre ; la force de Laplace par unité de longueur vaut $\\dfrac{\\mu_0I_1I_2}{2\\pi d}$, attractive pour des courants de même sens.",
+"s": "Forces magnétiques"
+},
+{
+"q": "Un circuit de moment magnétique $\\vec{\\mathcal M}$ placé dans un champ uniforme $\\vec B$ subit :",
+"c": [
+"une force $\\vec{\\mathcal M}\\wedge\\vec B$",
+"un couple $\\vec\\Gamma=\\vec{\\mathcal M}\\wedge\\vec B$ et une résultante nulle",
+"un couple $\\vec\\Gamma=\\vec B\\wedge\\vec{\\mathcal M}$",
+"aucune action"
+],
+"a": 1,
+"e": "La résultante des forces de Laplace est nulle en champ uniforme ; le couple $\\vec{\\mathcal M}\\wedge\\vec B$ tend à aligner $\\vec{\\mathcal M}$ sur $\\vec B$ (équilibre stable, $E_p=-\\vec{\\mathcal M}\\cdot\\vec B$ minimale).",
+"s": "Circuit dans un champ uniforme ; dipôle magnétique"
 }
 ]
 }

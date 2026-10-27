@@ -18,6 +18,10 @@
    ===================================================================== */
 window.ANNONCES = [
   { date: "2026-10-27", important: true,
+    titre: "Électricité : électrocinétique et champ magnétique en ligne",
+    texte: "Électricité 1, chapitre 4 « Électrocinétique : courant continu et réseaux linéaires » (Kirchhoff, mailles, superposition, Thévenin, Norton, Millman, Kennelly) et Électricité 2, chapitre 1 « Le champ magnétique » (Biot et Savart, Ampère, Lorentz, Laplace, dipôle magnétique) : supports avec démonstrations, diaporamas (en ligne et PowerPoint), séries de TD corrigées, quiz et exercices d'entraînement.",
+    lien: "index.html#elec2" },
+  { date: "2026-10-27", important: true,
     titre: "Trois nouveaux TP du semestre 2 : prisme, circuit RC, circuit RLC",
     texte: "Conformément au syllabus de l'EC TP de Physique 2 (LPCI1251) : TP 10 « Le prisme » (minimum de déviation, indice, loi de Cauchy), TP 11 « Charge et décharge d'un condensateur » (constante de temps τ = RC) et TP 12 « Circuit RLC série » (résonance, bande passante, facteur de qualité). Le fascicule de TP (72 pages) contient les trois nouveaux chapitres.",
     lien: "tp.html#prisme" },

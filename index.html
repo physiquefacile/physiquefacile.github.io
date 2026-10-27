@@ -231,8 +231,8 @@ footer .wrap{padding-block:18px}
       <p id="offMsg">Après une première visite avec internet, les pages, les quiz, les simulations, les supports de cours et les TD fonctionnent sans connexion. Les diaporamas, plus lourds, s'enregistrent sur demande.</p>
     </div>
     <div class="off-act">
-      <button type="button" class="obtn primary" id="dlDocs">Enregistrer les cours, TD et TP<small>3,8 Mo</small></button>
-      <button type="button" class="obtn" id="dlSlides">Enregistrer les diaporamas<small>37 Mo</small></button>
+      <button type="button" class="obtn primary" id="dlDocs">Enregistrer les cours, TD et TP<small>8 Mo</small></button>
+      <button type="button" class="obtn" id="dlSlides">Enregistrer les diaporamas<small>58 Mo</small></button>
       <button type="button" class="obtn" id="install" hidden>Installer l'application</button>
       <div class="iosbox" id="iosHelp" hidden role="note"><b>Installer sur iPhone ou iPad</b><ol><li>Ouvrez ce site dans <b>Safari</b> (pas depuis WhatsApp ou Facebook : touchez «&nbsp;Ouvrir dans Safari&nbsp;»).</li><li>Touchez le bouton <b>Partager</b> <span aria-hidden="true">(le carré avec une flèche vers le haut)</span>, en bas de l'écran ou en haut sur iPad.</li><li>Faites défiler et choisissez <b>«&nbsp;Sur l'écran d'accueil&nbsp;»</b>, puis <b>«&nbsp;Ajouter&nbsp;»</b>.</li></ol><span>L'icône «&nbsp;Physique L1&nbsp;» apparaît alors sur l'écran d'accueil, comme une application.</span></div>
       <button type="button" class="olink" id="offClear">Supprimer les documents enregistrés</button>
@@ -284,16 +284,16 @@ const COURSES=[
     td:{e:"TD4_Travail_energie_enonces",ep:4,c:"TD4_Travail_energie_corrige",cp:9},
     toc:["Introduction et outils","Travail d'une force","Travail dans les différents systèmes de coordonnées","Travail de quelques forces usuelles","Puissance d'une force","Énergie cinétique","Forces conservatives et énergie potentielle","Énergie mécanique","Équilibre et stabilité"]}
   ]},
- {id:"elec",tab:"Électricité 1",eyebrow:"UE Physique 1 (LPCI112) • EC LPCI1122 • L1 S1",title:"Électricité 1 — électrostatique",
+ {id:"elec",tab:"Électricité 1",eyebrow:"UE Physique 1 (LPCI112) • EC LPCI1122 • L1 S1",title:"Électricité 1 — électrostatique et électrocinétique",
   syl:{code:"LPCI1122",obj:"Acquérir les bases de l'électrostatique et de l'électrocinétique du courant continu pour analyser les champs, potentiels et circuits électriques simples.",
    pre:"Calcul vectoriel et notions d'électricité du niveau baccalauréat.",
    prog:[["Charges électriques, loi de Coulomb et champ électrostatique","ok","Chapitres 1 et 2"],
     ["Potentiel électrostatique, circulation et énergie","ok","Chapitre 2"],
     ["Théorème de Gauss et applications ; conducteurs en équilibre, condensateurs","part","Théorème de Gauss : chapitre 2 et série de TD n°1"],
-    ["Courant continu : intensité, tension, loi d'Ohm, puissance","part","TP 4 (loi d'Ohm) et TP 6 (multimètre)"],
-    ["Réseaux électriques : lois de Kirchhoff, théorèmes de Thévenin et Norton","soon",""]],
+    ["Courant continu : intensité, tension, loi d'Ohm, puissance","ok","Chapitre 4 ; TP 4 (loi d'Ohm) et TP 6 (multimètre)"],
+    ["Réseaux électriques : lois de Kirchhoff, théorèmes de Thévenin et Norton","ok","Chapitre 4 et série de TD n°3"]],
    extra:"Le dipôle électrostatique (chapitre 3) est un complément du cours d'électrostatique."},
-  intro:"Trois chapitres : la charge et la loi de Coulomb ; le champ, le potentiel et le théorème de Gauss ; le dipôle électrostatique. Chaque chapitre a son support de cours et son diaporama (en ligne et en PowerPoint). Les distributions classiques (fil, anneau, disque, boule) sont traitées dans la série de TD.",
+  intro:"Quatre chapitres : la charge et la loi de Coulomb ; le champ, le potentiel et le théorème de Gauss ; le dipôle électrostatique ; l'électrocinétique (courant continu et réseaux linéaires). Chaque chapitre a son support de cours et son diaporama (en ligne et en PowerPoint). Les distributions classiques (fil, anneau, disque, boule) sont traitées dans la série de TD n°1.",
   chapters:[
    {n:1,title:"Généralités sur l'électrostatique",key:"Electricite_Chapitre_1_Electrostatique",pages:11,slides:22,pptx:true,
     toc:["La charge électrique","Électrisation de la matière","Distributions de charges","Force électrostatique : loi de Coulomb","Principe de superposition"]},
@@ -301,14 +301,20 @@ const COURSES=[
     toc:["Le champ électrostatique","Le potentiel électrostatique","Plusieurs charges ponctuelles","Distributions continues","Angle solide","Flux et théorème de Gauss","Propriétés du champ et du potentiel","Équations de Poisson et de Laplace"]},
    {n:3,title:"Le dipôle électrostatique",key:"Electricite_Chapitre_3_Dipole",pages:16,slides:33,pptx:true,
     td:{n:2,e:"TD_Electricite_2_enonces",ep:4,c:"TD_Electricite_2_corrige",cp:9},
-    toc:["Définitions : dipôle, moment dipolaire","Potentiel créé à grande distance","Champ créé à grande distance","Positions principales de Gauss","Lignes de champ et équipotentielles","Action d'un champ extérieur : couple, énergie, force"]}
+    toc:["Définitions : dipôle, moment dipolaire","Potentiel créé à grande distance","Champ créé à grande distance","Positions principales de Gauss","Lignes de champ et équipotentielles","Action d'un champ extérieur : couple, énergie, force"]},
+   {n:4,title:"Électrocinétique : courant continu et réseaux linéaires",key:"Electricite_Chapitre_4_Electrocinetique",pages:18,slides:35,pptx:true,
+    td:{n:3,e:"TD_Electricite_3_enonces",ep:5,c:"TD_Electricite_3_corrige",cp:11},
+    toc:["Courant et tension en régime continu","Dipôles passifs et dipôles actifs","Réseaux électriques linéaires","Les lois de Kirchhoff","Méthode des mailles (Maxwell)","Théorème de superposition","Théorèmes de Thévenin et de Norton","Théorème de Millman","Transformation triangle–étoile (Kennelly)","Introduction aux régimes variables"]}
   ],
   series:[{title:"Série de TD n°1 — chapitres 1 et 2",sub:"Charges, champ et potentiel",
     text:"11 exercices : quantification, Coulomb et superposition, charges ponctuelles, fil infini et anneau, disque et plan, boule chargée en volume par le théorème de Gauss, équation de Poisson.",
     e:"TD_Electricite_1_enonces",ep:5,c:"TD_Electricite_1_corrige",cp:13},
    {title:"Série de TD n°2 — chapitre 3",sub:"Le dipôle électrostatique",
     text:"6 exercices : champ du dipôle par calcul direct, calcul exact et approximation dipolaire, champ en un point quelconque, directions remarquables du champ, lignes de champ et équipotentielles, force exercée par un champ non uniforme.",
-    e:"TD_Electricite_2_enonces",ep:4,c:"TD_Electricite_2_corrige",cp:9}]},
+    e:"TD_Electricite_2_enonces",ep:4,c:"TD_Electricite_2_corrige",cp:9},
+   {title:"Série de TD n°3 — chapitre 4",sub:"Électrocinétique : réseaux linéaires",
+    text:"9 exercices : résistance équivalente et diviseurs, bilan de puissance avec un moteur, potentiomètre chargé, lois de Kirchhoff, méthode des mailles, superposition, pont de Wheatstone (Thévenin et Norton), Millman et Kennelly, bobine et condensateur en régime continu.",
+    e:"TD_Electricite_3_enonces",ep:5,c:"TD_Electricite_3_corrige",cp:11}]},
  {id:"opt",tab:"Optique 1",eyebrow:"UE Physique 2 (LPCI122) • EC LPCI1221 • L1 S2",title:"Optique 1 — optique géométrique",
   syl:{code:"LPCI1221",ue:"Physique 2 (LPCI122)",obj:"Maîtriser les lois de l'optique géométrique et leurs applications à la formation des images par les systèmes optiques simples.",
    pre:"Notions d'optique et de géométrie du niveau baccalauréat.",
@@ -336,16 +342,20 @@ const COURSES=[
     toc:["Formes des lentilles, centre optique","Relation de Descartes, formule des opticiens","Grandissement et relation de Newton","Construction des images (loupe)","Associations : accolées, Gullstrand","Aberrations chromatique et géométriques"]}
   ]},
  {id:"elec2",tab:"Électricité 2",eyebrow:"UE Physique 2 (LPCI122) • EC LPCI1222 • L1 S2",title:"Électricité 2 — magnétisme, induction et régimes variables",
-  intro:"Les supports de cours, diaporamas et séries de TD de cet EC seront publiés ici au fil du semestre 2. Le programme officiel est détaillé dans la fiche syllabus ci-dessous.",
-  noExo:true,syOpen:true,
+  intro:"Premier chapitre en ligne : le champ magnétique (Biot et Savart, théorème d'Ampère, forces de Lorentz et de Laplace, dipôle magnétique), avec support de cours, diaporama et série de TD corrigée. Les chapitres suivants (induction, régimes variables) seront publiés au fil du semestre 2.",
+  syOpen:true,
   syl:{code:"LPCI1222",ue:"Physique 2 (LPCI122)",obj:"Étudier le magnétisme, l'induction électromagnétique et les régimes variables dans les circuits électriques.",
    pre:"EC Électricité 1 ; calcul vectoriel et intégral.",
-   prog:[["Champ magnétique : sources et propriétés ; loi de Biot et Savart","soon",""],
-    ["Théorème d'Ampère ; forces de Laplace et de Lorentz","soon",""],
+   prog:[["Champ magnétique : sources et propriétés ; loi de Biot et Savart","ok","Chapitre 1"],
+    ["Théorème d'Ampère ; forces de Laplace et de Lorentz","ok","Chapitre 1"],
     ["Induction électromagnétique : lois de Faraday et de Lenz ; auto-induction","soon",""],
-    ["Régimes transitoires : circuits RC et RL","soon",""],
+    ["Régimes transitoires : circuits RC et RL","part","Circuit RC : TP 11 ; régime libre du RLC : TP 12"],
     ["Régime sinusoïdal forcé : impédances, circuit RLC et résonance","part","Circuit RC en régime sinusoïdal : TP 5 (oscilloscope)"]]},
-  chapters:[]}
+  chapters:[
+   {n:1,title:"Le champ magnétique",key:"Electricite2_Chapitre_1_Champ_magnetique",pages:15,slides:29,pptx:true,
+    td:{e:"TD_Electricite2_1_enonces",ep:4,c:"TD_Electricite2_1_corrige",cp:10},
+    toc:["Le champ magnétique : généralités","Loi de Biot et Savart","Applications : fil, spire, solénoïde","Flux magnétique et potentiel vecteur","Théorème d'Ampère","Forces magnétiques : Lorentz, Laplace","Circuit dans un champ uniforme ; dipôle magnétique"]}
+  ]}
 ];
 
 const $=s=>document.querySelector(s);
@@ -432,7 +442,7 @@ function render(){
         <p class="meta" style="margin-top:6px">Rappels théoriques et démonstrations, schémas de montage, protocoles, tableaux de mesures et exploitation. À lire avant chaque séance.</p>
       </div>
       <div class="res">
-        ${pdfBtn("Fascicule_TP_Physique_L1","Fascicule de TP",59,"pdf",true)}
+        ${pdfBtn("Fascicule_TP_Physique_L1","Fascicule de TP",73,"pdf",true)}
         <a class="btn" href="tp.html"><span class="k k-sim">TP</span><span class="lbl">Faire les TP en ligne</span></a>
       </div></article>`;
   }
