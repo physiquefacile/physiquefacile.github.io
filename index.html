@@ -71,6 +71,7 @@ a{color:var(--accent)}
 .bar .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding-block:12px}
 .tabs{display:flex;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px}
 .tab{font-family:var(--f-head);font-size:.92rem;font-weight:500;border:0;background:transparent;color:var(--muted);padding:7px 14px;border-radius:999px;cursor:pointer}
+@media (max-width:560px){.tabs{display:grid;grid-template-columns:1fr 1fr;border-radius:16px;width:100%}.tab{padding:9px 6px;white-space:nowrap}}
 .tab[aria-selected="true"]{background:var(--accent);color:var(--accent-fg)}
 .navlink{font-family:var(--f-head);font-size:.92rem;font-weight:500;color:var(--accent);text-decoration:none;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px}
 .navlink:hover{border-color:var(--accent)}
@@ -188,7 +189,7 @@ footer .wrap{padding-block:18px}
   <canvas id="field" aria-hidden="true"></canvas>
   <div class="wrap">
     <div class="uni"><img class="unilogo" src="img/usnm-logo.png" alt="Logo de l’Université Souleymane Niang de Matam" width="56" height="56">UNIVERSITÉ SOULEYMANE NIANG DE MATAM</div>
-    <div class="ufr">UFR des Sciences, des Technologies et de l’Innovation (UFR-STI) • Licence Physique-Chimie et Informatique (LPCI) • L1 – Semestre 1 • Année universitaire 2026 – 2027</div>
+    <div class="ufr">UFR des Sciences, des Technologies et de l’Innovation (UFR-STI) • Licence Physique-Chimie et Informatique (LPCI) • L1 (semestres 1 et 2) • Année universitaire 2026 – 2027</div>
     <h1>Cours de Physique</h1>
     <div class="author"><a href="auteur.html" style="color:inherit;text-decoration:none"><b>Dr Papa Touty TRAORÉ</b>, Enseignant-Chercheur</a> • <a href="auteur.html" style="color:inherit">le développeur de la plateforme</a></div>
     <div class="stats" id="stats"></div>
@@ -308,7 +309,14 @@ const COURSES=[
    {title:"Série de TD n°2 — chapitre 3",sub:"Le dipôle électrostatique",
     text:"6 exercices : champ du dipôle par calcul direct, calcul exact et approximation dipolaire, champ en un point quelconque, directions remarquables du champ, lignes de champ et équipotentielles, force exercée par un champ non uniforme.",
     e:"TD_Electricite_2_enonces",ep:4,c:"TD_Electricite_2_corrige",cp:9}]},
- {id:"opt",tab:"Optique",eyebrow:"Optique",title:"Optique géométrique",
+ {id:"opt",tab:"Optique 1",eyebrow:"UE Physique 2 (LPCI122) • EC LPCI1221 • L1 S2",title:"Optique 1 — optique géométrique",
+  syl:{code:"LPCI1221",ue:"Physique 2 (LPCI122)",obj:"Maîtriser les lois de l'optique géométrique et leurs applications à la formation des images par les systèmes optiques simples.",
+   pre:"Notions d'optique et de géométrie du niveau baccalauréat.",
+   prog:[["Nature de la lumière ; principe de Fermat et lois de Snell-Descartes","ok","Chapitre 1"],
+    ["Réflexion : miroirs plans et sphériques","ok","Miroir plan : chapitre 2 ; miroirs sphériques : chapitre 4"],
+    ["Réfraction : dioptres plans et sphériques ; prisme","ok","Dioptre plan : chapitre 2 ; prisme : chapitre 3 ; dioptre sphérique : chapitre 4"],
+    ["Lentilles minces : relations de conjugaison et grandissement","ok","Chapitre 5"],
+    ["Association de systèmes optiques ; œil et instruments (loupe, microscope, lunette)","part","Associations et loupe : chapitre 5 ; microscope : TP 8 ; associations : TP 9"]]},
   intro:"Cinq chapitres : lois fondamentales ; formation des images, miroir et dioptre plans ; prisme et lame à faces parallèles ; miroirs et dioptres sphériques ; lentilles minces. Chaque chapitre a son support de cours avec démonstrations détaillées, son diaporama (en ligne et en PowerPoint) et sa série de TD avec corrigé.",
   chapters:[
    {n:1,title:"Lois fondamentales de l'optique géométrique",key:"Optique_Chapitre_1_Lois_fondamentales",pages:19,slides:39,pptx:true,
@@ -326,7 +334,18 @@ const COURSES=[
    {n:5,title:"Les lentilles minces",key:"Optique_Chapitre_5_Lentilles_minces",pages:12,slides:22,pptx:true,
     td:{e:"TD_Optique_5_enonces",ep:3,c:"TD_Optique_5_corrige",cp:7},
     toc:["Formes des lentilles, centre optique","Relation de Descartes, formule des opticiens","Grandissement et relation de Newton","Construction des images (loupe)","Associations : accolées, Gullstrand","Aberrations chromatique et géométriques"]}
-  ]}
+  ]},
+ {id:"elec2",tab:"Électricité 2",eyebrow:"UE Physique 2 (LPCI122) • EC LPCI1222 • L1 S2",title:"Électricité 2 — magnétisme, induction et régimes variables",
+  intro:"Les supports de cours, diaporamas et séries de TD de cet EC seront publiés ici au fil du semestre 2. Le programme officiel est détaillé dans la fiche syllabus ci-dessous.",
+  noExo:true,syOpen:true,
+  syl:{code:"LPCI1222",ue:"Physique 2 (LPCI122)",obj:"Étudier le magnétisme, l'induction électromagnétique et les régimes variables dans les circuits électriques.",
+   pre:"EC Électricité 1 ; calcul vectoriel et intégral.",
+   prog:[["Champ magnétique : sources et propriétés ; loi de Biot et Savart","soon",""],
+    ["Théorème d'Ampère ; forces de Laplace et de Lorentz","soon",""],
+    ["Induction électromagnétique : lois de Faraday et de Lenz ; auto-induction","soon",""],
+    ["Régimes transitoires : circuits RC et RL","soon",""],
+    ["Régime sinusoïdal forcé : impédances, circuit RLC et résonance","part","Circuit RC en régime sinusoïdal : TP 5 (oscilloscope)"]]},
+  chapters:[]}
 ];
 
 const $=s=>document.querySelector(s);
@@ -355,10 +374,10 @@ function pptBtn(key,n,t){
 
 function sylCard(c){
   const y=c.syl,ST={ok:["sy-ok","Disponible"],part:["sy-part","En partie"],soon:["sy-soon","À venir"]};
-  return `<details class="syl"><summary><span class="eyebrow">Syllabus de l'EC ${esc(y.code)}</span><span class="sy-sum">Objectifs, programme, volume horaire et évaluation</span></summary>
+  return `<details class="syl"${c.syOpen?" open":""}><summary><span class="eyebrow">Syllabus de l'EC ${esc(y.code)}</span><span class="sy-sum">Objectifs, programme, volume horaire et évaluation</span></summary>
     <div class="sy-body">
       <p><b>Objectif général.</b> ${esc(y.obj)}</p>
-      <div class="sy-facts"><span><b>UE</b> Physique 1 (LPCI112) • 6 crédits</span><span><b>Volume</b> CM 24 h • TD 18 h • TPE 18 h • total 60 h</span><span><b>Évaluation</b> contrôle continu 30 % • travail individuel ou de groupe 20 % • examen final 50 % (écrit, 3 h)</span></div>
+      <div class="sy-facts"><span><b>UE</b> ${esc(y.ue||"Physique 1 (LPCI112)")} • 6 crédits</span><span><b>Volume</b> CM 24 h • TD 18 h • TPE 18 h • total 60 h</span><span><b>Évaluation</b> contrôle continu 30 % • travail individuel ou de groupe 20 % • examen final 50 % (écrit, 3 h)</span></div>
       <table class="sy-prog"><thead><tr><th>Programme du syllabus</th><th>Sur la plateforme</th></tr></thead><tbody>
       ${y.prog.map((r,i)=>`<tr><td><b>${i+1}.</b> ${esc(r[0])}</td><td><span class="sy-st ${ST[r[1]][0]}">${ST[r[1]][1]}</span>${r[2]?` ${esc(r[2])}`:""}</td></tr>`).join("")}
       </tbody></table>

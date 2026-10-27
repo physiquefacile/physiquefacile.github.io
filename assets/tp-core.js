@@ -630,12 +630,48 @@
     if (!initial) history.replaceState(null, "", "#" + id);   // au chargement, ne pas ajouter d'ancre : le navigateur ferait défiler la page
     const T = TPS.find(t => t.id === id); T.draw && T.draw(); T.renderAll();
   }
+  // EC de travaux pratiques (syllabus de la Licence PCI, USNM)
+  const EC_TP = [
+    { code: "LPCI1151", titre: "TP de Physique 1", sous: "EC LPCI1151 • L1 Semestre 1 • mécanique et électricité", ue: "Expérimentation 1 (LPCI115) • 4 crédits",
+      tps: ["pendule", "ressort", "torsion", "ohm", "mesures"],
+      obj: "Développer les compétences expérimentales en physique : mesure, instrumentation, traitement des données et analyse des incertitudes à travers des manipulations de mécanique et d'électricité.",
+      pre: "Suivre ou avoir suivi les EC Mécanique 1 et Électricité 1.",
+      prog: [["Métrologie : grandeurs, unités, chiffres significatifs et incertitudes", "part", "Résolution et incertitudes : TP 6 et fascicule"],
+        ["Mesures de longueurs, masses, temps ; étude d'un mouvement", "ok", "TP 2 (masse-ressort) et TP 3 (pendule de torsion)"],
+        ["Pendule simple et détermination de g", "ok", "TP 1"],
+        ["Mesures de tension, intensité, résistance (loi d'Ohm)", "ok", "TP 4 et TP 6"],
+        ["Exploitation des données et rédaction des comptes rendus", "ok", "Compte rendu en ligne de chaque TP : tableaux, graphes, régression"]] },
+    { code: "LPCI1251", titre: "TP de Physique 2", sous: "EC LPCI1251 • L1 Semestre 2 • optique et régime variable", ue: "Expérimentation 2 (LPCI125) • 4 crédits",
+      tps: ["lentilles", "microscope", "assoc", "oscillo"],
+      obj: "Approfondir la démarche expérimentale à travers des manipulations d'optique géométrique et d'électricité en régime variable.",
+      pre: "Suivre ou avoir suivi les EC Optique 1 et Électricité 2.",
+      prog: [["Banc d'optique : focométrie des lentilles minces", "ok", "TP 7 et TP 9 ; instrument : TP 8 (microscope)"],
+        ["Étude d'un prisme et indices de réfraction", "soon", ""],
+        ["Charge et décharge d'un condensateur (circuit RC)", "part", "TP 5 : oscilloscope et circuit RC en régime sinusoïdal"],
+        ["Étude du circuit RLC et de la résonance", "soon", ""],
+        ["Traitement des données et comptes rendus", "ok", "Compte rendu en ligne de chaque TP"]] }
+  ];
   function start() {
     // un TP dont le fichier n'est pas encore à jour (copie ancienne en cache) est ignoré au lieu de bloquer toute la page
     for (let i = TPS.length - 1; i >= 0; i--) if (!(window.TPCR || {})[TPS[i].id]) TPS.splice(i, 1);
     TPS.sort((a, b) => a.num - b.num);
-    const groups = {}; TPS.forEach(t => (groups[t.disc] = groups[t.disc] || []).push(t));
-    $("#tabs").innerHTML = Object.entries(groups).map(([g, l]) => `<div class="grp"><div class="grp-t">${esc(g)}</div><div class="pill-row">${l.map(t => `<button type="button" class="pill" data-t="${t.id}" aria-pressed="false">TP ${t.num} · ${esc(t.court)}</button>`).join("")}</div></div>`).join("");
+    const pills = l => `<div class="pill-row">${l.map(t => `<button type="button" class="pill" data-t="${t.id}" aria-pressed="false">TP ${t.num} · ${esc(t.court)}</button>`).join("")}</div>`;
+    if (window.SITE_ORG) {      // labo virtuel : regroupement par discipline
+      const groups = {}; TPS.forEach(t => (groups[t.disc] = groups[t.disc] || []).push(t));
+      $("#tabs").innerHTML = Object.entries(groups).map(([g, l]) => `<div class="grp"><div class="grp-t">${esc(g)}</div>${pills(l)}</div>`).join("");
+    } else {                    // site de l'université : regroupement par EC, conformément aux syllabus
+      const ST = { ok: ["sy-ok", "Disponible"], part: ["sy-part", "En partie"], soon: ["sy-soon", "À venir"] };
+      $("#tabs").innerHTML = EC_TP.map(e => {
+        const l = TPS.filter(t => e.tps.includes(t.id)); if (!l.length) return "";
+        return `<div class="grp"><div class="grp-t">${esc(e.titre)} <span class="grp-s">${esc(e.sous)}</span></div>${pills(l)}
+          <details class="syl"><summary>Syllabus de l'EC ${esc(e.code)}</summary><div class="sy-body">
+            <p><b>Objectif général.</b> ${esc(e.obj)}</p>
+            <div class="sy-facts"><span><b>UE</b> ${esc(e.ue)}</span><span><b>Volume</b> TP 26 h • TPE 14 h • total 40 h</span><span><b>Évaluation</b> contrôle continu 30 % • comptes rendus et manipulations 40 % • examen final pratique ou écrit 30 % (2 h)</span></div>
+            <table class="sy-prog"><thead><tr><th>Programme du syllabus</th><th>Sur la plateforme</th></tr></thead><tbody>
+            ${e.prog.map((r, i) => `<tr><td><b>${i + 1}.</b> ${esc(r[0])}</td><td><span class="sy-st ${ST[r[1]][0]}">${ST[r[1]][1]}</span>${r[2] ? " " + esc(r[2]) : ""}</td></tr>`).join("")}
+            </tbody></table><p class="sy-pre"><b>Prérequis.</b> ${esc(e.pre)}</p></div></details></div>`;
+      }).join("");
+    }
     const changed = applySession();
     loginCard(changed);
     // mise à jour silencieuse de la connexion à chaque ouverture : questions, dates, durée et copies déjà soumises
@@ -662,5 +698,5 @@
       const T = TPS.find(t => t.id === cur); if (T && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 66, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 67, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();

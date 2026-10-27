@@ -18,7 +18,23 @@
 <style>
 main .wrap{padding-block:22px 10px;display:grid;gap:18px}
 .grp{display:grid;gap:6px}
-.grp-t{font-family:var(--f-head);font-size:.8rem;font-weight:600;color:var(--muted)}
+.grp-t{font-family:var(--f-head);font-size:.95rem;font-weight:700;color:var(--fg)}
+.grp-s{font-size:.8rem;font-weight:500;color:var(--muted)}
+.grp{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;gap:8px}
+.grp .syl{border-top:1px solid var(--line);padding-top:8px;min-width:0;overflow-wrap:anywhere}
+.grp .syl summary{cursor:pointer;font-family:var(--f-head);font-size:.86rem;font-weight:600;color:var(--accent)}
+.sy-body{display:grid;gap:10px;margin-top:10px}
+.sy-body p{margin:0;max-width:95ch;font-size:.95rem}
+.sy-facts{display:flex;flex-wrap:wrap;gap:8px}
+.sy-facts span{font-family:var(--f-head);font-size:.84rem;background:var(--tint);border-radius:8px;padding:5px 10px}
+table.sy-prog{font-family:var(--f-body);font-size:.92rem}
+.sy-prog th{text-align:left;position:static}
+.sy-prog td{text-align:left;white-space:normal;vertical-align:top}
+.sy-prog td:last-child{width:40%;font-family:var(--f-head);font-size:.85rem;color:var(--muted)}
+.sy-st{display:inline-block;font-family:var(--f-head);font-weight:600;font-size:.74rem;border-radius:999px;padding:1px 8px;margin-right:4px}
+.sy-ok{color:var(--ok);background:var(--ok-bg)}.sy-part{color:#9a6a00;background:rgba(240,174,54,.18)}.sy-soon{color:var(--muted);background:var(--tint)}
+.sy-pre{color:var(--muted);font-size:.88rem}
+@media (max-width:640px){.sy-prog,.sy-prog tbody,.sy-prog tr,.sy-prog td{display:block;width:auto!important}.sy-prog thead{display:none}.sy-prog td{border:0;padding:2px 0}.sy-prog tr{border-bottom:1px solid var(--line);padding:8px 0}}
 .tabs-wrap{display:grid;gap:10px}
 .tp{display:grid;gap:18px}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;display:grid;gap:10px;min-width:0}
@@ -186,20 +202,20 @@ fieldset.qcm input{width:auto;margin-top:4px;accent-color:var(--accent)}
 <footer><div class="wrap">Université Souleymane Niang de Matam • <a href="auteur.html">Plateforme développée par le Dr P. T. Traoré</a> • © 2026 Papa Touty Traoré — tous droits réservés • Les mesures sont simulées avec une incertitude réaliste. Chaque étudiant connecté reçoit son propre matériel : deux étudiants n'obtiennent pas les mêmes valeurs. • <a href="reparer.html?retour=tp.html">Affichage incomplet ? Mettre le site à jour</a></div></footer>
 
 <script>window.__tpErr = []; addEventListener("error", function (e) { window.__tpErr.push((e.message || "erreur") + " (" + String(e.filename || "").split("/").pop() + ":" + (e.lineno || "") + ")"); });</script>
-<script src="assets/config.js?v=66"></script>
-<script src="assets/tp-cr.js?v=66"></script>
-<script src="assets/tp-qd.js?v=66"></script>
-<script src="assets/tp-core.js?v=66"></script>
-<script src="assets/tp-meca.js?v=66"></script>
-<script src="assets/tp-elec.js?v=66"></script>
-<script src="assets/tp-oscillo.js?v=66"></script>
-<script src="assets/tp-mesures.js?v=66"></script>
-<script src="assets/tp-optique.js?v=66"></script>
+<script src="assets/config.js?v=67"></script>
+<script src="assets/tp-cr.js?v=67"></script>
+<script src="assets/tp-qd.js?v=67"></script>
+<script src="assets/tp-core.js?v=67"></script>
+<script src="assets/tp-meca.js?v=67"></script>
+<script src="assets/tp-elec.js?v=67"></script>
+<script src="assets/tp-oscillo.js?v=67"></script>
+<script src="assets/tp-mesures.js?v=67"></script>
+<script src="assets/tp-optique.js?v=67"></script>
 <script>
 /* Vérifie que tous les fichiers de la page sont de la même version ; sinon (copie ancienne gardée par le
    navigateur après une connexion lente), propose une remise à jour en un clic au lieu d'une page vide. */
 (function () {
-  var BUILD = 66;
+  var BUILD = 67;
   function repair(why) {
     var b = document.getElementById("tpLogin"); if (!b) return;
     var det = (window.__tpErr || []).concat(why ? [why] : []).join(" ; ");
