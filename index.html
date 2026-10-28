@@ -420,7 +420,7 @@ function render(){
       <div class="res">
         ${pdfBtn(ch.key,"Support de cours",ch.pages,"pdf",true).replace('data-title="Support de cours"',`data-title="${esc("Chapitre "+ch.n+" — "+ch.title)}"`)}
         ${CAHIERS[c.id+ch.n]?`<a class="btn" href="docs/cahiers/${CAHIERS[c.id+ch.n]}.docx" download><span class="k k-word">WORD</span><span class="lbl">Cahier d'activités</span><span class="n">${CAHIERS_N[c.id+ch.n]} fiches</span></a>`:""}
-        ${(window.ACTIVITES||{})[c.id+ch.n]?`<a class="btn" href="activites.html#${c.id}${ch.n}"><span class="k k-fiche">FICHE</span><span class="lbl">Fiche d'activités</span><span class="n">${window.ACTIVITES[c.id+ch.n].etapes.length} étapes</span></a>`:""}
+        ${(window.ACTIVITES||{})[c.id+ch.n]?`<a class="btn" href="activites.html#${c.id}${ch.n}"><span class="k k-fiche">FICHE</span><span class="lbl">Fiches d'activités en ligne</span><span class="n">${window.ACTIVITES[c.id+ch.n].fiches.length} fiches</span></a>`:""}
         ${ch.slides?pptBtn(ch.key,ch.slides,"Diaporama — chapitre "+ch.n+" : "+ch.title):""}
         ${ch.pptx?`<a class="btn" href="slides/${ch.key}.pptx" download><span class="k k-ppt">PPTX</span><span class="lbl">PowerPoint</span><span class="n">${ch.slides} diap.</span></a>`:""}
         ${ch.td?pdfBtn(ch.td.e,"TD "+(ch.td.n||ch.n)+" — énoncés",ch.td.ep,"pdf")+pdfBtn(ch.td.c,"TD "+(ch.td.n||ch.n)+" — corrigé détaillé",ch.td.cp,"cor"):""}
@@ -551,7 +551,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-pdf]");if(
 
 var pdfPath=f=>(f.includes("/")?f:"docs/"+f)+".pdf";
 var absPath=u=>new URL(u,location.href).pathname;
-function allDocs(){const d=[],s=[];COURSES.forEach(c=>{c.chapters.forEach(ch=>{d.push(pdfPath(ch.key));if(ch.td){d.push(pdfPath(ch.td.e),pdfPath(ch.td.c))}if(ch.slides)s.push(pdfPath("slides/"+ch.key+"_diapo"))});(c.series||[]).forEach(x=>d.push(pdfPath(x.e),pdfPath(x.c)))});d.push(pdfPath("Fascicule_TP_Physique_L1"));Object.values(window.ACTIVITES||{}).forEach(A=>d.push(pdfPath(A.pdf)));Object.values(CAHIERS).forEach(f=>d.push("docs/cahiers/"+f+".docx"));return{d:[...new Set(d)],s}}
+function allDocs(){const d=[],s=[];COURSES.forEach(c=>{c.chapters.forEach(ch=>{d.push(pdfPath(ch.key));if(ch.td){d.push(pdfPath(ch.td.e),pdfPath(ch.td.c))}if(ch.slides)s.push(pdfPath("slides/"+ch.key+"_diapo"))});(c.series||[]).forEach(x=>d.push(pdfPath(x.e),pdfPath(x.c)))});d.push(pdfPath("Fascicule_TP_Physique_L1"));Object.values(CAHIERS).forEach(f=>d.push("docs/cahiers/"+f+".docx"));return{d:[...new Set(d)],s}}
 async function savedPaths(){try{if(!("caches" in window))return new Set();const c=await caches.open(PDF_CACHE);return new Set((await c.keys()).map(r=>new URL(r.url).pathname))}catch(e){return new Set()}}
 async function markCached(){const set=await savedPaths();document.querySelectorAll(".btn[data-pdf]").forEach(b=>b.classList.toggle("saved",set.has(absPath(pdfPath(b.dataset.pdf)))));
   const {d,s}=allDocs(),nd=d.filter(u=>set.has(absPath(u))).length,ns=s.filter(u=>set.has(absPath(u))).length;

@@ -7,7 +7,7 @@
      ⚠ Toute modification du site doit s'accompagner d'un changement de VERSION.
    - documents PDF : copie locale d'abord, rafraîchie en arrière-plan
    - bibliothèques externes (KaTeX) : copie locale permanente */
-const VERSION = "v151";
+const VERSION = "v152";
 const SHELL = "shell-" + VERSION;
 const PDFS = "pdf-v1";          // nom stable : les documents enregistrés survivent aux mises à jour du site
 const EXT = "ext-v1";           // KaTeX ne change pas : inutile de le retélécharger à chaque version
@@ -59,7 +59,6 @@ const DOC_FILES = [
   "docs/TD_Electricite_2_corrige.pdf",
   "docs/TD_Electricite_2_enonces.pdf",
   "docs/Electricite_Chapitre_4_Electrocinetique.pdf",
-  "docs/Fiche_activites_Electricite_Chapitre_4.pdf",
   "docs/TD_Electricite_3_enonces.pdf",
   "docs/TD_Electricite_3_corrige.pdf",
   "docs/Electricite2_Chapitre_1_Champ_magnetique.pdf",

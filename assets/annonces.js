@@ -19,7 +19,7 @@
 window.ANNONCES = [
   { date: "2026-10-28", important: true,
     titre: "Nouveau : un cahier d'activités pour chaque chapitre",
-    texte: "Chaque chapitre de Mécanique 1, Électricité 1, Optique 1 et Électricité 2 a désormais son cahier d'activités (fichier Word, bouton « WORD » dans le chapitre) : une fiche de consignes par activité, avec l'objectif visé, le travail demandé, le produit attendu, des critères pour vérifier tes résultats et l'échéance. Suis-les dans l'ordre et remplis la grille d'autoévaluation à la fin.",
+    texte: "Chaque chapitre de Mécanique 1, Électricité 1, Optique 1 et Électricité 2 a désormais son cahier d'activités, en ligne (bouton « FICHE », où tu coches ta progression) et en Word (bouton « WORD ») : une fiche de consignes par activité, avec l'objectif visé, le travail demandé, le produit attendu, des critères pour vérifier tes résultats et l'échéance. Suis-les dans l'ordre et remplis la grille d'autoévaluation à la fin.",
     lien: "index.html#meca" },
   { date: "2026-10-27", important: true,
     titre: "Électricité : électrocinétique et champ magnétique en ligne",

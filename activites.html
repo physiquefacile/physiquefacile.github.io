@@ -16,7 +16,6 @@
 <meta name="description" content="Fiches d'activités des chapitres de Physique L1 : la feuille de route de l'étudiant, chapitre par chapitre.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Fira+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
 <link rel="stylesheet" href="assets/site.css">
 <style>
 main .wrap{padding-block:24px 20px;display:grid;gap:20px}
@@ -74,6 +73,10 @@ table.bil .ou{font-family:var(--f-head);font-size:.8rem;color:var(--muted)}
 .bil-wrap{overflow-x:auto}
 .score{font-family:var(--f-mono)}
 .empty{color:var(--muted);font-family:var(--f-head)}
+.sub3{font-family:var(--f-head);font-size:.92rem;margin:4px 0 0;color:var(--accent)}
+.items li.mod{list-style:none;font-size:.92rem;color:var(--muted);padding:8px 4px 2px}
+.act p{margin:0;font-size:.95rem}
+sub{font-size:.72em}
 </style>
 </head>
 <body>
@@ -81,7 +84,7 @@ table.bil .ou{font-family:var(--f-head);font-size:.8rem;color:var(--muted)}
   <a class="back" href="./">← Retour aux cours</a>
   <div class="uni"><img class="unilogo" src="img/usnm-logo.png" alt="Logo de l’Université Souleymane Niang de Matam" width="40" height="40">UNIVERSITÉ SOULEYMANE NIANG DE MATAM • UFR-STI • L1 PCI</div>
   <h1>Fiches d'activités</h1>
-  <p>Ta feuille de route, chapitre par chapitre : quoi lire, quoi faire et dans quel ordre. Coche ce que tu as fait ; ta progression reste enregistrée sur cet appareil.</p>
+  <p>Ton cahier d'activités, chapitre par chapitre : une fiche de consignes par activité, avec le travail demandé, le produit attendu et les critères pour vérifier tes résultats. Coche ce que tu as fait ; ta progression reste enregistrée sur cet appareil.</p>
 </div></header>
 <main><div class="wrap">
   <section class="picker" id="picker" aria-label="Choix du chapitre"></section>
@@ -90,82 +93,66 @@ table.bil .ou{font-family:var(--f-head);font-size:.8rem;color:var(--muted)}
 <footer><div class="wrap">Université Souleymane Niang de Matam • <a href="auteur.html">Plateforme développée par le Dr P. T. Traoré</a> • © 2026 Papa Touty Traoré — tous droits réservés • <a href="reparer.html?retour=activites.html">Affichage incomplet ? Mettre le site à jour</a></div></footer>
 
 <script src="assets/activites.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
 <script>
 const FA=window.ACTIVITES||{},KEYS=Object.keys(FA);
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-function math(el){if(window.renderMathInElement)renderMathInElement(el,{delimiters:[{left:"$",right:"$",display:false}],macros:{"\\dd":"\\mathrm{d}"},throwOnError:false});}
+// texte des cahiers : **gras**, X_Y = indice
+const fmt=s=>esc(s).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/_([A-Za-z0-9α-ωΑ-Ωℓ∞]+)/g,"<sub>$1</sub>");
 const GROUPES={meca:"Mécanique 1",elec:"Électricité 1",opt:"Optique 1",elec2:"Électricité 2"};
-const TAGS={lire:"LIRE",voir:"DIAPO",faire:"ACTIVITÉ",td:"TD",exos:"EXOS",quiz:"QUIZ",tp:"TP"};
-// progression de l'étudiant (cet appareil seulement)
-function load(k){try{return Object.assign({done:{},chk:{},notes:{},bil:{}},JSON.parse(localStorage.getItem("fiche_"+k)||"{}"))}catch(e){return {done:{},chk:{},notes:{},bil:{}}}}
-function save(k,s){try{localStorage.setItem("fiche_"+k,JSON.stringify(s))}catch(e){}}
+function load(k){try{return Object.assign({done:{},chk:{},notes:{},bil:{}},JSON.parse(localStorage.getItem("cahier_"+k)||"{}"))}catch(e){return {done:{},chk:{},notes:{},bil:{}}}}
+function save(k,s){try{localStorage.setItem("cahier_"+k,JSON.stringify(s))}catch(e){}}
 function quizBest(k){try{return JSON.parse(localStorage.getItem("quizbest")||"{}")[k]}catch(e){return undefined}}
-const total=A=>A.etapes.reduce((n,E)=>n+E.items.length,0);
-const doneCount=(A,s)=>A.etapes.reduce((n,E,i)=>n+E.items.filter((_,j)=>s.done[i+"."+j]).length,0);
-
+const tasks=A=>A.fiches.flatMap((F,i)=>F.travail.map((t,j)=>t.n?i+"."+j:null).filter(Boolean));
+const pct=(A,s)=>{const T=tasks(A);return T.length?Math.round(100*T.filter(id=>s.done[id]).length/T.length):0};
 let key=KEYS.includes(location.hash.slice(1))?location.hash.slice(1):KEYS[0];
 
-function link(A,it){
-  if(it.doc==="support")return `<a href="docs/${A.support}.pdf#page=${it.page+1}" target="_blank" rel="noopener">Support, p. ${it.page}</a>`;
-  if(it.doc==="diapo")return `<a href="slides/${A.support}_diapo.pdf#page=${it.page+A.diapoOffset}" target="_blank" rel="noopener">Diaporama, diapositive ${it.page+A.diapoOffset}</a>`;
-  if(it.doc==="td")return `<a href="docs/${A.td.e}.pdf" target="_blank" rel="noopener">TD n°${A.td.n} — énoncés</a> <a href="docs/${A.td.c}.pdf" target="_blank" rel="noopener">corrigé</a>`;
-  if(it.k==="quiz"){const b=quizBest(A.quiz);return `<a href="quiz.html#${A.quiz}">Ouvrir le quiz</a>${b!=null?` <span class="score">meilleur score : ${b}/10</span>`:""}`;}
-  if(it.k==="exos")return `<a href="entrainement.html#${A.exos}">Ouvrir l'entraînement</a>`;
-  if(it.url)return `<a href="${esc(it.url)}">Ouvrir le TP</a>`;
-  if(it.act)return `<span>Activité ci-dessous</span>`;
-  return "";
-}
 function picker(){
-  if(!KEYS.length){$("#picker").innerHTML="";return}
   const g={};KEYS.forEach(k=>(g[FA[k].course]=g[FA[k].course]||[]).push(k));
-  $("#picker").innerHTML=Object.entries(g).map(([c,ks])=>`<div class="grp"><div class="grp-t">${esc(GROUPES[c]||c)}</div><div class="pill-row">${ks.map(k=>{const A=FA[k],s=load(k),p=Math.round(100*doneCount(A,s)/total(A));return `<button type="button" class="pill" data-k="${k}" aria-pressed="${k===key}">Chapitre ${A.n} · ${esc(A.titre.split(" : ")[0])}<span class="sc">${p} %</span></button>`}).join("")}</div></div>`).join("");
+  $("#picker").innerHTML=Object.entries(g).map(([c,ks])=>`<div class="grp"><div class="grp-t">${esc(GROUPES[c]||c)}</div><div class="pill-row">${ks.map(k=>{const A=FA[k];return `<button type="button" class="pill" data-k="${k}" aria-pressed="${k===key}">Chapitre ${A.n} · ${esc(A.titre.split(" : ")[0])}<span class="sc">${pct(A,load(k))} %</span></button>`}).join("")}</div></div>`).join("");
 }
 function render(){
   const A=FA[key];
   if(!A){$("#sheet").innerHTML=`<p class="empty">Aucune fiche d'activités n'est encore publiée.</p>`;return}
-  const s=load(key),N=total(A),D=doneCount(A,s);
+  const s=load(key),T=tasks(A),D=T.filter(id=>s.done[id]).length,nOS=Object.keys(A.OS).length;
   let h=`<div class="card">
     <div class="eyebrow2">${esc(A.ec)} • chapitre ${A.n}</div>
     <h2>${esc(A.titre)}</h2>
-    <div class="prog"><div class="bar"><span style="width:${Math.round(100*D/N)}%"></span></div><span class="lbl" id="plbl">${D} / ${N} activités faites</span></div>
-    <div class="row"><a class="btn primary" href="docs/${A.pdf}.pdf" target="_blank" rel="noopener">Fiche à imprimer (PDF)</a><a class="btn" href="index.html#${A.course}">Voir le chapitre</a><button type="button" class="btn" id="raz">Tout décocher</button></div>
+    <div class="prog"><div class="bar"><span style="width:${Math.round(100*D/T.length)}%"></span></div><span class="lbl">${D} / ${T.length} tâches faites • ${A.fiches.length} fiches</span></div>
+    <div class="row"><a class="btn primary" href="docs/cahiers/${A.docx}.docx" download>Cahier d'activités (Word)</a><a class="btn" href="docs/${A.support}.pdf" target="_blank" rel="noopener">Support de cours</a><a class="btn" href="index.html#${A.course}">Voir le chapitre</a><button type="button" class="btn" id="raz">Tout décocher</button></div>
     <div class="two">
-      <div class="box obj"><h3>À la fin du chapitre, je sais…</h3><ul>${A.objectifs.map(o=>`<li>${esc(o)}</li>`).join("")}</ul></div>
-      <div class="box org"><h3>Organisation</h3><p class="muted"><b>Durée :</b> ${esc(A.duree)}.</p><p class="muted"><b>Prérequis :</b> ${A.prerequis.map(esc).join(" ; ")}.</p></div>
+      <div class="box obj"><h3>Objectifs spécifiques</h3><ul>${Object.entries(A.OS).map(([k,o])=>`<li><b>OS${k}</b> — ${fmt(o)}</li>`).join("")}</ul></div>
+      <div class="box org"><h3>Organisation</h3><p class="muted"><b>Durée :</b> ${esc(A.duree)}.</p><p class="muted"><b>Prérequis :</b> ${esc(A.prerequis)}.</p><p class="muted">Fais les fiches dans l'ordre ; coche chaque tâche réalisée, puis vérifie ton travail avec les critères d'autoévaluation.</p></div>
     </div>
-  </div>
-  <div class="card hook"><h3>Pour démarrer : une question</h3><p>${esc(A.accroche.q)}</p>
-    <textarea class="note" data-note="hook" placeholder="Ton idée…">${esc(s.notes.hook||"")}</textarea>
-    <details class="ans"><summary>Voir l'explication (après l'étape 1)</summary><div>${esc(A.accroche.r)}</div></details></div>`;
-  A.etapes.forEach((E,i)=>{
-    const d=E.items.filter((_,j)=>s.done[i+"."+j]).length;
-    h+=`<div class="card"><div class="step-h"><span class="step-n">Étape ${i+1}</span><h2>${esc(E.t)}</h2><span class="cnt">${d}/${E.items.length}</span></div>
-      <p class="muted">Sections ${esc(E.sec)} du support • durée conseillée : ${esc(E.duree)}</p>
-      <ul class="items">${E.items.map((it,j)=>{const id=i+"."+j,on=!!s.done[id];return `<li class="it${on?" done":""}"><input type="checkbox" data-done="${id}"${on?" checked":""} aria-label="Fait : ${esc(it.t)}"><div class="txt"><div class="top"><span class="tag ${it.k}">${TAGS[it.k]}</span><span class="t">${esc(it.t)}</span></div><div class="meta">${link(A,it)}${it.d?`<span>• ${esc(it.d)}</span>`:""}</div></div></li>`}).join("")}</ul>
-      ${E.acts.map(a=>`<div class="act"><div><b class="n">Activité ${a.n}.</b> ${esc(a.q)}</div><textarea class="note" data-note="a${a.n}" placeholder="Ta réponse…">${esc(s.notes["a"+a.n]||"")}</textarea><details class="ans"><summary>Voir la réponse (après avoir cherché)</summary><div>${esc(a.r)}</div></details></div>`).join("")}
-      <div class="chk"><h3>Je vérifie avant de passer à la suite</h3>${E.check.map((c,j)=>{const id=i+"."+j;return `<label><input type="checkbox" data-chk="${id}"${s.chk[id]?" checked":""}><span>${esc(c)}</span></label>`}).join("")}</div>
+  </div>`;
+  A.fiches.forEach((F,i)=>{
+    const ids=F.travail.map((t,j)=>t.n?i+"."+j:null).filter(Boolean),d=ids.filter(id=>s.done[id]).length;
+    h+=`<div class="card" id="fiche${i+1}"><div class="step-h"><span class="step-n">Fiche ${String(i+1).padStart(2,"0")}</span><h2>${fmt(F.t)}</h2><span class="cnt">${d}/${ids.length}</span></div>
+      <p class="muted"><b>Activité ${esc(F.a)}</b> • ${F.os?`OS${F.os} — ${fmt(A.OS[F.os])}`:`Synthèse — ${fmt(A.synth)}`}</p>
+      <h3 class="sub3">Travail demandé et modalités</h3>
+      <ul class="items">${F.travail.map((t,j)=>{if(!t.n)return `<li class="mod">${fmt(t.t)}</li>`;const id=i+"."+j,on=!!s.done[id];return `<li class="it${on?" done":""}"><input type="checkbox" data-done="${id}"${on?" checked":""} aria-label="Fait : tâche ${t.n}"><div class="txt"><div class="top"><span class="tag lire">${t.n}</span><span class="t">${fmt(t.t)}</span></div>${t.l&&t.l.length?`<div class="meta">${t.l.map(([lab,u])=>`<a href="${esc(u)}"${/\.pdf/.test(u)?' target="_blank" rel="noopener"':""}>${esc(lab)}</a>`).join("")}</div>`:""}</div></li>`}).join("")}</ul>
+      <div class="act"><h3 class="sub3">Produit attendu et restitution</h3>${F.produit.map(p=>`<p>${fmt(p)}</p>`).join("")}<textarea class="note" data-note="f${i}" placeholder="Mes notes pour cette fiche…">${esc(s.notes["f"+i]||"")}</textarea></div>
+      <div class="chk"><h3>Critères d'autoévaluation — je vérifie</h3>${F.criteres.map((c,j)=>{const id=i+"."+j;return `<label><input type="checkbox" data-chk="${id}"${s.chk[id]?" checked":""}><span>${fmt(c)}</span></label>`}).join("")}</div>
+      <p class="muted"><b>Durée :</b> ${esc(F.duree)} • <b>Échéance :</b> ${esc(F.echeance)}</p>
     </div>`;
   });
   const qb=quizBest(A.quiz);
-  h+=`<div class="card"><div class="step-h"><span class="step-n" style="background:var(--fg)">Bilan</span><h2>Mon auto-évaluation</h2></div>
-    <div class="bil-wrap"><table class="bil"><thead><tr><th>Compétence</th><th>Acquis</th><th>À revoir</th><th>Si « à revoir » : où travailler</th></tr></thead><tbody>
-    ${A.bilan.map((b,j)=>`<tr><td>${esc(b.c)}</td><td class="c"><input type="radio" name="bil${j}" value="ok" data-bil="${j}"${s.bil[j]==="ok"?" checked":""} aria-label="Acquis"></td><td class="c"><input type="radio" name="bil${j}" value="rev" data-bil="${j}"${s.bil[j]==="rev"?" checked":""} aria-label="À revoir"></td><td class="ou">${esc(b.ou)}</td></tr>`).join("")}
+  h+=`<div class="card"><div class="step-h"><span class="step-n" style="background:var(--fg)">Bilan</span><h2>Grille d'autoévaluation</h2></div>
+    <div class="bil-wrap"><table class="bil"><thead><tr><th>Compétence</th><th>Acquis</th><th>À revoir</th><th>Où retravailler</th></tr></thead><tbody>
+    ${Object.entries(A.grille).map(([k,[c,ou]])=>`<tr><td><b>OS${k}</b> — ${fmt(c)}</td><td class="c"><input type="radio" name="bil${k}" value="ok" data-bil="${k}"${s.bil[k]==="ok"?" checked":""} aria-label="Acquis"></td><td class="c"><input type="radio" name="bil${k}" value="rev" data-bil="${k}"${s.bil[k]==="rev"?" checked":""} aria-label="À revoir"></td><td class="ou">${fmt(ou)}</td></tr>`).join("")}
     </tbody></table></div>
-    <p class="muted">Meilleur score au quiz du chapitre : <b class="score">${qb!=null?qb+"/10":"pas encore fait"}</b>${qb!=null&&qb<8?" — objectif : 8/10":""}</p></div>`;
-  $("#sheet").innerHTML=h;math($("#sheet"));
+    <p class="muted">Meilleur score au quiz du chapitre : <b class="score">${qb!=null?qb+"/10":"pas encore fait"}</b>${qb!=null&&qb<8?" — objectif : 8/10":""} • <a href="quiz.html#${A.quiz}">Ouvrir le quiz</a></p></div>`;
+  $("#sheet").innerHTML=h;
 }
 $("#picker").addEventListener("click",e=>{const b=e.target.closest("[data-k]");if(!b)return;key=b.dataset.k;history.replaceState(null,"","#"+key);picker();render();scrollTo(0,0)});
 $("#sheet").addEventListener("change",e=>{
   const t=e.target,s=load(key);
-  if(t.dataset.done){s.done[t.dataset.done]=t.checked;save(key,s);render();picker();return}
+  if(t.dataset.done){s.done[t.dataset.done]=t.checked;save(key,s);const y=scrollY;render();picker();scrollTo(0,y);return}
   if(t.dataset.chk){s.chk[t.dataset.chk]=t.checked;save(key,s);return}
   if(t.dataset.bil){s.bil[t.dataset.bil]=t.value;save(key,s);return}
 });
-$("#sheet").addEventListener("input",e=>{const t=e.target;if(t.dataset.note){const s=load(key);s.notes[t.dataset.note]=t.value.slice(0,2000);save(key,s)}});
-$("#sheet").addEventListener("click",e=>{if(e.target.id==="raz"&&confirm("Décocher toutes les activités de ce chapitre ? Tes réponses écrites sont conservées.")){const s=load(key);s.done={};s.chk={};s.bil={};save(key,s);render();picker()}});
+$("#sheet").addEventListener("input",e=>{const t=e.target;if(t.dataset.note){const s=load(key);s.notes[t.dataset.note]=t.value.slice(0,3000);save(key,s)}});
+$("#sheet").addEventListener("click",e=>{if(e.target.id==="raz"&&confirm("Décocher toutes les tâches et tous les critères de ce chapitre ? Tes notes écrites sont conservées.")){const s=load(key);s.done={};s.chk={};s.bil={};save(key,s);render();picker()}});
 addEventListener("hashchange",()=>{const h=location.hash.slice(1);if(KEYS.includes(h)&&h!==key){key=h;picker();render()}});
 picker();render();
 </script>
