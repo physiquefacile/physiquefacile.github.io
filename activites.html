@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<script src="assets/config.js"></script>
+<script src="assets/acces.js"></script>
+<title>Fiches d'activités — Physique L1</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1B2A41">
+<link rel="icon" type="image/png" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Physique L1">
+<meta name="description" content="Fiches d'activités des chapitres de Physique L1 : la feuille de route de l'étudiant, chapitre par chapitre.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Fira+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+main .wrap{padding-block:24px 20px;display:grid;gap:20px}
+.picker{display:grid;gap:12px}
+.picker .grp{display:grid;gap:6px}
+.picker .grp-t{font-family:var(--f-head);font-size:.8rem;font-weight:600;color:var(--muted)}
+.pill .sc{font-family:var(--f-mono);font-size:.75rem;opacity:.8;margin-left:6px}
+.sheet{display:grid;gap:18px;max-width:880px;min-width:0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:20px 22px;display:grid;gap:12px;min-width:0}
+.card h2{font-family:var(--f-head);font-size:1.25rem;margin:0;line-height:1.3}
+.card h3{font-family:var(--f-head);font-size:1rem;margin:0}
+.eyebrow2{font-family:var(--f-head);font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--warm)}
+.muted{color:var(--muted);font-family:var(--f-head);font-size:.9rem;margin:0}
+.prog{display:grid;gap:6px}
+.prog .bar{height:8px;background:var(--tint);border-radius:4px;overflow:hidden}
+.prog .bar span{display:block;height:100%;background:var(--accent);transition:width .25s}
+.prog .lbl{font-family:var(--f-mono);font-size:.85rem;color:var(--muted)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.two{display:grid;gap:14px}
+@media (min-width:760px){.two{grid-template-columns:1fr 1fr}}
+.box{border-radius:10px;padding:14px 16px;display:grid;gap:8px;min-width:0}
+.box.obj{background:var(--tint)} .box.org{background:var(--tint2)}
+.box h3{font-size:.92rem}
+.box ul{margin:0;padding-left:18px;display:grid;gap:4px;font-size:.95rem}
+.hook{border-left:4px solid var(--ko);background:var(--bg)}
+textarea.note{width:100%;min-height:64px;font:inherit;font-size:.95rem;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--surface);color:var(--fg);resize:vertical;box-sizing:border-box}
+details.ans summary{cursor:pointer;font-family:var(--f-head);font-size:.88rem;font-weight:600;color:var(--accent);width:auto;display:list-item}
+details.ans div{margin-top:6px;padding:10px 12px;background:var(--ok-bg);border-radius:8px;font-size:.95rem}
+.step-h{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.step-n{font-family:var(--f-head);font-weight:700;font-size:.85rem;color:#fff;background:var(--warm);border-radius:5px;padding:3px 8px}
+.step-h .sub{font-family:var(--f-head);font-size:.85rem;color:var(--muted)}
+.step-h .cnt{margin-left:auto;font-family:var(--f-mono);font-size:.8rem;color:var(--muted)}
+.items{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.it{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;padding:9px 4px;border-bottom:1px solid var(--line)}
+.it:last-child{border-bottom:0}
+.it input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--accent)}
+.it .txt{display:grid;gap:5px;min-width:0}
+.it .top{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.it.done .t{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
+.tag{flex:none;font-family:var(--f-mono);font-size:.66rem;font-weight:500;letter-spacing:.04em;padding:2px 6px;border-radius:4px;color:#fff}
+.tag.lire{background:#1F7A8C}.tag.voir{background:#B87903}.tag.faire{background:#B23A48}.tag.td{background:#26395A}.tag.exos,.tag.quiz{background:#16606E}.tag.tp{background:#B87903}
+.it .meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-family:var(--f-head);font-size:.82rem;color:var(--muted)}
+.it .meta a{font-weight:600}
+.act{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:12px 14px;display:grid;gap:8px}
+.act b.n{color:var(--ko);font-family:var(--f-head)}
+.chk{background:var(--tint);border-radius:10px;padding:12px 14px;display:grid;gap:6px}
+.chk h3{font-size:.9rem;color:var(--accent)}
+.chk label{display:flex;gap:9px;align-items:flex-start;font-size:.95rem}
+.chk input{width:18px;height:18px;margin:2px 0 0;flex:none;accent-color:var(--accent)}
+table.bil{width:100%;border-collapse:collapse;font-size:.92rem}
+table.bil th,table.bil td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}
+table.bil th{font-family:var(--f-head);font-size:.8rem;color:var(--muted);font-weight:600}
+table.bil td.c{text-align:center;white-space:nowrap}
+table.bil .ou{font-family:var(--f-head);font-size:.8rem;color:var(--muted)}
+.bil-wrap{overflow-x:auto}
+.score{font-family:var(--f-mono)}
+.empty{color:var(--muted);font-family:var(--f-head)}
+</style>
+</head>
+<body>
+<header class="band"><div class="wrap">
+  <a class="back" href="./">← Retour aux cours</a>
+  <div class="uni"><img class="unilogo" src="img/usnm-logo.png" alt="Logo de l’Université Souleymane Niang de Matam" width="40" height="40">UNIVERSITÉ SOULEYMANE NIANG DE MATAM • UFR-STI • L1 PCI</div>
+  <h1>Fiches d'activités</h1>
+  <p>Ta feuille de route, chapitre par chapitre : quoi lire, quoi faire et dans quel ordre. Coche ce que tu as fait ; ta progression reste enregistrée sur cet appareil.</p>
+</div></header>
+<main><div class="wrap">
+  <section class="picker" id="picker" aria-label="Choix du chapitre"></section>
+  <section class="sheet" id="sheet" aria-live="polite"></section>
+</div></main>
+<footer><div class="wrap">Université Souleymane Niang de Matam • <a href="auteur.html">Plateforme développée par le Dr P. T. Traoré</a> • © 2026 Papa Touty Traoré — tous droits réservés • <a href="reparer.html?retour=activites.html">Affichage incomplet ? Mettre le site à jour</a></div></footer>
+
+<script src="assets/activites.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<script>
+const FA=window.ACTIVITES||{},KEYS=Object.keys(FA);
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function math(el){if(window.renderMathInElement)renderMathInElement(el,{delimiters:[{left:"$",right:"$",display:false}],macros:{"\\dd":"\\mathrm{d}"},throwOnError:false});}
+const GROUPES={meca:"Mécanique 1",elec:"Électricité 1",opt:"Optique 1",elec2:"Électricité 2"};
+const TAGS={lire:"LIRE",voir:"DIAPO",faire:"ACTIVITÉ",td:"TD",exos:"EXOS",quiz:"QUIZ",tp:"TP"};
+// progression de l'étudiant (cet appareil seulement)
+function load(k){try{return Object.assign({done:{},chk:{},notes:{},bil:{}},JSON.parse(localStorage.getItem("fiche_"+k)||"{}"))}catch(e){return {done:{},chk:{},notes:{},bil:{}}}}
+function save(k,s){try{localStorage.setItem("fiche_"+k,JSON.stringify(s))}catch(e){}}
+function quizBest(k){try{return JSON.parse(localStorage.getItem("quizbest")||"{}")[k]}catch(e){return undefined}}
+const total=A=>A.etapes.reduce((n,E)=>n+E.items.length,0);
+const doneCount=(A,s)=>A.etapes.reduce((n,E,i)=>n+E.items.filter((_,j)=>s.done[i+"."+j]).length,0);
+
+let key=KEYS.includes(location.hash.slice(1))?location.hash.slice(1):KEYS[0];
+
+function link(A,it){
+  if(it.doc==="support")return `<a href="docs/${A.support}.pdf#page=${it.page+1}" target="_blank" rel="noopener">Support, p. ${it.page}</a>`;
+  if(it.doc==="diapo")return `<a href="slides/${A.support}_diapo.pdf#page=${it.page+A.diapoOffset}" target="_blank" rel="noopener">Diaporama, diapositive ${it.page+A.diapoOffset}</a>`;
+  if(it.doc==="td")return `<a href="docs/${A.td.e}.pdf" target="_blank" rel="noopener">TD n°${A.td.n} — énoncés</a> <a href="docs/${A.td.c}.pdf" target="_blank" rel="noopener">corrigé</a>`;
+  if(it.k==="quiz"){const b=quizBest(A.quiz);return `<a href="quiz.html#${A.quiz}">Ouvrir le quiz</a>${b!=null?` <span class="score">meilleur score : ${b}/10</span>`:""}`;}
+  if(it.k==="exos")return `<a href="entrainement.html#${A.exos}">Ouvrir l'entraînement</a>`;
+  if(it.url)return `<a href="${esc(it.url)}">Ouvrir le TP</a>`;
+  if(it.act)return `<span>Activité ci-dessous</span>`;
+  return "";
+}
+function picker(){
+  if(!KEYS.length){$("#picker").innerHTML="";return}
+  const g={};KEYS.forEach(k=>(g[FA[k].course]=g[FA[k].course]||[]).push(k));
+  $("#picker").innerHTML=Object.entries(g).map(([c,ks])=>`<div class="grp"><div class="grp-t">${esc(GROUPES[c]||c)}</div><div class="pill-row">${ks.map(k=>{const A=FA[k],s=load(k),p=Math.round(100*doneCount(A,s)/total(A));return `<button type="button" class="pill" data-k="${k}" aria-pressed="${k===key}">Chapitre ${A.n} · ${esc(A.titre.split(" : ")[0])}<span class="sc">${p} %</span></button>`}).join("")}</div></div>`).join("");
+}
+function render(){
+  const A=FA[key];
+  if(!A){$("#sheet").innerHTML=`<p class="empty">Aucune fiche d'activités n'est encore publiée.</p>`;return}
+  const s=load(key),N=total(A),D=doneCount(A,s);
+  let h=`<div class="card">
+    <div class="eyebrow2">${esc(A.ec)} • chapitre ${A.n}</div>
+    <h2>${esc(A.titre)}</h2>
+    <div class="prog"><div class="bar"><span style="width:${Math.round(100*D/N)}%"></span></div><span class="lbl" id="plbl">${D} / ${N} activités faites</span></div>
+    <div class="row"><a class="btn primary" href="docs/${A.pdf}.pdf" target="_blank" rel="noopener">Fiche à imprimer (PDF)</a><a class="btn" href="index.html#${A.course}">Voir le chapitre</a><button type="button" class="btn" id="raz">Tout décocher</button></div>
+    <div class="two">
+      <div class="box obj"><h3>À la fin du chapitre, je sais…</h3><ul>${A.objectifs.map(o=>`<li>${esc(o)}</li>`).join("")}</ul></div>
+      <div class="box org"><h3>Organisation</h3><p class="muted"><b>Durée :</b> ${esc(A.duree)}.</p><p class="muted"><b>Prérequis :</b> ${A.prerequis.map(esc).join(" ; ")}.</p></div>
+    </div>
+  </div>
+  <div class="card hook"><h3>Pour démarrer : une question</h3><p>${esc(A.accroche.q)}</p>
+    <textarea class="note" data-note="hook" placeholder="Ton idée…">${esc(s.notes.hook||"")}</textarea>
+    <details class="ans"><summary>Voir l'explication (après l'étape 1)</summary><div>${esc(A.accroche.r)}</div></details></div>`;
+  A.etapes.forEach((E,i)=>{
+    const d=E.items.filter((_,j)=>s.done[i+"."+j]).length;
+    h+=`<div class="card"><div class="step-h"><span class="step-n">Étape ${i+1}</span><h2>${esc(E.t)}</h2><span class="cnt">${d}/${E.items.length}</span></div>
+      <p class="muted">Sections ${esc(E.sec)} du support • durée conseillée : ${esc(E.duree)}</p>
+      <ul class="items">${E.items.map((it,j)=>{const id=i+"."+j,on=!!s.done[id];return `<li class="it${on?" done":""}"><input type="checkbox" data-done="${id}"${on?" checked":""} aria-label="Fait : ${esc(it.t)}"><div class="txt"><div class="top"><span class="tag ${it.k}">${TAGS[it.k]}</span><span class="t">${esc(it.t)}</span></div><div class="meta">${link(A,it)}${it.d?`<span>• ${esc(it.d)}</span>`:""}</div></div></li>`}).join("")}</ul>
+      ${E.acts.map(a=>`<div class="act"><div><b class="n">Activité ${a.n}.</b> ${esc(a.q)}</div><textarea class="note" data-note="a${a.n}" placeholder="Ta réponse…">${esc(s.notes["a"+a.n]||"")}</textarea><details class="ans"><summary>Voir la réponse (après avoir cherché)</summary><div>${esc(a.r)}</div></details></div>`).join("")}
+      <div class="chk"><h3>Je vérifie avant de passer à la suite</h3>${E.check.map((c,j)=>{const id=i+"."+j;return `<label><input type="checkbox" data-chk="${id}"${s.chk[id]?" checked":""}><span>${esc(c)}</span></label>`}).join("")}</div>
+    </div>`;
+  });
+  const qb=quizBest(A.quiz);
+  h+=`<div class="card"><div class="step-h"><span class="step-n" style="background:var(--fg)">Bilan</span><h2>Mon auto-évaluation</h2></div>
+    <div class="bil-wrap"><table class="bil"><thead><tr><th>Compétence</th><th>Acquis</th><th>À revoir</th><th>Si « à revoir » : où travailler</th></tr></thead><tbody>
+    ${A.bilan.map((b,j)=>`<tr><td>${esc(b.c)}</td><td class="c"><input type="radio" name="bil${j}" value="ok" data-bil="${j}"${s.bil[j]==="ok"?" checked":""} aria-label="Acquis"></td><td class="c"><input type="radio" name="bil${j}" value="rev" data-bil="${j}"${s.bil[j]==="rev"?" checked":""} aria-label="À revoir"></td><td class="ou">${esc(b.ou)}</td></tr>`).join("")}
+    </tbody></table></div>
+    <p class="muted">Meilleur score au quiz du chapitre : <b class="score">${qb!=null?qb+"/10":"pas encore fait"}</b>${qb!=null&&qb<8?" — objectif : 8/10":""}</p></div>`;
+  $("#sheet").innerHTML=h;math($("#sheet"));
+}
+$("#picker").addEventListener("click",e=>{const b=e.target.closest("[data-k]");if(!b)return;key=b.dataset.k;history.replaceState(null,"","#"+key);picker();render();scrollTo(0,0)});
+$("#sheet").addEventListener("change",e=>{
+  const t=e.target,s=load(key);
+  if(t.dataset.done){s.done[t.dataset.done]=t.checked;save(key,s);render();picker();return}
+  if(t.dataset.chk){s.chk[t.dataset.chk]=t.checked;save(key,s);return}
+  if(t.dataset.bil){s.bil[t.dataset.bil]=t.value;save(key,s);return}
+});
+$("#sheet").addEventListener("input",e=>{const t=e.target;if(t.dataset.note){const s=load(key);s.notes[t.dataset.note]=t.value.slice(0,2000);save(key,s)}});
+$("#sheet").addEventListener("click",e=>{if(e.target.id==="raz"&&confirm("Décocher toutes les activités de ce chapitre ? Tes réponses écrites sont conservées.")){const s=load(key);s.done={};s.chk={};s.bil={};save(key,s);render();picker()}});
+addEventListener("hashchange",()=>{const h=location.hash.slice(1);if(KEYS.includes(h)&&h!==key){key=h;picker();render()}});
+picker();render();
+</script>
+<script>
+if("serviceWorker" in navigator){const hadSW=!!navigator.serviceWorker.controller;navigator.serviceWorker.addEventListener("controllerchange",()=>{/* nouvelle version du site installée : on recharge une fois */try{if(!hadSW||sessionStorage.getItem("swmaj"))return;sessionStorage.setItem("swmaj","1")}catch(e){return}location.reload()});addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").catch(()=>{})})}
+</script>
+</body>
+</html>

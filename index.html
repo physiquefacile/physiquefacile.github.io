@@ -126,6 +126,7 @@ summary{font-family:var(--f-head);font-size:.86rem;font-weight:500;color:var(--a
 .btn .n{flex:none;font-family:var(--f-mono);font-size:.75rem;color:var(--muted);font-variant-numeric:tabular-nums}
 .k-pdf{background:var(--tint);color:var(--accent)}
 .k-ppt{background:var(--tint2);color:var(--warm)}
+.k-fiche{background:#B23A48;color:#fff}
 .k-cor{background:var(--tint2);color:var(--warm)}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
 .btn.primary .k{background:rgba(255,255,255,.18);color:inherit}
@@ -258,6 +259,7 @@ footer .wrap{padding-block:18px}
 
 <script src="assets/annonces.js"></script>
 <script src="assets/videos.js"></script>
+<script src="assets/activites.js"></script>
 <script src="vendor/pdfjs/pdf.js"></script>
 <script>
 const COURSES=[
@@ -414,6 +416,7 @@ function render(){
       </div>
       <div class="res">
         ${pdfBtn(ch.key,"Support de cours",ch.pages,"pdf",true).replace('data-title="Support de cours"',`data-title="${esc("Chapitre "+ch.n+" — "+ch.title)}"`)}
+        ${(window.ACTIVITES||{})[c.id+ch.n]?`<a class="btn" href="activites.html#${c.id}${ch.n}"><span class="k k-fiche">FICHE</span><span class="lbl">Fiche d'activités</span><span class="n">${window.ACTIVITES[c.id+ch.n].etapes.length} étapes</span></a>`:""}
         ${ch.slides?pptBtn(ch.key,ch.slides,"Diaporama — chapitre "+ch.n+" : "+ch.title):""}
         ${ch.pptx?`<a class="btn" href="slides/${ch.key}.pptx" download><span class="k k-ppt">PPTX</span><span class="lbl">PowerPoint</span><span class="n">${ch.slides} diap.</span></a>`:""}
         ${ch.td?pdfBtn(ch.td.e,"TD "+(ch.td.n||ch.n)+" — énoncés",ch.td.ep,"pdf")+pdfBtn(ch.td.c,"TD "+(ch.td.n||ch.n)+" — corrigé détaillé",ch.td.cp,"cor"):""}
@@ -544,7 +547,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-pdf]");if(
 
 var pdfPath=f=>(f.includes("/")?f:"docs/"+f)+".pdf";
 var absPath=u=>new URL(u,location.href).pathname;
-function allDocs(){const d=[],s=[];COURSES.forEach(c=>{c.chapters.forEach(ch=>{d.push(pdfPath(ch.key));if(ch.td){d.push(pdfPath(ch.td.e),pdfPath(ch.td.c))}if(ch.slides)s.push(pdfPath("slides/"+ch.key+"_diapo"))});(c.series||[]).forEach(x=>d.push(pdfPath(x.e),pdfPath(x.c)))});d.push(pdfPath("Fascicule_TP_Physique_L1"));return{d:[...new Set(d)],s}}
+function allDocs(){const d=[],s=[];COURSES.forEach(c=>{c.chapters.forEach(ch=>{d.push(pdfPath(ch.key));if(ch.td){d.push(pdfPath(ch.td.e),pdfPath(ch.td.c))}if(ch.slides)s.push(pdfPath("slides/"+ch.key+"_diapo"))});(c.series||[]).forEach(x=>d.push(pdfPath(x.e),pdfPath(x.c)))});d.push(pdfPath("Fascicule_TP_Physique_L1"));Object.values(window.ACTIVITES||{}).forEach(A=>d.push(pdfPath(A.pdf)));return{d:[...new Set(d)],s}}
 async function savedPaths(){try{if(!("caches" in window))return new Set();const c=await caches.open(PDF_CACHE);return new Set((await c.keys()).map(r=>new URL(r.url).pathname))}catch(e){return new Set()}}
 async function markCached(){const set=await savedPaths();document.querySelectorAll(".btn[data-pdf]").forEach(b=>b.classList.toggle("saved",set.has(absPath(pdfPath(b.dataset.pdf)))));
   const {d,s}=allDocs(),nd=d.filter(u=>set.has(absPath(u))).length,ns=s.filter(u=>set.has(absPath(u))).length;

@@ -7,14 +7,14 @@
      ⚠ Toute modification du site doit s'accompagner d'un changement de VERSION.
    - documents PDF : copie locale d'abord, rafraîchie en arrière-plan
    - bibliothèques externes (KaTeX) : copie locale permanente */
-const VERSION = "v149";
+const VERSION = "v150";
 const SHELL = "shell-" + VERSION;
 const PDFS = "pdf-v1";          // nom stable : les documents enregistrés survivent aux mises à jour du site
 const EXT = "ext-v1";           // KaTeX ne change pas : inutile de le retélécharger à chaque version
 
 const SHELL_FILES = [
-  "./", "index.html", "quiz.html", "simulations.html", "entrainement.html", "calendrier.html", "questions.html", "videos.html", "tp.html", "auteur.html",
-  "assets/site.css", "assets/quiz-data.js", "assets/acces.js", "assets/exos.js", "assets/exos-reperes.js", "assets/exos-optique.js", "assets/exos-electro.js", "assets/optique-svg.js", "assets/quiz-optique-fig.js", "assets/annonces.js", "assets/config.js", "assets/videos.js", "assets/tp-cr.js", "assets/tp-qd.js", "assets/tp-core.js", "assets/tp-meca.js", "assets/tp-elec.js", "assets/tp-oscillo.js", "assets/tp-mesures.js", "assets/tp-optique.js", "manifest.webmanifest",
+  "./", "index.html", "quiz.html", "simulations.html", "entrainement.html", "activites.html", "calendrier.html", "questions.html", "videos.html", "tp.html", "auteur.html",
+  "assets/site.css", "assets/quiz-data.js", "assets/acces.js", "assets/exos.js", "assets/exos-reperes.js", "assets/exos-optique.js", "assets/exos-electro.js", "assets/activites.js", "assets/optique-svg.js", "assets/quiz-optique-fig.js", "assets/annonces.js", "assets/config.js", "assets/videos.js", "assets/tp-cr.js", "assets/tp-qd.js", "assets/tp-core.js", "assets/tp-meca.js", "assets/tp-elec.js", "assets/tp-oscillo.js", "assets/tp-mesures.js", "assets/tp-optique.js", "manifest.webmanifest",
   "vendor/pdfjs/pdf.js", "vendor/pdfjs/pdf.worker.js",
   "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png", "img/usnm-logo.png",
   "img/Support_Chapitre_1_Calcul_vectoriel.jpg", "img/Support_Chapitre_2_Cinematique.jpg",
@@ -59,6 +59,7 @@ const DOC_FILES = [
   "docs/TD_Electricite_2_corrige.pdf",
   "docs/TD_Electricite_2_enonces.pdf",
   "docs/Electricite_Chapitre_4_Electrocinetique.pdf",
+  "docs/Fiche_activites_Electricite_Chapitre_4.pdf",
   "docs/TD_Electricite_3_enonces.pdf",
   "docs/TD_Electricite_3_corrige.pdf",
   "docs/Electricite2_Chapitre_1_Champ_magnetique.pdf",
