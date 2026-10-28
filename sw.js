@@ -7,7 +7,7 @@
      ⚠ Toute modification du site doit s'accompagner d'un changement de VERSION.
    - documents PDF : copie locale d'abord, rafraîchie en arrière-plan
    - bibliothèques externes (KaTeX) : copie locale permanente */
-const VERSION = "v150";
+const VERSION = "v151";
 const SHELL = "shell-" + VERSION;
 const PDFS = "pdf-v1";          // nom stable : les documents enregistrés survivent aux mises à jour du site
 const EXT = "ext-v1";           // KaTeX ne change pas : inutile de le retélécharger à chaque version
@@ -116,7 +116,7 @@ self.addEventListener("activate", e => {
   prechargerDocs();
 });
 
-const isPdf = url => url.pathname.endsWith(".pdf");
+const isPdf = url => /\.(pdf|docx)$/i.test(url.pathname);   // documents : PDF et cahiers Word
 const isExt = url => /(^|\.)cdnjs\.cloudflare\.com$|fonts\.googleapis\.com$|fonts\.gstatic\.com$/.test(url.hostname);
 const legere = url => /\.(html|js|css|json|webmanifest|png|jpg|jpeg|svg|ico|woff2?)$/i.test(url.pathname) || url.pathname.endsWith("/");
 

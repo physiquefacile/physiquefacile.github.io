@@ -17,6 +17,10 @@
      detail : consignes (facultatif)
    ===================================================================== */
 window.ANNONCES = [
+  { date: "2026-10-28", important: true,
+    titre: "Nouveau : un cahier d'activités pour chaque chapitre",
+    texte: "Chaque chapitre de Mécanique 1, Électricité 1, Optique 1 et Électricité 2 a désormais son cahier d'activités (fichier Word, bouton « WORD » dans le chapitre) : une fiche de consignes par activité, avec l'objectif visé, le travail demandé, le produit attendu, des critères pour vérifier tes résultats et l'échéance. Suis-les dans l'ordre et remplis la grille d'autoévaluation à la fin.",
+    lien: "index.html#meca" },
   { date: "2026-10-27", important: true,
     titre: "Électricité : électrocinétique et champ magnétique en ligne",
     texte: "Électricité 1, chapitre 4 « Électrocinétique : courant continu et réseaux linéaires » (Kirchhoff, mailles, superposition, Thévenin, Norton, Millman, Kennelly) et Électricité 2, chapitre 1 « Le champ magnétique » (Biot et Savart, Ampère, Lorentz, Laplace, dipôle magnétique) : supports avec démonstrations, diaporamas (en ligne et PowerPoint), séries de TD corrigées, quiz et exercices d'entraînement.",

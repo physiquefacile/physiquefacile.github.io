@@ -127,6 +127,7 @@ summary{font-family:var(--f-head);font-size:.86rem;font-weight:500;color:var(--a
 .k-pdf{background:var(--tint);color:var(--accent)}
 .k-ppt{background:var(--tint2);color:var(--warm)}
 .k-fiche{background:#B23A48;color:#fff}
+.k-word{background:#2B579A;color:#fff}
 .k-cor{background:var(--tint2);color:var(--warm)}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
 .btn.primary .k{background:rgba(255,255,255,.18);color:inherit}
@@ -232,7 +233,7 @@ footer .wrap{padding-block:18px}
       <p id="offMsg">Après une première visite avec internet, les pages, les quiz, les simulations, les supports de cours et les TD fonctionnent sans connexion. Les diaporamas, plus lourds, s'enregistrent sur demande.</p>
     </div>
     <div class="off-act">
-      <button type="button" class="obtn primary" id="dlDocs">Enregistrer les cours, TD et TP<small>8 Mo</small></button>
+      <button type="button" class="obtn primary" id="dlDocs">Enregistrer les cours, TD et TP<small>9 Mo</small></button>
       <button type="button" class="obtn" id="dlSlides">Enregistrer les diaporamas<small>58 Mo</small></button>
       <button type="button" class="obtn" id="install" hidden>Installer l'application</button>
       <div class="iosbox" id="iosHelp" hidden role="note"><b>Installer sur iPhone ou iPad</b><ol><li>Ouvrez ce site dans <b>Safari</b> (pas depuis WhatsApp ou Facebook : touchez «&nbsp;Ouvrir dans Safari&nbsp;»).</li><li>Touchez le bouton <b>Partager</b> <span aria-hidden="true">(le carré avec une flèche vers le haut)</span>, en bas de l'écran ou en haut sur iPad.</li><li>Faites défiler et choisissez <b>«&nbsp;Sur l'écran d'accueil&nbsp;»</b>, puis <b>«&nbsp;Ajouter&nbsp;»</b>.</li></ol><span>L'icône «&nbsp;Physique L1&nbsp;» apparaît alors sur l'écran d'accueil, comme une application.</span></div>
@@ -379,6 +380,8 @@ function pdfBtn(file,label,n,kind,primary){
   const k=kind==="cor"?'<span class="k k-cor">CORRIGÉ</span>':'<span class="k k-pdf">PDF</span>';
   return `<button type="button" class="btn${primary?" primary":""}" data-pdf="${file}" data-title="${esc(label)}">${k}<span class="lbl">${esc(label)}</span><span class="n">${n} p.</span></button>`;
 }
+// cahiers d'activités de l'apprenant (Word), un par chapitre
+const CAHIERS={"meca1": "Cahier_activites_Mecanique1_Chapitre1", "meca2": "Cahier_activites_Mecanique1_Chapitre2", "meca3": "Cahier_activites_Mecanique1_Chapitre3", "meca4": "Cahier_activites_Mecanique1_Chapitre4", "elec1": "Cahier_activites_Electricite1_Chapitre1", "elec2": "Cahier_activites_Electricite1_Chapitre2", "elec3": "Cahier_activites_Electricite1_Chapitre3", "elec4": "Cahier_activites_Electricite1_Chapitre4", "opt1": "Cahier_activites_Optique1_Chapitre1", "opt2": "Cahier_activites_Optique1_Chapitre2", "opt3": "Cahier_activites_Optique1_Chapitre3", "opt4": "Cahier_activites_Optique1_Chapitre4", "opt5": "Cahier_activites_Optique1_Chapitre5", "elec21": "Cahier_activites_Electricite2_Chapitre1"},CAHIERS_N={"meca1": 7, "meca2": 8, "meca3": 8, "meca4": 8, "elec1": 6, "elec2": 8, "elec3": 6, "elec4": 10, "elec21": 8, "opt1": 8, "opt2": 6, "opt3": 7, "opt4": 7, "opt5": 8};
 const SIMS={meca2:[["frenet","Simulation : base de Frenet"]],meca4:[["energie","Simulation : énergie potentielle"]],elec1:[["champ","Simulation : lignes de champ"]],elec2:[["champ","Simulation : champ et potentiel"],["anneau","Simulation : anneau chargé"],["boule","Simulation : théorème de Gauss"]],elec3:[["champ","Simulation : lignes de champ du dipôle"],["dipole","Simulation : dipôle dans un champ uniforme"]],opt1:[["refrac","Simulation : réfraction et réflexion totale"]],opt3:[["prisme","Simulation : prisme et dispersion"]],opt4:[["miroir","Simulation : miroir sphérique"]],opt5:[["lentille","Simulation : lentille mince"]]};
 function pptBtn(key,n,t){
   return `<button type="button" class="btn" data-pdf="slides/${key}_diapo" data-title="${esc(t)}"><span class="k k-ppt">DIAPO</span><span class="lbl">Diaporama</span><span class="n">${n} diap.</span></button>`;
@@ -416,6 +419,7 @@ function render(){
       </div>
       <div class="res">
         ${pdfBtn(ch.key,"Support de cours",ch.pages,"pdf",true).replace('data-title="Support de cours"',`data-title="${esc("Chapitre "+ch.n+" — "+ch.title)}"`)}
+        ${CAHIERS[c.id+ch.n]?`<a class="btn" href="docs/cahiers/${CAHIERS[c.id+ch.n]}.docx" download><span class="k k-word">WORD</span><span class="lbl">Cahier d'activités</span><span class="n">${CAHIERS_N[c.id+ch.n]} fiches</span></a>`:""}
         ${(window.ACTIVITES||{})[c.id+ch.n]?`<a class="btn" href="activites.html#${c.id}${ch.n}"><span class="k k-fiche">FICHE</span><span class="lbl">Fiche d'activités</span><span class="n">${window.ACTIVITES[c.id+ch.n].etapes.length} étapes</span></a>`:""}
         ${ch.slides?pptBtn(ch.key,ch.slides,"Diaporama — chapitre "+ch.n+" : "+ch.title):""}
         ${ch.pptx?`<a class="btn" href="slides/${ch.key}.pptx" download><span class="k k-ppt">PPTX</span><span class="lbl">PowerPoint</span><span class="n">${ch.slides} diap.</span></a>`:""}
@@ -547,7 +551,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-pdf]");if(
 
 var pdfPath=f=>(f.includes("/")?f:"docs/"+f)+".pdf";
 var absPath=u=>new URL(u,location.href).pathname;
-function allDocs(){const d=[],s=[];COURSES.forEach(c=>{c.chapters.forEach(ch=>{d.push(pdfPath(ch.key));if(ch.td){d.push(pdfPath(ch.td.e),pdfPath(ch.td.c))}if(ch.slides)s.push(pdfPath("slides/"+ch.key+"_diapo"))});(c.series||[]).forEach(x=>d.push(pdfPath(x.e),pdfPath(x.c)))});d.push(pdfPath("Fascicule_TP_Physique_L1"));Object.values(window.ACTIVITES||{}).forEach(A=>d.push(pdfPath(A.pdf)));return{d:[...new Set(d)],s}}
+function allDocs(){const d=[],s=[];COURSES.forEach(c=>{c.chapters.forEach(ch=>{d.push(pdfPath(ch.key));if(ch.td){d.push(pdfPath(ch.td.e),pdfPath(ch.td.c))}if(ch.slides)s.push(pdfPath("slides/"+ch.key+"_diapo"))});(c.series||[]).forEach(x=>d.push(pdfPath(x.e),pdfPath(x.c)))});d.push(pdfPath("Fascicule_TP_Physique_L1"));Object.values(window.ACTIVITES||{}).forEach(A=>d.push(pdfPath(A.pdf)));Object.values(CAHIERS).forEach(f=>d.push("docs/cahiers/"+f+".docx"));return{d:[...new Set(d)],s}}
 async function savedPaths(){try{if(!("caches" in window))return new Set();const c=await caches.open(PDF_CACHE);return new Set((await c.keys()).map(r=>new URL(r.url).pathname))}catch(e){return new Set()}}
 async function markCached(){const set=await savedPaths();document.querySelectorAll(".btn[data-pdf]").forEach(b=>b.classList.toggle("saved",set.has(absPath(pdfPath(b.dataset.pdf)))));
   const {d,s}=allDocs(),nd=d.filter(u=>set.has(absPath(u))).length,ns=s.filter(u=>set.has(absPath(u))).length;
