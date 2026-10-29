@@ -17,6 +17,10 @@
      detail : consignes (facultatif)
    ===================================================================== */
 window.ANNONCES = [
+  { date: "2026-10-29", important: true,
+    titre: "Syllabus des EC de physique L1 en ligne",
+    texte: "Les syllabus officiels (modèle USNM) de Mécanique 1, Électricité 1 et 2, Optique 1 et des TP de Physique 1 et 2 sont disponibles en PDF et en Word : ouvre « Syllabus de l'EC » en haut de chaque cours (et la carte du fascicule pour les TP).",
+    lien: "index.html" },
   { date: "2026-10-28", important: true,
     titre: "Nouveau : un cahier d'activités pour chaque chapitre",
     texte: "Chaque chapitre de Mécanique 1, Électricité 1, Optique 1 et Électricité 2 a désormais son cahier d'activités, en ligne (bouton « FICHE », où tu coches ta progression) et en Word (bouton « WORD ») : une fiche de consignes par activité, avec l'objectif visé, le travail demandé, le produit attendu, des critères pour vérifier tes résultats et l'échéance. Suis-les dans l'ordre et remplis la grille d'autoévaluation à la fin.",

@@ -104,6 +104,7 @@ main .wrap{padding-block:26px 60px;display:grid;gap:30px}
 .sy-st{display:inline-block;font-weight:600;font-size:.76rem;border-radius:999px;padding:1px 8px;margin-right:4px}
 .sy-ok{color:var(--ok,#1F6F4A);background:var(--ok-bg,#E3F2EA)}.sy-part{color:#9a6a00;background:rgba(240,174,54,.18)}.sy-soon{color:var(--muted);background:var(--tint)}
 .sy-pre{color:var(--muted);font-size:.9rem}
+.sy-dl{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}.sy-dl .btn{flex:1 1 240px;max-width:340px;margin:0}
 @media (max-width:640px){.sy-prog,.sy-prog tbody,.sy-prog tr,.sy-prog td{display:block;width:auto!important}.sy-prog thead{display:none}.sy-prog td{border:0;padding:2px 0}.sy-prog tr{border-bottom:1px solid var(--line);padding:8px 0}}
 .chapters{display:grid;gap:16px}
 .chap{display:grid;grid-template-columns:120px minmax(0,1fr) 250px;gap:20px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;box-shadow:var(--shadow)}
@@ -382,6 +383,8 @@ function pdfBtn(file,label,n,kind,primary){
 }
 // cahiers d'activités de l'apprenant (Word), un par chapitre
 const CAHIERS={"meca1": "Cahier_activites_Mecanique1_Chapitre1", "meca2": "Cahier_activites_Mecanique1_Chapitre2", "meca3": "Cahier_activites_Mecanique1_Chapitre3", "meca4": "Cahier_activites_Mecanique1_Chapitre4", "elec1": "Cahier_activites_Electricite1_Chapitre1", "elec2": "Cahier_activites_Electricite1_Chapitre2", "elec3": "Cahier_activites_Electricite1_Chapitre3", "elec4": "Cahier_activites_Electricite1_Chapitre4", "opt1": "Cahier_activites_Optique1_Chapitre1", "opt2": "Cahier_activites_Optique1_Chapitre2", "opt3": "Cahier_activites_Optique1_Chapitre3", "opt4": "Cahier_activites_Optique1_Chapitre4", "opt5": "Cahier_activites_Optique1_Chapitre5", "elec21": "Cahier_activites_Electricite2_Chapitre1"},CAHIERS_N={"meca1": 7, "meca2": 8, "meca3": 8, "meca4": 8, "elec1": 6, "elec2": 8, "elec3": 6, "elec4": 10, "elec21": 8, "opt1": 8, "opt2": 6, "opt3": 7, "opt4": 7, "opt5": 8};
+const SYL={LPCI1121:["Syllabus_LPCI1121_Mecanique_1",7],LPCI1122:["Syllabus_LPCI1122_Electricite_1",7],LPCI1151:["Syllabus_LPCI1151_Travaux_Pratiques_de_Physique_1",6],LPCI1221:["Syllabus_LPCI1221_Optique_1",7],LPCI1222:["Syllabus_LPCI1222_Electricite_2",6],LPCI1251:["Syllabus_LPCI1251_Travaux_Pratiques_de_Physique_2",6]};
+function sylBtns(code,label,primary){const f=SYL[code];if(!f)return"";return pdfBtn("docs/syllabus/"+f[0],label||"Syllabus "+code,f[1],"pdf",primary)+`<a class="btn" href="docs/syllabus/${f[0]}.docx" download><span class="k k-word">WORD</span><span class="lbl">${esc(label||"Syllabus "+code)}</span><span class="n">.docx</span></a>`}
 const SIMS={meca2:[["frenet","Simulation : base de Frenet"]],meca4:[["energie","Simulation : énergie potentielle"]],elec1:[["champ","Simulation : lignes de champ"]],elec2:[["champ","Simulation : champ et potentiel"],["anneau","Simulation : anneau chargé"],["boule","Simulation : théorème de Gauss"]],elec3:[["champ","Simulation : lignes de champ du dipôle"],["dipole","Simulation : dipôle dans un champ uniforme"]],opt1:[["refrac","Simulation : réfraction et réflexion totale"]],opt3:[["prisme","Simulation : prisme et dispersion"]],opt4:[["miroir","Simulation : miroir sphérique"]],opt5:[["lentille","Simulation : lentille mince"]]};
 function pptBtn(key,n,t){
   return `<button type="button" class="btn" data-pdf="slides/${key}_diapo" data-title="${esc(t)}"><span class="k k-ppt">DIAPO</span><span class="lbl">Diaporama</span><span class="n">${n} diap.</span></button>`;
@@ -392,11 +395,12 @@ function sylCard(c){
   return `<details class="syl"${c.syOpen?" open":""}><summary><span class="eyebrow">Syllabus de l'EC ${esc(y.code)}</span><span class="sy-sum">Objectifs, programme, volume horaire et évaluation</span></summary>
     <div class="sy-body">
       <p><b>Objectif général.</b> ${esc(y.obj)}</p>
-      <div class="sy-facts"><span><b>UE</b> ${esc(y.ue||"Physique 1 (LPCI112)")} • 6 crédits</span><span><b>Volume</b> CM 24 h • TD 18 h • TPE 18 h • total 60 h</span><span><b>Évaluation</b> contrôle continu 30 % • travail individuel ou de groupe 20 % • examen final 50 % (écrit, 3 h)</span></div>
+      <div class="sy-facts"><span><b>UE</b> ${esc(y.ue||"Physique 1 (LPCI112)")} • 6 crédits</span><span><b>Volume</b> CM 24 h • TD 18 h • TPE 18 h • total 60 h</span><span><b>Évaluation</b> travail individuel 30 % • travail de groupe 10 % • pratique (cahier d'activités, quiz) 10 % • examen terminal 50 % (écrit, 3 h)</span></div>
       <table class="sy-prog"><thead><tr><th>Programme du syllabus</th><th>Sur la plateforme</th></tr></thead><tbody>
       ${y.prog.map((r,i)=>`<tr><td><b>${i+1}.</b> ${esc(r[0])}</td><td><span class="sy-st ${ST[r[1]][0]}">${ST[r[1]][1]}</span>${r[2]?` ${esc(r[2])}`:""}</td></tr>`).join("")}
       </tbody></table>
       <p class="sy-pre"><b>Prérequis.</b> ${esc(y.pre)}${y.extra?` ${esc(y.extra)}`:""}</p>
+      ${SYL[y.code]?`<p class="sy-pre"><b>Syllabus officiel complet</b> (modèle USNM) : objectifs spécifiques, approches pédagogiques reliées aux fiches des cahiers d'activités, système d'évaluation et bibliographie.</p><div class="res sy-dl">${sylBtns(y.code,"Syllabus "+y.code,true)}</div>`:""}
     </div></details>`;
 }
 
@@ -451,6 +455,7 @@ function render(){
       <div class="res">
         ${pdfBtn("Fascicule_TP_Physique_L1","Fascicule de TP",73,"pdf",true)}
         <a class="btn" href="tp.html"><span class="k k-sim">TP</span><span class="lbl">Faire les TP en ligne</span></a>
+        ${sylBtns(c.id==="meca"||c.id==="elec"?"LPCI1151":"LPCI1251",c.id==="meca"||c.id==="elec"?"Syllabus TP Physique 1 (LPCI1151)":"Syllabus TP Physique 2 (LPCI1251)")}
       </div></article>`;
   }
   if(!chs.length&&!series.length&&!tpShow){
@@ -551,7 +556,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-pdf]");if(
 
 var pdfPath=f=>(f.includes("/")?f:"docs/"+f)+".pdf";
 var absPath=u=>new URL(u,location.href).pathname;
-function allDocs(){const d=[],s=[];COURSES.forEach(c=>{c.chapters.forEach(ch=>{d.push(pdfPath(ch.key));if(ch.td){d.push(pdfPath(ch.td.e),pdfPath(ch.td.c))}if(ch.slides)s.push(pdfPath("slides/"+ch.key+"_diapo"))});(c.series||[]).forEach(x=>d.push(pdfPath(x.e),pdfPath(x.c)))});d.push(pdfPath("Fascicule_TP_Physique_L1"));Object.values(CAHIERS).forEach(f=>d.push("docs/cahiers/"+f+".docx"));return{d:[...new Set(d)],s}}
+function allDocs(){const d=[],s=[];COURSES.forEach(c=>{c.chapters.forEach(ch=>{d.push(pdfPath(ch.key));if(ch.td){d.push(pdfPath(ch.td.e),pdfPath(ch.td.c))}if(ch.slides)s.push(pdfPath("slides/"+ch.key+"_diapo"))});(c.series||[]).forEach(x=>d.push(pdfPath(x.e),pdfPath(x.c)))});d.push(pdfPath("Fascicule_TP_Physique_L1"));Object.values(CAHIERS).forEach(f=>d.push("docs/cahiers/"+f+".docx"));Object.values(SYL).forEach(f=>d.push("docs/syllabus/"+f[0]+".pdf","docs/syllabus/"+f[0]+".docx"));return{d:[...new Set(d)],s}}
 async function savedPaths(){try{if(!("caches" in window))return new Set();const c=await caches.open(PDF_CACHE);return new Set((await c.keys()).map(r=>new URL(r.url).pathname))}catch(e){return new Set()}}
 async function markCached(){const set=await savedPaths();document.querySelectorAll(".btn[data-pdf]").forEach(b=>b.classList.toggle("saved",set.has(absPath(pdfPath(b.dataset.pdf)))));
   const {d,s}=allDocs(),nd=d.filter(u=>set.has(absPath(u))).length,ns=s.filter(u=>set.has(absPath(u))).length;
