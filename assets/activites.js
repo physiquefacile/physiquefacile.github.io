@@ -14,17 +14,35 @@ window.ACTIVITES = {
 "docx": "Cahier_activites_Mecanique1_Chapitre1",
 "support": "Support_Chapitre_1_Calcul_vectoriel",
 "quiz": "meca1",
+"ec_code": "LPCI1121",
 "OS": {
-"1": "Représenter un vecteur par ses composantes, son module et ses cosinus directeurs.",
-"2": "Calculer sommes, différences, produits scalaire, vectoriel et mixte de vecteurs.",
-"3": "Interpréter géométriquement ces opérations : angle, projection, aire, volume.",
-"4": "Calculer le moment d’un vecteur et dériver un vecteur par rapport au temps."
+"1": "Utiliser les outils vectoriels et les systèmes de coordonnées."
 },
+"RA": [
+[
+1,
+"Représenter un vecteur par ses composantes, son module et ses cosinus directeurs."
+],
+[
+1,
+"Calculer sommes, différences, produits scalaire, vectoriel et mixte de vecteurs."
+],
+[
+1,
+"Interpréter géométriquement ces opérations : angle, projection, aire, volume."
+],
+[
+1,
+"Calculer le moment d’un vecteur et dériver un vecteur par rapport au temps."
+]
+],
 "synth": "Mobiliser l’ensemble des compétences du chapitre (objectifs spécifiques 1 à 4) et évaluer sa propre maîtrise.",
 "fiches": [
 {
-"a": "A1.1",
+"a": "A11",
 "os": 1,
+"ra": "Représenter un vecteur par ses composantes, son module et ses cosinus directeurs.",
+"osl": null,
 "t": "Représenter un vecteur : composantes, module et cosinus directeurs",
 "travail": [
 {
@@ -93,8 +111,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1, avant la séance de TD n°1"
 },
 {
-"a": "A2.1",
-"os": 2,
+"a": "A12",
+"os": 1,
+"ra": "Calculer sommes, différences, produits scalaire, vectoriel et mixte de vecteurs.",
+"osl": null,
 "t": "Additionner et soustraire des vecteurs",
 "travail": [
 {
@@ -145,8 +165,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1, avant la séance de TD n°1"
 },
 {
-"a": "A2.2",
-"os": 2,
+"a": "A13",
+"os": 1,
+"ra": "Calculer sommes, différences, produits scalaire, vectoriel et mixte de vecteurs.",
+"osl": null,
 "t": "Calculer des produits scalaire, vectoriel et mixte en composantes",
 "travail": [
 {
@@ -205,8 +227,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1"
 },
 {
-"a": "A3.1",
-"os": 3,
+"a": "A14",
+"os": 1,
+"ra": "Interpréter géométriquement ces opérations : angle, projection, aire, volume.",
+"osl": null,
 "t": "Interpréter géométriquement les produits : angle, projection, aire, volume",
 "travail": [
 {
@@ -263,8 +287,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2, avant la séance de TD n°1"
 },
 {
-"a": "A4.1",
-"os": 4,
+"a": "A15",
+"os": 1,
+"ra": "Calculer le moment d’un vecteur et dériver un vecteur par rapport au temps.",
+"osl": null,
 "t": "Calculer le moment d’un vecteur par rapport à un point et à un axe",
 "travail": [
 {
@@ -321,8 +347,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2"
 },
 {
-"a": "A4.2",
-"os": 4,
+"a": "A16",
+"os": 1,
+"ra": "Calculer le moment d’un vecteur et dériver un vecteur par rapport au temps.",
+"osl": null,
 "t": "Dériver un vecteur par rapport au temps",
 "travail": [
 {
@@ -370,8 +398,12 @@ window.ACTIVITES = {
 "echeance": "semaine 2"
 },
 {
-"a": "A4.3",
+"a": "B1",
 "os": null,
+"ra": null,
+"osl": [
+1
+],
 "t": "Faire le bilan du chapitre : quiz, entraînement et autoévaluation",
 "travail": [
 {
@@ -444,19 +476,23 @@ window.ACTIVITES = {
 "grille": {
 "1": [
 "Composantes, module, cosinus directeurs",
-"Activité A1.1 ; support § 1.1 à 1.4"
+"Activité A11 ; support § 1.1 à 1.4",
+1
 ],
 "2": [
 "Sommes et produits de vecteurs",
-"Activités A2.1 et A2.2 ; support § 1.3 et 1.5 à 1.7"
+"Activités A12 et A13 ; support § 1.3 et 1.5 à 1.7",
+1
 ],
 "3": [
 "Interprétation géométrique",
-"Activité A3.1 ; support § 1.5 à 1.7"
+"Activité A14 ; support § 1.5 à 1.7",
+1
 ],
 "4": [
 "Moment et dérivée d’un vecteur",
-"Activités A4.1 et A4.2 ; support § 1.8 et 1.9"
+"Activités A15 et A16 ; support § 1.8 et 1.9",
+1
 ]
 }
 },
@@ -470,17 +506,37 @@ window.ACTIVITES = {
 "docx": "Cahier_activites_Mecanique1_Chapitre2",
 "support": "Support_Chapitre_2_Cinematique",
 "quiz": "meca2",
+"ec_code": "LPCI1121",
 "OS": {
-"1": "Décrire un mouvement : trajectoire, équations horaires, vitesse et accélération.",
-"2": "Définir chaque système de coordonnées et sa base locale.",
-"3": "Établir la vitesse et l’accélération en coordonnées cartésiennes, intrinsèques, polaires, cylindriques et sphériques.",
-"4": "Appliquer les lois de composition des vitesses et des accélérations."
+"1": "Utiliser les outils vectoriels et les systèmes de coordonnées.",
+"2": "Décrire le mouvement d’un point matériel (cinématique).",
+"5": "Analyser un mouvement dans un référentiel non galiléen."
 },
+"RA": [
+[
+2,
+"Décrire un mouvement : trajectoire, équations horaires, vitesse et accélération."
+],
+[
+1,
+"Définir chaque système de coordonnées et sa base locale."
+],
+[
+2,
+"Établir la vitesse et l’accélération en coordonnées cartésiennes, intrinsèques, polaires, cylindriques et sphériques."
+],
+[
+5,
+"Appliquer les lois de composition des vitesses et des accélérations."
+]
+],
 "synth": "Mobiliser l’ensemble des compétences du chapitre (objectifs spécifiques 1 à 4) et évaluer sa propre maîtrise.",
 "fiches": [
 {
-"a": "A1.1",
-"os": 1,
+"a": "A21",
+"os": 2,
+"ra": "Décrire un mouvement : trajectoire, équations horaires, vitesse et accélération.",
+"osl": null,
 "t": "Étudier un mouvement rectiligne : position, vitesse, accélération",
 "travail": [
 {
@@ -542,8 +598,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1, avant la séance de TD n°2"
 },
 {
-"a": "A2.1",
-"os": 2,
+"a": "A17",
+"os": 1,
+"ra": "Définir chaque système de coordonnées et sa base locale.",
+"osl": null,
 "t": "Comparer les systèmes de coordonnées et leurs bases locales",
 "travail": [
 {
@@ -593,8 +651,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1"
 },
 {
-"a": "A3.1",
-"os": 3,
+"a": "A22",
+"os": 2,
+"ra": "Établir la vitesse et l’accélération en coordonnées cartésiennes, intrinsèques, polaires, cylindriques et sphériques.",
+"osl": null,
 "t": "Établir vitesse et accélération en coordonnées cartésiennes",
 "travail": [
 {
@@ -651,8 +711,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2"
 },
 {
-"a": "A3.2",
-"os": 3,
+"a": "A23",
+"os": 2,
+"ra": "Établir la vitesse et l’accélération en coordonnées cartésiennes, intrinsèques, polaires, cylindriques et sphériques.",
+"osl": null,
 "t": "Utiliser la base de Frenet : accélérations tangentielle et normale, rayon de courbure",
 "travail": [
 {
@@ -720,8 +782,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2, avant la séance de TD n°2"
 },
 {
-"a": "A3.3",
-"os": 3,
+"a": "A24",
+"os": 2,
+"ra": "Établir la vitesse et l’accélération en coordonnées cartésiennes, intrinsèques, polaires, cylindriques et sphériques.",
+"osl": null,
 "t": "Établir vitesse et accélération en coordonnées polaires",
 "travail": [
 {
@@ -784,8 +848,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2"
 },
 {
-"a": "A3.4",
-"os": 3,
+"a": "A25",
+"os": 2,
+"ra": "Établir la vitesse et l’accélération en coordonnées cartésiennes, intrinsèques, polaires, cylindriques et sphériques.",
+"osl": null,
 "t": "Établir vitesse et accélération en coordonnées cylindriques et sphériques",
 "travail": [
 {
@@ -836,8 +902,10 @@ window.ACTIVITES = {
 "echeance": "semaine 3"
 },
 {
-"a": "A4.1",
-"os": 4,
+"a": "A51",
+"os": 5,
+"ra": "Appliquer les lois de composition des vitesses et des accélérations.",
+"osl": null,
 "t": "Composer les vitesses et les accélérations entre deux référentiels",
 "travail": [
 {
@@ -886,8 +954,14 @@ window.ACTIVITES = {
 "echeance": "semaine 3, avant la séance de TD n°2"
 },
 {
-"a": "A4.2",
+"a": "B2",
 "os": null,
+"ra": null,
+"osl": [
+1,
+2,
+5
+],
 "t": "Faire le bilan du chapitre : quiz, entraînement et autoévaluation",
 "travail": [
 {
@@ -960,19 +1034,23 @@ window.ACTIVITES = {
 "grille": {
 "1": [
 "Description d’un mouvement, mouvement rectiligne",
-"Activité A1.1 ; support § 2.2"
+"Activité A21 ; support § 2.2",
+2
 ],
 "2": [
 "Systèmes de coordonnées et bases locales",
-"Activité A2.1 ; support § 2.1 et 2.4 à 2.8"
+"Activité A17 ; support § 2.1 et 2.4 à 2.8",
+1
 ],
 "3": [
 "Vitesse et accélération dans chaque système",
-"Activités A3.1 à A3.4 ; support § 2.4 à 2.8"
+"Activités A22 à A25 ; support § 2.4 à 2.8",
+2
 ],
 "4": [
 "Composition des mouvements",
-"Activité A4.1 ; support § 2.9"
+"Activité A51 ; support § 2.9",
+5
 ]
 }
 },
@@ -986,19 +1064,44 @@ window.ACTIVITES = {
 "docx": "Cahier_activites_Mecanique1_Chapitre3",
 "support": "Support_Chapitre_3_Dynamique",
 "quiz": "meca3",
+"ec_code": "LPCI1121",
 "OS": {
-"1": "Distinguer référentiel, repère et système de coordonnées ; reconnaître un référentiel galiléen.",
-"2": "Énoncer et appliquer les trois lois de Newton.",
-"3": "Utiliser la conservation de la quantité de mouvement.",
-"4": "Exprimer les forces usuelles : gravitation, poids, force de Coulomb, force de rappel d’un ressort, frottements.",
-"5": "Utiliser le théorème du moment cinétique et les propriétés des forces centrales.",
-"6": "Établir et résoudre l’équation différentielle d’un mouvement."
+"3": "Appliquer les lois de Newton à la dynamique du point.",
+"4": "Utiliser les théorèmes de l’énergie et du moment cinétique."
 },
+"RA": [
+[
+3,
+"Distinguer référentiel, repère et système de coordonnées ; reconnaître un référentiel galiléen."
+],
+[
+3,
+"Énoncer et appliquer les trois lois de Newton."
+],
+[
+3,
+"Utiliser la conservation de la quantité de mouvement."
+],
+[
+3,
+"Exprimer les forces usuelles : gravitation, poids, force de Coulomb, force de rappel d’un ressort, frottements."
+],
+[
+4,
+"Utiliser le théorème du moment cinétique et les propriétés des forces centrales."
+],
+[
+3,
+"Établir et résoudre l’équation différentielle d’un mouvement."
+]
+],
 "synth": "Mobiliser l’ensemble des compétences du chapitre (objectifs spécifiques 1 à 6) et évaluer sa propre maîtrise.",
 "fiches": [
 {
-"a": "A1.1",
-"os": 1,
+"a": "A31",
+"os": 3,
+"ra": "Distinguer référentiel, repère et système de coordonnées ; reconnaître un référentiel galiléen.",
+"osl": null,
 "t": "Choisir un référentiel et appliquer le principe d’inertie",
 "travail": [
 {
@@ -1056,8 +1159,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1, avant la séance de TD n°3"
 },
 {
-"a": "A2.1",
-"os": 2,
+"a": "A32",
+"os": 3,
+"ra": "Énoncer et appliquer les trois lois de Newton.",
+"osl": null,
 "t": "Appliquer le principe fondamental de la dynamique et le principe des actions réciproques",
 "travail": [
 {
@@ -1128,8 +1233,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1, avant la séance de TD n°3"
 },
 {
-"a": "A3.1",
+"a": "A33",
 "os": 3,
+"ra": "Utiliser la conservation de la quantité de mouvement.",
+"osl": null,
 "t": "Utiliser la conservation de la quantité de mouvement",
 "travail": [
 {
@@ -1177,8 +1284,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2"
 },
 {
-"a": "A4.1",
-"os": 4,
+"a": "A34",
+"os": 3,
+"ra": "Exprimer les forces usuelles : gravitation, poids, force de Coulomb, force de rappel d’un ressort, frottements.",
+"osl": null,
 "t": "Exprimer les forces usuelles et les frottements",
 "travail": [
 {
@@ -1241,8 +1350,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2"
 },
 {
-"a": "A5.1",
-"os": 5,
+"a": "A41",
+"os": 4,
+"ra": "Utiliser le théorème du moment cinétique et les propriétés des forces centrales.",
+"osl": null,
 "t": "Appliquer le théorème du moment cinétique à un mouvement à force centrale",
 "travail": [
 {
@@ -1298,8 +1409,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2"
 },
 {
-"a": "A6.1",
-"os": 6,
+"a": "A35",
+"os": 3,
+"ra": "Établir et résoudre l’équation différentielle d’un mouvement.",
+"osl": null,
 "t": "Établir et résoudre l’équation différentielle d’un mouvement",
 "travail": [
 {
@@ -1360,8 +1473,10 @@ window.ACTIVITES = {
 "echeance": "semaine 3, avant la séance de TD n°3"
 },
 {
-"a": "A6.2",
-"os": 6,
+"a": "A36",
+"os": 3,
+"ra": "Établir et résoudre l’équation différentielle d’un mouvement.",
+"osl": null,
 "t": "Étudier des oscillateurs en manipulant : TP 1 (pendule simple) et TP 2 (masse-ressort)",
 "travail": [
 {
@@ -1410,8 +1525,13 @@ window.ACTIVITES = {
 "echeance": "semaine 3"
 },
 {
-"a": "A6.3",
+"a": "B3",
 "os": null,
+"ra": null,
+"osl": [
+3,
+4
+],
 "t": "Faire le bilan du chapitre : quiz, entraînement et autoévaluation",
 "travail": [
 {
@@ -1484,27 +1604,33 @@ window.ACTIVITES = {
 "grille": {
 "1": [
 "Référentiels, principe d’inertie",
-"Activité A1.1 ; support § 3.1 et 3.2"
+"Activité A31 ; support § 3.1 et 3.2",
+3
 ],
 "2": [
 "Lois de Newton",
-"Activité A2.1 ; support § 3.4 et 3.5"
+"Activité A32 ; support § 3.4 et 3.5",
+3
 ],
 "3": [
 "Quantité de mouvement",
-"Activité A3.1 ; support § 3.3"
+"Activité A33 ; support § 3.3",
+3
 ],
 "4": [
 "Forces usuelles et frottements",
-"Activité A4.1 ; support § 3.6 et 3.7"
+"Activité A34 ; support § 3.6 et 3.7",
+3
 ],
 "5": [
 "Moment cinétique et forces centrales",
-"Activité A5.1 ; support § 3.8 et 3.9"
+"Activité A41 ; support § 3.8 et 3.9",
+4
 ],
 "6": [
 "Équations différentielles du mouvement",
-"Activités A6.1 et A6.2 ; support § 3.10"
+"Activités A35 et A36 ; support § 3.10",
+3
 ]
 }
 },
@@ -1518,19 +1644,44 @@ window.ACTIVITES = {
 "docx": "Cahier_activites_Mecanique1_Chapitre4",
 "support": "Support_Chapitre_4_Travail_energie",
 "quiz": "meca4",
+"ec_code": "LPCI1121",
 "OS": {
-"1": "Distinguer référentiel, repère et système de coordonnées ; écrire le déplacement élémentaire.",
-"2": "Calculer le travail d’une force dans chaque système de coordonnées ; reconnaître un travail moteur ou résistant.",
-"3": "Calculer la puissance d’une force.",
-"4": "Appliquer le théorème de l’énergie cinétique.",
-"5": "Reconnaître une force conservative et lui associer une énergie potentielle.",
-"6": "Utiliser la conservation (ou la variation) de l’énergie mécanique ; lire un graphe d’énergie potentielle."
+"1": "Utiliser les outils vectoriels et les systèmes de coordonnées.",
+"4": "Utiliser les théorèmes de l’énergie et du moment cinétique."
 },
+"RA": [
+[
+1,
+"Distinguer référentiel, repère et système de coordonnées ; écrire le déplacement élémentaire."
+],
+[
+4,
+"Calculer le travail d’une force dans chaque système de coordonnées ; reconnaître un travail moteur ou résistant."
+],
+[
+4,
+"Calculer la puissance d’une force."
+],
+[
+4,
+"Appliquer le théorème de l’énergie cinétique."
+],
+[
+4,
+"Reconnaître une force conservative et lui associer une énergie potentielle."
+],
+[
+4,
+"Utiliser la conservation (ou la variation) de l’énergie mécanique ; lire un graphe d’énergie potentielle."
+]
+],
 "synth": "Mobiliser l’ensemble des compétences du chapitre (objectifs spécifiques 1 à 6) et évaluer sa propre maîtrise.",
 "fiches": [
 {
-"a": "A1.1",
+"a": "A18",
 "os": 1,
+"ra": "Distinguer référentiel, repère et système de coordonnées ; écrire le déplacement élémentaire.",
+"osl": null,
 "t": "Écrire le déplacement élémentaire dans chaque système de coordonnées",
 "travail": [
 {
@@ -1570,8 +1721,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1"
 },
 {
-"a": "A2.1",
-"os": 2,
+"a": "A42",
+"os": 4,
+"ra": "Calculer le travail d’une force dans chaque système de coordonnées ; reconnaître un travail moteur ou résistant.",
+"osl": null,
 "t": "Calculer le travail d’une force constante ou variable",
 "travail": [
 {
@@ -1646,8 +1799,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1, avant la séance de TD n°4"
 },
 {
-"a": "A3.1",
-"os": 3,
+"a": "A43",
+"os": 4,
+"ra": "Calculer la puissance d’une force.",
+"osl": null,
 "t": "Calculer une puissance mécanique",
 "travail": [
 {
@@ -1695,8 +1850,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2"
 },
 {
-"a": "A4.1",
+"a": "A44",
 "os": 4,
+"ra": "Appliquer le théorème de l’énergie cinétique.",
+"osl": null,
 "t": "Appliquer le théorème de l’énergie cinétique",
 "travail": [
 {
@@ -1747,8 +1904,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2"
 },
 {
-"a": "A5.1",
-"os": 5,
+"a": "A45",
+"os": 4,
+"ra": "Reconnaître une force conservative et lui associer une énergie potentielle.",
+"osl": null,
 "t": "Reconnaître une force conservative et calculer son énergie potentielle",
 "travail": [
 {
@@ -1801,8 +1960,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2"
 },
 {
-"a": "A6.1",
-"os": 6,
+"a": "A46",
+"os": 4,
+"ra": "Utiliser la conservation (ou la variation) de l’énergie mécanique ; lire un graphe d’énergie potentielle.",
+"osl": null,
 "t": "Utiliser la conservation de l’énergie mécanique",
 "travail": [
 {
@@ -1863,8 +2024,10 @@ window.ACTIVITES = {
 "echeance": "semaine 3, avant la séance de TD n°4"
 },
 {
-"a": "A6.2",
-"os": 6,
+"a": "A47",
+"os": 4,
+"ra": "Utiliser la conservation (ou la variation) de l’énergie mécanique ; lire un graphe d’énergie potentielle.",
+"osl": null,
 "t": "Lire un graphe d’énergie potentielle : équilibres et stabilité",
 "travail": [
 {
@@ -1921,8 +2084,13 @@ window.ACTIVITES = {
 "echeance": "semaine 3"
 },
 {
-"a": "A6.3",
+"a": "B4",
 "os": null,
+"ra": null,
+"osl": [
+1,
+4
+],
 "t": "Faire le bilan du chapitre : quiz, entraînement et autoévaluation",
 "travail": [
 {
@@ -1995,27 +2163,33 @@ window.ACTIVITES = {
 "grille": {
 "1": [
 "Déplacement élémentaire",
-"Activité A1.1 ; support § 4.1"
+"Activité A18 ; support § 4.1",
+1
 ],
 "2": [
 "Travail d’une force",
-"Activité A2.1 ; support § 4.2 à 4.4"
+"Activité A42 ; support § 4.2 à 4.4",
+4
 ],
 "3": [
 "Puissance",
-"Activité A3.1 ; support § 4.5"
+"Activité A43 ; support § 4.5",
+4
 ],
 "4": [
 "Théorème de l’énergie cinétique",
-"Activité A4.1 ; support § 4.6"
+"Activité A44 ; support § 4.6",
+4
 ],
 "5": [
 "Forces conservatives et énergie potentielle",
-"Activité A5.1 ; support § 4.7"
+"Activité A45 ; support § 4.7",
+4
 ],
 "6": [
 "Énergie mécanique, graphe d’énergie potentielle",
-"Activités A6.1 et A6.2 ; support § 4.8 et 4.9"
+"Activités A46 et A47 ; support § 4.8 et 4.9",
+4
 ]
 }
 },
@@ -2029,18 +2203,39 @@ window.ACTIVITES = {
 "docx": "Cahier_activites_Electricite1_Chapitre1",
 "support": "Electricite_Chapitre_1_Electrostatique",
 "quiz": "elec1",
+"ec_code": "LPCI1122",
 "OS": {
-"1": "Expliquer l’origine de la charge électrique ; utiliser sa quantification et sa conservation.",
-"2": "Décrire les modes d’électrisation ; distinguer conducteurs et isolants.",
-"3": "Définir et utiliser les densités de charge volumique, surfacique et linéique ; calculer une charge totale.",
-"4": "Appliquer la loi de Coulomb sous forme scalaire et vectorielle.",
-"5": "Calculer une force résultante par le principe de superposition."
+"1": "Décrire les phénomènes électrostatiques et la loi de Coulomb."
 },
+"RA": [
+[
+1,
+"Expliquer l’origine de la charge électrique ; utiliser sa quantification et sa conservation."
+],
+[
+1,
+"Décrire les modes d’électrisation ; distinguer conducteurs et isolants."
+],
+[
+1,
+"Définir et utiliser les densités de charge volumique, surfacique et linéique ; calculer une charge totale."
+],
+[
+1,
+"Appliquer la loi de Coulomb sous forme scalaire et vectorielle."
+],
+[
+1,
+"Calculer une force résultante par le principe de superposition."
+]
+],
 "synth": "Mobiliser l’ensemble des compétences du chapitre (objectifs spécifiques 1 à 5) et évaluer sa propre maîtrise.",
 "fiches": [
 {
-"a": "A1.1",
+"a": "A11",
 "os": 1,
+"ra": "Expliquer l’origine de la charge électrique ; utiliser sa quantification et sa conservation.",
+"osl": null,
 "t": "Utiliser la quantification et la conservation de la charge",
 "travail": [
 {
@@ -2089,8 +2284,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1, avant la séance de TD n°1"
 },
 {
-"a": "A2.1",
-"os": 2,
+"a": "A12",
+"os": 1,
+"ra": "Décrire les modes d’électrisation ; distinguer conducteurs et isolants.",
+"osl": null,
 "t": "Décrire l’électrisation par frottement, par contact et par influence",
 "travail": [
 {
@@ -2149,8 +2346,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1, avant la séance de TD n°1"
 },
 {
-"a": "A3.1",
-"os": 3,
+"a": "A13",
+"os": 1,
+"ra": "Définir et utiliser les densités de charge volumique, surfacique et linéique ; calculer une charge totale.",
+"osl": null,
 "t": "Calculer une charge totale à partir d’une densité de charge",
 "travail": [
 {
@@ -2196,8 +2395,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1"
 },
 {
-"a": "A4.1",
-"os": 4,
+"a": "A14",
+"os": 1,
+"ra": "Appliquer la loi de Coulomb sous forme scalaire et vectorielle.",
+"osl": null,
 "t": "Appliquer la loi de Coulomb",
 "travail": [
 {
@@ -2259,8 +2460,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2"
 },
 {
-"a": "A5.1",
-"os": 5,
+"a": "A15",
+"os": 1,
+"ra": "Calculer une force résultante par le principe de superposition.",
+"osl": null,
 "t": "Calculer une force résultante par le principe de superposition",
 "travail": [
 {
@@ -2327,8 +2530,12 @@ window.ACTIVITES = {
 "echeance": "semaine 2, avant la séance de TD n°1"
 },
 {
-"a": "A5.2",
+"a": "B1",
 "os": null,
+"ra": null,
+"osl": [
+1
+],
 "t": "Faire le bilan du chapitre : quiz, entraînement et autoévaluation",
 "travail": [
 {
@@ -2391,23 +2598,28 @@ window.ACTIVITES = {
 "grille": {
 "1": [
 "Charge, quantification, conservation",
-"Activité A1.1 ; support § 1.1"
+"Activité A11 ; support § 1.1",
+1
 ],
 "2": [
 "Électrisation, conducteurs et isolants",
-"Activité A2.1 ; support § 1.2"
+"Activité A12 ; support § 1.2",
+1
 ],
 "3": [
 "Densités de charge, charge totale",
-"Activité A3.1 ; support § 1.3"
+"Activité A13 ; support § 1.3",
+1
 ],
 "4": [
 "Loi de Coulomb",
-"Activité A4.1 ; support § 1.4"
+"Activité A14 ; support § 1.4",
+1
 ],
 "5": [
 "Principe de superposition",
-"Activité A5.1 ; support § 1.4"
+"Activité A15 ; support § 1.4",
+1
 ]
 }
 },
@@ -2421,18 +2633,40 @@ window.ACTIVITES = {
 "docx": "Cahier_activites_Electricite1_Chapitre2",
 "support": "Electricite_Chapitre_2_Champ_potentiel",
 "quiz": "elec2",
+"ec_code": "LPCI1122",
 "OS": {
-"1": "Définir le champ et le potentiel électrostatiques ; relier travail, potentiel et énergie potentielle.",
-"2": "Calculer le champ et le potentiel d’une charge ponctuelle et de plusieurs charges ; connaître la méthode pour une distribution continue.",
-"3": "Utiliser la relation **E** = −**grad** V.",
-"4": "Définir l’angle solide et le flux ; énoncer, démontrer et appliquer le théorème de Gauss.",
-"5": "Connaître les propriétés du champ et du potentiel ; écrire les équations de Poisson et de Laplace."
+"2": "Calculer le champ et le potentiel créés par des distributions de charges.",
+"3": "Appliquer le théorème de Gauss à des distributions symétriques."
 },
+"RA": [
+[
+2,
+"Définir le champ et le potentiel électrostatiques ; relier travail, potentiel et énergie potentielle."
+],
+[
+2,
+"Calculer le champ et le potentiel d’une charge ponctuelle et de plusieurs charges ; connaître la méthode pour une distribution continue."
+],
+[
+2,
+"Utiliser la relation **E** = −**grad** V."
+],
+[
+3,
+"Définir l’angle solide et le flux ; énoncer, démontrer et appliquer le théorème de Gauss."
+],
+[
+3,
+"Connaître les propriétés du champ et du potentiel ; écrire les équations de Poisson et de Laplace."
+]
+],
 "synth": "Mobiliser l’ensemble des compétences du chapitre (objectifs spécifiques 1 à 5) et évaluer sa propre maîtrise.",
 "fiches": [
 {
-"a": "A1.1",
-"os": 1,
+"a": "A21",
+"os": 2,
+"ra": "Définir le champ et le potentiel électrostatiques ; relier travail, potentiel et énergie potentielle.",
+"osl": null,
 "t": "Définir le champ et le potentiel d’une charge ponctuelle ; relier travail et potentiel",
 "travail": [
 {
@@ -2491,8 +2725,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1"
 },
 {
-"a": "A2.1",
+"a": "A22",
 "os": 2,
+"ra": "Calculer le champ et le potentiel d’une charge ponctuelle et de plusieurs charges ; connaître la méthode pour une distribution continue.",
+"osl": null,
 "t": "Calculer le champ et le potentiel créés par plusieurs charges ponctuelles",
 "travail": [
 {
@@ -2558,8 +2794,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1, avant la séance de TD n°1"
 },
 {
-"a": "A2.2",
+"a": "A23",
 "os": 2,
+"ra": "Calculer le champ et le potentiel d’une charge ponctuelle et de plusieurs charges ; connaître la méthode pour une distribution continue.",
+"osl": null,
 "t": "Calculer le champ et le potentiel d’une distribution continue de charges",
 "travail": [
 {
@@ -2626,8 +2864,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2, avant la séance de TD n°1"
 },
 {
-"a": "A3.1",
-"os": 3,
+"a": "A24",
+"os": 2,
+"ra": "Utiliser la relation **E** = −**grad** V.",
+"osl": null,
 "t": "Déduire le champ du potentiel : E = −grad V",
 "travail": [
 {
@@ -2676,8 +2916,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2"
 },
 {
-"a": "A4.1",
-"os": 4,
+"a": "A31",
+"os": 3,
+"ra": "Définir l’angle solide et le flux ; énoncer, démontrer et appliquer le théorème de Gauss.",
+"osl": null,
 "t": "Calculer un angle solide et un flux ; énoncer le théorème de Gauss",
 "travail": [
 {
@@ -2734,8 +2976,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2"
 },
 {
-"a": "A4.2",
-"os": 4,
+"a": "A32",
+"os": 3,
+"ra": "Définir l’angle solide et le flux ; énoncer, démontrer et appliquer le théorème de Gauss.",
+"osl": null,
 "t": "Appliquer le théorème de Gauss à une boule chargée en volume",
 "travail": [
 {
@@ -2791,8 +3035,10 @@ window.ACTIVITES = {
 "echeance": "semaine 3, avant la séance de TD n°1"
 },
 {
-"a": "A5.1",
-"os": 5,
+"a": "A33",
+"os": 3,
+"ra": "Connaître les propriétés du champ et du potentiel ; écrire les équations de Poisson et de Laplace.",
+"osl": null,
 "t": "Écrire les équations locales : équations de Poisson et de Laplace",
 "travail": [
 {
@@ -2840,8 +3086,13 @@ window.ACTIVITES = {
 "echeance": "semaine 3"
 },
 {
-"a": "A5.2",
+"a": "B2",
 "os": null,
+"ra": null,
+"osl": [
+2,
+3
+],
 "t": "Faire le bilan du chapitre : quiz, entraînement et autoévaluation",
 "travail": [
 {
@@ -2904,23 +3155,28 @@ window.ACTIVITES = {
 "grille": {
 "1": [
 "Champ, potentiel, travail et énergie",
-"Activité A1.1 ; support § 2.1 et 2.2"
+"Activité A21 ; support § 2.1 et 2.2",
+2
 ],
 "2": [
 "Charges ponctuelles et distributions continues",
-"Activités A2.1 et A2.2 ; support § 2.3 et 2.4"
+"Activités A22 et A23 ; support § 2.3 et 2.4",
+2
 ],
 "3": [
 "Relation E = −grad V",
-"Activité A3.1 ; support § 2.2 et 2.7"
+"Activité A24 ; support § 2.2 et 2.7",
+2
 ],
 "4": [
 "Angle solide, flux, théorème de Gauss",
-"Activités A4.1 et A4.2 ; support § 2.5 et 2.6"
+"Activités A31 et A32 ; support § 2.5 et 2.6",
+3
 ],
 "5": [
 "Propriétés, équations de Poisson et de Laplace",
-"Activité A5.1 ; support § 2.7 et 2.8"
+"Activité A33 ; support § 2.7 et 2.8",
+3
 ]
 }
 },
@@ -2934,17 +3190,35 @@ window.ACTIVITES = {
 "docx": "Cahier_activites_Electricite1_Chapitre3",
 "support": "Electricite_Chapitre_3_Dipole",
 "quiz": "elec3",
+"ec_code": "LPCI1122",
 "OS": {
-"1": "Définir un dipôle électrostatique et son moment dipolaire ; distinguer dipôle permanent et dipôle induit.",
-"2": "Calculer le potentiel créé à grande distance par un dipôle et en déduire le champ.",
-"3": "Connaître les positions principales de Gauss, les lignes de champ et les équipotentielles du dipôle.",
-"4": "Déterminer le couple, l’énergie potentielle et la force subis par un dipôle dans un champ extérieur ; étudier ses positions d’équilibre."
+"2": "Calculer le champ et le potentiel créés par des distributions de charges."
 },
+"RA": [
+[
+2,
+"Définir un dipôle électrostatique et son moment dipolaire ; distinguer dipôle permanent et dipôle induit."
+],
+[
+2,
+"Calculer le potentiel créé à grande distance par un dipôle et en déduire le champ."
+],
+[
+2,
+"Connaître les positions principales de Gauss, les lignes de champ et les équipotentielles du dipôle."
+],
+[
+2,
+"Déterminer le couple, l’énergie potentielle et la force subis par un dipôle dans un champ extérieur ; étudier ses positions d’équilibre."
+]
+],
 "synth": "Mobiliser l’ensemble des compétences du chapitre (objectifs spécifiques 1 à 4) et évaluer sa propre maîtrise.",
 "fiches": [
 {
-"a": "A1.1",
-"os": 1,
+"a": "A25",
+"os": 2,
+"ra": "Définir un dipôle électrostatique et son moment dipolaire ; distinguer dipôle permanent et dipôle induit.",
+"osl": null,
 "t": "Définir un dipôle et calculer son moment dipolaire",
 "travail": [
 {
@@ -2983,8 +3257,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1"
 },
 {
-"a": "A2.1",
+"a": "A26",
 "os": 2,
+"ra": "Calculer le potentiel créé à grande distance par un dipôle et en déduire le champ.",
+"osl": null,
 "t": "Calculer le potentiel et le champ du dipôle à grande distance",
 "travail": [
 {
@@ -3046,8 +3322,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1, avant la séance de TD n°2"
 },
 {
-"a": "A2.2",
+"a": "A27",
 "os": 2,
+"ra": "Calculer le potentiel créé à grande distance par un dipôle et en déduire le champ.",
+"osl": null,
 "t": "Calculer le champ du dipôle en un point quelconque",
 "travail": [
 {
@@ -3092,8 +3370,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2"
 },
 {
-"a": "A3.1",
-"os": 3,
+"a": "A28",
+"os": 2,
+"ra": "Connaître les positions principales de Gauss, les lignes de champ et les équipotentielles du dipôle.",
+"osl": null,
 "t": "Exploiter les positions de Gauss, les lignes de champ et les équipotentielles",
 "travail": [
 {
@@ -3160,8 +3440,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2, avant la séance de TD n°2"
 },
 {
-"a": "A4.1",
-"os": 4,
+"a": "A29",
+"os": 2,
+"ra": "Déterminer le couple, l’énergie potentielle et la force subis par un dipôle dans un champ extérieur ; étudier ses positions d’équilibre.",
+"osl": null,
 "t": "Étudier un dipôle placé dans un champ extérieur",
 "travail": [
 {
@@ -3228,8 +3510,12 @@ window.ACTIVITES = {
 "echeance": "semaine 2"
 },
 {
-"a": "A4.2",
+"a": "B3",
 "os": null,
+"ra": null,
+"osl": [
+2
+],
 "t": "Faire le bilan du chapitre : quiz, entraînement et autoévaluation",
 "travail": [
 {
@@ -3292,19 +3578,23 @@ window.ACTIVITES = {
 "grille": {
 "1": [
 "Dipôle et moment dipolaire",
-"Activité A1.1 ; support § 3.1"
+"Activité A25 ; support § 3.1",
+2
 ],
 "2": [
 "Potentiel et champ à grande distance",
-"Activités A2.1 et A2.2 ; support § 3.2 et 3.3"
+"Activités A26 et A27 ; support § 3.2 et 3.3",
+2
 ],
 "3": [
 "Positions de Gauss, lignes de champ, équipotentielles",
-"Activité A3.1 ; support § 3.4 et 3.5"
+"Activité A28 ; support § 3.4 et 3.5",
+2
 ],
 "4": [
 "Dipôle dans un champ extérieur",
-"Activité A4.1 ; support § 3.6"
+"Activité A29 ; support § 3.6",
+2
 ]
 }
 },
@@ -3318,18 +3608,40 @@ window.ACTIVITES = {
 "docx": "Cahier_activites_Electricite1_Chapitre4",
 "support": "Electricite_Chapitre_4_Electrocinetique",
 "quiz": "elec4",
+"ec_code": "LPCI1122",
 "OS": {
-"1": "Définir l'intensité, la tension et la puissance électriques et utiliser les conventions récepteur et générateur.",
-"2": "Associer des résistances, utiliser les diviseurs de tension et de courant, et modéliser un générateur et un récepteur.",
-"3": "Écrire et résoudre les équations de Kirchhoff d'un réseau linéaire et appliquer la méthode des mailles.",
-"4": "Utiliser les théorèmes de superposition, de Thévenin, de Norton et de Millman, et la transformation de Kennelly.",
-"5": "Décrire le comportement d'un condensateur et d'une bobine en régime continu et distinguer régime transitoire et régime permanent."
+"4": "Analyser les circuits en courant continu (lois de Kirchhoff).",
+"5": "Étudier les dipôles et les théorèmes fondamentaux des réseaux."
 },
+"RA": [
+[
+4,
+"Définir l'intensité, la tension et la puissance électriques et utiliser les conventions récepteur et générateur."
+],
+[
+4,
+"Associer des résistances, utiliser les diviseurs de tension et de courant, et modéliser un générateur et un récepteur."
+],
+[
+4,
+"Écrire et résoudre les équations de Kirchhoff d'un réseau linéaire et appliquer la méthode des mailles."
+],
+[
+5,
+"Utiliser les théorèmes de superposition, de Thévenin, de Norton et de Millman, et la transformation de Kennelly."
+],
+[
+5,
+"Décrire le comportement d'un condensateur et d'une bobine en régime continu et distinguer régime transitoire et régime permanent."
+]
+],
 "synth": "Mobiliser l'ensemble des compétences du chapitre (objectifs spécifiques 1 à 5) et évaluer sa propre maîtrise.",
 "fiches": [
 {
-"a": "A1.1",
-"os": 1,
+"a": "A41",
+"os": 4,
+"ra": "Définir l'intensité, la tension et la puissance électriques et utiliser les conventions récepteur et générateur.",
+"osl": null,
 "t": "Découvrir les grandeurs électriques à partir d'une situation réelle : la batterie d'une voiture au démarrage",
 "travail": [
 {
@@ -3383,8 +3695,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1, avant la séance de TD n°3"
 },
 {
-"a": "A1.2",
-"os": 1,
+"a": "A42",
+"os": 4,
+"ra": "Définir l'intensité, la tension et la puissance électriques et utiliser les conventions récepteur et générateur.",
+"osl": null,
 "t": "Faire le bilan de puissance d'un circuit générateur – résistor – moteur (TD n°3, exercice 2)",
 "travail": [
 {
@@ -3442,8 +3756,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1, avant la séance de TD n°3"
 },
 {
-"a": "A2.1",
-"os": 2,
+"a": "A43",
+"os": 4,
+"ra": "Associer des résistances, utiliser les diviseurs de tension et de courant, et modéliser un générateur et un récepteur.",
+"osl": null,
 "t": "Réduire un réseau de résistances et utiliser les diviseurs de tension et de courant",
 "travail": [
 {
@@ -3498,8 +3814,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1, avant la séance de TD n°3"
 },
 {
-"a": "A2.2",
-"os": 2,
+"a": "A44",
+"os": 4,
+"ra": "Associer des résistances, utiliser les diviseurs de tension et de courant, et modéliser un générateur et un récepteur.",
+"osl": null,
 "t": "Vérifier la loi d'Ohm en manipulant : TP 4 sur la plateforme Physique Facile",
 "travail": [
 {
@@ -3555,8 +3873,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2"
 },
 {
-"a": "A3.1",
-"os": 3,
+"a": "A45",
+"os": 4,
+"ra": "Écrire et résoudre les équations de Kirchhoff d'un réseau linéaire et appliquer la méthode des mailles.",
+"osl": null,
 "t": "Appliquer les lois de Kirchhoff au réseau de référence du chapitre",
 "travail": [
 {
@@ -3610,8 +3930,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2, avant la séance de TD"
 },
 {
-"a": "A3.2",
-"os": 3,
+"a": "A46",
+"os": 4,
+"ra": "Écrire et résoudre les équations de Kirchhoff d'un réseau linéaire et appliquer la méthode des mailles.",
+"osl": null,
 "t": "Résoudre un réseau à deux mailles par la méthode des mailles",
 "travail": [
 {
@@ -3664,8 +3986,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2"
 },
 {
-"a": "A4.1",
-"os": 4,
+"a": "A51",
+"os": 5,
+"ra": "Utiliser les théorèmes de superposition, de Thévenin, de Norton et de Millman, et la transformation de Kennelly.",
+"osl": null,
 "t": "Comparer les méthodes d'analyse sur un même réseau (Kirchhoff, Thévenin) et s'exercer aux théorèmes",
 "travail": [
 {
@@ -3680,7 +4004,7 @@ window.ACTIVITES = {
 },
 {
 "n": "2",
-"t": "Sur le réseau de référence, détermine le générateur de Thévenin vu par la résistance R, puis le courant I ; compare avec le résultat de Kirchhoff (activité A3.1).",
+"t": "Sur le réseau de référence, détermine le générateur de Thévenin vu par la résistance R, puis le courant I ; compare avec le résultat de Kirchhoff (activité A45).",
 "l": []
 },
 {
@@ -3716,8 +4040,10 @@ window.ACTIVITES = {
 "echeance": "semaine 3"
 },
 {
-"a": "A4.2",
-"os": 4,
+"a": "A52",
+"os": 5,
+"ra": "Utiliser les théorèmes de superposition, de Thévenin, de Norton et de Millman, et la transformation de Kennelly.",
+"osl": null,
 "t": "Appliquer les théorèmes généraux : superposition, pont de Wheatstone, Millman et Kennelly (TD n°3, exercices 6 à 8)",
 "travail": [
 {
@@ -3761,8 +4087,10 @@ window.ACTIVITES = {
 "echeance": "semaine 3, avant la séance de TD"
 },
 {
-"a": "A5.1",
+"a": "A53",
 "os": 5,
+"ra": "Décrire le comportement d'un condensateur et d'une bobine en régime continu et distinguer régime transitoire et régime permanent.",
+"osl": null,
 "t": "Décrire un condensateur et une bobine en régime continu",
 "travail": [
 {
@@ -3816,8 +4144,13 @@ window.ACTIVITES = {
 "echeance": "semaine 3"
 },
 {
-"a": "A5.2",
+"a": "B4",
 "os": null,
+"ra": null,
+"osl": [
+4,
+5
+],
 "t": "Faire le bilan du chapitre : quiz, entraînement et autoévaluation",
 "travail": [
 {
@@ -3875,23 +4208,28 @@ window.ACTIVITES = {
 "grille": {
 "1": [
 "Grandeurs, conventions et puissance",
-"Activités A1.1 et A1.2 ; support § 4.1"
+"Activités A41 et A42 ; support § 4.1",
+4
 ],
 "2": [
 "Associations, diviseurs, générateurs et récepteurs",
-"Activités A2.1 et A2.2 ; support § 4.2"
+"Activités A43 et A44 ; support § 4.2",
+4
 ],
 "3": [
 "Lois de Kirchhoff et méthode des mailles",
-"Activités A3.1 et A3.2 ; support § 4.4 et 4.5"
+"Activités A45 et A46 ; support § 4.4 et 4.5",
+4
 ],
 "4": [
 "Superposition, Thévenin, Norton, Millman, Kennelly",
-"Activités A4.1 et A4.2 ; support § 4.6 à 4.9"
+"Activités A51 et A52 ; support § 4.6 à 4.9",
+5
 ],
 "5": [
 "Condensateur et bobine en régime continu",
-"Activité A5.1 ; support § 4.10"
+"Activité A53 ; support § 4.10",
+5
 ]
 }
 },
@@ -3905,18 +4243,41 @@ window.ACTIVITES = {
 "docx": "Cahier_activites_Electricite2_Chapitre1",
 "support": "Electricite2_Chapitre_1_Champ_magnetique",
 "quiz": "elec21",
+"ec_code": "LPCI1222",
 "OS": {
-"1": "Connaître les sources du champ magnétique, son unité et ses lignes de champ.",
-"2": "Calculer un champ par la loi de Biot et Savart : fil rectiligne, spire, solénoïde.",
-"3": "Utiliser les symétries ; savoir que le flux magnétique est conservatif.",
-"4": "Appliquer le théorème d’Ampère (fil, cylindre, solénoïde, tore) et connaître ses formes locales.",
-"5": "Exprimer les forces de Lorentz et de Laplace ; calculer le couple sur un circuit ; connaître le dipôle magnétique."
+"1": "Décrire le champ magnétique et ses sources.",
+"2": "Appliquer les théorèmes d’Ampère et de Biot et Savart.",
+"3": "Analyser la force de Laplace et la force de Lorentz."
 },
+"RA": [
+[
+1,
+"Connaître les sources du champ magnétique, son unité et ses lignes de champ."
+],
+[
+2,
+"Calculer un champ par la loi de Biot et Savart : fil rectiligne, spire, solénoïde."
+],
+[
+1,
+"Utiliser les symétries ; savoir que le flux magnétique est conservatif."
+],
+[
+2,
+"Appliquer le théorème d’Ampère (fil, cylindre, solénoïde, tore) et connaître ses formes locales."
+],
+[
+3,
+"Exprimer les forces de Lorentz et de Laplace ; calculer le couple sur un circuit ; connaître le dipôle magnétique."
+]
+],
 "synth": "Mobiliser l’ensemble des compétences du chapitre (objectifs spécifiques 1 à 5) et évaluer sa propre maîtrise.",
 "fiches": [
 {
-"a": "A1.1",
+"a": "A11",
 "os": 1,
+"ra": "Connaître les sources du champ magnétique, son unité et ses lignes de champ.",
+"osl": null,
 "t": "Connaître les sources du champ magnétique et ses ordres de grandeur",
 "travail": [
 {
@@ -3956,8 +4317,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1"
 },
 {
-"a": "A2.1",
+"a": "A21",
 "os": 2,
+"ra": "Calculer un champ par la loi de Biot et Savart : fil rectiligne, spire, solénoïde.",
+"osl": null,
 "t": "Calculer un champ par la loi de Biot et Savart : fil et spire",
 "travail": [
 {
@@ -4018,8 +4381,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1, avant la séance de TD n°1"
 },
 {
-"a": "A2.2",
+"a": "A22",
 "os": 2,
+"ra": "Calculer un champ par la loi de Biot et Savart : fil rectiligne, spire, solénoïde.",
+"osl": null,
 "t": "Calculer le champ d’un solénoïde",
 "travail": [
 {
@@ -4071,8 +4436,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2"
 },
 {
-"a": "A3.1",
-"os": 3,
+"a": "A12",
+"os": 1,
+"ra": "Utiliser les symétries ; savoir que le flux magnétique est conservatif.",
+"osl": null,
 "t": "Utiliser les symétries et la conservation du flux magnétique",
 "travail": [
 {
@@ -4112,8 +4479,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2"
 },
 {
-"a": "A4.1",
-"os": 4,
+"a": "A23",
+"os": 2,
+"ra": "Appliquer le théorème d’Ampère (fil, cylindre, solénoïde, tore) et connaître ses formes locales.",
+"osl": null,
 "t": "Appliquer le théorème d’Ampère",
 "travail": [
 {
@@ -4160,8 +4529,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2, avant la séance de TD n°1"
 },
 {
-"a": "A5.1",
-"os": 5,
+"a": "A31",
+"os": 3,
+"ra": "Exprimer les forces de Lorentz et de Laplace ; calculer le couple sur un circuit ; connaître le dipôle magnétique.",
+"osl": null,
 "t": "Utiliser la force de Lorentz : particule chargée dans un champ magnétique",
 "travail": [
 {
@@ -4214,8 +4585,10 @@ window.ACTIVITES = {
 "echeance": "semaine 3"
 },
 {
-"a": "A5.2",
-"os": 5,
+"a": "A32",
+"os": 3,
+"ra": "Exprimer les forces de Lorentz et de Laplace ; calculer le couple sur un circuit ; connaître le dipôle magnétique.",
+"osl": null,
 "t": "Utiliser la force de Laplace et le moment magnétique",
 "travail": [
 {
@@ -4261,8 +4634,14 @@ window.ACTIVITES = {
 "echeance": "semaine 3, avant la séance de TD n°1"
 },
 {
-"a": "A5.3",
+"a": "B1",
 "os": null,
+"ra": null,
+"osl": [
+1,
+2,
+3
+],
 "t": "Faire le bilan du chapitre : quiz, entraînement et autoévaluation",
 "travail": [
 {
@@ -4325,23 +4704,28 @@ window.ACTIVITES = {
 "grille": {
 "1": [
 "Sources, unité, lignes de champ",
-"Activité A1.1 ; support § 1.1"
+"Activité A11 ; support § 1.1",
+1
 ],
 "2": [
 "Loi de Biot et Savart",
-"Activités A2.1 et A2.2 ; support § 1.2 et 1.3"
+"Activités A21 et A22 ; support § 1.2 et 1.3",
+2
 ],
 "3": [
 "Symétries, flux conservatif",
-"Activité A3.1 ; support § 1.2 et 1.4"
+"Activité A12 ; support § 1.2 et 1.4",
+1
 ],
 "4": [
 "Théorème d’Ampère",
-"Activité A4.1 ; support § 1.5"
+"Activité A23 ; support § 1.5",
+2
 ],
 "5": [
 "Forces de Lorentz et de Laplace, couple, dipôle",
-"Activités A5.1 et A5.2 ; support § 1.6 et 1.7"
+"Activités A31 et A32 ; support § 1.6 et 1.7",
+3
 ]
 }
 },
@@ -4355,19 +4739,44 @@ window.ACTIVITES = {
 "docx": "Cahier_activites_Optique1_Chapitre1",
 "support": "Optique_Chapitre_1_Lois_fondamentales",
 "quiz": "opt1",
+"ec_code": "LPCI1221",
 "OS": {
-"1": "Situer l’optique géométrique et connaître son domaine de validité.",
-"2": "Connaître la nature de la lumière, le spectre visible et les relations λ = cT = c/ν et n = c/v.",
-"3": "Définir sources, milieux, rayons et faisceaux lumineux ; énoncer la propagation rectiligne et le retour inverse.",
-"4": "Définir le chemin optique et énoncer le principe de Fermat.",
-"5": "Énoncer et démontrer les lois de Snell-Descartes de la réflexion et de la réfraction.",
-"6": "Déterminer l’angle de réfraction limite et l’angle critique de réflexion totale ; expliquer le guidage dans une fibre optique."
+"1": "Énoncer les principes fondamentaux de l’optique géométrique.",
+"2": "Appliquer les lois de Snell-Descartes à la réflexion et à la réfraction."
 },
+"RA": [
+[
+1,
+"Situer l’optique géométrique et connaître son domaine de validité."
+],
+[
+1,
+"Connaître la nature de la lumière, le spectre visible et les relations λ = cT = c/ν et n = c/v."
+],
+[
+1,
+"Définir sources, milieux, rayons et faisceaux lumineux ; énoncer la propagation rectiligne et le retour inverse."
+],
+[
+1,
+"Définir le chemin optique et énoncer le principe de Fermat."
+],
+[
+2,
+"Énoncer et démontrer les lois de Snell-Descartes de la réflexion et de la réfraction."
+],
+[
+2,
+"Déterminer l’angle de réfraction limite et l’angle critique de réflexion totale ; expliquer le guidage dans une fibre optique."
+]
+],
 "synth": "Mobiliser l’ensemble des compétences du chapitre (objectifs spécifiques 1 à 6) et évaluer sa propre maîtrise.",
 "fiches": [
 {
-"a": "A1.1",
+"a": "A11",
 "os": 1,
+"ra": "Situer l’optique géométrique et connaître son domaine de validité.",
+"osl": null,
 "t": "Situer l’optique géométrique et son domaine de validité",
 "travail": [
 {
@@ -4406,8 +4815,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1"
 },
 {
-"a": "A2.1",
-"os": 2,
+"a": "A12",
+"os": 1,
+"ra": "Connaître la nature de la lumière, le spectre visible et les relations λ = cT = c/ν et n = c/v.",
+"osl": null,
 "t": "Relier fréquence, longueur d’onde, vitesse et indice",
 "travail": [
 {
@@ -4464,8 +4875,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1, avant la séance de TD n°1"
 },
 {
-"a": "A3.1",
-"os": 3,
+"a": "A13",
+"os": 1,
+"ra": "Définir sources, milieux, rayons et faisceaux lumineux ; énoncer la propagation rectiligne et le retour inverse.",
+"osl": null,
 "t": "Utiliser la propagation rectiligne de la lumière",
 "travail": [
 {
@@ -4504,8 +4917,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1"
 },
 {
-"a": "A4.1",
-"os": 4,
+"a": "A14",
+"os": 1,
+"ra": "Définir le chemin optique et énoncer le principe de Fermat.",
+"osl": null,
 "t": "Appliquer le principe de Fermat",
 "travail": [
 {
@@ -4551,8 +4966,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2"
 },
 {
-"a": "A5.1",
-"os": 5,
+"a": "A21",
+"os": 2,
+"ra": "Énoncer et démontrer les lois de Snell-Descartes de la réflexion et de la réfraction.",
+"osl": null,
 "t": "Appliquer les lois de Snell-Descartes",
 "travail": [
 {
@@ -4616,8 +5033,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2, avant la séance de TD n°1"
 },
 {
-"a": "A6.1",
-"os": 6,
+"a": "A22",
+"os": 2,
+"ra": "Déterminer l’angle de réfraction limite et l’angle critique de réflexion totale ; expliquer le guidage dans une fibre optique.",
+"osl": null,
 "t": "Déterminer l’angle limite et prévoir une réflexion totale",
 "travail": [
 {
@@ -4681,8 +5100,10 @@ window.ACTIVITES = {
 "echeance": "semaine 3"
 },
 {
-"a": "A6.2",
-"os": 6,
+"a": "A23",
+"os": 2,
+"ra": "Déterminer l’angle de réfraction limite et l’angle critique de réflexion totale ; expliquer le guidage dans une fibre optique.",
+"osl": null,
 "t": "Expliquer la dispersion et le guidage dans une fibre optique",
 "travail": [
 {
@@ -4738,8 +5159,13 @@ window.ACTIVITES = {
 "echeance": "semaine 3, avant la séance de TD n°1"
 },
 {
-"a": "A6.3",
+"a": "B1",
 "os": null,
+"ra": null,
+"osl": [
+1,
+2
+],
 "t": "Faire le bilan du chapitre : quiz, entraînement et autoévaluation",
 "travail": [
 {
@@ -4802,27 +5228,33 @@ window.ACTIVITES = {
 "grille": {
 "1": [
 "Domaine de validité de l’optique géométrique",
-"Activité A1.1 ; support § 1.1"
+"Activité A11 ; support § 1.1",
+1
 ],
 "2": [
 "Nature de la lumière, indice",
-"Activité A2.1 ; support § 1.2"
+"Activité A12 ; support § 1.2",
+1
 ],
 "3": [
 "Rayons, faisceaux, propagation rectiligne",
-"Activité A3.1 ; support § 1.3"
+"Activité A13 ; support § 1.3",
+1
 ],
 "4": [
 "Chemin optique, principe de Fermat",
-"Activité A4.1 ; support § 1.4"
+"Activité A14 ; support § 1.4",
+1
 ],
 "5": [
 "Lois de Snell-Descartes",
-"Activité A5.1 ; support § 1.5"
+"Activité A21 ; support § 1.5",
+2
 ],
 "6": [
 "Réflexion totale, dispersion, fibre optique",
-"Activités A6.1 et A6.2 ; support § 1.6 à 1.8"
+"Activités A22 et A23 ; support § 1.6 à 1.8",
+2
 ]
 }
 },
@@ -4836,18 +5268,40 @@ window.ACTIVITES = {
 "docx": "Cahier_activites_Optique1_Chapitre2",
 "support": "Optique_Chapitre_2_Formation_images",
 "quiz": "opt2",
+"ec_code": "LPCI1221",
 "OS": {
-"1": "Définir un système optique centré, un objet et une image, et leur caractère réel ou virtuel.",
-"2": "Définir le stigmatisme rigoureux et approché, l’aplanétisme ; énoncer les conditions de Gauss.",
-"3": "Définir foyers, plans focaux, distances focales, vergence et grandissements.",
-"4": "Construire l’image d’un objet par un miroir plan ; établir sa relation de conjugaison et son grandissement.",
-"5": "Montrer qu’un dioptre plan n’est pas stigmatique ; établir sa relation de conjugaison dans les conditions de Gauss ; calculer une profondeur apparente."
+"1": "Énoncer les principes fondamentaux de l’optique géométrique.",
+"3": "Construire les images données par les miroirs et les dioptres."
 },
+"RA": [
+[
+1,
+"Définir un système optique centré, un objet et une image, et leur caractère réel ou virtuel."
+],
+[
+1,
+"Définir le stigmatisme rigoureux et approché, l’aplanétisme ; énoncer les conditions de Gauss."
+],
+[
+3,
+"Définir foyers, plans focaux, distances focales, vergence et grandissements."
+],
+[
+3,
+"Construire l’image d’un objet par un miroir plan ; établir sa relation de conjugaison et son grandissement."
+],
+[
+3,
+"Montrer qu’un dioptre plan n’est pas stigmatique ; établir sa relation de conjugaison dans les conditions de Gauss ; calculer une profondeur apparente."
+]
+],
 "synth": "Mobiliser l’ensemble des compétences du chapitre (objectifs spécifiques 1 à 5) et évaluer sa propre maîtrise.",
 "fiches": [
 {
-"a": "A1.1",
+"a": "A15",
 "os": 1,
+"ra": "Définir un système optique centré, un objet et une image, et leur caractère réel ou virtuel.",
+"osl": null,
 "t": "Reconnaître un objet et une image réels ou virtuels",
 "travail": [
 {
@@ -4894,8 +5348,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1"
 },
 {
-"a": "A2.1",
-"os": 2,
+"a": "A16",
+"os": 1,
+"ra": "Définir le stigmatisme rigoureux et approché, l’aplanétisme ; énoncer les conditions de Gauss.",
+"osl": null,
 "t": "Vérifier les conditions de Gauss",
 "travail": [
 {
@@ -4943,8 +5399,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1"
 },
 {
-"a": "A3.1",
+"a": "A31",
 "os": 3,
+"ra": "Définir foyers, plans focaux, distances focales, vergence et grandissements.",
+"osl": null,
 "t": "Calculer une vergence et un grandissement",
 "travail": [
 {
@@ -4997,8 +5455,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1, avant la séance de TD n°2"
 },
 {
-"a": "A4.1",
-"os": 4,
+"a": "A32",
+"os": 3,
+"ra": "Construire l’image d’un objet par un miroir plan ; établir sa relation de conjugaison et son grandissement.",
+"osl": null,
 "t": "Construire et calculer l’image donnée par un miroir plan",
 "travail": [
 {
@@ -5065,8 +5525,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2, avant la séance de TD n°2"
 },
 {
-"a": "A5.1",
-"os": 5,
+"a": "A33",
+"os": 3,
+"ra": "Montrer qu’un dioptre plan n’est pas stigmatique ; établir sa relation de conjugaison dans les conditions de Gauss ; calculer une profondeur apparente.",
+"osl": null,
 "t": "Calculer une profondeur apparente avec le dioptre plan",
 "travail": [
 {
@@ -5123,8 +5585,13 @@ window.ACTIVITES = {
 "echeance": "semaine 2"
 },
 {
-"a": "A5.2",
+"a": "B2",
 "os": null,
+"ra": null,
+"osl": [
+1,
+3
+],
 "t": "Faire le bilan du chapitre : quiz, entraînement et autoévaluation",
 "travail": [
 {
@@ -5187,23 +5654,28 @@ window.ACTIVITES = {
 "grille": {
 "1": [
 "Objets et images réels ou virtuels",
-"Activité A1.1 ; support § 2.1"
+"Activité A15 ; support § 2.1",
+1
 ],
 "2": [
 "Stigmatisme, aplanétisme, conditions de Gauss",
-"Activité A2.1 ; support § 2.2 et 2.3"
+"Activité A16 ; support § 2.2 et 2.3",
+1
 ],
 "3": [
 "Foyers, vergence, grandissements",
-"Activité A3.1 ; support § 2.4"
+"Activité A31 ; support § 2.4",
+3
 ],
 "4": [
 "Miroir plan",
-"Activité A4.1 ; support § 2.5"
+"Activité A32 ; support § 2.5",
+3
 ],
 "5": [
 "Dioptre plan, profondeur apparente",
-"Activité A5.1 ; support § 2.6"
+"Activité A33 ; support § 2.6",
+3
 ]
 }
 },
@@ -5217,18 +5689,39 @@ window.ACTIVITES = {
 "docx": "Cahier_activites_Optique1_Chapitre3",
 "support": "Optique_Chapitre_3_Prisme_lame",
 "quiz": "opt3",
+"ec_code": "LPCI1221",
 "OS": {
-"1": "Décrire un prisme et la marche d’un rayon dans sa section principale.",
-"2": "Établir les quatre formules du prisme et discuter les conditions d’émergence.",
-"3": "Démontrer l’existence d’un minimum de déviation et en déduire une mesure de l’indice.",
-"4": "Expliquer la dispersion de la lumière blanche par un prisme.",
-"5": "Calculer le déplacement latéral d’un rayon et le déplacement d’une image par une lame à faces parallèles."
+"2": "Appliquer les lois de Snell-Descartes à la réflexion et à la réfraction."
 },
+"RA": [
+[
+2,
+"Décrire un prisme et la marche d’un rayon dans sa section principale."
+],
+[
+2,
+"Établir les quatre formules du prisme et discuter les conditions d’émergence."
+],
+[
+2,
+"Démontrer l’existence d’un minimum de déviation et en déduire une mesure de l’indice."
+],
+[
+2,
+"Expliquer la dispersion de la lumière blanche par un prisme."
+],
+[
+2,
+"Calculer le déplacement latéral d’un rayon et le déplacement d’une image par une lame à faces parallèles."
+]
+],
 "synth": "Mobiliser l’ensemble des compétences du chapitre (objectifs spécifiques 1 à 5) et évaluer sa propre maîtrise.",
 "fiches": [
 {
-"a": "A1.1",
-"os": 1,
+"a": "A24",
+"os": 2,
+"ra": "Décrire un prisme et la marche d’un rayon dans sa section principale.",
+"osl": null,
 "t": "Tracer la marche d’un rayon dans un prisme",
 "travail": [
 {
@@ -5284,8 +5777,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1, avant la séance de TD n°3"
 },
 {
-"a": "A2.1",
+"a": "A25",
 "os": 2,
+"ra": "Établir les quatre formules du prisme et discuter les conditions d’émergence.",
+"osl": null,
 "t": "Discuter les conditions d’émergence ; cas du prisme mince",
 "travail": [
 {
@@ -5328,8 +5823,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1"
 },
 {
-"a": "A3.1",
-"os": 3,
+"a": "A26",
+"os": 2,
+"ra": "Démontrer l’existence d’un minimum de déviation et en déduire une mesure de l’indice.",
+"osl": null,
 "t": "Exploiter le minimum de déviation pour mesurer un indice",
 "travail": [
 {
@@ -5402,8 +5899,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1, avant la séance de TD n°3"
 },
 {
-"a": "A4.1",
-"os": 4,
+"a": "A27",
+"os": 2,
+"ra": "Expliquer la dispersion de la lumière blanche par un prisme.",
+"osl": null,
 "t": "Expliquer la dispersion de la lumière blanche par un prisme",
 "travail": [
 {
@@ -5451,8 +5950,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2"
 },
 {
-"a": "A3.2",
-"os": 3,
+"a": "A28",
+"os": 2,
+"ra": "Démontrer l’existence d’un minimum de déviation et en déduire une mesure de l’indice.",
+"osl": null,
 "t": "Mesurer le minimum de déviation et l’indice d’un prisme : TP 10 sur la plateforme",
 "travail": [
 {
@@ -5502,8 +6003,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2"
 },
 {
-"a": "A5.1",
-"os": 5,
+"a": "A29",
+"os": 2,
+"ra": "Calculer le déplacement latéral d’un rayon et le déplacement d’une image par une lame à faces parallèles.",
+"osl": null,
 "t": "Calculer le déplacement produit par une lame à faces parallèles",
 "travail": [
 {
@@ -5560,8 +6063,12 @@ window.ACTIVITES = {
 "echeance": "semaine 2, avant la séance de TD n°3"
 },
 {
-"a": "A5.2",
+"a": "B3",
 "os": null,
+"ra": null,
+"osl": [
+2
+],
 "t": "Faire le bilan du chapitre : quiz, entraînement et autoévaluation",
 "travail": [
 {
@@ -5624,23 +6131,28 @@ window.ACTIVITES = {
 "grille": {
 "1": [
 "Marche d’un rayon dans un prisme",
-"Activité A1.1 ; support § 3.1 et 3.2"
+"Activité A24 ; support § 3.1 et 3.2",
+2
 ],
 "2": [
 "Formules du prisme, conditions d’émergence",
-"Activité A2.1 ; support § 3.2 et 3.3"
+"Activité A25 ; support § 3.2 et 3.3",
+2
 ],
 "3": [
 "Minimum de déviation, mesure d’un indice",
-"Activités A3.1 et A3.2 ; support § 3.4"
+"Activités A26 et A28 ; support § 3.4",
+2
 ],
 "4": [
 "Dispersion par un prisme",
-"Activité A4.1 ; support § 3.5"
+"Activité A27 ; support § 3.5",
+2
 ],
 "5": [
 "Lame à faces parallèles",
-"Activité A5.1 ; support § 3.6"
+"Activité A29 ; support § 3.6",
+2
 ]
 }
 },
@@ -5654,18 +6166,39 @@ window.ACTIVITES = {
 "docx": "Cahier_activites_Optique1_Chapitre4",
 "support": "Optique_Chapitre_4_Miroirs_dioptres_spheriques",
 "quiz": "opt4",
+"ec_code": "LPCI1221",
 "OS": {
-"1": "Décrire un miroir sphérique et un dioptre sphérique ; reconnaître s’ils sont convergents ou divergents.",
-"2": "Établir les relations de conjugaison avec origine au sommet, au centre et aux foyers (Newton).",
-"3": "Déterminer foyers, distances focales et vergence.",
-"4": "Établir et interpréter le grandissement transversal.",
-"5": "Construire l’image d’un objet par les rayons particuliers dans tous les cas."
+"3": "Construire les images données par les miroirs et les dioptres."
 },
+"RA": [
+[
+3,
+"Décrire un miroir sphérique et un dioptre sphérique ; reconnaître s’ils sont convergents ou divergents."
+],
+[
+3,
+"Établir les relations de conjugaison avec origine au sommet, au centre et aux foyers (Newton)."
+],
+[
+3,
+"Déterminer foyers, distances focales et vergence."
+],
+[
+3,
+"Établir et interpréter le grandissement transversal."
+],
+[
+3,
+"Construire l’image d’un objet par les rayons particuliers dans tous les cas."
+]
+],
 "synth": "Mobiliser l’ensemble des compétences du chapitre (objectifs spécifiques 1 à 5) et évaluer sa propre maîtrise.",
 "fiches": [
 {
-"a": "A1.1",
-"os": 1,
+"a": "A34",
+"os": 3,
+"ra": "Décrire un miroir sphérique et un dioptre sphérique ; reconnaître s’ils sont convergents ou divergents.",
+"osl": null,
 "t": "Décrire un miroir et un dioptre sphériques ; reconnaître leur nature",
 "travail": [
 {
@@ -5713,8 +6246,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1"
 },
 {
-"a": "A2.1",
-"os": 2,
+"a": "A35",
+"os": 3,
+"ra": "Établir les relations de conjugaison avec origine au sommet, au centre et aux foyers (Newton).",
+"osl": null,
 "t": "Appliquer les relations de conjugaison du miroir sphérique",
 "travail": [
 {
@@ -5770,8 +6305,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1, avant la séance de TD n°4"
 },
 {
-"a": "A3.1",
+"a": "A36",
 "os": 3,
+"ra": "Déterminer foyers, distances focales et vergence.",
+"osl": null,
 "t": "Déterminer foyers et vergence d’un dioptre sphérique",
 "travail": [
 {
@@ -5824,8 +6361,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2"
 },
 {
-"a": "A4.1",
-"os": 4,
+"a": "A37",
+"os": 3,
+"ra": "Établir et interpréter le grandissement transversal.",
+"osl": null,
 "t": "Calculer et interpréter un grandissement",
 "travail": [
 {
@@ -5873,8 +6412,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2"
 },
 {
-"a": "A5.1",
-"os": 5,
+"a": "A38",
+"os": 3,
+"ra": "Construire l’image d’un objet par les rayons particuliers dans tous les cas.",
+"osl": null,
 "t": "Construire l’image par les rayons particuliers",
 "travail": [
 {
@@ -5932,8 +6473,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2"
 },
 {
-"a": "A2.2",
-"os": 2,
+"a": "A39",
+"os": 3,
+"ra": "Établir les relations de conjugaison avec origine au sommet, au centre et aux foyers (Newton).",
+"osl": null,
 "t": "Associer deux dioptres : la boule de verre",
 "travail": [
 {
@@ -5968,8 +6511,12 @@ window.ACTIVITES = {
 "echeance": "semaine 2, avant la séance de TD n°4"
 },
 {
-"a": "A5.2",
+"a": "B4",
 "os": null,
+"ra": null,
+"osl": [
+3
+],
 "t": "Faire le bilan du chapitre : quiz, entraînement et autoévaluation",
 "travail": [
 {
@@ -6032,23 +6579,28 @@ window.ACTIVITES = {
 "grille": {
 "1": [
 "Miroirs et dioptres sphériques, nature",
-"Activité A1.1 ; support § 4.1 et 4.2"
+"Activité A34 ; support § 4.1 et 4.2",
+3
 ],
 "2": [
 "Relations de conjugaison",
-"Activités A2.1 et A2.2 ; support § 4.1 et 4.2"
+"Activités A35 et A39 ; support § 4.1 et 4.2",
+3
 ],
 "3": [
 "Foyers, distances focales, vergence",
-"Activité A3.1 ; support § 4.2"
+"Activité A36 ; support § 4.2",
+3
 ],
 "4": [
 "Grandissement transversal",
-"Activité A4.1 ; support § 4.1 et 4.2"
+"Activité A37 ; support § 4.1 et 4.2",
+3
 ],
 "5": [
 "Construction des images",
-"Activité A5.1 ; support § 4.1 et 4.2"
+"Activité A38 ; support § 4.1 et 4.2",
+3
 ]
 }
 },
@@ -6062,18 +6614,40 @@ window.ACTIVITES = {
 "docx": "Cahier_activites_Optique1_Chapitre5",
 "support": "Optique_Chapitre_5_Lentilles_minces",
 "quiz": "opt5",
+"ec_code": "LPCI1221",
 "OS": {
-"1": "Classer les lentilles en convergentes et divergentes d’après leur forme.",
-"2": "Définir centre optique, foyers, distances focales et vergence d’une lentille mince.",
-"3": "Établir les relations de conjugaison de Descartes et de Newton, et le grandissement.",
-"4": "Construire l’image d’un objet par une lentille convergente ou divergente.",
-"5": "Associer des lentilles accolées ou non ; connaître les aberrations chromatiques et géométriques."
+"4": "Étudier les lentilles minces et leurs associations.",
+"5": "Décrire quelques instruments optiques."
 },
+"RA": [
+[
+4,
+"Classer les lentilles en convergentes et divergentes d’après leur forme."
+],
+[
+4,
+"Définir centre optique, foyers, distances focales et vergence d’une lentille mince."
+],
+[
+4,
+"Établir les relations de conjugaison de Descartes et de Newton, et le grandissement."
+],
+[
+4,
+"Construire l’image d’un objet par une lentille convergente ou divergente."
+],
+[
+5,
+"Associer des lentilles accolées ou non ; connaître les aberrations chromatiques et géométriques."
+]
+],
 "synth": "Mobiliser l’ensemble des compétences du chapitre (objectifs spécifiques 1 à 5) et évaluer sa propre maîtrise.",
 "fiches": [
 {
-"a": "A1.1",
-"os": 1,
+"a": "A41",
+"os": 4,
+"ra": "Classer les lentilles en convergentes et divergentes d’après leur forme.",
+"osl": null,
 "t": "Classer les lentilles d’après leur forme",
 "travail": [
 {
@@ -6112,8 +6686,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1"
 },
 {
-"a": "A2.1",
-"os": 2,
+"a": "A42",
+"os": 4,
+"ra": "Définir centre optique, foyers, distances focales et vergence d’une lentille mince.",
+"osl": null,
 "t": "Calculer la vergence d’une lentille : formule des opticiens",
 "travail": [
 {
@@ -6164,8 +6740,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1, avant la séance de TD n°5"
 },
 {
-"a": "A3.1",
-"os": 3,
+"a": "A43",
+"os": 4,
+"ra": "Établir les relations de conjugaison de Descartes et de Newton, et le grandissement.",
+"osl": null,
 "t": "Appliquer les relations de conjugaison et de grandissement",
 "travail": [
 {
@@ -6222,8 +6800,10 @@ window.ACTIVITES = {
 "echeance": "semaine 1, avant la séance de TD n°5"
 },
 {
-"a": "A4.1",
+"a": "A44",
 "os": 4,
+"ra": "Construire l’image d’un objet par une lentille convergente ou divergente.",
+"osl": null,
 "t": "Construire l’image donnée par une lentille mince",
 "travail": [
 {
@@ -6287,8 +6867,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2"
 },
 {
-"a": "A3.2",
-"os": 3,
+"a": "A45",
+"os": 4,
+"ra": "Établir les relations de conjugaison de Descartes et de Newton, et le grandissement.",
+"osl": null,
 "t": "Mesurer une distance focale : méthode de Bessel et TP 7 sur la plateforme",
 "travail": [
 {
@@ -6342,8 +6924,10 @@ window.ACTIVITES = {
 "echeance": "semaine 2"
 },
 {
-"a": "A5.1",
+"a": "A51",
 "os": 5,
+"ra": "Associer des lentilles accolées ou non ; connaître les aberrations chromatiques et géométriques.",
+"osl": null,
 "t": "Associer des lentilles : lentilles accolées, microscope, lunette",
 "travail": [
 {
@@ -6411,8 +6995,10 @@ window.ACTIVITES = {
 "echeance": "semaine 3"
 },
 {
-"a": "A5.2",
+"a": "A52",
 "os": 5,
+"ra": "Associer des lentilles accolées ou non ; connaître les aberrations chromatiques et géométriques.",
+"osl": null,
 "t": "Connaître les aberrations chromatiques et géométriques",
 "travail": [
 {
@@ -6460,8 +7046,13 @@ window.ACTIVITES = {
 "echeance": "semaine 3"
 },
 {
-"a": "A5.3",
+"a": "B5",
 "os": null,
+"ra": null,
+"osl": [
+4,
+5
+],
 "t": "Faire le bilan du chapitre : quiz, entraînement et autoévaluation",
 "travail": [
 {
@@ -6524,23 +7115,28 @@ window.ACTIVITES = {
 "grille": {
 "1": [
 "Lentilles convergentes et divergentes",
-"Activité A1.1 ; support § 5.1"
+"Activité A41 ; support § 5.1",
+4
 ],
 "2": [
 "Foyers, distances focales, vergence",
-"Activité A2.1 ; support § 5.1 et 5.2"
+"Activité A42 ; support § 5.1 et 5.2",
+4
 ],
 "3": [
 "Conjugaison et grandissement",
-"Activités A3.1 et A3.2 ; support § 5.2"
+"Activités A43 et A45 ; support § 5.2",
+4
 ],
 "4": [
 "Construction des images",
-"Activité A4.1 ; support § 5.3"
+"Activité A44 ; support § 5.3",
+4
 ],
 "5": [
 "Associations et aberrations",
-"Activités A5.1 et A5.2 ; support § 5.4 et 5.5"
+"Activités A51 et A52 ; support § 5.4 et 5.5",
+5
 ]
 }
 }
