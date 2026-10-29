@@ -56,3 +56,13 @@ footer .wrap{padding-block:18px}
 @media (min-width:1200px){
   .wrap{max-width:min(1760px,100%);padding-inline:clamp(24px,3.5vw,64px)}
 }
+
+/* ---------- choix de la formation (quiz, entraînement, simulations) ---------- */
+.forms{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:0 0 14px}
+.forms .fl{font-family:var(--f-head);font-size:.8rem;font-weight:600;color:var(--muted);margin-right:2px}
+.form{font-family:var(--f-head);font-size:.85rem;font-weight:600;border:1px solid var(--line);background:var(--surface);color:var(--muted);padding:6px 13px;border-radius:999px;cursor:pointer}
+.form[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.pill.soon{cursor:default;opacity:.55;border-style:dashed}
+.pill .tg{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.04em;margin-left:6px;padding:1px 6px;border-radius:999px;background:var(--line);color:var(--muted)}
+.fnote{font-family:var(--f-head);font-size:.85rem;color:var(--muted);margin:2px 0 0}
+.tabs-wrap [hidden],.forms [hidden]{display:none}

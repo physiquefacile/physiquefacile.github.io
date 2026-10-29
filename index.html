@@ -638,9 +638,10 @@ function render(){
   markCached();
 }
 
+try{const sf=localStorage.getItem("formation");if(FORMS[sf]&&!location.hash&&formOf(COURSES.find(x=>x.id===current)||COURSES[0])!==sf){const c0=COURSES.find(c=>formOf(c)===sf);if(c0)current=c0.id}}catch(e){}
 function curForm(){return formOf(COURSES.find(x=>x.id===current)||COURSES[0])}
 function renderNav(){
-  const f=curForm();
+  const f=curForm();try{localStorage.setItem("formation",f)}catch(e){}
   $("#forms").innerHTML=`<span class="fl">Formation</span>`+Object.keys(FORMS).map(k=>`<button type="button" class="form" role="tab" data-f="${k}" aria-selected="${k===f}">${esc(FORMS[k].tab)}</button>`).join("");
   $("#tabs").innerHTML=COURSES.filter(c=>formOf(c)===f).map(c=>`<button type="button" class="tab" role="tab" data-id="${c.id}">${esc(c.tab)}</button>`).join("");
   const u=$("#ufrLine");if(u)u.textContent="UFR des Sciences, des Technologies et de l’Innovation (UFR-STI) • "+FORMS[f].line+" • Année universitaire 2026 – 2027";

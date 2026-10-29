@@ -57,6 +57,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 </div></header>
 
 <main><div class="wrap">
+  <div class="forms" id="formBar" role="group" aria-label="Choix de la formation"></div>
   <nav class="tabs-wrap" aria-label="Choix de la simulation">
     <div class="grp-t">Électrostatique</div>
     <div class="pill-row" id="tabsE"></div>
@@ -64,6 +65,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
     <div class="pill-row" id="tabsM"></div>
     <div class="grp-t">Optique</div>
     <div class="pill-row" id="tabsO"></div>
+    <p class="fnote" id="simNote" hidden></p>
   </nav>
 
   <!-- ============ 1. Champ de charges ponctuelles ============ -->
@@ -348,6 +350,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 <footer><div class="wrap">Université Souleymane Niang de Matam • <a href="auteur.html">Plateforme développée par le Dr P. T. Traoré</a> • © 2026 Papa Touty Traoré — tous droits réservés • <a href="reparer.html?retour=simulations.html">Affichage incomplet ? Mettre le site à jour</a></div></footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="assets/formations.js"></script>
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
@@ -390,9 +393,25 @@ function curve(c,f,xr,X,Y,col,lw=2,dash=[],n=400,clip){c.save();if(clip){c.begin
 
 /* ============ onglets ============ */
 const SIMS=[["champ","Lignes de champ et équipotentielles","E"],["boule","Boule chargée : théorème de Gauss","E"],["anneau","Champ sur l'axe d'un anneau","E"],["dipole","Dipôle dans un champ uniforme","E"],["frenet","Base de Frenet","M"],["energie","Énergie potentielle et stabilité","M"],["refrac","Réfraction et réflexion totale","O"],["prisme","Le prisme : déviation et dispersion","O"],["lentille","Lentille mince : construction d'image","O"],["miroir","Miroir sphérique : construction d'image","O"]];
-let cur=SIMS.some(s=>s[0]===location.hash.slice(1))?location.hash.slice(1):"champ";
-function tabs(){["E","M","O"].forEach(g=>$("#tabs"+g).innerHTML=SIMS.filter(s=>s[2]===g).map(s=>`<button type="button" class="pill" data-s="${s[0]}" aria-selected="${s[0]===cur}">${s[1]}</button>`).join(""))}
-function go(id){cur=id;tabs();SIMS.forEach(s=>$("#"+s[0]).hidden=s[0]!==id);history.replaceState(null,"","#"+id);redraw()}
+/* simulations rattachées à la formation choisie (assets/formations.js) */
+const FM=window.FORMATIONS;let form=FM.get();
+const allowed=f=>FM.used(f,"sims").filter(id=>SIMS.some(s=>s[0]===id));
+// chapitres de la formation qui utilisent une simulation (info-bulle du bouton)
+const usedBy=(f,id)=>{const r=[];FM.data[f].ecs.forEach(ec=>ec.ch.forEach(c=>{if((c.sims||[]).includes(id))r.push(ec.title+", ch. "+c.n+" : "+c.t)}));return r.join(" • ")};
+let cur=SIMS.some(s=>s[0]===location.hash.slice(1))?location.hash.slice(1):(allowed(form)[0]||"champ");
+if(!allowed(form).includes(cur)){const f=Object.keys(FM.data).find(x=>allowed(x).includes(cur));if(f&&location.hash){form=f;FM.set(f)}else if(allowed(form).length)cur=allowed(form)[0]}
+function tabs(){const ok=allowed(form);
+  ["E","M","O"].forEach(g=>{const list=SIMS.filter(s=>s[2]===g&&ok.includes(s[0])),row=$("#tabs"+g);
+    row.innerHTML=list.map(s=>`<button type="button" class="pill" data-s="${s[0]}" aria-selected="${s[0]===cur}" title="${usedBy(form,s[0]).replace(/"/g,"&quot;")}">${s[1]}</button>`).join("");
+    row.hidden=!list.length;if(row.previousElementSibling)row.previousElementSibling.hidden=!list.length});
+  const n=$("#simNote");
+  if(!ok.length){n.hidden=false;n.textContent="Aucune simulation n'est encore rattachée aux EC de la "+FM.data[form].tab+". Elles seront ajoutées au fil du semestre."}
+  else if(form!=="PCI"){n.hidden=false;n.textContent="Simulations rattachées aux chapitres de la "+FM.data[form].tab+" (passez la souris sur un bouton pour voir le chapitre concerné)."}
+  else n.hidden=true;
+}
+function go(id){const ok=allowed(form);cur=id;tabs();SIMS.forEach(s=>$("#"+s[0]).hidden=!(s[0]===id&&ok.includes(id)));if(ok.includes(id))history.replaceState(null,"","#"+id);redraw()}
+FM.uni(form);
+FM.bar($("#formBar"),f=>{form=f;FM.uni(f);const ok=allowed(f);go(ok.includes(cur)?cur:(ok[0]||cur))});
 document.addEventListener("click",e=>{const b=e.target.closest("[data-s]");if(b)go(b.dataset.s)});
 const DRAW={};function redraw(){DRAW[cur]&&DRAW[cur]()}
 addEventListener("resize",redraw);
