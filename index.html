@@ -104,7 +104,8 @@ main .wrap{padding-block:26px 60px;display:grid;gap:30px}
 .sy-st{display:inline-block;font-weight:600;font-size:.76rem;border-radius:999px;padding:1px 8px;margin-right:4px}
 .sy-ok{color:var(--ok,#1F6F4A);background:var(--ok-bg,#E3F2EA)}.sy-part{color:#9a6a00;background:rgba(240,174,54,.18)}.sy-soon{color:var(--muted);background:var(--tint)}
 .sy-pre{color:var(--muted);font-size:.9rem}
-.sy-dl{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}.sy-dl .btn{flex:1 1 240px;max-width:340px;margin:0}
+.sy-top{margin:10px 0 18px;padding:12px 18px;border:1px solid var(--line);border-radius:12px;background:var(--tint)}
+.sy-dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,340px));gap:8px;margin-top:8px}.sy-dl .btn{margin:0}
 @media (max-width:640px){.sy-prog,.sy-prog tbody,.sy-prog tr,.sy-prog td{display:block;width:auto!important}.sy-prog thead{display:none}.sy-prog td{border:0;padding:2px 0}.sy-prog tr{border-bottom:1px solid var(--line);padding:8px 0}}
 .chapters{display:grid;gap:16px}
 .chap{display:grid;grid-template-columns:120px minmax(0,1fr) 250px;gap:20px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;box-shadow:var(--shadow)}
@@ -400,8 +401,8 @@ function sylCard(c){
       ${y.prog.map((r,i)=>`<tr><td><b>${i+1}.</b> ${esc(r[0])}</td><td><span class="sy-st ${ST[r[1]][0]}">${ST[r[1]][1]}</span>${r[2]?` ${esc(r[2])}`:""}</td></tr>`).join("")}
       </tbody></table>
       <p class="sy-pre"><b>Prérequis.</b> ${esc(y.pre)}${y.extra?` ${esc(y.extra)}`:""}</p>
-      ${SYL[y.code]?`<p class="sy-pre"><b>Syllabus officiel complet</b> (modèle USNM) : objectifs spécifiques, approches pédagogiques reliées aux fiches des cahiers d'activités, système d'évaluation et bibliographie.</p><div class="res sy-dl">${sylBtns(y.code,"Syllabus "+y.code,true)}</div>`:""}
-    </div></details>`;
+    </div>
+    </details>${SYL[y.code]?`<div class="sy-top"><div class="sy-pre"><b>Syllabus officiel de l'EC ${esc(y.code)}</b> (modèle USNM) : objectifs, approches pédagogiques reliées aux fiches des cahiers d'activités, évaluation et bibliographie.</div><div class="res sy-dl">${sylBtns(y.code,"Syllabus "+y.code,true)}</div></div>`:""}`;
 }
 
 function render(){
