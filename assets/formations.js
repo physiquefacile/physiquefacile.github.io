@@ -38,23 +38,23 @@
       line: "Licence Biologie, Chimie et Géologie (BCG) • Département SVT • L1 (semestres 1 et 2)",
       ecs: [
         { code: "LBCG1121", title: "Physique générale 1", ch: [
-          { n: 1, t: "Outils de base et cinématique", res: ["meca1", "meca2"] },
-          { n: 2, t: "Dynamique du point", res: ["meca3"] },
-          { n: 3, t: "Travail, énergie et puissance", res: ["meca4"], sims: ["energie"] },
-          { n: 4, t: "Mécanique des fluides" },
-          { n: 5, t: "Optique géométrique", res: ["opt1", "opt5"], sims: ["refrac", "lentille", "miroir"] } ] },
+          { n: 1, t: "Outils de base et cinématique", res: ["bcgpg11", "meca1", "meca2"] },
+          { n: 2, t: "Dynamique du point", res: ["bcgpg12", "meca3"] },
+          { n: 3, t: "Travail, énergie et puissance", res: ["bcgpg13", "meca4"], sims: ["energie"] },
+          { n: 4, t: "Mécanique des fluides", res: ["bcgpg14"] },
+          { n: 5, t: "Optique géométrique", res: ["bcgpg15", "opt1", "opt5"], sims: ["refrac", "lentille", "miroir"] } ] },
         { code: "LBCG1221", title: "Physique générale 2", ch: [
-          { n: 1, t: "Température et chaleur" },
-          { n: 2, t: "Gaz parfait et premier principe" },
-          { n: 3, t: "Électrostatique", res: ["elec1", "elec2"], sims: ["champ"] },
-          { n: 4, t: "Électrocinétique", res: ["elec4"] },
-          { n: 5, t: "Oscillations et ondes mécaniques" } ] },
+          { n: 1, t: "Température et chaleur", res: ["bcgpg21"] },
+          { n: 2, t: "Gaz parfait et premier principe", res: ["bcgpg22"] },
+          { n: 3, t: "Électrostatique", res: ["bcgpg23", "elec1", "elec2"], sims: ["champ"] },
+          { n: 4, t: "Électrocinétique", res: ["bcgpg24", "elec4"] },
+          { n: 5, t: "Oscillations et ondes mécaniques", res: ["bcgpg25"] } ] },
         { code: "LBCG1223", title: "Biophysique", ch: [
-          { n: 1, t: "Phénomènes de transport" },
-          { n: 2, t: "Bioélectricité" },
-          { n: 3, t: "Rayonnements électromagnétiques" },
-          { n: 4, t: "Radioactivité" },
-          { n: 5, t: "Ultrasons" } ] } ] },
+          { n: 1, t: "Phénomènes de transport", res: ["bcgbio1"] },
+          { n: 2, t: "Bioélectricité", res: ["bcgbio2"] },
+          { n: 3, t: "Rayonnements électromagnétiques", res: ["bcgbio3"] },
+          { n: 4, t: "Radioactivité", res: ["bcgbio4"] },
+          { n: 5, t: "Ultrasons", res: ["bcgbio5"] } ] } ] },
     MI: { tab: "Licence MI", short: "L2 MI",
       line: "Licence Mathématiques et Informatique (MI) • L2 (semestre 4, options RISE et SDC)",
       ecs: [
@@ -124,13 +124,15 @@
         var ks = (c.res || []).filter(o.has);
         var lab = "Ch. " + c.n + " · " + esc(c.t);
         if (!ks.length) return '<button type="button" class="pill soon" disabled>' + lab + '<span class="tg">à venir</span></button>';
+        var pci = used("PCI", "res");
         return ks.map(function (k) {
+          var shared = f !== "PCI" && pci.indexOf(k) >= 0;
           return '<button type="button" class="pill" data-k="' + k + '" aria-pressed="' + (k === o.cur) + '" title="' + esc(o.sub(k)) + '">' + lab +
-            (ks.length > 1 ? " (" + esc(o.sub(k)) + ")" : "") + (f !== "PCI" ? '<span class="tg">PCI</span>' : "") + (o.extra ? o.extra(k) : "") + "</button>";
+            (ks.length > 1 && shared ? " (" + esc(o.sub(k)) + ")" : "") + (shared ? '<span class="tg">PCI</span>' : "") + (o.extra ? o.extra(k) : "") + "</button>";
         }).join("");
       }).join("");
       return '<div class="grp"><div class="grp-t">' + esc(ec.title) + " • " + ec.code + '</div><div class="pill-row">' + items + "</div></div>";
-    }).join("") + (f !== "PCI" ? '<p class="fnote">Les ressources marquées PCI sont communes avec la Licence PCI : même notion, traitée au niveau L1 PCI. Les chapitres « à venir » recevront leurs propres ressources au fil du semestre.</p>' : "");
+    }).join("") + (f !== "PCI" ? '<p class="fnote">Les ressources marquées PCI sont communes avec la Licence PCI : même notion, traitée au niveau L1 PCI, utiles pour aller plus loin. Les chapitres « à venir » recevront leurs propres ressources au fil du semestre.</p>' : "");
   }
   window.FORMATIONS = { data: F, get: get, set: set, used: used, bar: bar, uni: uni, picker: picker };
 })();
