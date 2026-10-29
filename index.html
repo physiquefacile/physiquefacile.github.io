@@ -73,6 +73,13 @@ a{color:var(--accent)}
 .tab{font-family:var(--f-head);font-size:.92rem;font-weight:500;border:0;background:transparent;color:var(--muted);padding:7px 14px;border-radius:999px;cursor:pointer}
 @media (max-width:560px){.tabs{display:grid;grid-template-columns:1fr 1fr;border-radius:16px;width:100%}.tab{padding:9px 6px;white-space:nowrap}}
 .tab[aria-selected="true"]{background:var(--accent);color:var(--accent-fg)}
+.forms{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+.forms .fl{font-family:var(--f-head);font-size:.8rem;color:var(--muted);margin-right:2px}
+.form{font-family:var(--f-head);font-size:.85rem;font-weight:600;border:1px solid var(--line);background:var(--surface);color:var(--muted);padding:5px 12px;border-radius:999px;cursor:pointer}
+.form[aria-selected="true"]{border-color:var(--accent);color:var(--accent);background:transparent;box-shadow:inset 0 0 0 1px var(--accent)}
+.cover-soon{display:flex;align-items:center;justify-content:center;text-align:center;width:120px;height:170px;border:1px dashed var(--line);border-radius:8px;color:var(--muted);font-family:var(--f-head);font-size:.8rem;padding:8px;background:var(--surface)}
+.btn.soon{cursor:default;opacity:.75}
+.k-soon{background:var(--line);color:var(--muted)}
 .navlink{font-family:var(--f-head);font-size:.92rem;font-weight:500;color:var(--accent);text-decoration:none;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px}
 .navlink:hover{border-color:var(--accent)}
 .k-quiz{background:var(--tint);color:var(--accent)}
@@ -204,7 +211,7 @@ footer .wrap{padding-block:18px}
   <canvas id="field" aria-hidden="true"></canvas>
   <div class="wrap">
     <div class="uni"><img class="unilogo" src="img/usnm-logo.png" alt="Logo de l’Université Souleymane Niang de Matam" width="56" height="56">UNIVERSITÉ SOULEYMANE NIANG DE MATAM</div>
-    <div class="ufr">UFR des Sciences, des Technologies et de l’Innovation (UFR-STI) • Licence Physique-Chimie et Informatique (LPCI) • L1 (semestres 1 et 2) • Année universitaire 2026 – 2027</div>
+    <div class="ufr" id="ufrLine">UFR des Sciences, des Technologies et de l’Innovation (UFR-STI) • Licence Physique-Chimie et Informatique (LPCI) • L1 (semestres 1 et 2) • Année universitaire 2026 – 2027</div>
     <h1>Cours de Physique</h1>
     <div class="author"><a href="auteur.html" style="color:inherit;text-decoration:none"><b>Dr Papa Touty TRAORÉ</b>, Enseignant-Chercheur</a> • <a href="auteur.html" style="color:inherit">le développeur de la plateforme</a></div>
     <div class="stats" id="stats"></div>
@@ -216,6 +223,7 @@ footer .wrap{padding-block:18px}
 
 <nav class="bar" aria-label="Choix du cours">
   <div class="wrap">
+    <div class="forms" id="forms" role="tablist" aria-label="Choix de la formation"></div>
     <div class="tabs" role="tablist" id="tabs"></div>
     <a class="navlink" href="quiz.html">Quiz</a>
     <a class="navlink" href="simulations.html">Simulations</a>
@@ -371,6 +379,138 @@ const COURSES=[
    {n:1,title:"Le champ magnétique",key:"Electricite2_Chapitre_1_Champ_magnetique",pages:15,slides:29,pptx:true,
     td:{e:"TD_Electricite2_1_enonces",ep:4,c:"TD_Electricite2_1_corrige",cp:10},
     toc:["Le champ magnétique : généralités","Loi de Biot et Savart","Applications : fil, spire, solénoïde","Flux magnétique et potentiel vecteur","Théorème d'Ampère","Forces magnétiques : Lorentz, Laplace","Circuit dans un champ uniforme ; dipôle magnétique"]}
+  ]},
+ {id:"bcgpg1",form:"BCG",tab:"Physique générale 1",noExo:true,eyebrow:"Licence BCG • UE Physique 1 (LBCG112) • EC LBCG1121 • L1 S1",title:"Physique générale 1 — mécanique, fluides et optique géométrique",
+  intro:"Cinq chapitres pour les étudiants de BCG : outils de base et cinématique, dynamique, travail et énergie, mécanique des fluides, optique géométrique. Chaque notion est illustrée par des exemples tirés de la biologie et de la géologie. Les supports de cours, les séries de TD et les cahiers d'activités seront publiés au fil du semestre.",
+  syOpen:true,
+  syl:{code:"LBCG1121",ue:"Physique 1 (LBCG112)",cr:"",vol:"CM 24 h • TD 24 h • TPE 22 h • total 70 h",
+   obj:"Acquérir les bases de la mécanique du point, de la mécanique des fluides et de l'optique géométrique pour modéliser et résoudre des problèmes simples issus des sciences de la vie et de la Terre.",
+   pre:"Fonctions usuelles, dérivées, primitives et trigonométrie ; notions de mécanique et d'optique du baccalauréat scientifique.",
+   prog:[["Outils de base et cinématique du point","soon",""],["Dynamique du point ; frottement fluide et loi de Stokes","soon",""],["Travail, énergie et puissance","soon",""],["Mécanique des fluides : hydrostatique, Bernoulli, Poiseuille","soon",""],["Optique géométrique : lentilles, l'œil et le microscope","soon",""]]},
+  chapters:[
+   {n:1,soon:true,title:"Outils de base et cinématique du point",toc:["Unités SI et analyse dimensionnelle","Chiffres significatifs et incertitudes","Vecteurs : composantes, produits scalaire et vectoriel","Référentiel, vitesse et accélération","Mouvements rectiligne, circulaire et parabolique"]},
+   {n:2,soon:true,title:"Dynamique du point",toc:["Les lois de Newton","Forces usuelles : poids, réaction, tension, rappel","Frottement solide","Frottement fluide et vitesse limite (loi de Stokes)","Sédimentation et centrifugation"]},
+   {n:3,soon:true,title:"Travail, énergie et puissance",toc:["Travail d'une force et puissance","Énergie cinétique et théorème de l'énergie cinétique","Énergies potentielles de pesanteur et élastique","Conservation de l'énergie mécanique","Rendement musculaire"]},
+   {n:4,soon:true,title:"Mécanique des fluides",toc:["Pression et principe fondamental de l'hydrostatique","Principe de Pascal et poussée d'Archimède","Tension superficielle et capillarité","Débit, équation de continuité et théorème de Bernoulli","Viscosité et loi de Poiseuille : la circulation sanguine"]},
+   {n:5,soon:true,title:"Optique géométrique",toc:["Lois de Snell-Descartes et réflexion totale","Miroirs et dioptres","Lentilles minces : conjugaison et grandissement","L'œil et ses défauts","La loupe et le microscope"]}
+  ]},
+ {id:"bcgpe1",form:"BCG",tab:"Physique expérimentale 1",noExo:true,eyebrow:"Licence BCG • UE Physique 1 (LBCG112) • EC LBCG1122 • L1 S1",title:"Physique expérimentale 1 — travaux pratiques",
+  intro:"Cinq TP de 4 h, en binôme, qui accompagnent Physique générale 1 : mesures et incertitudes, mouvement, oscillateurs, fluides, optique. Les fascicules de TP seront publiés avant chaque séance.",
+  syOpen:true,
+  syl:{code:"LBCG1122",ue:"Physique 1 (LBCG112)",cr:"",vol:"TP 20 h • TPE 10 h • total 30 h",
+   ev:"comptes rendus de TP 30 % • manipulation en binôme 10 % • préparation et quiz 10 % • épreuve pratique 50 % (2 h)",
+   obj:"Acquérir la démarche expérimentale en physique : réaliser une mesure, en estimer l'incertitude, exploiter les résultats et les confronter aux lois étudiées en Physique générale 1.",
+   pre:"Suivre en parallèle Physique générale 1 (LBCG1121) ; tracé de graphiques et équation d'une droite.",
+   prog:[["TP 1 : mesures et incertitudes","soon",""],["TP 2 : chute libre et plan incliné","soon",""],["TP 3 : pendule simple et ressort","soon",""],["TP 4 : poussée d'Archimède et viscosité","soon",""],["TP 5 : lentilles minces et banc d'optique","soon",""]]},
+  chapters:[
+   {n:1,lab:"TP",soon:true,title:"Mesures et incertitudes",toc:["Sécurité au laboratoire","Instruments : pied à coulisse, palmer, balance, chronomètre","Chiffres significatifs et incertitudes","Tracé de graphiques et régression linéaire"]},
+   {n:2,lab:"TP",soon:true,title:"Chute libre et plan incliné",toc:["Mesure de la durée de chute","Détermination de g","Mouvement sur un plan incliné","Coefficient de frottement"]},
+   {n:3,lab:"TP",soon:true,title:"Pendule simple et ressort",toc:["Période d'un pendule simple","Raideur d'un ressort : méthodes statique et dynamique","Conservation de l'énergie mécanique"]},
+   {n:4,lab:"TP",soon:true,title:"Poussée d'Archimède et viscosité",toc:["Mesure de la poussée d'Archimède","Masse volumique d'un solide","Vitesse limite d'une bille","Viscosité par la loi de Stokes"]},
+   {n:5,lab:"TP",soon:true,title:"Lentilles minces et banc d'optique",toc:["Focométrie par autocollimation","Relation de conjugaison et grandissement","Modèle de l'œil et correction de la myopie","Modèle du microscope"]}
+  ]},
+ {id:"bcgpg2",form:"BCG",tab:"Physique générale 2",noExo:true,eyebrow:"Licence BCG • UE Physique 2 (LBCG122) • EC LBCG1221 • L1 S2",title:"Physique générale 2 — thermodynamique, électricité et ondes",
+  intro:"Cinq chapitres : température et chaleur, gaz parfait et premier principe, électrostatique, électrocinétique, oscillations et ondes. Applications à la thermorégulation, à la membrane cellulaire et aux ondes sismiques. Les supports seront publiés au fil du semestre 2.",
+  syOpen:true,
+  syl:{code:"LBCG1221",ue:"Physique 2 (LBCG122)",cr:"",vol:"CM 14 h • TD 14 h • TPE 12 h • total 40 h",
+   obj:"Acquérir les bases de la thermodynamique, de l'électricité et des ondes pour décrire les échanges d'énergie et les phénomènes électriques et ondulatoires du vivant et de la Terre.",
+   pre:"Physique générale 1 (LBCG1121) ; dérivées, primitives, équations différentielles du premier ordre.",
+   prog:[["Température et chaleur ; transferts thermiques","soon",""],["Gaz parfait et premier principe","soon",""],["Électrostatique","soon",""],["Électrocinétique et circuit RC","soon",""],["Oscillations et ondes mécaniques","soon",""]]},
+  chapters:[
+   {n:1,soon:true,title:"Température et chaleur",toc:["Capacité thermique et chaleur latente","Calorimétrie","Conduction, convection et rayonnement","Thermorégulation et flux géothermique"]},
+   {n:2,soon:true,title:"Gaz parfait et premier principe",toc:["Variables d'état et équation d'état","Travail et chaleur","Énergie interne et premier principe","Transformations usuelles"]},
+   {n:3,soon:true,title:"Électrostatique",toc:["Charge électrique et loi de Coulomb","Champ électrostatique","Potentiel et énergie potentielle électrique"]},
+   {n:4,soon:true,title:"Électrocinétique",toc:["Courant, tension et loi d'Ohm","Lois de Kirchhoff et puissance","Condensateur et circuit RC","Modèle électrique de la membrane cellulaire"]},
+   {n:5,soon:true,title:"Oscillations et ondes mécaniques",toc:["Oscillateur harmonique","Ondes progressives et célérité","Le son : intensité et niveau sonore","Ondes sismiques P et S"]}
+  ]},
+ {id:"bcgpe2",form:"BCG",tab:"Physique expérimentale 2",noExo:true,eyebrow:"Licence BCG • UE Physique 2 (LBCG122) • EC LBCG1222 • L1 S2",title:"Physique expérimentale 2 — travaux pratiques",
+  intro:"Cinq TP de 4 h, en binôme, qui accompagnent Physique générale 2 : calorimétrie, gaz parfait, circuits, condensateur à l'oscilloscope, ondes sonores.",
+  syOpen:true,
+  syl:{code:"LBCG1222",ue:"Physique 2 (LBCG122)",cr:"",vol:"TP 20 h • TPE 10 h • total 30 h",
+   ev:"comptes rendus de TP 30 % • manipulation en binôme 10 % • préparation et quiz 10 % • épreuve pratique 50 % (2 h)",
+   obj:"Consolider la démarche expérimentale : mesurer, estimer l'incertitude, exploiter les résultats et les confronter aux lois étudiées en Physique générale 2.",
+   pre:"Physique expérimentale 1 (LBCG1122) ; suivre en parallèle Physique générale 2 (LBCG1221).",
+   prog:[["TP 1 : calorimétrie","soon",""],["TP 2 : loi de Boyle-Mariotte","soon",""],["TP 3 : circuits en courant continu","soon",""],["TP 4 : charge et décharge d'un condensateur","soon",""],["TP 5 : ondes sonores","soon",""]]},
+  chapters:[
+   {n:1,lab:"TP",soon:true,title:"Calorimétrie",toc:["Valeur en eau du calorimètre","Capacité thermique massique d'un solide","Chaleur latente de fusion de la glace"]},
+   {n:2,lab:"TP",soon:true,title:"Loi de Boyle-Mariotte",toc:["Pression et volume à température constante","Graphique P = f(1/V)","Estimation du zéro absolu"]},
+   {n:3,lab:"TP",soon:true,title:"Circuits en courant continu",toc:["Utilisation du multimètre","Loi d'Ohm","Associations de résistances","Lois de Kirchhoff"]},
+   {n:4,lab:"TP",soon:true,title:"Charge et décharge d'un condensateur",toc:["Prise en main de l'oscilloscope","Charge et décharge","Mesure de la constante de temps"]},
+   {n:5,lab:"TP",soon:true,title:"Ondes sonores",toc:["Période et fréquence d'un son","Longueur d'onde avec deux microphones","Célérité du son dans l'air"]}
+  ]},
+ {id:"bcgbio",form:"BCG",tab:"Biophysique",noExo:true,eyebrow:"Licence BCG • UE Physique 2 (LBCG122) • EC LBCG1223 • L1 S2",title:"Biophysique",
+  intro:"Cinq chapitres : phénomènes de transport, bioélectricité, rayonnements électromagnétiques, radioactivité et datation, ultrasons. Les supports seront publiés au fil du semestre 2.",
+  syOpen:true,
+  syl:{code:"LBCG1223",ue:"Physique 2 (LBCG122)",cr:"",vol:"CM 12 h • TD 9 h • TPE 9 h • total 30 h",
+   obj:"Comprendre les principes physiques qui gouvernent les échanges et les signaux du vivant, ainsi que l'interaction des rayonnements avec la matière.",
+   pre:"Physique générale 1 (LBCG1121) ; logarithme et exponentielle ; concentration et mole.",
+   prog:[["Phénomènes de transport : diffusion et osmose","soon",""],["Bioélectricité : potentiel de membrane, influx nerveux","soon",""],["Rayonnements électromagnétiques ; loi de Beer-Lambert","soon",""],["Radioactivité, datation et radioprotection","soon",""],["Ultrasons et échographie","soon",""]]},
+  chapters:[
+   {n:1,soon:true,title:"Phénomènes de transport",toc:["Diffusion et loi de Fick","Membranes semi-perméables","Osmose et pression osmotique (van 't Hoff)","Applications cellulaires"]},
+   {n:2,soon:true,title:"Bioélectricité",toc:["Équilibre de Donnan","Potentiel de repos et équation de Nernst","Potentiel d'action","Conduction de l'influx nerveux"]},
+   {n:3,soon:true,title:"Rayonnements électromagnétiques",toc:["Spectre électromagnétique et photon","Absorption de la lumière","Loi de Beer-Lambert et spectrophotométrie"]},
+   {n:4,soon:true,title:"Radioactivité",toc:["Désintégrations α, β et γ","Loi de décroissance et activité","Datation : carbone 14, potassium-argon","Effets biologiques et radioprotection"]},
+   {n:5,soon:true,title:"Ultrasons",toc:["Propagation et impédance acoustique","Réflexion à une interface","Principe de l'échographie","Effet Doppler"]}
+  ]},
+ {id:"mielec",form:"MI",tab:"Électricité 1 (RISE)",noExo:true,eyebrow:"Licence MI • option RISE • EC INFO246b1 • L2 S4",title:"Électricité 1 — circuits électriques",
+  intro:"Cinq chapitres : grandeurs électriques, circuits en continu, régimes transitoires, régime sinusoïdal, filtrage. Quatre TP de 4 h au multimètre et à l'oscilloscope. Les supports seront publiés au fil du semestre 4.",
+  syOpen:true,
+  syl:{code:"INFO246b1",ue:"Option RISE (INFO246)",cr:"",vol:"CM 12 h • TP 16 h • TPE 12 h • total 40 h",
+   ev:"travail individuel 30 % • travail de groupe 10 % • comptes rendus de TP 10 % • examen terminal 50 % (écrit, 3 h)",
+   obj:"Acquérir les méthodes d'analyse des circuits électriques linéaires en régimes continu, transitoire et sinusoïdal, et savoir les vérifier par la mesure.",
+   pre:"Nombres complexes, dérivées, équations différentielles du premier ordre ; électricité du baccalauréat.",
+   prog:[["Grandeurs électriques et dipôles","soon",""],["Circuits en régime continu ; Thévenin et Norton","soon",""],["Régimes transitoires : circuits RC et RL","soon",""],["Régime sinusoïdal : impédances et puissances","soon",""],["Filtres du premier ordre et diagramme de Bode","soon",""]]},
+  chapters:[
+   {n:1,soon:true,title:"Grandeurs électriques",toc:["Charge, courant, tension, puissance","Dipôles passifs et actifs","Conventions générateur et récepteur"]},
+   {n:2,soon:true,title:"Circuits en régime continu",toc:["Lois de Kirchhoff","Diviseurs de tension et de courant","Théorème de superposition","Théorèmes de Thévenin et de Norton"]},
+   {n:3,soon:true,title:"Régimes transitoires",toc:["Condensateur et bobine","Charge et décharge d'un circuit RC","Établissement du courant dans un circuit RL"]},
+   {n:4,soon:true,title:"Régime sinusoïdal",toc:["Grandeurs efficaces","Notation complexe et impédances","Puissances active, réactive et apparente"]},
+   {n:5,soon:true,title:"Filtrage",toc:["Fonction de transfert","Filtres passe-bas et passe-haut du premier ordre","Diagramme de Bode et fréquence de coupure"]}
+  ]},
+ {id:"mielectro",form:"MI",tab:"Électronique 1 (RISE)",noExo:true,eyebrow:"Licence MI • option RISE • EC INFO246b2 • L2 S4",title:"Électronique 1 — composants et montages de base",
+  intro:"Cinq chapitres : semi-conducteurs et diode, alimentations, transistor bipolaire, amplificateur opérationnel, de l'analogique au numérique. Quatre TP de 4 h. Les supports seront publiés au fil du semestre 4.",
+  syOpen:true,
+  syl:{code:"INFO246b2",ue:"Option RISE (INFO246)",cr:"",vol:"CM 12 h • TP 16 h • TPE 12 h • total 40 h",
+   ev:"travail individuel 30 % • travail de groupe 10 % • comptes rendus de TP 10 % • examen terminal 50 % (écrit, 3 h)",
+   obj:"Connaître le fonctionnement des composants électroniques de base et savoir réaliser et tester des montages simples analogiques et numériques.",
+   pre:"Électricité 1 (INFO246b1) ; algèbre de Boole et numération binaire.",
+   prog:[["Semi-conducteurs et diode","soon",""],["Alimentations : redressement, filtrage, régulation","soon",""],["Transistor bipolaire en commutation","soon",""],["Amplificateur opérationnel","soon",""],["Portes logiques et conversion CAN / CNA","soon",""]]},
+  chapters:[
+   {n:1,soon:true,title:"Semi-conducteurs et diode",toc:["Conducteurs, isolants et semi-conducteurs","Dopage et jonction PN","Caractéristique et modèles de la diode","La LED"]},
+   {n:2,soon:true,title:"Alimentations",toc:["Redressement simple et double alternance","Filtrage par condensateur","Diode Zener et régulateurs intégrés"]},
+   {n:3,soon:true,title:"Transistor bipolaire",toc:["Effet transistor","Polarisation","Fonctionnement en commutation","Notion de transistor MOS"]},
+   {n:4,soon:true,title:"Amplificateur opérationnel",toc:["Modèle idéal","Montages inverseur et non inverseur","Sommateur","Comparateur"]},
+   {n:5,soon:true,title:"De l'analogique au numérique",toc:["Niveaux logiques et portes logiques","Échantillonnage","Convertisseurs CAN et CNA"]}
+  ]},
+ {id:"mieleclec",form:"MI",tab:"Électricité - Électronique (SDC)",noExo:true,eyebrow:"Licence MI • option SDC • EC INFO246c1 • L2 S4",title:"Électricité - Électronique — du circuit à la donnée numérique",
+  intro:"Cinq chapitres : circuits en continu, circuits RC, filtrage, composants, chaîne d'acquisition d'un capteur. Quatre TP de 4 h. Les supports seront publiés au fil du semestre 4.",
+  syOpen:true,
+  syl:{code:"INFO246c1",ue:"Option SDC (INFO246)",cr:"",vol:"CM 12 h • TP 16 h • TPE 12 h • total 40 h",
+   ev:"travail individuel 30 % • travail de groupe 10 % • comptes rendus de TP 10 % • examen terminal 50 % (écrit, 3 h)",
+   obj:"Comprendre les circuits électriques et électroniques de base et la chaîne d'acquisition qui transforme une grandeur physique en données numériques.",
+   pre:"Nombres complexes, dérivées, équations différentielles du premier ordre ; électricité du baccalauréat.",
+   prog:[["Circuits en continu","soon",""],["Circuits RC et régime sinusoïdal","soon",""],["Filtrage et diagramme de Bode","soon",""],["Diode, transistor, amplificateur opérationnel","soon",""],["Chaîne d'acquisition et conversion CAN","soon",""]]},
+  chapters:[
+   {n:1,soon:true,title:"Circuits en continu",toc:["Grandeurs électriques et loi d'Ohm","Lois de Kirchhoff et diviseurs","Théorème de Thévenin"]},
+   {n:2,soon:true,title:"Circuits RC",toc:["Charge et décharge, constante de temps","Régime sinusoïdal et notation complexe","Impédance"]},
+   {n:3,soon:true,title:"Filtrage",toc:["Fonction de transfert","Filtres passe-bas et passe-haut","Diagramme de Bode","Filtrage du bruit"]},
+   {n:4,soon:true,title:"Composants",toc:["La diode","Le transistor en commutation","L'amplificateur opérationnel"]},
+   {n:5,soon:true,title:"Chaîne d'acquisition",toc:["Capteurs","Conditionnement du signal","Échantillonnage et théorème de Shannon","Quantification et conversion CAN"]}
+  ]},
+ {id:"miquant",form:"MI",tab:"Physique quantique (SDC)",noExo:true,eyebrow:"Licence MI • option SDC • EC INFO246c2 • L2 S4",title:"Physique quantique — vers l'information quantique",
+  intro:"Cinq chapitres : limites de la physique classique, dualité onde-corpuscule, équation de Schrödinger, atome d'hydrogène, introduction à l'information quantique. Les TP sont surtout numériques (simulation en Python). Les supports seront publiés au fil du semestre 4.",
+  syOpen:true,
+  syl:{code:"INFO246c2",ue:"Option SDC (INFO246)",cr:"",vol:"CM 12 h • TP 16 h • TPE 12 h • total 40 h",
+   ev:"travail individuel 30 % • travail de groupe 10 % • comptes rendus de TP 10 % • examen terminal 50 % (écrit, 3 h)",
+   obj:"Comprendre les concepts fondamentaux de la physique quantique et leur application à l'information quantique.",
+   pre:"Algèbre linéaire, nombres complexes, probabilités ; programmation en Python.",
+   prog:[["Limites de la physique classique : corps noir, photon","soon",""],["Dualité onde-corpuscule ; Heisenberg","soon",""],["Équation de Schrödinger ; puits et effet tunnel","soon",""],["Atome d'hydrogène et spectres de raies","soon",""],["Qubit, intrication et portes quantiques","soon",""]]},
+  chapters:[
+   {n:1,soon:true,title:"Limites de la physique classique",toc:["Rayonnement du corps noir","Effet photoélectrique","Le photon","Effet Compton"]},
+   {n:2,soon:true,title:"Dualité onde-corpuscule",toc:["Longueur d'onde de de Broglie","Diffraction des électrons","Inégalités de Heisenberg"]},
+   {n:3,soon:true,title:"Fonction d'onde et équation de Schrödinger",toc:["Interprétation probabiliste","Puits de potentiel infini","Barrière de potentiel et effet tunnel"]},
+   {n:4,soon:true,title:"L'atome d'hydrogène",toc:["Niveaux d'énergie","Nombres quantiques et spin","Spectres d'émission et d'absorption"]},
+   {n:5,soon:true,title:"Introduction à l'information quantique",toc:["Le qubit et la sphère de Bloch","Superposition et mesure","Intrication","Portes et circuits quantiques"]}
   ]}
 ];
 
@@ -378,6 +518,10 @@ const $=s=>document.querySelector(s);
 var PDF_CACHE="pdf-v1";
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const norm=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+const FORMS={PCI:{tab:"Licence PCI",line:"Licence Physique-Chimie et Informatique (LPCI) • L1 (semestres 1 et 2)"},
+ BCG:{tab:"Licence BCG",line:"Licence Biologie, Chimie et Géologie (BCG) • Département SVT • L1 (semestres 1 et 2)"},
+ MI:{tab:"Licence MI",line:"Licence Mathématiques et Informatique (MI) • L2 (semestre 4, options RISE et SDC)"}};
+const formOf=c=>c.form||"PCI";
 let current="meca";
 try{const t=localStorage.getItem("tab");if(t&&COURSES.some(c=>c.id===t))current=t}catch(e){}
 if(location.hash&&COURSES.some(c=>c.id===location.hash.slice(1)))current=location.hash.slice(1);
@@ -385,7 +529,7 @@ if(location.hash&&COURSES.some(c=>c.id===location.hash.slice(1)))current=locatio
 /* statistiques */
 (function(){
   let ch=0,pg=0,sl=0,td=0;
-  COURSES.forEach(c=>{c.chapters.forEach(x=>{ch++;pg+=x.pages;if(x.slides)sl+=x.slides;if(x.td&&!x.td.n)td++});(c.series||[]).forEach(()=>td++)});
+  COURSES.forEach(c=>{c.chapters.forEach(x=>{if(x.soon)return;ch++;pg+=x.pages;if(x.slides)sl+=x.slides;if(x.td&&!x.td.n)td++});(c.series||[]).forEach(()=>td++)});
   $("#stats").innerHTML=`<span><b>${COURSES.length}</b>cours</span><span><b>${ch}</b>chapitres</span><span><b>${pg}</b>pages de cours</span><span><b>${sl}</b>diapositives</span><span><b>${td}</b>séries de TD corrigées</span><span><b>140</b>questions de quiz</span><span><b>10</b>simulations</span><span><b>59</b>exercices d'entraînement</span>`;
 })();
 
@@ -395,7 +539,7 @@ function pdfBtn(file,label,n,kind,primary){
 }
 // cahiers d'activités de l'apprenant (Word), un par chapitre
 const CAHIERS={"meca1": "Cahier_activites_Mecanique1_Chapitre1", "meca2": "Cahier_activites_Mecanique1_Chapitre2", "meca3": "Cahier_activites_Mecanique1_Chapitre3", "meca4": "Cahier_activites_Mecanique1_Chapitre4", "elec1": "Cahier_activites_Electricite1_Chapitre1", "elec2": "Cahier_activites_Electricite1_Chapitre2", "elec3": "Cahier_activites_Electricite1_Chapitre3", "elec4": "Cahier_activites_Electricite1_Chapitre4", "opt1": "Cahier_activites_Optique1_Chapitre1", "opt2": "Cahier_activites_Optique1_Chapitre2", "opt3": "Cahier_activites_Optique1_Chapitre3", "opt4": "Cahier_activites_Optique1_Chapitre4", "opt5": "Cahier_activites_Optique1_Chapitre5", "elec21": "Cahier_activites_Electricite2_Chapitre1"},CAHIERS_N={"meca1": 7, "meca2": 8, "meca3": 8, "meca4": 8, "elec1": 6, "elec2": 8, "elec3": 6, "elec4": 10, "elec21": 8, "opt1": 8, "opt2": 6, "opt3": 7, "opt4": 7, "opt5": 8};
-const SYL={LPCI1121:["Syllabus_LPCI1121_Mecanique_1",8],LPCI1122:["Syllabus_LPCI1122_Electricite_1",8],LPCI1151:["Syllabus_LPCI1151_Travaux_Pratiques_de_Physique_1",6],LPCI1221:["Syllabus_LPCI1221_Optique_1",8],LPCI1222:["Syllabus_LPCI1222_Electricite_2",6],LPCI1251:["Syllabus_LPCI1251_Travaux_Pratiques_de_Physique_2",6]};
+const SYL={LPCI1121:["Syllabus_LPCI1121_Mecanique_1",8],LPCI1122:["Syllabus_LPCI1122_Electricite_1",8],LPCI1151:["Syllabus_LPCI1151_Travaux_Pratiques_de_Physique_1",6],LPCI1221:["Syllabus_LPCI1221_Optique_1",8],LPCI1222:["Syllabus_LPCI1222_Electricite_2",6],LPCI1251:["Syllabus_LPCI1251_Travaux_Pratiques_de_Physique_2",6],LBCG1121:["Syllabus_LBCG1121_Physique_generale_1",7],LBCG1122:["Syllabus_LBCG1122_Physique_experimentale_1",7],LBCG1221:["Syllabus_LBCG1221_Physique_generale_2",7],LBCG1222:["Syllabus_LBCG1222_Physique_experimentale_2",6],LBCG1223:["Syllabus_LBCG1223_Biophysique",7],INFO246b1:["Syllabus_INFO246b1_Electricite_1",7],INFO246b2:["Syllabus_INFO246b2_Electronique_1",6],INFO246c1:["Syllabus_INFO246c1_Electricite_Electronique",7],INFO246c2:["Syllabus_INFO246c2_Physique_quantique",7]};
 function sylBtns(code,label,primary){const f=SYL[code];if(!f)return"";return pdfBtn("docs/syllabus/"+f[0],label||"Syllabus "+code,f[1],"pdf",primary)+`<a class="btn" href="docs/syllabus/${f[0]}.docx" download><span class="k k-word">WORD</span><span class="lbl">${esc(label||"Syllabus "+code)}</span><span class="n">.docx</span></a>`}
 const SIMS={meca2:[["frenet","Simulation : base de Frenet"]],meca4:[["energie","Simulation : énergie potentielle"]],elec1:[["champ","Simulation : lignes de champ"]],elec2:[["champ","Simulation : champ et potentiel"],["anneau","Simulation : anneau chargé"],["boule","Simulation : théorème de Gauss"]],elec3:[["champ","Simulation : lignes de champ du dipôle"],["dipole","Simulation : dipôle dans un champ uniforme"]],opt1:[["refrac","Simulation : réfraction et réflexion totale"]],opt3:[["prisme","Simulation : prisme et dispersion"]],opt4:[["miroir","Simulation : miroir sphérique"]],opt5:[["lentille","Simulation : lentille mince"]]};
 function pptBtn(key,n,t){
@@ -407,7 +551,7 @@ function sylCard(c){
   return `<details class="syl"${c.syOpen?" open":""}><summary><span class="eyebrow">Syllabus de l'EC ${esc(y.code)}</span><span class="sy-sum">Objectifs, programme, volume horaire et évaluation</span></summary>
     <div class="sy-body">
       <p><b>Objectif général.</b> ${esc(y.obj)}</p>
-      <div class="sy-facts"><span><b>UE</b> ${esc(y.ue||"Physique 1 (LPCI112)")} • 6 crédits</span><span><b>Volume</b> CM 24 h • TD 18 h • TPE 18 h • total 60 h</span><span><b>Évaluation</b> travail individuel 30 % • travail de groupe 10 % • pratique (cahier d'activités, quiz) 10 % • examen terminal 50 % (écrit, 3 h)</span></div>
+      <div class="sy-facts"><span><b>UE</b> ${esc(y.ue||"Physique 1 (LPCI112)")}${y.cr===undefined?" • 6 crédits":y.cr?" • "+esc(y.cr)+" crédits":""}</span><span><b>Volume</b> ${esc(y.vol||"CM 24 h • TD 18 h • TPE 18 h • total 60 h")}</span><span><b>Évaluation</b> ${esc(y.ev||"travail individuel 30 % • travail de groupe 10 % • pratique (cahier d'activités, quiz) 10 % • examen terminal 50 % (écrit, 3 h)")}</span></div>
       <table class="sy-prog"><thead><tr><th>Programme du syllabus</th><th>Sur la plateforme</th></tr></thead><tbody>
       ${y.prog.map((r,i)=>`<tr><td><b>${i+1}.</b> ${esc(r[0])}</td><td><span class="sy-st ${ST[r[1]][0]}">${ST[r[1]][1]}</span>${r[2]?` ${esc(r[2])}`:""}</td></tr>`).join("")}
       </tbody></table>
@@ -425,6 +569,22 @@ function render(){
   let h=`<section class="course-head"><div class="eyebrow">${esc(c.eyebrow)}</div><h2>${esc(c.title)}</h2><p>${esc(c.intro)}</p></section>${c.syl&&!q?sylCard(c):""}<div class="chapters">`;
   chs.forEach(ch=>{
     const open=q?" open":"";
+    if(ch.soon){
+      h+=`<article class="chap">
+      <div class="cover-soon" aria-hidden="true">Support en préparation</div>
+      <div class="chap-body">
+        <div class="chap-num">${ch.lab==="TP"?"TP":"CHAPITRE"} ${ch.n}</div>
+        <h3>${esc(ch.title)}</h3>
+        <div class="meta">${ch.toc.length} sections • publication au fil du semestre</div>
+        <details${open}><summary>Contenu ${ch.lab==="TP"?"du TP":"du chapitre"}</summary><ol class="toc">${ch.toc.map((t,i)=>`<li data-n="${ch.n}.${i+1}">${esc(t)}</li>`).join("")}</ol></details>
+      </div>
+      <div class="res">
+        <span class="btn soon"><span class="k k-soon">À VENIR</span><span class="lbl">${ch.lab==="TP"?"Fascicule du TP":"Support de cours"}</span></span>
+        ${ch.lab==="TP"?"":`<span class="btn soon"><span class="k k-soon">À VENIR</span><span class="lbl">${c.form==="MI"?"Fascicule de TP":"Série de TD et corrigé"}</span></span>`}
+        <span class="btn soon"><span class="k k-soon">À VENIR</span><span class="lbl">Cahier d'activités</span></span>
+      </div></article>`;
+      return;
+    }
     h+=`<article class="chap">
       <button type="button" class="cover" data-pdf="${ch.key}" data-title="${esc("Chapitre "+ch.n+" — "+ch.title)}" aria-label="Ouvrir le support du chapitre ${ch.n}"><img src="img/${ch.key}.jpg" alt="" loading="lazy" width="120" height="170"></button>
       <div class="chap-body">
@@ -453,7 +613,7 @@ function render(){
       <div class="res">${pdfBtn(s.e,"Énoncés",s.ep,"pdf",true)}${pdfBtn(s.c,"Corrigé détaillé",s.cp,"cor")}</div></section>`;
   });
   const FTP=["Pendule simple","Oscillateur harmonique (masse-ressort)","Pendule de torsion","Loi d'Ohm et mesures de résistances","L'oscilloscope cathodique","Mesures électriques : le multimètre","Lentilles : distance focale","Le microscope","Association de lentilles","Le prisme","Charge et décharge RC","Circuit RLC et résonance"];
-  const tpShow=!q||norm("travaux pratiques tp fascicule "+FTP.join(" ")).includes(q);
+  const tpShow=formOf(c)==="PCI"&&(!q||norm("travaux pratiques tp fascicule "+FTP.join(" ")).includes(q));
   if(tpShow){
     h+=`<article class="chap fasc-card">
       <button type="button" class="cover" data-pdf="Fascicule_TP_Physique_L1" data-title="Fascicule de travaux pratiques" aria-label="Ouvrir le fascicule de TP"><img src="img/Fascicule_TP_Physique_L1.jpg" alt="" loading="lazy" width="120" height="170"></button>
@@ -478,7 +638,15 @@ function render(){
   markCached();
 }
 
-$("#tabs").innerHTML=COURSES.map(c=>`<button type="button" class="tab" role="tab" data-id="${c.id}">${esc(c.tab)}</button>`).join("");
+function curForm(){return formOf(COURSES.find(x=>x.id===current)||COURSES[0])}
+function renderNav(){
+  const f=curForm();
+  $("#forms").innerHTML=`<span class="fl">Formation</span>`+Object.keys(FORMS).map(k=>`<button type="button" class="form" role="tab" data-f="${k}" aria-selected="${k===f}">${esc(FORMS[k].tab)}</button>`).join("");
+  $("#tabs").innerHTML=COURSES.filter(c=>formOf(c)===f).map(c=>`<button type="button" class="tab" role="tab" data-id="${c.id}">${esc(c.tab)}</button>`).join("");
+  const u=$("#ufrLine");if(u)u.textContent="UFR des Sciences, des Technologies et de l’Innovation (UFR-STI) • "+FORMS[f].line+" • Année universitaire 2026 – 2027";
+}
+renderNav();
+$("#forms").addEventListener("click",e=>{const b=e.target.closest(".form");if(!b)return;const first=COURSES.find(c=>formOf(c)===b.dataset.f);if(!first)return;current=first.id;try{localStorage.setItem("tab",current)}catch(_){}renderNav();render()});
 $("#tabs").addEventListener("click",e=>{const b=e.target.closest(".tab");if(!b)return;current=b.dataset.id;try{localStorage.setItem("tab",current)}catch(_){}render()});
 $("#q").addEventListener("input",render);
 if(Object.values(window.VIDEOS||{}).some(l=>l&&l.length))document.getElementById("navVid").hidden=false;
@@ -568,7 +736,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-pdf]");if(
 
 var pdfPath=f=>(f.includes("/")?f:"docs/"+f)+".pdf";
 var absPath=u=>new URL(u,location.href).pathname;
-function allDocs(){const d=[],s=[];COURSES.forEach(c=>{c.chapters.forEach(ch=>{d.push(pdfPath(ch.key));if(ch.td){d.push(pdfPath(ch.td.e),pdfPath(ch.td.c))}if(ch.slides)s.push(pdfPath("slides/"+ch.key+"_diapo"))});(c.series||[]).forEach(x=>d.push(pdfPath(x.e),pdfPath(x.c)))});d.push(pdfPath("Fascicule_TP_Physique_L1"));Object.values(CAHIERS).forEach(f=>d.push("docs/cahiers/"+f+".docx"));Object.values(SYL).forEach(f=>d.push("docs/syllabus/"+f[0]+".pdf","docs/syllabus/"+f[0]+".docx"));return{d:[...new Set(d)],s}}
+function allDocs(){const d=[],s=[];COURSES.forEach(c=>{c.chapters.forEach(ch=>{if(ch.soon)return;d.push(pdfPath(ch.key));if(ch.td){d.push(pdfPath(ch.td.e),pdfPath(ch.td.c))}if(ch.slides)s.push(pdfPath("slides/"+ch.key+"_diapo"))});(c.series||[]).forEach(x=>d.push(pdfPath(x.e),pdfPath(x.c)))});d.push(pdfPath("Fascicule_TP_Physique_L1"));Object.values(CAHIERS).forEach(f=>d.push("docs/cahiers/"+f+".docx"));Object.values(SYL).forEach(f=>d.push("docs/syllabus/"+f[0]+".pdf","docs/syllabus/"+f[0]+".docx"));return{d:[...new Set(d)],s}}
 async function savedPaths(){try{if(!("caches" in window))return new Set();const c=await caches.open(PDF_CACHE);return new Set((await c.keys()).map(r=>new URL(r.url).pathname))}catch(e){return new Set()}}
 async function markCached(){const set=await savedPaths();document.querySelectorAll(".btn[data-pdf]").forEach(b=>b.classList.toggle("saved",set.has(absPath(pdfPath(b.dataset.pdf)))));
   const {d,s}=allDocs(),nd=d.filter(u=>set.has(absPath(u))).length,ns=s.filter(u=>set.has(absPath(u))).length;
