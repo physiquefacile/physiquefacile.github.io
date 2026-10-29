@@ -185,6 +185,17 @@ footer .wrap{padding-block:18px}
 .r-msg{font-family:var(--f-head);color:var(--muted);text-align:center;padding:40px 0}
 @media (prefers-reduced-motion:no-preference){.chap{transition:border-color .15s}}
 .iosbox{grid-column:1/-1;font-family:var(--f-head);font-size:.92rem;line-height:1.5;background:var(--tint);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:10px 14px}.iosbox ol{margin:6px 0 6px 18px;padding:0}.iosbox span{color:var(--muted)}
+/* Grand écran : page plus large ; chapitres sur deux colonnes au-delà de 1500 px */
+@media (min-width:1200px){
+  .wrap{max-width:min(1760px,100%);padding-inline:clamp(24px,3.5vw,64px)}
+  .course-head p{max-width:110ch}
+  .chap{grid-template-columns:120px minmax(0,1fr) 280px}
+  .td-card{grid-template-columns:minmax(0,1fr) 280px}
+}
+@media (min-width:1500px){
+  .chapters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .chap{grid-template-columns:110px minmax(0,1fr) 260px}
+}
 </style>
 </head>
 <body>
