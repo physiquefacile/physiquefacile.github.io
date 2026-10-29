@@ -380,7 +380,7 @@ const COURSES=[
     td:{e:"TD_Electricite2_1_enonces",ep:4,c:"TD_Electricite2_1_corrige",cp:10},
     toc:["Le champ magnétique : généralités","Loi de Biot et Savart","Applications : fil, spire, solénoïde","Flux magnétique et potentiel vecteur","Théorème d'Ampère","Forces magnétiques : Lorentz, Laplace","Circuit dans un champ uniforme ; dipôle magnétique"]}
   ]},
- {id:"bcgpg1",form:"BCG",tab:"Physique générale 1",noExo:true,eyebrow:"Licence BCG • UE Physique 1 (LBCG112) • EC LBCG1121 • L1 S1",title:"Physique générale 1 — mécanique, fluides et optique géométrique",
+ {id:"bcgpg1",form:"BCG",quiz:true,tab:"Physique générale 1",noExo:true,eyebrow:"Licence BCG • UE Physique 1 (LBCG112) • EC LBCG1121 • L1 S1",title:"Physique générale 1 — mécanique, fluides et optique géométrique",
   intro:"Cinq chapitres pour les étudiants de BCG : outils de base et cinématique, dynamique, travail et énergie, mécanique des fluides, optique géométrique. Chaque notion est illustrée par des exemples tirés de la biologie et de la géologie. Les supports de cours, les séries de TD et les cahiers d'activités seront publiés au fil du semestre.",
   syOpen:true,
   syl:{code:"LBCG1121",ue:"Physique 1 (LBCG112)",cr:"",vol:"CM 24 h • TD 24 h • TPE 22 h • total 70 h",
@@ -409,7 +409,7 @@ const COURSES=[
    {n:4,lab:"TP",soon:true,title:"Poussée d'Archimède et viscosité",toc:["Mesure de la poussée d'Archimède","Masse volumique d'un solide","Vitesse limite d'une bille","Viscosité par la loi de Stokes"]},
    {n:5,lab:"TP",soon:true,title:"Lentilles minces et banc d'optique",toc:["Focométrie par autocollimation","Relation de conjugaison et grandissement","Modèle de l'œil et correction de la myopie","Modèle du microscope"]}
   ]},
- {id:"bcgpg2",form:"BCG",tab:"Physique générale 2",noExo:true,eyebrow:"Licence BCG • UE Physique 2 (LBCG122) • EC LBCG1221 • L1 S2",title:"Physique générale 2 — thermodynamique, électricité et ondes",
+ {id:"bcgpg2",form:"BCG",quiz:true,tab:"Physique générale 2",noExo:true,eyebrow:"Licence BCG • UE Physique 2 (LBCG122) • EC LBCG1221 • L1 S2",title:"Physique générale 2 — thermodynamique, électricité et ondes",
   intro:"Cinq chapitres : température et chaleur, gaz parfait et premier principe, électrostatique, électrocinétique, oscillations et ondes. Applications à la thermorégulation, à la membrane cellulaire et aux ondes sismiques. Les supports seront publiés au fil du semestre 2.",
   syOpen:true,
   syl:{code:"LBCG1221",ue:"Physique 2 (LBCG122)",cr:"",vol:"CM 14 h • TD 14 h • TPE 12 h • total 40 h",
@@ -438,7 +438,7 @@ const COURSES=[
    {n:4,lab:"TP",soon:true,title:"Charge et décharge d'un condensateur",toc:["Prise en main de l'oscilloscope","Charge et décharge","Mesure de la constante de temps"]},
    {n:5,lab:"TP",soon:true,title:"Ondes sonores",toc:["Période et fréquence d'un son","Longueur d'onde avec deux microphones","Célérité du son dans l'air"]}
   ]},
- {id:"bcgbio",form:"BCG",tab:"Biophysique",noExo:true,eyebrow:"Licence BCG • UE Physique 2 (LBCG122) • EC LBCG1223 • L1 S2",title:"Biophysique",
+ {id:"bcgbio",form:"BCG",quiz:true,tab:"Biophysique",noExo:true,eyebrow:"Licence BCG • UE Physique 2 (LBCG122) • EC LBCG1223 • L1 S2",title:"Biophysique",
   intro:"Cinq chapitres : phénomènes de transport, bioélectricité, rayonnements électromagnétiques, radioactivité et datation, ultrasons. Les supports seront publiés au fil du semestre 2.",
   syOpen:true,
   syl:{code:"LBCG1223",ue:"Physique 2 (LBCG122)",cr:"",vol:"CM 12 h • TD 9 h • TPE 9 h • total 30 h",
@@ -530,7 +530,7 @@ if(location.hash&&COURSES.some(c=>c.id===location.hash.slice(1)))current=locatio
 (function(){
   let ch=0,pg=0,sl=0,td=0;
   COURSES.forEach(c=>{c.chapters.forEach(x=>{if(x.soon)return;ch++;pg+=x.pages;if(x.slides)sl+=x.slides;if(x.td&&!x.td.n)td++});(c.series||[]).forEach(()=>td++)});
-  $("#stats").innerHTML=`<span><b>${COURSES.length}</b>cours</span><span><b>${ch}</b>chapitres</span><span><b>${pg}</b>pages de cours</span><span><b>${sl}</b>diapositives</span><span><b>${td}</b>séries de TD corrigées</span><span><b>140</b>questions de quiz</span><span><b>10</b>simulations</span><span><b>59</b>exercices d'entraînement</span>`;
+  $("#stats").innerHTML=`<span><b>${COURSES.length}</b>cours</span><span><b>${ch}</b>chapitres</span><span><b>${pg}</b>pages de cours</span><span><b>${sl}</b>diapositives</span><span><b>${td}</b>séries de TD corrigées</span><span><b>290</b>questions de quiz</span><span><b>10</b>simulations</span><span><b>59</b>exercices d'entraînement</span>`;
 })();
 
 function pdfBtn(file,label,n,kind,primary){
@@ -582,6 +582,7 @@ function render(){
         <span class="btn soon"><span class="k k-soon">À VENIR</span><span class="lbl">${ch.lab==="TP"?"Fascicule du TP":"Support de cours"}</span></span>
         ${ch.lab==="TP"?"":`<span class="btn soon"><span class="k k-soon">À VENIR</span><span class="lbl">${c.form==="MI"?"Fascicule de TP":"Série de TD et corrigé"}</span></span>`}
         <span class="btn soon"><span class="k k-soon">À VENIR</span><span class="lbl">Cahier d'activités</span></span>
+        ${c.quiz?`<a class="btn" href="quiz.html#${c.id}${ch.n}"><span class="k k-quiz">QUIZ</span><span class="lbl">Quiz d'auto-évaluation</span><span class="n">10 q.</span></a>`:""}
       </div></article>`;
       return;
     }
