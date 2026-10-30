@@ -68,15 +68,29 @@ a{color:var(--accent)}
 
 /* ---------- barre outils ---------- */
 .bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
-.bar .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding-block:12px}
+.bar .wrap{display:grid;gap:10px;padding-block:12px}
+.nrow{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-left:auto}
+.nrow2{position:relative;display:flex;flex-wrap:wrap;align-items:flex-start;gap:10px 16px}
+/* EC de la formation : fenêtre ouverte juste sous la formation choisie */
+.ecpanel{position:relative;display:grid;gap:4px;background:var(--surface);border:1.5px solid var(--accent);border-radius:16px;padding:6px 6px 6px;margin-top:6px;max-width:100%;box-shadow:var(--shadow)}
+.ecpanel::before{content:"";position:absolute;top:-8px;left:var(--ax,40px);width:13px;height:13px;background:var(--surface);border-left:1.5px solid var(--accent);border-top:1.5px solid var(--accent);transform:translateX(-50%) rotate(45deg);border-top-left-radius:3px}
+.ecpanel[hidden]{display:none}
+.ecl{font-family:var(--f-head);font-size:.74rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);padding:2px 10px 0}
+.ecpanel .tabs{border:0;padding:0;background:transparent;flex-wrap:wrap}
+.nrow2 .search{align-self:center;margin-top:6px}
+@media (max-width:560px){.nrow,.nrow2{display:contents}.forms{order:1}.ecpanel{order:2;width:100%}.links{order:3;margin-left:0}.nrow2 .search{order:4}.forms .fl{display:none}.ecpanel .tab{white-space:normal}}
+@media (prefers-reduced-motion:no-preference){.ecpanel{animation:ecin .18s ease-out}@keyframes ecin{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}}
 .tabs{display:flex;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px}
 .tab{font-family:var(--f-head);font-size:.92rem;font-weight:500;border:0;background:transparent;color:var(--muted);padding:7px 14px;border-radius:999px;cursor:pointer}
 @media (max-width:560px){.tabs{display:grid;grid-template-columns:1fr 1fr;border-radius:16px;width:100%}.tab{padding:9px 6px;white-space:nowrap}}
 .tab[aria-selected="true"]{background:var(--accent);color:var(--accent-fg)}
 .forms{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
 .forms .fl{font-family:var(--f-head);font-size:.8rem;color:var(--muted);margin-right:2px}
-.form{font-family:var(--f-head);font-size:.85rem;font-weight:600;border:1px solid var(--line);background:var(--surface);color:var(--muted);padding:5px 12px;border-radius:999px;cursor:pointer}
-.form[aria-selected="true"]{border-color:var(--accent);color:var(--accent);background:transparent;box-shadow:inset 0 0 0 1px var(--accent)}
+.form{font-family:var(--f-head);font-size:.9rem;font-weight:600;border:1px solid var(--line);background:var(--surface);color:var(--muted);padding:7px 14px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.form::after{content:"";width:6px;height:6px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px);opacity:.7;transition:transform .15s}
+.form[aria-expanded="true"]::after{transform:rotate(-135deg) translateY(-1px)}
+.form[aria-selected="true"]{border-color:var(--accent);color:var(--accent-fg);background:var(--accent)}
 .cover-soon{display:flex;align-items:center;justify-content:center;text-align:center;width:120px;height:170px;border:1px dashed var(--line);border-radius:8px;color:var(--muted);font-family:var(--f-head);font-size:.8rem;padding:8px;background:var(--surface)}
 .btn.soon{cursor:default;opacity:.75}
 .k-soon{background:var(--line);color:var(--muted)}
@@ -223,8 +237,9 @@ footer .wrap{padding-block:18px}
 
 <nav class="bar" aria-label="Choix du cours">
   <div class="wrap">
+    <div class="nrow">
     <div class="forms" id="forms" role="tablist" aria-label="Choix de la formation"></div>
-    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="links">
     <a class="navlink" href="quiz.html">Quiz</a>
     <a class="navlink" href="simulations.html">Simulations</a>
     <a class="navlink" href="entrainement.html">Entraînement</a>
@@ -232,10 +247,15 @@ footer .wrap{padding-block:18px}
     <a class="navlink" href="calendrier.html">Annonces</a>
     <a class="navlink" href="videos.html" id="navVid" hidden>Vidéos</a>
     <a class="navlink" href="questions.html">Questions</a>
+    </div>
+    </div>
+    <div class="nrow2">
+    <div class="ecpanel" id="ecpanel"><div class="ecl" id="ecl"></div><div class="tabs" role="tablist" id="tabs" aria-label="EC de la formation"></div></div>
     <label class="search" for="q">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       <input id="q" type="search" placeholder="Rechercher une notion : Gauss, Frenet, travail…" autocomplete="off">
     </label>
+    </div>
   </div>
 </nav>
 
@@ -640,15 +660,31 @@ function render(){
 }
 
 try{const sf=localStorage.getItem("formation");if(FORMS[sf]&&!location.hash&&formOf(COURSES.find(x=>x.id===current)||COURSES[0])!==sf){const c0=COURSES.find(c=>formOf(c)===sf);if(c0)current=c0.id}}catch(e){}
+let ecOpen=true;
 function curForm(){return formOf(COURSES.find(x=>x.id===current)||COURSES[0])}
 function renderNav(){
   const f=curForm();try{localStorage.setItem("formation",f)}catch(e){}
-  $("#forms").innerHTML=`<span class="fl">Formation</span>`+Object.keys(FORMS).map(k=>`<button type="button" class="form" role="tab" data-f="${k}" aria-selected="${k===f}">${esc(FORMS[k].tab)}</button>`).join("");
+  $("#forms").innerHTML=`<span class="fl">Formation</span>`+Object.keys(FORMS).map(k=>`<button type="button" class="form" role="tab" data-f="${k}" aria-selected="${k===f}" aria-expanded="${k===f&&ecOpen}" aria-controls="ecpanel">${esc(FORMS[k].tab)}</button>`).join("");
   $("#tabs").innerHTML=COURSES.filter(c=>formOf(c)===f).map(c=>`<button type="button" class="tab" role="tab" data-id="${c.id}">${esc(c.tab)}</button>`).join("");
+  $("#ecl").textContent="EC de la "+FORMS[f].tab;
+  $("#ecpanel").hidden=!ecOpen;
+  placeEC();
   const u=$("#ufrLine");if(u)u.textContent="UFR des Sciences, des Technologies et de l’Innovation (UFR-STI) • "+FORMS[f].line+" • Année universitaire 2026 – 2027";
 }
+/* place la fenêtre des EC juste sous la formation choisie (flèche pointée sur le bouton) */
+function placeEC(){
+  const p=$("#ecpanel"),b=document.querySelector('.form[aria-selected="true"]');if(!p||!b||p.hidden)return;
+  p.style.marginLeft="0px";
+  const wr=p.closest(".wrap"),cs=getComputedStyle(wr),right=wr.getBoundingClientRect().right-parseFloat(cs.paddingRight);
+  const r=p.getBoundingClientRect(),br=b.getBoundingClientRect(),cx=br.left+br.width/2-r.left;
+  const w=r.width,ml=matchMedia("(max-width:560px)").matches?0:Math.max(0,Math.min(br.left-r.left-6,right-r.left-w));
+  p.style.marginLeft=ml+"px";p.style.setProperty("--ax",Math.max(18,Math.min(w-18,cx-ml))+"px");
+}
+addEventListener("resize",placeEC);
 renderNav();
-$("#forms").addEventListener("click",e=>{const b=e.target.closest(".form");if(!b)return;const first=COURSES.find(c=>formOf(c)===b.dataset.f);if(!first)return;current=first.id;try{localStorage.setItem("tab",current)}catch(_){}renderNav();render()});
+$("#forms").addEventListener("click",e=>{const b=e.target.closest(".form");if(!b)return;
+  if(b.dataset.f===curForm()){ecOpen=!ecOpen;renderNav();return}
+  const first=COURSES.find(c=>formOf(c)===b.dataset.f);if(!first)return;current=first.id;ecOpen=true;try{localStorage.setItem("tab",current)}catch(_){}renderNav();render()});
 $("#tabs").addEventListener("click",e=>{const b=e.target.closest(".tab");if(!b)return;current=b.dataset.id;try{localStorage.setItem("tab",current)}catch(_){}render()});
 $("#q").addEventListener("input",render);
 if(Object.values(window.VIDEOS||{}).some(l=>l&&l.length))document.getElementById("navVid").hidden=false;
