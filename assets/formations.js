@@ -43,12 +43,24 @@
           { n: 3, t: "Travail, énergie et puissance", res: ["bcgpg13", "meca4"], sims: ["energie"] },
           { n: 4, t: "Mécanique des fluides", res: ["bcgpg14"] },
           { n: 5, t: "Optique géométrique", res: ["bcgpg15", "opt1", "opt5"], sims: ["refrac", "lentille", "miroir"] } ] },
+        { code: "LBCG1122", title: "Physique expérimentale 1", ch: [
+          { n: 1, t: "Mesures et incertitudes" },
+          { n: 2, t: "Chute libre et plan incliné", res: ["meca2", "meca3"] },
+          { n: 3, t: "Pendule simple et ressort", res: ["meca4"], sims: ["energie"] },
+          { n: 4, t: "Poussée d'Archimède et viscosité", res: ["bcgpg14"] },
+          { n: 5, t: "Lentilles minces et banc d'optique", res: ["bcgpg15", "opt5"], sims: ["lentille"] } ] },
         { code: "LBCG1221", title: "Physique générale 2", ch: [
           { n: 1, t: "Température et chaleur", res: ["bcgpg21"] },
           { n: 2, t: "Gaz parfait et premier principe", res: ["bcgpg22"] },
           { n: 3, t: "Électrostatique", res: ["bcgpg23", "elec1", "elec2"], sims: ["champ"] },
           { n: 4, t: "Électrocinétique", res: ["bcgpg24", "elec4"] },
           { n: 5, t: "Oscillations et ondes mécaniques", res: ["bcgpg25"] } ] },
+        { code: "LBCG1222", title: "Physique expérimentale 2", ch: [
+          { n: 1, t: "Calorimétrie", res: ["bcgpg21"] },
+          { n: 2, t: "Loi de Boyle-Mariotte", res: ["bcgpg22"] },
+          { n: 3, t: "Circuits en courant continu", res: ["bcgpg24", "elec4"] },
+          { n: 4, t: "Charge et décharge d'un condensateur", res: ["elec4"] },
+          { n: 5, t: "Ondes sonores", res: ["bcgpg25"] } ] },
         { code: "LBCG1223", title: "Biophysique", ch: [
           { n: 1, t: "Phénomènes de transport", res: ["bcgbio1"] },
           { n: 2, t: "Bioélectricité", res: ["bcgbio2"] },
@@ -61,7 +73,7 @@
         { code: "INFO246b1", title: "Électricité 1 (RISE)", ch: [
           { n: 1, t: "Grandeurs électriques", res: ["elec4"] },
           { n: 2, t: "Circuits en régime continu", res: ["elec4"] },
-          { n: 3, t: "Régimes transitoires" },
+          { n: 3, t: "Régimes transitoires", res: ["elec4"] },
           { n: 4, t: "Régime sinusoïdal" },
           { n: 5, t: "Filtrage" } ] },
         { code: "INFO246b2", title: "Électronique 1 (RISE)", ch: [

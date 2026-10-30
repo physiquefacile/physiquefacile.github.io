@@ -125,6 +125,10 @@ main .wrap{padding-block:26px 60px;display:grid;gap:30px}
 .sy-st{display:inline-block;font-weight:600;font-size:.76rem;border-radius:999px;padding:1px 8px;margin-right:4px}
 .sy-ok{color:var(--ok,#1F6F4A);background:var(--ok-bg,#E3F2EA)}.sy-part{color:#9a6a00;background:rgba(240,174,54,.18)}.sy-soon{color:var(--muted);background:var(--tint)}
 .sy-pre{color:var(--muted);font-size:.9rem}
+.prac{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:10px 20px;align-items:center;margin:0 0 18px;padding:12px 18px;border:1px solid var(--line);border-radius:12px;background:var(--tint2)}
+.pci{display:inline-block;font-family:var(--f-mono);font-size:.68rem;padding:0 5px;border-radius:4px;background:var(--tint);color:var(--accent);vertical-align:1px}
+.prac p{margin:4px 0 0;color:var(--muted);font-size:.9rem}.prac-b{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}.prac-b .btn{margin:0}
+@media (max-width:820px){.prac{grid-template-columns:1fr}}
 .sy-top{margin:10px 0 18px;padding:12px 18px;border:1px solid var(--line);border-radius:12px;background:var(--tint)}
 .sy-dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,340px));gap:8px;margin-top:8px}.sy-dl .btn{margin:0}
 @media (max-width:640px){.sy-prog,.sy-prog tbody,.sy-prog tr,.sy-prog td{display:block;width:auto!important}.sy-prog thead{display:none}.sy-prog td{border:0;padding:2px 0}.sy-prog tr{border-bottom:1px solid var(--line);padding:8px 0}}
@@ -302,6 +306,7 @@ footer .wrap{padding-block:18px}
 <script src="assets/annonces.js"></script>
 <script src="assets/videos.js"></script>
 <script src="assets/activites.js"></script>
+<script src="assets/formations.js"></script>
 <script src="vendor/pdfjs/pdf.js"></script>
 <script>
 const COURSES=[
@@ -562,6 +567,36 @@ const CAHIERS={"meca1": "Cahier_activites_Mecanique1_Chapitre1", "meca2": "Cahie
 const SYL={LPCI1121:["Syllabus_LPCI1121_Mecanique_1",8],LPCI1122:["Syllabus_LPCI1122_Electricite_1",8],LPCI1151:["Syllabus_LPCI1151_Travaux_Pratiques_de_Physique_1",6],LPCI1221:["Syllabus_LPCI1221_Optique_1",8],LPCI1222:["Syllabus_LPCI1222_Electricite_2",6],LPCI1251:["Syllabus_LPCI1251_Travaux_Pratiques_de_Physique_2",6],LBCG1121:["Syllabus_LBCG1121_Physique_generale_1",7],LBCG1122:["Syllabus_LBCG1122_Physique_experimentale_1",7],LBCG1221:["Syllabus_LBCG1221_Physique_generale_2",7],LBCG1222:["Syllabus_LBCG1222_Physique_experimentale_2",6],LBCG1223:["Syllabus_LBCG1223_Biophysique",7],INFO246b1:["Syllabus_INFO246b1_Electricite_1",7],INFO246b2:["Syllabus_INFO246b2_Electronique_1",6],INFO246c1:["Syllabus_INFO246c1_Electricite_Electronique",7],INFO246c2:["Syllabus_INFO246c2_Physique_quantique",7]};
 function sylBtns(code,label,primary){const f=SYL[code];if(!f)return"";return pdfBtn("docs/syllabus/"+f[0],label||"Syllabus "+code,f[1],"pdf",primary)+`<a class="btn" href="docs/syllabus/${f[0]}.docx" download><span class="k k-word">WORD</span><span class="lbl">${esc(label||"Syllabus "+code)}</span><span class="n">.docx</span></a>`}
 const SIMS={meca2:[["frenet","Simulation : base de Frenet"]],meca4:[["energie","Simulation : énergie potentielle"]],elec1:[["champ","Simulation : lignes de champ"]],elec2:[["champ","Simulation : champ et potentiel"],["anneau","Simulation : anneau chargé"],["boule","Simulation : théorème de Gauss"]],elec3:[["champ","Simulation : lignes de champ du dipôle"],["dipole","Simulation : dipôle dans un champ uniforme"]],opt1:[["refrac","Simulation : réfraction et réflexion totale"]],opt3:[["prisme","Simulation : prisme et dispersion"]],opt4:[["miroir","Simulation : miroir sphérique"]],opt5:[["lentille","Simulation : lentille mince"]]};
+/* ---------- quiz, entraînement et simulations rattachés à chaque formation / EC (assets/formations.js) ---------- */
+const QUIZ_KEYS="meca1 meca2 meca3 meca4 elec1 elec2 elec3 elec4 elec21 opt1 opt2 opt3 opt4 opt5 bcgpg11 bcgpg12 bcgpg13 bcgpg14 bcgpg15 bcgpg21 bcgpg22 bcgpg23 bcgpg24 bcgpg25 bcgbio1 bcgbio2 bcgbio3 bcgbio4 bcgbio5".split(" ");
+const EXO_N={meca1:5,meca2:5,meca3:5,meca4:4,elec1:4,elec2:5,elec3:4,elec4:3,elec21:3,opt1:5,opt2:4,opt3:4,opt4:4,opt5:4};
+const SIMT={champ:"Lignes de champ et équipotentielles",boule:"Boule chargée : théorème de Gauss",anneau:"Champ sur l'axe d'un anneau",dipole:"Dipôle dans un champ uniforme",frenet:"Base de Frenet",energie:"Énergie potentielle et stabilité",refrac:"Réfraction et réflexion totale",prisme:"Le prisme : déviation et dispersion",lentille:"Lentille mince : construction d'image",miroir:"Miroir sphérique : construction d'image"};
+const FMD=(window.FORMATIONS||{}).data||{};
+const PCI_T={},PCI_S={};((FMD.PCI||{}).ecs||[]).forEach(ec=>ec.ch.forEach(x=>(x.res||[]).forEach(k=>{PCI_T[k]=ec.title+", chapitre "+x.n+" : "+x.t;PCI_S[k]=x.t})));
+function ecOf(c){const f=FMD[formOf(c)];return f&&c.syl?f.ecs.find(e=>e.code===c.syl.code):null}
+function pracOf(c,n){
+  const ec=ecOf(c),e=ec&&ec.ch.find(x=>x.n===n),fm=formOf(c);
+  const res=e?(e.res||[]):(fm==="PCI"?[c.id+n]:[]);
+  const sims=[...new Set([...(e&&e.sims||[]),...(fm==="PCI"?(SIMS[c.id+n]||[]).map(x=>x[0]):[])])].filter(k=>SIMT[k]);
+  const shared=k=>fm!=="PCI"&&PCI_T[k];
+  return {fm,quiz:res.filter(k=>QUIZ_KEYS.includes(k)),exo:res.filter(k=>EXO_N[k]),sims,shared};
+}
+function pracBtns(c,n){
+  const P=pracOf(c,n),f="?f="+P.fm;
+  const lab=(k,base)=>P.shared(k)?`${base} : ${esc(PCI_S[k])} <span class="pci">PCI</span>`:({Quiz:"Quiz d'auto-évaluation","Entraînement":"Exercices d'entraînement"})[base];
+  return P.quiz.map(k=>`<a class="btn" href="quiz.html${f}#${k}"${P.shared(k)?` title="Ressource commune avec la Licence PCI (${esc(PCI_T[k])})"`:""}><span class="k k-quiz">QUIZ</span><span class="lbl">${lab(k,"Quiz")}</span><span class="n">10 q.</span></a>`).join("")+
+    P.exo.map(k=>`<a class="btn" href="entrainement.html${f}#${k}"${P.shared(k)?` title="Ressource commune avec la Licence PCI (${esc(PCI_T[k])})"`:""}><span class="k k-quiz">EXOS</span><span class="lbl">${lab(k,"Entraînement")}</span><span class="n">${EXO_N[k]} ex.</span></a>`).join("")+
+    P.sims.map(k=>`<a class="btn" href="simulations.html${f}#${k}"><span class="k k-sim">SIMU</span><span class="lbl">Simulation : ${esc(SIMT[k])}</span></a>`).join("");
+}
+/* encadré « S'exercer dans cette matière » : tout ce qui existe pour l'EC */
+function pracCard(c){
+  const Q=new Set(),X=new Set(),S=new Set();
+  c.chapters.forEach(ch=>{const P=pracOf(c,ch.n);P.quiz.forEach(k=>Q.add(k));P.exo.forEach(k=>X.add(k));P.sims.forEach(k=>S.add(k))});
+  if(!Q.size&&!X.size&&!S.size)return "";
+  const fm=formOf(c),f="?f="+fm,q=[...Q],x=[...X],nx=x.reduce((a,k)=>a+EXO_N[k],0);
+  return `<section class="prac"><div><div class="eyebrow">S'exercer dans cette matière</div><p>Quiz d'auto-évaluation, exercices d'entraînement à valeurs aléatoires et simulations rattachés aux chapitres de ${esc(c.tab)}${fm!=="PCI"?" (dont des ressources communes avec la Licence PCI)":""}.</p></div>
+    <div class="prac-b">${q.length?`<a class="btn primary" href="quiz.html${f}#${q[0]}"><span class="k k-quiz">QUIZ</span><span class="lbl">Quiz de la matière</span><span class="n">${q.length*10} q.</span></a>`:""}${x.length?`<a class="btn" href="entrainement.html${f}#${x[0]}"><span class="k k-quiz">EXOS</span><span class="lbl">Entraînement</span><span class="n">${nx} ex.</span></a>`:""}${S.size?`<a class="btn" href="simulations.html${f}#${[...S][0]}"><span class="k k-sim">SIMU</span><span class="lbl">Simulations</span><span class="n">${S.size}</span></a>`:""}</div></section>`;
+}
 function pptBtn(key,n,t){
   return `<button type="button" class="btn" data-pdf="slides/${key}_diapo" data-title="${esc(t)}"><span class="k k-ppt">DIAPO</span><span class="lbl">Diaporama</span><span class="n">${n} diap.</span></button>`;
 }
@@ -586,7 +621,7 @@ function render(){
   const q=norm($("#q").value.trim());
   const match=ch=>!q||norm(ch.title+" "+ch.toc.join(" ")).includes(q);
   const chs=c.chapters.filter(match);
-  let h=`<section class="course-head"><div class="eyebrow">${esc(c.eyebrow)}</div><h2>${esc(c.title)}</h2><p>${esc(c.intro)}</p></section>${c.syl&&!q?sylCard(c):""}<div class="chapters">`;
+  let h=`<section class="course-head"><div class="eyebrow">${esc(c.eyebrow)}</div><h2>${esc(c.title)}</h2><p>${esc(c.intro)}</p></section>${c.syl&&!q?sylCard(c):""}${q?"":pracCard(c)}<div class="chapters">`;
   chs.forEach(ch=>{
     const open=q?" open":"";
     if(ch.soon){
@@ -602,7 +637,7 @@ function render(){
         <span class="btn soon"><span class="k k-soon">À VENIR</span><span class="lbl">${ch.lab==="TP"?"Fascicule du TP":"Support de cours"}</span></span>
         ${ch.lab==="TP"?"":`<span class="btn soon"><span class="k k-soon">À VENIR</span><span class="lbl">${c.form==="MI"?"Fascicule de TP":"Série de TD et corrigé"}</span></span>`}
         <span class="btn soon"><span class="k k-soon">À VENIR</span><span class="lbl">Cahier d'activités</span></span>
-        ${c.quiz?`<a class="btn" href="quiz.html#${c.id}${ch.n}"><span class="k k-quiz">QUIZ</span><span class="lbl">Quiz d'auto-évaluation</span><span class="n">10 q.</span></a>`:""}
+        ${pracBtns(c,ch.n)}
       </div></article>`;
       return;
     }
@@ -621,10 +656,8 @@ function render(){
         ${ch.slides?pptBtn(ch.key,ch.slides,"Diaporama — chapitre "+ch.n+" : "+ch.title):""}
         ${ch.pptx?`<a class="btn" href="slides/${ch.key}.pptx" download><span class="k k-ppt">PPTX</span><span class="lbl">PowerPoint</span><span class="n">${ch.slides} diap.</span></a>`:""}
         ${ch.td?pdfBtn(ch.td.e,"TD "+(ch.td.n||ch.n)+" — énoncés",ch.td.ep,"pdf")+pdfBtn(ch.td.c,"TD "+(ch.td.n||ch.n)+" — corrigé détaillé",ch.td.cp,"cor"):""}
-        ${c.noExo?"":`<a class="btn" href="entrainement.html#${c.id}${ch.n}"><span class="k k-quiz">EXOS</span><span class="lbl">Exercices d'entraînement</span></a>
-        <a class="btn" href="quiz.html#${c.id}${ch.n}"><span class="k k-quiz">QUIZ</span><span class="lbl">Quiz d'auto-évaluation</span><span class="n">10 q.</span></a>`}
+        ${pracBtns(c,ch.n)}
         ${((window.VIDEOS||{})[c.id+ch.n]||[]).map(v=>`<a class="btn" href="${esc(v.url||v.fichier)}" target="_blank" rel="noopener"><span class="k k-vid">${v.type==="3d"?"3D":"VIDÉO"}</span><span class="lbl">${esc(v.titre)}</span>${v.duree?`<span class="n">${esc(v.duree)}</span>`:""}</a>`).join("")}
-        ${(SIMS[c.id+ch.n]||[]).map(([id,t])=>`<a class="btn" href="simulations.html#${id}"><span class="k k-sim">SIMU</span><span class="lbl">${esc(t)}</span></a>`).join("")}
       </div></article>`;
   });
   h+="</div>";
