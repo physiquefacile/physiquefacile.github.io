@@ -83,7 +83,7 @@ sub{font-size:.72em}
 <body>
 <header class="band"><div class="wrap">
   <a class="back" href="./">← Retour aux cours</a>
-  <div class="uni"><img class="unilogo" src="img/usnm-logo.png" alt="Logo de l’Université Souleymane Niang de Matam" width="40" height="40">UNIVERSITÉ SOULEYMANE NIANG DE MATAM • UFR-STI • L1 PCI</div>
+  <div class="uni"><img class="unilogo" src="img/usnm-logo.png" alt="Logo de l’Université Souleymane Niang de Matam" width="40" height="40">UNIVERSITÉ SOULEYMANE NIANG DE MATAM • UFR-STI • L1 PCI et BCG</div>
   <h1>Fiches d'activités</h1>
   <p>Ton cahier d'activités, chapitre par chapitre : une fiche de consignes par activité, avec le travail demandé, le produit attendu et les critères pour vérifier tes résultats. Coche ce que tu as fait ; ta progression reste enregistrée sur cet appareil.</p>
 </div></header>
@@ -100,7 +100,7 @@ const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 // texte des cahiers : **gras**, X_Y = indice
 const fmt=s=>esc(s).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/_([A-Za-z0-9α-ωΑ-Ωℓ∞]+)/g,"<sub>$1</sub>");
-const GROUPES={meca:"Mécanique 1",elec:"Électricité 1",opt:"Optique 1",elec2:"Électricité 2"};
+const GROUPES={meca:"Mécanique 1",elec:"Électricité 1",opt:"Optique 1",elec2:"Électricité 2",bcgpg1:"Physique générale 1 (BCG)",bcgpg2:"Physique générale 2 (BCG)"};
 function load(k){try{return Object.assign({done:{},chk:{},notes:{},bil:{}},JSON.parse(localStorage.getItem("cahier_"+k)||"{}"))}catch(e){return {done:{},chk:{},notes:{},bil:{}}}}
 function save(k,s){try{localStorage.setItem("cahier_"+k,JSON.stringify(s))}catch(e){}}
 function quizBest(k){try{return JSON.parse(localStorage.getItem("quizbest")||"{}")[k]}catch(e){return undefined}}

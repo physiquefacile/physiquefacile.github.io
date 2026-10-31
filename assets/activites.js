@@ -736,8 +736,8 @@ window.ACTIVITES = {
 "t": "Manipule la simulation « Base de Frenet » : observe l’orientation de **u**_T et **u**_N et la variation du rayon de courbure le long de la trajectoire.",
 "l": [
 [
-"Simulations",
-"simulations.html"
+"Simulation",
+"simulations.html#frenet"
 ]
 ]
 },
@@ -3465,8 +3465,8 @@ window.ACTIVITES = {
 "t": "Manipule la simulation « Dipôle dans un champ uniforme » : observe le couple et les positions d’équilibre.",
 "l": [
 [
-"Simulations",
-"simulations.html"
+"Simulation",
+"simulations.html#dipole"
 ]
 ]
 },
@@ -4987,8 +4987,8 @@ window.ACTIVITES = {
 "t": "Manipule la simulation « Réfraction et réflexion totale » : vérifie que n_1 sin i_1 = n_2 sin i_2 pour trois angles.",
 "l": [
 [
-"Simulations",
-"simulations.html"
+"Simulation",
+"simulations.html#refrac"
 ]
 ]
 },
@@ -6428,8 +6428,8 @@ window.ACTIVITES = {
 "t": "Manipule la simulation « Miroir sphérique » : déplace l’objet et observe la nature de l’image.",
 "l": [
 [
-"Simulations",
-"simulations.html"
+"Simulation",
+"simulations.html#miroir"
 ]
 ]
 },
@@ -7137,6 +7137,3515 @@ window.ACTIVITES = {
 "Associations et aberrations",
 "Activités A51 et A52 ; support § 5.4 et 5.5",
 5
+]
+}
+},
+"bcgpg11": {
+"ec": "Physique générale 1 (LBCG1121)",
+"course": "bcgpg1",
+"n": 1,
+"titre": "Grandeurs, mesures, unités et précisions",
+"duree": "2 semaines, environ 7 h de travail personnel",
+"prerequis": "Puissances de 10 ; règle de trois ; trigonométrie de base (cos, sin, tan) ; théorème de Pythagore",
+"docx": "Cahier_activites_BCG_PhysiqueGenerale1_Chapitre1",
+"support": "BCG_PG1_Chapitre_1_Grandeurs_mesures",
+"quiz": "bcgmes",
+"ec_code": "LBCG1121",
+"OS": {
+"1": "Utiliser les grandeurs physiques, leurs unités et leurs dimensions ; exprimer un résultat de mesure avec son incertitude."
+},
+"RA": [
+[
+1,
+"Distinguer grandeurs scalaires et vectorielles ; additionner des vecteurs et calculer leurs produits."
+],
+[
+1,
+"Écrire un résultat avec le bon nombre de chiffres significatifs ; estimer un ordre de grandeur."
+],
+[
+1,
+"Convertir dans les unités du SI ; vérifier l’homogénéité d’une formule et trouver la forme d’une loi par analyse dimensionnelle."
+],
+[
+1,
+"Calculer une incertitude absolue et relative, la propager et exploiter une série de mesures."
+]
+],
+"synth": "Mobiliser l’ensemble des compétences du chapitre 1 et évaluer sa propre maîtrise.",
+"fiches": [
+{
+"a": "A11",
+"os": 1,
+"ra": "Distinguer grandeurs scalaires et vectorielles ; additionner des vecteurs et calculer leurs produits.",
+"osl": null,
+"t": "Représenter et combiner des grandeurs vectorielles",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 1.1 du support de cours (p. 4) : grandeur physique, mesure, grandeurs scalaires et vectorielles, opérations sur les vecteurs.",
+"l": [
+[
+"Support, p. 4",
+"docs/BCG_PG1_Chapitre_1_Grandeurs_mesures.pdf#page=5"
+]
+]
+},
+{
+"n": "2",
+"t": "Recopie dans ton cahier les formules de la norme d’un vecteur, du produit scalaire et du produit vectoriel en composantes.",
+"l": []
+},
+{
+"n": "3",
+"t": "Traite l’exercice 1 de la série de TD n°1 (« Deux remorqueurs et une barge »).",
+"l": [
+[
+"TD n°1 — énoncés",
+"docs/TD_BCG_PG1_1_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG1_1_corrige.pdf"
+]
+]
+},
+{
+"t": "**Exigences :** expressions littérales avant toute application numérique ; résultats encadrés, avec leur unité et un nombre raisonnable de chiffres significatifs."
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°1). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 1 : résultante F ≈ 8,2 kN, faisant environ 75° avec la première force.",
+"Produit vectoriel des deux forces : −26 **k** (en kN²) ; tu sais dire pourquoi il est porté par l’axe vertical."
+],
+"duree": "1 h",
+"echeance": "semaine 1, avant la séance de TD n°1"
+},
+{
+"a": "A12",
+"os": 1,
+"ra": "Écrire un résultat avec le bon nombre de chiffres significatifs ; estimer un ordre de grandeur.",
+"osl": null,
+"t": "Écrire un résultat avec ses chiffres significatifs et estimer un ordre de grandeur",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 1.2 du support de cours (p. 6) : chiffres significatifs et ordres de grandeur.",
+"l": [
+[
+"Support, p. 6",
+"docs/BCG_PG1_Chapitre_1_Grandeurs_mesures.pdf#page=7"
+]
+]
+},
+{
+"n": "2",
+"t": "Traite les exercices 2 (« Chiffres significatifs en laboratoire ») et 3 (« Ordres de grandeur dans le vivant ») de la série de TD n°1.",
+"l": [
+[
+"TD n°1 — énoncés",
+"docs/TD_BCG_PG1_1_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG1_1_corrige.pdf"
+]
+]
+},
+{
+"n": "3",
+"t": "Estime par toi-même, en trois lignes, le nombre de cellules d’un corps humain (volume du corps divisé par le volume d’une cellule).",
+"l": []
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°1). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 2 : C_m = 18 g/L (deux chiffres significatifs) et m = 13,6 g.",
+"Exercice 3 : volume d’une cellule ≈ 10² µm³ ; environ 2,5 × 10¹³ globules rouges ; environ 3 × 10⁹ battements de cœur dans une vie.",
+"Ton estimation du nombre de cellules est de l’ordre de 10¹³ à 10¹⁴."
+],
+"duree": "1 h 15",
+"echeance": "semaine 1"
+},
+{
+"a": "A13",
+"os": 1,
+"ra": "Convertir dans les unités du SI ; vérifier l’homogénéité d’une formule et trouver la forme d’une loi par analyse dimensionnelle.",
+"osl": null,
+"t": "Convertir dans le Système international",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 1.3 du support de cours (p. 8) : unités de base, unités dérivées, multiples et unités usuelles.",
+"l": [
+[
+"Support, p. 8",
+"docs/BCG_PG1_Chapitre_1_Grandeurs_mesures.pdf#page=9"
+]
+]
+},
+{
+"n": "2",
+"t": "Construis une fiche des conversions utiles en SVT : mmHg, bar, L, mL, µm, nm, an, °C.",
+"l": []
+},
+{
+"n": "3",
+"t": "Traite l’exercice 4 de la série de TD n°1 (« Conversions utiles en SVT »).",
+"l": [
+[
+"TD n°1 — énoncés",
+"docs/TD_BCG_PG1_1_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG1_1_corrige.pdf"
+]
+]
+},
+{
+"n": "4",
+"t": "Sur la plateforme, fais le quiz « Grandeurs, mesures, unités et précisions » et note ton score ; refais-le jusqu’à obtenir au moins 8/10.",
+"l": [
+[
+"Quiz",
+"quiz.html#bcgmes"
+]
+]
+},
+{
+"t": "**Modalités :** travail individuel hors séance, avec le support de cours (PDF de la plateforme)."
+}
+],
+"produit": [
+"Ta fiche de conversions et la solution de l’exercice 4, dans ton cahier.",
+"**Restitution :** la fiche est vérifiée en séance de TD n°1."
+],
+"criteres": [
+"Exercice 4 : 760 mmHg ≈ 1,01 × 10⁵ Pa ; 1200 mm/an ≈ 3,8 × 10⁻⁸ m/s ; 5 cm/an ≈ 1,6 × 10⁻⁹ m/s ; 10 m³/s ; 0,9 kg/m³ ; 310 K.",
+"Ta fiche donne chaque conversion sous la forme « 1 unité = … unités SI »."
+],
+"duree": "1 h",
+"echeance": "semaine 1"
+},
+{
+"a": "A14",
+"os": 1,
+"ra": "Convertir dans les unités du SI ; vérifier l’homogénéité d’une formule et trouver la forme d’une loi par analyse dimensionnelle.",
+"osl": null,
+"t": "Vérifier l’homogénéité d’une formule et trouver la forme d’une loi",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 1.4 du support de cours (p. 9) : dimension d’une grandeur, homogénéité, recherche de la forme d’une loi.",
+"l": [
+[
+"Support, p. 9",
+"docs/BCG_PG1_Chapitre_1_Grandeurs_mesures.pdf#page=10"
+]
+]
+},
+{
+"n": "2",
+"t": "Traite l’exercice 5 de la série de TD n°1 (« Homogénéité de formules »).",
+"l": [
+[
+"TD n°1 — énoncés",
+"docs/TD_BCG_PG1_1_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG1_1_corrige.pdf"
+]
+]
+},
+{
+"n": "3",
+"t": "Traite l’exercice 6 (« Vitesse de chute d’un grain de sable ») : trouve la forme de la loi, puis calcule la vitesse et la durée de chute.",
+"l": []
+},
+{
+"t": "**Exigences :** expressions littérales avant toute application numérique ; résultats encadrés, avec leur unité et un nombre raisonnable de chiffres significatifs."
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°1). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 5 : formules (a), (b) et (d) homogènes ; (c) non homogène, donc fausse.",
+"Exercice 6 : v = C r² Δρ g / η ; v ≈ 0,36 mm/s et durée de chute t ≈ 46 min."
+],
+"duree": "1 h 15",
+"echeance": "semaine 2, avant la séance de TD n°1"
+},
+{
+"a": "A15",
+"os": 1,
+"ra": "Calculer une incertitude absolue et relative, la propager et exploiter une série de mesures.",
+"osl": null,
+"t": "Calculer et propager une incertitude ; exploiter une série de mesures",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 1.5 du support de cours (p. 11) : erreurs, incertitudes absolue et relative, propagation, mesures répétées.",
+"l": [
+[
+"Support, p. 11",
+"docs/BCG_PG1_Chapitre_1_Grandeurs_mesures.pdf#page=12"
+]
+]
+},
+{
+"n": "2",
+"t": "Traite les exercices 7 (« Masse volumique d’un fossile ») et 8 (« Détermination de g avec un pendule ») de la série de TD n°1.",
+"l": [
+[
+"TD n°1 — énoncés",
+"docs/TD_BCG_PG1_1_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG1_1_corrige.pdf"
+]
+]
+},
+{
+"n": "3",
+"t": "Traite l’exercice 9 (« Série de mesures de pH ») avec ta calculatrice en mode statistique.",
+"l": []
+},
+{
+"t": "**Exigences :** chaque résultat final est écrit sous la forme (valeur ± incertitude) unité, l’incertitude ayant un ou deux chiffres significatifs."
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°1). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 7 : V = (9 ± 1) cm³ et ρ = (2,7 ± 0,3) g/cm³.",
+"Exercice 8 : Δg/g = Δℓ/ℓ + 2 ΔT/T ; g = (9,8 ± 0,2) m/s².",
+"Exercice 9 : moyenne ≈ 7,27, écart-type ≈ 0,12 ; pH = 7,3 ± 0,1."
+],
+"duree": "1 h 30",
+"echeance": "semaine 2, avant la séance de TD n°1"
+},
+{
+"a": "B1",
+"os": null,
+"ra": null,
+"osl": [
+1
+],
+"t": "Faire le bilan du chapitre : exercices corrigés, quiz et autoévaluation",
+"travail": [
+{
+"n": "1",
+"t": "Relis la fiche « L’essentiel du chapitre » (support, p. 15) et vérifie que tu sais redémontrer chaque résultat encadré.",
+"l": [
+[
+"Support, p. 15",
+"docs/BCG_PG1_Chapitre_1_Grandeurs_mesures.pdf#page=16"
+]
+]
+},
+{
+"n": "2",
+"t": "Fais les exercices d’entraînement corrigés de la section 1.6 du support (p. 14) sans regarder les corrigés, puis compare.",
+"l": [
+[
+"Support, p. 14",
+"docs/BCG_PG1_Chapitre_1_Grandeurs_mesures.pdf#page=15"
+]
+]
+},
+{
+"n": "3",
+"t": "Sur la plateforme, fais le quiz « Grandeurs, mesures, unités et précisions » jusqu’à obtenir au moins 8/10.",
+"l": [
+[
+"Quiz",
+"quiz.html#bcgmes"
+]
+]
+},
+{
+"n": "4",
+"t": "Remplis la grille d’autoévaluation à la fin de ce cahier.",
+"l": []
+},
+{
+"n": "5",
+"t": "Pour chaque compétence « à revoir », note où retravailler et une question précise à poser en TD (TD n°1).",
+"l": []
+},
+{
+"t": "**Modalités :** travail individuel hors séance."
+}
+],
+"produit": [
+"Ton meilleur score au quiz, la grille d’autoévaluation remplie et ta question, notés dans ton cahier.",
+"**Restitution :** présentés à l’enseignant lors de la dernière séance de TD du chapitre."
+],
+"criteres": [
+"Score au quiz supérieur ou égal à 8/10.",
+"Exercices d’entraînement du support réussis sans aide (au moins trois sur quatre).",
+"Chaque compétence de la grille est cochée « acquis », ou accompagnée d’un plan de révision précis."
+],
+"duree": "1 h",
+"echeance": "fin de la semaine 2"
+}
+],
+"grille": {
+"1": [
+"Vecteurs : composantes, somme, produits",
+"Activité A11 ; support § 1.1",
+1
+],
+"2": [
+"Chiffres significatifs, ordres de grandeur",
+"Activité A12 ; support § 1.2",
+1
+],
+"3": [
+"Unités SI, analyse dimensionnelle",
+"Activités A13 et A14 ; support § 1.3 et 1.4",
+1
+],
+"4": [
+"Incertitudes et mesures répétées",
+"Activité A15 ; support § 1.5",
+1
+]
+}
+},
+"bcgpg12": {
+"ec": "Physique générale 1 (LBCG1121)",
+"course": "bcgpg1",
+"n": 2,
+"titre": "Cinématique et dynamique du point matériel",
+"duree": "3 semaines, environ 10 h de travail personnel",
+"prerequis": "Chapitre 1 (vecteurs, unités) ; dérivées usuelles ; trigonométrie",
+"docx": "Cahier_activites_BCG_PhysiqueGenerale1_Chapitre2",
+"support": "BCG_PG1_Chapitre_2_Cinematique_dynamique",
+"quiz": "bcgpg11",
+"ec_code": "LBCG1121",
+"OS": {
+"2": "Décrire le mouvement d’un point matériel et appliquer les lois de Newton à des situations biologiques et géologiques."
+},
+"RA": [
+[
+2,
+"Choisir un référentiel et une base ; exprimer position, vitesse et accélération dans les coordonnées usuelles."
+],
+[
+2,
+"Reconnaître la nature d’un mouvement et établir une trajectoire."
+],
+[
+2,
+"Appliquer les trois lois de Newton avec les forces usuelles (poids, réaction, frottement, ressort, frottement fluide)."
+],
+[
+2,
+"Calculer le moment d’une force et utiliser l’équilibre des moments ou le théorème du moment cinétique."
+]
+],
+"synth": "Mobiliser l’ensemble des compétences du chapitre 2 et évaluer sa propre maîtrise.",
+"fiches": [
+{
+"a": "A21",
+"os": 2,
+"ra": "Choisir un référentiel et une base ; exprimer position, vitesse et accélération dans les coordonnées usuelles.",
+"osl": null,
+"t": "Exprimer vitesse et accélération dans une base adaptée",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 2.1 du support de cours (p. 3) : système, référentiel et base.",
+"l": [
+[
+"Support, p. 3",
+"docs/BCG_PG1_Chapitre_2_Cinematique_dynamique.pdf#page=4"
+]
+]
+},
+{
+"n": "2",
+"t": "Lis la section 2.2 du support de cours (p. 4) : coordonnées cartésiennes, polaires, sphériques et base de Frenet.",
+"l": [
+[
+"Support, p. 4",
+"docs/BCG_PG1_Chapitre_2_Cinematique_dynamique.pdf#page=5"
+]
+]
+},
+{
+"n": "3",
+"t": "Construis un tableau à trois colonnes (cartésiennes, polaires, Frenet) donnant les expressions de la vitesse et de l’accélération.",
+"l": []
+},
+{
+"n": "4",
+"t": "Sur la plateforme, page « Simulations », manipule la simulation « Base de Frenet » : observe les vecteurs tangent et normal et le sens de l’accélération dans un virage.",
+"l": [
+[
+"Simulation",
+"simulations.html#frenet"
+]
+]
+},
+{
+"n": "5",
+"t": "Traite l’exercice 3 de la série de TD n°2 (« Ultracentrifugeuse »).",
+"l": [
+[
+"TD n°2 — énoncés",
+"docs/TD_BCG_PG1_2_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG1_2_corrige.pdf"
+]
+]
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°2). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Ton tableau fait apparaître, en polaires, les termes r θ̇ et r θ̈ + 2 ṙ θ̇ ; en Frenet, l’accélération normale v²/R.",
+"Exercice 3 : ω ≈ 6,3 × 10³ rad/s, v ≈ 5,0 × 10² m/s, a ≈ 3,2 × 10⁶ m/s², soit environ 3 × 10⁵ g."
+],
+"duree": "2 h",
+"echeance": "semaine 1"
+},
+{
+"a": "A22",
+"os": 2,
+"ra": "Reconnaître la nature d’un mouvement et établir une trajectoire.",
+"osl": null,
+"t": "Reconnaître la nature d’un mouvement et établir sa trajectoire",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 2.3 du support de cours (p. 7) : trajectoire, mouvement accéléré ou décéléré, nature d’un mouvement.",
+"l": [
+[
+"Support, p. 7",
+"docs/BCG_PG1_Chapitre_2_Cinematique_dynamique.pdf#page=8"
+]
+]
+},
+{
+"n": "2",
+"t": "Traite les exercices 1 (« Freinage d’une antilope ») et 2 (« Équations horaires et trajectoire ») de la série de TD n°2.",
+"l": [
+[
+"TD n°2 — énoncés",
+"docs/TD_BCG_PG1_2_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG1_2_corrige.pdf"
+]
+]
+},
+{
+"n": "3",
+"t": "Sur la plateforme, fais le quiz « Outils de base et cinématique du point » et note ton score ; refais-le jusqu’à obtenir au moins 8/10.",
+"l": [
+[
+"Quiz",
+"quiz.html#bcgpg11"
+]
+]
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°2). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 1 : a = −8,0 m/s² ; arrêt au bout de t = 2,5 s ; le mouvement est décéléré car **a** · **v** < 0.",
+"Exercice 2 : trajectoire y = 2x − x²/4, une parabole."
+],
+"duree": "1 h 30",
+"echeance": "semaine 1, avant la séance de TD n°2"
+},
+{
+"a": "A23",
+"os": 2,
+"ra": "Appliquer les trois lois de Newton avec les forces usuelles (poids, réaction, frottement, ressort, frottement fluide).",
+"osl": null,
+"t": "Appliquer les lois de Newton : poids, réaction et frottement",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 2.4 du support de cours (p. 8) : forces à distance et de contact.",
+"l": [
+[
+"Support, p. 8",
+"docs/BCG_PG1_Chapitre_2_Cinematique_dynamique.pdf#page=9"
+]
+]
+},
+{
+"n": "2",
+"t": "Lis la section 2.5 du support de cours (p. 9) : les trois lois de Newton.",
+"l": [
+[
+"Support, p. 9",
+"docs/BCG_PG1_Chapitre_2_Cinematique_dynamique.pdf#page=10"
+]
+]
+},
+{
+"n": "3",
+"t": "Écris dans ton cahier la méthode en cinq étapes : système, référentiel, bilan des forces avec schéma, deuxième loi, projection.",
+"l": []
+},
+{
+"n": "4",
+"t": "Traite les exercices 4 (« Poids sur la Terre et sur Mars ») et 5 (« Glissement d’un bloc de roche ») de la série de TD n°2.",
+"l": [
+[
+"TD n°2 — énoncés",
+"docs/TD_BCG_PG1_2_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG1_2_corrige.pdf"
+]
+]
+},
+{
+"t": "**Exigences :** expressions littérales avant toute application numérique ; résultats encadrés, avec leur unité et un nombre raisonnable de chiffres significatifs."
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°2). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 4 : g_T ≈ 9,8 m/s² et g_M ≈ 3,7 m/s².",
+"Exercice 5 : le bloc reste immobile tant que α ≤ arctan 0,60 ≈ 31° ; en glissement, a ≈ 2,0 m/s² et v ≈ 6,3 m/s.",
+"Chaque solution commence par un schéma où toutes les forces sont représentées."
+],
+"duree": "2 h",
+"echeance": "semaine 2, avant la séance de TD n°2"
+},
+{
+"a": "A24",
+"os": 2,
+"ra": "Appliquer les trois lois de Newton avec les forces usuelles (poids, réaction, frottement, ressort, frottement fluide).",
+"osl": null,
+"t": "Étudier un ressort et un frottement fluide",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 2.6 du support de cours (p. 10) : poids, réaction, ressort, frottement fluide.",
+"l": [
+[
+"Support, p. 10",
+"docs/BCG_PG1_Chapitre_2_Cinematique_dynamique.pdf#page=11"
+]
+]
+},
+{
+"n": "2",
+"t": "Traite les exercices 6 (« Élasticité d’un tendon ») et 7 (« Chute d’une graine avec frottement ») de la série de TD n°2.",
+"l": [
+[
+"TD n°2 — énoncés",
+"docs/TD_BCG_PG1_2_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG1_2_corrige.pdf"
+]
+]
+},
+{
+"n": "3",
+"t": "Pour l’exercice 7, trace à la main l’allure de v(t) en faisant apparaître la vitesse limite et la constante de temps.",
+"l": []
+},
+{
+"n": "4",
+"t": "Sur la plateforme, fais le quiz « Dynamique du point » et note ton score ; refais-le jusqu’à obtenir au moins 8/10.",
+"l": [
+[
+"Quiz",
+"quiz.html#bcgpg12"
+]
+]
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°2). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 6 : allongement à l’équilibre ≈ 5 mm ; période propre T_0 ≈ 0,14 s.",
+"Exercice 7 : dv/dt + (β/m) v = g ; v_ℓ ≈ 0,98 m/s et τ = 0,10 s ; 95 % de la vitesse limite atteints en t ≈ 0,30 s.",
+"Ta courbe v(t) part de 0 avec la pente g et tend vers v_ℓ."
+],
+"duree": "2 h",
+"echeance": "semaine 2"
+},
+{
+"a": "A25",
+"os": 2,
+"ra": "Calculer le moment d’une force et utiliser l’équilibre des moments ou le théorème du moment cinétique.",
+"osl": null,
+"t": "Utiliser le moment d’une force : leviers du corps et pendule",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 2.7 du support de cours (p. 12) : moment d’une force, moment cinétique.",
+"l": [
+[
+"Support, p. 12",
+"docs/BCG_PG1_Chapitre_2_Cinematique_dynamique.pdf#page=13"
+]
+]
+},
+{
+"n": "2",
+"t": "Traite l’exercice 8 de la série de TD n°2 (« Le pied, un levier ») : fais d’abord un schéma coté du pied avec les trois forces.",
+"l": [
+[
+"TD n°2 — énoncés",
+"docs/TD_BCG_PG1_2_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG1_2_corrige.pdf"
+]
+]
+},
+{
+"n": "3",
+"t": "Traite l’exercice 9 (« Pendule et moment cinétique »).",
+"l": []
+},
+{
+"t": "**Exigences :** expressions littérales avant toute application numérique ; résultats encadrés, avec leur unité et un nombre raisonnable de chiffres significatifs."
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°2). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 8 : tension du tendon d’Achille T ≈ 1,8 × 10³ N = 3 mg ; force sur la cheville F ≈ 2,4 × 10³ N = 4 mg.",
+"Exercice 9 : θ̈ + (g/ℓ) sin θ = 0 ; période des petites oscillations T_0 ≈ 1,8 s."
+],
+"duree": "1 h 30",
+"echeance": "semaine 3, avant la séance de TD n°2"
+},
+{
+"a": "B2",
+"os": null,
+"ra": null,
+"osl": [
+2
+],
+"t": "Faire le bilan du chapitre : exercices corrigés, quiz et autoévaluation",
+"travail": [
+{
+"n": "1",
+"t": "Relis la fiche « L’essentiel du chapitre » (support, p. 14) et vérifie que tu sais redémontrer chaque résultat encadré.",
+"l": [
+[
+"Support, p. 14",
+"docs/BCG_PG1_Chapitre_2_Cinematique_dynamique.pdf#page=15"
+]
+]
+},
+{
+"n": "2",
+"t": "Fais les exercices d’entraînement corrigés de la section 2.8 du support (p. 13) sans regarder les corrigés, puis compare.",
+"l": [
+[
+"Support, p. 13",
+"docs/BCG_PG1_Chapitre_2_Cinematique_dynamique.pdf#page=14"
+]
+]
+},
+{
+"n": "3",
+"t": "Sur la plateforme, fais le quiz « Outils de base et cinématique du point » jusqu’à obtenir au moins 8/10.",
+"l": [
+[
+"Quiz",
+"quiz.html#bcgpg11"
+]
+]
+},
+{
+"n": "4",
+"t": "Sur la plateforme, fais le quiz « Dynamique du point » jusqu’à obtenir au moins 8/10.",
+"l": [
+[
+"Quiz",
+"quiz.html#bcgpg12"
+]
+]
+},
+{
+"n": "5",
+"t": "Remplis la grille d’autoévaluation à la fin de ce cahier.",
+"l": []
+},
+{
+"n": "6",
+"t": "Pour chaque compétence « à revoir », note où retravailler et une question précise à poser en TD (TD n°2).",
+"l": []
+},
+{
+"t": "**Modalités :** travail individuel hors séance."
+}
+],
+"produit": [
+"Ton meilleur score au quiz, la grille d’autoévaluation remplie et ta question, notés dans ton cahier.",
+"**Restitution :** présentés à l’enseignant lors de la dernière séance de TD du chapitre."
+],
+"criteres": [
+"Score au quiz supérieur ou égal à 8/10 pour chacun des deux quiz.",
+"Exercices d’entraînement du support réussis sans aide (au moins trois sur quatre).",
+"Chaque compétence de la grille est cochée « acquis », ou accompagnée d’un plan de révision précis."
+],
+"duree": "1 h",
+"echeance": "fin de la semaine 3"
+}
+],
+"grille": {
+"1": [
+"Référentiel, base, vitesse et accélération",
+"Activité A21 ; support § 2.1 et 2.2",
+2
+],
+"2": [
+"Nature du mouvement, trajectoire",
+"Activité A22 ; support § 2.3",
+2
+],
+"3": [
+"Lois de Newton et forces usuelles",
+"Activités A23 et A24 ; support § 2.4 à 2.6",
+2
+],
+"4": [
+"Moment d’une force, moment cinétique",
+"Activité A25 ; support § 2.7",
+2
+]
+}
+},
+"bcgpg13": {
+"ec": "Physique générale 1 (LBCG1121)",
+"course": "bcgpg1",
+"n": 3,
+"titre": "Travail et énergie",
+"duree": "2 semaines, environ 7 h de travail personnel",
+"prerequis": "Chapitre 2 (forces, lois de Newton) ; produit scalaire ; primitives usuelles",
+"docx": "Cahier_activites_BCG_PhysiqueGenerale1_Chapitre3",
+"support": "BCG_PG1_Chapitre_3_Travail_energie",
+"quiz": "bcgpg13",
+"ec_code": "LBCG1121",
+"OS": {
+"3": "Utiliser le travail, la puissance et l’énergie ; appliquer le théorème de l’énergie cinétique et la conservation de l’énergie mécanique."
+},
+"RA": [
+[
+3,
+"Calculer le travail d’une force constante ou variable et une puissance."
+],
+[
+3,
+"Appliquer le théorème de l’énergie cinétique."
+],
+[
+3,
+"Utiliser l’énergie mécanique : conservation, ou variation due aux forces non conservatives."
+],
+[
+3,
+"Lire un graphe d’énergie potentielle : positions d’équilibre et stabilité."
+]
+],
+"synth": "Mobiliser l’ensemble des compétences du chapitre 3 et évaluer sa propre maîtrise.",
+"fiches": [
+{
+"a": "A31",
+"os": 3,
+"ra": "Calculer le travail d’une force constante ou variable et une puissance.",
+"osl": null,
+"t": "Calculer un travail et une puissance",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 3.1 du support de cours (p. 3) : travail d’une force constante, travail élémentaire, puissance.",
+"l": [
+[
+"Support, p. 3",
+"docs/BCG_PG1_Chapitre_3_Travail_energie.pdf#page=4"
+]
+]
+},
+{
+"n": "2",
+"t": "Traite les exercices 1 (« Deux chemins pour monter une colline ») et 2 (« Pompe d’un puits ») de la série de TD n°3.",
+"l": [
+[
+"TD n°3 — énoncés",
+"docs/TD_BCG_PG1_3_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG1_3_corrige.pdf"
+]
+]
+},
+{
+"n": "3",
+"t": "Traite l’exercice 3 (« Travail d’une force variable ») en écrivant l’intégrale avant de la calculer.",
+"l": []
+},
+{
+"t": "**Exigences :** expressions littérales avant toute application numérique ; résultats encadrés, avec leur unité et un nombre raisonnable de chiffres significatifs."
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°3). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 1 : W(**P**) ≈ −8,2 × 10⁴ J sur les deux chemins ; puissance ≈ 1,4 × 10² W.",
+"Exercice 2 : puissance utile ≈ 1,6 × 10² W ; puissance électrique ≈ 4,1 × 10² W.",
+"Exercice 3 : W ≈ −0,31 J."
+],
+"duree": "1 h 30",
+"echeance": "semaine 1, avant la séance de TD n°3"
+},
+{
+"a": "A32",
+"os": 3,
+"ra": "Appliquer le théorème de l’énergie cinétique.",
+"osl": null,
+"t": "Appliquer le théorème de l’énergie cinétique",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 3.3 du support de cours (p. 6) : énoncé et démonstration du théorème de l’énergie cinétique.",
+"l": [
+[
+"Support, p. 6",
+"docs/BCG_PG1_Chapitre_3_Travail_energie.pdf#page=7"
+]
+]
+},
+{
+"n": "2",
+"t": "Traite l’exercice 4 de la série de TD n°3 (« Freinage d’un camion de sable »).",
+"l": [
+[
+"TD n°3 — énoncés",
+"docs/TD_BCG_PG1_3_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG1_3_corrige.pdf"
+]
+]
+},
+{
+"n": "3",
+"t": "Traite l’exercice 6 (« Saut et rendement musculaire »).",
+"l": []
+},
+{
+"n": "4",
+"t": "Sur la plateforme, fais le quiz « Travail, énergie et puissance » et note ton score ; refais-le jusqu’à obtenir au moins 8/10.",
+"l": [
+[
+"Quiz",
+"quiz.html#bcgpg13"
+]
+]
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°3). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 4 : force de freinage F = 4,0 × 10⁴ N.",
+"Exercice 6 : v_0 ≈ 6,3 m/s, E_c ≈ 7,8 × 10² J ; puissance développée ≈ 3,9 kW."
+],
+"duree": "1 h 30",
+"echeance": "semaine 1"
+},
+{
+"a": "A33",
+"os": 3,
+"ra": "Utiliser l’énergie mécanique : conservation, ou variation due aux forces non conservatives.",
+"osl": null,
+"t": "Utiliser l’énergie mécanique, avec ou sans frottement",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 3.4 du support de cours (p. 7) : énergie mécanique et sa conservation.",
+"l": [
+[
+"Support, p. 7",
+"docs/BCG_PG1_Chapitre_3_Travail_energie.pdf#page=8"
+]
+]
+},
+{
+"n": "2",
+"t": "Lis la section 3.5 du support de cours (p. 8) : forces non conservatives.",
+"l": [
+[
+"Support, p. 8",
+"docs/BCG_PG1_Chapitre_3_Travail_energie.pdf#page=9"
+]
+]
+},
+{
+"n": "3",
+"t": "Traite les exercices 5 (« Liane de Tarzan et pendule ») et 7 (« Glissade sur une dune avec frottement ») de la série de TD n°3.",
+"l": [
+[
+"TD n°3 — énoncés",
+"docs/TD_BCG_PG1_3_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG1_3_corrige.pdf"
+]
+]
+},
+{
+"t": "**Exigences :** expressions littérales avant toute application numérique ; résultats encadrés, avec leur unité et un nombre raisonnable de chiffres significatifs."
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°3). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 5 : v = √(2gℓ(1 − cos θ_0)) ≈ 7,7 m/s ; tension au point bas T = 2mg ≈ 1,6 × 10² N.",
+"Exercice 7 : ΔE_m ≈ −5,3 × 10² J ; force de frottement f ≈ 18 N et μ_d ≈ 0,42."
+],
+"duree": "1 h 30",
+"echeance": "semaine 2, avant la séance de TD n°3"
+},
+{
+"a": "A34",
+"os": 3,
+"ra": "Lire un graphe d’énergie potentielle : positions d’équilibre et stabilité.",
+"osl": null,
+"t": "Lire un graphe d’énergie potentielle : équilibre et stabilité",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 3.2 du support de cours (p. 5) : forces conservatives et énergie potentielle.",
+"l": [
+[
+"Support, p. 5",
+"docs/BCG_PG1_Chapitre_3_Travail_energie.pdf#page=6"
+]
+]
+},
+{
+"n": "2",
+"t": "Relis le paragraphe 3.4.1 (p. 7) et le graphe d’énergie potentielle qui l’accompagne.",
+"l": []
+},
+{
+"n": "3",
+"t": "Sur la plateforme, page « Simulations », manipule la simulation « Énergie potentielle et stabilité » : place la particule à différentes énergies et repère les zones accessibles et les équilibres.",
+"l": [
+[
+"Simulation",
+"simulations.html#energie"
+]
+]
+},
+{
+"n": "4",
+"t": "Traite l’exercice 8 de la série de TD n°3 (« Énergie potentielle d’une liaison »).",
+"l": [
+[
+"TD n°3 — énoncés",
+"docs/TD_BCG_PG1_3_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG1_3_corrige.pdf"
+]
+]
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°3). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 8 : r = r_0 est une position d’équilibre stable (longueur de la liaison) ; énergie de liaison égale à E_0.",
+"Tu sais relier : minimum de E_p → équilibre stable ; maximum → instable."
+],
+"duree": "1 h 15",
+"echeance": "semaine 2"
+},
+{
+"a": "B3",
+"os": null,
+"ra": null,
+"osl": [
+3
+],
+"t": "Faire le bilan du chapitre : exercices corrigés, quiz et autoévaluation",
+"travail": [
+{
+"n": "1",
+"t": "Relis la fiche « L’essentiel du chapitre » (support, p. 10) et vérifie que tu sais redémontrer chaque résultat encadré.",
+"l": [
+[
+"Support, p. 10",
+"docs/BCG_PG1_Chapitre_3_Travail_energie.pdf#page=11"
+]
+]
+},
+{
+"n": "2",
+"t": "Fais les exercices d’entraînement corrigés de la section 3.6 du support (p. 9) sans regarder les corrigés, puis compare.",
+"l": [
+[
+"Support, p. 9",
+"docs/BCG_PG1_Chapitre_3_Travail_energie.pdf#page=10"
+]
+]
+},
+{
+"n": "3",
+"t": "Sur la plateforme, fais le quiz « Travail, énergie et puissance » jusqu’à obtenir au moins 8/10.",
+"l": [
+[
+"Quiz",
+"quiz.html#bcgpg13"
+]
+]
+},
+{
+"n": "4",
+"t": "Remplis la grille d’autoévaluation à la fin de ce cahier.",
+"l": []
+},
+{
+"n": "5",
+"t": "Pour chaque compétence « à revoir », note où retravailler et une question précise à poser en TD (TD n°3).",
+"l": []
+},
+{
+"t": "**Modalités :** travail individuel hors séance."
+}
+],
+"produit": [
+"Ton meilleur score au quiz, la grille d’autoévaluation remplie et ta question, notés dans ton cahier.",
+"**Restitution :** présentés à l’enseignant lors de la dernière séance de TD du chapitre."
+],
+"criteres": [
+"Score au quiz supérieur ou égal à 8/10.",
+"Exercices d’entraînement du support réussis sans aide (au moins trois sur quatre).",
+"Chaque compétence de la grille est cochée « acquis », ou accompagnée d’un plan de révision précis."
+],
+"duree": "1 h",
+"echeance": "fin de la semaine 2"
+}
+],
+"grille": {
+"1": [
+"Travail et puissance",
+"Activité A31 ; support § 3.1",
+3
+],
+"2": [
+"Théorème de l’énergie cinétique",
+"Activité A32 ; support § 3.3",
+3
+],
+"3": [
+"Énergie mécanique, frottements",
+"Activité A33 ; support § 3.4 et 3.5",
+3
+],
+"4": [
+"Énergie potentielle et équilibre",
+"Activité A34 ; support § 3.2 et 3.4.1",
+3
+]
+}
+},
+"bcgpg14": {
+"ec": "Physique générale 1 (LBCG1121)",
+"course": "bcgpg1",
+"n": 4,
+"titre": "Mécanique des fluides",
+"duree": "3 semaines, environ 10 h de travail personnel",
+"prerequis": "Chapitres 2 et 3 (forces, travail, énergie) ; primitive d’un polynôme",
+"docx": "Cahier_activites_BCG_PhysiqueGenerale1_Chapitre4",
+"support": "BCG_PG1_Chapitre_4_Mecanique_fluides",
+"quiz": "bcgpg14",
+"ec_code": "LBCG1121",
+"OS": {
+"4": "Appliquer les lois de la statique et de la dynamique des fluides (pression, capillarité, Bernoulli, Poiseuille, sédimentation) au vivant et à la Terre."
+},
+"RA": [
+[
+4,
+"Appliquer la relation fondamentale de l’hydrostatique et le théorème d’Archimède."
+],
+[
+4,
+"Utiliser la tension superficielle, la loi de Laplace et la loi de Jurin."
+],
+[
+4,
+"Écrire la conservation du débit et appliquer le théorème de Bernoulli."
+],
+[
+4,
+"Calculer un nombre de Reynolds et appliquer la loi de Poiseuille (résistance hydraulique)."
+],
+[
+4,
+"Calculer une vitesse de sédimentation ; expliquer l’intérêt de la centrifugation."
+]
+],
+"synth": "Mobiliser l’ensemble des compétences du chapitre 4 et évaluer sa propre maîtrise.",
+"fiches": [
+{
+"a": "A41",
+"os": 4,
+"ra": "Appliquer la relation fondamentale de l’hydrostatique et le théorème d’Archimède.",
+"osl": null,
+"t": "Calculer une pression hydrostatique et une poussée d’Archimède",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 4.1 du support de cours (p. 4) : pression, relation fondamentale, vases communicants, altitude, baromètres, Archimède.",
+"l": [
+[
+"Support, p. 4",
+"docs/BCG_PG1_Chapitre_4_Mecanique_fluides.pdf#page=5"
+]
+]
+},
+{
+"n": "2",
+"t": "Refais seul la démonstration de dp/dz = −ρg sur un petit cylindre de fluide.",
+"l": []
+},
+{
+"n": "3",
+"t": "Traite les exercices 1 (« Tension artérielle et position du corps »), 2 (« Tube en U ») et 3 (« Flottabilité d’un poisson et d’un bloc de glace ») de la série de TD n°4.",
+"l": [
+[
+"TD n°4 — énoncés",
+"docs/TD_BCG_PG1_4_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG1_4_corrige.pdf"
+]
+]
+},
+{
+"t": "**Exigences :** expressions littérales avant toute application numérique ; résultats encadrés, avec leur unité et un nombre raisonnable de chiffres significatifs."
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°4). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 1 : 100 mmHg ≈ 1,33 × 10⁴ Pa ; environ 69 mmHg au cerveau et 201 mmHg aux pieds.",
+"Exercice 2 : ρ_huile = 900 kg/m³.",
+"Exercice 3 : vessie natatoire d’environ 37 cm³ ; volume émergé du bloc 0,083 m³ ; charge maximale 83 kg."
+],
+"duree": "2 h",
+"echeance": "semaine 1, avant la séance de TD n°4"
+},
+{
+"a": "A42",
+"os": 4,
+"ra": "Utiliser la tension superficielle, la loi de Laplace et la loi de Jurin.",
+"osl": null,
+"t": "Utiliser la tension superficielle : Laplace, Jurin et compte-gouttes",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 4.2 du support de cours (p. 7) : tension superficielle, angle de raccordement, loi de Tate, lois de Laplace et de Jurin.",
+"l": [
+[
+"Support, p. 7",
+"docs/BCG_PG1_Chapitre_4_Mecanique_fluides.pdf#page=8"
+]
+]
+},
+{
+"n": "2",
+"t": "Fais l’expérience à la maison : pose délicatement une aiguille sur l’eau, puis ajoute une goutte de savon. Décris et explique ce que tu observes.",
+"l": []
+},
+{
+"n": "3",
+"t": "Traite les exercices 4 (« Montée de l’eau dans les sols »), 5 (« Alvéoles pulmonaires et surfactant ») et 6 (« Méthode du compte-gouttes ») de la série de TD n°4.",
+"l": [
+[
+"TD n°4 — énoncés",
+"docs/TD_BCG_PG1_4_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG1_4_corrige.pdf"
+]
+]
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°4). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 4 : remontée capillaire de 0,15 m (sable), 1,5 m (limon) et 15 m (argile).",
+"Exercice 5 : Δp ≈ 1,5 × 10³ Pa sans surfactant et ≈ 1,0 × 10² Pa avec ; la petite alvéole a la pression la plus forte.",
+"Exercice 6 : γ(éthanol) ≈ 0,022 N/m.",
+"Ton explication de l’expérience utilise la baisse de γ due au savon."
+],
+"duree": "2 h",
+"echeance": "semaine 2"
+},
+{
+"a": "A43",
+"os": 4,
+"ra": "Écrire la conservation du débit et appliquer le théorème de Bernoulli.",
+"osl": null,
+"t": "Écrire la conservation du débit et appliquer le théorème de Bernoulli",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 4.3 du support de cours (p. 9) : débit, continuité, théorème de Bernoulli et ses applications.",
+"l": [
+[
+"Support, p. 9",
+"docs/BCG_PG1_Chapitre_4_Mecanique_fluides.pdf#page=10"
+]
+]
+},
+{
+"n": "2",
+"t": "Refais la démonstration du théorème de Bernoulli en trois étapes (système, travail des forces de pression, énergie mécanique).",
+"l": []
+},
+{
+"n": "3",
+"t": "Traite l’exercice 7 de la série de TD n°4 (« Vidange d’un réservoir et débitmètre de Venturi »).",
+"l": [
+[
+"TD n°4 — énoncés",
+"docs/TD_BCG_PG1_4_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG1_4_corrige.pdf"
+]
+]
+},
+{
+"n": "4",
+"t": "Sur la plateforme, fais le quiz « Mécanique des fluides » et note ton score ; refais-le jusqu’à obtenir au moins 8/10.",
+"l": [
+[
+"Quiz",
+"quiz.html#bcgpg14"
+]
+]
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°4). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 7 : v ≈ 20 m/s et Q_v ≈ 4 L/s au robinet ; dans le Venturi, v_1 ≈ 0,63 m/s, v_2 ≈ 2,5 m/s et Q_v ≈ 1,3 × 10⁻³ m³/s.",
+"Ta démonstration fait apparaître le travail (p_1 − p_2) dV des forces de pression."
+],
+"duree": "1 h 30",
+"echeance": "semaine 2, avant la séance de TD n°4"
+},
+{
+"a": "A44",
+"os": 4,
+"ra": "Calculer un nombre de Reynolds et appliquer la loi de Poiseuille (résistance hydraulique).",
+"osl": null,
+"t": "Étudier un écoulement visqueux : Reynolds et Poiseuille",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 4.4 du support de cours (p. 11) : viscosité, nombre de Reynolds.",
+"l": [
+[
+"Support, p. 11",
+"docs/BCG_PG1_Chapitre_4_Mecanique_fluides.pdf#page=12"
+]
+]
+},
+{
+"n": "2",
+"t": "Lis la section 4.5 du support de cours (p. 12) : pertes de charge, loi de Poiseuille, résistance hydraulique.",
+"l": [
+[
+"Support, p. 12",
+"docs/BCG_PG1_Chapitre_4_Mecanique_fluides.pdf#page=13"
+]
+]
+},
+{
+"n": "3",
+"t": "Traite l’exercice 8 de la série de TD n°4 (« Écoulement du sang : Reynolds et Poiseuille »).",
+"l": [
+[
+"TD n°4 — énoncés",
+"docs/TD_BCG_PG1_4_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG1_4_corrige.pdf"
+]
+]
+},
+{
+"n": "4",
+"t": "Rédige un paragraphe de cinq lignes : pourquoi une diminution de 20 % du rayon d’une artère a-t-elle de lourdes conséquences ?",
+"l": []
+},
+{
+"t": "**Exigences :** expressions littérales avant toute application numérique ; résultats encadrés, avec leur unité et un nombre raisonnable de chiffres significatifs."
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°4). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 8 : v ≈ 8,0 cm/s et Re ≈ 97 (laminaire) ; R_h ≈ 5,6 × 10⁷ Pa·s/m³ et Δp ≈ 56 Pa ; avec la plaque, Δp ≈ 2,3 × 10² Pa ; les deux branches ont une résistance ≈ 1,2 R_h.",
+"Ton paragraphe utilise la variation en R⁻⁴ de la résistance hydraulique (facteur 0,8⁻⁴ ≈ 2,4)."
+],
+"duree": "1 h 45",
+"echeance": "semaine 3, avant la séance de TD n°4"
+},
+{
+"a": "A45",
+"os": 4,
+"ra": "Calculer une vitesse de sédimentation ; expliquer l’intérêt de la centrifugation.",
+"osl": null,
+"t": "Calculer une vitesse de sédimentation ; comprendre la centrifugation",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 4.6 du support de cours (p. 14) : loi de Stokes, sédimentation, centrifugation.",
+"l": [
+[
+"Support, p. 14",
+"docs/BCG_PG1_Chapitre_4_Mecanique_fluides.pdf#page=15"
+]
+]
+},
+{
+"n": "2",
+"t": "Traite l’exercice 9 de la série de TD n°4 (« Sédimentation de particules dans une rivière et centrifugation »).",
+"l": [
+[
+"TD n°4 — énoncés",
+"docs/TD_BCG_PG1_4_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG1_4_corrige.pdf"
+]
+]
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°4). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 9 : v_limon ≈ 3,6 × 10⁻⁴ m/s et v_argile ≈ 3,6 × 10⁻⁶ m/s ; dépôt en environ 4 h et 16 jours ; centrifugeuse : facteur ≈ 4,0 × 10³, durée ≈ 1,4 s ; Re ≈ 7 × 10⁻³."
+],
+"duree": "1 h",
+"echeance": "semaine 3"
+},
+{
+"a": "B4",
+"os": null,
+"ra": null,
+"osl": [
+4
+],
+"t": "Faire le bilan du chapitre : exercices corrigés, quiz et autoévaluation",
+"travail": [
+{
+"n": "1",
+"t": "Relis la fiche « L’essentiel du chapitre » (support, p. 15) et vérifie que tu sais redémontrer chaque résultat encadré.",
+"l": [
+[
+"Support, p. 15",
+"docs/BCG_PG1_Chapitre_4_Mecanique_fluides.pdf#page=16"
+]
+]
+},
+{
+"n": "2",
+"t": "Fais les exercices d’entraînement corrigés de la section 4.7 du support (p. 14) sans regarder les corrigés, puis compare.",
+"l": [
+[
+"Support, p. 14",
+"docs/BCG_PG1_Chapitre_4_Mecanique_fluides.pdf#page=15"
+]
+]
+},
+{
+"n": "3",
+"t": "Sur la plateforme, fais le quiz « Mécanique des fluides » jusqu’à obtenir au moins 8/10.",
+"l": [
+[
+"Quiz",
+"quiz.html#bcgpg14"
+]
+]
+},
+{
+"n": "4",
+"t": "Remplis la grille d’autoévaluation à la fin de ce cahier.",
+"l": []
+},
+{
+"n": "5",
+"t": "Pour chaque compétence « à revoir », note où retravailler et une question précise à poser en TD (TD n°4).",
+"l": []
+},
+{
+"t": "**Modalités :** travail individuel hors séance."
+}
+],
+"produit": [
+"Ton meilleur score au quiz, la grille d’autoévaluation remplie et ta question, notés dans ton cahier.",
+"**Restitution :** présentés à l’enseignant lors de la dernière séance de TD du chapitre."
+],
+"criteres": [
+"Score au quiz supérieur ou égal à 8/10.",
+"Exercices d’entraînement du support réussis sans aide (au moins trois sur quatre).",
+"Chaque compétence de la grille est cochée « acquis », ou accompagnée d’un plan de révision précis."
+],
+"duree": "1 h",
+"echeance": "fin de la semaine 3"
+}
+],
+"grille": {
+"1": [
+"Hydrostatique et Archimède",
+"Activité A41 ; support § 4.1",
+4
+],
+"2": [
+"Tension superficielle et capillarité",
+"Activité A42 ; support § 4.2",
+4
+],
+"3": [
+"Continuité et Bernoulli",
+"Activité A43 ; support § 4.3",
+4
+],
+"4": [
+"Viscosité, Reynolds, Poiseuille",
+"Activité A44 ; support § 4.4 et 4.5",
+4
+],
+"5": [
+"Sédimentation et centrifugation",
+"Activité A45 ; support § 4.6",
+4
+]
+}
+},
+"bcgpg15": {
+"ec": "Physique générale 1 (LBCG1121)",
+"course": "bcgpg1",
+"n": 5,
+"titre": "Introduction à l’optique géométrique",
+"duree": "3 semaines, environ 10 h de travail personnel",
+"prerequis": "Trigonométrie ; approximation des petits angles ; mesures algébriques",
+"docx": "Cahier_activites_BCG_PhysiqueGenerale1_Chapitre5",
+"support": "BCG_PG1_Chapitre_5_Optique_geometrique",
+"quiz": "bcgpg15",
+"ec_code": "LBCG1121",
+"OS": {
+"5": "Appliquer les lois de l’optique géométrique aux systèmes optiques simples et aux instruments (œil, loupe, microscope)."
+},
+"RA": [
+[
+5,
+"Appliquer les lois de Snell-Descartes ; calculer un angle limite de réflexion totale."
+],
+[
+5,
+"Construire et calculer l’image donnée par un miroir plan, un dioptre plan, une lame et un prisme."
+],
+[
+5,
+"Utiliser les relations de conjugaison des miroirs sphériques et des lentilles minces."
+],
+[
+5,
+"Modéliser l’œil, la loupe et le microscope ; calculer une correction et un grossissement."
+]
+],
+"synth": "Mobiliser l’ensemble des compétences du chapitre 5 et évaluer sa propre maîtrise.",
+"fiches": [
+{
+"a": "A51",
+"os": 5,
+"ra": "Appliquer les lois de Snell-Descartes ; calculer un angle limite de réflexion totale.",
+"osl": null,
+"t": "Appliquer les lois de Snell-Descartes et la réflexion totale",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 5.1 du support de cours (p. 3) : sources, rayons, indice.",
+"l": [
+[
+"Support, p. 3",
+"docs/BCG_PG1_Chapitre_5_Optique_geometrique.pdf#page=4"
+]
+]
+},
+{
+"n": "2",
+"t": "Lis la section 5.2 du support de cours (p. 4) : lois de Snell-Descartes, réflexion totale, principe de Fermat.",
+"l": [
+[
+"Support, p. 4",
+"docs/BCG_PG1_Chapitre_5_Optique_geometrique.pdf#page=5"
+]
+]
+},
+{
+"n": "3",
+"t": "Sur la plateforme, page « Simulations », manipule la simulation « Réfraction et réflexion totale » : fais varier l’angle d’incidence et note l’angle limite pour le passage eau → air.",
+"l": [
+[
+"Simulation",
+"simulations.html#refrac"
+]
+]
+},
+{
+"n": "4",
+"t": "Traite les exercices 1 (« Lumière dans un lac »), 2 (« Fibre optique d’un endoscope ») et 3 (« Identifier un minéral par son angle limite ») de la série de TD n°5.",
+"l": [
+[
+"TD n°5 — énoncés",
+"docs/TD_BCG_PG1_5_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG1_5_corrige.pdf"
+]
+]
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°5). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 1 : i_1 = 60° et i_2 ≈ 41° ; fenêtre de Snell de demi-angle ≈ 49°.",
+"Exercice 2 : i_ℓ ≈ 76,7° ; ouverture numérique ≈ 0,34 et θ_max ≈ 20°.",
+"Exercice 3 : n ≈ 1,54 : c’est le quartz.",
+"L’angle limite lu sur la simulation vaut environ 49°."
+],
+"duree": "2 h",
+"echeance": "semaine 1, avant la séance de TD n°5"
+},
+{
+"a": "A52",
+"os": 5,
+"ra": "Construire et calculer l’image donnée par un miroir plan, un dioptre plan, une lame et un prisme.",
+"osl": null,
+"t": "Construire l’image donnée par un système plan ; utiliser le prisme",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 5.3 du support de cours (p. 6) : stigmatisme et conditions de Gauss.",
+"l": [
+[
+"Support, p. 6",
+"docs/BCG_PG1_Chapitre_5_Optique_geometrique.pdf#page=7"
+]
+]
+},
+{
+"n": "2",
+"t": "Lis la section 5.4 du support de cours (p. 7) : miroir plan, dioptre plan, lame, prisme.",
+"l": [
+[
+"Support, p. 7",
+"docs/BCG_PG1_Chapitre_5_Optique_geometrique.pdf#page=8"
+]
+]
+},
+{
+"n": "3",
+"t": "Sur la plateforme, page « Simulations », manipule la simulation « Le prisme : déviation et dispersion » : cherche le minimum de déviation et compare les déviations du rouge et du violet.",
+"l": [
+[
+"Simulation",
+"simulations.html#prisme"
+]
+]
+},
+{
+"n": "4",
+"t": "Traite les exercices 4 (« Miroir plan : se voir en entier »), 5 (« Aquarium et lame de verre ») et 6 (« Mesure de l’indice d’un verre au prisme ») de la série de TD n°5.",
+"l": [
+[
+"TD n°5 — énoncés",
+"docs/TD_BCG_PG1_5_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG1_5_corrige.pdf"
+]
+]
+},
+{
+"t": "**Exigences :** expressions littérales avant toute application numérique ; résultats encadrés, avec leur unité et un nombre raisonnable de chiffres significatifs."
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°5). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 4 : miroir de 0,85 m, bord inférieur à 0,80 m du sol, quelle que soit la distance.",
+"Exercice 5 : le poisson paraît à 30 cm ; la vitre rapproche l’image de 0,40 cm.",
+"Exercice 6 : n ≈ 1,51 ; i = 49,0° ; pour le violet, D_m ≈ 40,0°."
+],
+"duree": "2 h",
+"echeance": "semaine 2, avant la séance de TD n°5"
+},
+{
+"a": "A53",
+"os": 5,
+"ra": "Utiliser les relations de conjugaison des miroirs sphériques et des lentilles minces.",
+"osl": null,
+"t": "Utiliser les relations de conjugaison : miroirs sphériques et lentilles minces",
+"travail": [
+{
+"n": "1",
+"t": "Lis les paragraphes 5.5.1 à 5.5.3 du support de cours (p. 9 et 10) : miroirs sphériques, dioptre sphérique, lentilles minces.",
+"l": [
+[
+"Support, p. 9",
+"docs/BCG_PG1_Chapitre_5_Optique_geometrique.pdf#page=10"
+]
+]
+},
+{
+"n": "2",
+"t": "Construis une fiche-méthode : relation de conjugaison et grandissement pour le miroir et pour la lentille, avec les conventions de signe.",
+"l": []
+},
+{
+"n": "3",
+"t": "Sur la plateforme, page « Simulations », manipule la simulation « Lentille mince : construction d’image » : place l’objet avant F, entre F et O, puis vérifie tes calculs de position et de grandissement.",
+"l": [
+[
+"Simulation",
+"simulations.html#lentille"
+]
+]
+},
+{
+"n": "4",
+"t": "Traite l’exercice 7 de la série de TD n°5 (« Miroir concave de dentiste ») et l’exercice d’entraînement 3 du support (p. 11).",
+"l": [
+[
+"Support, p. 11",
+"docs/BCG_PG1_Chapitre_5_Optique_geometrique.pdf#page=12"
+],
+[
+"TD n°5 — énoncés",
+"docs/TD_BCG_PG1_5_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG1_5_corrige.pdf"
+]
+]
+},
+{
+"n": "5",
+"t": "Sur la plateforme, fais le quiz « Optique géométrique » et note ton score ; refais-le jusqu’à obtenir au moins 8/10.",
+"l": [
+[
+"Quiz",
+"quiz.html#bcgpg15"
+]
+]
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°5). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 7 : SA' = +6,0 cm, image virtuelle, droite, grandissement +4,0.",
+"Exercice d’entraînement 3 : image réelle à 60 cm, renversée, de 4,0 cm.",
+"Ta fiche-méthode précise que f' > 0 pour une lentille convergente et que SC < 0 pour un miroir concave éclairé de la gauche."
+],
+"duree": "2 h",
+"echeance": "semaine 2"
+},
+{
+"a": "A54",
+"os": 5,
+"ra": "Modéliser l’œil, la loupe et le microscope ; calculer une correction et un grossissement.",
+"osl": null,
+"t": "Modéliser l’œil, la loupe et le microscope",
+"travail": [
+{
+"n": "1",
+"t": "Lis le paragraphe 5.5.4 du support de cours (p. 10) : œil, défauts de la vision, loupe, microscope.",
+"l": [
+[
+"Support, p. 10",
+"docs/BCG_PG1_Chapitre_5_Optique_geometrique.pdf#page=11"
+]
+]
+},
+{
+"n": "2",
+"t": "Traite les exercices 8 (« L’œil, la myopie et la presbytie ») et 9 (« Loupe et microscope du biologiste ») de la série de TD n°5.",
+"l": [
+[
+"TD n°5 — énoncés",
+"docs/TD_BCG_PG1_5_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG1_5_corrige.pdf"
+]
+]
+},
+{
+"n": "3",
+"t": "Au prochain TP d’optique ou de biologie, lis les indications gravées sur un objectif et un oculaire de microscope et calcule le grossissement total.",
+"l": []
+},
+{
+"t": "**Exigences :** expressions littérales avant toute application numérique ; résultats encadrés, avec leur unité et un nombre raisonnable de chiffres significatifs."
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°5). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 8 : V_0 ≈ 59 δ et amplitude d’accommodation 4,0 δ ; myope corrigé par −2,5 δ, nouveau punctum proximum ≈ 17 cm ; presbyte : PP = 1,0 m et verres de +3,0 δ.",
+"Exercice 9 : loupe G = 5 ; objectif à 4,1 mm de l’objet, grandissement ≈ −39, microscope G ≈ 390."
+],
+"duree": "2 h",
+"echeance": "semaine 3, avant la séance de TD n°5"
+},
+{
+"a": "B5",
+"os": null,
+"ra": null,
+"osl": [
+5
+],
+"t": "Faire le bilan du chapitre : exercices corrigés, quiz et autoévaluation",
+"travail": [
+{
+"n": "1",
+"t": "Relis la fiche « L’essentiel du chapitre » (support, p. 12) et vérifie que tu sais redémontrer chaque résultat encadré.",
+"l": [
+[
+"Support, p. 12",
+"docs/BCG_PG1_Chapitre_5_Optique_geometrique.pdf#page=13"
+]
+]
+},
+{
+"n": "2",
+"t": "Fais les exercices d’entraînement corrigés de la section 5.6 du support (p. 11) sans regarder les corrigés, puis compare.",
+"l": [
+[
+"Support, p. 11",
+"docs/BCG_PG1_Chapitre_5_Optique_geometrique.pdf#page=12"
+]
+]
+},
+{
+"n": "3",
+"t": "Sur la plateforme, fais le quiz « Optique géométrique » jusqu’à obtenir au moins 8/10.",
+"l": [
+[
+"Quiz",
+"quiz.html#bcgpg15"
+]
+]
+},
+{
+"n": "4",
+"t": "Remplis la grille d’autoévaluation à la fin de ce cahier.",
+"l": []
+},
+{
+"n": "5",
+"t": "Pour chaque compétence « à revoir », note où retravailler et une question précise à poser en TD (TD n°5).",
+"l": []
+},
+{
+"t": "**Modalités :** travail individuel hors séance."
+}
+],
+"produit": [
+"Ton meilleur score au quiz, la grille d’autoévaluation remplie et ta question, notés dans ton cahier.",
+"**Restitution :** présentés à l’enseignant lors de la dernière séance de TD du chapitre."
+],
+"criteres": [
+"Score au quiz supérieur ou égal à 8/10.",
+"Exercices d’entraînement du support réussis sans aide (au moins trois sur quatre).",
+"Chaque compétence de la grille est cochée « acquis », ou accompagnée d’un plan de révision précis."
+],
+"duree": "1 h",
+"echeance": "fin de la semaine 3"
+}
+],
+"grille": {
+"1": [
+"Snell-Descartes, réflexion totale",
+"Activité A51 ; support § 5.1 et 5.2",
+5
+],
+"2": [
+"Systèmes plans et prisme",
+"Activité A52 ; support § 5.3 et 5.4",
+5
+],
+"3": [
+"Miroirs sphériques et lentilles",
+"Activité A53 ; support § 5.5.1 à 5.5.3",
+5
+],
+"4": [
+"Œil, loupe, microscope",
+"Activité A54 ; support § 5.5.4",
+5
+]
+}
+},
+"bcgpg21": {
+"ec": "Physique générale 2 (LBCG1221)",
+"course": "bcgpg2",
+"n": 1,
+"titre": "Thermodynamique (1) : température, gaz et premier principe",
+"duree": "3 semaines, environ 10 h de travail personnel",
+"prerequis": "Physique générale 1 (pression, travail, énergie) ; logarithme népérien ; primitive de 1/x",
+"docx": "Cahier_activites_BCG_PhysiqueGenerale2_Chapitre1",
+"support": "BCG_PG2_Chapitre_1_Thermodynamique_1",
+"quiz": "bcgpg21",
+"ec_code": "LBCG1221",
+"OS": {
+"1": "Décrire un système thermodynamique, utiliser l’équation d’état des gaz et appliquer le premier principe."
+},
+"RA": [
+[
+1,
+"Utiliser le vocabulaire de la thermodynamique ; convertir des températures."
+],
+[
+1,
+"Appliquer l’équation d’état du gaz parfait et la loi de Dalton ; relier température et agitation moléculaire."
+],
+[
+1,
+"Faire un bilan calorimétrique, avec ou sans changement d’état."
+],
+[
+1,
+"Calculer travail et chaleur ; appliquer le premier principe aux transformations d’un gaz parfait."
+]
+],
+"synth": "Mobiliser l’ensemble des compétences du chapitre 1 et évaluer sa propre maîtrise.",
+"fiches": [
+{
+"a": "A11",
+"os": 1,
+"ra": "Utiliser le vocabulaire de la thermodynamique ; convertir des températures.",
+"osl": null,
+"t": "Décrire un système thermodynamique et repérer sa température",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 1.1 du support de cours (p. 3) : états de la matière, système, variables et fonctions d’état, transformations.",
+"l": [
+[
+"Support, p. 3",
+"docs/BCG_PG2_Chapitre_1_Thermodynamique_1.pdf#page=4"
+]
+]
+},
+{
+"n": "2",
+"t": "Lis la section 1.2 du support de cours (p. 4) : principe zéro, échelles et thermomètres.",
+"l": [
+[
+"Support, p. 4",
+"docs/BCG_PG2_Chapitre_1_Thermodynamique_1.pdf#page=5"
+]
+]
+},
+{
+"n": "3",
+"t": "Construis un tableau de vocabulaire : pour chaque terme (système ouvert, fermé, isolé ; variable intensive, extensive ; transformation isotherme, isobare, isochore, adiabatique, réversible), une définition et un exemple biologique ou géologique.",
+"l": []
+},
+{
+"n": "4",
+"t": "Traite l’exercice 1 de la série de TD n°1 (« Échelles de température »).",
+"l": [
+[
+"TD n°1 — énoncés",
+"docs/TD_BCG_PG2_1_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG2_1_corrige.pdf"
+]
+]
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°1). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 1 : 233 K ; 1473 K ; −196 °C ; égalité des échelles à −40 °C = −40 °F ; élévation de 2,5 K = 4,5 °F.",
+"Ton tableau donne au moins un exemple vivant (cellule : système ouvert) et un exemple géologique (magma qui se refroidit)."
+],
+"duree": "1 h 30",
+"echeance": "semaine 1"
+},
+{
+"a": "A12",
+"os": 1,
+"ra": "Appliquer l’équation d’état du gaz parfait et la loi de Dalton ; relier température et agitation moléculaire.",
+"osl": null,
+"t": "Utiliser l’équation d’état du gaz parfait et l’interprétation cinétique",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 1.3 du support de cours (p. 5) : gaz parfait, loi de Dalton, interprétation microscopique, gaz de Van der Waals.",
+"l": [
+[
+"Support, p. 5",
+"docs/BCG_PG2_Chapitre_1_Thermodynamique_1.pdf#page=6"
+]
+]
+},
+{
+"n": "2",
+"t": "Refais seul la démonstration de p = (1/3)(N/V) m v² en quatre étapes.",
+"l": []
+},
+{
+"n": "3",
+"t": "Traite les exercices 2 (« Poumons et plongée en apnée ») et 3 (« Air alvéolaire et vitesse des molécules ») de la série de TD n°1.",
+"l": [
+[
+"TD n°1 — énoncés",
+"docs/TD_BCG_PG2_1_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG2_1_corrige.pdf"
+]
+]
+},
+{
+"n": "4",
+"t": "Sur la plateforme, fais le quiz « Gaz parfait et premier principe » et note ton score ; refais-le jusqu’à obtenir au moins 8/10.",
+"l": [
+[
+"Quiz",
+"quiz.html#bcgpg22"
+]
+]
+},
+{
+"t": "**Exigences :** expressions littérales avant toute application numérique ; résultats encadrés, avec leur unité et un nombre raisonnable de chiffres significatifs."
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°1). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 2 : n ≈ 0,23 mol ; volume pulmonaire de 1,5 L à 30 m.",
+"Exercice 3 : p(N_2) ≈ 76 kPa et x(O_2) ≈ 0,13 ; v* ≈ 492 m/s pour O_2 et 419 m/s pour CO_2 ; énergie cinétique moyenne ≈ 6,4 × 10⁻²¹ J, la même pour tous les gaz."
+],
+"duree": "2 h",
+"echeance": "semaine 1, avant la séance de TD n°1"
+},
+{
+"a": "A13",
+"os": 1,
+"ra": "Faire un bilan calorimétrique, avec ou sans changement d’état.",
+"osl": null,
+"t": "Faire un bilan calorimétrique",
+"travail": [
+{
+"n": "1",
+"t": "Lis le paragraphe 1.4.3 du support de cours (p. 8) : capacité thermique, chaleur latente, calorimétrie.",
+"l": [
+[
+"Support, p. 8",
+"docs/BCG_PG2_Chapitre_1_Thermodynamique_1.pdf#page=9"
+]
+]
+},
+{
+"n": "2",
+"t": "Traite les exercices 4 (« Capacité thermique d’une roche »), 5 (« Thermorégulation d’un coureur ») et 6 (« Fusion de la glace ») de la série de TD n°1.",
+"l": [
+[
+"TD n°1 — énoncés",
+"docs/TD_BCG_PG2_1_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG2_1_corrige.pdf"
+]
+]
+},
+{
+"n": "3",
+"t": "Sur la plateforme, fais le quiz « Température et chaleur » et note ton score ; refais-le jusqu’à obtenir au moins 8/10.",
+"l": [
+[
+"Quiz",
+"quiz.html#bcgpg21"
+]
+]
+},
+{
+"t": "**Exigences :** écris le bilan Σ Q = 0 sous forme littérale avant toute valeur numérique ; pour l’exercice 6, vérifie d’abord si toute la glace peut fondre."
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°1). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 4 : c_granite ≈ 9,7 × 10² J·kg⁻¹·K⁻¹.",
+"Exercice 5 : sans évacuation, ΔT ≈ 13 K ; il faut évaporer environ 1,2 kg de sueur.",
+"Exercice 6 : état final à 0 °C avec environ 66 g de glace restante."
+],
+"duree": "2 h",
+"echeance": "semaine 2, avant la séance de TD n°1"
+},
+{
+"a": "A14",
+"os": 1,
+"ra": "Calculer travail et chaleur ; appliquer le premier principe aux transformations d’un gaz parfait.",
+"osl": null,
+"t": "Calculer un travail et appliquer le premier principe",
+"travail": [
+{
+"n": "1",
+"t": "Lis les paragraphes 1.4.1 et 1.4.2 du support de cours (p. 7) : énergie interne, travail des forces de pression.",
+"l": [
+[
+"Support, p. 7",
+"docs/BCG_PG2_Chapitre_1_Thermodynamique_1.pdf#page=8"
+]
+]
+},
+{
+"n": "2",
+"t": "Lis la section 1.5 du support de cours (p. 9) : premier principe, enthalpie.",
+"l": [
+[
+"Support, p. 9",
+"docs/BCG_PG2_Chapitre_1_Thermodynamique_1.pdf#page=10"
+]
+]
+},
+{
+"n": "3",
+"t": "Traite les exercices 7 (« Trois chemins entre deux états ») et 8 (« Ébullition de l’eau : ΔH et ΔU ») de la série de TD n°1 ; représente les chemins de l’exercice 7 dans un diagramme (p, V).",
+"l": [
+[
+"TD n°1 — énoncés",
+"docs/TD_BCG_PG2_1_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG2_1_corrige.pdf"
+]
+]
+},
+{
+"t": "**Exigences :** expressions littérales avant toute application numérique ; résultats encadrés, avec leur unité et un nombre raisonnable de chiffres significatifs."
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°1). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 7 : T_A = T_B ≈ 300 K, ΔU = 0 ; isotherme : W_1 ≈ 1,73 kJ et Q_1 ≈ −1,73 kJ ; isobare puis isochore : W_2 ≈ 1,25 kJ et Q_2 ≈ −1,25 kJ.",
+"Exercice 8 : Q = ΔH ≈ 40,7 kJ, W ≈ −3,1 kJ, ΔU ≈ 37,6 kJ.",
+"Ton diagramme montre que les aires (donc les travaux) diffèrent alors que ΔU est le même."
+],
+"duree": "2 h",
+"echeance": "semaine 2"
+},
+{
+"a": "A15",
+"os": 1,
+"ra": "Calculer travail et chaleur ; appliquer le premier principe aux transformations d’un gaz parfait.",
+"osl": null,
+"t": "Étudier une transformation adiabatique du gaz parfait",
+"travail": [
+{
+"n": "1",
+"t": "Lis le paragraphe 1.5.3 du support de cours (p. 10) : relation de Mayer, loi de Laplace.",
+"l": [
+[
+"Support, p. 10",
+"docs/BCG_PG2_Chapitre_1_Thermodynamique_1.pdf#page=11"
+]
+]
+},
+{
+"n": "2",
+"t": "Refais seul la démonstration de T V^(γ−1) = constante.",
+"l": []
+},
+{
+"n": "3",
+"t": "Traite l’exercice 9 de la série de TD n°1 (« Détente adiabatique : formation des nuages »).",
+"l": [
+[
+"TD n°1 — énoncés",
+"docs/TD_BCG_PG2_1_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG2_1_corrige.pdf"
+]
+]
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°1). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 9 : T_f ≈ 284 K ≈ 11 °C ; W ≈ −0,39 kJ par mole ; refroidissement d’environ 10 K/km ; base du nuage vers 1 km d’altitude."
+],
+"duree": "1 h",
+"echeance": "semaine 3, avant la séance de TD n°1"
+},
+{
+"a": "B1",
+"os": null,
+"ra": null,
+"osl": [
+1
+],
+"t": "Faire le bilan du chapitre : exercices corrigés, quiz et autoévaluation",
+"travail": [
+{
+"n": "1",
+"t": "Relis la fiche « L’essentiel du chapitre » (support, p. 12) et vérifie que tu sais redémontrer chaque résultat encadré.",
+"l": [
+[
+"Support, p. 12",
+"docs/BCG_PG2_Chapitre_1_Thermodynamique_1.pdf#page=13"
+]
+]
+},
+{
+"n": "2",
+"t": "Fais les exercices d’entraînement corrigés de la section 1.6 du support (p. 11) sans regarder les corrigés, puis compare.",
+"l": [
+[
+"Support, p. 11",
+"docs/BCG_PG2_Chapitre_1_Thermodynamique_1.pdf#page=12"
+]
+]
+},
+{
+"n": "3",
+"t": "Sur la plateforme, fais le quiz « Température et chaleur » jusqu’à obtenir au moins 8/10.",
+"l": [
+[
+"Quiz",
+"quiz.html#bcgpg21"
+]
+]
+},
+{
+"n": "4",
+"t": "Sur la plateforme, fais le quiz « Gaz parfait et premier principe » jusqu’à obtenir au moins 8/10.",
+"l": [
+[
+"Quiz",
+"quiz.html#bcgpg22"
+]
+]
+},
+{
+"n": "5",
+"t": "Remplis la grille d’autoévaluation à la fin de ce cahier.",
+"l": []
+},
+{
+"n": "6",
+"t": "Pour chaque compétence « à revoir », note où retravailler et une question précise à poser en TD (TD n°1).",
+"l": []
+},
+{
+"t": "**Modalités :** travail individuel hors séance."
+}
+],
+"produit": [
+"Ton meilleur score au quiz, la grille d’autoévaluation remplie et ta question, notés dans ton cahier.",
+"**Restitution :** présentés à l’enseignant lors de la dernière séance de TD du chapitre."
+],
+"criteres": [
+"Score au quiz supérieur ou égal à 8/10 pour chacun des deux quiz.",
+"Exercices d’entraînement du support réussis sans aide (au moins trois sur quatre).",
+"Chaque compétence de la grille est cochée « acquis », ou accompagnée d’un plan de révision précis."
+],
+"duree": "1 h",
+"echeance": "fin de la semaine 3"
+}
+],
+"grille": {
+"1": [
+"Vocabulaire et température",
+"Activité A11 ; support § 1.1 et 1.2",
+1
+],
+"2": [
+"Gaz parfait, Dalton, interprétation cinétique",
+"Activité A12 ; support § 1.3",
+1
+],
+"3": [
+"Calorimétrie",
+"Activité A13 ; support § 1.4.3",
+1
+],
+"4": [
+"Premier principe, transformations du gaz parfait",
+"Activités A14 et A15 ; support § 1.4 et 1.5",
+1
+]
+}
+},
+"bcgpg22": {
+"ec": "Physique générale 2 (LBCG1221)",
+"course": "bcgpg2",
+"n": 2,
+"titre": "Thermodynamique (2) : second principe et changements d’état",
+"duree": "3 semaines, environ 9 h de travail personnel",
+"prerequis": "Chapitre 1 (premier principe, gaz parfait) ; logarithme népérien",
+"docx": "Cahier_activites_BCG_PhysiqueGenerale2_Chapitre2",
+"support": "BCG_PG2_Chapitre_2_Thermodynamique_2",
+"quiz": "bcgthm2",
+"ec_code": "LBCG1221",
+"OS": {
+"2": "Appliquer le second principe : machines thermiques, entropie, enthalpie libre et changements d’état."
+},
+"RA": [
+[
+2,
+"Faire le bilan énergétique d’une machine thermique ; utiliser le rendement et l’efficacité de Carnot."
+],
+[
+2,
+"Calculer une variation d’entropie ; distinguer entropie échangée et entropie créée."
+],
+[
+2,
+"Prévoir la spontanéité d’une transformation à l’aide de l’enthalpie libre."
+],
+[
+2,
+"Lire un diagramme de phases ; utiliser la pression de vapeur saturante et la relation de Clapeyron."
+]
+],
+"synth": "Mobiliser l’ensemble des compétences du chapitre 2 et évaluer sa propre maîtrise.",
+"fiches": [
+{
+"a": "A21",
+"os": 2,
+"ra": "Faire le bilan énergétique d’une machine thermique ; utiliser le rendement et l’efficacité de Carnot.",
+"osl": null,
+"t": "Faire le bilan d’une machine thermique",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 2.1 du support de cours (p. 3) : irréversibilité, énoncés de Clausius et Kelvin, machines thermiques, cycle de Carnot.",
+"l": [
+[
+"Support, p. 3",
+"docs/BCG_PG2_Chapitre_2_Thermodynamique_2.pdf#page=4"
+]
+]
+},
+{
+"n": "2",
+"t": "Refais seul la démonstration de η = 1 − T_f / T_c pour le cycle de Carnot d’un gaz parfait.",
+"l": []
+},
+{
+"n": "3",
+"t": "Traite les exercices 1 (« Moteur d’une pirogue ») et 2 (« Réfrigérateur de laboratoire ») de la série de TD n°2.",
+"l": [
+[
+"TD n°2 — énoncés",
+"docs/TD_BCG_PG2_2_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG2_2_corrige.pdf"
+]
+]
+},
+{
+"t": "**Exigences :** expressions littérales avant toute application numérique ; résultats encadrés, avec leur unité et un nombre raisonnable de chiffres significatifs."
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°2). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 1 : travail fourni 0,50 kJ par cycle, η ≈ 28 % contre 83 % pour Carnot ; puissance 25 kW.",
+"Exercice 2 : e_max ≈ 5,1 ; puissance minimale ≈ 30 W, réelle 75 W."
+],
+"duree": "2 h",
+"echeance": "semaine 1, avant la séance de TD n°2"
+},
+{
+"a": "A22",
+"os": 2,
+"ra": "Calculer une variation d’entropie ; distinguer entropie échangée et entropie créée.",
+"osl": null,
+"t": "Calculer une variation d’entropie et l’entropie créée",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 2.2 du support de cours (p. 5) : définition de l’entropie, bilan d’entropie, calculs usuels.",
+"l": [
+[
+"Support, p. 5",
+"docs/BCG_PG2_Chapitre_2_Thermodynamique_2.pdf#page=6"
+]
+]
+},
+{
+"n": "2",
+"t": "Construis une fiche des formules de ΔS : chauffage, changement d’état, gaz parfait, thermostat.",
+"l": []
+},
+{
+"n": "3",
+"t": "Traite les exercices 3 (« Eau chaude dans un lac »), 4 (« De la glace à la vapeur ») et 5 (« Diffusion d’un gaz : entropie de mélange ») de la série de TD n°2.",
+"l": [
+[
+"TD n°2 — énoncés",
+"docs/TD_BCG_PG2_2_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG2_2_corrige.pdf"
+]
+]
+},
+{
+"n": "4",
+"t": "Sur la plateforme, fais le quiz « Second principe et changements d’état » et note ton score ; refais-le jusqu’à obtenir au moins 8/10.",
+"l": [
+[
+"Quiz",
+"quiz.html#bcgthm2"
+]
+]
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°2). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 3 : ΔS_eau ≈ −1,56 × 10³ J/K ; ΔS_lac ≈ +1,71 × 10³ J/K ; entropie créée ≈ +1,5 × 10² J/K > 0.",
+"Exercice 4 : ΔS ≈ 8,6 × 10³ J/K, dont 70 % pour la vaporisation.",
+"Exercice 5 : ΔS = 2R ln 2 ≈ 11,5 J/K, entièrement créée."
+],
+"duree": "2 h 30",
+"echeance": "semaine 2, avant la séance de TD n°2"
+},
+{
+"a": "A23",
+"os": 2,
+"ra": "Prévoir la spontanéité d’une transformation à l’aide de l’enthalpie libre.",
+"osl": null,
+"t": "Prévoir la spontanéité avec l’enthalpie libre",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 2.3 du support de cours (p. 7) : énergie libre, enthalpie libre, critère d’évolution.",
+"l": [
+[
+"Support, p. 7",
+"docs/BCG_PG2_Chapitre_2_Thermodynamique_2.pdf#page=8"
+]
+]
+},
+{
+"n": "2",
+"t": "Traite l’exercice 6 de la série de TD n°2 (« Dénaturation d’une protéine »).",
+"l": [
+[
+"TD n°2 — énoncés",
+"docs/TD_BCG_PG2_2_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG2_2_corrige.pdf"
+]
+]
+},
+{
+"n": "3",
+"t": "Rédige cinq lignes : comment une cellule réalise-t-elle une réaction de ΔG > 0 ? (couplage avec l’hydrolyse de l’ATP).",
+"l": []
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°2). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 6 : ΔG ≈ +28 kJ/mol à 37 °C (forme repliée stable) ; température de dénaturation ≈ 333 K ≈ 60 °C.",
+"Ton texte utilise l’additivité des ΔG de deux réactions couplées."
+],
+"duree": "1 h",
+"echeance": "semaine 2"
+},
+{
+"a": "A24",
+"os": 2,
+"ra": "Lire un diagramme de phases ; utiliser la pression de vapeur saturante et la relation de Clapeyron.",
+"osl": null,
+"t": "Lire un diagramme de phases ; utiliser la relation de Clapeyron",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 2.4 du support de cours (p. 7) : changements d’état, diagramme (p, T), pression de vapeur saturante, Clapeyron.",
+"l": [
+[
+"Support, p. 7",
+"docs/BCG_PG2_Chapitre_2_Thermodynamique_2.pdf#page=8"
+]
+]
+},
+{
+"n": "2",
+"t": "Reproduis le diagramme de phases de l’eau ; place le point triple, le point critique, les conditions de Dakar, du sommet du Kilimandjaro et d’un autoclave.",
+"l": []
+},
+{
+"n": "3",
+"t": "Traite l’exercice 7 de la série de TD n°2 (« Ébullition en altitude : relation de Clapeyron »).",
+"l": [
+[
+"TD n°2 — énoncés",
+"docs/TD_BCG_PG2_2_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG2_2_corrige.pdf"
+]
+]
+},
+{
+"t": "**Exigences :** expressions littérales avant toute application numérique ; résultats encadrés, avec leur unité et un nombre raisonnable de chiffres significatifs."
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°2). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 7 : ébullition vers 353 K ≈ 80 °C sous 0,48 bar ; 121 °C exige environ 2,0 bar.",
+"Sur ton diagramme, la courbe de fusion de l’eau penche vers la gauche (pente négative)."
+],
+"duree": "1 h 30",
+"echeance": "semaine 3, avant la séance de TD n°2"
+},
+{
+"a": "B2",
+"os": null,
+"ra": null,
+"osl": [
+2
+],
+"t": "Faire le bilan du chapitre : exercices corrigés, quiz et autoévaluation",
+"travail": [
+{
+"n": "1",
+"t": "Relis la fiche « L’essentiel du chapitre » (support, p. 10) et vérifie que tu sais redémontrer chaque résultat encadré.",
+"l": [
+[
+"Support, p. 10",
+"docs/BCG_PG2_Chapitre_2_Thermodynamique_2.pdf#page=11"
+]
+]
+},
+{
+"n": "2",
+"t": "Fais les exercices d’entraînement corrigés de la section 2.5 du support (p. 9) sans regarder les corrigés, puis compare.",
+"l": [
+[
+"Support, p. 9",
+"docs/BCG_PG2_Chapitre_2_Thermodynamique_2.pdf#page=10"
+]
+]
+},
+{
+"n": "3",
+"t": "Sur la plateforme, fais le quiz « Second principe et changements d’état » jusqu’à obtenir au moins 8/10.",
+"l": [
+[
+"Quiz",
+"quiz.html#bcgthm2"
+]
+]
+},
+{
+"n": "4",
+"t": "Remplis la grille d’autoévaluation à la fin de ce cahier.",
+"l": []
+},
+{
+"n": "5",
+"t": "Pour chaque compétence « à revoir », note où retravailler et une question précise à poser en TD (TD n°2).",
+"l": []
+},
+{
+"t": "**Modalités :** travail individuel hors séance."
+}
+],
+"produit": [
+"Ton meilleur score au quiz, la grille d’autoévaluation remplie et ta question, notés dans ton cahier.",
+"**Restitution :** présentés à l’enseignant lors de la dernière séance de TD du chapitre."
+],
+"criteres": [
+"Score au quiz supérieur ou égal à 8/10.",
+"Exercices d’entraînement du support réussis sans aide (au moins trois sur quatre).",
+"Chaque compétence de la grille est cochée « acquis », ou accompagnée d’un plan de révision précis."
+],
+"duree": "1 h",
+"echeance": "fin de la semaine 3"
+}
+],
+"grille": {
+"1": [
+"Machines thermiques, Carnot",
+"Activité A21 ; support § 2.1",
+2
+],
+"2": [
+"Entropie",
+"Activité A22 ; support § 2.2",
+2
+],
+"3": [
+"Enthalpie libre et spontanéité",
+"Activité A23 ; support § 2.3",
+2
+],
+"4": [
+"Changements d’état, Clapeyron",
+"Activité A24 ; support § 2.4",
+2
+]
+}
+},
+"bcgpg23": {
+"ec": "Physique générale 2 (LBCG1221)",
+"course": "bcgpg2",
+"n": 3,
+"titre": "Électrostatique",
+"duree": "3 semaines, environ 9 h de travail personnel",
+"prerequis": "Physique générale 1 (vecteurs, forces, travail, énergie potentielle) ; primitives de 1/r²",
+"docx": "Cahier_activites_BCG_PhysiqueGenerale2_Chapitre3",
+"support": "BCG_PG2_Chapitre_3_Electrostatique",
+"quiz": "bcgpg23",
+"ec_code": "LBCG1221",
+"OS": {
+"3": "Calculer champs, potentiels et énergies électrostatiques ; utiliser le dipôle et le condensateur."
+},
+"RA": [
+[
+3,
+"Appliquer la loi de Coulomb et le principe de superposition."
+],
+[
+3,
+"Calculer un potentiel ; relier champ et tension ; étudier le mouvement d’une particule chargée."
+],
+[
+3,
+"Utiliser le dipôle électrostatique (couple, énergie potentielle)."
+],
+[
+3,
+"Calculer la capacité, les associations et l’énergie de condensateurs ; modéliser une membrane cellulaire."
+]
+],
+"synth": "Mobiliser l’ensemble des compétences du chapitre 3 et évaluer sa propre maîtrise.",
+"fiches": [
+{
+"a": "A31",
+"os": 3,
+"ra": "Appliquer la loi de Coulomb et le principe de superposition.",
+"osl": null,
+"t": "Appliquer la loi de Coulomb et calculer un champ par superposition",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 3.1 du support de cours (p. 3) : électrisation, propriétés de la charge, conducteurs et isolants.",
+"l": [
+[
+"Support, p. 3",
+"docs/BCG_PG2_Chapitre_3_Electrostatique.pdf#page=4"
+]
+]
+},
+{
+"n": "2",
+"t": "Lis la section 3.2 du support de cours (p. 4) : loi de Coulomb, champ électrique, lignes de champ.",
+"l": [
+[
+"Support, p. 4",
+"docs/BCG_PG2_Chapitre_3_Electrostatique.pdf#page=5"
+]
+]
+},
+{
+"n": "3",
+"t": "Sur la plateforme, page « Simulations », manipule la simulation « Lignes de champ et équipotentielles » : place deux charges de signes opposés, puis de même signe, et compare les cartes de champ.",
+"l": [
+[
+"Simulation",
+"simulations.html#champ"
+]
+]
+},
+{
+"n": "4",
+"t": "Traite les exercices 1 (« Force entre ions dans un cristal et dans l’eau »), 2 (« Champ créé par deux charges ») et 3 (« Triangle de charges ») de la série de TD n°3.",
+"l": [
+[
+"TD n°3 — énoncés",
+"docs/TD_BCG_PG2_3_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG2_3_corrige.pdf"
+]
+]
+},
+{
+"t": "**Exigences :** expressions littérales avant toute application numérique ; résultats encadrés, avec leur unité et un nombre raisonnable de chiffres significatifs."
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°3). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 1 : F ≈ 2,9 × 10⁻⁹ N dans le cristal, divisée par 80 dans l’eau.",
+"Exercice 2 : E_M = 2,0 × 10³ V/m selon +**u**_x ; champ nul en x = 0,60 m.",
+"Exercice 3 : F ≈ 6,2 N vers l’extérieur ; champ nul au centre du triangle."
+],
+"duree": "2 h 30",
+"echeance": "semaine 1, avant la séance de TD n°3"
+},
+{
+"a": "A32",
+"os": 3,
+"ra": "Calculer un potentiel ; relier champ et tension ; étudier le mouvement d’une particule chargée.",
+"osl": null,
+"t": "Utiliser le potentiel : champ uniforme et accélération de particules",
+"travail": [
+{
+"n": "1",
+"t": "Lis le paragraphe 3.3 du support de cours (p. 6) : conducteurs et diélectriques.",
+"l": [
+[
+"Support, p. 6",
+"docs/BCG_PG2_Chapitre_3_Electrostatique.pdf#page=7"
+]
+]
+},
+{
+"n": "2",
+"t": "Lis la section 3.4 du support de cours (p. 6) : travail de la force électrique, potentiel, relation champ-potentiel, électronvolt.",
+"l": [
+[
+"Support, p. 6",
+"docs/BCG_PG2_Chapitre_3_Electrostatique.pdf#page=7"
+]
+]
+},
+{
+"n": "3",
+"t": "Traite les exercices 4 (« Électrophorèse ») et 5 (« Canon à électrons d’un microscope électronique ») de la série de TD n°3.",
+"l": [
+[
+"TD n°3 — énoncés",
+"docs/TD_BCG_PG2_3_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG2_3_corrige.pdf"
+]
+]
+},
+{
+"n": "4",
+"t": "Sur la plateforme, fais le quiz « Électrostatique » et note ton score ; refais-le jusqu’à obtenir au moins 8/10.",
+"l": [
+[
+"Quiz",
+"quiz.html#bcgpg23"
+]
+]
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°3). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 4 : E = 500 V/m ; F ≈ 1,6 × 10⁻¹³ N, migration vers l’anode ; les longs fragments sont plus freinés par le gel.",
+"Exercice 5 : l’anode est au plus haut potentiel ; E_c = 50 keV ≈ 8,0 × 10⁻¹⁵ J, v ≈ 1,3 × 10⁸ m/s ; λ ≈ 5,6 × 10⁻¹² m."
+],
+"duree": "2 h",
+"echeance": "semaine 2, avant la séance de TD n°3"
+},
+{
+"a": "A33",
+"os": 3,
+"ra": "Utiliser le dipôle électrostatique (couple, énergie potentielle).",
+"osl": null,
+"t": "Étudier un dipôle électrostatique",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 3.5 du support de cours (p. 7) : moment dipolaire, potentiel lointain, dipôle dans un champ uniforme.",
+"l": [
+[
+"Support, p. 7",
+"docs/BCG_PG2_Chapitre_3_Electrostatique.pdf#page=8"
+]
+]
+},
+{
+"n": "2",
+"t": "Sur la plateforme, page « Simulations », manipule la simulation « Dipôle dans un champ uniforme » : écarte le dipôle de sa position d’équilibre et observe le couple qui le ramène.",
+"l": [
+[
+"Simulation",
+"simulations.html#dipole"
+]
+]
+},
+{
+"n": "3",
+"t": "Traite l’exercice 6 de la série de TD n°3 (« La molécule d’eau dans un champ »).",
+"l": [
+[
+"TD n°3 — énoncés",
+"docs/TD_BCG_PG2_3_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG2_3_corrige.pdf"
+]
+]
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°3). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 6 : couple maximal ≈ 6,2 × 10⁻²³ N·m ; ΔE_p ≈ 1,2 × 10⁻²² J ≈ 0,03 k_BT : orientation faible."
+],
+"duree": "1 h",
+"echeance": "semaine 2"
+},
+{
+"a": "A34",
+"os": 3,
+"ra": "Calculer la capacité, les associations et l’énergie de condensateurs ; modéliser une membrane cellulaire.",
+"osl": null,
+"t": "Calculer la capacité et l’énergie de condensateurs",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 3.6 du support de cours (p. 8) : capacité, condensateur plan, associations, énergie.",
+"l": [
+[
+"Support, p. 8",
+"docs/BCG_PG2_Chapitre_3_Electrostatique.pdf#page=9"
+]
+]
+},
+{
+"n": "2",
+"t": "Traite les exercices 7 (« Membrane d’un axone ») et 8 (« Associations et énergie ») de la série de TD n°3.",
+"l": [
+[
+"TD n°3 — énoncés",
+"docs/TD_BCG_PG2_3_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG2_3_corrige.pdf"
+]
+]
+},
+{
+"n": "3",
+"t": "En deux phrases : pourquoi un potentiel d’action ne modifie-t-il presque pas les concentrations ioniques du neurone ?",
+"l": []
+},
+{
+"t": "**Exigences :** expressions littérales avant toute application numérique ; résultats encadrés, avec leur unité et un nombre raisonnable de chiffres significatifs."
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°3). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 7 : S ≈ 3,1 × 10⁻⁸ m², C ≈ 0,20 nF ; Q ≈ 1,4 × 10⁻¹¹ C, soit 8,7 × 10⁷ ions ; fraction ≈ 1,2 × 10⁻⁴.",
+"Exercice 8 : C(équivalente) = 1,5 µF ; Q_3 = 18 µC, U = 6,0 V aux bornes de chaque condensateur, Q_1 = 6,0 µC et Q_2 = 12 µC ; W ≈ 1,1 × 10⁻⁴ J."
+],
+"duree": "2 h",
+"echeance": "semaine 3, avant la séance de TD n°3"
+},
+{
+"a": "B3",
+"os": null,
+"ra": null,
+"osl": [
+3
+],
+"t": "Faire le bilan du chapitre : exercices corrigés, quiz et autoévaluation",
+"travail": [
+{
+"n": "1",
+"t": "Relis la fiche « L’essentiel du chapitre » (support, p. 10) et vérifie que tu sais redémontrer chaque résultat encadré.",
+"l": [
+[
+"Support, p. 10",
+"docs/BCG_PG2_Chapitre_3_Electrostatique.pdf#page=11"
+]
+]
+},
+{
+"n": "2",
+"t": "Fais les exercices d’entraînement corrigés de la section 3.7 du support (p. 10) sans regarder les corrigés, puis compare.",
+"l": [
+[
+"Support, p. 10",
+"docs/BCG_PG2_Chapitre_3_Electrostatique.pdf#page=11"
+]
+]
+},
+{
+"n": "3",
+"t": "Sur la plateforme, fais le quiz « Électrostatique » jusqu’à obtenir au moins 8/10.",
+"l": [
+[
+"Quiz",
+"quiz.html#bcgpg23"
+]
+]
+},
+{
+"n": "4",
+"t": "Remplis la grille d’autoévaluation à la fin de ce cahier.",
+"l": []
+},
+{
+"n": "5",
+"t": "Pour chaque compétence « à revoir », note où retravailler et une question précise à poser en TD (TD n°3).",
+"l": []
+},
+{
+"t": "**Modalités :** travail individuel hors séance."
+}
+],
+"produit": [
+"Ton meilleur score au quiz, la grille d’autoévaluation remplie et ta question, notés dans ton cahier.",
+"**Restitution :** présentés à l’enseignant lors de la dernière séance de TD du chapitre."
+],
+"criteres": [
+"Score au quiz supérieur ou égal à 8/10.",
+"Exercices d’entraînement du support réussis sans aide (au moins trois sur quatre).",
+"Chaque compétence de la grille est cochée « acquis », ou accompagnée d’un plan de révision précis."
+],
+"duree": "1 h",
+"echeance": "fin de la semaine 3"
+}
+],
+"grille": {
+"1": [
+"Coulomb, champ, superposition",
+"Activité A31 ; support § 3.1 à 3.3",
+3
+],
+"2": [
+"Potentiel, tension, particules chargées",
+"Activité A32 ; support § 3.4",
+3
+],
+"3": [
+"Dipôle électrostatique",
+"Activité A33 ; support § 3.5",
+3
+],
+"4": [
+"Condensateurs",
+"Activité A34 ; support § 3.6",
+3
+]
+}
+},
+"bcgpg24": {
+"ec": "Physique générale 2 (LBCG1221)",
+"course": "bcgpg2",
+"n": 4,
+"titre": "Électrocinétique : courant continu et courant alternatif",
+"duree": "3 semaines, environ 10 h de travail personnel",
+"prerequis": "Chapitre 3 (charge, champ, potentiel, condensateur) ; nombres complexes (module, argument)",
+"docx": "Cahier_activites_BCG_PhysiqueGenerale2_Chapitre4",
+"support": "BCG_PG2_Chapitre_4_Electrocinetique",
+"quiz": "bcgpg24",
+"ec_code": "LBCG1221",
+"OS": {
+"4": "Analyser des circuits en courant continu et alternatif ; relier la conduction électrique à la nature des porteurs."
+},
+"RA": [
+[
+4,
+"Relier intensité, densité de courant, mobilité et conductivité (conduction électronique et ionique)."
+],
+[
+4,
+"Appliquer la loi d’Ohm, la loi de Joule, les associations de résistances et les lois de Kirchhoff."
+],
+[
+4,
+"Exploiter une grandeur sinusoïdale ; calculer une impédance complexe et une puissance moyenne."
+],
+[
+4,
+"Utiliser le rapport de transformation d’un transformateur ; expliquer le transport en haute tension."
+]
+],
+"synth": "Mobiliser l’ensemble des compétences du chapitre 4 et évaluer sa propre maîtrise.",
+"fiches": [
+{
+"a": "A41",
+"os": 4,
+"ra": "Relier intensité, densité de courant, mobilité et conductivité (conduction électronique et ionique).",
+"osl": null,
+"t": "Relier courant, porteurs et conductivité",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 4.1 du support de cours (p. 4) : intensité, densité de courant, générateurs.",
+"l": [
+[
+"Support, p. 4",
+"docs/BCG_PG2_Chapitre_4_Electrocinetique.pdf#page=5"
+]
+]
+},
+{
+"n": "2",
+"t": "Lis la section 4.2 du support de cours (p. 5) : mobilité, conductivité, résistivité, conduction ionique.",
+"l": [
+[
+"Support, p. 5",
+"docs/BCG_PG2_Chapitre_4_Electrocinetique.pdf#page=6"
+]
+]
+},
+{
+"n": "3",
+"t": "Traite les exercices 1 (« Courant ionique à travers un canal »), 2 (« Conductivité d’une solution d’eau salée ») et 3 (« Prospection électrique d’une nappe ») de la série de TD n°4.",
+"l": [
+[
+"TD n°4 — énoncés",
+"docs/TD_BCG_PG2_4_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG2_4_corrige.pdf"
+]
+]
+},
+{
+"t": "**Exigences :** expressions littérales avant toute application numérique ; résultats encadrés, avec leur unité et un nombre raisonnable de chiffres significatifs."
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°4). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 1 : I = 1,6 pA ; Q = 3,2 × 10⁻¹⁵ C.",
+"Exercice 2 : 6,0 × 10²⁴ ions de chaque espèce par m³ ; σ ≈ 0,126 S/m, ρ ≈ 7,9 Ω·m ; R ≈ 7,9 × 10² Ω.",
+"Exercice 3 : ρ_eau = 18 Ω·m (eau douce) ; 0,45 Ω·m près de la côte : intrusion d’eau salée."
+],
+"duree": "2 h",
+"echeance": "semaine 1, avant la séance de TD n°4"
+},
+{
+"a": "A42",
+"os": 4,
+"ra": "Appliquer la loi d’Ohm, la loi de Joule, les associations de résistances et les lois de Kirchhoff.",
+"osl": null,
+"t": "Analyser un circuit en courant continu",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 4.3 du support de cours (p. 6) : loi d’Ohm, loi de Joule, associations, diviseurs, lois de Kirchhoff.",
+"l": [
+[
+"Support, p. 6",
+"docs/BCG_PG2_Chapitre_4_Electrocinetique.pdf#page=7"
+]
+]
+},
+{
+"n": "2",
+"t": "Traite les exercices 4 (« Associations et pont diviseur ») et 5 (« Lois de Kirchhoff : deux générateurs ») de la série de TD n°4 ; pour l’exercice 5, dessine le circuit avec le sens choisi pour chaque courant.",
+"l": [
+[
+"TD n°4 — énoncés",
+"docs/TD_BCG_PG2_4_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG2_4_corrige.pdf"
+]
+]
+},
+{
+"n": "3",
+"t": "Sur la plateforme, fais le quiz « Électrocinétique » et note ton score ; refais-le jusqu’à obtenir au moins 8/10.",
+"l": [
+[
+"Quiz",
+"quiz.html#bcgpg24"
+]
+]
+},
+{
+"t": "**Exigences :** expressions littérales avant toute application numérique ; résultats encadrés, avec leur unité et un nombre raisonnable de chiffres significatifs."
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°4). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 4 : R(équivalente) = 300 Ω et I = 40 mA ; I_2 ≈ 26,7 mA et I_3 ≈ 13,3 mA ; puissance totale 0,48 W.",
+"Exercice 5 : U ≈ 6,55 V, I_1 ≈ 1,36 A, I_2 ≈ −0,27 A (le générateur 2 fonctionne en récepteur), I ≈ 1,09 A."
+],
+"duree": "2 h",
+"echeance": "semaine 2, avant la séance de TD n°4"
+},
+{
+"a": "A43",
+"os": 4,
+"ra": "Exploiter une grandeur sinusoïdale ; calculer une impédance complexe et une puissance moyenne.",
+"osl": null,
+"t": "Exploiter une grandeur sinusoïdale et calculer une impédance",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 4.4 du support de cours (p. 7) : grandeurs sinusoïdales, valeur efficace, déphasage, puissance moyenne.",
+"l": [
+[
+"Support, p. 7",
+"docs/BCG_PG2_Chapitre_4_Electrocinetique.pdf#page=8"
+]
+]
+},
+{
+"n": "2",
+"t": "Lis la section 4.5 du support de cours (p. 8) : notation complexe, impédances de R, L et C.",
+"l": [
+[
+"Support, p. 8",
+"docs/BCG_PG2_Chapitre_4_Electrocinetique.pdf#page=9"
+]
+]
+},
+{
+"n": "3",
+"t": "Traite les exercices 6 (« Grandeurs sinusoïdales ») et 7 (« Circuit RC et impédancemétrie ») de la série de TD n°4.",
+"l": [
+[
+"TD n°4 — énoncés",
+"docs/TD_BCG_PG2_4_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG2_4_corrige.pdf"
+]
+]
+},
+{
+"n": "4",
+"t": "Sur la plateforme, fais le quiz « Courant alternatif » et note ton score ; refais-le jusqu’à obtenir au moins 8/10.",
+"l": [
+[
+"Quiz",
+"quiz.html#bcgalt"
+]
+]
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°4). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 6 : U_m = 311 V, U_eff = 220 V, f = 50 Hz, T = 20 ms ; puissance ≈ 968 W.",
+"Exercice 7 : à 50 Hz, Z ≈ 3,2 kΩ et φ ≈ −81° ; à 50 kHz, Z ≈ 500 Ω et φ ≈ −0,4° ; fréquence de coupure ≈ 318 Hz."
+],
+"duree": "2 h",
+"echeance": "semaine 2"
+},
+{
+"a": "A44",
+"os": 4,
+"ra": "Utiliser le rapport de transformation d’un transformateur ; expliquer le transport en haute tension.",
+"osl": null,
+"t": "Utiliser un transformateur ; comprendre le transport de l’électricité",
+"travail": [
+{
+"n": "1",
+"t": "Lis la section 4.6 du support de cours (p. 9) : transformateur idéal, rapport de transformation.",
+"l": [
+[
+"Support, p. 9",
+"docs/BCG_PG2_Chapitre_4_Electrocinetique.pdf#page=10"
+]
+]
+},
+{
+"n": "2",
+"t": "Traite l’exercice 8 de la série de TD n°4 (« Transformateur d’un chargeur et transport d’énergie »).",
+"l": [
+[
+"TD n°4 — énoncés",
+"docs/TD_BCG_PG2_4_enonces.pdf"
+],
+[
+"corrigé",
+"docs/TD_BCG_PG2_4_corrige.pdf"
+]
+]
+},
+{
+"n": "3",
+"t": "Relève les indications portées sur le chargeur de ton téléphone (tension d’entrée, tension et intensité de sortie) et calcule le rapport de transformation correspondant.",
+"l": []
+},
+{
+"t": "**Modalités :** travail individuel préparé hors séance ; correction collective en séance de TD."
+}
+],
+"produit": [
+"Les solutions rédigées dans ton cahier : schéma si besoin, expressions littérales avant les applications numériques, résultats encadrés avec leur unité.",
+"**Restitution :** en séance de TD (série n°4). Ne consulte le corrigé détaillé de la plateforme qu’après avoir rédigé ta propre solution."
+],
+"criteres": [
+"Exercice 8 : N_2 = 60 spires ; I_1 ≈ 78 mA ; pertes de 12,5 kW sous 20 kV contre environ 99 W sous 225 kV.",
+"Ton rapport de transformation est de l’ordre de 1/40 (de 230 V à environ 5 V)."
+],
+"duree": "1 h",
+"echeance": "semaine 3, avant la séance de TD n°4"
+},
+{
+"a": "B4",
+"os": null,
+"ra": null,
+"osl": [
+4
+],
+"t": "Faire le bilan du chapitre : exercices corrigés, quiz et autoévaluation",
+"travail": [
+{
+"n": "1",
+"t": "Relis la fiche « L’essentiel du chapitre » (support, p. 10) et vérifie que tu sais redémontrer chaque résultat encadré.",
+"l": [
+[
+"Support, p. 10",
+"docs/BCG_PG2_Chapitre_4_Electrocinetique.pdf#page=11"
+]
+]
+},
+{
+"n": "2",
+"t": "Fais les exercices d’entraînement corrigés de la section 4.7 du support (p. 9) sans regarder les corrigés, puis compare.",
+"l": [
+[
+"Support, p. 9",
+"docs/BCG_PG2_Chapitre_4_Electrocinetique.pdf#page=10"
+]
+]
+},
+{
+"n": "3",
+"t": "Sur la plateforme, fais le quiz « Électrocinétique » jusqu’à obtenir au moins 8/10.",
+"l": [
+[
+"Quiz",
+"quiz.html#bcgpg24"
+]
+]
+},
+{
+"n": "4",
+"t": "Sur la plateforme, fais le quiz « Courant alternatif » jusqu’à obtenir au moins 8/10.",
+"l": [
+[
+"Quiz",
+"quiz.html#bcgalt"
+]
+]
+},
+{
+"n": "5",
+"t": "Remplis la grille d’autoévaluation à la fin de ce cahier.",
+"l": []
+},
+{
+"n": "6",
+"t": "Pour chaque compétence « à revoir », note où retravailler et une question précise à poser en TD (TD n°4).",
+"l": []
+},
+{
+"t": "**Modalités :** travail individuel hors séance."
+}
+],
+"produit": [
+"Ton meilleur score au quiz, la grille d’autoévaluation remplie et ta question, notés dans ton cahier.",
+"**Restitution :** présentés à l’enseignant lors de la dernière séance de TD du chapitre."
+],
+"criteres": [
+"Score au quiz supérieur ou égal à 8/10 pour chacun des deux quiz.",
+"Exercices d’entraînement du support réussis sans aide (au moins trois sur quatre).",
+"Chaque compétence de la grille est cochée « acquis », ou accompagnée d’un plan de révision précis."
+],
+"duree": "1 h",
+"echeance": "fin de la semaine 3"
+}
+],
+"grille": {
+"1": [
+"Courant, conduction, résistivité",
+"Activité A41 ; support § 4.1 et 4.2",
+4
+],
+"2": [
+"Courant continu : Ohm, Joule, Kirchhoff",
+"Activité A42 ; support § 4.3",
+4
+],
+"3": [
+"Alternatif, notation complexe, impédance",
+"Activité A43 ; support § 4.4 et 4.5",
+4
+],
+"4": [
+"Transformateur",
+"Activité A44 ; support § 4.6",
+4
 ]
 }
 }
