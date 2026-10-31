@@ -7,7 +7,7 @@
      ⚠ Toute modification du site doit s'accompagner d'un changement de VERSION.
    - documents PDF : copie locale d'abord, rafraîchie en arrière-plan
    - bibliothèques externes (KaTeX) : copie locale permanente */
-const VERSION = "v165";
+const VERSION = "v166";
 const SHELL = "shell-" + VERSION;
 const PDFS = "pdf-v1";          // nom stable : les documents enregistrés survivent aux mises à jour du site
 const EXT = "ext-v1";           // KaTeX ne change pas : inutile de le retélécharger à chaque version
@@ -19,10 +19,13 @@ const SHELL_FILES = [
   "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png", "img/usnm-logo.png",
   "img/Support_Chapitre_1_Calcul_vectoriel.jpg", "img/Support_Chapitre_2_Cinematique.jpg",
   "img/Support_Chapitre_3_Dynamique.jpg", "img/Support_Chapitre_4_Travail_energie.jpg",
-  "img/Electricite_Chapitre_1_Electrostatique.jpg", "img/Electricite_Chapitre_2_Champ_potentiel.jpg", "img/Electricite_Chapitre_3_Dipole.jpg", "img/Electricite_Chapitre_4_Electrocinetique.jpg", "img/Electricite2_Chapitre_1_Champ_magnetique.jpg", "img/Fascicule_TP_Physique_L1.jpg", "img/Optique_Chapitre_1_Lois_fondamentales.jpg", "img/Optique_Chapitre_2_Formation_images.jpg", "img/Optique_Chapitre_3_Prisme_lame.jpg", "img/Optique_Chapitre_4_Miroirs_dioptres_spheriques.jpg", "img/Optique_Chapitre_5_Lentilles_minces.jpg", "img/BCG_PG1_Chapitre_4_Mecanique_fluides.jpg", "img/BCG_PG1_Chapitre_3_Travail_energie.jpg", "img/BCG_PG1_Chapitre_2_Cinematique_dynamique.jpg", "img/BCG_PG1_Chapitre_1_Grandeurs_mesures.jpg"
+  "img/Electricite_Chapitre_1_Electrostatique.jpg", "img/Electricite_Chapitre_2_Champ_potentiel.jpg", "img/Electricite_Chapitre_3_Dipole.jpg", "img/Electricite_Chapitre_4_Electrocinetique.jpg", "img/Electricite2_Chapitre_1_Champ_magnetique.jpg", "img/Fascicule_TP_Physique_L1.jpg", "img/Optique_Chapitre_1_Lois_fondamentales.jpg", "img/Optique_Chapitre_2_Formation_images.jpg", "img/Optique_Chapitre_3_Prisme_lame.jpg", "img/Optique_Chapitre_4_Miroirs_dioptres_spheriques.jpg", "img/Optique_Chapitre_5_Lentilles_minces.jpg", "img/BCG_PG1_Chapitre_5_Optique_geometrique.jpg", "img/BCG_PG1_Chapitre_4_Mecanique_fluides.jpg", "img/BCG_PG1_Chapitre_3_Travail_energie.jpg", "img/BCG_PG1_Chapitre_2_Cinematique_dynamique.jpg", "img/BCG_PG1_Chapitre_1_Grandeurs_mesures.jpg"
 ];
 /* supports de cours et TD (≈ 8 Mo) : enregistrés dès la première visite */
 const DOC_FILES = [
+  "docs/TD_BCG_PG1_5_corrige.pdf",
+  "docs/TD_BCG_PG1_5_enonces.pdf",
+  "docs/BCG_PG1_Chapitre_5_Optique_geometrique.pdf",
   "docs/TD_BCG_PG1_4_corrige.pdf",
   "docs/TD_BCG_PG1_4_enonces.pdf",
   "docs/BCG_PG1_Chapitre_4_Mecanique_fluides.pdf",
