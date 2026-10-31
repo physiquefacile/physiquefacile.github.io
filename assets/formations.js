@@ -38,11 +38,11 @@
       line: "Licence Biologie, Chimie et Géologie (BCG) • Département SVT • L1 (semestres 1 et 2)",
       ecs: [
         { code: "LBCG1121", title: "Physique générale 1", ch: [
-          { n: 1, t: "Outils de base et cinématique", res: ["bcgpg11", "meca1", "meca2"] },
-          { n: 2, t: "Dynamique du point", res: ["bcgpg12", "meca3"] },
-          { n: 3, t: "Travail, énergie et puissance", res: ["bcgpg13", "meca4"], sims: ["energie"] },
+          { n: 1, t: "Grandeurs, mesures, unités et précisions", res: ["bcgmes", "meca1"] },
+          { n: 2, t: "Cinématique et dynamique du point", res: ["bcgpg11", "bcgpg12", "meca2", "meca3"], sims: ["frenet"] },
+          { n: 3, t: "Travail et énergie", res: ["bcgpg13", "meca4"], sims: ["energie"] },
           { n: 4, t: "Mécanique des fluides", res: ["bcgpg14"] },
-          { n: 5, t: "Optique géométrique", res: ["bcgpg15", "opt1", "opt5"], sims: ["refrac", "lentille", "miroir"] } ] },
+          { n: 5, t: "Optique géométrique", res: ["bcgpg15", "opt1", "opt2", "opt3", "opt4", "opt5"], sims: ["refrac", "prisme", "miroir", "lentille"] } ] },
         { code: "LBCG1122", title: "Physique expérimentale 1", ch: [
           { n: 1, t: "Mesures et incertitudes" },
           { n: 2, t: "Chute libre et plan incliné", res: ["meca2", "meca3"] },
@@ -50,11 +50,10 @@
           { n: 4, t: "Poussée d'Archimède et viscosité", res: ["bcgpg14"] },
           { n: 5, t: "Lentilles minces et banc d'optique", res: ["bcgpg15", "opt5"], sims: ["lentille"] } ] },
         { code: "LBCG1221", title: "Physique générale 2", ch: [
-          { n: 1, t: "Température et chaleur", res: ["bcgpg21"] },
-          { n: 2, t: "Gaz parfait et premier principe", res: ["bcgpg22"] },
-          { n: 3, t: "Électrostatique", res: ["bcgpg23", "elec1", "elec2"], sims: ["champ"] },
-          { n: 4, t: "Électrocinétique", res: ["bcgpg24", "elec4"] },
-          { n: 5, t: "Oscillations et ondes mécaniques", res: ["bcgpg25"] } ] },
+          { n: 1, t: "Thermodynamique : température, gaz, premier principe", res: ["bcgpg21", "bcgpg22"] },
+          { n: 2, t: "Thermodynamique : second principe, changements d'état", res: ["bcgthm2"] },
+          { n: 3, t: "Électrostatique", res: ["bcgpg23", "elec1", "elec2", "elec3"], sims: ["champ", "dipole"] },
+          { n: 4, t: "Électrocinétique : continu et alternatif", res: ["bcgpg24", "bcgalt", "elec4"] } ] },
         { code: "LBCG1222", title: "Physique expérimentale 2", ch: [
           { n: 1, t: "Calorimétrie", res: ["bcgpg21"] },
           { n: 2, t: "Loi de Boyle-Mariotte", res: ["bcgpg22"] },
@@ -66,7 +65,7 @@
           { n: 2, t: "Bioélectricité", res: ["bcgbio2"] },
           { n: 3, t: "Rayonnements électromagnétiques", res: ["bcgbio3"] },
           { n: 4, t: "Radioactivité", res: ["bcgbio4"] },
-          { n: 5, t: "Ultrasons", res: ["bcgbio5"] } ] } ] },
+          { n: 5, t: "Ultrasons", res: ["bcgbio5", "bcgpg25"] } ] } ] },
     MI: { tab: "Licence MI", short: "L2 MI",
       line: "Licence Mathématiques et Informatique (MI) • L2 (semestre 4, options RISE et SDC)",
       ecs: [
@@ -140,7 +139,7 @@
         return ks.map(function (k) {
           var shared = f !== "PCI" && pci.indexOf(k) >= 0;
           return '<button type="button" class="pill" data-k="' + k + '" aria-pressed="' + (k === o.cur) + '" title="' + esc(o.sub(k)) + '">' + lab +
-            (ks.length > 1 && shared ? " (" + esc(o.sub(k)) + ")" : "") + (shared ? '<span class="tg">PCI</span>' : "") + (o.extra ? o.extra(k) : "") + "</button>";
+            (ks.length > 1 ? " (" + esc(o.sub(k)) + ")" : "") + (shared ? '<span class="tg">PCI</span>' : "") + (o.extra ? o.extra(k) : "") + "</button>";
         }).join("");
       }).join("");
       return '<div class="grp"><div class="grp-t">' + esc(ec.title) + " • " + ec.code + '</div><div class="pill-row">' + items + "</div></div>";

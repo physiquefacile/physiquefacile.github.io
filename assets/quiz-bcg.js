@@ -6,7 +6,7 @@
 window.QUIZ=Object.assign(window.QUIZ||{},{
 "bcgpg11": {
 "course": "Physique générale 1",
-"title": "Chapitre 1 — Outils de base et cinématique du point",
+"title": "Chapitre 2 — Outils de base et cinématique du point",
 "qs": [
 {
 "q": "Quelle est l'unité SI d'une force exprimée avec les unités de base ?",
@@ -762,7 +762,7 @@ window.QUIZ=Object.assign(window.QUIZ||{},{
 },
 "bcgpg22": {
 "course": "Physique générale 2",
-"title": "Chapitre 2 — Gaz parfait et premier principe",
+"title": "Chapitre 1 — Gaz parfait et premier principe",
 "qs": [
 {
 "q": "L'équation d'état du gaz parfait s'écrit :",
@@ -1140,7 +1140,7 @@ window.QUIZ=Object.assign(window.QUIZ||{},{
 },
 "bcgpg25": {
 "course": "Physique générale 2",
-"title": "Chapitre 5 — Oscillations et ondes mécaniques",
+"title": "Complément — Oscillations et ondes mécaniques",
 "qs": [
 {
 "q": "La période propre d'un oscillateur masse-ressort vaut :",
@@ -1891,6 +1891,388 @@ window.QUIZ=Object.assign(window.QUIZ||{},{
 "a": 1,
 "e": "Ce sont des ondes mécaniques de faible énergie : l'échographie est sans danger connu, même pendant la grossesse.",
 "s": "Effet Doppler"
+}
+]
+}
+});
+
+/* Ajout : chapitres du polycopié de Physique générale BCG (grandeurs et mesures, second principe, courant alternatif) */
+window.QUIZ=Object.assign(window.QUIZ||{},{
+"bcgmes": {
+"course": "Physique générale 1",
+"title": "Chapitre 1 — Grandeurs, mesures, unités et précisions",
+"qs": [
+{
+"q": "Laquelle de ces unités n'est PAS une unité de base du Système international ?",
+"c": [
+"le kelvin",
+"la mole",
+"le newton",
+"la candela"
+],
+"a": 2,
+"e": "Le newton est une unité dérivée : $1\\ \\mathrm{N}=1\\ \\mathrm{kg\\cdot m\\cdot s^{-2}}$. Les sept unités de base sont m, kg, s, A, K, mol et cd.",
+"s": "Unités et systèmes d'unités"
+},
+{
+"q": "Quelle est la dimension d'une énergie ?",
+"c": [
+"$\\mathrm{M\\,L\\,T^{-2}}$",
+"$\\mathrm{M\\,L^{2}\\,T^{-2}}$",
+"$\\mathrm{M\\,L^{2}\\,T^{-1}}$",
+"$\\mathrm{M\\,L^{-1}\\,T^{-2}}$"
+],
+"a": 1,
+"e": "D'après $E_c=\\frac{1}{2}mv^2$ : $[E]=\\mathrm{M}\\times(\\mathrm{L\\,T^{-1}})^2=\\mathrm{M\\,L^2\\,T^{-2}}$.",
+"s": "Analyse dimensionnelle"
+},
+{
+"q": "La période $T$ d'un pendule simple dépend de sa longueur $\\ell$ et de $g$. Quelle expression est homogène à une durée ?",
+"c": [
+"$2\\pi\\sqrt{\\ell/g}$",
+"$2\\pi\\sqrt{g/\\ell}$",
+"$2\\pi\\,\\ell/g$",
+"$2\\pi\\sqrt{\\ell g}$"
+],
+"a": 0,
+"e": "$[\\ell/g]=\\mathrm{L}/(\\mathrm{L\\,T^{-2}})=\\mathrm{T^2}$, donc $\\sqrt{\\ell/g}$ a la dimension d'une durée.",
+"s": "Analyse dimensionnelle"
+},
+{
+"q": "Combien de chiffres significatifs comporte la mesure $0{,}00470\\ \\mathrm{m}$ ?",
+"c": [
+"2",
+"3",
+"5",
+"6"
+],
+"a": 1,
+"e": "Les zéros placés à gauche ne sont pas significatifs ; le zéro final l'est. On compte 4, 7 et 0 : trois chiffres significatifs.",
+"s": "Chiffres significatifs"
+},
+{
+"q": "On calcule $12{,}3\\times 2{,}1$. Quel résultat est écrit avec le bon nombre de chiffres significatifs ?",
+"c": [
+"$25{,}83$",
+"$25{,}8$",
+"$26$",
+"$30$"
+],
+"a": 2,
+"e": "Pour un produit, le résultat garde le nombre de chiffres significatifs de la donnée la moins précise : 2,1 en a deux, d'où $26$.",
+"s": "Chiffres significatifs"
+},
+{
+"q": "Une longueur est mesurée : $L=(25{,}0\\pm 0{,}1)\\ \\mathrm{cm}$. Quelle est l'erreur (incertitude) relative ?",
+"c": [
+"$0{,}1\\ \\%$",
+"$0{,}4\\ \\%$",
+"$4\\ \\%$",
+"$0{,}04\\ \\%$"
+],
+"a": 1,
+"e": "$\\Delta L/L=0{,}1/25{,}0=0{,}004$, soit $0{,}4\\ \\%$.",
+"s": "Erreurs absolue et relative"
+},
+{
+"q": "L'aire d'un rectangle est $S=ab$. Comment s'exprime l'incertitude relative sur $S$ (méthode des erreurs maximales) ?",
+"c": [
+"$\\dfrac{\\Delta S}{S}=\\dfrac{\\Delta a}{a}+\\dfrac{\\Delta b}{b}$",
+"$\\dfrac{\\Delta S}{S}=\\dfrac{\\Delta a}{a}\\times\\dfrac{\\Delta b}{b}$",
+"$\\Delta S=\\Delta a+\\Delta b$",
+"$\\dfrac{\\Delta S}{S}=\\dfrac{\\Delta a}{a}-\\dfrac{\\Delta b}{b}$"
+],
+"a": 0,
+"e": "En différentiant $\\ln S=\\ln a+\\ln b$ et en majorant, les incertitudes relatives s'ajoutent pour un produit ou un quotient.",
+"s": "Erreurs absolue et relative"
+},
+{
+"q": "Un thermomètre mal étalonné indique toujours $0{,}5\\ ^\\circ\\mathrm{C}$ de trop. Il s'agit d'une erreur :",
+"c": [
+"aléatoire",
+"systématique",
+"de lecture",
+"de parallaxe"
+],
+"a": 1,
+"e": "Une erreur qui se reproduit de la même façon à chaque mesure est systématique : on la corrige par un étalonnage, pas en répétant les mesures.",
+"s": "Sources d'erreurs"
+},
+{
+"q": "Soient $\\vec A=(1,\\,2,\\,0)$ et $\\vec B=(2,\\,-1,\\,3)$. Que vaut $\\vec A\\cdot\\vec B$ ?",
+"c": [
+"$0$ : les vecteurs sont orthogonaux",
+"$3$ : les vecteurs sont colinéaires",
+"$-1$",
+"$5$"
+],
+"a": 0,
+"e": "$\\vec A\\cdot\\vec B=1\\times2+2\\times(-1)+0\\times3=0$ : le produit scalaire est nul, les vecteurs sont perpendiculaires.",
+"s": "Scalaires et vecteurs"
+},
+{
+"q": "À combien de mètres par seconde correspond une vitesse de $1\\ \\mathrm{km/h}$ ?",
+"c": [
+"$3{,}6\\ \\mathrm{m/s}$",
+"$0{,}278\\ \\mathrm{m/s}$",
+"$1000\\ \\mathrm{m/s}$",
+"$16{,}7\\ \\mathrm{m/s}$"
+],
+"a": 1,
+"e": "$1\\ \\mathrm{km/h}=1000\\ \\mathrm{m}/3600\\ \\mathrm{s}=1/3{,}6\\approx0{,}278\\ \\mathrm{m/s}$.",
+"s": "Unités et systèmes d'unités"
+}
+]
+},
+"bcgthm2": {
+"course": "Physique générale 2",
+"title": "Chapitre 2 — Second principe et changements d'état",
+"qs": [
+{
+"q": "Selon l'énoncé de Clausius du second principe :",
+"c": [
+"la chaleur ne passe pas spontanément d'un corps froid vers un corps chaud",
+"l'énergie d'un système isolé se conserve",
+"toute la chaleur reçue peut être convertie en travail",
+"l'entropie d'un système isolé diminue"
+],
+"a": 0,
+"e": "Un transfert du froid vers le chaud est possible, mais seulement avec un apport de travail (réfrigérateur).",
+"s": "Second principe"
+},
+{
+"q": "Un système isolé subit une transformation irréversible. Sa variation d'entropie est :",
+"c": [
+"$\\Delta S<0$",
+"$\\Delta S=0$",
+"$\\Delta S>0$",
+"de signe quelconque"
+],
+"a": 2,
+"e": "Pour un système isolé, $\\Delta S=S_{\\text{créée}}>0$ si la transformation est irréversible ($=0$ si elle est réversible).",
+"s": "Entropie"
+},
+{
+"q": "Un système reçoit réversiblement $Q=600\\ \\mathrm{J}$ à la température constante $T=300\\ \\mathrm{K}$. Que vaut $\\Delta S$ ?",
+"c": [
+"$0{,}5\\ \\mathrm{J\\cdot K^{-1}}$",
+"$2\\ \\mathrm{J\\cdot K^{-1}}$",
+"$1{,}8\\times10^{5}\\ \\mathrm{J\\cdot K^{-1}}$",
+"$0$"
+],
+"a": 1,
+"e": "Pour une transformation réversible isotherme, $\\Delta S=Q_{\\text{rév}}/T=600/300=2\\ \\mathrm{J\\cdot K^{-1}}$.",
+"s": "Entropie"
+},
+{
+"q": "$1\\ \\mathrm{kg}$ de glace fond à $273\\ \\mathrm{K}$ ($L_f=334\\ \\mathrm{kJ\\cdot kg^{-1}}$). Sa variation d'entropie vaut environ :",
+"c": [
+"$1{,}22\\ \\mathrm{kJ\\cdot K^{-1}}$",
+"$91\\ \\mathrm{MJ\\cdot K^{-1}}$",
+"$0{,}82\\ \\mathrm{J\\cdot K^{-1}}$",
+"$334\\ \\mathrm{kJ\\cdot K^{-1}}$"
+],
+"a": 0,
+"e": "$\\Delta S=mL_f/T=334\\,000/273\\approx1220\\ \\mathrm{J\\cdot K^{-1}}$.",
+"s": "Entropie"
+},
+{
+"q": "Quelle est l'unité SI de l'entropie ?",
+"c": [
+"$\\mathrm{J}$",
+"$\\mathrm{J\\cdot K^{-1}}$",
+"$\\mathrm{K\\cdot J^{-1}}$",
+"$\\mathrm{W\\cdot K^{-1}}$"
+],
+"a": 1,
+"e": "D'après $\\mathrm{d}S=\\delta Q_{\\text{rév}}/T$ : une énergie divisée par une température.",
+"s": "Entropie"
+},
+{
+"q": "L'énergie libre $F$ (fonction de Helmholtz) est définie par :",
+"c": [
+"$F=U-TS$",
+"$F=H-TS$",
+"$F=U+PV$",
+"$F=H+TS$"
+],
+"a": 0,
+"e": "$F=U-TS$ ; l'enthalpie libre (fonction de Gibbs) est $G=H-TS$.",
+"s": "Potentiels thermodynamiques"
+},
+{
+"q": "À température et pression constantes, une transformation spontanée d'un système fermé vérifie :",
+"c": [
+"$\\Delta G>0$",
+"$\\Delta G=0$",
+"$\\Delta G<0$",
+"$\\Delta H>0$"
+],
+"a": 2,
+"e": "À $T$ et $P$ fixées, l'enthalpie libre $G$ ne peut que diminuer lors d'une évolution spontanée ; elle est minimale à l'équilibre.",
+"s": "Potentiels thermodynamiques"
+},
+{
+"q": "Au point triple d'un corps pur :",
+"c": [
+"seules les phases liquide et gazeuse coexistent",
+"les trois phases solide, liquide et gaz coexistent",
+"le liquide et le gaz deviennent indiscernables",
+"le corps pur ne peut exister qu'à l'état solide"
+],
+"a": 1,
+"e": "Le point triple est l'unique couple $(P,T)$ où les trois phases coexistent ; liquide et gaz deviennent indiscernables au point critique.",
+"s": "Changements d'état"
+},
+{
+"q": "Pendant la fusion d'un corps pur sous pression constante, sa température :",
+"c": [
+"augmente régulièrement",
+"reste constante",
+"diminue",
+"oscille"
+],
+"a": 1,
+"e": "La chaleur reçue sert à changer d'état (chaleur latente) : la température reste constante tant que les deux phases coexistent.",
+"s": "Changements d'état"
+},
+{
+"q": "Quel est le rendement maximal (de Carnot) d'un moteur fonctionnant entre $600\\ \\mathrm{K}$ et $300\\ \\mathrm{K}$ ?",
+"c": [
+"$25\\ \\%$",
+"$50\\ \\%$",
+"$100\\ \\%$",
+"$200\\ \\%$"
+],
+"a": 1,
+"e": "$\\eta_{\\max}=1-T_f/T_c=1-300/600=0{,}5$. Aucun moteur réel ne l'atteint.",
+"s": "Second principe"
+}
+]
+},
+"bcgalt": {
+"course": "Physique générale 2",
+"title": "Chapitre 4 — Courant alternatif",
+"qs": [
+{
+"q": "La tension du secteur a une amplitude $U_m=311\\ \\mathrm{V}$. Quelle est sa valeur efficace ?",
+"c": [
+"$311\\ \\mathrm{V}$",
+"$155\\ \\mathrm{V}$",
+"$220\\ \\mathrm{V}$",
+"$440\\ \\mathrm{V}$"
+],
+"a": 2,
+"e": "Pour une grandeur sinusoïdale, $U_{\\text{eff}}=U_m/\\sqrt2=311/1{,}414\\approx220\\ \\mathrm{V}$.",
+"s": "Grandeurs sinusoïdales"
+},
+{
+"q": "Le secteur a une fréquence de $50\\ \\mathrm{Hz}$. Sa pulsation vaut :",
+"c": [
+"$50\\ \\mathrm{rad/s}$",
+"$100\\ \\mathrm{rad/s}$",
+"$314\\ \\mathrm{rad/s}$",
+"$3{,}14\\ \\mathrm{rad/s}$"
+],
+"a": 2,
+"e": "$\\omega=2\\pi f=2\\pi\\times50\\approx314\\ \\mathrm{rad\\cdot s^{-1}}$.",
+"s": "Grandeurs sinusoïdales"
+},
+{
+"q": "Quelle est la période d'une tension de fréquence $50\\ \\mathrm{Hz}$ ?",
+"c": [
+"$50\\ \\mathrm{ms}$",
+"$20\\ \\mathrm{ms}$",
+"$2\\ \\mathrm{ms}$",
+"$0{,}2\\ \\mathrm{s}$"
+],
+"a": 1,
+"e": "$T=1/f=1/50=0{,}02\\ \\mathrm{s}=20\\ \\mathrm{ms}$.",
+"s": "Grandeurs sinusoïdales"
+},
+{
+"q": "Quelle est l'impédance complexe d'un condensateur de capacité $C$ ?",
+"c": [
+"$jC\\omega$",
+"$\\dfrac{1}{jC\\omega}$",
+"$jL\\omega$",
+"$R$"
+],
+"a": 1,
+"e": "$\\underline Z_C=1/(jC\\omega)$ : son module $1/(C\\omega)$ diminue quand la fréquence augmente.",
+"s": "Notation complexe et impédance"
+},
+{
+"q": "Quel est le module de l'impédance d'une bobine idéale $L=0{,}1\\ \\mathrm{H}$ à $50\\ \\mathrm{Hz}$ ?",
+"c": [
+"$5\\ \\Omega$",
+"$31{,}4\\ \\Omega$",
+"$314\\ \\Omega$",
+"$0{,}032\\ \\Omega$"
+],
+"a": 1,
+"e": "$Z_L=L\\omega=0{,}1\\times2\\pi\\times50\\approx31{,}4\\ \\Omega$.",
+"s": "Notation complexe et impédance"
+},
+{
+"q": "Dans un résistor alimenté en sinusoïdal, le courant et la tension sont :",
+"c": [
+"en phase",
+"déphasés de $\\pi/2$",
+"en opposition de phase",
+"déphasés de $\\pi/4$"
+],
+"a": 0,
+"e": "$\\underline Z_R=R$ est réel : $u$ et $i$ sont en phase. Pour un condensateur ou une bobine idéale, le déphasage vaut $\\pm\\pi/2$.",
+"s": "Déphasage"
+},
+{
+"q": "La puissance moyenne reçue par un dipôle en régime sinusoïdal vaut :",
+"c": [
+"$P=U_{\\text{eff}}I_{\\text{eff}}$",
+"$P=U_{\\text{eff}}I_{\\text{eff}}\\cos\\varphi$",
+"$P=U_mI_m$",
+"$P=U_{\\text{eff}}I_{\\text{eff}}\\sin\\varphi$"
+],
+"a": 1,
+"e": "$\\cos\\varphi$ est le facteur de puissance ; $P$ est nulle pour un condensateur ou une bobine idéale ($\\varphi=\\pm\\pi/2$).",
+"s": "Puissance moyenne"
+},
+{
+"q": "Un résistor $R=100\\ \\Omega$ est parcouru par un courant d'intensité efficace $2\\ \\mathrm{A}$. Quelle puissance moyenne reçoit-il ?",
+"c": [
+"$200\\ \\mathrm{W}$",
+"$400\\ \\mathrm{W}$",
+"$800\\ \\mathrm{W}$",
+"$283\\ \\mathrm{W}$"
+],
+"a": 1,
+"e": "$P=RI_{\\text{eff}}^2=100\\times4=400\\ \\mathrm{W}$.",
+"s": "Puissance moyenne"
+},
+{
+"q": "Un circuit $RL$ série a $R=30\\ \\Omega$ et $L\\omega=40\\ \\Omega$. Quel est le module de son impédance ?",
+"c": [
+"$70\\ \\Omega$",
+"$10\\ \\Omega$",
+"$50\\ \\Omega$",
+"$1200\\ \\Omega$"
+],
+"a": 2,
+"e": "$Z=\\sqrt{R^2+(L\\omega)^2}=\\sqrt{900+1600}=50\\ \\Omega$.",
+"s": "Notation complexe et impédance"
+},
+{
+"q": "Un transformateur idéal a $N_1=1000$ spires au primaire et $N_2=50$ au secondaire. Avec $U_1=220\\ \\mathrm{V}$, on obtient :",
+"c": [
+"$U_2=11\\ \\mathrm{V}$",
+"$U_2=4400\\ \\mathrm{V}$",
+"$U_2=220\\ \\mathrm{V}$",
+"$U_2=0{,}23\\ \\mathrm{V}$"
+],
+"a": 0,
+"e": "$U_2/U_1=N_2/N_1=0{,}05$, d'où $U_2=11\\ \\mathrm{V}$ : c'est un abaisseur de tension.",
+"s": "Transformateurs"
 }
 ]
 }
