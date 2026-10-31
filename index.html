@@ -406,7 +406,7 @@ const COURSES=[
     toc:["Le champ magnétique : généralités","Loi de Biot et Savart","Applications : fil, spire, solénoïde","Flux magnétique et potentiel vecteur","Théorème d'Ampère","Forces magnétiques : Lorentz, Laplace","Circuit dans un champ uniforme ; dipôle magnétique"]}
   ]},
  {id:"bcgpg1",form:"BCG",quiz:true,tab:"Physique générale 1",noExo:true,eyebrow:"Licence BCG • UE Physique 1 (LBCG112) • EC LBCG1121 • L1 S1",title:"Physique générale 1 — mesures, mécanique, fluides et optique géométrique",
-  intro:"Cinq chapitres, d'après le polycopié de Physique générale de la Licence BCG : grandeurs, mesures et unités ; cinématique et dynamique du point ; travail et énergie ; mécanique des fluides ; optique géométrique. Les supports de cours, les séries de TD et les cahiers d'activités seront publiés au fil du semestre ; quiz et entraînement sont déjà disponibles.",
+  intro:"Cinq chapitres, d'après le polycopié de Physique générale de la Licence BCG : grandeurs, mesures et unités ; cinématique et dynamique du point ; travail et énergie ; mécanique des fluides ; optique géométrique. Chaque chapitre a son support de cours (démonstrations, figures, exemples biologiques et géologiques, fiche de synthèse) et sa série de TD avec corrigé détaillé ; quiz et entraînement complètent l'ensemble.",
   syOpen:true,
   syl:{code:"LBCG1121",ue:"Physique 1 (LBCG112)",cr:"",vol:"CM 24 h • TD 24 h • TPE 22 h • total 70 h",
    obj:"Maîtriser les grandeurs physiques et leur mesure, puis les bases de la mécanique du point, de la mécanique des fluides et de l'optique géométrique pour modéliser et résoudre des problèmes simples issus des sciences de la vie et de la Terre.",
@@ -440,12 +440,12 @@ const COURSES=[
    {n:5,lab:"TP",soon:true,title:"Lentilles minces et banc d'optique",toc:["Focométrie par autocollimation","Relation de conjugaison et grandissement","Modèle de l'œil et correction de la myopie","Modèle du microscope"]}
   ]},
  {id:"bcgpg2",form:"BCG",quiz:true,tab:"Physique générale 2",noExo:true,eyebrow:"Licence BCG • UE Physique 2 (LBCG122) • EC LBCG1221 • L1 S2",title:"Physique générale 2 — thermodynamique et électricité",
-  intro:"Quatre chapitres, d'après le polycopié de Physique générale de la Licence BCG : thermodynamique (premier puis second principe), électrostatique, électrocinétique en courant continu et alternatif. Les supports seront publiés au fil du semestre 2 ; quiz et entraînement sont déjà disponibles.",
+  intro:"Quatre chapitres, d'après le polycopié de Physique générale de la Licence BCG : thermodynamique (premier puis second principe), électrostatique, électrocinétique en courant continu et alternatif. Chaque chapitre a son support de cours (démonstrations, figures, exemples biologiques et géologiques, fiche de synthèse) et sa série de TD avec corrigé détaillé ; quiz et entraînement complètent l'ensemble.",
   syOpen:true,
   syl:{code:"LBCG1221",ue:"Physique 2 (LBCG122)",cr:"",vol:"CM 14 h • TD 14 h • TPE 12 h • total 40 h",
    obj:"Acquérir les bases de la thermodynamique et de l'électricité (électrostatique, courant continu et alternatif) pour décrire les échanges d'énergie et les phénomènes électriques du vivant et de la Terre.",
    pre:"Physique générale 1 (LBCG1121) ; dérivées, primitives, équations différentielles du premier ordre.",
-   prog:[["Thermodynamique : température, gaz parfait et gaz réel, premier principe","ok","Chapitre 1"],["Thermodynamique : second principe, entropie, changements d'état","ok","Chapitre 2"],["Électrostatique : Coulomb, champ, potentiel, dipôle, condensateurs","ok","Chapitre 3"],["Électrocinétique : courant continu et courant alternatif","soon",""]]},
+   prog:[["Thermodynamique : température, gaz parfait et gaz réel, premier principe","ok","Chapitre 1"],["Thermodynamique : second principe, entropie, changements d'état","ok","Chapitre 2"],["Électrostatique : Coulomb, champ, potentiel, dipôle, condensateurs","ok","Chapitre 3"],["Électrocinétique : courant continu et courant alternatif","ok","Chapitre 4"]]},
   chapters:[
    {n:1,title:"Thermodynamique (1) : température, gaz et premier principe",key:"BCG_PG2_Chapitre_1_Thermodynamique_1",pages:13,td:{n:1,e:"TD_BCG_PG2_1_enonces",ep:3,c:"TD_BCG_PG2_1_corrige",cp:5},
     toc:["Le langage de la thermodynamique", "La température", "Gaz parfait et gaz réel", "Énergie d'un système : travail et chaleur", "Premier principe de la thermodynamique"]},
@@ -453,7 +453,8 @@ const COURSES=[
     toc:["Second principe de la thermodynamique", "Entropie", "Autres potentiels thermodynamiques", "Changements d'état des corps purs"]},
    {n:3,title:"Électrostatique",key:"BCG_PG2_Chapitre_3_Electrostatique",pages:12,td:{n:3,e:"TD_BCG_PG2_3_enonces",ep:3,c:"TD_BCG_PG2_3_corrige",cp:5},
     toc:["Charges électriques", "Loi de Coulomb et champ électrique", "Champ électrique dans la matière", "Potentiel électrostatique", "Dipôle électrostatique", "Condensateurs"]},
-   {n:4,soon:true,title:"Électrocinétique : courant continu et courant alternatif",toc:["Courant électrique : intensité, densité de courant, générateurs", "Conduction électronique et ionique : mobilité, conductivité, résistivité", "Courant continu : loi d'Ohm, loi de Joule, résistance équivalente, lois de Kirchhoff", "Courant alternatif : grandeurs sinusoïdales, déphasage, puissance moyenne", "Notation complexe et impédance", "Transformateurs"]}
+   {n:4,title:"Électrocinétique : courant continu et courant alternatif",key:"BCG_PG2_Chapitre_4_Electrocinetique",pages:11,td:{n:4,e:"TD_BCG_PG2_4_enonces",ep:2,c:"TD_BCG_PG2_4_corrige",cp:5},
+    toc:["Courant électrique", "Conduction électronique et ionique", "Courant continu", "Courant alternatif", "Notation complexe et impédance", "Transformateurs"]}
   ]},
  {id:"bcgpe2",form:"BCG",tab:"Physique expérimentale 2",noExo:true,eyebrow:"Licence BCG • UE Physique 2 (LBCG122) • EC LBCG1222 • L1 S2",title:"Physique expérimentale 2 — travaux pratiques",
   intro:"Cinq TP de 4 h, en binôme, qui accompagnent Physique générale 2 : calorimétrie, gaz parfait, circuits, condensateur à l'oscilloscope, ondes sonores.",
