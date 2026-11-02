@@ -13,8 +13,8 @@
 (function () {
   "use strict";
   var F = {
-    PCI: { tab: "Licence PCI", short: "L1 PCI",
-      line: "Licence Physique-Chimie et Informatique (LPCI) • L1 (semestres 1 et 2)",
+    PCI: { tab: "Licence PCI", short: "L1 et L2 PCI",
+      line: "Licence Physique-Chimie et Informatique (LPCI) • L1 (semestres 1 et 2)", line2: "Licence Physique-Chimie et Informatique (LPCI) • L2 (semestres 3 et 4)",
       ecs: [
         { code: "LPCI1121", title: "Mécanique 1", ch: [
           { n: 1, t: "Calcul vectoriel", res: ["meca1"] },
@@ -33,7 +33,31 @@
           { n: 4, t: "Miroirs et dioptres sphériques", res: ["opt4"], sims: ["miroir"] },
           { n: 5, t: "Lentilles minces", res: ["opt5"], sims: ["lentille"] } ] },
         { code: "LPCI1222", title: "Électricité 2", ch: [
-          { n: 1, t: "Le champ magnétique", res: ["elec21"] } ] } ] },
+          { n: 1, t: "Le champ magnétique", res: ["elec21"] } ] },
+        { code: "LPCI2321", title: "Thermodynamique (L2)", lvl: "L2", ch: [
+          { n: 1, t: "Systèmes thermodynamiques et équations d'état", res: ["bcgpg22"] },
+          { n: 2, t: "Premier principe", res: ["bcgpg22", "bcgpg21"] },
+          { n: 3, t: "Second principe et entropie", res: ["bcgthm2"] },
+          { n: 4, t: "Machines thermiques" },
+          { n: 5, t: "Changements d'état des corps purs", res: ["bcgthm2"] } ] },
+        { code: "LPCI2322", title: "Électromagnétisme (L2)", lvl: "L2", ch: [
+          { n: 1, t: "Analyse vectorielle" },
+          { n: 2, t: "Équations locales de l'électrostatique et de la magnétostatique", res: ["elec2"], sims: ["champ", "boule"] },
+          { n: 3, t: "Équations de Maxwell dans le vide" },
+          { n: 4, t: "Énergie électromagnétique" },
+          { n: 5, t: "Ondes électromagnétiques planes dans le vide" } ] },
+        { code: "LPCI2421", title: "Mécanique quantique (L2)", lvl: "L2", ch: [
+          { n: 1, t: "Origines de la mécanique quantique" },
+          { n: 2, t: "Dualité onde-corpuscule" },
+          { n: 3, t: "Fonction d'onde et équation de Schrödinger" },
+          { n: 4, t: "Puits, marche et barrière de potentiel" },
+          { n: 5, t: "Formalisme de la mécanique quantique" } ] },
+        { code: "LPCI2422", title: "Relativité restreinte (L2)", lvl: "L2", ch: [
+          { n: 1, t: "Relativité galiléenne et expérience de Michelson-Morley" },
+          { n: 2, t: "Postulats d'Einstein et transformations de Lorentz" },
+          { n: 3, t: "Conséquences cinématiques" },
+          { n: 4, t: "Composition des vitesses et espace-temps" },
+          { n: 5, t: "Dynamique relativiste" } ] } ] },
     BCG: { tab: "Licence BCG", short: "L1 BCG (SVT)",
       line: "Licence Biologie, Chimie et Géologie (BCG) • Département SVT • L1 (semestres 1 et 2)",
       ecs: [

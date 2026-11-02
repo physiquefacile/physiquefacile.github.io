@@ -76,6 +76,8 @@ a{color:var(--accent)}
 .ecpanel{position:relative;display:grid;gap:4px;background:var(--surface);border:1.5px solid var(--accent);border-radius:16px;padding:6px 6px 6px;margin-top:6px;max-width:100%;box-shadow:var(--shadow)}
 .ecpanel::before{content:"";position:absolute;top:-8px;left:var(--ax,40px);width:13px;height:13px;background:var(--surface);border-left:1.5px solid var(--accent);border-top:1.5px solid var(--accent);transform:translateX(-50%) rotate(45deg);border-top-left-radius:3px}
 .ecpanel[hidden]{display:none}
+.ecpanel .lvl{align-self:center;font-family:var(--f-head);font-size:.74rem;font-weight:700;letter-spacing:.04em;color:var(--muted);padding:0 4px 0 10px;min-width:22px}
+.ecpanel .lvbr{flex-basis:100%;height:0}
 .ecl{font-family:var(--f-head);font-size:.74rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);padding:2px 10px 0}
 .ecpanel .tabs{border:0;padding:0;background:transparent;flex-wrap:wrap}
 .nrow2 .search{align-self:center;margin-top:6px}
@@ -405,6 +407,61 @@ const COURSES=[
     td:{e:"TD_Electricite2_1_enonces",ep:4,c:"TD_Electricite2_1_corrige",cp:10},
     toc:["Le champ magnétique : généralités","Loi de Biot et Savart","Applications : fil, spire, solénoïde","Flux magnétique et potentiel vecteur","Théorème d'Ampère","Forces magnétiques : Lorentz, Laplace","Circuit dans un champ uniforme ; dipôle magnétique"]}
   ]},
+ {id:"l2thermo",lvl:"L2",tab:"Thermodynamique",noExo:true,eyebrow:"UE Physique 3 (LPCI232) • EC LPCI2321 • L2 S3",title:"Thermodynamique — principes, machines thermiques et changements d'état",
+  intro:"5 chapitres, d'après le syllabus officiel de l'EC LPCI2321. Supports de cours, séries de TD corrigées et cahiers d'activités seront publiés au fil du semestre 3 ; le syllabus est déjà disponible.",
+  syOpen:true,
+  syl:{"code": "LPCI2321", "ue": "Physique 3 (LPCI232)", "cr": "6", "vol": "CM 24 h • TD 18 h • TPE 18 h • total 60 h", "ev": "travail individuel 30 % • travail de groupe 10 % • fiches d'activités 10 % • examen terminal 50 % (écrit, 3 h)", "obj": "Approfondir les principes de la thermodynamique et leurs applications aux machines thermiques et aux changements d'état.", "pre": "Thermodynamique du S1 (température, chaleur, gaz parfait) ; calcul différentiel et intégral (différentielles totales, dérivées partielles).", "prog": [["Systèmes thermodynamiques et équations d'état", "soon", ""], ["Premier principe", "soon", ""], ["Second principe et entropie", "soon", ""], ["Machines thermiques", "soon", ""], ["Changements d'état des corps purs", "soon", ""]]},
+  chapters:[
+   {n:1,soon:true,title:"Systèmes thermodynamiques et équations d'état",toc:["Système, frontière, variables d'état", "Équations d'état : gaz parfait et gaz de Van der Waals", "Coefficients thermoélastiques", "Travail des forces de pression ; diagramme de Clapeyron"]},
+   {n:2,soon:true,title:"Premier principe",toc:["Énergie interne et premier principe", "Enthalpie et capacités thermiques ; relation de Mayer", "Transformations du gaz parfait ; loi de Laplace", "Calorimétrie"]},
+   {n:3,soon:true,title:"Second principe et entropie",toc:["Réversibilité et irréversibilité", "Entropie : définition et calculs", "Bilan entropique et entropie créée", "Énoncés de Clausius et de Kelvin"]},
+   {n:4,soon:true,title:"Machines thermiques",toc:["Cycle de Carnot ; inégalité de Clausius", "Moteurs Beau de Rochas et Diesel", "Réfrigérateurs et pompes à chaleur"]},
+   {n:5,soon:true,title:"Changements d'état des corps purs",toc:["Diagrammes (P, T) et (P, v)", "Chaleurs latentes, titre en vapeur, règle des moments", "Formule de Clapeyron"]}
+  ]},
+ {id:"l2em",lvl:"L2",tab:"Électromagnétisme",noExo:true,eyebrow:"UE Physique 3 (LPCI232) • EC LPCI2322 • L2 S3",title:"Électromagnétisme dans le vide — équations de Maxwell et ondes",
+  intro:"5 chapitres, d'après le syllabus officiel de l'EC LPCI2322. Supports de cours, séries de TD corrigées et cahiers d'activités seront publiés au fil du semestre 3 ; le syllabus est déjà disponible.",
+  syOpen:true,
+  syl:{"code": "LPCI2322", "ue": "Physique 3 (LPCI232)", "cr": "6", "vol": "CM 24 h • TD 18 h • TPE 18 h • total 60 h", "ev": "travail individuel 30 % • travail de groupe 10 % • fiches d'activités 10 % • examen terminal 50 % (écrit, 3 h)", "obj": "Établir et exploiter les équations de Maxwell dans le vide et introduire la propagation des ondes électromagnétiques.", "pre": "Électricité 1 et Électricité 2 (champs électrostatique et magnétique, théorèmes de Gauss et d'Ampère, induction) ; calcul vectoriel en coordonnées cylindriques et sphériques.", "prog": [["Analyse vectorielle", "soon", ""], ["Équations locales de l'électrostatique et de la magnétostatique", "soon", ""], ["Équations de Maxwell dans le vide", "soon", ""], ["Énergie électromagnétique", "soon", ""], ["Ondes électromagnétiques planes dans le vide", "soon", ""]]},
+  chapters:[
+   {n:1,soon:true,title:"Analyse vectorielle",toc:["Gradient, divergence, rotationnel", "Laplacien", "Théorèmes de Stokes et d'Ostrogradski"]},
+   {n:2,soon:true,title:"Équations locales de l'électrostatique et de la magnétostatique",toc:["Forme locale du théorème de Gauss", "Équations de Poisson et de Laplace", "Forme locale du théorème d'Ampère", "Potentiel vecteur"]},
+   {n:3,soon:true,title:"Équations de Maxwell dans le vide",toc:["Conservation de la charge", "Courant de déplacement", "Les quatre équations de Maxwell", "Potentiels électromagnétiques"]},
+   {n:4,soon:true,title:"Énergie électromagnétique",toc:["Densité d'énergie électromagnétique", "Vecteur de Poynting", "Bilan local d'énergie"]},
+   {n:5,soon:true,title:"Ondes électromagnétiques planes dans le vide",toc:["Équation de propagation", "Ondes planes progressives", "Polarisation", "Énergie transportée"]}
+  ]},
+ {id:"l2mq",lvl:"L2",tab:"Mécanique quantique",noExo:true,eyebrow:"UE Physique 4 (LPCI242) • EC LPCI2421 • L2 S4",title:"Mécanique quantique — concepts, fonction d'onde et systèmes modèles",
+  intro:"5 chapitres, d'après le syllabus officiel de l'EC LPCI2421. Supports de cours, séries de TD corrigées et cahiers d'activités seront publiés au fil du semestre 4 ; le syllabus est déjà disponible.",
+  syOpen:true,
+  syl:{"code": "LPCI2421", "ue": "Physique 4 (LPCI242)", "cr": "6", "vol": "CM 24 h • TD 18 h • TPE 18 h • total 60 h", "ev": "travail individuel 30 % • travail de groupe 10 % • fiches d'activités 10 % • examen terminal 50 % (écrit, 3 h)", "obj": "Introduire les concepts et le formalisme de base de la mécanique quantique et les appliquer à des systèmes modèles.", "pre": "Équations différentielles linéaires du second ordre, nombres complexes, intégrales ; Électromagnétisme et Optique (ondes, interférences, diffraction).", "prog": [["Origines de la mécanique quantique", "soon", ""], ["Dualité onde-corpuscule", "soon", ""], ["Fonction d'onde et équation de Schrödinger", "soon", ""], ["Puits, marche et barrière de potentiel", "soon", ""], ["Formalisme de la mécanique quantique", "soon", ""]]},
+  chapters:[
+   {n:1,soon:true,title:"Origines de la mécanique quantique",toc:["Rayonnement du corps noir", "Effet photoélectrique", "Spectres atomiques et modèle de Bohr"]},
+   {n:2,soon:true,title:"Dualité onde-corpuscule",toc:["Relation de de Broglie", "Diffraction des électrons", "Relations d'incertitude de Heisenberg"]},
+   {n:3,soon:true,title:"Fonction d'onde et équation de Schrödinger",toc:["Fonction d'onde et densité de probabilité", "Équation de Schrödinger", "États stationnaires"]},
+   {n:4,soon:true,title:"Puits, marche et barrière de potentiel",toc:["Puits infini et puits fini", "Marche de potentiel", "Barrière et effet tunnel"]},
+   {n:5,soon:true,title:"Formalisme de la mécanique quantique",toc:["Opérateurs et observables", "Valeurs propres et mesure", "Valeurs moyennes"]}
+  ]},
+ {id:"l2rel",lvl:"L2",tab:"Relativité restreinte",noExo:true,eyebrow:"UE Physique 4 (LPCI242) • EC LPCI2422 • L2 S4",title:"Relativité restreinte — transformations de Lorentz et dynamique relativiste",
+  intro:"5 chapitres, d'après le syllabus officiel de l'EC LPCI2422. Supports de cours, séries de TD corrigées et cahiers d'activités seront publiés au fil du semestre 4 ; le syllabus est déjà disponible.",
+  syOpen:true,
+  syl:{"code": "LPCI2422", "ue": "Physique 4 (LPCI242)", "cr": "6", "vol": "CM 24 h • TD 18 h • TPE 18 h • total 60 h", "ev": "travail individuel 30 % • travail de groupe 10 % • fiches d'activités 10 % • examen terminal 50 % (écrit, 3 h)", "obj": "Maîtriser les principes et les conséquences de la relativité restreinte et son formalisme quadridimensionnel.", "pre": "Mécanique 1 (référentiels, composition des mouvements, quantité de mouvement, énergie) ; algèbre linéaire (matrices, changements de base).", "prog": [["Relativité galiléenne et expérience de Michelson-Morley", "soon", ""], ["Postulats d'Einstein et transformations de Lorentz", "soon", ""], ["Conséquences cinématiques", "soon", ""], ["Composition des vitesses et espace-temps", "soon", ""], ["Dynamique relativiste", "soon", ""]]},
+  chapters:[
+   {n:1,soon:true,title:"Relativité galiléenne et expérience de Michelson-Morley",toc:["Transformation de Galilée", "L'éther et l'expérience de Michelson-Morley"]},
+   {n:2,soon:true,title:"Postulats d'Einstein et transformations de Lorentz",toc:["Les deux postulats d'Einstein", "Transformations de Lorentz"]},
+   {n:3,soon:true,title:"Conséquences cinématiques",toc:["Relativité de la simultanéité", "Dilatation du temps", "Contraction des longueurs"]},
+   {n:4,soon:true,title:"Composition des vitesses et espace-temps",toc:["Composition relativiste des vitesses", "Espace-temps de Minkowski et intervalle", "Diagrammes d'espace-temps"]},
+   {n:5,soon:true,title:"Dynamique relativiste",toc:["Quantité de mouvement relativiste", "Énergie et E = mc²", "Collisions et désintégrations"]}
+  ]},
+ {id:"l2tp4",lvl:"L2",tab:"TP de Physique 4",noExo:true,eyebrow:"UE Expérimentation 4 (LPCI244) • EC LPCI2441 • L2 S4",title:"Travaux pratiques de physique 4 — physique moderne et électronique",
+  intro:"5 TP de physique moderne et d'électronique, d'après le syllabus de l'EC LPCI2441. Les fiches de TP seront publiées au fil du semestre 4 ; le syllabus officiel est déjà disponible.",
+  syOpen:true,
+  syl:{"code": "LPCI2441", "ue": "Expérimentation 4 (LPCI244)", "cr": "5", "vol": "TP 26 h • TPE 24 h • total 50 h", "ev": "travail individuel 30 % • travaux pratiques 40 % • examen terminal 30 %", "obj": "Mettre en œuvre des expériences illustrant la physique moderne et l'électronique de base.", "pre": "Mécanique quantique (LPCI2421) et Électricité 2 ; TP de L1 (instruments de mesure, incertitudes, graphes, régression linéaire).", "prog": [["Effet photoélectrique et constante de Planck", "soon", ""], ["Spectroscopie de l'hydrogène", "soon", ""], ["Diodes et redressement du courant", "soon", ""], ["Transistor : montage amplificateur simple", "soon", ""], ["Traitement des données et compte rendu", "soon", ""]]},
+  chapters:[
+   {n:1,lab:"TP",soon:true,title:"Effet photoélectrique et constante de Planck",toc:["Tension d'arrêt en fonction de la fréquence", "Détermination de h et du travail d'extraction"]},
+   {n:2,lab:"TP",soon:true,title:"Spectroscopie de l'hydrogène",toc:["Spectres d'émission", "Séries de Balmer et constante de Rydberg"]},
+   {n:3,lab:"TP",soon:true,title:"Diodes et redressement du courant",toc:["Caractéristique d'une diode", "Redressement simple et double alternance ; filtrage"]},
+   {n:4,lab:"TP",soon:true,title:"Transistor : montage amplificateur simple",toc:["Polarisation du transistor", "Gain d'un amplificateur"]},
+   {n:5,lab:"TP",soon:true,title:"Traitement des données et compte rendu",toc:["Incertitudes et régression linéaire", "Rédaction du compte rendu"]}
+  ]},
  {id:"bcgpg1",form:"BCG",quiz:true,tab:"Physique générale 1",noExo:true,eyebrow:"Licence BCG • UE Physique 1 (LBCG112) • EC LBCG1121 • L1 S1",title:"Physique générale 1 — mesures, mécanique, fluides et optique géométrique",
   intro:"Cinq chapitres, d'après le polycopié de Physique générale de la Licence BCG : grandeurs, mesures et unités ; cinématique et dynamique du point ; travail et énergie ; mécanique des fluides ; optique géométrique. Chaque chapitre a son support de cours (démonstrations, figures, exemples biologiques et géologiques, fiche de synthèse) sa série de TD avec corrigé détaillé, et son cahier d'activités (Word et fiches en ligne) ; les quiz complètent l'ensemble.",
   syOpen:true,
@@ -572,7 +629,7 @@ function pdfBtn(file,label,n,kind,primary){
 }
 // cahiers d'activités de l'apprenant (Word), un par chapitre
 const CAHIERS={"meca1": "Cahier_activites_Mecanique1_Chapitre1", "meca2": "Cahier_activites_Mecanique1_Chapitre2", "meca3": "Cahier_activites_Mecanique1_Chapitre3", "meca4": "Cahier_activites_Mecanique1_Chapitre4", "elec1": "Cahier_activites_Electricite1_Chapitre1", "elec2": "Cahier_activites_Electricite1_Chapitre2", "elec3": "Cahier_activites_Electricite1_Chapitre3", "elec4": "Cahier_activites_Electricite1_Chapitre4", "opt1": "Cahier_activites_Optique1_Chapitre1", "opt2": "Cahier_activites_Optique1_Chapitre2", "opt3": "Cahier_activites_Optique1_Chapitre3", "opt4": "Cahier_activites_Optique1_Chapitre4", "opt5": "Cahier_activites_Optique1_Chapitre5", "elec21": "Cahier_activites_Electricite2_Chapitre1", "bcgpg11": "Cahier_activites_BCG_PhysiqueGenerale1_Chapitre1", "bcgpg12": "Cahier_activites_BCG_PhysiqueGenerale1_Chapitre2", "bcgpg13": "Cahier_activites_BCG_PhysiqueGenerale1_Chapitre3", "bcgpg14": "Cahier_activites_BCG_PhysiqueGenerale1_Chapitre4", "bcgpg15": "Cahier_activites_BCG_PhysiqueGenerale1_Chapitre5", "bcgpg21": "Cahier_activites_BCG_PhysiqueGenerale2_Chapitre1", "bcgpg22": "Cahier_activites_BCG_PhysiqueGenerale2_Chapitre2", "bcgpg23": "Cahier_activites_BCG_PhysiqueGenerale2_Chapitre3", "bcgpg24": "Cahier_activites_BCG_PhysiqueGenerale2_Chapitre4"},CAHIERS_N={"meca1": 7, "meca2": 8, "meca3": 8, "meca4": 8, "elec1": 6, "elec2": 8, "elec3": 6, "elec4": 10, "elec21": 8, "opt1": 8, "opt2": 6, "opt3": 7, "opt4": 7, "opt5": 8, "bcgpg11": 6, "bcgpg12": 6, "bcgpg13": 5, "bcgpg14": 6, "bcgpg15": 5, "bcgpg21": 6, "bcgpg22": 5, "bcgpg23": 5, "bcgpg24": 5};
-const SYL={LPCI1121:["Syllabus_LPCI1121_Mecanique_1",8],LPCI1122:["Syllabus_LPCI1122_Electricite_1",8],LPCI1151:["Syllabus_LPCI1151_Travaux_Pratiques_de_Physique_1",6],LPCI1221:["Syllabus_LPCI1221_Optique_1",8],LPCI1222:["Syllabus_LPCI1222_Electricite_2",6],LPCI1251:["Syllabus_LPCI1251_Travaux_Pratiques_de_Physique_2",6],LBCG1121:["Syllabus_LBCG1121_Physique_generale_1",7],LBCG1122:["Syllabus_LBCG1122_Physique_experimentale_1",7],LBCG1221:["Syllabus_LBCG1221_Physique_generale_2",7],LBCG1222:["Syllabus_LBCG1222_Physique_experimentale_2",6],LBCG1223:["Syllabus_LBCG1223_Biophysique",7],INFO246b1:["Syllabus_INFO246b1_Electricite_1",7],INFO246b2:["Syllabus_INFO246b2_Electronique_1",6],INFO246c1:["Syllabus_INFO246c1_Electricite_Electronique",7],INFO246c2:["Syllabus_INFO246c2_Physique_quantique",7]};
+const SYL={LPCI1121:["Syllabus_LPCI1121_Mecanique_1",8],LPCI1122:["Syllabus_LPCI1122_Electricite_1",8],LPCI1151:["Syllabus_LPCI1151_Travaux_Pratiques_de_Physique_1",6],LPCI1221:["Syllabus_LPCI1221_Optique_1",8],LPCI1222:["Syllabus_LPCI1222_Electricite_2",6],LPCI1251:["Syllabus_LPCI1251_Travaux_Pratiques_de_Physique_2",6],LBCG1121:["Syllabus_LBCG1121_Physique_generale_1",7],LBCG1122:["Syllabus_LBCG1122_Physique_experimentale_1",7],LBCG1221:["Syllabus_LBCG1221_Physique_generale_2",7],LBCG1222:["Syllabus_LBCG1222_Physique_experimentale_2",6],LBCG1223:["Syllabus_LBCG1223_Biophysique",7],INFO246b1:["Syllabus_INFO246b1_Electricite_1",7],INFO246b2:["Syllabus_INFO246b2_Electronique_1",6],INFO246c1:["Syllabus_INFO246c1_Electricite_Electronique",7],INFO246c2:["Syllabus_INFO246c2_Physique_quantique",7],LPCI2321:["Syllabus_LPCI2321_Thermodynamique",6],LPCI2322:["Syllabus_LPCI2322_Electromagnetisme_dans_le_vide",6],LPCI2421:["Syllabus_LPCI2421_Mecanique_Quantique",6],LPCI2422:["Syllabus_LPCI2422_Relativite_restreinte",6],LPCI2441:["Syllabus_LPCI2441_Travaux_Pratiques_en_Physique_4",5]};
 function sylBtns(code,label,primary){const f=SYL[code];if(!f)return"";return pdfBtn("docs/syllabus/"+f[0],label||"Syllabus "+code,f[1],"pdf",primary)+`<a class="btn" href="docs/syllabus/${f[0]}.docx" download><span class="k k-word">WORD</span><span class="lbl">${esc(label||"Syllabus "+code)}</span><span class="n">.docx</span></a>`}
 const SIMS={meca2:[["frenet","Simulation : base de Frenet"]],meca4:[["energie","Simulation : énergie potentielle"]],elec1:[["champ","Simulation : lignes de champ"]],elec2:[["champ","Simulation : champ et potentiel"],["anneau","Simulation : anneau chargé"],["boule","Simulation : théorème de Gauss"]],elec3:[["champ","Simulation : lignes de champ du dipôle"],["dipole","Simulation : dipôle dans un champ uniforme"]],opt1:[["refrac","Simulation : réfraction et réflexion totale"]],opt3:[["prisme","Simulation : prisme et dispersion"]],opt4:[["miroir","Simulation : miroir sphérique"]],opt5:[["lentille","Simulation : lentille mince"]]};
 /* ---------- quiz, entraînement et simulations rattachés à chaque formation / EC (assets/formations.js) ---------- */
@@ -708,11 +765,13 @@ function curForm(){return formOf(COURSES.find(x=>x.id===current)||COURSES[0])}
 function renderNav(){
   const f=curForm();try{localStorage.setItem("formation",f)}catch(e){}
   $("#forms").innerHTML=`<span class="fl">Formation</span>`+Object.keys(FORMS).map(k=>`<button type="button" class="form" role="tab" data-f="${k}" aria-selected="${k===f}" aria-expanded="${k===f&&ecOpen}" aria-controls="ecpanel">${esc(FORMS[k].tab)}</button>`).join("");
-  $("#tabs").innerHTML=COURSES.filter(c=>formOf(c)===f).map(c=>`<button type="button" class="tab" role="tab" data-id="${c.id}">${esc(c.tab)}</button>`).join("");
+  const cs=COURSES.filter(c=>formOf(c)===f),lv=[...new Set(cs.map(c=>c.lvl||"L1"))],tb=c=>`<button type="button" class="tab" role="tab" data-id="${c.id}">${esc(c.tab)}</button>`;
+  $("#tabs").innerHTML=lv.length>1?lv.map(l=>`<span class="lvl">${l}</span>`+cs.filter(c=>(c.lvl||"L1")===l).map(tb).join("")).join(`<span class="lvbr" aria-hidden="true"></span>`):cs.map(tb).join("");
   $("#ecl").textContent="EC de la "+FORMS[f].tab;
   $("#ecpanel").hidden=!ecOpen;
   placeEC();
-  const u=$("#ufrLine");if(u)u.textContent="UFR des Sciences, des Technologies et de l’Innovation (UFR-STI) • "+FORMS[f].line+" • Année universitaire 2026 – 2027";
+  const cc=COURSES.find(x=>x.id===current)||{},ln=cc.lvl==="L2"?FORMS[f].line.replace(/L1 \(semestres 1 et 2\)/,"L2 (semestres 3 et 4)"):FORMS[f].line;
+  const u=$("#ufrLine");if(u)u.textContent="UFR des Sciences, des Technologies et de l’Innovation (UFR-STI) • "+ln+" • Année universitaire 2026 – 2027";
 }
 /* place la fenêtre des EC juste sous la formation choisie (flèche pointée sur le bouton) */
 function placeEC(){
@@ -728,7 +787,7 @@ renderNav();
 $("#forms").addEventListener("click",e=>{const b=e.target.closest(".form");if(!b)return;
   if(b.dataset.f===curForm()){ecOpen=!ecOpen;renderNav();return}
   const first=COURSES.find(c=>formOf(c)===b.dataset.f);if(!first)return;current=first.id;ecOpen=true;try{localStorage.setItem("tab",current)}catch(_){}renderNav();render()});
-$("#tabs").addEventListener("click",e=>{const b=e.target.closest(".tab");if(!b)return;current=b.dataset.id;try{localStorage.setItem("tab",current)}catch(_){}render()});
+$("#tabs").addEventListener("click",e=>{const b=e.target.closest(".tab");if(!b)return;current=b.dataset.id;try{localStorage.setItem("tab",current)}catch(_){}renderNav();render()});
 $("#q").addEventListener("input",render);
 if(Object.values(window.VIDEOS||{}).some(l=>l&&l.length))document.getElementById("navVid").hidden=false;
 render();
