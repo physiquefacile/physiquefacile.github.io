@@ -53,8 +53,8 @@
         <li>Déplace l'ensemble lentille + miroir jusqu'à ce que l'image renvoyée dans le plan de l'objet soit parfaitement nette.</li>
         <li>Enregistre : f′ = distance objet–lentille. Recommence 3 fois en partant alternativement de trop près et de trop loin.</li></ol>
       <h4>Partie B — Plans conjugués</h4><ol>
-        <li>Retire le miroir et place l'écran (méthode « Plans conjugués »). Lentille à 25 cm de l'objet.</li>
-        <li>Déplace l'écran jusqu'à l'image la plus nette ; enregistre OA et OA′.</li>
+        <li>Retire le miroir et place l'écran (méthode « Plans conjugués »). Lentille à 25 cm de l'objet, c'est-à-dire à la graduation 30 cm (l'objet est à la graduation 5 cm) : l'afficheur « Objet–lentille » indique cette distance.</li>
+        <li>Déplace l'écran avec le curseur, puis termine avec le réglage fin jusqu'à l'image la plus nette ; enregistre OA et OA′.</li>
         <li>Recommence pour au moins 6 positions de la lentille. Exploite le graphe 1/OA′ = f(1/OA).</li></ol>
       <h4>Partie C — Méthode de Bessel</h4><ol>
         <li>Fixe l'écran à une distance D de l'objet (D > 4f′, par exemple D = 80 cm) (méthode « Bessel »).</li>
@@ -71,8 +71,9 @@
       <div class="ctl"><label for="lnL">Position de la lentille <b id="lnLv"></b></label><input id="lnL" type="range" min="8" max="120" step="0.1" value="20"></div>
       <div class="ctl"><label for="lnLf">Réglage fin de la lentille <b>± 1 cm</b></label><input id="lnLf" type="range" min="-1" max="1" step="0.02" value="0"></div>
       <div class="ctl" id="lnEw"><label for="lnE">Position de l'écran <b id="lnEv"></b></label><input id="lnE" type="range" min="20" max="150" step="0.1" value="60"></div>
+      <div class="ctl" id="lnEfw"><label for="lnEf">Réglage fin de l'écran <b>± 1 cm</b></label><input id="lnEf" type="range" min="-1" max="1" step="0.02" value="0"></div>
       <div class="ctl" id="lnDw"><label for="lnD">Distance objet–écran D <b id="lnDv"></b></label><input id="lnD" type="range" min="40" max="140" step="1" value="80"></div>
-      <dl class="lcd"><dt>Objet</dt><dd>5,0 cm</dd><dt>Lentille</dt><dd id="lnLr"></dd><dt id="lnEl">Écran</dt><dd id="lnEr"></dd></dl>
+      <dl class="lcd"><dt>Objet</dt><dd>5,0 cm</dd><dt>Lentille</dt><dd id="lnLr"></dd><dt id="lnEl">Écran</dt><dd id="lnEr"></dd><dt>Objet–lentille</dt><dd id="lnOA"></dd></dl>
       <div class="row" id="lnRecW"><button type="button" class="btn primary sm" id="lnRec">Enregistrer la mesure</button></div>
       <div class="row" id="lnBesW"><button type="button" class="btn primary sm" id="lnP1">Noter position 1</button><button type="button" class="btn primary sm" id="lnP2">Noter position 2</button></div>
       <button type="button" class="btn sm" id="lnNew">Changer de lentille</button>`,
@@ -91,7 +92,9 @@
     ],
     questions: ["Autocollimation : pourquoi l'image est-elle renversée et de même taille que l'objet ?", "Plans conjugués : la pente de la droite est-elle proche de 1 ? Donne V et f′.", "Bessel : pourquoi n'y a-t-il plus d'image nette quand D < 4f′ ? Donne f′.", "Compare les trois valeurs de f′. Quelle méthode est la plus rapide ? la plus précise ?", "Pour une des mesures de la partie B, calcule le grandissement γ = OA′/OA."],
     init(T) {
-      let P = store.get("lent_par", null); const newL = () => { P = { f: [10, 12.5, 15, 20][Math.floor(Math.random() * 4)] * (1 + (Math.random() * 2 - 1) * 0.04) }; store.set("lent_par", P); }; if (!P) newL();
+      let P = store.get("lent_par", null); const newL = () => { P = { f: [10, 12.5, 15][Math.floor(Math.random() * 3)] * (1 + (Math.random() * 2 - 1) * 0.04) }; store.set("lent_par", P); }; if (!P) newL();
+      // ancienne lentille de 20 cm : image hors du banc pour OA = −25 cm et Bessel impossible pour D ≤ 80 cm → remplacée tant qu'aucune mesure n'est enregistrée
+      if (P.f > 17 && !T.locked() && !Object.keys(T.rows || {}).some(k => (T.rows[k] || []).length)) newL();
       const XO = 5, AP = 4, mirrorGap = 2; let mode = "A", xl = 20, xe = 60, D = 80, pend = null;
       const sharpThr = 0.03;
       // flou relatif (≈ diamètre de la tache / taille) et grandissement
@@ -100,7 +103,7 @@
           const p = isFinite(v) ? 2 * mirrorGap - v : -Infinity, pinv = isFinite(p) ? 1 / p : 0, qinv = 1 / f - pinv;
           if (qinv <= 0) return { blur: null }; const q = 1 / qinv, xi = xl - q; return { blur: AP * Math.abs(xi - XO) / q, g: 1, xi }; }
         const xs = mode === "C" ? XO + D : xe, xi = imageOf(XO, xl, P.f);
-        if (!isFinite(xi) || xi <= xl) return { blur: null }; const v = xi - xl; let blur = AP * Math.abs(xs - xi) / v;
+        if (!isFinite(xi) || xi <= xl) return { blur: null, why: "near" }; if (mode === "B" && xi > 150.5) return { blur: null, why: "far", xi }; const v = xi - xl; let blur = AP * Math.abs(xs - xi) / v;
         if (mode === "C") {   // Bessel : la netteté se juge sur la position de la lentille (profondeur de champ réaliste, ±0,25 cm),
           const dis = D * D - 4 * D * P.f;   // sinon la position agrandie (près de l'objet) serait presque impossible à trouver
           if (dis > 0) { const p = xl - XO, r = Math.sqrt(dis), dmin = Math.min(Math.abs(p - (D - r) / 2), Math.abs(p - (D + r) / 2)); blur = Math.min(blur, sharpThr * dmin / 0.25); }
@@ -108,17 +111,17 @@
         return { blur, g: -v / (xl - XO), xi, xs };
       };
       const ui = () => {
-        const fine = +$("#lnLf").value; xl = +$("#lnL").value + fine; xe = Math.max(+$("#lnE").value, xl + 1); D = +$("#lnD").value;
+        const fine = +$("#lnLf").value; xl = +$("#lnL").value + fine; xe = Math.min(150, Math.max(+$("#lnE").value + +$("#lnEf").value, xl + 1)); D = +$("#lnD").value;
         $("#lnLv").textContent = fr(+$("#lnL").value, 1) + " cm"; $("#lnEv").textContent = fr(xe, 1) + " cm"; $("#lnDv").textContent = D + " cm";
         $("#lnLr").textContent = fr(xl, 1) + " cm"; $("#lnEl").textContent = mode === "A" ? "Miroir" : "Écran"; $("#lnEr").textContent = mode === "A" ? fr(xl + mirrorGap, 1) + " cm" : fr(mode === "C" ? XO + D : xe, 1) + " cm";
-        $("#lnEw").hidden = mode !== "B"; $("#lnDw").hidden = mode !== "C"; $("#lnRecW").hidden = mode === "C"; $("#lnBesW").hidden = mode !== "C";
+        $("#lnOA").textContent = fr(xl - XO, 1) + " cm"; $("#lnEw").hidden = mode !== "B"; $("#lnEfw").hidden = mode !== "B"; $("#lnDw").hidden = mode !== "C"; $("#lnRecW").hidden = mode === "C"; $("#lnBesW").hidden = mode !== "C";
         T.draw();
       };
       document.querySelectorAll("[data-lnm]").forEach(b => b.onclick = () => { mode = b.dataset.lnm; setSeg("lnm", mode); pend = null; if (mode === "B") { $("#lnL").value = 30; $("#lnLf").value = 0; } ui(); T.msg(""); });
-      ["#lnL", "#lnLf", "#lnE", "#lnD"].forEach(s => $(s).addEventListener("input", () => { if (s === "#lnD") pend = null; ui(); }));
+      ["#lnL", "#lnLf", "#lnE", "#lnEf", "#lnD"].forEach(s => $(s).addEventListener("input", () => { if (s === "#lnD") pend = null; ui(); }));
       const sharp = () => { const s = state(); return s.blur != null && s.blur < sharpThr; };
       $("#lnRec").onclick = () => {
-        if (!sharp()) { T.msg("L'image n'est pas nette : ajuste la mise au point avant d'enregistrer.", "bad"); return; }
+        if (!sharp()) { const st = state(); T.msg(st.why === "near" ? "Pas d'image réelle : l'objet est trop près de la lentille (à moins de f′). Éloigne la lentille de l'objet." : st.why === "far" ? "L'image se forme au-delà du bout du banc (150 cm) : éloigne un peu la lentille de l'objet." : "L'image n'est pas nette : ajuste l'écran (curseur, puis réglage fin) avant d'enregistrer.", "bad"); return; }
         if (mode === "A") T.add("A", { xl: Math.round((xl + gauss() * 0.05) * 10) / 10 });
         else { const OA = -(xl - XO), OAp = xe - xl; T.add("B", { OA: Math.round(OA * 10) / 10, OAp: Math.round(OAp * 10) / 10 }); }
         T.msg("Mesure enregistrée.", "ok");
@@ -140,7 +143,7 @@
         // vignette
         const vw = Math.min(170, w * 0.36), vh = h * 0.3, vx = w - vw - 12, vy = h - vh - 12;
         if (mode === "A") viewF(c, vx, vy, vw, vh, "plan de l'objet (à côté de F)", s.blur, 1, true, s.blur != null && s.blur < sharpThr ? "image nette, renversée" : "image floue");
-        else viewF(c, vx, vy, vw, vh, "ce que l'on voit sur l'écran", s.blur, Math.abs(s.g || 0), true, s.blur == null ? "pas d'image" : s.blur < sharpThr ? "image nette (renversée)" : "image floue");
+        else viewF(c, vx, vy, vw, vh, "ce que l'on voit sur l'écran", s.blur, Math.abs(s.g || 0), true, s.blur == null ? (s.why === "far" ? "image hors du banc" : "pas d'image réelle") : s.blur < sharpThr ? "image nette (renversée)" : "image floue");
       };
       ui();
     }
