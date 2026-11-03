@@ -17,6 +17,10 @@
      detail : consignes (facultatif)
    ===================================================================== */
 window.ANNONCES = [
+  { date: "2026-11-03",
+    titre: "Nouveau : la classe virtuelle",
+    texte: "Une page « Classe virtuelle » rassemble les séances de cours et de TD en visioconférence : planning, salle de chaque EC, bouton « Rejoindre » actif 15 minutes avant le début, puis l'enregistrement à revoir.",
+    lien: "classe.html" },
   { date: "2026-10-29", important: true,
     titre: "Syllabus des EC de physique L1 en ligne",
     texte: "Les syllabus officiels (modèle USNM) de Mécanique 1, Électricité 1 et 2, Optique 1 et des TP de Physique 1 et 2 sont disponibles en PDF et en Word : ouvre « Syllabus de l'EC » en haut de chaque cours (et la carte du fascicule pour les TP).",
