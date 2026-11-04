@@ -110,9 +110,12 @@ async function post(o,essais){
     await new Promise(r=>setTimeout(r,2000*k+Math.random()*1500));
   }
 }
+/* aide à la mise en service : indique la version du correcteur réellement en ligne */
+let vers="";
+async function versionCorrecteur(){try{const R=await (await fetch(endpoint(),{cache:"no-store"})).json();const m=/\(v([\d.]+)\)/.exec(R.service||"");vers=m?"Correcteur en ligne : v"+m[1]+" — le forum demande la v2.15 ou plus récente (Déployer → Gérer les déploiements → Nouvelle version).":"";rendre()}catch(e){}}
 async function charger(){
   charge=true;erreur="";rendre();
-  try{const R=await post({action:"forumListe"});if(R.ok){D=R;try{sessionStorage.setItem("forum_cache",JSON.stringify(R))}catch(e){}}else erreur=R.error==="TP inconnu."?"Le forum ouvre très bientôt : l'enseignant termine sa mise en service.":(R.error||"Le forum n'a pas pu être chargé.")}
+  try{const R=await post({action:"forumListe"});if(R.ok){D=R;try{sessionStorage.setItem("forum_cache",JSON.stringify(R))}catch(e){}}else if(R.error==="TP inconnu."){erreur="Le forum ouvre très bientôt : l'enseignant termine sa mise en service.";versionCorrecteur()}else erreur=R.error||"Le forum n'a pas pu être chargé."}
   catch(e){erreur=navigator.onLine?"Le serveur ne répond pas. Réessaie dans un instant.":"Tu es hors connexion : le forum a besoin d'internet."}
   charge=false;rendre();
 }
@@ -167,7 +170,7 @@ function vueNouveau(){
 function rendre(){
   if(!sess()){app.innerHTML=`<div class="empty">Connecte-toi avec ta carte d'étudiant pour accéder au forum.</div>`;return}
   const h=location.hash;
-  if(!D){app.innerHTML=erreur?`<p class="note bad">${esc(erreur)}</p><button class="btn" type="button" data-act="actualiser">Réessayer</button>`:`<div class="empty">Chargement du forum…</div>`;return}
+  if(!D){app.innerHTML=erreur?`<p class="note bad">${esc(erreur)}</p>${vers?`<p class="note">${esc(vers)}</p>`:""}<button class="btn" type="button" data-act="actualiser">Réessayer</button>`:`<div class="empty">Chargement du forum…</div>`;return}
   const keep={};["rTxt","nTi","nTx","nRu"].forEach(k=>{const el=document.getElementById(k);if(el)keep[k]=el.value});   // ne jamais effacer un texte en cours de saisie
   app.innerHTML=h==="#nouveau"?vueNouveau():h.startsWith("#s=")?vueSujet(decodeURIComponent(h.slice(3))):vueListe();
   Object.keys(keep).forEach(k=>{const el=document.getElementById(k);if(el)el.value=keep[k]});
