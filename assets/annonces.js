@@ -17,6 +17,10 @@
      detail : consignes (facultatif)
    ===================================================================== */
 window.ANNONCES = [
+  { date: "2026-11-04", important: true,
+    titre: "Nouveau : le forum des étudiants",
+    texte: "Pose tes questions sur les cours, les TD et les TP dans le Forum, et aide tes camarades : l'enseignant suit les échanges et répond. Un sujet par question, avec un titre précis.",
+    lien: "forum.html" },
   { date: "2026-11-03",
     titre: "Nouveau : la classe virtuelle",
     texte: "Une page « Classe virtuelle » rassemble les séances de cours et de TD en visioconférence : planning, salle de chaque EC, bouton « Rejoindre » actif 15 minutes avant le début, puis l'enregistrement à revoir.",

@@ -190,13 +190,15 @@
   const waitMsg = k => `Serveur très sollicité : nouvel essai automatique (${k})… Ne ferme pas la page.`;
   const dfmt = iso => { const d = new Date(iso); return d.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" }) + " à " + d.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }); };
   /* installe le matériel personnel reçu du serveur ; efface les mesures faites avec un autre matériel */
+  /* comparaison du matériel à 10 chiffres significatifs (évite les écarts d'arrondi entre le correcteur et le navigateur) */
+  const same = o => JSON.stringify(o, (k, v) => typeof v === "number" ? +v.toPrecision(10) : v);
   function applySession() {
     const s = sess(); if (!s) return [];
     const changed = [];
     TPS.forEach(T => {
       const st = s.tps[T.id]; if (!st) return;
       const pk = (window.TPCR_PARAMS || {})[T.id];
-      if (pk && st.params && JSON.stringify(store.get(pk, null)) !== JSON.stringify(st.params)) {
+      if (pk && st.params && same(store.get(pk, null)) !== same(st.params)) {
         store.set(pk, st.params);
         Object.keys(window.TPCR[T.id].parts).forEach(k => { try { localStorage.removeItem("tp2_" + T.id + "_v2_" + k); } catch (e) {} });
         const cr = store.get(T.id + "_crv2", null); if (cr) { cr.fill = {}; cr.calc = {}; store.set(T.id + "_crv2", cr); }
@@ -680,7 +682,7 @@
       try {
         const R = await post({ action: "login", carte: s0.etudiant.carte, code: s0.code, device: device() }, null, 2);
         if (!R || !R.ok || !R.tps) return;
-        const key = t => JSON.stringify(Object.keys(t).sort().map(k => [k, t[k].qcm, t[k].params, t[k].duree, t[k].debutTP || null, !!t[k].soumis, t[k].etat, t[k].seance]));
+        const key = t => same(Object.keys(t).sort().map(k => [k, t[k].qcm, t[k].params, t[k].duree, t[k].debutTP || null, !!t[k].soumis, t[k].etat, t[k].seance]));
         if (key(R.tps) === key(s0.tps)) return;
         store.set("session", Object.assign({}, s0, { tps: R.tps, skew: Date.parse(R.serveur) - Date.now() || 0 }));
         let n = 0; try { n = +sessionStorage.getItem("tp2_autoref") || 0; } catch (e) {}

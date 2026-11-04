@@ -94,7 +94,12 @@
     init(T) {
       let P = store.get("lent_par", null); const newL = () => { P = { f: [10, 12.5, 15][Math.floor(Math.random() * 3)] * (1 + (Math.random() * 2 - 1) * 0.04) }; store.set("lent_par", P); }; if (!P) newL();
       // ancienne lentille de 20 cm : image hors du banc pour OA = −25 cm et Bessel impossible pour D ≤ 80 cm → remplacée tant qu'aucune mesure n'est enregistrée
-      if (P.f > 17 && !T.locked() && !Object.keys(T.rows || {}).some(k => (T.rows[k] || []).length)) newL();
+      if (P.f > 17 && !T.locked()) {   // même conversion que le correcteur (v2.15) : 20 cm → 12,5 cm, même tolérance de fabrication
+        P = Object.assign({}, P, { f: P.f * 0.625 }); store.set("lent_par", P);
+        if (Object.keys(T.rows || {}).some(k => (T.rows[k] || []).length)) T.clearRows();
+        const s = store.get("session", null), st = s && s.tps && s.tps.lentilles;
+        if (st && st.params && st.params.f > 17) { st.params = Object.assign({}, st.params, { f: P.f }); store.set("session", s); }
+      }
       const XO = 5, AP = 4, mirrorGap = 2; let mode = "A", xl = 20, xe = 60, D = 80, pend = null;
       const sharpThr = 0.03;
       // flou relatif (≈ diamètre de la tache / taille) et grandissement

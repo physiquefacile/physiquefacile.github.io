@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<script src="assets/config.js"></script>
+<script src="assets/acces.js"></script>
+<title>Forum — Physique Facile</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1B2A41">
+<link rel="icon" type="image/png" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="description" content="Forum des étudiants : questions sur les cours, les TD et les TP, réponses des camarades et de l'enseignant.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Fira+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<style>
+main .wrap{padding-block:24px 10px;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:28px;align-items:start}
+h2{font-family:var(--f-head);font-size:1.25rem;margin:0 0 12px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px}
+.bar select,.bar input,.fm input,.fm select,.fm textarea{font:inherit;font-family:var(--f-head);font-size:.92rem;padding:8px 10px;border:1.5px solid var(--line);border-radius:9px;background:var(--surface);color:var(--fg);box-sizing:border-box}
+.bar input[type=search]{flex:1 1 180px;min-width:0}
+.bar label.chk{font-family:var(--f-head);font-size:.86rem;display:flex;gap:6px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:6px;font-family:var(--f-head);font-weight:600;font-size:.92rem;padding:9px 14px;border-radius:9px;border:1.5px solid var(--accent);background:var(--accent);color:var(--accent-fg,#fff);cursor:pointer;text-decoration:none}
+.btn.sec{background:transparent;color:var(--accent)}
+.btn.sm{font-size:.8rem;padding:5px 10px}
+.btn:disabled{opacity:.6;cursor:wait}
+.list{display:grid;gap:10px}
+.sj{display:block;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px;color:inherit;text-decoration:none}
+.sj:hover{border-color:var(--accent)}
+.sj.pin{border-color:var(--saff);box-shadow:inset 4px 0 0 var(--saff)}
+.sj h3{font-family:var(--f-head);font-size:1rem;margin:4px 0 2px}
+.meta{font-family:var(--f-head);font-size:.82rem;color:var(--muted)}
+.tag{display:inline-block;font-family:var(--f-head);font-size:.7rem;font-weight:600;letter-spacing:.03em;padding:2px 7px;border-radius:4px;background:var(--tint);color:var(--accent);margin-right:5px}
+.tag.ok{background:#E3F2E8;color:#2E7D4F}
+.tag.pr{background:var(--tint2);color:var(--warm)}
+.tag.ms{background:#F4E3E5;color:#B23A48}
+.msg{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.msg.prof{border-color:var(--saff);background:color-mix(in srgb,var(--tint2) 45%,var(--surface))}
+.msg.off{opacity:.55}
+.msg .who{font-family:var(--f-head);font-size:.86rem;font-weight:600;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.msg .who span{font-weight:400;color:var(--muted)}
+.msg .txt{margin-top:8px;font-size:.98rem;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere}
+.msg .acts{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.thread{display:grid;gap:10px}
+.thread .rep{margin-left:18px}
+.fm{display:grid;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:14px}
+.fm label{display:grid;gap:4px;font-family:var(--f-head);font-size:.86rem;font-weight:600}
+.fm textarea{min-height:120px;resize:vertical;font-family:var(--f-body,inherit);font-size:.98rem;line-height:1.5}
+.fm .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.fm small{font-weight:400;color:var(--muted)}
+.note{font-family:var(--f-head);font-size:.86rem;min-height:1.2em}
+.note.bad{color:var(--ko,#B23A48)}.note.ok{color:var(--ok,#2E7D4F)}
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:12px;padding:20px;color:var(--muted);font-family:var(--f-head);font-size:.92rem}
+.back2{font-family:var(--f-head);font-size:.9rem;display:inline-block;margin-bottom:10px}
+aside .box{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:.93rem}
+aside .box+.box{margin-top:16px}
+aside h3{font-family:var(--f-head);font-size:1rem;margin:0 0 8px}
+aside ul{margin:0;padding-left:18px;display:grid;gap:6px}
+aside p{margin:0}
+@media (max-width:860px){main .wrap{grid-template-columns:1fr}aside{order:2}.thread .rep{margin-left:8px}}
+</style>
+</head>
+<body>
+<header class="band"><div class="wrap">
+  <a class="back" href="./">← Retour aux cours</a>
+  <div class="uni"><img class="unilogo" src="img/usnm-logo.png" alt="Logo de l’Université Souleymane Niang de Matam" width="40" height="40">UNIVERSITÉ SOULEYMANE NIANG DE MATAM • UFR-STI</div>
+  <h1>Forum</h1>
+  <p>Pose tes questions sur les cours, les TD et les TP, réponds à celles des autres : l'enseignant suit les échanges et intervient.</p>
+</div></header>
+<main><div class="wrap">
+  <section id="app" aria-live="polite"></section>
+  <aside>
+    <div class="box"><h3>Règles du forum</h3><ul>
+      <li>Un sujet par question, avec un titre précis : « TD 2, exercice 3 : signe de l'accélération ».</li>
+      <li>Explique ce que tu as déjà essayé : on t'aidera plus vite.</li>
+      <li>Aide à comprendre, ne donne pas une copie toute faite ; pas de réponses pendant un contrôle ou un TP noté.</li>
+      <li>Reste courtois ; pas de numéros de téléphone ni d'informations personnelles.</li>
+      <li>Ton nom apparaît sous la forme « Prénom N. ». Les messages qui ne respectent pas ces règles sont masqués.</li>
+    </ul></div>
+    <div class="box"><h3>Écrire des formules</h3><p>Entoure une formule de signes dollar : <code>$v = \dfrac{dx}{dt}$</code> donne $v = \dfrac{dx}{dt}$. Sinon, écris simplement v = dx/dt.</p></div>
+    <div class="box"><h3>Question personnelle ?</h3><p>Pour une note, une absence ou un problème personnel, utilise plutôt la page <a href="questions.html">Questions</a>, qui écrit directement à l'enseignant.</p></div>
+  </aside>
+</div></main>
+<footer><div class="wrap">Université Souleymane Niang de Matam • <a href="auteur.html">Plateforme développée par le Dr P. T. Traoré</a> • © 2026 Papa Touty Traoré — tous droits réservés • <a href="reparer.html?retour=forum.html">Affichage incomplet ? Mettre le site à jour</a></div></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+"use strict";
+const $=s=>document.querySelector(s),app=$("#app");
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const RUBRIQUES=["Mécanique","Électricité","Optique","Thermodynamique","Physique générale (BCG)","Physique expérimentale et TP","Cours de L2","Méthodes de travail","Utilisation de la plateforme","Autre"];
+const lire=k=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):null}catch(e){return null}};
+const sess=()=>{const s=lire("tp2_session");return s&&s.etudiant&&s.code?s:null};
+const endpoint=()=>(window.SITE_CONFIG||{}).crEndpoint;
+const math=el=>{if(window.renderMathInElement)try{renderMathInElement(el,{delimiters:[{left:"$",right:"$",display:false}],throwOnError:false})}catch(e){}};
+let D=null,charge=false,erreur="",prefs=(()=>{try{return JSON.parse(sessionStorage.getItem("forum_f"))||{}}catch(e){return {}}})();
+const savePrefs=()=>{try{sessionStorage.setItem("forum_f",JSON.stringify(prefs))}catch(e){}};
+
+async function post(o,essais){
+  essais=essais||3;const s=sess();if(!s)throw new Error("session");
+  const body=JSON.stringify(Object.assign({carte:s.etudiant.carte,code:s.code,device:lire("tp2_device")||""},o));
+  for(let k=1;;k++){
+    let R=null;try{R=await (await fetch(endpoint(),{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body})).json()}catch(e){}
+    if(R&&!R.busy)return R;
+    if(k>=essais){if(R)return R;throw new Error("réseau")}
+    await new Promise(r=>setTimeout(r,2000*k+Math.random()*1500));
+  }
+}
+async function charger(){
+  charge=true;erreur="";rendre();
+  try{const R=await post({action:"forumListe"});if(R.ok){D=R;try{sessionStorage.setItem("forum_cache",JSON.stringify(R))}catch(e){}}else erreur=R.error==="TP inconnu."?"Le forum ouvre très bientôt : l'enseignant termine sa mise en service.":(R.error||"Le forum n'a pas pu être chargé.")}
+  catch(e){erreur=navigator.onLine?"Le serveur ne répond pas. Réessaie dans un instant.":"Tu es hors connexion : le forum a besoin d'internet."}
+  charge=false;rendre();
+}
+const quand=iso=>{const d=new Date(iso);if(isNaN(d))return "";const m=Math.round((Date.now()-d)/6e4);
+  if(m<1)return "à l'instant";if(m<60)return "il y a "+m+" min";const h=Math.round(m/60);if(h<24)return "il y a "+h+" h";
+  return d.toLocaleDateString("fr-FR",{day:"numeric",month:"short"})+" à "+d.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})};
+const txt=m=>esc(m).replace(/(https:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener nofollow">$1</a>');
+const badges=S=>(S.st==="epingle"?'<span class="tag pr">Épinglé</span>':"")+(S.st==="resolu"?'<span class="tag ok">Résolu</span>':"")+(S.st==="masque"?'<span class="tag ms">Masqué</span>':"")+(S.rep.some(r=>r.p&&r.st!=="masque")?'<span class="tag pr">Réponse de l\'enseignant</span>':"");
+const nRep=S=>S.rep.filter(r=>r.st!=="masque").length;
+
+function vueListe(){
+  const L=D.sujets,q=(prefs.q||"").toLowerCase().trim();
+  const F=L.filter(S=>(!prefs.ru||S.ru===prefs.ru)&&(!prefs.sr||nRep(S)===0)&&(!q||(S.t+" "+S.m+" "+S.rep.map(r=>r.m).join(" ")).toLowerCase().includes(q)));
+  return `<div class="bar">
+    <button class="btn" type="button" data-act="nouveau">Nouveau sujet</button>
+    <select id="fRu" aria-label="Rubrique"><option value="">Toutes les rubriques</option>${RUBRIQUES.map(r=>`<option${prefs.ru===r?" selected":""}>${esc(r)}</option>`).join("")}</select>
+    <input type="search" id="fQ" placeholder="Rechercher dans le forum" value="${esc(prefs.q||"")}" aria-label="Rechercher">
+    <label class="chk"><input type="checkbox" id="fSr"${prefs.sr?" checked":""}> Sans réponse</label>
+    <button class="btn sec sm" type="button" data-act="actualiser"${charge?" disabled":""}>${charge?"Chargement…":"Actualiser"}</button>
+  </div>${erreur?`<p class="note bad">${esc(erreur)}</p>`:""}
+  <div class="list">${F.length?F.map(S=>`<a class="sj${S.st==="epingle"?" pin":""}" href="#s=${esc(S.id)}"><div><span class="tag">${esc(S.ru)}</span>${badges(S)}</div><h3>${esc(S.t)}</h3><div class="meta">${esc(S.a)}${S.p?" (enseignant)":""} • ${esc(quand(S.d))} • ${nRep(S)} réponse${nRep(S)>1?"s":""}${nRep(S)?" • dernière "+esc(quand(S.der)):""}</div></a>`).join("")
+    :`<div class="empty">${L.length?"Aucun sujet ne correspond à ta recherche.":"Aucun sujet pour le moment : pose la première question !"}</div>`}</div>`;
+}
+function boutons(M,sujet){
+  const b=[],P=D.prof;
+  if(sujet){
+    if(P)b.push(M.st==="epingle"?["visible","Désépingler"]:["epingle","Épingler"]);
+    if(P||M.moi)b.push(M.st==="resolu"?["visible","Rouvrir"]:["resolu","Marquer résolu"]);
+  }
+  if(P)b.push(M.st==="masque"?["visible","Rétablir"]:["masque","Masquer"]);
+  else if(M.moi&&M.st!=="masque")b.push(["masque","Supprimer mon message"]);
+  return b.length?`<div class="acts">${b.map(x=>`<button type="button" class="btn sec sm" data-st="${x[0]}" data-id="${esc(M.id)}">${x[1]}</button>`).join("")}</div>`:"";
+}
+const bloc=(M,sujet)=>`<article class="msg${M.p?" prof":""}${M.st==="masque"?" off":""}${sujet?"":" rep"}"><div class="who">${esc(M.a)}${M.p?'<span class="tag pr">Enseignant</span>':""}${M.st==="masque"?'<span class="tag ms">Masqué</span>':""}<span>${esc(quand(M.d))}</span></div><div class="txt">${txt(M.m)}</div>${boutons(M,sujet)}</article>`;
+function vueSujet(id){
+  const S=D.sujets.find(x=>x.id===id);
+  if(!S)return `<a class="back2" href="#">← Tous les sujets</a><div class="empty">Ce sujet n'existe plus ou a été masqué.</div>`;
+  return `<a class="back2" href="#">← Tous les sujets</a>
+  <div><span class="tag">${esc(S.ru)}</span>${badges(S)}</div><h2 style="margin-top:6px">${esc(S.t)}</h2>
+  <div class="thread">${bloc(S,true)}${S.rep.map(r=>bloc(r,false)).join("")}</div>
+  ${S.st==="masque"&&!D.prof?"":`<form class="fm" id="fmRep"><label>Ta réponse <textarea id="rTxt" maxlength="4000" required placeholder="Explique ton raisonnement ; une formule entre $…$ s'affiche joliment."></textarea></label><div class="row"><button class="btn" type="submit">Répondre</button><span class="note" id="rNote"></span></div></form>`}`;
+}
+function vueNouveau(){
+  return `<a class="back2" href="#">← Tous les sujets</a><h2>Nouveau sujet</h2>
+  <form class="fm" id="fmNew">
+    <label>Rubrique <select id="nRu">${RUBRIQUES.map(r=>`<option${prefs.ru===r?" selected":""}>${esc(r)}</option>`).join("")}</select></label>
+    <label>Titre <small>(précis : chapitre, exercice, notion)</small><input id="nTi" maxlength="140" required placeholder="Ex. : TD 2, exercice 3 — signe de l'accélération normale"></label>
+    <label>Ta question <textarea id="nTx" maxlength="4000" required placeholder="Ce que tu cherches à faire, ce que tu as déjà essayé, là où tu bloques."></textarea></label>
+    <div class="row"><button class="btn" type="submit">Publier</button><span class="note" id="nNote"></span></div>
+  </form>`;
+}
+function rendre(){
+  if(!sess()){app.innerHTML=`<div class="empty">Connecte-toi avec ta carte d'étudiant pour accéder au forum.</div>`;return}
+  const h=location.hash;
+  if(!D){app.innerHTML=erreur?`<p class="note bad">${esc(erreur)}</p><button class="btn" type="button" data-act="actualiser">Réessayer</button>`:`<div class="empty">Chargement du forum…</div>`;return}
+  const keep={};["rTxt","nTi","nTx","nRu"].forEach(k=>{const el=document.getElementById(k);if(el)keep[k]=el.value});   // ne jamais effacer un texte en cours de saisie
+  app.innerHTML=h==="#nouveau"?vueNouveau():h.startsWith("#s=")?vueSujet(decodeURIComponent(h.slice(3))):vueListe();
+  Object.keys(keep).forEach(k=>{const el=document.getElementById(k);if(el)el.value=keep[k]});
+  math(app);
+}
+async function envoyer(o,note,btn,ok){
+  note.className="note";note.textContent="Envoi…";btn.disabled=true;
+  try{const R=await post(o);if(R.ok){await charger();ok(R)}else{note.className="note bad";note.textContent=R.error||"Envoi impossible."}}
+  catch(e){note.className="note bad";note.textContent=navigator.onLine?"Le serveur ne répond pas : ton texte est conservé, réessaie.":"Tu es hors connexion : ton texte est conservé, réessaie avec internet."}
+  btn.disabled=false;
+}
+app.addEventListener("click",async e=>{
+  const a=e.target.closest("[data-act]");
+  if(a){if(a.dataset.act==="nouveau")location.hash="nouveau";else charger();return}
+  const b=e.target.closest("[data-st]");if(!b)return;
+  if(b.dataset.st==="masque"&&!D.prof&&!confirm("Supprimer ce message ? Il ne sera plus visible par les autres étudiants."))return;
+  b.disabled=true;
+  try{const R=await post({action:"forumStatut",id:b.dataset.id,statut:b.dataset.st});if(R.ok)await charger();else{b.disabled=false;alert(R.error||"Action impossible.")}}catch(x){b.disabled=false}
+});
+app.addEventListener("input",e=>{
+  if(e.target.id==="fQ"){prefs.q=e.target.value;savePrefs();const p=e.target.selectionStart;rendre();const i=$("#fQ");i.focus();i.setSelectionRange(p,p)}
+});
+app.addEventListener("change",e=>{
+  if(e.target.id==="fRu"){prefs.ru=e.target.value;savePrefs();rendre()}
+  if(e.target.id==="fSr"){prefs.sr=e.target.checked;savePrefs();rendre()}
+});
+app.addEventListener("submit",e=>{
+  e.preventDefault();
+  if(e.target.id==="fmNew"){const ti=$("#nTi").value.trim(),tx=$("#nTx").value.trim(),n=$("#nNote");
+    if(ti.length<4||tx.length<2){n.className="note bad";n.textContent="Donne un titre et écris ta question.";return}
+    envoyer({action:"forumEcrire",rubrique:$("#nRu").value,titre:ti,message:tx},n,e.target.querySelector("button"),R=>{["nTi","nTx"].forEach(k=>{const el=document.getElementById(k);if(el)el.value=""});location.hash="s="+R.id})}
+  if(e.target.id==="fmRep"){const tx=$("#rTxt").value.trim(),n=$("#rNote"),id=decodeURIComponent(location.hash.slice(3));
+    if(tx.length<2){n.className="note bad";n.textContent="Écris ta réponse.";return}
+    envoyer({action:"forumEcrire",sujet:id,message:tx},n,e.target.querySelector("button"),()=>{const t=$("#rTxt");if(t)t.value="";scrollTo(0,document.body.scrollHeight)})}
+});
+addEventListener("hashchange",()=>{rendre();scrollTo(0,0)});
+try{const c=JSON.parse(sessionStorage.getItem("forum_cache"));if(c&&c.ok)D=c}catch(e){}
+rendre();charger();
+})();
+</script>
+<script>
+if("serviceWorker" in navigator){const hadSW=!!navigator.serviceWorker.controller;navigator.serviceWorker.addEventListener("controllerchange",()=>{/* nouvelle version du site installée : on recharge une fois */try{if(!hadSW||sessionStorage.getItem("swmaj"))return;sessionStorage.setItem("swmaj","1")}catch(e){return}location.reload()});addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").catch(()=>{})})}
+</script>
+</body>
+</html>
