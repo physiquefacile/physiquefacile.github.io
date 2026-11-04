@@ -60,6 +60,17 @@ aside .box+.box{margin-top:16px}
 aside h3{font-family:var(--f-head);font-size:1rem;margin:0 0 8px}
 aside ul{margin:0;padding-left:18px;display:grid;gap:6px}
 aside p{margin:0}
+.pjin{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pjin label.btn{display:inline-flex;font-size:.84rem}
+.pjl{display:flex;flex-wrap:wrap;gap:8px}
+.pjl:empty{display:none}
+.pjc{position:relative;width:84px;height:84px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--tint);display:grid;place-items:center;font-family:var(--f-head);font-size:.74rem;color:var(--muted);text-align:center}
+.pjc img{width:100%;height:100%;object-fit:cover}
+.pjc button{position:absolute;top:3px;right:3px;width:24px;height:24px;border-radius:50%;border:0;background:rgba(0,0,0,.6);color:#fff;font-size:15px;line-height:1;cursor:pointer}
+.pjs{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.pjv{padding:0;border:1px solid var(--line);border-radius:8px;background:var(--tint);cursor:pointer;overflow:hidden;width:140px;height:140px;display:grid;place-items:center;font-family:var(--f-head);font-size:.8rem;color:var(--muted)}
+.pjv img{width:100%;height:100%;object-fit:cover;display:block}
+.pjv.doc{width:auto;height:auto;padding:10px 14px;color:var(--accent);font-weight:600}
 @media (max-width:860px){main .wrap{grid-template-columns:1fr}aside{order:2}.thread .rep{margin-left:8px}}
 </style>
 </head>
@@ -75,7 +86,7 @@ aside p{margin:0}
   <aside>
     <div class="box"><h3>Règles du forum</h3><ul>
       <li>Un sujet par question, avec un titre précis : « TD 2, exercice 3 : signe de l'accélération ».</li>
-      <li>Explique ce que tu as déjà essayé : on t'aidera plus vite.</li>
+      <li>Explique ce que tu as déjà essayé : on t'aidera plus vite. Tu peux joindre une photo nette de ta démarche (feuille bien éclairée, prise de face) ou un PDF.</li>
       <li>Aide à comprendre, ne donne pas une copie toute faite ; pas de réponses pendant un contrôle ou un TP noté.</li>
       <li>Reste courtois ; pas de numéros de téléphone ni d'informations personnelles.</li>
       <li>Ton nom apparaît sous la forme « Prénom N. ». Les messages qui ne respectent pas ces règles sont masqués.</li>
@@ -99,6 +110,32 @@ const endpoint=()=>(window.SITE_CONFIG||{}).crEndpoint;
 const math=el=>{if(window.renderMathInElement)try{renderMathInElement(el,{delimiters:[{left:"$",right:"$",display:false}],throwOnError:false})}catch(e){}};
 let D=null,charge=false,erreur="",prefs=(()=>{try{return JSON.parse(sessionStorage.getItem("forum_f"))||{}}catch(e){return {}}})();
 const savePrefs=()=>{try{sessionStorage.setItem("forum_f",JSON.stringify(prefs))}catch(e){}};
+/* pièces jointes : photos de la démarche (réduites avant l'envoi) et PDF */
+const PJ_MAX=3,PJ_OCTETS=2400000,PJ={n:[],r:[]},PJC=new Map(),PJE=new Set();
+const lireB64=b=>new Promise((ok,ko)=>{const f=new FileReader();f.onload=()=>ok(String(f.result).split(",")[1]||"");f.onerror=ko;f.readAsDataURL(b)});
+async function preparer(file){
+  if(file.type==="application/pdf"){if(file.size>PJ_OCTETS)throw new Error("Le PDF « "+file.name+" » dépasse 2,4 Mo.");return {type:file.type,data:await lireB64(file),nom:file.name}}
+  if(!/^image\//.test(file.type))throw new Error("« "+file.name+" » : envoie une photo ou un PDF.");
+  let img;try{img=await createImageBitmap(file)}catch(e){img=await new Promise((ok,ko)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=()=>ko(new Error("Cette photo ne peut pas être lue : prends-la à nouveau avec l'appareil photo, au format JPG."));i.src=URL.createObjectURL(file)})}
+  const w=img.width,h=img.height,k=Math.min(1,1600/Math.max(w,h)),cv=document.createElement("canvas");cv.width=Math.round(w*k);cv.height=Math.round(h*k);
+  const g=cv.getContext("2d");g.fillStyle="#fff";g.fillRect(0,0,cv.width,cv.height);g.drawImage(img,0,0,cv.width,cv.height);
+  let q=.75,b;do{b=await new Promise(ok=>cv.toBlob(ok,"image/jpeg",q));q-=.15}while(b&&b.size>PJ_OCTETS&&q>.2);
+  if(!b)throw new Error("Cette photo ne peut pas être préparée.");
+  return {type:"image/jpeg",data:await lireB64(b),nom:file.name,url:URL.createObjectURL(b)};
+}
+const apercu=k=>PJ[k].map((f,i)=>`<div class="pjc">${f.url?`<img src="${f.url}" alt="">`:"PDF<br>"+esc(f.nom.slice(0,18))}<button type="button" data-pjdel="${k}:${i}" aria-label="Retirer">×</button></div>`).join("");
+const champPJ=k=>`<div class="pjin"><label class="btn sec sm">Joindre une photo ou un PDF<input type="file" data-pjin="${k}" accept="image/*,application/pdf" multiple hidden></label><span class="meta">Photo de ta démarche, ${PJ_MAX} au maximum</span></div><div class="pjl">${apercu(k)}</div>`;
+const vignettes=M=>(M.pj&&M.pj.length)?`<div class="pjs">${M.pj.map(id=>{const c=PJC.get(id);return `<button type="button" class="pjv${c&&c.type==="application/pdf"?" doc":""}" data-pj="${esc(id)}" aria-label="Ouvrir la pièce jointe">${c?(c.type==="application/pdf"?"Ouvrir le PDF":`<img src="${c.url}" alt="Pièce jointe">`):PJE.has(id)?"Indisponible":"Chargement…"}</button>`}).join("")}</div>`:"";
+let pjEnCours=false;
+async function chargerPJ(){
+  if(pjEnCours)return;pjEnCours=true;
+  try{for(const el of [...app.querySelectorAll("[data-pj]")]){const id=el.dataset.pj;if(PJC.has(id)||PJE.has(id))continue;
+    try{const R=await post({action:"forumFichier",fichier:id});
+      if(R.ok){const o=Uint8Array.from(atob(R.data),c=>c.charCodeAt(0));PJC.set(id,{type:R.type,url:URL.createObjectURL(new Blob([o],{type:R.type}))})}else PJE.add(id)}catch(e){break}
+    /* mise à jour sur place : ne pas reconstruire la page (texte en cours de saisie, curseur) */
+    const c=PJC.get(id);app.querySelectorAll(`[data-pj="${CSS.escape(id)}"]`).forEach(x=>{if(c){x.classList.toggle("doc",c.type==="application/pdf");x.innerHTML=c.type==="application/pdf"?"Ouvrir le PDF":`<img src="${c.url}" alt="Pièce jointe">`}else x.textContent="Indisponible"})}}
+  finally{pjEnCours=false}
+}
 
 async function post(o,essais){
   essais=essais||3;const s=sess();if(!s)throw new Error("session");
@@ -123,7 +160,7 @@ const quand=iso=>{const d=new Date(iso);if(isNaN(d))return "";const m=Math.round
   if(m<1)return "à l'instant";if(m<60)return "il y a "+m+" min";const h=Math.round(m/60);if(h<24)return "il y a "+h+" h";
   return d.toLocaleDateString("fr-FR",{day:"numeric",month:"short"})+" à "+d.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})};
 const txt=m=>esc(m).replace(/(https:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener nofollow">$1</a>');
-const badges=S=>(S.st==="epingle"?'<span class="tag pr">Épinglé</span>':"")+(S.st==="resolu"?'<span class="tag ok">Résolu</span>':"")+(S.st==="masque"?'<span class="tag ms">Masqué</span>':"")+(S.rep.some(r=>r.p&&r.st!=="masque")?'<span class="tag pr">Réponse de l\'enseignant</span>':"");
+const badges=S=>(S.st==="epingle"?'<span class="tag pr">Épinglé</span>':"")+(S.st==="resolu"?'<span class="tag ok">Résolu</span>':"")+(S.st==="masque"?'<span class="tag ms">Masqué</span>':"")+(S.rep.some(r=>r.p&&r.st!=="masque")?'<span class="tag pr">Réponse de l\'enseignant</span>':"")+((S.pj||[]).length||S.rep.some(r=>(r.pj||[]).length&&r.st!=="masque")?'<span class="tag">Pièce jointe</span>':"");
 const nRep=S=>S.rep.filter(r=>r.st!=="masque").length;
 
 function vueListe(){
@@ -149,25 +186,26 @@ function boutons(M,sujet){
   else if(M.moi&&M.st!=="masque")b.push(["masque","Supprimer mon message"]);
   return b.length?`<div class="acts">${b.map(x=>`<button type="button" class="btn sec sm" data-st="${x[0]}" data-id="${esc(M.id)}">${x[1]}</button>`).join("")}</div>`:"";
 }
-const bloc=(M,sujet)=>`<article class="msg${M.p?" prof":""}${M.st==="masque"?" off":""}${sujet?"":" rep"}"><div class="who">${esc(M.a)}${M.p?'<span class="tag pr">Enseignant</span>':""}${M.st==="masque"?'<span class="tag ms">Masqué</span>':""}<span>${esc(quand(M.d))}</span></div><div class="txt">${txt(M.m)}</div>${boutons(M,sujet)}</article>`;
+const bloc=(M,sujet)=>`<article class="msg${M.p?" prof":""}${M.st==="masque"?" off":""}${sujet?"":" rep"}"><div class="who">${esc(M.a)}${M.p?'<span class="tag pr">Enseignant</span>':""}${M.st==="masque"?'<span class="tag ms">Masqué</span>':""}<span>${esc(quand(M.d))}</span></div>${M.m==="(pièce jointe)"&&M.pj&&M.pj.length?"":`<div class="txt">${txt(M.m)}</div>`}${vignettes(M)}${boutons(M,sujet)}</article>`;
 function vueSujet(id){
   const S=D.sujets.find(x=>x.id===id);
   if(!S)return `<a class="back2" href="#">← Tous les sujets</a><div class="empty">Ce sujet n'existe plus ou a été masqué.</div>`;
   return `<a class="back2" href="#">← Tous les sujets</a>
   <div><span class="tag">${esc(S.ru)}</span>${badges(S)}</div><h2 style="margin-top:6px">${esc(S.t)}</h2>
   <div class="thread">${bloc(S,true)}${S.rep.map(r=>bloc(r,false)).join("")}</div>
-  ${S.st==="masque"&&!D.prof?"":`<form class="fm" id="fmRep"><label>Ta réponse <textarea id="rTxt" maxlength="4000" required placeholder="Explique ton raisonnement ; une formule entre $…$ s'affiche joliment."></textarea></label><div class="row"><button class="btn" type="submit">Répondre</button><span class="note" id="rNote"></span></div></form>`}`;
+  ${S.st==="masque"&&!D.prof?"":`<form class="fm" id="fmRep"><label>Ta réponse <textarea id="rTxt" maxlength="4000" placeholder="Explique ton raisonnement ; une formule entre $…$ s'affiche joliment."></textarea></label>${champPJ("r")}<div class="row"><button class="btn" type="submit">Répondre</button><span class="note" id="rNote"></span></div></form>`}`;
 }
 function vueNouveau(){
   return `<a class="back2" href="#">← Tous les sujets</a><h2>Nouveau sujet</h2>
   <form class="fm" id="fmNew">
     <label>Rubrique <select id="nRu">${RUBRIQUES.map(r=>`<option${prefs.ru===r?" selected":""}>${esc(r)}</option>`).join("")}</select></label>
     <label>Titre <small>(précis : chapitre, exercice, notion)</small><input id="nTi" maxlength="140" required placeholder="Ex. : TD 2, exercice 3 — signe de l'accélération normale"></label>
-    <label>Ta question <textarea id="nTx" maxlength="4000" required placeholder="Ce que tu cherches à faire, ce que tu as déjà essayé, là où tu bloques."></textarea></label>
+    <label>Ta question <textarea id="nTx" maxlength="4000" placeholder="Ce que tu cherches à faire, ce que tu as déjà essayé, là où tu bloques."></textarea></label>
+    ${champPJ("n")}
     <div class="row"><button class="btn" type="submit">Publier</button><span class="note" id="nNote"></span></div>
   </form>`;
 }
-function rendre(){
+function rendre(pjSeul){
   if(!sess()){app.innerHTML=`<div class="empty">Connecte-toi avec ta carte d'étudiant pour accéder au forum.</div>`;return}
   const h=location.hash;
   if(!D){app.innerHTML=erreur?`<p class="note bad">${esc(erreur)}</p>${vers?`<p class="note">${esc(vers)}</p>`:""}<button class="btn" type="button" data-act="actualiser">Réessayer</button>`:`<div class="empty">Chargement du forum…</div>`;return}
@@ -175,16 +213,19 @@ function rendre(){
   app.innerHTML=h==="#nouveau"?vueNouveau():h.startsWith("#s=")?vueSujet(decodeURIComponent(h.slice(3))):vueListe();
   Object.keys(keep).forEach(k=>{const el=document.getElementById(k);if(el)el.value=keep[k]});
   math(app);
+  if(!pjSeul)chargerPJ();
 }
 async function envoyer(o,note,btn,ok){
   note.className="note";note.textContent="Envoi…";btn.disabled=true;
-  try{const R=await post(o);if(R.ok){await charger();ok(R)}else{note.className="note bad";note.textContent=R.error||"Envoi impossible."}}
+  try{const R=await post(o);if(R.ok){const k=o.sujet?"r":"n",nf=(o.fichiers||[]).length;PJ[k]=[];await charger();ok(R);if(nf&&R.pj===undefined){const n2=document.querySelector(".note");if(n2){n2.className="note bad";n2.textContent="Message publié, mais les pièces jointes n'ont pas été enregistrées : le correcteur doit être mis à jour (v2.16)."}}}else{note.className="note bad";note.textContent=R.error||"Envoi impossible."}}
   catch(e){note.className="note bad";note.textContent=navigator.onLine?"Le serveur ne répond pas : ton texte est conservé, réessaie.":"Tu es hors connexion : ton texte est conservé, réessaie avec internet."}
   btn.disabled=false;
 }
 app.addEventListener("click",async e=>{
   const a=e.target.closest("[data-act]");
   if(a){if(a.dataset.act==="nouveau")location.hash="nouveau";else charger();return}
+  const del=e.target.closest("[data-pjdel]");if(del){const [k,i]=del.dataset.pjdel.split(":");PJ[k].splice(+i,1);rendre(true);return}
+  const v=e.target.closest("[data-pj]");if(v){const c=PJC.get(v.dataset.pj);if(c)window.open(c.url,"_blank");return}
   const b=e.target.closest("[data-st]");if(!b)return;
   if(b.dataset.st==="masque"&&!D.prof&&!confirm("Supprimer ce message ? Il ne sera plus visible par les autres étudiants."))return;
   b.disabled=true;
@@ -193,18 +234,23 @@ app.addEventListener("click",async e=>{
 app.addEventListener("input",e=>{
   if(e.target.id==="fQ"){prefs.q=e.target.value;savePrefs();const p=e.target.selectionStart;rendre();const i=$("#fQ");i.focus();i.setSelectionRange(p,p)}
 });
-app.addEventListener("change",e=>{
+app.addEventListener("change",async e=>{
+  const fi=e.target.closest("[data-pjin]");
+  if(fi){const k=fi.dataset.pjin,L=[...fi.files];fi.value="";const zone=fi.closest(".pjin").querySelector(".meta");
+    for(const f of L){if(PJ[k].length>=PJ_MAX){zone.textContent="Au plus "+PJ_MAX+" pièces jointes par message.";break}
+      zone.textContent="Préparation de la photo…";try{PJ[k].push(await preparer(f));zone.textContent="Photo de ta démarche, "+PJ_MAX+" au maximum"}catch(x){zone.textContent=x.message;rendre(true);return}}
+    rendre(true);return}
   if(e.target.id==="fRu"){prefs.ru=e.target.value;savePrefs();rendre()}
   if(e.target.id==="fSr"){prefs.sr=e.target.checked;savePrefs();rendre()}
 });
 app.addEventListener("submit",e=>{
   e.preventDefault();
   if(e.target.id==="fmNew"){const ti=$("#nTi").value.trim(),tx=$("#nTx").value.trim(),n=$("#nNote");
-    if(ti.length<4||tx.length<2){n.className="note bad";n.textContent="Donne un titre et écris ta question.";return}
-    envoyer({action:"forumEcrire",rubrique:$("#nRu").value,titre:ti,message:tx},n,e.target.querySelector("button"),R=>{["nTi","nTx"].forEach(k=>{const el=document.getElementById(k);if(el)el.value=""});location.hash="s="+R.id})}
+    if(ti.length<4||(tx.length<2&&!PJ.n.length)){n.className="note bad";n.textContent="Donne un titre et écris ta question (ou joins une photo).";return}
+    envoyer({action:"forumEcrire",rubrique:$("#nRu").value,titre:ti,message:tx,fichiers:PJ.n.map(f=>({type:f.type,data:f.data}))},n,e.target.querySelector("button"),R=>{["nTi","nTx"].forEach(k=>{const el=document.getElementById(k);if(el)el.value=""});location.hash="s="+R.id})}
   if(e.target.id==="fmRep"){const tx=$("#rTxt").value.trim(),n=$("#rNote"),id=decodeURIComponent(location.hash.slice(3));
-    if(tx.length<2){n.className="note bad";n.textContent="Écris ta réponse.";return}
-    envoyer({action:"forumEcrire",sujet:id,message:tx},n,e.target.querySelector("button"),()=>{const t=$("#rTxt");if(t)t.value="";scrollTo(0,document.body.scrollHeight)})}
+    if(tx.length<2&&!PJ.r.length){n.className="note bad";n.textContent="Écris ta réponse ou joins une photo.";return}
+    envoyer({action:"forumEcrire",sujet:id,message:tx,fichiers:PJ.r.map(f=>({type:f.type,data:f.data}))},n,e.target.querySelector("button"),()=>{const t=$("#rTxt");if(t)t.value="";scrollTo(0,document.body.scrollHeight)})}
 });
 addEventListener("hashchange",()=>{rendre();scrollTo(0,0)});
 try{const c=JSON.parse(sessionStorage.getItem("forum_cache"));if(c&&c.ok)D=c}catch(e){}

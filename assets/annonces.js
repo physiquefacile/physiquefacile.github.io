@@ -17,6 +17,10 @@
      detail : consignes (facultatif)
    ===================================================================== */
 window.ANNONCES = [
+  { date: "2026-11-04",
+    titre: "Forum : joins une photo de ta démarche",
+    texte: "Dans le forum, tu peux maintenant joindre jusqu'à 3 photos (ou un PDF) à ton sujet ou à ta réponse : prends ta feuille de face, bien éclairée, avec le bouton « Joindre une photo ou un PDF ».",
+    lien: "forum.html" },
   { date: "2026-11-04", important: true,
     titre: "Nouveau : le forum des étudiants",
     texte: "Pose tes questions sur les cours, les TD et les TP dans le Forum, et aide tes camarades : l'enseignant suit les échanges et répond. Un sujet par question, avec un titre précis.",
