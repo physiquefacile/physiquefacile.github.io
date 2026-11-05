@@ -50,8 +50,8 @@
       <p>Cette méthode n'exige pas de repérer précisément le centre de la lentille : seule la différence d de deux positions intervient.</p>`,
     protocole: `<h4>Partie A — Autocollimation</h4><ol>
         <li>Objet à la graduation 5 cm. Place la lentille puis le miroir plan accolé derrière elle (méthode « Autocollimation »).</li>
-        <li>Déplace l'ensemble lentille + miroir jusqu'à ce que l'image renvoyée dans le plan de l'objet soit parfaitement nette.</li>
-        <li>Enregistre : f′ = distance objet–lentille. Recommence 3 fois en partant alternativement de trop près et de trop loin.</li></ol>
+        <li>Déplace l'ensemble lentille + miroir avec le curseur « Position de la lentille » : l'image nette apparaît quand la distance « Objet–lentille » est voisine de f′ (10 à 15 cm). Termine avec le réglage fin jusqu'à ce que la vignette indique « image nette ».</li>
+        <li>Enregistre : f′ = distance objet–lentille. Fais 3 mesures : il n'y a qu'<b>une seule</b> position nette, retrouvée 3 fois. Entre deux mesures, décale la lentille (une fois trop près, une fois trop loin) puis reviens à l'image nette. Les 3 valeurs, voisines de quelques millimètres, servent à estimer l'incertitude.</li></ol>
       <h4>Partie B — Plans conjugués</h4><ol>
         <li>Retire le miroir et place l'écran (méthode « Plans conjugués »). Lentille à 25 cm de l'objet, c'est-à-dire à la graduation 30 cm (l'objet est à la graduation 5 cm) : l'afficheur « Objet–lentille » indique cette distance.</li>
         <li>Déplace l'écran avec le curseur, puis termine avec le réglage fin jusqu'à l'image la plus nette ; enregistre OA et OA′.</li>
@@ -106,7 +106,9 @@
       const state = () => {
         if (mode === "A") { const s = xl - XO, f = P.f, vinv = 1 / f - 1 / s, v = Math.abs(vinv) < 1e-9 ? Infinity : 1 / vinv;
           const p = isFinite(v) ? 2 * mirrorGap - v : -Infinity, pinv = isFinite(p) ? 1 / p : 0, qinv = 1 / f - pinv;
-          if (qinv <= 0) return { blur: null }; const q = 1 / qinv, xi = xl - q; return { blur: AP * Math.abs(xi - XO) / q, g: 1, xi }; }
+          if (qinv <= 0) return { blur: null }; const q = 1 / qinv, xi = xl - q;
+          // netteté jugée comme sur un banc réel : image nette tant que la lentille est à ±0,2 cm du foyer (|xi − XO| ≈ 2δ)
+          return { blur: sharpThr * Math.abs(xi - XO) / (2 * 0.2), g: 1, xi }; }
         const xs = mode === "C" ? XO + D : xe, xi = imageOf(XO, xl, P.f);
         if (!isFinite(xi) || xi <= xl) return { blur: null, why: "near" }; if (mode === "B" && xi > 150.5) return { blur: null, why: "far", xi }; const v = xi - xl; let blur = AP * Math.abs(xs - xi) / v;
         if (mode === "C") {   // Bessel : la netteté se juge sur la position de la lentille (profondeur de champ réaliste, ±0,25 cm),
@@ -126,8 +128,8 @@
       ["#lnL", "#lnLf", "#lnE", "#lnEf", "#lnD"].forEach(s => $(s).addEventListener("input", () => { if (s === "#lnD") pend = null; ui(); }));
       const sharp = () => { const s = state(); return s.blur != null && s.blur < sharpThr; };
       $("#lnRec").onclick = () => {
-        if (!sharp()) { const st = state(); T.msg(st.why === "near" ? "Pas d'image réelle : l'objet est trop près de la lentille (à moins de f′). Éloigne la lentille de l'objet." : st.why === "far" ? "L'image se forme au-delà du bout du banc (150 cm) : éloigne un peu la lentille de l'objet." : "L'image n'est pas nette : ajuste l'écran (curseur, puis réglage fin) avant d'enregistrer.", "bad"); return; }
-        if (mode === "A") T.add("A", { xl: Math.round((xl + gauss() * 0.05) * 10) / 10 });
+        if (!sharp()) { const st = state(); T.msg(st.why === "near" ? "Pas d'image réelle : l'objet est trop près de la lentille (à moins de f′). Éloigne la lentille de l'objet." : st.why === "far" ? "L'image se forme au-delà du bout du banc (150 cm) : éloigne un peu la lentille de l'objet." : (mode === "A" ? "L'image renvoyée n'est pas nette : déplace la lentille (curseur, puis réglage fin) jusqu'à « image nette » dans la vignette." : "L'image n'est pas nette : ajuste l'écran (curseur, puis réglage fin) avant d'enregistrer."), "bad"); return; }
+        if (mode === "A") { T.add("A", { xl: Math.round((xl + gauss() * 0.05) * 10) / 10 }); const n = ((T.rows || {}).A || []).length; T.msg(n >= 3 ? `Mesure ${n} enregistrée : les 3 mesures sont faites, passe à la partie B.` : `Mesure ${n} enregistrée. Pour la suivante, décale la lentille (trop près ou trop loin), puis retrouve l'image nette : encore ${3 - n}.`, "ok"); return; }
         else { const OA = -(xl - XO), OAp = xe - xl; T.add("B", { OA: Math.round(OA * 10) / 10, OAp: Math.round(OAp * 10) / 10 }); }
         T.msg("Mesure enregistrée.", "ok");
       };
