@@ -17,6 +17,10 @@
      detail : consignes (facultatif)
    ===================================================================== */
 window.ANNONCES = [
+  { date: "2026-11-05", important: true,
+    titre: "Nouveau : « Par où commencer ? »",
+    texte: "Un guide pour bien utiliser la plateforme : ta première visite, l'ordre à suivre pour chaque chapitre (support, cahier d'activités, quiz, TD, corrigé, entraînement), les TP en trois temps et la liste de tes cours.",
+    lien: "demarrer.html" },
   { date: "2026-11-04",
     titre: "Forum : joins une photo de ta démarche",
     texte: "Dans le forum, tu peux maintenant joindre jusqu'à 3 photos (ou un PDF) à ton sujet ou à ta réponse : prends ta feuille de face, bien éclairée, avec le bouton « Joindre une photo ou un PDF ».",

@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<script src="assets/config.js"></script>
+<script src="assets/acces.js"></script>
+<title>Par où commencer — Physique Facile</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1B2A41">
+<link rel="icon" type="image/png" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="description" content="Guide de démarrage : comment utiliser la plateforme, chapitre après chapitre, pour réussir ses EC de physique.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Fira+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+main .wrap{padding-block:24px 16px;display:grid;gap:34px;max-width:980px}
+h2{font-family:var(--f-head);font-size:1.3rem;margin:0 0 6px}
+.lead{margin:0 0 14px;color:var(--muted);font-size:1rem}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:s}
+.steps li{counter-increment:s;display:grid;grid-template-columns:40px minmax(0,1fr);gap:14px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--accent);color:var(--accent-fg,#fff);font-family:var(--f-head);font-weight:700}
+.steps b.t{font-family:var(--f-head);font-size:1rem;display:block;margin-bottom:3px}
+.steps p{margin:0;font-size:.96rem;line-height:1.5}
+.steps .go{display:inline-block;margin-top:6px;font-family:var(--f-head);font-size:.88rem;font-weight:600}
+.cycle{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;counter-reset:c}
+.cycle div{counter-increment:c;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:4px;align-content:start}
+.cycle div::before{content:"Étape " counter(c);font-family:var(--f-head);font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--warm)}
+.cycle b{font-family:var(--f-head);font-size:.98rem}
+.cycle span{font-size:.92rem;line-height:1.45;color:var(--fg)}
+.cycle em{font-style:normal;font-family:var(--f-head);font-size:.8rem;color:var(--muted)}
+.tip{background:var(--tint2);border-radius:12px;padding:12px 16px;font-size:.95rem;margin-top:12px}
+.forms{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:12px}
+.forms .fl{font-family:var(--f-head);font-size:.82rem;font-weight:600;color:var(--muted);margin-right:4px}
+.forms button{font-family:var(--f-head);font-size:.86rem;font-weight:600;padding:6px 12px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer}
+.forms button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-fg,#fff)}
+.sem{display:grid;gap:8px;margin-bottom:14px}
+.sem h3{font-family:var(--f-head);font-size:.86rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin:6px 0 0}
+.ecs{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.ec{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;text-decoration:none;color:inherit}
+.ec:hover{border-color:var(--accent)}
+.ec b{font-family:var(--f-head);font-size:.98rem;display:block}
+.ec small{font-family:var(--f-head);font-size:.8rem;color:var(--muted)}
+.ec span.arr{font-family:var(--f-head);color:var(--accent);font-weight:700}
+.help{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.help a{display:grid;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;text-decoration:none;color:inherit}
+.help a:hover{border-color:var(--accent)}
+.help b{font-family:var(--f-head);color:var(--accent)}
+.help span{font-size:.92rem;line-height:1.45}
+</style>
+</head>
+<body>
+<header class="band"><div class="wrap">
+  <a class="back" href="./">← Retour aux cours</a>
+  <div class="uni"><img class="unilogo" src="img/usnm-logo.png" alt="Logo de l’Université Souleymane Niang de Matam" width="40" height="40">UNIVERSITÉ SOULEYMANE NIANG DE MATAM • UFR-STI</div>
+  <h1>Par où commencer ?</h1>
+  <p>La plateforme contient beaucoup de ressources. Voici dans quel ordre les utiliser pour avancer sans te perdre.</p>
+</div></header>
+<main><div class="wrap">
+
+  <section aria-labelledby="h1">
+    <h2 id="h1">Ta première visite : 5 minutes</h2>
+    <p class="lead">À faire une seule fois, au début du semestre.</p>
+    <ol class="steps">
+      <li><div><b class="t">Choisis ta formation</b><p>En bas de cette page, choisis Licence PCI, BCG ou MI : la plateforme s'en souvient et t'affiche tes EC et leurs chapitres.</p></div></li>
+      <li><div><b class="t">Installe la plateforme sur ton téléphone</b><p>Dans le menu du navigateur, choisis « Ajouter à l'écran d'accueil » (ou « Installer l'application »). Une fois ouverte avec internet, la plateforme fonctionne ensuite <b>hors connexion</b> : cours, TD et quiz restent accessibles sans forfait.</p></div></li>
+      <li><div><b class="t">Lis le syllabus de chaque EC</b><p>Il dit ce que tu dois savoir faire à la fin, le programme semaine par semaine et la façon dont tu seras évalué. Bouton « Syllabus de l'EC » en haut de chaque cours.</p><a class="go" href="./">Ouvrir mes cours →</a></div></li>
+      <li><div><b class="t">Repère les dates</b><p>Séances de TD, contrôles, examens et séances en ligne sont publiés dans les Annonces et dans la Classe virtuelle.</p><a class="go" href="calendrier.html">Voir les annonces et le calendrier →</a></div></li>
+      <li><div><b class="t">Garde ton code personnel</b><p>Ton numéro de carte et ton code te servent pour tout le site, les TP et le forum. Ne le donne à personne : tes comptes rendus sont à ton nom.</p></div></li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="h2">
+    <h2 id="h2">Chaque semaine, pour chaque chapitre</h2>
+    <p class="lead">Suis ces étapes dans l'ordre. Elles sont toutes sur la page du chapitre, dans tes cours.</p>
+    <div class="cycle">
+      <div><b>Lire le support de cours</b><span>Lis le chapitre et refais les démonstrations sur ta feuille, sans regarder.</span><em>Support du chapitre (PDF), et « DIAPO » pour réviser</em></div>
+      <div><b>Faire le cahier d'activités</b><span>Une fiche par activité : objectif, travail demandé, critères pour vérifier. Coche ta progression.</span><em>Bouton « FICHE »</em></div>
+      <div><b>Se tester avec le quiz</b><span>Vérifie que tu as compris l'essentiel. Vise 80 % ; sinon relis les parties concernées.</span><em>Bouton « QUIZ » du chapitre</em></div>
+      <div><b>Chercher la série de TD</b><span>Avant la séance de TD, cherche seul chaque exercice. Note précisément où tu bloques.</span><em>Série de TD du chapitre (PDF)</em></div>
+      <div><b>Comparer avec le corrigé</b><span>Après la séance seulement : compare ta démarche, pas seulement le résultat final.</span><em>Bouton « CORRIGÉ »</em></div>
+      <div><b>S'entraîner</b><span>Exercices à valeurs aléatoires corrigés tout de suite : refais-les jusqu'à réussir sans aide.</span><em>Bouton « EXOS » du chapitre</em></div>
+    </div>
+    <p class="tip"><b>Tu bloques ?</b> Pose ta question sur le forum, avec une photo de ta démarche : un camarade ou l'enseignant te répondra. Les simulations et les animations 3D t'aident aussi à « voir » une notion.</p>
+  </section>
+
+  <section aria-labelledby="h3">
+    <h2 id="h3">Les travaux pratiques</h2>
+    <p class="lead">Chaque TP se fait en trois temps.</p>
+    <ol class="steps">
+      <li><div><b class="t">Avant la séance : préparer</b><p>Lis la théorie et le protocole du TP, puis réponds aux questions de préparation. Sans préparation, la séance ne suffit pas.</p></div></li>
+      <li><div><b class="t">Pendant la séance : mesurer</b><p>Suis le protocole sur le banc virtuel : règle, observe, enregistre chaque mesure. Les tableaux et les graphes se remplissent automatiquement.</p></div></li>
+      <li><div><b class="t">Après : rédiger et soumettre</b><p>Complète les calculs, les résultats et le QCM, puis soumets le compte rendu avant l'échéance. Attention : <b>une seule soumission</b> est possible, relis-toi avant.</p><a class="go" href="tp.html">Ouvrir les TP →</a></div></li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="h4">
+    <h2 id="h4">Tes cours</h2>
+    <div class="forms" id="fbar" role="group" aria-label="Choix de la formation"></div>
+    <div id="mes"></div>
+  </section>
+
+  <section aria-labelledby="h5">
+    <h2 id="h5">Besoin d'aide ?</h2>
+    <div class="help">
+      <a href="forum.html"><b>Forum</b><span>Une question sur un cours, un TD ou un TP : les autres étudiants et l'enseignant répondent.</span></a>
+      <a href="questions.html"><b>Questions</b><span>Une question personnelle (note, absence) : elle va directement à l'enseignant.</span></a>
+      <a href="classe.html"><b>Classe virtuelle</b><span>Les séances en visioconférence et leurs enregistrements.</span></a>
+      <a href="reparer.html?retour=demarrer.html"><b>Affichage incomplet ?</b><span>Mets la plateforme à jour sur ton appareil en un clic.</span></a>
+    </div>
+  </section>
+
+</div></main>
+<footer><div class="wrap">Université Souleymane Niang de Matam • <a href="auteur.html">Plateforme développée par le Dr P. T. Traoré</a> • © 2026 Papa Touty Traoré — tous droits réservés • <a href="reparer.html?retour=demarrer.html">Affichage incomplet ? Mettre le site à jour</a></div></footer>
+<script src="assets/formations.js"></script>
+<script>
+(function(){
+"use strict";
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const C=(id,t,code)=>({h:"index.html#"+id,t,code}),TP=(t,code)=>({h:"tp.html",t,code});
+const PLAN={
+  PCI:[["L1 • Semestre 1",[C("meca","Mécanique 1","LPCI1121"),C("elec","Électricité 1","LPCI1122"),TP("TP de Physique 1 (TP 1 à 6)","LPCI1151")]],
+       ["L1 • Semestre 2",[C("opt","Optique 1","LPCI1221"),C("elec2","Électricité 2","LPCI1222"),TP("TP de Physique 2 (TP 7 à 12)","LPCI1251")]],
+       ["L2 • Semestre 3",[C("l2thermo","Thermodynamique","LPCI2321"),C("l2em","Électromagnétisme","LPCI2322")]],
+       ["L2 • Semestre 4",[C("l2mq","Mécanique quantique","LPCI2421"),C("l2rel","Relativité restreinte","LPCI2422"),C("l2tp4","TP de Physique 4","LPCI2441")]]],
+  BCG:[["L1 • Semestre 1",[C("bcgpg1","Physique générale 1","LBCG1121"),C("bcgpe1","Physique expérimentale 1","LBCG1122")]],
+       ["L1 • Semestre 2",[C("bcgpg2","Physique générale 2","LBCG1221"),C("bcgpe2","Physique expérimentale 2","LBCG1222"),C("bcgbio","Biophysique","LBCG1223")]]],
+  MI:[["L2 • Semestre 4 — option RISE",[C("mielec","Électricité 1","INFO246b1"),C("mielectro","Électronique 1","INFO246b2")]],
+      ["L2 • Semestre 4 — option SDC",[C("mieleclec","Électricité - Électronique","INFO246c1"),C("miquant","Physique quantique","INFO246c2")]]]
+};
+const FM=window.FORMATIONS;
+function rendre(f){
+  document.getElementById("mes").innerHTML=(PLAN[f]||[]).map(([s,L])=>`<div class="sem"><h3>${esc(s)}</h3><div class="ecs">${L.map(e=>`<a class="ec" href="${e.h}"><div><b>${esc(e.t)}</b><small>EC ${esc(e.code)}</small></div><span class="arr">→</span></a>`).join("")}</div></div>`).join("");
+}
+if(FM){FM.bar(document.getElementById("fbar"),rendre);rendre(FM.get());}
+})();
+</script>
+<script>
+if("serviceWorker" in navigator){const hadSW=!!navigator.serviceWorker.controller;navigator.serviceWorker.addEventListener("controllerchange",()=>{/* nouvelle version du site installée : on recharge une fois */try{if(!hadSW||sessionStorage.getItem("swmaj"))return;sessionStorage.setItem("swmaj","1")}catch(e){return}location.reload()});addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").catch(()=>{})})}
+</script>
+</body>
+</html>

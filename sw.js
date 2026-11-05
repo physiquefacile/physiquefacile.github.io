@@ -7,13 +7,13 @@
      ⚠ Toute modification du site doit s'accompagner d'un changement de VERSION.
    - documents PDF : copie locale d'abord, rafraîchie en arrière-plan
    - bibliothèques externes (KaTeX) : copie locale permanente */
-const VERSION = "v180";
+const VERSION = "v181";
 const SHELL = "shell-" + VERSION;
 const PDFS = "pdf-v1";          // nom stable : les documents enregistrés survivent aux mises à jour du site
 const EXT = "ext-v1";           // KaTeX ne change pas : inutile de le retélécharger à chaque version
 
 const SHELL_FILES = [
-  "./", "index.html", "quiz.html", "simulations.html", "entrainement.html", "activites.html", "calendrier.html", "classe.html", "forum.html", "questions.html", "videos.html", "tp.html", "auteur.html",
+  "./", "index.html", "quiz.html", "simulations.html", "entrainement.html", "activites.html", "calendrier.html", "classe.html", "demarrer.html", "forum.html", "questions.html", "videos.html", "tp.html", "auteur.html",
   "assets/site.css", "assets/formations.js", "assets/quiz-data.js", "assets/quiz-bcg.js", "assets/acces.js", "assets/exos.js", "assets/exos-reperes.js", "assets/exos-optique.js", "assets/exos-electro.js", "assets/activites.js", "assets/optique-svg.js", "assets/quiz-optique-fig.js", "assets/annonces.js", "assets/classe.js", "assets/config.js", "assets/videos.js", "assets/tp-cr.js", "assets/tp-qd.js", "assets/tp-core.js", "assets/tp-meca.js", "assets/tp-elec.js", "assets/tp-oscillo.js", "assets/tp-mesures.js", "assets/tp-optique.js", "manifest.webmanifest",
   "vendor/pdfjs/pdf.js", "vendor/pdfjs/pdf.worker.js",
   "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png", "img/usnm-logo.png",
