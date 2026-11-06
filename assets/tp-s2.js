@@ -47,13 +47,15 @@
         <li>Clique sur « Noter θ₀ » : c'est la lecture du faisceau non dévié, qui servira de référence pour les déviations.</li></ol>
       <h4>Partie A — Angle A du prisme</h4><ol>
         <li>Choisis « Angle A (réflexion) » : l'arête du prisme fait face au collimateur.</li>
-        <li>Cherche avec la lunette la première image réfléchie de la fente, mets le réticule dessus : « Noter θ₁ ».</li>
-        <li>Cherche la seconde image (de l'autre côté), mets le réticule dessus : « Noter θ₂ et enregistrer ».</li>
-        <li>Le prisme est ensuite replacé : recommence au moins 3 fois et calcule A pour chaque mesure.</li></ol>
+        <li>Sur la vue de dessus, repère les deux faisceaux réfléchis et amène le bras de la lunette sur le premier avec le curseur « Lunette ». Quand l'image de la fente est hors du champ, une flèche indique de quel côté tourner.</li>
+        <li>Centre l'image sur le réticule avec la vis fine (± 2°), puis « Noter θ₁ ».</li>
+        <li>Fais de même pour la seconde image (de l'autre côté), puis « Noter θ₂ et enregistrer ».</li>
+        <li>Le prisme est ensuite légèrement déplacé (comme si on le replaçait) : les deux images bougent un peu. Recommence pour obtenir <b>3 mesures</b> de A ; le message indique où tu en es.</li></ol>
       <h4>Partie B — Minimum de déviation pour chaque raie du mercure</h4><ol>
-        <li>Choisis « Déviation minimale » et la raie étudiée. Fais tourner lentement le prisme (incidence i) en suivant la raie avec la lunette.</li>
-        <li>La raie se déplace, s'arrête puis repart en sens inverse : la position d'arrêt est le minimum de déviation. Amène le réticule exactement sur la raie à cet instant et enregistre.</li>
-        <li>Recommence pour les 5 raies. Calcule D_m = θ_m − θ₀, puis n avec ton angle A moyen, et trace n = f(1/λ²).</li></ol>`,
+        <li>Choisis « Déviation minimale ». Les 5 raies du mercure apparaissent dans la lunette (violette, indigo, bleu-vert, verte, jaune), très proches les unes des autres : leur nom est écrit au-dessus de chacune.</li>
+        <li>Fais tourner lentement le prisme (incidence i) en suivant une raie avec la lunette : la raie se déplace, s'arrête puis repart en sens inverse. Laisse le prisme à la position d'arrêt (le minimum de déviation).</li>
+        <li>Amène le réticule exactement sur la raie avec la vis fine et clique sur « Enregistrer la raie visée » : la raie est reconnue automatiquement.</li>
+        <li>Recommence pour les 5 raies (la liste « Raies mesurées » se complète). Calcule D_m = θ_m − θ₀, puis n avec ton angle A moyen, et trace n = f(1/λ²).</li></ol>`,
     precautions: `<ul><li>Pointe toujours la raie avec la vis fine de la lunette, et toujours dans le même sens pour éviter le jeu mécanique.</li>
       <li>Le minimum de déviation est plat : quelques dixièmes de degré sur i ne changent presque pas D. C'est pour cela qu'il se mesure précisément.</li>
       <li>Calcule n avec la calculatrice en mode <b>degrés</b>. Une erreur de 0,1° sur D_m donne une erreur d'environ 10⁻³ sur n.</li>
@@ -62,11 +64,11 @@
     hint: "Vue de dessus du goniomètre (à gauche) et champ de la lunette avec son réticule (à droite). Déplace la lunette avec les curseurs ; en partie B, fais tourner le prisme et suis la raie.",
     controls: `<h3>Réglage</h3>${seg("prm", [["O", "Faisceau direct"], ["A", "Angle A (réflexion)"], ["B", "Déviation minimale"]], "O")}
       <div class="ctl"><label for="prT">Lunette (lecture θ) <b id="prTv"></b></label><input id="prT" type="range" min="0" max="360" step="0.05" value="90"></div>
-      <div class="ctl"><label for="prTf">Vis fine de la lunette <b>± 0,5°</b></label><input id="prTf" type="range" min="-0.5" max="0.5" step="0.002" value="0"></div>
+      <div class="ctl"><label for="prTf">Vis fine de la lunette <b>± 2°</b></label><input id="prTf" type="range" min="-2" max="2" step="0.005" value="0"></div>
       <div class="ctl" id="prIw"><label for="prI">Rotation du prisme (incidence i) <b id="prIv"></b></label><input id="prI" type="range" min="30" max="80" step="0.05" value="40"></div>
-      <div class="ctl" id="prLw"><label for="prL">Raie mesurée</label><select id="prL">${LINES.map((l, k) => `<option value="${k}">${l.nom} — ${String(l.lam).replace(".", ",")} nm</option>`).join("")}</select></div>
+      <p id="prLw" style="font-family:var(--f-head);font-size:.86rem;margin:4px 0 10px">Raies mesurées : <span id="prLs"></span></p>
       <dl class="lcd"><dt>Lecture θ</dt><dd id="prRd"></dd><dt>θ₀ noté</dt><dd id="prR0">—</dd><dt id="prR1l">θ₁ noté</dt><dd id="prR1">—</dd></dl>
-      <div class="row"><button type="button" class="btn primary sm" id="prRec0">Noter θ₀</button><button type="button" class="btn primary sm" id="prP1">Noter θ₁</button><button type="button" class="btn primary sm" id="prP2">Noter θ₂ et enregistrer</button><button type="button" class="btn primary sm" id="prRec">Enregistrer la mesure</button></div>
+      <div class="row"><button type="button" class="btn primary sm" id="prRec0">Noter θ₀</button><button type="button" class="btn primary sm" id="prP1">Noter θ₁</button><button type="button" class="btn primary sm" id="prP2">Noter θ₂ et enregistrer</button><button type="button" class="btn primary sm" id="prRec">Enregistrer la raie visée</button></div>
       <button type="button" class="btn sm" id="prNew">Changer de prisme</button>`,
     parts: [
       { key: "A", titre: "Angle A du prisme (méthode de réflexion)", cols: ["n°", "θ₁ (°)", "θ₂ (°)", "A (°)"],
@@ -83,7 +85,7 @@
       let P = store.get("prisme_par", null);
       const newP = () => { P = { A: 60 + (Math.random() * 2 - 1) * 0.6, a: 1.50 + Math.random() * 0.12, b: 0.0040 + Math.random() * 0.0030, th0: 100 + (Math.random() * 2 - 1) * 4 }; store.set("prisme_par", P); };
       if (!P || !P.A) newP();
-      let mode = "O", off = (Math.random() * 2 - 1) * 3, th0m = null, t1m = null;
+      let mode = "O", off = (Math.random() * 2 - 1) * 1.5, th0m = null, t1m = null;
       // lecture A moyenne de l'étudiant (pour la case « n » du compte rendu)
       window.TPX.prismeN = r => { const R = T.rows.A || []; if (!R.length) return NaN; const A = R.reduce((s, q) => s + Math.abs(q.t2 - q.t1) / 2, 0) / R.length, D = r.th - r.th0; return Math.sin((A + D) / 2 * D2R) / Math.sin(A / 2 * D2R); };
       const theta = () => +$("#prT").value + +$("#prTf").value;
@@ -99,6 +101,8 @@
         $("#prRd").textContent = fr(th, 2) + "°"; $("#prR0").textContent = th0m == null ? "—" : fr(th0m, 2) + "°";
         $("#prR1").textContent = t1m == null ? "—" : fr(t1m.th, 2) + "°";
         $("#prIw").hidden = mode !== "B"; $("#prLw").hidden = mode !== "B";
+        const done = new Set((T.rows.B || []).map(r => r.lam));
+        $("#prLs").innerHTML = LINES.map(l => `<span style="white-space:nowrap">${done.has(l.lam) ? "✔" : "○"} ${l.nom}</span>`).join(" · ") + ` (${LINES.filter(l => done.has(l.lam)).length}/5)`;
         $("#prR1").hidden = mode !== "A"; $("#prR1l").hidden = mode !== "A";
         $("#prRec0").hidden = mode !== "O"; $("#prP1").hidden = mode !== "A"; $("#prP2").hidden = mode !== "A"; $("#prRec").hidden = mode !== "B";
         T.draw();
@@ -107,7 +111,6 @@
       const onT = t => Math.abs(t.th - theta()) <= 0.02;
       document.querySelectorAll("[data-prm]").forEach(b => b.onclick = () => { mode = b.dataset.prm; setSeg("prm", mode); t1m = null; ui(); T.msg(""); });
       ["#prT", "#prTf", "#prI"].forEach(s => $(s).addEventListener("input", ui));
-      $("#prL").addEventListener("change", ui);
       $("#prRec0").onclick = () => {
         const t = targets()[0]; if (!onT(t)) { T.msg("Le réticule n'est pas exactement sur l'image de la fente : affine avec la vis fine.", "bad"); return; }
         th0m = read(); ui(); T.msg("θ₀ = " + fr(th0m, 2) + "° noté : c'est la référence des déviations.", "ok");
@@ -120,16 +123,20 @@
         if (!t1m) { T.msg("Note d'abord θ₁ sur la première image réfléchie.", "bad"); return; }
         const t = targets().find(onT); if (!t) { T.msg("Aucune image réfléchie de la fente n'est sur le réticule : cherche-la avec la lunette, puis affine.", "bad"); return; }
         if (t.k === t1m.k) { T.msg("C'est la même image que pour θ₁ : vise l'image réfléchie par l'autre face du prisme.", "bad"); return; }
-        T.add("A", { t1: t1m.th, t2: read() }); t1m = null; off = (Math.random() * 2 - 1) * 3; ui();
-        T.msg("Mesure enregistrée (partie A). Le prisme a été replacé : recommence pour une nouvelle mesure.", "ok");
+        T.add("A", { t1: t1m.th, t2: read() }); t1m = null; off = (Math.random() * 2 - 1) * 1.5; ui();
+        const nA = (T.rows.A || []).length;
+        T.msg(nA >= 3 ? `Mesure ${nA} enregistrée (partie A) : les 3 mesures sont faites, tu peux passer à la partie B.` : `Mesure ${nA} enregistrée (partie A). Le prisme a été légèrement déplacé : les images ont bougé d'un ou deux degrés, retrouve-les pour la mesure suivante (encore ${3 - nA}).`, "ok");
       };
       $("#prRec").onclick = () => {
         if (th0m == null) { T.msg("Note d'abord la lecture θ₀ du faisceau direct (réglage « Faisceau direct »).", "bad"); return; }
-        const k = +$("#prL").value, l = LINES[k], D = devOf(P, l.lam, inc());
-        if (!isFinite(D)) { T.msg("La lumière ne ressort pas du prisme pour cette orientation : fais tourner le prisme.", "bad"); return; }
-        if (Math.abs(P.th0 + D - theta()) > 0.02) { T.msg(`Le réticule n'est pas exactement sur la raie ${l.nom} : suis-la avec la lunette et affine.`, "bad"); return; }
-        if (D - dminOf(P, l.lam) > 0.05) { T.msg("Ce n'est pas le minimum de déviation : fais tourner le prisme lentement ; au minimum, la raie s'arrête puis repart en sens inverse.", "bad"); return; }
-        T.add("B", { lam: l.lam, th0: th0m, th: read() }); T.msg(`Mesure enregistrée (partie B, raie ${l.nom}).`, "ok");
+        const TG = targets(); if (!TG.length) { T.msg("La lumière ne ressort pas du prisme pour cette orientation : fais tourner le prisme.", "bad"); return; }
+        // raie visée : la plus proche du réticule (reconnue automatiquement)
+        const t = TG.reduce((m, q) => Math.abs(q.th - theta()) < Math.abs(m.th - theta()) ? q : m), l = LINES[t.k];
+        if (Math.abs(t.th - theta()) > 0.02) { T.msg(Math.abs(t.th - theta()) < 1 ? `Le réticule est près de la raie ${l.nom} mais pas exactement dessus : affine avec la vis fine.` : "Aucune raie sur le réticule : cherche les raies avec la lunette (la flèche dans le champ indique le côté).", "bad"); return; }
+        if (t.D - dminOf(P, l.lam) > 0.03) { T.msg(`Raie ${l.nom} bien visée, mais ce n'est pas le minimum de déviation : fais tourner le prisme lentement en suivant la raie ; au minimum, elle s'arrête puis repart en sens inverse.`, "bad"); return; }
+        T.add("B", { lam: l.lam, th0: th0m, th: read() }); ui();
+        const nB = new Set((T.rows.B || []).map(r => r.lam)).size;
+        T.msg(`Mesure enregistrée : raie ${l.nom} (${String(l.lam).replace(".", ",")} nm). ` + (nB >= 5 ? "Les 5 raies sont mesurées." : `Raies mesurées : ${nB}/5.`), "ok");
       };
       $("#prNew").onclick = () => { if (T.locked()) { T.msg("Compte rendu déjà soumis : le matériel ne peut plus être changé.", "bad"); return; } newP(); th0m = null; t1m = null; T.clearRows(); ui(); T.msg("Nouveau prisme : refais les mesures."); };
       T.draw = () => {
@@ -160,7 +167,12 @@
         const re = narrow ? Math.min(w * 0.3, h * 0.19) : Math.min(h * 0.4, (w - gw) * 0.42), ex = narrow ? w / 2 : gw + (w - gw) / 2, ey = narrow ? gh + (h - gh) / 2 - 6 : h * 0.5, FOV = 1.0;
         c.fillStyle = "#05070b"; c.beginPath(); c.arc(ex, ey, re, 0, 7); c.fill();
         c.save(); c.beginPath(); c.arc(ex, ey, re, 0, 7); c.clip();
-        TG.forEach(t => { const x = ex + (t.th - th) / FOV * re; if (Math.abs(x - ex) > re + 6) return; c.shadowColor = t.col; c.shadowBlur = 10; c.fillStyle = t.col; c.fillRect(x - 1.6, ey - re, 3.2, 2 * re); c.shadowBlur = 0; });
+        let vis = 0;
+        TG.forEach(t => { const x = ex + (t.th - th) / FOV * re; if (Math.abs(x - ex) > re + 6) return; vis++; c.shadowColor = t.col; c.shadowBlur = 10; c.fillStyle = t.col; c.fillRect(x - 1.6, ey - re, 3.2, 2 * re); c.shadowBlur = 0; });
+        if (mode === "B") { const sh = TG.filter(t => Math.abs(t.th - th) < FOV); sh.forEach((t, j) => { const x = ex + (t.th - th) / FOV * re; c.save(); c.translate(x + 7, ey - re * 0.3 - (j % 2) * 18); c.rotate(-Math.PI / 2); c.font = "600 11px 'Fira Sans',sans-serif"; c.fillStyle = t.col; c.fillText(LINES[t.k].nom, 0, 0); c.restore(); }); }
+        if (!vis && TG.length) { const near = TG.reduce((m, q) => Math.abs(q.th - th) < Math.abs(m.th - th) ? q : m), dir = near.th > th ? 1 : -1, ax = ex + dir * re * 0.62;
+          c.fillStyle = "rgba(255,255,255,.85)"; c.beginPath(); c.moveTo(ax + dir * 16, ey); c.lineTo(ax - dir * 6, ey - 13); c.lineTo(ax - dir * 6, ey + 13); c.closePath(); c.fill();
+          c.font = "600 12px 'Fira Sans',sans-serif"; c.textAlign = "center"; c.fillText(mode === "B" ? "raies" : "image", ax, ey + 30); c.textAlign = "left"; }
         c.strokeStyle = "rgba(255,255,255,.75)"; c.lineWidth = 1; c.beginPath(); c.moveTo(ex - re, ey); c.lineTo(ex + re, ey); c.moveTo(ex, ey - re); c.lineTo(ex, ey + re); c.stroke();
         c.restore(); c.strokeStyle = mu; c.lineWidth = 2; c.beginPath(); c.arc(ex, ey, re, 0, 7); c.stroke();
         txt(c, "champ de la lunette (± 1°)", ex, ey - re - 8, mu, "center");
