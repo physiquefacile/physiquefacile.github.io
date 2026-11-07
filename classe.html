@@ -128,7 +128,7 @@ $("#filt").addEventListener("click",e=>{const b=e.target.closest("button");if(!b
 rendre();setInterval(rendre,30000);
 </script>
 <script>
-if("serviceWorker" in navigator){const hadSW=!!navigator.serviceWorker.controller;navigator.serviceWorker.addEventListener("controllerchange",()=>{/* nouvelle version du site installée : on recharge une fois */try{if(!hadSW||sessionStorage.getItem("swmaj"))return;sessionStorage.setItem("swmaj","1")}catch(e){return}location.reload()});addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").catch(()=>{})})}
+if("serviceWorker" in navigator){const hadSW=!!navigator.serviceWorker.controller;navigator.serviceWorker.addEventListener("controllerchange",()=>{/* nouvelle version du site installée : on recharge une fois */try{if(!hadSW||sessionStorage.getItem("swmaj"))return;sessionStorage.setItem("swmaj","1")}catch(e){return}location.reload()});addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").then(r=>r.update()).catch(()=>{})})}
 </script>
 </body>
 </html>

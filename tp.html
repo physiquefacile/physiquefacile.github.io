@@ -232,7 +232,7 @@ fieldset.qcm input{width:auto;margin-top:4px;accent-color:var(--accent)}
 })();
 </script>
 <script>
-if("serviceWorker" in navigator){const hadSW=!!navigator.serviceWorker.controller;addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").catch(()=>{})})}
+if("serviceWorker" in navigator){const hadSW=!!navigator.serviceWorker.controller;addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").then(r=>r.update()).catch(()=>{})})}
 </script>
 </body>
 </html>

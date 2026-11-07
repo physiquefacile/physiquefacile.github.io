@@ -61,7 +61,7 @@ const parts=Object.keys(NOMS).filter(k=>(V[k]||[]).length).map(k=>`<section><h2>
 document.getElementById("list").innerHTML=parts.length?parts.join("")+`<p class="note">Les vidéos se lisent avec une connexion internet (environ 2 Mo par simulation 3D).</p>`:`<div class="empty">Les vidéos du cours seront ajoutées ici prochainement.</div>`;
 </script>
 <script>
-if("serviceWorker" in navigator){const hadSW=!!navigator.serviceWorker.controller;navigator.serviceWorker.addEventListener("controllerchange",()=>{/* nouvelle version du site installée : on recharge une fois */try{if(!hadSW||sessionStorage.getItem("swmaj"))return;sessionStorage.setItem("swmaj","1")}catch(e){return}location.reload()});addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").catch(()=>{})})}
+if("serviceWorker" in navigator){const hadSW=!!navigator.serviceWorker.controller;navigator.serviceWorker.addEventListener("controllerchange",()=>{/* nouvelle version du site installée : on recharge une fois */try{if(!hadSW||sessionStorage.getItem("swmaj"))return;sessionStorage.setItem("swmaj","1")}catch(e){return}location.reload()});addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").then(r=>r.update()).catch(()=>{})})}
 </script>
 </body>
 </html>
