@@ -202,7 +202,7 @@
         store.set(pk, st.params);
         Object.keys(window.TPCR[T.id].parts).forEach(k => { try { localStorage.removeItem("tp2_" + T.id + "_v2_" + k); } catch (e) {} });
         const cr = store.get(T.id + "_crv2", null); if (cr) { cr.fill = {}; cr.calc = {}; store.set(T.id + "_crv2", cr); }
-        changed.push(T.num);
+        changed.push(T.lab);
       }
       if (st.soumis) store.set(T.id + "_submitted", st.soumis); else { try { localStorage.removeItem("tp2_" + T.id + "_submitted"); } catch (e) {} }
     });
@@ -252,7 +252,7 @@
   const hms = ms => { const t = Math.max(0, Math.ceil(ms / 1000)), h = Math.floor(t / 3600), m = Math.floor(t / 60) % 60, s = t % 60; return (h ? h + " h " : "") + String(m).padStart(2, "0") + " min " + String(s).padStart(2, "0") + " s"; };
 
   const TPS = [];
-  function register(T) { TPS.push(T); }
+  function register(T) { T.lab = T.lab || String(T.num); TPS.push(T); }
 
   const ROUND = (row, spec) => { const o = Object.assign({}, row); Object.keys(spec || {}).forEach(k => { if (typeof o[k] !== "number") return; o[k] = spec[k] === "s4" ? +o[k].toPrecision(4) : +o[k].toFixed(spec[k]); }); return o; };
   const parseNum = v => { const s = String(v ?? "").trim().replace(/\s/g, "").replace(",", ".").replace(/[×x*]10\^?\(?(-?\d+)\)?/i, "e$1"); return s === "" ? NaN : Number(s); };
@@ -265,7 +265,7 @@
     const idField = (f, label, opt) => `<label>${label}${opt ? ' <span class="opt">(facultatif)</span>' : ""}<input id="${T.id}-${f}" data-id="${f}" autocomplete="off"></label>`;
     host.innerHTML = `
     <article class="card fiche">
-      <div class="eyebrow">${esc(T.disc)} • TP n°${T.num}</div>
+      <div class="eyebrow">${esc(T.disc)} • TP n°${T.lab}</div>
       <h2>${esc(T.titre)}</h2>
       <p class="obj"><b>Objectifs.</b> ${T.objectifs}</p>
       ${FASC[T.num] ? `<p class="fasc-link"><a href="docs/Fascicule_TP_Physique_L1.pdf#page=${FASC[T.num]}" target="_blank" rel="noopener">Lire ce TP dans le fascicule (PDF, page ${FASC[T.num] - 1})</a> : théorie détaillée, schémas de montage et tableaux de mesures.</p>` : ""}
@@ -281,7 +281,7 @@
       <div class="panel">${T.controls}<p class="msg" id="${T.id}-msg" role="status"></p></div>
     </div>
     <section class="card report" id="${T.id}-cr" aria-labelledby="${T.id}-crh">
-      <h3 id="${T.id}-crh">Compte rendu — TP n°${T.num}</h3>
+      <h3 id="${T.id}-crh">Compte rendu — TP n°${T.lab}</h3>
       <div class="note-box" id="${T.id}-noteBox" hidden></div>
       <p class="crstate${SS ? (!ST || ST.etat ? " bad" : "") : " warn"}" id="${T.id}-state">${!SS ? "<b>Mode entraînement.</b> Connecte-toi en haut de la page pour recevoir ton matériel personnel, tes questions et pouvoir soumettre ce compte rendu."
         : !ST ? "<b>Ce TP n'est pas encore activé sur le serveur de correction.</b> Tu peux t'entraîner, mais sans minuteur, sans QCM et sans soumission. Recharge la page quand ton enseignant l'aura activé."
@@ -294,7 +294,7 @@
         <div class="data${!p.plot || p.cols.length + p.fill.length > 6 ? " solo" : ""}">
           <div class="tblcol"><p class="hint scrollhint" id="${T.id}-sh-${k}" hidden>↔ Fais glisser le tableau vers la gauche pour voir et remplir toutes les colonnes colorées.</p>
           <div class="tblwrap"><table><thead id="${T.id}-th-${k}"></thead><tbody id="${T.id}-tb-${k}"></tbody></table></div></div>
-          ${p.plot ? `<div class="graph"><canvas id="${T.id}-gr-${k}" aria-label="Graphe de la partie ${L[i]}"></canvas><p class="hint">Graphe tracé avec <b>tes</b> valeurs. ${p.plot.join ? "Repère sur la courbe le maximum et les points où la grandeur vaut le maximum divisé par √2." : "Trace la droite moyenne et calcule sa pente toi-même."}</p></div>` : ""}
+          ${p.plot ? `<div class="graph"><canvas id="${T.id}-gr-${k}" aria-label="Graphe de la partie ${L[i]}"></canvas><p class="hint">Graphe tracé avec <b>tes</b> valeurs. ${p.plot.hint ? p.plot.hint : p.plot.join ? "Repère sur la courbe le maximum et les points où la grandeur vaut le maximum divisé par √2." : "Trace la droite moyenne et calcule sa pente toi-même."}</p></div>` : ""}
         </div></div>`; }).join("")}
       <div class="crblock"><h4>Résultats et calculs</h4><div class="calcs">
         ${CR.calc.map(c => `<div class="calc"><label for="${T.id}-c-${c.k}">${c.h}</label><div class="cin"><input id="${T.id}-c-${c.k}" data-calc="${c.k}" inputmode="decimal"><span>${esc(c.u)}</span></div></div>`).join("")}
@@ -395,7 +395,7 @@
       if (ST && ST.essais) {
         nb.insertAdjacentHTML("beforeend", `<div class="row"><button type="button" class="btn primary" id="${T.id}-redo">Refaire ce TP (nouvel essai)</button></div><p class="msg" id="${T.id}-rmsg"></p>`);
         $("#" + T.id + "-redo").onclick = async () => {
-          if (!confirm(`Refaire le TP n°${T.num} ? Tes mesures et tes réponses actuelles seront effacées de cet appareil (la copie déjà envoyée reste chez ton enseignant).${ST.duree ? ` Le minuteur de ${ST.duree} min redémarre tout de suite.` : ""}`)) return;
+          if (!confirm(`Refaire le TP n°${T.lab} ? Tes mesures et tes réponses actuelles seront effacées de cet appareil (la copie déjà envoyée reste chez ton enseignant).${ST.duree ? ` Le minuteur de ${ST.duree} min redémarre tout de suite.` : ""}`)) return;
           const rb = $("#" + T.id + "-redo"), rm = $("#" + T.id + "-rmsg"); rb.disabled = true; rm.textContent = "Préparation du nouvel essai…"; rm.className = "msg";
           try {
             const R = await post({ action: "start", tp: T.id, carte: SS.etudiant.carte, code: SS.code, device: device(), nouvelEssai: true }, k => { rm.textContent = waitMsg(k); });
@@ -478,7 +478,7 @@
         if (!tbox.dataset.st) tbox.innerHTML = `<div><b>TP minuté : ${ST.duree} min.</b> Le minuteur démarre quand tu cliques sur « Commencer le TP » et ne peut plus être arrêté, même si tu fermes la page. À la fin du temps, ton compte rendu est envoyé automatiquement dans l'état où il se trouve.</div>${ST.etat ? "" : `<button type="button" class="btn primary" id="${T.id}-go">Commencer le TP</button>`}<p class="msg" id="${T.id}-tmsg"></p>`;
         tbox.dataset.st = "avant"; tbox.className = "timer noprint";
         const go = $("#" + T.id + "-go"); if (go && !go.onclick) go.onclick = async () => {
-          if (!confirm(`Commencer le TP n°${T.num} ? Tu disposeras de ${ST.duree} minutes à partir de maintenant. Les mesures d'entraînement déjà faites pour ce TP seront effacées.`)) return;
+          if (!confirm(`Commencer le TP n°${T.lab} ? Tu disposeras de ${ST.duree} minutes à partir de maintenant. Les mesures d'entraînement déjà faites pour ce TP seront effacées.`)) return;
           go.disabled = true; const m = $("#" + T.id + "-tmsg"); m.textContent = "Démarrage…"; m.className = "msg";
           try {
             const R = await post({ action: "start", tp: T.id, carte: SS.etudiant.carte, code: SS.code, device: device() }, k => { m.textContent = waitMsg(k); });
@@ -600,7 +600,7 @@
     // filigrane nominatif : toute capture qui circule permet de retrouver son auteur
     if (SS && ST && ST.duree) {
       const wm = (SS.etudiant.prenom + " " + SS.etudiant.nom + " · " + SS.etudiant.carte).replace(/[<&"]/g, "");
-      const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='360' height='170'><text x='10' y='100' transform='rotate(-22 180 85)' font-family='Arial' font-size='15' fill='rgba(128,128,128,0.16)'>${wm} · TP ${T.num}</text></svg>`;
+      const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='360' height='170'><text x='10' y='100' transform='rotate(-22 180 85)' font-family='Arial' font-size='15' fill='rgba(128,128,128,0.16)'>${wm} · TP ${T.lab}</text></svg>`;
       const url = "url(\"data:image/svg+xml;utf8," + encodeURIComponent(svg) + "\")";
       [cr, host.querySelector(".lab")].forEach(el => { if (!el) return; el.style.position = "relative"; const d = document.createElement("div"); d.className = "wm noprint-not"; d.setAttribute("aria-hidden", "true"); d.style.cssText = "position:absolute;inset:0;pointer-events:none;z-index:5;background-image:" + url; el.appendChild(d); });
     }
@@ -611,12 +611,12 @@
         return `<h2>Partie ${L[i]} — ${esc(p.titre)}</h2>${p.aide ? `<p style="font-family:Arial;font-size:13px;background:#EEF4F6;padding:6px 10px">${p.aide}</p>` : ""}<table><tr>${p.cols.concat(p.fill.map(f => f.h)).map(c => `<th>${c}</th>`).join("")}</tr>${T.rows[k].map((r, j) => `<tr>${p.cells(r, j).concat(p.fill.map(c => esc((S.fill[k][j] || {})[c.k] ?? ""))).map(v => `<td>${v}</td>`).join("")}</tr>`).join("") || `<tr><td colspan="9">Aucune mesure</td></tr>`}</table>${cv && T.rows[k].length ? `<img src="${cv.toDataURL("image/png")}" alt="Graphe" style="max-width:100%;border:1px solid #ccc">` : ""}`; }).join("");
       const calcs = CR.calc.map(c => `<tr><td style="text-align:left">${c.h}</td><td>${esc(S.calc[c.k] || "")} ${esc(c.u)}</td></tr>`).join("");
       const qcm = QS.map(([qi], i) => { if (typeof qi === "string") { const fs = host.querySelector(`fieldset.qd[data-qd="${qi}"]`), t = QDT(qi), j = S.qcm["q" + qi]; return `<p><b>${i + 1}. ${esc(fs ? fs.querySelector(".qdq").textContent : qi)}</b><br>${j != null && QDV[qi] && t ? esc(window.TPQD.fmt(QDV[qi][+j], t.sig) + " " + t.u) : "(sans réponse)"}</p>`; } const q = CR.qcm[qi]; return `<p><b>${i + 1}. ${q.q}</b><br>${S.qcm["q" + qi] != null ? esc(q.o[+S.qcm["q" + qi]]) : "(sans réponse)"}</p>`; }).join("");
-      const html = `<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Compte rendu TP ${T.num} — ${esc(val("nom"))}</title><style>body{font-family:Georgia,serif;max-width:820px;margin:24px auto;padding:0 16px;color:#111}h1{font-family:Arial,sans-serif;font-size:20px;border-bottom:3px solid #D98E04;padding-bottom:6px}h2{font-family:Arial,sans-serif;font-size:16px;color:#1F7A8C;margin-top:22px}table{border-collapse:collapse;margin:8px 0;font-family:monospace;font-size:13px}th,td{border:1px solid #999;padding:4px 8px;text-align:right}th{background:#EEF4F6}</style></head><body>
-        <div style="font-family:Arial;font-size:12px;color:#B87503;font-weight:bold">${esc(window.SITE_ORG || "UNIVERSITÉ SOULEYMANE NIANG DE MATAM • UFR-STI • L1 PCI")}</div><h1>Compte rendu — TP n°${T.num} : ${esc(T.titre)}</h1>
+      const html = `<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Compte rendu TP ${T.lab} — ${esc(val("nom"))}</title><style>body{font-family:Georgia,serif;max-width:820px;margin:24px auto;padding:0 16px;color:#111}h1{font-family:Arial,sans-serif;font-size:20px;border-bottom:3px solid #D98E04;padding-bottom:6px}h2{font-family:Arial,sans-serif;font-size:16px;color:#1F7A8C;margin-top:22px}table{border-collapse:collapse;margin:8px 0;font-family:monospace;font-size:13px}th,td{border:1px solid #999;padding:4px 8px;text-align:right}th{background:#EEF4F6}</style></head><body>
+        <div style="font-family:Arial;font-size:12px;color:#B87503;font-weight:bold">${esc(window.SITE_ORG || "UNIVERSITÉ SOULEYMANE NIANG DE MATAM • UFR-STI • L1 PCI")}</div><h1>Compte rendu — TP n°${T.lab} : ${esc(T.titre)}</h1>
         <p><b>${esc(val("nom"))} ${esc(val("prenom"))}</b> — carte n° ${esc(val("carte"))} — groupe ${esc(val("groupe"))}, sous-groupe ${esc(val("sousgroupe"))}${val("binome") ? " — binôme : " + esc(val("binome")) : ""}</p>
         ${SUB && isFinite(SUB.note) ? `<p><b>Note obtenue : ${String(SUB.note).replace(".", ",")} / 20</b></p>` : ""}${tables}<h2>Résultats et calculs</h2><table>${calcs}</table><h2>QCM</h2>${qcm}</body></html>`;
       const b = new Blob([html], { type: "text/html;charset=utf-8" }), a = document.createElement("a");
-      a.href = URL.createObjectURL(b); a.download = `CR_TP${T.num}_${(val("nom") || "etudiant").replace(/\s+/g, "_")}.html`; document.body.appendChild(a); a.click(); a.remove();
+      a.href = URL.createObjectURL(b); a.download = `CR_TP${T.lab}_${(val("nom") || "etudiant").replace(/\s+/g, "_")}.html`; document.body.appendChild(a); a.click(); a.remove();
     };
 
     T.init(T);
@@ -651,13 +651,21 @@
         ["Étude d'un prisme et indices de réfraction", "ok", "TP 10"],
         ["Charge et décharge d'un condensateur (circuit RC)", "ok", "TP 11 ; oscilloscope : TP 5"],
         ["Étude du circuit RLC et de la résonance", "ok", "TP 12"],
-        ["Traitement des données et comptes rendus", "ok", "Compte rendu en ligne de chaque TP"]] }
+        ["Traitement des données et comptes rendus", "ok", "Compte rendu en ligne de chaque TP"]] },
+    { titre: "TP de Chimie 1", sous: "L1 Semestre 1 • dosages acido-basiques", tps: ["acidi", "conducti", "alcali"],
+      obj: "Réaliser et exploiter des dosages acido-basiques : indicateurs colorés, pH-métrie et conductimétrie.",
+      pre: "Suivre ou avoir suivi l'EC de chimie générale (solutions aqueuses, acides et bases).",
+      prog: [["Acidimétrie et pH-métrie", "ok", "TP C1"], ["Conductimétrie", "soon", "TP C2"], ["Alcalimétrie", "soon", "TP C3"]] },
+    { titre: "TP de Chimie 2", sous: "L1 Semestre 2 • précipitation et oxydoréduction", tps: ["solub", "chloro", "mangan1", "mangan2"],
+      obj: "Réaliser et exploiter des dosages par précipitation et par oxydoréduction.",
+      pre: "Suivre ou avoir suivi les TP de chimie du semestre 1.",
+      prog: [["Produit de solubilité", "soon", "TP C4"], ["Chlorométrie (méthode de Mohr)", "soon", "TP C5"], ["Manganimétrie I", "soon", "TP C6"], ["Manganimétrie II", "soon", "TP C7"]] }
   ];
   function start() {
     // un TP dont le fichier n'est pas encore à jour (copie ancienne en cache) est ignoré au lieu de bloquer toute la page
     for (let i = TPS.length - 1; i >= 0; i--) if (!(window.TPCR || {})[TPS[i].id]) TPS.splice(i, 1);
     TPS.sort((a, b) => a.num - b.num);
-    const pills = l => `<div class="pill-row">${l.map(t => `<button type="button" class="pill" data-t="${t.id}" aria-pressed="false">TP ${t.num} · ${esc(t.court)}</button>`).join("")}</div>`;
+    const pills = l => `<div class="pill-row">${l.map(t => `<button type="button" class="pill" data-t="${t.id}" aria-pressed="false">TP ${t.lab} · ${esc(t.court)}</button>`).join("")}</div>`;
     if (window.SITE_ORG) {      // labo virtuel : regroupement par discipline
       const groups = {}; TPS.forEach(t => (groups[t.disc] = groups[t.disc] || []).push(t));
       $("#tabs").innerHTML = Object.entries(groups).map(([g, l]) => `<div class="grp"><div class="grp-t">${esc(g)}</div>${pills(l)}</div>`).join("");
@@ -666,10 +674,10 @@
       $("#tabs").innerHTML = EC_TP.map(e => {
         const l = TPS.filter(t => e.tps.includes(t.id)); if (!l.length) return "";
         return `<div class="grp"><div class="grp-t">${esc(e.titre)} <span class="grp-s">${esc(e.sous)}</span></div>${pills(l)}
-          <details class="syl"><summary>Syllabus de l'EC ${esc(e.code)}</summary><div class="sy-body">
+          <details class="syl"><summary>${e.code ? "Syllabus de l'EC " + esc(e.code) : "Programme des TP"}</summary><div class="sy-body">
             <p><b>Objectif général.</b> ${esc(e.obj)}</p>
-            <div class="sy-facts"><span><b>UE</b> ${esc(e.ue)}</span><span><b>Volume</b> TP 26 h • TPE 14 h • total 40 h</span><span><b>Évaluation</b> contrôle continu 30 % • comptes rendus et manipulations 40 % • examen final pratique ou écrit 30 % (2 h)</span></div>
-            <table class="sy-prog"><thead><tr><th>Programme du syllabus</th><th>Sur la plateforme</th></tr></thead><tbody>
+            ${e.ue ? `<div class="sy-facts"><span><b>UE</b> ${esc(e.ue)}</span><span><b>Volume</b> TP 26 h • TPE 14 h • total 40 h</span><span><b>Évaluation</b> contrôle continu 30 % • comptes rendus et manipulations 40 % • examen final pratique ou écrit 30 % (2 h)</span></div>` : ""}
+            <table class="sy-prog"><thead><tr><th>${e.code ? "Programme du syllabus" : "Programme"}</th><th>Sur la plateforme</th></tr></thead><tbody>
             ${e.prog.map((r, i) => `<tr><td><b>${i + 1}.</b> ${esc(r[0])}</td><td><span class="sy-st ${ST[r[1]][0]}">${ST[r[1]][1]}</span>${r[2] ? " " + esc(r[2]) : ""}</td></tr>`).join("")}
             </tbody></table><p class="sy-pre"><b>Prérequis.</b> ${esc(e.pre)}</p></div></details></div>`;
       }).join("");
@@ -700,5 +708,5 @@
       const T = TPS.find(t => t.id === cur); if (T && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 69, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 70, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();

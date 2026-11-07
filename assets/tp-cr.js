@@ -313,6 +313,43 @@ window.TPCR = {
       { q: "Un ampèremètre en position alternative (AC) indique :", o: ["la valeur maximale de i", "la valeur efficace de i", "la valeur moyenne de i", "la valeur crête à crête de i"] },
       { q: "La résistance r de la bobine se déduit de l'intensité maximale I₀ par :", o: ["r = U/I₀ − R", "r = U·I₀", "r = R − U/I₀", "r = U/I₀"] }
     ]
+  },
+  acidi: {
+    parts: {
+      A: { min: 3, aide: "Essai 1 : dosage rapide ; essais 2 et 3 : dosages précis (ils doivent concorder à 0,1 mL près). <b>C_a = C_b × V_E / V_a</b> avec C_b = 0,100 mol/L et V_a = 10,0 mL. Ex. V_E = 9,85 mL ⇒ C_a = 0,0985 mol/L.",
+        fill: [{ k: "C", h: "C_a = C_b·V_E/V_a (mol/L)", ref: r => 0.1 * r.V / r.Va, tol: 0.02, warn: "C_a = 0,100 × V_E / 10,0 (volumes dans la même unité)." }] },
+      B: { min: 2, need: { k: "tp", vals: [7, 4], lab: v => "tampon pH " + v }, aide: "Note la lecture du pH-mètre dans chaque tampon <b>après</b> réglage : 7,00 dans le tampon pH 7 (bouton « zéro »), puis 4,00 dans le tampon pH 4 (bouton « pente »).", fill: [] },
+      C: { min: 20, aide: "<b>ΔpH/ΔV</b> se calcule entre chaque point et le <b>précédent</b> : (pH − pH précédent) / (V − V précédent), en mL⁻¹. Laisse la case de la 1ʳᵉ ligne vide. L'équivalence est au milieu de l'intervalle où ΔpH/ΔV est le plus grand. Ex. (8,95 − 4,10) / (20,05 − 20,00) = 97 mL⁻¹.",
+        fill: [{ k: "d", h: "ΔpH/ΔV (mL⁻¹)", warn: "(pH − pH de la ligne précédente) / (V − V de la ligne précédente)." }],
+        plot: { x: r => r.V, y: r => r.pH, xl: "V (mL)", yl: "pH", xmin: 0, ymin: 0, join: true, hint: "Repère le saut de pH : V_E par la méthode des tangentes parallèles ou par le maximum de ΔpH/ΔV." } },
+      D: { min: 20, aide: "Même calcul de <b>ΔpH/ΔV</b> (1ʳᵉ case vide). Repère V_E, puis lis sur la courbe le pH à <b>V_E/2</b> : pH = pKa à la demi-équivalence.",
+        fill: [{ k: "d", h: "ΔpH/ΔV (mL⁻¹)", warn: "(pH − pH de la ligne précédente) / (V − V de la ligne précédente)." }],
+        plot: { x: r => r.V, y: r => r.pH, xl: "V (mL)", yl: "pH", xmin: 0, ymin: 0, join: true, hint: "Repère V_E, puis lis le pH à V_E/2 : c'est le pKa." } }
+    },
+    calc: [
+      { k: "CaA", h: "Partie A : concentration de HCl (moyenne des dosages précis)", u: "mol/L" },
+      { k: "VeC", h: "Partie C : volume équivalent V_E", u: "mL" },
+      { k: "CaC", h: "Partie C : concentration de HCl déduite de V_E", u: "mol/L" },
+      { k: "pHeC", h: "Partie C : pH à l'équivalence", u: "" },
+      { k: "VeD", h: "Partie D : volume équivalent V_E", u: "mL" },
+      { k: "CwD", h: "Partie D : concentration de l'acide éthanoïque", u: "mol/L" },
+      { k: "pHeD", h: "Partie D : pH à l'équivalence", u: "" },
+      { k: "pKa", h: "Partie D : pKa du couple CH₃COOH/CH₃COO⁻ (pH à V_E/2)", u: "" }
+    ],
+    qcm: [
+      { q: "La réaction support du dosage de l'acide chlorhydrique par la soude est :", o: ["H₃O⁺ + HO⁻ → 2 H₂O", "HCl + H₂O → H₃O⁺ + Cl⁻", "Na⁺ + Cl⁻ → NaCl", "H₃O⁺ + Cl⁻ → HCl + H₂O"] },
+      { q: "À l'équivalence du dosage d'un monoacide par la soude :", o: ["C_a V_a = C_b V_E", "C_a V_E = C_b V_a", "C_a = C_b", "V_a = V_E"] },
+      { q: "Le pH à l'équivalence du dosage de HCl par NaOH vaut :", o: ["environ 4", "7", "environ 8,7", "environ 12"] },
+      { q: "Le pH à l'équivalence du dosage de l'acide éthanoïque par la soude est :", o: ["inférieur à 7", "égal à 7", "supérieur à 7", "égal au pKa"] },
+      { q: "À la demi-équivalence du dosage d'un acide faible par une base forte :", o: ["pH = 7", "pH = pKa", "pH = 14 − pKa", "pH = pKa/2"] },
+      { q: "La phénolphtaléine (zone de virage 8,2 – 10) passe :", o: ["du rouge au jaune", "de l'incolore au rose", "du jaune au bleu", "du rose à l'incolore quand le pH augmente"] },
+      { q: "L'hélianthine (zone de virage 3,1 – 4,4) ne convient pas pour doser l'acide éthanoïque car :", o: ["elle vire avant le saut de pH, qui est situé vers pH 7 – 11", "elle est toxique", "elle réagit avec la soude", "elle ne change pas de couleur"] },
+      { q: "On étalonne un pH-mètre avec :", o: ["de l'eau du robinet", "deux solutions tampons de pH connu", "la solution à doser", "la soude"] },
+      { q: "Avec V_a = 20,0 mL et V_E = 18,4 mL de soude à 0,100 mol/L, la concentration de l'acide vaut :", o: ["0,092 mol/L", "0,109 mol/L", "0,184 mol/L", "0,920 mol/L"] },
+      { q: "Ajouter de l'eau distillée dans le bécher avant le dosage :", o: ["modifie le volume équivalent", "ne modifie pas le volume équivalent", "double le volume équivalent", "rend le dosage impossible"] },
+      { q: "Par rapport à HCl de même concentration, la courbe de l'acide éthanoïque présente :", o: ["un pH initial plus faible et un saut plus grand", "un pH initial plus élevé et un saut plus petit", "la même courbe", "aucun saut de pH"] },
+      { q: "Pour repérer l'équivalence sur une courbe pH = f(V), on peut utiliser :", o: ["la méthode des tangentes parallèles ou le maximum de ΔpH/ΔV", "le minimum du pH", "le point où pH = pKa", "le premier point de la courbe"] }
+    ]
   }
 };
 
@@ -373,13 +410,19 @@ window.TPCR = {
       B: { cols: ["n°", "R (Ω)", "U₀ (V)", "t (s)", "u_C (V)"], cells: (r, i) => [i + 1, r.R, fr(r.U0, 2), s4(r.t), fr(r.u, 2)], r: { U0: 2, t: "s4", u: 2 }, titre: "Décharge du condensateur" },
       C: { cols: ["n°", "R (Ω)", "τ (s)"], cells: (r, i) => [i + 1, r.R, s4(r.t)], r: { t: "s4" }, titre: "Influence de R sur la constante de temps" }
     },
+    acidi: {
+      A: { cols: ["Essai", "V_a (mL)", "V_E (mL)"], cells: (r, i) => [i + 1 + (i ? " (précis)" : " (rapide)"), fr(r.Va, 1), fr(r.V, 2)], r: { V: 2 }, titre: "Dosage coloré de HCl (phénolphtaléine)" },
+      B: { cols: ["n°", "Tampon", "Lecture du pH-mètre"], cells: (r, i) => [i + 1, "pH " + r.tp, fr(r.L, 2)], r: { L: 2 }, titre: "Étalonnage du pH-mètre" },
+      C: { cols: ["n°", "V (mL)", "pH"], cells: (r, i) => [i + 1, fr(r.V, 2), fr(r.pH, 2)], r: { V: 2, pH: 2 }, titre: "Courbe pH = f(V) de l'acide chlorhydrique" },
+      D: { cols: ["n°", "V (mL)", "pH"], cells: (r, i) => [i + 1, fr(r.V, 2), fr(r.pH, 2)], r: { V: 2, pH: 2 }, titre: "Courbe pH = f(V) de l'acide éthanoïque" }
+    },
     rlc: {
       A: { cols: ["n°", "R (Ω)", "U (V)", "f (Hz)", "I (mA)"], cells: (r, i) => [i + 1, r.R, fr(r.U, 2), s4(r.f), s4(r.I)], r: { U: 2, f: "s4", I: "s4" }, titre: "Courbe de résonance avec R = 22 Ω" },
       B: { cols: ["n°", "R (Ω)", "U (V)", "f (Hz)", "I (mA)"], cells: (r, i) => [i + 1, r.R, fr(r.U, 2), s4(r.f), s4(r.I)], r: { U: 2, f: "s4", I: "s4" }, titre: "Courbe de résonance avec R = 100 Ω" }
     }
   };
   Object.keys(RAW).forEach(k => Object.keys(RAW[k]).forEach(p => Object.assign(window.TPCR[k].parts[p], RAW[k][p])));
-  window.TPCR_PARAMS = { ressort: "ressort_par", torsion: "torsion_par", ohm: "ohm_par", oscillo: "osc_par", mesures: "mes_par", lentilles: "lent_par", microscope: "micro_par", assoc: "assoc_par", prisme: "prisme_par", rc: "rc_par", rlc: "rlc_par" };
+  window.TPCR_PARAMS = { ressort: "ressort_par", torsion: "torsion_par", ohm: "ohm_par", oscillo: "osc_par", mesures: "mes_par", lentilles: "lent_par", microscope: "micro_par", assoc: "assoc_par", prisme: "prisme_par", rc: "rc_par", rlc: "rlc_par", acidi: "acidi_par" };
 })();
 
 /* Banque de questions : 12 par TP. Chaque étudiant connecté reçoit 5 questions tirées

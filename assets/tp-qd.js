@@ -102,6 +102,17 @@
     A_tau: { part: "A", g: 1, min: 3, q: "La constante de temps τ déduite de ta droite ln(E − u_C) = f(t) (partie A) vaut :", u: "s", sig: 3, s: [R => -1 / H.fit(R, r => r.t, r => Math.log(r.E - r.u)).a, R => -0.5 / H.fit(R, r => r.t, r => Math.log(r.E - r.u)).a, R => H.fit(R, r => r.t, r => Math.log(r.E - r.u)).b, R => H.fit(R, r => r.t, r => Math.log(r.E - r.u)).a] },
     B_tau: { part: "B", g: 1, min: 3, q: "La constante de temps τ déduite de ta droite ln(u_C) = f(t) (partie B) vaut :", u: "s", sig: 3, s: [R => H.fit(R, r => r.t, r => Math.log(r.u)).a, R => -0.5 / H.fit(R, r => r.t, r => Math.log(r.u)).a, R => H.fit(R, r => r.t, r => Math.log(r.u)).b, R => -1 / H.fit(R, r => r.t, r => Math.log(r.u)).a] },
   };
+  const mid = R => { let b = -1, v = NaN; for (let i = 1; i < R.length; i++) { const d = (R[i].pH - R[i - 1].pH) / (R[i].V - R[i - 1].V); if (isFinite(d) && d > b) { b = d; v = (R[i].V + R[i - 1].V) / 2; } } return v; };
+  const nearV = (R, v) => R.reduce((a, r) => Math.abs(r.V - v) < Math.abs(a.V - v) ? r : a, R[0]);
+  Q.acidi = {
+    A_C: { part: "A", q: "Pour ton essai n°{k} de la partie A, la concentration C_a = C_b·V_E/V_a vaut :", u: "mol/L", sig: 3, f: [r => 0.1 * r.V / r.Va, r => 0.1 * r.Va / r.V], s: ["o0","e","o1","o2"] },
+    C_h: { part: "C", q: "Pour ta mesure n°{k} de la partie C, la concentration [H₃O⁺] = 10^(−pH) vaut :", u: "mol/L", sig: 3, f: [r => Math.pow(10, -r.pH), r => Math.pow(10, r.pH - 14)], s: ["o1","o0","e","o2"] },
+    D_h: { part: "D", q: "Pour ta mesure n°{k} de la partie D, la concentration [H₃O⁺] = 10^(−pH) vaut :", u: "mol/L", sig: 3, f: [r => Math.pow(10, -r.pH), r => Math.pow(10, r.pH - 14)], s: ["o2","e","o0","o1"] },
+    A_m: { part: "A", g: 1, min: 3, q: "D'après tes essais de la partie A, la moyenne des volumes équivalents des dosages précis (sans l'essai rapide n°1) vaut :", u: "mL", sig: 4, s: [R => R.reduce((s, r) => s + r.V, 0) / R.length, R => R.slice(1).reduce((s, r) => s + r.V, 0) / (R.length - 1), R => R[0].V, R => Math.max(...R.map(r => r.V)) + 0.5] },
+    C_s: { part: "C", g: 1, min: 3, q: "D'après tes mesures de la partie C, le volume au milieu de l'intervalle où ΔpH/ΔV est le plus grand vaut :", u: "mL", sig: 3, s: [R => mid(R) / 2, R => R[R.length - 1].V, R => mid(R), R => mid(R) * 1.25] },
+    D_s: { part: "D", g: 1, min: 3, q: "D'après tes mesures de la partie D, le volume au milieu de l'intervalle où ΔpH/ΔV est le plus grand vaut :", u: "mL", sig: 3, s: [R => mid(R), R => mid(R) / 2, R => R[R.length - 1].V, R => mid(R) * 0.8] },
+    D_pk: { part: "D", g: 1, min: 3, q: "Dans ton tableau de la partie D, le pH relevé au point le plus proche de V_E/2 (V_E : milieu de l'intervalle où ΔpH/ΔV est le plus grand) vaut :", u: "", sig: 3, s: [R => nearV(R, mid(R)).pH, R => R[0].pH, R => nearV(R, mid(R) / 2).pH, R => nearV(R, mid(R) / 4).pH] }
+  };
   Q.rlc = {
     A_Z: { part: "A", q: "Pour ta mesure n°{k} de la partie A, l'impédance Z = U/I vaut :", u: "Ω", sig: 3, f: [r => 1000 * r.U / r.I, r => r.U / r.I], s: ["o0","o2","o1","e"] },
     A_w: { part: "A", q: "Pour ta mesure n°{k} de la partie A, la pulsation ω vaut :", u: "rad/s", sig: 4, f: [r => 2 * Math.PI * r.f, r => r.f / (2 * Math.PI)], s: ["e","o1","o0","o2"] },
