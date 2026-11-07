@@ -655,11 +655,11 @@
     { titre: "TP de Chimie 1", sous: "L1 Semestre 1 • dosages acido-basiques", tps: ["acidi", "conducti", "alcali"],
       obj: "Réaliser et exploiter des dosages acido-basiques : indicateurs colorés, pH-métrie et conductimétrie.",
       pre: "Suivre ou avoir suivi l'EC de chimie générale (solutions aqueuses, acides et bases).",
-      prog: [["Acidimétrie et pH-métrie", "ok", "TP C1"], ["Conductimétrie", "soon", "TP C2"], ["Alcalimétrie", "soon", "TP C3"]] },
+      prog: [["Acidimétrie et pH-métrie", "ok", "TP C1"], ["Conductimétrie", "ok", "TP C2"], ["Alcalimétrie", "ok", "TP C3"]] },
     { titre: "TP de Chimie 2", sous: "L1 Semestre 2 • précipitation et oxydoréduction", tps: ["solub", "chloro", "mangan1", "mangan2"],
       obj: "Réaliser et exploiter des dosages par précipitation et par oxydoréduction.",
       pre: "Suivre ou avoir suivi les TP de chimie du semestre 1.",
-      prog: [["Produit de solubilité", "soon", "TP C4"], ["Chlorométrie (méthode de Mohr)", "soon", "TP C5"], ["Manganimétrie I", "soon", "TP C6"], ["Manganimétrie II", "soon", "TP C7"]] }
+      prog: [["Produit de solubilité", "ok", "TP C4"], ["Chlorométrie (méthode de Mohr)", "ok", "TP C5"], ["Manganimétrie I", "ok", "TP C6"], ["Manganimétrie II", "ok", "TP C7"]] }
   ];
   function start() {
     // un TP dont le fichier n'est pas encore à jour (copie ancienne en cache) est ignoré au lieu de bloquer toute la page
@@ -708,5 +708,5 @@
       const T = TPS.find(t => t.id === cur); if (T && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 70, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 71, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();

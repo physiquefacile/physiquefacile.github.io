@@ -350,6 +350,185 @@ window.TPCR = {
       { q: "Par rapport à HCl de même concentration, la courbe de l'acide éthanoïque présente :", o: ["un pH initial plus faible et un saut plus grand", "un pH initial plus élevé et un saut plus petit", "la même courbe", "aucun saut de pH"] },
       { q: "Pour repérer l'équivalence sur une courbe pH = f(V), on peut utiliser :", o: ["la méthode des tangentes parallèles ou le maximum de ΔpH/ΔV", "le minimum du pH", "le point où pH = pKa", "le premier point de la courbe"] }
     ]
+  },
+  conducti: {
+    parts: {
+      A: { min: 1, aide: "Lecture du conductimètre dans la solution de KCl à 0,0100 mol/L <b>après</b> réglage du bouton « constante de cellule » : 1,410 mS/cm.", fill: [] },
+      B: { min: 16, aide: "<b>σ corrigée = σ × (220 + V) / 220</b> (V₀ = 20,0 + 200 = 220 mL). Trace σ corrigée = f(V) : deux portions de droite ; V_E est l'abscisse de leur intersection.",
+        fill: [{ k: "sc", h: "σ corrigée (mS/cm)", ref: r => r.s * (220 + r.V) / 220, tol: 0.02, warn: "σ corrigée = σ × (220 + V) / 220." }],
+        plot: { x: r => r.V, y: (r, f) => f.sc, xl: "V (mL)", yl: "σ corrigée (mS/cm)", xmin: 0, ymin: 0, hint: "Trace les deux droites (avant et après l'équivalence) et lis V_E à leur intersection." } },
+      C: { min: 16, aide: "Même correction. Trois portions : dosage de H₃O⁺ (σ diminue), puis de CH₃COOH (σ augmente lentement), puis excès de soude (σ augmente plus vite). V_E1 et V_E2 sont aux deux intersections.",
+        fill: [{ k: "sc", h: "σ corrigée (mS/cm)", ref: r => r.s * (220 + r.V) / 220, tol: 0.02, warn: "σ corrigée = σ × (220 + V) / 220." }],
+        plot: { x: r => r.V, y: (r, f) => f.sc, xl: "V (mL)", yl: "σ corrigée (mS/cm)", xmin: 0, ymin: 0, hint: "Repère les trois portions de droite : V_E1 et V_E2 sont à leurs intersections." } }
+    },
+    calc: [
+      { k: "VeB", h: "Partie B : volume équivalent V_E", u: "mL" },
+      { k: "CaB", h: "Partie B : concentration de HCl", u: "mol/L" },
+      { k: "VeC1", h: "Partie C : premier volume équivalent V_E1", u: "mL" },
+      { k: "VeC2", h: "Partie C : second volume équivalent V_E2", u: "mL" },
+      { k: "CsC", h: "Partie C : concentration de HCl dans le mélange", u: "mol/L" },
+      { k: "CwC", h: "Partie C : concentration de CH₃COOH dans le mélange", u: "mol/L" }
+    ],
+    qcm: [
+      { q: "La conductivité d'une solution ionique s'écrit :", o: ["σ = Σ λᵢ [Xᵢ]", "σ = Σ [Xᵢ] / λᵢ", "σ = U / I", "σ = Σ λᵢ"] },
+      { q: "Parmi ces ions, le plus conducteur est :", o: ["Na⁺", "Cl⁻", "H₃O⁺", "CH₃COO⁻"] },
+      { q: "Avant l'équivalence du dosage de HCl par la soude, σ diminue car :", o: ["on ajoute de l'eau", "les ions H₃O⁺ sont remplacés par des ions Na⁺, moins conducteurs", "les ions Cl⁻ disparaissent", "la température baisse"] },
+      { q: "Après l'équivalence, σ augmente car on ajoute :", o: ["des ions Na⁺ et HO⁻", "des ions H₃O⁺", "des ions Cl⁻", "de l'eau"] },
+      { q: "Sur la courbe σ = f(V), l'équivalence se lit :", o: ["au point où σ est maximale", "à l'intersection des deux portions de droite", "au premier point", "là où σ = 0"] },
+      { q: "On dose 20,0 mL de HCl par la soude à 0,100 mol/L ; V_E = 5,0 mL. C(HCl) vaut :", o: ["0,025 mol/L", "0,40 mol/L", "0,010 mol/L", "0,25 mol/L"] },
+      { q: "On ajoute 200 mL d'eau avant le dosage pour :", o: ["augmenter le volume équivalent", "rendre la dilution due à la soude négligeable", "accélérer la réaction", "étalonner la cellule"] },
+      { q: "Le conductimètre s'étalonne avec :", o: ["une solution tampon de pH 7", "une solution de KCl de conductivité connue", "de l'eau du robinet", "la soude"] },
+      { q: "Dans le mélange HCl + CH₃COOH, la soude dose d'abord :", o: ["l'acide éthanoïque", "l'acide chlorhydrique (acide fort)", "les deux en même temps", "aucun des deux"] },
+      { q: "Dans le mélange, C(CH₃COOH) se calcule avec :", o: ["C_b · V_E1 / V_a", "C_b · (V_E2 − V_E1) / V_a", "C_b · V_E2 / V_a", "C_b · (V_E1 + V_E2) / V_a"] },
+      { q: "La correction de dilution consiste à tracer :", o: ["σ · V₀ / (V₀ + V)", "σ · (V₀ + V) / V₀", "σ − V", "σ / V"] },
+      { q: "Un intérêt de la conductimétrie par rapport à l'indicateur coloré :", o: ["elle fonctionne pour des solutions colorées ou très diluées", "elle ne nécessite aucun appareil", "elle donne directement le pKa", "elle est plus rapide que tout autre dosage"] }
+    ]
+  },
+  alcali: {
+    parts: {
+      A: { min: 2, aide: "<b>C_b = C_a × V_E / V_b</b> avec C_a = 0,100 mol/L et V_b = 10,0 mL. Ex. V_E = 9,60 mL ⇒ C_b = 0,0960 mol/L.",
+        fill: [{ k: "C", h: "C(NaOH) (mol/L)", ref: r => 0.01 * r.V, tol: 0.02, warn: "C(NaOH) = 0,100 × V_E / 10,0." }] },
+      B: { min: 2, aide: "<b>C(CO₃²⁻) = C_a × V₁ / V</b> (V = 10,0 mL). Vérifie que V₂ / V₁ ≈ 2.",
+        fill: [{ k: "C", h: "C(CO₃²⁻) (mol/L)", ref: r => 0.01 * r.V1, tol: 0.02, warn: "C(CO₃²⁻) = 0,100 × V₁ / 10,0." }, { k: "q", h: "V₂ / V₁", ref: r => r.V2 / r.V1, tol: 0.02, warn: "Rapport des deux volumes lus." }] },
+      C: { min: 2, aide: "<b>C(HO⁻) = C_a (2V₁ − V₂) / V</b> et <b>C(CO₃²⁻) = C_a (V₂ − V₁) / V</b>, avec V = 10,0 mL.",
+        fill: [{ k: "oh", h: "C(HO⁻) (mol/L)", ref: r => 0.01 * (2 * r.V1 - r.V2), tol: 0.04, warn: "C(HO⁻) = 0,100 × (2V₁ − V₂) / 10,0." }, { k: "co", h: "C(CO₃²⁻) (mol/L)", ref: r => 0.01 * (r.V2 - r.V1), tol: 0.04, warn: "C(CO₃²⁻) = 0,100 × (V₂ − V₁) / 10,0." }] }
+    },
+    calc: [
+      { k: "CbA", h: "Partie A : concentration de la soude (moyenne)", u: "mol/L" },
+      { k: "CcB", h: "Partie B : concentration du carbonate de sodium (moyenne)", u: "mol/L" },
+      { k: "CoC", h: "Partie C : concentration de NaOH dans le mélange (moyenne)", u: "mol/L" },
+      { k: "CcC", h: "Partie C : concentration de Na₂CO₃ dans le mélange (moyenne)", u: "mol/L" }
+    ],
+    qcm: [
+      { q: "L'ion carbonate CO₃²⁻ est :", o: ["un monoacide", "une dibase", "un ion indifférent", "un oxydant"] },
+      { q: "Le premier virage du dosage du carbonate (phénolphtaléine) correspond à :", o: ["CO₃²⁻ + H₃O⁺ → HCO₃⁻ + H₂O", "HCO₃⁻ + H₃O⁺ → CO₂,H₂O + H₂O", "H₃O⁺ + HO⁻ → 2 H₂O", "CO₂ + H₂O → HCO₃⁻ + H⁺"] },
+      { q: "Pour le carbonate de sodium seul, V₂ (lu depuis le zéro) vaut :", o: ["V₁", "2 V₁", "V₁ / 2", "3 V₁"] },
+      { q: "L'hélianthine vire :", o: ["de l'incolore au rose", "du jaune à l'orange quand le pH diminue vers 4", "du bleu au jaune", "du rose à l'incolore"] },
+      { q: "Dans un mélange NaOH + Na₂CO₃, n(HO⁻) vaut :", o: ["C_a (V₂ − V₁)", "C_a (2V₁ − V₂)", "C_a V₁", "C_a (V₁ + V₂)"] },
+      { q: "Dans ce mélange, n(CO₃²⁻) vaut :", o: ["C_a (V₂ − V₁)", "C_a (2V₁ − V₂)", "C_a V₂", "C_a V₁ / 2"] },
+      { q: "La zone de virage de la phénolphtaléine est :", o: ["3,1 – 4,4", "6,0 – 7,6", "8,2 – 10", "11 – 13"] },
+      { q: "10,0 mL de soude sont dosés par HCl à 0,100 mol/L ; V_E = 9,6 mL. C(NaOH) vaut :", o: ["0,096 mol/L", "0,104 mol/L", "0,96 mol/L", "0,0096 mol/L"] },
+      { q: "Au second point d'équivalence du carbonate, la solution contient surtout :", o: ["CO₃²⁻", "HCO₃⁻", "CO₂ dissous", "HO⁻"] },
+      { q: "On chauffe parfois près du second virage pour :", o: ["accélérer la réaction", "chasser le CO₂ dissous qui rend le virage moins net", "dissoudre l'indicateur", "évaporer l'eau"] },
+      { q: "Si V₂ = 2 V₁ exactement, la solution contient :", o: ["seulement de la soude", "seulement du carbonate", "un mélange soude + carbonate", "de l'hydrogénocarbonate seul"] },
+      { q: "Dans un mélange soude + carbonate :", o: ["V₂ < 2 V₁", "V₂ = 2 V₁", "V₂ > 2 V₁", "V₂ = V₁"] }
+    ]
+  },
+  solub: {
+    parts: {
+      A: { min: 2, aide: "<b>[HO⁻] = C_a × V_E / V</b> avec C_a = 0,050 mol/L et V = 10,0 mL ; <b>s = [HO⁻] / 2</b>. Ks = 4 s³ ; s (g/L) = s (mol/L) × 74,1.",
+        fill: [{ k: "oh", h: "[HO⁻] (mol/L)", ref: r => 0.005 * r.V, tol: 0.02, warn: "[HO⁻] = 0,050 × V_E / 10,0." }, { k: "s", h: "s (mol/L)", ref: r => 0.0025 * r.V, tol: 0.02, warn: "s = [HO⁻] / 2." }] },
+      B: { min: 2, aide: "Mêmes calculs : ici s′ = [HO⁻] / 2 est la solubilité dans CaCl₂ à 0,10 mol/L.",
+        fill: [{ k: "oh", h: "[HO⁻] (mol/L)", ref: r => 0.005 * r.V, tol: 0.02, warn: "[HO⁻] = 0,050 × V_E / 10,0." }, { k: "s", h: "s′ (mol/L)", ref: r => 0.0025 * r.V, tol: 0.02, warn: "s′ = [HO⁻] / 2." }] }
+    },
+    calc: [
+      { k: "sA", h: "Partie A : solubilité s dans l'eau (moyenne)", u: "mol/L" },
+      { k: "sAg", h: "Partie A : solubilité s en g/L", u: "g/L" },
+      { k: "Ks", h: "Produit de solubilité Ks = 4 s³", u: "" },
+      { k: "pKs", h: "pKs = −log Ks", u: "" },
+      { k: "sB", h: "Partie B : solubilité s′ dans CaCl₂ (moyenne)", u: "mol/L" }
+    ],
+    qcm: [
+      { q: "Le produit de solubilité de Ca(OH)₂ s'écrit :", o: ["Ks = [Ca²⁺][HO⁻]", "Ks = [Ca²⁺][HO⁻]²", "Ks = [Ca²⁺]²[HO⁻]", "Ks = [Ca(OH)₂]"] },
+      { q: "En fonction de la solubilité s dans l'eau pure, Ks vaut :", o: ["s²", "2s²", "4s³", "s³"] },
+      { q: "Le dosage du filtrat par HCl donne directement :", o: ["[Ca²⁺]", "[HO⁻] = 2s", "s", "Ks"] },
+      { q: "On filtre la solution saturée car :", o: ["le solide en suspension se dissoudrait pendant le dosage", "la phénolphtaléine ne fonctionne pas sinon", "il faut éliminer les ions Ca²⁺", "pour la refroidir"] },
+      { q: "Dans une solution de CaCl₂, la solubilité de Ca(OH)₂ :", o: ["augmente", "diminue (effet d'ion commun)", "ne change pas", "devient nulle"] },
+      { q: "Quand la température augmente, la solubilité de Ca(OH)₂ :", o: ["augmente", "diminue", "ne change pas", "double"] },
+      { q: "Avec s = 0,020 mol/L, Ks vaut :", o: ["3,2×10⁻⁵", "8,0×10⁻⁶", "4,0×10⁻⁴", "1,6×10⁻³"] },
+      { q: "10,0 mL de filtrat sont dosés par HCl à 0,050 mol/L ; V_E = 8,0 mL. [HO⁻] vaut :", o: ["0,040 mol/L", "0,020 mol/L", "0,080 mol/L", "0,0040 mol/L"] },
+      { q: "Avec M(Ca(OH)₂) = 74,1 g/mol, s = 0,020 mol/L correspond à :", o: ["1,48 g/L", "0,27 g/L", "3,7 g/L", "14,8 g/L"] },
+      { q: "On ne rince pas le filtre à l'eau car :", o: ["le papier se déchirerait", "on diluerait la solution saturée", "l'eau réagit avec Ca(OH)₂", "cela n'a aucune importance"] },
+      { q: "pKs se définit par :", o: ["pKs = log Ks", "pKs = −log Ks", "pKs = 1/Ks", "pKs = −ln Ks"] },
+      { q: "La valeur de Ks calculée avec les concentrations diffère de la valeur tabulée car :", o: ["on néglige les activités des ions", "la burette est fausse", "Ks dépend du volume", "la phénolphtaléine réagit"] }
+    ]
+  },
+  chloro: {
+    parts: {
+      A: { min: 2, aide: "<b>C(Ag⁺) = 0,0500 × 20,0 / (V − V₀)</b>, avec V₀ mesuré à l'essai à blanc (partie B).",
+        fill: [{ k: "c", h: "C(Ag⁺) (mol/L)", ref: r => 1 / r.V, tol: 0.05, warn: "C(Ag⁺) = 0,0500 × 20,0 / (V − V₀)." }] },
+      B: { min: 1, aide: "V₀ : volume d'AgNO₃ nécessaire pour voir la teinte rouge brique sans chlorure. On le retranche de chaque dosage.", fill: [] },
+      C: { min: 2, aide: "<b>C(Cl⁻) = C(Ag⁺) × (V − V₀) / 20,0</b>, avec C(Ag⁺) moyenne de la partie A. Teneur : mg/L = C × 35 500 ; sérum non dilué en NaCl (g/L) = C × 10 × 58,5.",
+        fill: [{ k: "c", h: "C(Cl⁻) (mol/L)", warn: "C(Cl⁻) = C(Ag⁺) × (V − V₀) / 20,0." }] }
+    },
+    calc: [
+      { k: "V0", h: "Partie B : volume de l'essai à blanc V₀ (moyenne)", u: "mL" },
+      { k: "CAg", h: "Partie A : concentration corrigée de AgNO₃ (moyenne)", u: "mol/L" },
+      { k: "CCl", h: "Partie C : concentration en Cl⁻ du sérum dilué (moyenne)", u: "mol/L" },
+      { k: "mgL", h: "Partie C : teneur en chlorure du sérum dilué", u: "mg/L" },
+      { k: "gNaCl", h: "Concentration en NaCl du sérum non dilué", u: "g/L" },
+      { k: "ecart", h: "Écart relatif avec la valeur annoncée (9 g/L)", u: "%" }
+    ],
+    qcm: [
+      { q: "Dans la méthode de Mohr, le précipité blanc est :", o: ["Ag₂CrO₄", "AgCl", "AgNO₃", "NaCl"] },
+      { q: "La teinte rouge brique est due à :", o: ["AgCl", "Ag₂CrO₄", "K₂CrO₄ dissous", "Ag⁺ dissous"] },
+      { q: "À l'équivalence du dosage des chlorures :", o: ["n(Ag⁺) = n(Cl⁻)", "n(Ag⁺) = 2 n(Cl⁻)", "2 n(Ag⁺) = n(Cl⁻)", "n(Ag⁺) = n(CrO₄²⁻)"] },
+      { q: "L'essai à blanc sert à :", o: ["vérifier la burette", "mesurer le petit excès d'Ag⁺ nécessaire pour voir la teinte rouge", "étalonner le pH", "doser le chromate"] },
+      { q: "Le dosage de Mohr se fait en milieu :", o: ["très acide", "neutre ou légèrement basique (pH 6,5 à 10)", "très basique (pH > 12)", "quelconque"] },
+      { q: "En milieu acide, le virage est retardé car :", o: ["le chromate se transforme en dichromate", "AgCl se dissout", "Ag⁺ précipite en AgOH", "le chlorure s'oxyde"] },
+      { q: "On conserve AgNO₃ à l'abri de la lumière car :", o: ["il s'évapore", "il se décompose à la lumière (argent noir)", "il devient acide", "il cristallise"] },
+      { q: "20,0 mL de NaCl à 0,0500 mol/L sont dosés par AgNO₃ à 0,0500 mol/L ; V_E attendu :", o: ["10,0 mL", "20,0 mL", "40,0 mL", "5,0 mL"] },
+      { q: "Un sérum à 9 g/L de NaCl (M = 58,5 g/mol) a une concentration de :", o: ["0,154 mol/L", "0,527 mol/L", "1,54 mol/L", "0,0154 mol/L"] },
+      { q: "C(Cl⁻) = 0,0150 mol/L correspond, avec M(Cl) = 35,5 g/mol, à :", o: ["532 mg/L", "878 mg/L", "15,0 mg/L", "53,2 mg/L"] },
+      { q: "AgCl précipite avant Ag₂CrO₄ car :", o: ["il faut beaucoup moins d'Ag⁺ pour atteindre son produit de solubilité", "il est plus coloré", "le chromate est en excès", "AgCl est soluble"] },
+      { q: "La concentration de AgNO₃ est contrôlée avec :", o: ["une solution étalon de NaCl", "le sérum physiologique", "l'eau du robinet", "le chromate"] }
+    ]
+  },
+  mangan1: {
+    parts: {
+      A: { min: 2, aide: "<b>C(MnO₄⁻) = 2 × C_ox × V_ox / (5 × V_E)</b> avec C_ox = 0,0500 mol/L et V_ox = 10,0 mL, soit C = 0,200 / V_E (V_E en mL).",
+        fill: [{ k: "c", h: "C(MnO₄⁻) (mol/L)", ref: r => 0.2 / r.V, tol: 0.02, warn: "C(MnO₄⁻) = 2 × 0,0500 × 10,0 / (5 × V_E)." }] },
+      B: { min: 2, aide: "<b>C(Fe²⁺) = 5 × C(MnO₄⁻) × V_E / 10,0</b>, avec C(MnO₄⁻) moyenne de la partie A. Masse de sel dissoute dans 100 mL : m = C(Fe²⁺) × 0,100 × 392.",
+        fill: [{ k: "c", h: "C(Fe²⁺) (mol/L)", warn: "C(Fe²⁺) = 5 × C(MnO₄⁻) × V_E / 10,0." }] }
+    },
+    calc: [
+      { k: "CMn", h: "Partie A : concentration de KMnO₄ (moyenne)", u: "mol/L" },
+      { k: "CFe", h: "Partie B : concentration en Fe²⁺ (moyenne)", u: "mol/L" },
+      { k: "mSel", h: "Masse de sel de Mohr dissoute dans 100 mL", u: "g" },
+      { k: "pur", h: "Pureté du sel (masse trouvée / masse pesée)", u: "%" }
+    ],
+    qcm: [
+      { q: "Dans le couple MnO₄⁻/Mn²⁺, le nombre d'électrons échangés est :", o: ["2", "3", "5", "1"] },
+      { q: "Au cours du dosage, le permanganate joue le rôle :", o: ["de réducteur", "d'oxydant et d'indicateur de fin de réaction", "de catalyseur seulement", "de base"] },
+      { q: "L'équivalence est repérée par :", o: ["la décoloration de la solution", "la première teinte rose persistante", "un précipité brun", "un dégagement gazeux"] },
+      { q: "Pour l'acide oxalique, la relation à l'équivalence est :", o: ["5 C_Mn V_E = 2 C_ox V_ox", "2 C_Mn V_E = 5 C_ox V_ox", "C_Mn V_E = C_ox V_ox", "C_Mn V_E = 5 C_ox V_ox"] },
+      { q: "Pour le fer(II), la relation à l'équivalence est :", o: ["C_Mn V_E = 5 C_Fe V_Fe", "5 C_Mn V_E = C_Fe V_Fe", "C_Mn V_E = C_Fe V_Fe", "2 C_Mn V_E = 5 C_Fe V_Fe"] },
+      { q: "On chauffe vers 60 – 70 °C pour l'acide oxalique car :", o: ["la réaction est lente à froid", "l'acide oxalique est insoluble à froid", "le permanganate gèle", "pour évaporer l'eau"] },
+      { q: "Les ions Mn²⁺ formés pendant le dosage de l'acide oxalique :", o: ["ralentissent la réaction", "catalysent la réaction (autocatalyse)", "précipitent", "colorent la solution en violet"] },
+      { q: "On acidifie avec H₂SO₄ et non HCl car :", o: ["HCl est trop cher", "les ions Cl⁻ seraient oxydés par MnO₄⁻", "H₂SO₄ est un indicateur", "HCl réagit avec Fe²⁺"] },
+      { q: "Avec C_ox = 0,0500 mol/L, V_ox = 10,0 mL et V_E = 10,0 mL, C(MnO₄⁻) vaut :", o: ["0,0200 mol/L", "0,0500 mol/L", "0,125 mol/L", "0,0100 mol/L"] },
+      { q: "Avec C_Mn = 0,0200 mol/L et V_E = 10,0 mL pour 10,0 mL de fer(II), C(Fe²⁺) vaut :", o: ["0,100 mol/L", "0,0200 mol/L", "0,0040 mol/L", "0,500 mol/L"] },
+      { q: "Le fer(II) est dosé à froid car :", o: ["la réaction est rapide à froid", "le fer(II) s'évapore", "le permanganate se décompose à froid", "il faut éviter la catalyse"] },
+      { q: "La burette de permanganate se lit :", o: ["au bas du ménisque", "au haut du ménisque (solution très foncée)", "au milieu du liquide", "sans tenir compte du ménisque"] }
+    ]
+  },
+  mangan2: {
+    parts: {
+      A: { min: 1, aide: "Dilution au 1/10 : facteur de dilution F = V_fiole / V_pipette.", fill: [] },
+      B: { min: 2, aide: "<b>C_diluée = 5 × C(MnO₄⁻) × V_E / (2 × 10,0)</b> avec C(MnO₄⁻) indiquée sur le flacon. C_commerciale = 10 × C_diluée ; g/L = C × 34,0 ; titre = 11,2 × C.",
+        fill: [{ k: "c", h: "C diluée (mol/L)", warn: "C = 5 × C(MnO₄⁻) × V_E / (2 × 10,0)." }] }
+    },
+    calc: [
+      { k: "Cdil", h: "Concentration de la solution diluée (moyenne)", u: "mol/L" },
+      { k: "Ccom", h: "Concentration de l'eau oxygénée commerciale", u: "mol/L" },
+      { k: "gL", h: "Concentration massique commerciale", u: "g/L" },
+      { k: "tv", h: "Titre en volumes", u: "volumes" },
+      { k: "ecart", h: "Écart relatif avec l'étiquette (10 volumes)", u: "%" }
+    ],
+    qcm: [
+      { q: "Dans le dosage de l'eau oxygénée par le permanganate, H₂O₂ joue le rôle :", o: ["d'oxydant", "de réducteur", "de catalyseur", "d'indicateur"] },
+      { q: "Le couple de l'eau oxygénée intervenant ici est :", o: ["O₂/H₂O₂", "H₂O₂/H₂O", "H₂O/H₂", "O₂/H₂O"] },
+      { q: "La relation à l'équivalence est :", o: ["2 C(H₂O₂) V = 5 C_Mn V_E", "5 C(H₂O₂) V = 2 C_Mn V_E", "C(H₂O₂) V = C_Mn V_E", "C(H₂O₂) V = 5 C_Mn V_E"] },
+      { q: "Le titre en volumes vaut :", o: ["11,2 × C(H₂O₂)", "22,4 × C(H₂O₂)", "C(H₂O₂) / 11,2", "34 × C(H₂O₂)"] },
+      { q: "Une eau oxygénée à 10 volumes a une concentration d'environ :", o: ["0,89 mol/L", "10 mol/L", "0,089 mol/L", "1,12 mol/L"] },
+      { q: "Pour une dilution au 1/10 précise, on utilise :", o: ["une éprouvette et un bécher", "une pipette jaugée de 10,0 mL et une fiole jaugée de 100,0 mL", "une burette seule", "un erlenmeyer gradué"] },
+      { q: "Si l'on dépasse le trait de jauge de la fiole :", o: ["on retire l'excès à la pipette", "on recommence la dilution", "on ne tient pas compte de l'écart", "on ajoute de l'eau oxygénée"] },
+      { q: "Le gaz qui se dégage pendant le dosage est :", o: ["H₂", "O₂", "CO₂", "Cl₂"] },
+      { q: "On conserve l'eau oxygénée dans un flacon opaque et au frais car :", o: ["elle se décompose à la lumière et à la chaleur", "elle est inflammable", "elle s'évapore", "elle gèle"] },
+      { q: "C(H₂O₂) = 0,85 mol/L correspond à une concentration massique de :", o: ["28,9 g/L", "0,85 g/L", "34 g/L", "2,9 g/L"] },
+      { q: "On dilue la solution commerciale avant le dosage pour :", o: ["obtenir un volume équivalent mesurable avec la burette", "décolorer la solution", "éliminer O₂", "rendre la solution basique"] },
+      { q: "Si la fiole n'est pas homogénéisée, la prise de 10,0 mL :", o: ["a la bonne concentration", "peut avoir une concentration différente de la moyenne", "ne contient plus de H₂O₂", "devient rose"] }
+    ]
   }
 };
 
@@ -416,13 +595,40 @@ window.TPCR = {
       C: { cols: ["n°", "V (mL)", "pH"], cells: (r, i) => [i + 1, fr(r.V, 2), fr(r.pH, 2)], r: { V: 2, pH: 2 }, titre: "Courbe pH = f(V) de l'acide chlorhydrique" },
       D: { cols: ["n°", "V (mL)", "pH"], cells: (r, i) => [i + 1, fr(r.V, 2), fr(r.pH, 2)], r: { V: 2, pH: 2 }, titre: "Courbe pH = f(V) de l'acide éthanoïque" }
     },
+    conducti: {
+      A: { cols: ["n°", "Lecture dans KCl (mS/cm)"], cells: (r, i) => [i + 1, fr(r.L, 3)], r: { L: 3 }, titre: "Étalonnage du conductimètre" },
+      B: { cols: ["n°", "V (mL)", "σ (mS/cm)"], cells: (r, i) => [i + 1, fr(r.V, 2), fr(r.s, 3)], r: { V: 2, s: 3 }, titre: "Dosage conductimétrique de HCl" },
+      C: { cols: ["n°", "V (mL)", "σ (mS/cm)"], cells: (r, i) => [i + 1, fr(r.V, 2), fr(r.s, 3)], r: { V: 2, s: 3 }, titre: "Dosage du mélange HCl + CH₃COOH" }
+    },
+    alcali: {
+      A: { cols: ["Essai", "V (mL)", "V_E (mL)"], cells: (r, i) => [i + 1, fr(r.Va, 1), fr(r.V, 2)], r: { V: 2 }, titre: "Dosage de la soude (phénolphtaléine)" },
+      B: { cols: ["Essai", "V (mL)", "V₁ (mL)", "V₂ (mL)"], cells: (r, i) => [i + 1, fr(r.Va, 1), fr(r.V1, 2), fr(r.V2, 2)], r: { V1: 2, V2: 2 }, titre: "Dosage du carbonate de sodium (deux indicateurs)" },
+      C: { cols: ["Essai", "V (mL)", "V₁ (mL)", "V₂ (mL)"], cells: (r, i) => [i + 1, fr(r.Va, 1), fr(r.V1, 2), fr(r.V2, 2)], r: { V1: 2, V2: 2 }, titre: "Dosage du mélange soude + carbonate" }
+    },
+    solub: {
+      A: { cols: ["Essai", "θ (°C)", "V_E (mL)"], cells: (r, i) => [i + 1, fr(r.T, 1), fr(r.V, 2)], r: { V: 2 }, titre: "Solution saturée dans l'eau" },
+      B: { cols: ["Essai", "θ (°C)", "V_E (mL)"], cells: (r, i) => [i + 1, fr(r.T, 1), fr(r.V, 2)], r: { V: 2 }, titre: "Solution saturée dans CaCl₂ à 0,10 mol/L" }
+    },
+    chloro: {
+      A: { cols: ["Essai", "V (mL)"], cells: (r, i) => [i + 1, fr(r.V, 2)], r: { V: 2 }, titre: "Contrôle de la solution d'argent (NaCl étalon)" },
+      B: { cols: ["Essai", "V₀ (mL)"], cells: (r, i) => [i + 1, fr(r.V, 2)], r: { V: 2 }, titre: "Essai à blanc" },
+      C: { cols: ["Essai", "V (mL)"], cells: (r, i) => [i + 1, fr(r.V, 2)], r: { V: 2 }, titre: "Sérum physiologique dilué 10 fois" }
+    },
+    mangan1: {
+      A: { cols: ["Essai", "θ (°C)", "V_E (mL)"], cells: (r, i) => [i + 1, r.T, fr(r.V, 2)], r: { V: 2 }, titre: "Étalonnage de KMnO₄ par l'acide oxalique" },
+      B: { cols: ["Essai", "θ (°C)", "V_E (mL)"], cells: (r, i) => [i + 1, r.T, fr(r.V, 2)], r: { V: 2 }, titre: "Dosage du fer(II) (sel de Mohr)" }
+    },
+    mangan2: {
+      A: { cols: ["n°", "V pipette (mL)", "V fiole (mL)"], cells: (r, i) => [i + 1, fr(r.Vp, 1), fr(r.Vf, 2)], r: { Vf: 2 }, titre: "Dilution au 1/10" },
+      B: { cols: ["Essai", "V_E (mL)"], cells: (r, i) => [i + 1, fr(r.V, 2)], r: { V: 2 }, titre: "Dosage de la solution diluée" }
+    },
     rlc: {
       A: { cols: ["n°", "R (Ω)", "U (V)", "f (Hz)", "I (mA)"], cells: (r, i) => [i + 1, r.R, fr(r.U, 2), s4(r.f), s4(r.I)], r: { U: 2, f: "s4", I: "s4" }, titre: "Courbe de résonance avec R = 22 Ω" },
       B: { cols: ["n°", "R (Ω)", "U (V)", "f (Hz)", "I (mA)"], cells: (r, i) => [i + 1, r.R, fr(r.U, 2), s4(r.f), s4(r.I)], r: { U: 2, f: "s4", I: "s4" }, titre: "Courbe de résonance avec R = 100 Ω" }
     }
   };
   Object.keys(RAW).forEach(k => Object.keys(RAW[k]).forEach(p => Object.assign(window.TPCR[k].parts[p], RAW[k][p])));
-  window.TPCR_PARAMS = { ressort: "ressort_par", torsion: "torsion_par", ohm: "ohm_par", oscillo: "osc_par", mesures: "mes_par", lentilles: "lent_par", microscope: "micro_par", assoc: "assoc_par", prisme: "prisme_par", rc: "rc_par", rlc: "rlc_par", acidi: "acidi_par" };
+  window.TPCR_PARAMS = { ressort: "ressort_par", torsion: "torsion_par", ohm: "ohm_par", oscillo: "osc_par", mesures: "mes_par", lentilles: "lent_par", microscope: "micro_par", assoc: "assoc_par", prisme: "prisme_par", rc: "rc_par", rlc: "rlc_par", acidi: "acidi_par", conducti: "conducti_par", alcali: "alcali_par", solub: "solub_par", chloro: "chloro_par", mangan1: "mangan1_par", mangan2: "mangan2_par" };
 })();
 
 /* Banque de questions : 12 par TP. Chaque étudiant connecté reçoit 5 questions tirées
