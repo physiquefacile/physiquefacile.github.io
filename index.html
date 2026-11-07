@@ -284,7 +284,7 @@ footer .wrap{padding-block:18px}
     </div>
     <div class="off-act">
       <button type="button" class="obtn primary" id="dlDocs">Enregistrer les cours, TD et TP<small>9 Mo</small></button>
-      <button type="button" class="obtn" id="dlSlides">Enregistrer les diaporamas<small>10 Mo</small></button>
+      <button type="button" class="obtn" id="dlSlides">Enregistrer les diaporamas<small>11 Mo</small></button>
       <button type="button" class="obtn" id="install" hidden>Installer l'application</button>
       <div class="iosbox" id="iosHelp" hidden role="note"><b>Installer sur iPhone ou iPad</b><ol><li>Ouvrez ce site dans <b>Safari</b> (pas depuis WhatsApp ou Facebook : touchez «&nbsp;Ouvrir dans Safari&nbsp;»).</li><li>Touchez le bouton <b>Partager</b> <span aria-hidden="true">(le carré avec une flèche vers le haut)</span>, en bas de l'écran ou en haut sur iPad.</li><li>Faites défiler et choisissez <b>«&nbsp;Sur l'écran d'accueil&nbsp;»</b>, puis <b>«&nbsp;Ajouter&nbsp;»</b>.</li></ol><span>L'icône «&nbsp;Physique L1&nbsp;» apparaît alors sur l'écran d'accueil, comme une application.</span></div>
       <button type="button" class="olink" id="offClear">Supprimer les documents enregistrés</button>
@@ -325,16 +325,16 @@ const COURSES=[
     ["Moment cinétique ; introduction aux référentiels non galiléens","part","Moment cinétique : chapitre 3 ; mouvement relatif : chapitre 2"]]},
   intro:"Quatre chapitres, du calcul vectoriel au théorème de l'énergie. Chaque chapitre a son support de cours avec démonstrations détaillées, son diaporama (en ligne et en PowerPoint) et sa série de TD avec corrigé.",
   chapters:[
-   {n:1,title:"Calcul vectoriel",key:"Support_Chapitre_1_Calcul_vectoriel",pages:19,slides:15,pptx:true,
+   {n:1,title:"Calcul vectoriel",key:"Support_Chapitre_1_Calcul_vectoriel",pages:19,slides:20,pptx:true,
     td:{e:"TD1_Calcul_vectoriel_enonces",ep:3,c:"TD1_Calcul_vectoriel_corrige",cp:9},
     toc:["Grandeurs scalaires et vectorielles","Caractéristiques d'un vecteur","Somme et différence de vecteurs","Composantes et cosinus directeurs","Produit scalaire","Produit vectoriel","Produit mixte","Moment d'un vecteur","Dérivée d'un vecteur"]},
-   {n:2,title:"Cinématique du point",key:"Support_Chapitre_2_Cinematique",pages:40,slides:16,pptx:true,
+   {n:2,title:"Cinématique du point",key:"Support_Chapitre_2_Cinematique",pages:40,slides:22,pptx:true,
     td:{e:"TD2_Cinematique_enonces",ep:5,c:"TD2_Cinematique_corrige",cp:13},
     toc:["Référentiel, repère et systèmes de coordonnées","Mouvement rectiligne","Mouvement curviligne","Coordonnées cartésiennes","Coordonnées intrinsèques (base de Frenet)","Coordonnées polaires","Coordonnées cylindriques","Coordonnées sphériques","Mouvement relatif"]},
-   {n:3,title:"Dynamique du point matériel",key:"Support_Chapitre_3_Dynamique",pages:41,slides:16,pptx:true,
+   {n:3,title:"Dynamique du point matériel",key:"Support_Chapitre_3_Dynamique",pages:41,slides:20,pptx:true,
     td:{e:"TD3_Dynamique_enonces",ep:4,c:"TD3_Dynamique_corrige",cp:11},
     toc:["De la cinématique à la dynamique","Principe d'inertie","Quantité de mouvement","Principe fondamental de la dynamique","Principe des actions réciproques","Quelques lois de forces","Forces de frottement","Le moment cinétique","Les forces centrales","Équations différentielles du mouvement"]},
-   {n:4,title:"Travail et énergie",key:"Support_Chapitre_4_Travail_energie",pages:26,slides:16,pptx:true,
+   {n:4,title:"Travail et énergie",key:"Support_Chapitre_4_Travail_energie",pages:26,slides:20,pptx:true,
     td:{e:"TD4_Travail_energie_enonces",ep:4,c:"TD4_Travail_energie_corrige",cp:9},
     toc:["Introduction et outils","Travail d'une force","Travail dans les différents systèmes de coordonnées","Travail de quelques forces usuelles","Puissance d'une force","Énergie cinétique","Forces conservatives et énergie potentielle","Énergie mécanique","Équilibre et stabilité"]}
   ]},
@@ -349,14 +349,14 @@ const COURSES=[
    extra:"Le dipôle électrostatique (chapitre 3) est un complément du cours d'électrostatique."},
   intro:"Quatre chapitres : la charge et la loi de Coulomb ; le champ, le potentiel et le théorème de Gauss ; le dipôle électrostatique ; l'électrocinétique (courant continu et réseaux linéaires). Chaque chapitre a son support de cours et son diaporama (en ligne et en PowerPoint). Les distributions classiques (fil, anneau, disque, boule) sont traitées dans la série de TD n°1.",
   chapters:[
-   {n:1,title:"Généralités sur l'électrostatique",key:"Electricite_Chapitre_1_Electrostatique",pages:11,slides:16,pptx:true,
+   {n:1,title:"Généralités sur l'électrostatique",key:"Electricite_Chapitre_1_Electrostatique",pages:11,slides:20,pptx:true,
     toc:["La charge électrique","Électrisation de la matière","Distributions de charges","Force électrostatique : loi de Coulomb","Principe de superposition"]},
-   {n:2,title:"Champ et potentiel électrostatiques",key:"Electricite_Chapitre_2_Champ_potentiel",pages:15,slides:17,pptx:true,
+   {n:2,title:"Champ et potentiel électrostatiques",key:"Electricite_Chapitre_2_Champ_potentiel",pages:15,slides:21,pptx:true,
     toc:["Le champ électrostatique","Le potentiel électrostatique","Plusieurs charges ponctuelles","Distributions continues","Angle solide","Flux et théorème de Gauss","Propriétés du champ et du potentiel","Équations de Poisson et de Laplace"]},
-   {n:3,title:"Le dipôle électrostatique",key:"Electricite_Chapitre_3_Dipole",pages:16,slides:13,pptx:true,
+   {n:3,title:"Le dipôle électrostatique",key:"Electricite_Chapitre_3_Dipole",pages:16,slides:17,pptx:true,
     td:{n:2,e:"TD_Electricite_2_enonces",ep:4,c:"TD_Electricite_2_corrige",cp:9},
     toc:["Définitions : dipôle, moment dipolaire","Potentiel créé à grande distance","Champ créé à grande distance","Positions principales de Gauss","Lignes de champ et équipotentielles","Action d'un champ extérieur : couple, énergie, force"]},
-   {n:4,title:"Électrocinétique : courant continu et réseaux linéaires",key:"Electricite_Chapitre_4_Electrocinetique",pages:18,slides:18,pptx:true,
+   {n:4,title:"Électrocinétique : courant continu et réseaux linéaires",key:"Electricite_Chapitre_4_Electrocinetique",pages:18,slides:21,pptx:true,
     td:{n:3,e:"TD_Electricite_3_enonces",ep:5,c:"TD_Electricite_3_corrige",cp:11},
     toc:["Courant et tension en régime continu","Dipôles passifs et dipôles actifs","Réseaux électriques linéaires","Les lois de Kirchhoff","Méthode des mailles (Maxwell)","Théorème de superposition","Théorèmes de Thévenin et de Norton","Théorème de Millman","Transformation triangle–étoile (Kennelly)","Introduction aux régimes variables"]}
   ],
@@ -379,19 +379,19 @@ const COURSES=[
     ["Association de systèmes optiques ; œil et instruments (loupe, microscope, lunette)","part","Associations et loupe : chapitre 5 ; microscope : TP 8 ; associations : TP 9"]]},
   intro:"Cinq chapitres : lois fondamentales ; formation des images, miroir et dioptre plans ; prisme et lame à faces parallèles ; miroirs et dioptres sphériques ; lentilles minces. Chaque chapitre a son support de cours avec démonstrations détaillées, son diaporama (en ligne et en PowerPoint) et sa série de TD avec corrigé.",
   chapters:[
-   {n:1,title:"Lois fondamentales de l'optique géométrique",key:"Optique_Chapitre_1_Lois_fondamentales",pages:19,slides:16,pptx:true,
+   {n:1,title:"Lois fondamentales de l'optique géométrique",key:"Optique_Chapitre_1_Lois_fondamentales",pages:19,slides:20,pptx:true,
     td:{e:"TD_Optique_1_enonces",ep:4,c:"TD_Optique_1_corrige",cp:9},
     toc:["Objet de l'optique géométrique","Nature de la lumière","Propagation de la lumière","Chemin optique et principe de Fermat","Lois de Snell-Descartes","Réfraction limite et réflexion totale","Dispersion de la lumière","Application : la fibre optique"]},
-   {n:2,title:"Formation des images et systèmes plans",key:"Optique_Chapitre_2_Formation_images",pages:14,slides:16,pptx:true,
+   {n:2,title:"Formation des images et systèmes plans",key:"Optique_Chapitre_2_Formation_images",pages:14,slides:20,pptx:true,
     td:{e:"TD_Optique_2_enonces",ep:4,c:"TD_Optique_2_corrige",cp:9},
     toc:["Systèmes optiques, objets et images","Stigmatisme et aplanétisme","Les conditions de Gauss","Foyers, vergence et grandissements","Le miroir plan","Le dioptre plan"]},
-   {n:3,title:"Prisme et lame à faces parallèles",key:"Optique_Chapitre_3_Prisme_lame",pages:12,slides:15,pptx:true,
+   {n:3,title:"Prisme et lame à faces parallèles",key:"Optique_Chapitre_3_Prisme_lame",pages:12,slides:18,pptx:true,
     td:{e:"TD_Optique_3_enonces",ep:3,c:"TD_Optique_3_corrige",cp:7},
     toc:["Le prisme : définitions","Les formules du prisme","Conditions d'émergence","Minimum de déviation","Dispersion de la lumière par un prisme","La lame à faces parallèles"]},
-   {n:4,title:"Miroirs et dioptres sphériques",key:"Optique_Chapitre_4_Miroirs_dioptres_spheriques",pages:12,slides:12,pptx:true,
+   {n:4,title:"Miroirs et dioptres sphériques",key:"Optique_Chapitre_4_Miroirs_dioptres_spheriques",pages:12,slides:16,pptx:true,
     td:{e:"TD_Optique_4_enonces",ep:3,c:"TD_Optique_4_corrige",cp:6},
     toc:["Miroir sphérique : définitions","Relations de conjugaison du miroir","Foyers, vergence et grandissement","Construction des images","Dioptre sphérique : conjugaison et foyers","Grandissement, Newton et constructions"]},
-   {n:5,title:"Les lentilles minces",key:"Optique_Chapitre_5_Lentilles_minces",pages:12,slides:19,pptx:true,
+   {n:5,title:"Les lentilles minces",key:"Optique_Chapitre_5_Lentilles_minces",pages:12,slides:22,pptx:true,
     td:{e:"TD_Optique_5_enonces",ep:3,c:"TD_Optique_5_corrige",cp:7},
     toc:["Formes des lentilles, centre optique","Relation de Descartes, formule des opticiens","Grandissement et relation de Newton","Construction des images (loupe)","Associations : accolées, Gullstrand","Aberrations chromatique et géométriques"]}
   ]},
@@ -406,7 +406,7 @@ const COURSES=[
     ["Régimes transitoires : circuits RC et RL","part","Circuit RC : TP 11 ; régime libre du RLC : TP 12"],
     ["Régime sinusoïdal forcé : impédances, circuit RLC et résonance","part","Circuit RC en régime sinusoïdal : TP 5 (oscilloscope)"]]},
   chapters:[
-   {n:1,title:"Le champ magnétique",key:"Electricite2_Chapitre_1_Champ_magnetique",pages:15,slides:15,pptx:true,
+   {n:1,title:"Le champ magnétique",key:"Electricite2_Chapitre_1_Champ_magnetique",pages:15,slides:19,pptx:true,
     td:{e:"TD_Electricite2_1_enonces",ep:4,c:"TD_Electricite2_1_corrige",cp:10},
     toc:["Le champ magnétique : généralités","Loi de Biot et Savart","Applications : fil, spire, solénoïde","Flux magnétique et potentiel vecteur","Théorème d'Ampère","Forces magnétiques : Lorentz, Laplace","Circuit dans un champ uniforme ; dipôle magnétique"]}
   ]},
