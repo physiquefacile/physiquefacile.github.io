@@ -5,9 +5,9 @@
      une nouvelle version (VERSION ci-dessous) est téléchargée en arrière-plan — seuls les fichiers modifiés
      sont retransférés — puis la page se recharge une fois toute seule (sauf la page des TP).
      ⚠ Toute modification du site doit s'accompagner d'un changement de VERSION.
-   - documents PDF : copie locale d'abord, rafraîchie en arrière-plan
+   - documents PDF : version en ligne d'abord (vérification légère), copie locale hors connexion
    - bibliothèques externes (KaTeX) : copie locale permanente */
-const VERSION = "v185";
+const VERSION = "v186";
 const SHELL = "shell-" + VERSION;
 const PDFS = "pdf-v1";          // nom stable : les documents enregistrés survivent aux mises à jour du site
 const EXT = "ext-v1";           // KaTeX ne change pas : inutile de le retélécharger à chaque version
@@ -172,11 +172,15 @@ self.addEventListener("fetch", e => {
   if (url.origin === location.origin && isPdf(url)) {
     // copie locale immédiate, puis mise à jour en arrière-plan si internet est disponible
     e.respondWith((async () => {
+      // réseau d'abord (le navigateur vérifie seulement si le document a changé : réponse 304 très légère),
+      // copie locale si pas d'internet ou si le réseau ne répond pas en 6 s
       const c = await caches.open(PDFS);
       const hit = await c.match(url.pathname, { ignoreSearch: true, ignoreVary: true });
-      const net = fetch(url.pathname, { cache: "no-cache" }).then(res => { if (res.ok) c.put(url.pathname, res.clone()); return res; }).catch(() => null);
-      if (hit) { e.waitUntil(net); return hit; }
-      return (await net) || Response.error();
+      const net = fetch(url.pathname, { cache: "no-cache" }).then(res => { if (res.ok) c.put(url.pathname, res.clone()); return res.ok ? res : null; }).catch(() => null);
+      if (!hit) return (await net) || Response.error();
+      const res = await Promise.race([net, new Promise(r => setTimeout(() => r("lent"), 6000))]);
+      if (res && res !== "lent") return res;
+      e.waitUntil(net); return hit;
     })());
     return;
   }
