@@ -1,5 +1,5 @@
 /* © 2026 Papa Touty Traoré — tous droits réservés.
-   Plateforme « Physique Facile » / « Labo Virtuel de Physique ». Reproduction, modification ou diffusion interdites sans autorisation écrite de l'auteur. */
+   Plateforme « Physique Facile » / « Labo Virtuel de Physique-Chimie ». Reproduction, modification ou diffusion interdites sans autorisation écrite de l'auteur. */
 /* Quiz d'auto-évaluation de la Licence BCG (département SVT) : Physique générale 1 (LBCG1121),
    Physique générale 2 (LBCG1221) et Biophysique (LBCG1223). 10 questions par chapitre.
    Clés : identifiant du cours sur l'accueil + numéro du chapitre (bcgpg11 = Physique générale 1, chapitre 1). */

@@ -1,5 +1,5 @@
 /* © 2026 Papa Touty Traoré — tous droits réservés.
-   Plateforme « Physique Facile » / « Labo Virtuel de Physique ». Reproduction, modification ou diffusion interdites sans autorisation écrite de l'auteur. */
+   Plateforme « Physique Facile » / « Labo Virtuel de Physique-Chimie ». Reproduction, modification ou diffusion interdites sans autorisation écrite de l'auteur. */
 /* TP du semestre 2 (EC TP de Physique 2) : n°10 prisme, n°11 charge et décharge d'un condensateur, n°12 circuit RLC et résonance */
 (function () {
   "use strict";

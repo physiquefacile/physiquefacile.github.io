@@ -1,5 +1,5 @@
 /* © 2026 Papa Touty Traoré — tous droits réservés.
-   Plateforme « Physique Facile » / « Labo Virtuel de Physique ». Reproduction, modification ou diffusion interdites sans autorisation écrite de l'auteur. */
+   Plateforme « Physique Facile » / « Labo Virtuel de Physique-Chimie ». Reproduction, modification ou diffusion interdites sans autorisation écrite de l'auteur. */
 /* Service worker : consultation hors connexion et ouverture rapide de la plateforme.
    - pages et ressources du site : servies immédiatement depuis la copie locale de la version installée ;
      une nouvelle version (VERSION ci-dessous) est téléchargée en arrière-plan — seuls les fichiers modifiés
@@ -7,7 +7,7 @@
      ⚠ Toute modification du site doit s'accompagner d'un changement de VERSION.
    - documents PDF : version en ligne d'abord (vérification légère), copie locale hors connexion
    - bibliothèques externes (KaTeX) : copie locale permanente */
-const VERSION = "v194";
+const VERSION = "v195";
 const SHELL = "shell-" + VERSION;
 const PDFS = "pdf-v1";          // nom stable : les documents enregistrés survivent aux mises à jour du site
 const EXT = "ext-v1";           // KaTeX ne change pas : inutile de le retélécharger à chaque version

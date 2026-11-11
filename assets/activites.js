@@ -1,5 +1,5 @@
 /* © 2026 Papa Touty Traoré — tous droits réservés.
-   Plateforme « Physique Facile » / « Labo Virtuel de Physique ». Reproduction, modification ou diffusion interdites sans autorisation écrite de l'auteur. */
+   Plateforme « Physique Facile » / « Labo Virtuel de Physique-Chimie ». Reproduction, modification ou diffusion interdites sans autorisation écrite de l'auteur. */
 /* FICHES D'ACTIVITÉS — cahier d'activités de l'apprenant, un par chapitre (modèle « Fiche de consignes d'activités »).
    Fichier généré à partir des mêmes données que les cahiers Word (docs/cahiers/) : ne pas modifier à la main.
    Texte : **gras**, X_Y = indice. */

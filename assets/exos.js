@@ -1,5 +1,5 @@
 /* © 2026 Papa Touty Traoré — tous droits réservés.
-   Plateforme « Physique Facile » / « Labo Virtuel de Physique ». Reproduction, modification ou diffusion interdites sans autorisation écrite de l'auteur. */
+   Plateforme « Physique Facile » / « Labo Virtuel de Physique-Chimie ». Reproduction, modification ou diffusion interdites sans autorisation écrite de l'auteur. */
 /* Exercices d'entraînement à valeurs aléatoires.
    Chaque générateur renvoie : titre, enonce (HTML + LaTeX entre $), reponses [{nom, unite, val, tol}], correction [étapes]. */
 (function () {

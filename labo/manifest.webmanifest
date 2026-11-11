@@ -1,7 +1,7 @@
 {
-  "name": "Labo Virtuel de Physique — Dr P. T. Traoré",
-  "short_name": "Labo Physique",
-  "description": "Travaux pratiques virtuels de physique L1 : mécanique, électricité, optique.",
+  "name": "Labo Virtuel de Physique-Chimie — Dr P. T. Traoré",
+  "short_name": "Labo Physique-Chimie",
+  "description": "Travaux pratiques virtuels de L1 : mécanique, électricité, optique et chimie analytique.",
   "lang": "fr",
   "start_url": "./",
   "scope": "./",

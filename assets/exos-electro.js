@@ -1,5 +1,5 @@
 /* © 2026 Papa Touty Traoré — tous droits réservés.
-   Plateforme « Physique Facile » / « Labo Virtuel de Physique ». Reproduction, modification ou diffusion interdites sans autorisation écrite de l'auteur. */
+   Plateforme « Physique Facile » / « Labo Virtuel de Physique-Chimie ». Reproduction, modification ou diffusion interdites sans autorisation écrite de l'auteur. */
 /* Exercices d'entraînement : Électricité 1 ch. 4 (électrocinétique) et Électricité 2 ch. 1 (champ magnétique).
    Même format que exos.js : titre, enonce, reponses [{nom, unite, val, tol|abs}], correction [étapes]. */
 (function () {
