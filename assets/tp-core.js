@@ -389,7 +389,8 @@
     const showNote = R => {
       const nb = $("#" + T.id + "-noteBox"); nb.hidden = false;
       nb.innerHTML = isFinite(R.note) ? `<div class="nb-main"><span>Compte rendu soumis le ${esc(new Date(R.date).toLocaleString("fr-FR"))}</span><b>${String(R.note).replace(".", ",")} / 20</b></div>
-        <div class="nb-detail"><span>Mesures <b>${fr(R.mesures, 2)}</b> / 2</span><span>Tableaux <b>${fr(R.tableau, 2)}</b> / 6</span><span>Calculs <b>${fr(R.calculs, 2)}</b> / 6</span><span>QCM <b>${fr(R.qcm, 2)}</b> / 6</span></div>
+        <div class="nb-detail">${(() => { const hf = keys.some(k => (CR.parts[k].fill || []).length), hc = (CR.calc || []).length, wM = 2 + (hf ? 0 : 6) + (hc ? 0 : 6);   // sans tableau ni calcul (TP C1), leurs points vont aux réponses notées
+          return `<span>${hf || hc ? "Mesures" : "Réponses notées"} <b>${fr(R.mesures, 2)}</b> / ${wM}</span>` + (hf ? `<span>Tableaux <b>${fr(R.tableau, 2)}</b> / 6</span>` : "") + (hc ? `<span>Calculs <b>${fr(R.calculs, 2)}</b> / 6</span>` : ""); })()}<span>QCM <b>${fr(R.qcm, 2)}</b> / 6</span></div>
         <p class="hint">Ta copie a été transmise à ton enseignant. Elle ne peut plus être modifiée.</p>`
         : `<div class="nb-main"><span>Un compte rendu a déjà été soumis pour ce TP avec ce numéro de carte.</span><b>Soumis</b></div>`;
       // phase de test : l'enseignant autorise plusieurs soumissions (réglage MODE_TEST du script)
@@ -707,5 +708,5 @@
       const T = TPS.find(t => t.id === cur); if (T && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 72, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 73, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();
