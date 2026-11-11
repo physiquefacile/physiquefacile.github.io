@@ -102,61 +102,6 @@
     A_tau: { part: "A", g: 1, min: 3, q: "La constante de temps τ déduite de ta droite ln(E − u_C) = f(t) (partie A) vaut :", u: "s", sig: 3, s: [R => -1 / H.fit(R, r => r.t, r => Math.log(r.E - r.u)).a, R => -0.5 / H.fit(R, r => r.t, r => Math.log(r.E - r.u)).a, R => H.fit(R, r => r.t, r => Math.log(r.E - r.u)).b, R => H.fit(R, r => r.t, r => Math.log(r.E - r.u)).a] },
     B_tau: { part: "B", g: 1, min: 3, q: "La constante de temps τ déduite de ta droite ln(u_C) = f(t) (partie B) vaut :", u: "s", sig: 3, s: [R => H.fit(R, r => r.t, r => Math.log(r.u)).a, R => -0.5 / H.fit(R, r => r.t, r => Math.log(r.u)).a, R => H.fit(R, r => r.t, r => Math.log(r.u)).b, R => -1 / H.fit(R, r => r.t, r => Math.log(r.u)).a] },
   };
-  const mid = R => { let b = -1, v = NaN; for (let i = 1; i < R.length; i++) { const d = (R[i].pH - R[i - 1].pH) / (R[i].V - R[i - 1].V); if (isFinite(d) && d > b) { b = d; v = (R[i].V + R[i - 1].V) / 2; } } return v; };
-  const nearV = (R, v) => R.reduce((a, r) => Math.abs(r.V - v) < Math.abs(a.V - v) ? r : a, R[0]);
-  Q.acidi = {
-    A_C: { part: "A", q: "Pour ton essai n°{k} de la partie A, la concentration C_a = C_b·V_E/V_a vaut :", u: "mol/L", sig: 3, f: [r => 0.1 * r.V / r.Va, r => 0.1 * r.Va / r.V], s: ["o0","e","o1","o2"] },
-    C_h: { part: "C", q: "Pour ta mesure n°{k} de la partie C, la concentration [H₃O⁺] = 10^(−pH) vaut :", u: "mol/L", sig: 3, f: [r => Math.pow(10, -r.pH), r => Math.pow(10, r.pH - 14)], s: ["o1","o0","e","o2"] },
-    D_h: { part: "D", q: "Pour ta mesure n°{k} de la partie D, la concentration [H₃O⁺] = 10^(−pH) vaut :", u: "mol/L", sig: 3, f: [r => Math.pow(10, -r.pH), r => Math.pow(10, r.pH - 14)], s: ["o2","e","o0","o1"] },
-    A_m: { part: "A", g: 1, min: 3, q: "D'après tes essais de la partie A, la moyenne des volumes équivalents des dosages précis (sans l'essai rapide n°1) vaut :", u: "mL", sig: 4, s: [R => R.reduce((s, r) => s + r.V, 0) / R.length, R => R.slice(1).reduce((s, r) => s + r.V, 0) / (R.length - 1), R => R[0].V, R => Math.max(...R.map(r => r.V)) + 0.5] },
-    C_s: { part: "C", g: 1, min: 3, q: "D'après tes mesures de la partie C, le volume au milieu de l'intervalle où ΔpH/ΔV est le plus grand vaut :", u: "mL", sig: 3, s: [R => mid(R) / 2, R => R[R.length - 1].V, R => mid(R), R => mid(R) * 1.25] },
-    D_s: { part: "D", g: 1, min: 3, q: "D'après tes mesures de la partie D, le volume au milieu de l'intervalle où ΔpH/ΔV est le plus grand vaut :", u: "mL", sig: 3, s: [R => mid(R), R => mid(R) / 2, R => R[R.length - 1].V, R => mid(R) * 0.8] },
-    D_pk: { part: "D", g: 1, min: 3, q: "Dans ton tableau de la partie D, le pH relevé au point le plus proche de V_E/2 (V_E : milieu de l'intervalle où ΔpH/ΔV est le plus grand) vaut :", u: "", sig: 3, s: [R => nearV(R, mid(R)).pH, R => R[0].pH, R => nearV(R, mid(R) / 2).pH, R => nearV(R, mid(R) / 4).pH] }
-  };
-  const avg = a => a.reduce((x, y) => x + y, 0) / a.length;
-  const minV = R => R.reduce((a, r) => r.s < a.s ? r : a, R[0]).V;
-  Q.conducti = {
-    B_sc: { part: "B", q: "Pour ta mesure n°{k} de la partie B, σ corrigée = σ × (220 + V) / 220 vaut :", u: "mS/cm", sig: 3, f: [r => r.s * (220 + r.V) / 220, r => r.s * 220 / (220 + r.V)], s: ["o1","e","o0","o2"] },
-    C_sc: { part: "C", q: "Pour ta mesure n°{k} de la partie C, σ corrigée = σ × (220 + V) / 220 vaut :", u: "mS/cm", sig: 3, f: [r => r.s * (220 + r.V) / 220, r => r.s * 220 / (220 + r.V)], s: ["e","o0","o2","o1"] },
-    B_min: { part: "B", g: 1, min: 3, q: "Dans ton tableau de la partie B, le volume pour lequel σ est la plus faible vaut :", u: "mL", sig: 3, s: [R => minV(R) / 2, R => minV(R), R => R[R.length - 1].V, R => minV(R) * 1.3] },
-    C_min: { part: "C", g: 1, min: 3, q: "Dans ton tableau de la partie C, le volume pour lequel σ est la plus faible vaut :", u: "mL", sig: 3, s: [R => minV(R), R => R[R.length - 1].V, R => minV(R) * 1.4, R => minV(R) / 2] },
-    B_C: { part: "B", g: 1, min: 3, q: "En prenant pour V_E le volume où σ est la plus faible dans ta partie B, C(HCl) = 0,100 × V_E / 20,0 vaut :", u: "mol/L", sig: 3, s: [R => 0.1 * minV(R) / 10, R => 0.1 * 20 / minV(R), R => 0.1 * minV(R) / 20, R => minV(R) / 20] }
-  };
-  Q.alcali = {
-    A_C: { part: "A", q: "Pour ton essai n°{k} de la partie A, C(NaOH) = 0,100 × V_E / 10,0 vaut :", u: "mol/L", sig: 3, f: [r => 0.01 * r.V, r => 1 / r.V], s: ["o0","o1","e","o2"] },
-    B_r: { part: "B", q: "Pour ton essai n°{k} de la partie B, le rapport V₂ / V₁ vaut :", u: "", sig: 3, f: [r => r.V2 / r.V1, r => r.V1 / r.V2], s: ["e","o0","o1","o2"] },
-    C_oh: { part: "C", q: "Pour ton essai n°{k} de la partie C, C(HO⁻) = 0,100 × (2V₁ − V₂) / 10,0 vaut :", u: "mol/L", sig: 3, f: [r => 0.01 * (2 * r.V1 - r.V2), r => 0.01 * (r.V2 - r.V1)], s: ["o1","o0","e","o2"] },
-    C_co: { part: "C", q: "Pour ton essai n°{k} de la partie C, C(CO₃²⁻) = 0,100 × (V₂ − V₁) / 10,0 vaut :", u: "mol/L", sig: 3, f: [r => 0.01 * (r.V2 - r.V1), r => 0.01 * (2 * r.V1 - r.V2)], s: ["o2","e","o0","o1"] },
-    A_m: { part: "A", g: 1, min: 2, q: "D'après tes essais de la partie A, la moyenne des volumes équivalents vaut :", u: "mL", sig: 4, s: [R => Math.max(...R.map(r => r.V)) + 0.4, R => avg(R.map(r => r.V)), R => avg(R.map(r => r.V)) / 2, R => Math.min(...R.map(r => r.V)) - 0.4] }
-  };
-  Q.solub = {
-    A_oh: { part: "A", q: "Pour ton essai n°{k} de la partie A, [HO⁻] = 0,050 × V_E / 10,0 vaut :", u: "mol/L", sig: 3, f: [r => 0.005 * r.V, r => 0.0025 * r.V], s: ["o0","e","o2","o1"] },
-    A_s: { part: "A", q: "Pour ton essai n°{k} de la partie A, la solubilité s = [HO⁻] / 2 vaut :", u: "mol/L", sig: 3, f: [r => 0.0025 * r.V, r => 0.005 * r.V], s: ["e","o1","o0","o2"] },
-    B_s: { part: "B", q: "Pour ton essai n°{k} de la partie B, la solubilité s′ = [HO⁻] / 2 vaut :", u: "mol/L", sig: 3, f: [r => 0.0025 * r.V, r => 0.005 * r.V], s: ["o1","o2","e","o0"] },
-    A_ks: { part: "A", g: 1, min: 2, q: "Avec la moyenne de tes essais de la partie A, Ks = 4 s³ vaut :", u: "", sig: 3, s: [R => Math.pow(0.0025 * avg(R.map(r => r.V)), 3), R => 4 * Math.pow(0.0025 * avg(R.map(r => r.V)), 3), R => 4 * Math.pow(0.0025 * avg(R.map(r => r.V)), 2), R => 4 * Math.pow(0.005 * avg(R.map(r => r.V)), 3)] },
-    A_g: { part: "A", g: 1, min: 2, q: "Avec la moyenne de tes essais de la partie A, la solubilité s exprimée en g/L vaut :", u: "g/L", sig: 3, s: [R => 0.005 * avg(R.map(r => r.V)) * 74.1, R => 0.0025 * avg(R.map(r => r.V)) / 74.1, R => 0.0025 * avg(R.map(r => r.V)) * 74.1, R => 0.0025 * avg(R.map(r => r.V)) * 40] }
-  };
-  Q.chloro = {
-    A_c: { part: "A", q: "Pour ton essai n°{k} de la partie A, C(Ag⁺) calculée SANS correction du blanc, 0,0500 × 20,0 / V, vaut :", u: "mol/L", sig: 3, f: [r => 1 / r.V, r => r.V / 400], s: ["o2","o0","e","o1"] },
-    C_mg: { part: "C", q: "Pour ton essai n°{k} de la partie C, en prenant C(Ag⁺) = 0,0500 mol/L et sans correction du blanc, la teneur en chlorure vaut :", u: "mg/L", sig: 3, f: [r => 0.05 * r.V / 20 * 35500, r => 0.05 * r.V / 20 * 58500], s: ["o0","o2","o1","e"] },
-    A_m: { part: "A", g: 1, min: 2, q: "D'après tes essais de la partie A, la moyenne des volumes vaut :", u: "mL", sig: 4, s: [R => avg(R.map(r => r.V)), R => avg(R.map(r => r.V)) / 2, R => Math.max(...R.map(r => r.V)) + 0.5, R => Math.min(...R.map(r => r.V)) - 0.5] },
-    C_m: { part: "C", g: 1, min: 2, q: "D'après tes essais de la partie C, la moyenne des volumes vaut :", u: "mL", sig: 3, s: [R => Math.max(...R.map(r => r.V)) + 0.5, R => avg(R.map(r => r.V)) * 2, R => avg(R.map(r => r.V)), R => Math.min(...R.map(r => r.V)) - 0.5] },
-    B_v: { part: "B", g: 1, min: 1, q: "D'après ton essai à blanc (partie B), le volume V₀ à retrancher vaut :", u: "mL", sig: 2, s: [R => avg(R.map(r => r.V)) * 10, R => avg(R.map(r => r.V)), R => avg(R.map(r => r.V)) + 1, R => avg(R.map(r => r.V)) / 4] }
-  };
-  Q.mangan1 = {
-    A_c: { part: "A", q: "Pour ton essai n°{k} de la partie A, C(MnO₄⁻) = 2 × 0,0500 × 10,0 / (5 V_E) vaut :", u: "mol/L", sig: 3, f: [r => 0.2 / r.V, r => 1.25 / r.V], s: ["o0","e","o1","o2"] },
-    B_fe: { part: "B", q: "Pour ton essai n°{k} de la partie B, en prenant C(MnO₄⁻) = 0,0200 mol/L, C(Fe²⁺) = 5 C V_E / 10,0 vaut :", u: "mol/L", sig: 3, f: [r => 0.01 * r.V, r => 0.0004 * r.V], s: ["o1","o0","o2","e"] },
-    B_n: { part: "B", q: "Pour ton essai n°{k} de la partie B, en prenant C(MnO₄⁻) = 0,0200 mol/L, la quantité de MnO₄⁻ versée vaut :", u: "mmol", sig: 3, f: [r => 0.02 * r.V, r => 0.1 * r.V], s: ["e","o2","o0","o1"] },
-    A_m: { part: "A", g: 1, min: 2, q: "D'après tes essais de la partie A, la moyenne des volumes équivalents vaut :", u: "mL", sig: 4, s: [R => avg(R.map(r => r.V)) / 2, R => Math.max(...R.map(r => r.V)) + 0.5, R => avg(R.map(r => r.V)), R => Math.min(...R.map(r => r.V)) - 0.5] },
-    B_m: { part: "B", g: 1, min: 2, q: "D'après tes essais de la partie B, la moyenne des volumes équivalents vaut :", u: "mL", sig: 4, s: [R => avg(R.map(r => r.V)), R => avg(R.map(r => r.V)) * 5, R => Math.max(...R.map(r => r.V)) + 0.5, R => Math.min(...R.map(r => r.V)) - 0.5] }
-  };
-  Q.mangan2 = {
-    B_c: { part: "B", q: "Pour ton essai n°{k} de la partie B, en prenant C(MnO₄⁻) = 0,0200 mol/L, C_diluée = 5 C V_E / (2 × 10,0) vaut :", u: "mol/L", sig: 3, f: [r => 0.005 * r.V, r => 0.0008 * r.V], s: ["o1","e","o0","o2"] },
-    B_t: { part: "B", q: "Pour ton essai n°{k} de la partie B, en prenant C(MnO₄⁻) = 0,0200 mol/L, le titre de l'eau oxygénée commerciale vaut :", u: "volumes", sig: 3, f: [r => 11.2 * 0.05 * r.V, r => 22.4 * 0.05 * r.V], s: ["o0","o1","e","o2"] },
-    B_g: { part: "B", q: "Pour ton essai n°{k} de la partie B, en prenant C(MnO₄⁻) = 0,0200 mol/L, la concentration massique commerciale vaut :", u: "g/L", sig: 3, f: [r => 34 * 0.05 * r.V, r => 3.4 * 0.05 * r.V], s: ["o2","o0","o1","e"] },
-    B_m: { part: "B", g: 1, min: 2, q: "D'après tes essais de la partie B, la moyenne des volumes équivalents vaut :", u: "mL", sig: 4, s: [R => Math.max(...R.map(r => r.V)) + 0.5, R => avg(R.map(r => r.V)), R => avg(R.map(r => r.V)) / 10, R => Math.min(...R.map(r => r.V)) - 0.5] },
-    A_f: { part: "A", g: 1, min: 1, q: "D'après ta dilution (partie A), le facteur de dilution F = V_fiole / V_pipette vaut :", u: "", sig: 3, s: [R => R[0].Vp / R[0].Vf, R => R[0].Vf / R[0].Vp, R => R[0].Vf - R[0].Vp, R => R[0].Vf / R[0].Vp / 2] }
-  };
   Q.rlc = {
     A_Z: { part: "A", q: "Pour ta mesure n°{k} de la partie A, l'impédance Z = U/I vaut :", u: "Ω", sig: 3, f: [r => 1000 * r.U / r.I, r => r.U / r.I], s: ["o0","o2","o1","e"] },
     A_w: { part: "A", q: "Pour ta mesure n°{k} de la partie A, la pulsation ω vaut :", u: "rad/s", sig: 4, f: [r => 2 * Math.PI * r.f, r => r.f / (2 * Math.PI)], s: ["e","o1","o0","o2"] },

@@ -7,6 +7,7 @@
   "use strict";
   /* page de début de chaque TP dans le fascicule (docs/Fascicule_TP_Physique_L1.pdf, numéro de page du fichier) */
   const FASC = { 1: 12, 2: 18, 3: 23, 4: 28, 5: 34, 6: 40, 7: 47, 8: 53, 9: 57, 10: 62, 11: 66, 12: 70 };
+  const FASC_CH = { 31: 15, 32: 17, 33: 20, 34: 22, 35: 24, 36: 26, 37: 30, 38: 35, 39: 37, 40: 39, 41: 42 };   // pages du fascicule de chimie analytique (PDF)
   const $ = s => document.querySelector(s);
   const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
   const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -268,7 +269,7 @@
       <div class="eyebrow">${esc(T.disc)} • TP n°${T.lab}</div>
       <h2>${esc(T.titre)}</h2>
       <p class="obj"><b>Objectifs.</b> ${T.objectifs}</p>
-      ${FASC[T.num] ? `<p class="fasc-link"><a href="docs/Fascicule_TP_Physique_L1.pdf#page=${FASC[T.num]}" target="_blank" rel="noopener">Lire ce TP dans le fascicule (PDF, page ${FASC[T.num] - 1})</a> : théorie détaillée, schémas de montage et tableaux de mesures.</p>` : ""}
+      ${FASC[T.num] ? `<p class="fasc-link"><a href="docs/Fascicule_TP_Physique_L1.pdf#page=${FASC[T.num]}" target="_blank" rel="noopener">Lire ce TP dans le fascicule (PDF, page ${FASC[T.num] - 1})</a> : théorie détaillée, schémas de montage et tableaux de mesures.</p>` : FASC_CH[T.num] && !window.SITE_ORG ? `<p class="fasc-link"><a href="docs/Fascicule_TP_Chimie_Analytique_L1.pdf#page=${FASC_CH[T.num]}" target="_blank" rel="noopener">Lire ce TP dans le fascicule de chimie analytique (PDF, page ${FASC_CH[T.num]})</a> : but, objectifs, principe, protocole et tableaux de résultats.</p>` : ""}
       <ul class="mat" aria-label="Matériel">${T.materiel.map(m => `<li>${esc(m)}</li>`).join("")}</ul>
       <details open><summary>Rappels théoriques</summary><div class="sec">${T.theorie}</div></details>
       <details open><summary>Protocole détaillé</summary><div class="sec">${T.protocole}</div></details>
@@ -652,14 +653,12 @@
         ["Charge et décharge d'un condensateur (circuit RC)", "ok", "TP 11 ; oscilloscope : TP 5"],
         ["Étude du circuit RLC et de la résonance", "ok", "TP 12"],
         ["Traitement des données et comptes rendus", "ok", "Compte rendu en ligne de chaque TP"]] },
-    { titre: "TP de Chimie 1", sous: "L1 Semestre 1 • dosages acido-basiques", tps: ["acidi", "conducti", "alcali"],
-      obj: "Réaliser et exploiter des dosages acido-basiques : indicateurs colorés, pH-métrie et conductimétrie.",
-      pre: "Suivre ou avoir suivi l'EC de chimie générale (solutions aqueuses, acides et bases).",
-      prog: [["Acidimétrie et pH-métrie", "ok", "TP C1"], ["Conductimétrie", "ok", "TP C2"], ["Alcalimétrie", "ok", "TP C3"]] },
-    { titre: "TP de Chimie 2", sous: "L1 Semestre 2 • précipitation et oxydoréduction", tps: ["solub", "chloro", "mangan1", "mangan2"],
-      obj: "Réaliser et exploiter des dosages par précipitation et par oxydoréduction.",
-      pre: "Suivre ou avoir suivi les TP de chimie du semestre 1.",
-      prog: [["Produit de solubilité", "ok", "TP C4"], ["Chlorométrie (méthode de Mohr)", "ok", "TP C5"], ["Manganimétrie I", "ok", "TP C6"], ["Manganimétrie II", "ok", "TP C7"]] }
+    { titre: "TP de Chimie analytique", sous: "L1 • fascicule 2026-2027 (Département de Chimie)", tps: ["csecu", "csol", "ccolo", "cphm", "ccaco3", "ccond", "cksp", "cjavel", "ch2o2", "cdichro", "cpot"],
+      obj: "Acquérir les compétences fondamentales de l'analyse chimique : sécurité, préparation des solutions, dosages acido-basiques, méthodes électrochimiques, équilibres de solubilité et dosages d'oxydoréduction (directs, indirects et en retour).",
+      pre: "Suivre ou avoir suivi l'EC de chimie générale (solutions aqueuses, acides et bases, oxydoréduction).",
+      prog: [["TP 1 : normes de sécurité au laboratoire", "ok", "TP C1"], ["TP 2 : préparation des solutions", "ok", "TP C2"], ["TP 3.1 : dosage colorimétrique de l'acide acétique par NaOH", "ok", "TP C3.1"], ["TP 3.2 : dosage pH-métrique de l'acide acétique par NaOH", "ok", "TP C3.2"],
+        ["TP 4 : alcalimétrie, dosage du carbonate de calcium par un acide fort", "ok", "TP C4"], ["TP 5 : conductimétrie, dosage de HCl et de l'acide acétique par NaOH", "ok", "TP C5"], ["TP 6 : produit de solubilité de Ca(OH)₂, effet de CaCl₂", "ok", "TP C6"],
+        ["TP 7 : chlorométrie, dosage iodométrique de l'eau de Javel", "ok", "TP C7"], ["TP 8 : manganimétrie I, dosage de l'eau oxygénée", "ok", "TP C8"], ["TP 9 : manganimétrie II, dosage en retour du dichromate", "ok", "TP C9"], ["TP 10 : dosage potentiométrique", "ok", "TP C10"]] }
   ];
   function start() {
     // un TP dont le fichier n'est pas encore à jour (copie ancienne en cache) est ignoré au lieu de bloquer toute la page
@@ -708,5 +707,5 @@
       const T = TPS.find(t => t.id === cur); if (T && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 71, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 72, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();

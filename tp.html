@@ -121,6 +121,11 @@ td.fillc.susp input{border-color:#c0392b;background:rgba(192,57,43,.08)}
 .cin{display:flex;gap:8px;align-items:center}
 .cin input{flex:1;min-width:0;font-family:var(--f-mono)!important;background:var(--tint2)!important;text-align:right}
 .cin span{font-family:var(--f-mono);font-size:.82rem;color:var(--muted);min-width:40px}
+.panel label.radio{display:flex;gap:8px;align-items:flex-start;font-family:var(--f-body);font-size:.9rem;margin:4px 0;cursor:pointer;line-height:1.35}
+.panel label.radio input{width:auto;margin-top:3px;accent-color:var(--accent);flex:none}
+.panel fieldset.ctl{border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin:8px 0}
+.panel fieldset.ctl legend{font-size:.9rem;padding:0 4px}
+.sec table.mini{border-collapse:collapse;margin:8px 0;font-size:.92rem}.sec table.mini th,.sec table.mini td{border:1px solid var(--line);padding:4px 10px;text-align:left}.sec table.mini th{background:var(--tint)}
 fieldset.qcm{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:0;display:grid;gap:6px}
 fieldset.qcm legend{font-size:.97rem;padding:0 4px}
 fieldset.qcm label{display:flex;gap:8px;align-items:flex-start;font-family:var(--f-body);font-size:.95rem;cursor:pointer}
@@ -204,23 +209,24 @@ fieldset.qcm input{width:auto;margin-top:4px;accent-color:var(--accent)}
 <footer><div class="wrap">Université Souleymane Niang de Matam • <a href="auteur.html">Plateforme développée par le Dr P. T. Traoré</a> • © 2026 Papa Touty Traoré — tous droits réservés • Les mesures sont simulées avec une incertitude réaliste. Chaque étudiant connecté reçoit son propre matériel : deux étudiants n'obtiennent pas les mêmes valeurs. • <a href="reparer.html?retour=tp.html">Affichage incomplet ? Mettre le site à jour</a></div></footer>
 
 <script>window.__tpErr = []; addEventListener("error", function (e) { window.__tpErr.push((e.message || "erreur") + " (" + String(e.filename || "").split("/").pop() + ":" + (e.lineno || "") + ")"); });</script>
-<script src="assets/config.js?v=71"></script>
-<script src="assets/tp-cr.js?v=71"></script>
-<script src="assets/tp-qd.js?v=71"></script>
-<script src="assets/tp-core.js?v=71"></script>
-<script src="assets/tp-meca.js?v=71"></script>
-<script src="assets/tp-elec.js?v=71"></script>
-<script src="assets/tp-oscillo.js?v=71"></script>
-<script src="assets/tp-mesures.js?v=71"></script>
-<script src="assets/tp-optique.js?v=71"></script>
-<script src="assets/tp-s2.js?v=71"></script>
-<script src="assets/tp-chimie.js?v=71"></script>
-<script src="assets/tp-chimie2.js?v=71"></script>
+<script src="assets/config.js?v=72"></script>
+<script src="assets/tp-cr.js?v=72"></script>
+<script src="assets/tp-qd.js?v=72"></script>
+<script src="assets/tp-chimie-modele.js?v=72"></script>
+<script src="assets/tp-chimie-cr.js?v=72"></script>
+<script src="assets/tp-core.js?v=72"></script>
+<script src="assets/tp-meca.js?v=72"></script>
+<script src="assets/tp-elec.js?v=72"></script>
+<script src="assets/tp-oscillo.js?v=72"></script>
+<script src="assets/tp-mesures.js?v=72"></script>
+<script src="assets/tp-optique.js?v=72"></script>
+<script src="assets/tp-s2.js?v=72"></script>
+<script src="assets/tp-chimie.js?v=72"></script>
 <script>
 /* Vérifie que tous les fichiers de la page sont de la même version ; sinon (copie ancienne gardée par le
    navigateur après une connexion lente), propose une remise à jour en un clic au lieu d'une page vide. */
 (function () {
-  var BUILD = 71;
+  var BUILD = 72;
   function repair(why) {
     var b = document.getElementById("tpLogin"); if (!b) return;
     var det = (window.__tpErr || []).concat(why ? [why] : []).join(" ; ");
