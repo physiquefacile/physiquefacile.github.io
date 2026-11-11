@@ -1,6 +1,6 @@
 /* © 2026 Papa Touty Traoré — tous droits réservés.
    Plateforme « Physique Facile ». Reproduction, modification ou diffusion interdites sans autorisation écrite de l'auteur. */
-/* TP de chimie analytique de L1, d'après le fascicule de l'Université Souleymane Niang de Matam (2026-2027) :
+/* TP de chimie analytique de L1 (fascicule 2026-2027) :
    C1 sécurité, C2 préparation des solutions, C3.1 dosage colorimétrique et C3.2 pH-métrie de l'acide éthanoïque,
    C4 alcalimétrie (carbonate de calcium), C5 conductimétrie, C6 produit de solubilité, C7 chlorométrie (eau de Javel),
    C8 manganimétrie I (eau oxygénée), C9 manganimétrie II (dichromate, dosage en retour), C10 dosage potentiométrique */
