@@ -29,6 +29,8 @@ window.VIDEOS = {
     { titre: "Équilibre et stabilité", fichier: "videos/3d/stabilite.mp4", image: "videos/3d/stabilite.jpg", duree: "24 s", note: "Bille sur une surface E_p : énergies E_c, E_p, E_m", type: "3d" }
   ],   // Mécanique — Ch. 4 Travail et énergie
   elec1: [
+    { titre: "Cours complet — Généralités sur l'électrostatique", url: "https://youtu.be/COXunjY8aUQ", duree: "14 min 46",
+      note: "Charge, électrisation, densités, loi de Coulomb, superposition et champ, avec exemple corrigé et animations" },
     { titre: "Loi de Coulomb", fichier: "videos/3d/coulomb.mp4", image: "videos/3d/coulomb.jpg", duree: "24 s", note: "Répulsion, attraction, F_A/B = −F_B/A, variation en 1/r²", type: "3d" },
     { titre: "Principe de superposition", fichier: "videos/3d/superposition.mp4", image: "videos/3d/superposition.jpg", duree: "24 s", note: "Forces de trois charges sur q et leur somme vectorielle", type: "3d" }
   ],   // Électricité — Ch. 1 Généralités sur l'électrostatique
