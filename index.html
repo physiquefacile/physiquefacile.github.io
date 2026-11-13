@@ -210,6 +210,7 @@ footer .wrap{padding-block:18px}
 .pg{background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.18);max-width:100%;position:relative}
 .pg canvas{display:block;width:100%;height:100%}
 .r-msg{font-family:var(--f-head);color:var(--muted);text-align:center;padding:40px 0}
+.r-vid{display:flex;align-items:center;gap:14px;max-width:100%;box-sizing:border-box;font-family:var(--f-head);text-decoration:none;color:#fff;background:#1b2a41;border-radius:12px;padding:14px 20px;margin:6px 0 10px}.r-vid:hover{background:#24395a}.r-vid i{flex:none;width:44px;height:30px;border-radius:8px;background:#e62117;position:relative}.r-vid i:after{content:"";position:absolute;left:17px;top:8px;border-left:13px solid #fff;border-top:7px solid transparent;border-bottom:7px solid transparent}.r-vid b{display:block;font-size:1rem}.r-vid small{display:block;color:#c9d6e3;font-size:.85rem}
 @media (prefers-reduced-motion:no-preference){.chap{transition:border-color .15s}}
 .iosbox{grid-column:1/-1;font-family:var(--f-head);font-size:.92rem;line-height:1.5;background:var(--tint);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:10px 14px}.iosbox ol{margin:6px 0 6px 18px;padding:0}.iosbox span{color:var(--muted)}
 /* Grand écran : page plus large ; chapitres sur deux colonnes au-delà de 1500 px */
@@ -667,8 +668,10 @@ function pracCard(c){
   return `<section class="prac"><div><div class="eyebrow">S'exercer dans cette matière</div><p>Quiz d'auto-évaluation, exercices d'entraînement à valeurs aléatoires et simulations rattachés aux chapitres de ${esc(c.tab)}${fm!=="PCI"?" (dont des ressources communes avec la Licence PCI)":""}.</p></div>
     <div class="prac-b">${q.length?`<a class="btn primary" href="quiz.html${f}#${q[0]}"><span class="k k-quiz">QUIZ</span><span class="lbl">Quiz de la matière</span><span class="n">${q.length*10} q.</span></a>`:""}${x.length?`<a class="btn" href="entrainement.html${f}#${x[0]}"><span class="k k-quiz">EXOS</span><span class="lbl">Entraînement</span><span class="n">${nx} ex.</span></a>`:""}${S.size?`<a class="btn" href="simulations.html${f}#${[...S][0]}"><span class="k k-sim">SIMU</span><span class="lbl">Simulations</span><span class="n">${S.size}</span></a>`:""}</div></section>`;
 }
-function pptBtn(key,n,t){
-  return `<button type="button" class="btn" data-pdf="slides/${key}_diapo" data-title="${esc(t)}"><span class="k k-ppt">DIAPO</span><span class="lbl">Diaporama</span><span class="n">${n} diap.</span></button>`;
+const isYT=v=>!!v.url&&/youtu/.test(v.url)&&v.cours;   // vidéo YouTube du cours entier : affichée sous le diaporama
+const YT=(c,ch)=>((window.VIDEOS||{})[c.id+ch.n]||[]).filter(isYT);
+function pptBtn(key,n,t,vid){
+  return `<button type="button" class="btn" data-pdf="slides/${key}_diapo" data-title="${esc(t)}"${vid?` data-vid="${esc(vid.url)}" data-vidt="${esc(vid.titre)}"`:""}><span class="k k-ppt">DIAPO</span><span class="lbl">Diaporama</span><span class="n">${n} diap.</span></button>`;
 }
 
 function sylCard(c){
@@ -723,11 +726,12 @@ function render(){
         ${pdfBtn(ch.key,"Support de cours",ch.pages,"pdf",true).replace('data-title="Support de cours"',`data-title="${esc("Chapitre "+ch.n+" — "+ch.title)}"`)}
         ${CAHIERS[c.id+ch.n]?`<a class="btn" href="docs/cahiers/${CAHIERS[c.id+ch.n]}.docx" download><span class="k k-word">WORD</span><span class="lbl">Cahier d'activités</span><span class="n">${CAHIERS_N[c.id+ch.n]} fiches</span></a>`:""}
         ${(window.ACTIVITES||{})[c.id+ch.n]?`<a class="btn" href="activites.html#${c.id}${ch.n}"><span class="k k-fiche">FICHE</span><span class="lbl">Fiches d'activités en ligne</span><span class="n">${window.ACTIVITES[c.id+ch.n].fiches.length} fiches</span></a>`:""}
-        ${ch.slides?pptBtn(ch.key,ch.slides,"Diaporama — chapitre "+ch.n+" : "+ch.title):""}
+        ${ch.slides?pptBtn(ch.key,ch.slides,"Diaporama — chapitre "+ch.n+" : "+ch.title,YT(c,ch)[0]):""}
         ${ch.pptx?`<a class="btn" href="slides/${ch.key}.pptx" download><span class="k k-ppt">PPTX</span><span class="lbl">PowerPoint</span><span class="n">${ch.slides} diap.</span></a>`:""}
+        ${YT(c,ch).map(v=>`<a class="btn" href="${esc(v.url)}" target="_blank" rel="noopener"><span class="k k-vid">VIDÉO</span><span class="lbl">Vidéo du cours sur YouTube</span>${v.duree?`<span class="n">${esc(v.duree)}</span>`:""}</a>`).join("")}
         ${ch.td?pdfBtn(ch.td.e,"TD "+(ch.td.n||ch.n)+" — énoncés",ch.td.ep,"pdf")+pdfBtn(ch.td.c,"TD "+(ch.td.n||ch.n)+" — corrigé détaillé",ch.td.cp,"cor"):""}
         ${pracBtns(c,ch.n)}
-        ${((window.VIDEOS||{})[c.id+ch.n]||[]).map(v=>`<a class="btn" href="${esc(v.url||v.fichier)}" target="_blank" rel="noopener"><span class="k k-vid">${v.type==="3d"?"3D":"VIDÉO"}</span><span class="lbl">${esc(v.titre)}</span>${v.duree?`<span class="n">${esc(v.duree)}</span>`:""}</a>`).join("")}
+        ${((window.VIDEOS||{})[c.id+ch.n]||[]).filter(v=>!(ch.slides&&isYT(v))).map(v=>`<a class="btn" href="${esc(v.url||v.fichier)}" target="_blank" rel="noopener"><span class="k k-vid">${v.type==="3d"?"3D":"VIDÉO"}</span><span class="lbl">${esc(v.titre)}</span>${v.duree?`<span class="n">${esc(v.duree)}</span>`:""}</a>`).join("")}
       </div></article>`;
   });
   h+="</div>";
@@ -803,7 +807,9 @@ const reader=$("#reader"),wrap=$("#rWrap");
 function baseWidth(){return Math.min(900,$("#rScroll").clientWidth-32)*zoom}
 let blobUrl=null;
 function deviceLink(name){return blobUrl?`<p><a class="obtn primary" href="${blobUrl}" download="${name}" target="_blank" rel="noopener">Ouvrir avec le lecteur PDF de l'appareil</a></p>`:""}
-async function openPdf(file,title){
+let rVid=null;
+async function openPdf(file,title,vid,vidt){
+  rVid=vid?{url:vid,titre:vidt||""}:null;
   const url=(file.includes("/")?file:"docs/"+file)+".pdf",name=url.split("/").pop();
   $("#rTitle").textContent=title;$("#rOpen").href=url;$("#rPages").textContent="";
   wrap.innerHTML='<div class="r-msg">Chargement du document…</div>';
@@ -839,6 +845,7 @@ async function layout(){
   }
   obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting&&!e.target.dataset.done){e.target.dataset.done=1;drawPage(e.target)}}),{root:$("#rScroll"),rootMargin:"600px 0px"});
   wrap.querySelectorAll(".pg").forEach(d=>obs.observe(d));
+  if(rVid){const a=document.createElement("a");a.className="r-vid";a.href=rVid.url;a.target="_blank";a.rel="noopener";a.style.width=w+"px";a.innerHTML=`<i></i><span><b>Regarder la vidéo du cours sur YouTube</b><small>${esc(rVid.titre)}</small></span>`;wrap.appendChild(a)}
 }
 async function drawPage(div){
   const page=await doc.getPage(+div.dataset.p);
@@ -855,7 +862,7 @@ $("#rClose").addEventListener("click",closeReader);
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!reader.hidden)closeReader()});
 $("#zIn").addEventListener("click",()=>{if(!doc)return;zoom=Math.min(2.5,zoom*1.25);layout()});
 $("#zOut").addEventListener("click",()=>{if(!doc)return;zoom=Math.max(.5,zoom/1.25);layout()});
-document.addEventListener("click",e=>{const b=e.target.closest("[data-pdf]");if(b)openPdf(b.dataset.pdf,b.dataset.title)});
+document.addEventListener("click",e=>{const b=e.target.closest("[data-pdf]");if(b)openPdf(b.dataset.pdf,b.dataset.title,b.dataset.vid,b.dataset.vidt)});
 
 
 

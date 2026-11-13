@@ -7,7 +7,7 @@
      ⚠ Toute modification du site doit s'accompagner d'un changement de VERSION.
    - documents PDF : version en ligne d'abord (vérification légère), copie locale hors connexion
    - bibliothèques externes (KaTeX) : copie locale permanente */
-const VERSION = "v197";
+const VERSION = "v198";
 const SHELL = "shell-" + VERSION;
 const PDFS = "pdf-v1";          // nom stable : les documents enregistrés survivent aux mises à jour du site
 const EXT = "ext-v1";           // KaTeX ne change pas : inutile de le retélécharger à chaque version

@@ -8,6 +8,7 @@
      url   : lien YouTube (https://www.youtube.com/watch?v=… ou https://youtu.be/…)
      duree : facultatif, ex. "12 min"
      note  : facultatif, ex. "Démonstration du théorème de Gauss"
+     cours : true pour la vidéo du cours complet (lien placé sous le diaporama du chapitre)
    Vidéo hébergée sur le site : fichier (au lieu de url) + image (aperçu)
    Les chapitres sans vidéo n'affichent rien.
    ===================================================================== */
@@ -29,7 +30,7 @@ window.VIDEOS = {
     { titre: "Équilibre et stabilité", fichier: "videos/3d/stabilite.mp4", image: "videos/3d/stabilite.jpg", duree: "24 s", note: "Bille sur une surface E_p : énergies E_c, E_p, E_m", type: "3d" }
   ],   // Mécanique — Ch. 4 Travail et énergie
   elec1: [
-    { titre: "Cours complet — Généralités sur l'électrostatique", url: "https://youtu.be/COXunjY8aUQ", duree: "14 min 46",
+    { titre: "Cours complet — Généralités sur l'électrostatique", url: "https://youtu.be/COXunjY8aUQ", duree: "14 min 46", cours: true,
       note: "Charge, électrisation, densités, loi de Coulomb, superposition et champ, avec exemple corrigé et animations" },
     { titre: "Loi de Coulomb", fichier: "videos/3d/coulomb.mp4", image: "videos/3d/coulomb.jpg", duree: "24 s", note: "Répulsion, attraction, F_A/B = −F_B/A, variation en 1/r²", type: "3d" },
     { titre: "Principe de superposition", fichier: "videos/3d/superposition.mp4", image: "videos/3d/superposition.jpg", duree: "24 s", note: "Forces de trois charges sur q et leur somme vectorielle", type: "3d" }
