@@ -134,6 +134,25 @@ fieldset.qcm input{width:auto;margin-top:4px;accent-color:var(--accent)}
 .nb-main b{font-family:var(--f-mono);font-size:1.8rem;color:var(--ok)}
 .nb-detail{display:flex;flex-wrap:wrap;gap:6px 18px;font-family:var(--f-head);font-size:.88rem;color:var(--muted)}
 .nb-detail b{color:var(--fg);font-family:var(--f-mono)}
+.avis{border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:12px;padding:14px 16px;display:grid;gap:10px;background:var(--surface)}
+.avis h3{margin:0;font-family:var(--f-head);font-size:1.05rem}
+.av-form{display:grid;gap:10px}
+.av-q{border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin:0;display:grid;gap:6px;font-family:var(--f-body)}
+.av-q legend,.av-q>span{font-family:var(--f-head);font-weight:500;font-size:.93rem;padding:0 4px;line-height:1.35}.av-q legend{float:left;width:100%;padding:0;margin-bottom:2px}.av-q>span i{color:var(--muted);font-size:.85rem}
+.av-q textarea{width:100%;box-sizing:border-box;font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg)}
+.av-q.av-miss{border-color:var(--ko);box-shadow:0 0 0 1px var(--ko)}
+.av-tit{margin:4px 0 -4px;font-family:var(--f-head);font-weight:600}
+.av-opts{display:flex;flex-wrap:wrap;gap:6px}
+.av-opts label{display:flex;align-items:center;cursor:pointer}
+.av-opts input{position:absolute;opacity:0;pointer-events:none}
+.av-opts span{font-family:var(--f-head);font-size:.86rem;border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:var(--tint)}
+.av-opts input:checked+span{background:var(--accent);border-color:var(--accent);color:#fff}
+.av-opts input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.av-stars{display:flex;gap:4px}.av-stars label{cursor:pointer}.av-stars input{position:absolute;opacity:0;pointer-events:none}
+.av-stars span{font-size:1.9rem;line-height:1;color:var(--line)}
+.av-stars:has(input:checked) label span{color:#f0ae36}.av-stars label:has(input:checked)~label span{color:var(--line)}
+.av-stars input:focus-visible+span{outline:2px solid var(--accent);border-radius:4px}
+.av-done{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;font-family:var(--f-head)}.av-done span{color:var(--muted);font-size:.88rem}
 .report input:disabled,.report textarea:disabled{opacity:.75}
 @media (max-width:900px){.lab,.data{grid-template-columns:1fr}.report .id{grid-template-columns:1fr 1fr}}
 @media print{
@@ -205,24 +224,25 @@ fieldset.qcm input{width:auto;margin-top:4px;accent-color:var(--accent)}
 <footer><div class="wrap">Labo Virtuel de Physique-Chimie • <a href="auteur.html">Plateforme développée par le Dr P. T. Traoré</a> • © 2026 Papa Touty Traoré — tous droits réservés • Les mesures sont simulées avec une incertitude réaliste. Chaque étudiant connecté reçoit son propre matériel : deux étudiants n'obtiennent pas les mêmes valeurs. • <a href="../reparer.html?retour=labo/tp.html">Affichage incomplet ? Mettre le site à jour</a></div></footer>
 
 <script>window.__tpErr = []; addEventListener("error", function (e) { window.__tpErr.push((e.message || "erreur") + " (" + String(e.filename || "").split("/").pop() + ":" + (e.lineno || "") + ")"); });</script>
-<script src="../assets/config.js?v=74"></script>
-<script src="../assets/tp-cr.js?v=74"></script>
-<script src="../assets/tp-qd.js?v=74"></script>
-<script src="../assets/tp-chimie-modele.js?v=74"></script>
-<script src="../assets/tp-chimie-cr.js?v=74"></script>
-<script src="../assets/tp-core.js?v=74"></script>
-<script src="../assets/tp-meca.js?v=74"></script>
-<script src="../assets/tp-elec.js?v=74"></script>
-<script src="../assets/tp-oscillo.js?v=74"></script>
-<script src="../assets/tp-mesures.js?v=74"></script>
-<script src="../assets/tp-optique.js?v=74"></script>
-<script src="../assets/tp-s2.js?v=74"></script>
-<script src="../assets/tp-chimie.js?v=74"></script>
+<script src="../assets/config.js?v=75"></script>
+<script src="../assets/tp-cr.js?v=75"></script>
+<script src="../assets/tp-qd.js?v=75"></script>
+<script src="../assets/tp-chimie-modele.js?v=75"></script>
+<script src="../assets/tp-chimie-cr.js?v=75"></script>
+<script src="../assets/tp-avis.js?v=75"></script>
+<script src="../assets/tp-core.js?v=75"></script>
+<script src="../assets/tp-meca.js?v=75"></script>
+<script src="../assets/tp-elec.js?v=75"></script>
+<script src="../assets/tp-oscillo.js?v=75"></script>
+<script src="../assets/tp-mesures.js?v=75"></script>
+<script src="../assets/tp-optique.js?v=75"></script>
+<script src="../assets/tp-s2.js?v=75"></script>
+<script src="../assets/tp-chimie.js?v=75"></script>
 <script>
 /* Vérifie que tous les fichiers de la page sont de la même version ; sinon (copie ancienne gardée par le
    navigateur après une connexion lente), propose une remise à jour en un clic au lieu d'une page vide. */
 (function () {
-  var BUILD = 74;
+  var BUILD = 75;
   function repair(why) {
     var b = document.getElementById("tpLogin"); if (!b) return;
     var det = (window.__tpErr || []).concat(why ? [why] : []).join(" ; ");

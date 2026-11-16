@@ -215,7 +215,7 @@
     if (!R.etudiant || !R.tps) return { ok: false, error: "Réponse incomplète du correcteur : vérifie que la dernière version du script est installée (Déployer → Gérer les déploiements → Nouvelle version)." };
     const old = sess();
     if (old && old.etudiant.carte !== R.etudiant.carte) wipe();
-    store.set("session", { etudiant: R.etudiant, code: String(code).trim().toUpperCase(), tps: R.tps, at: new Date().toISOString(), skew: Date.parse(R.serveur) - Date.now() || 0 });
+    store.set("session", { etudiant: R.etudiant, code: String(code).trim().toUpperCase(), tps: R.tps, avis: !!R.avis, at: new Date().toISOString(), skew: Date.parse(R.serveur) - Date.now() || 0 });
     return R;
   }
   function loginCard(changed) {
@@ -411,6 +411,9 @@
       cr.querySelectorAll("input, textarea").forEach(e => e.disabled = true);
       $("#" + T.id + "-sub").querySelector(".chk").hidden = true; $("#" + T.id + "-send").hidden = true; $("#" + T.id + "-clr").hidden = true;
       cr.querySelectorAll("[data-del]").forEach(b => b.remove());
+      // questionnaire « Ton avis sur le TP » (correcteur v2.21 et plus), après une copie notée
+      const avisGo = () => { const s = sess(); if (s && s.avis && isFinite(R.note) && window.TPAvis) TPAvis.mount({ tp: T.id, lab: T.lab, after: nb, session: { carte: s.etudiant.carte, code: s.code }, post, device: device() }); };
+      avisGo(); document.addEventListener("tp-avis", avisGo);
     };
     const smsg = (s, kind) => { const e = $("#" + T.id + "-smsg"); e.textContent = s; e.className = "msg" + (kind ? " " + kind : ""); };
     const lockCR = () => { cr.querySelectorAll("input, textarea, select").forEach(e => e.disabled = true); ["-send", "-clr"].forEach(x => { const e = $("#" + T.id + x); if (e) e.disabled = true; }); };
@@ -690,6 +693,7 @@
       try {
         const R = await post({ action: "login", carte: s0.etudiant.carte, code: s0.code, device: device() }, null, 2);
         if (!R || !R.ok || !R.tps) return;
+        if (!!R.avis !== !!s0.avis) { s0.avis = !!R.avis; store.set("session", s0); document.dispatchEvent(new Event("tp-avis")); }
         const key = t => same(Object.keys(t).sort().map(k => [k, t[k].qcm, t[k].params, t[k].duree, t[k].debutTP || null, !!t[k].soumis, t[k].etat, t[k].seance]));
         if (key(R.tps) === key(s0.tps)) return;
         store.set("session", Object.assign({}, s0, { tps: R.tps, skew: Date.parse(R.serveur) - Date.now() || 0 }));
@@ -708,5 +712,5 @@
       const T = TPS.find(t => t.id === cur); if (T && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 74, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 75, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();
