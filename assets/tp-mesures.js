@@ -215,7 +215,7 @@
             + `<path d="M328,200 V100 H430" stroke="var(--fg)" stroke-width="3" fill="none"/>` + resDraw(430, 540, 100, "c")
             + `<text x="485" y="80" text-anchor="middle" font-size="13" font-weight="700" fill="var(--fg)" ${F}>R₂</text>`
             + `<path d="M540,100 H600 V${se ? 165 : 340}" stroke="var(--fg)" stroke-width="3" fill="none"/>`
-            + (se ? `<path d="M600,245 V340" stroke="var(--fg)" stroke-width="3" fill="none"/><circle cx="600" cy="165" r="6" fill="var(--fg)"/><circle cx="600" cy="245" r="6" fill="var(--fg)"/><text x="612" y="210" font-size="11" fill="var(--muted)" ${F}>circuit</text><text x="612" y="224" font-size="11" fill="var(--muted)" ${F}>ouvert</text>` : "")
+            + (se ? `<path d="M600,245 V340" stroke="var(--fg)" stroke-width="3" fill="none"/><circle cx="600" cy="165" r="6" fill="var(--fg)"/><circle cx="600" cy="245" r="6" fill="var(--fg)"/><text x="588" y="210" text-anchor="end" font-size="11" fill="var(--muted)" ${F}>ampèremètre</text><text x="588" y="224" text-anchor="end" font-size="11" fill="var(--muted)" ${F}>inséré ici</text>` : "")
             + `<path d="M600,340 H328 V296" stroke="var(--fg)" stroke-width="3" fill="none"/>`
             + `<polygon points="392,100 382,94 382,106" fill="var(--rouge,#c62828)"/><text x="380" y="90" font-size="12" font-style="italic" fill="#c62828" ${F}>I</text>`;
           if (se) { tipR = [600, 165]; tipB = [600, 245]; } else { tipR = [430, 100]; tipB = [540, 100]; }
@@ -229,7 +229,7 @@
           tipR = [380, 200]; tipB = [570, 200];
         }
         if (S.inv) [tipR, tipB] = [tipB, tipR];
-        h += lead(SOCK.COM, tipB, "#222") + lead(SOCK[S.o], tipR, "#d32f2f");
+        h += lead(SOCK.COM, tipB, "#9aa3ad").replace('stroke-width="5"', 'stroke-width="8"') + lead(SOCK.COM, tipB, "#1c1c1c") + lead(SOCK[S.o], tipR, "#d32f2f");
         if (cur.r && cur.r.boom) h += `<text x="460" y="385" text-anchor="middle" font-size="14" font-weight="700" fill="#d32f2f" ${F}>court-circuit !</text>`;
         h += `</svg>`;
         box.innerHTML = h;
@@ -251,7 +251,7 @@
         $("#msLcd").textContent = S.f === "OFF" ? "—" : cur.txt === "OL" ? "OL (dépassement)" : cur.txt + " " + C.u;
         $("#msFn").textContent = S.f === "OFF" ? "arrêt" : FN[S.f].split(" (")[0] + " — " + C.n;
         { const bu = { V: "V", A: "mA", O: "Ω" }[S.f], base = C ? fr(C.d, Math.max(0, -Math.floor(Math.log10(C.d)))) + " " + bu : "—"; $("#msD").textContent = !C ? "—" : (C.u === bu ? base : base + " (" + fr(C.d * C.k, C.dec) + " " + C.u + ")"); }
-        if (!silent) { if (cur.r.msg) T.msg(cur.r.msg, cur.r.bad ? "bad" : ""); else if (cur.txt === "OL") T.msg("Dépassement (OL) : la valeur est supérieure au calibre. Choisis un calibre plus grand.", "bad"); else T.msg(""); }
+        if (!silent) { if (cur.r.msg) T.msg(cur.r.msg, cur.r.bad ? "bad" : ""); else if (cur.txt === "OL") T.msg("Dépassement (OL) : la valeur est supérieure au calibre. Choisis un calibre plus grand.", "bad"); else if (L === 0 && cur.r.x) T.msg("Lecture nulle : la valeur est trop petite pour ce calibre (le plus petit pas affichable, D, est trop grand). Choisis un calibre plus petit" + (S.f === "A" && S.o === "10A" ? " et mets la pointe rouge sur la borne mA" : "") + ".", ""); else T.msg(""); }
         T.draw();
       }
       const bindSeg = (id, key, after) => document.querySelectorAll(`[data-${id}]`).forEach(b => b.onclick = () => { S[key] = b.getAttribute("data-" + id); if (after) after(); update(); });
