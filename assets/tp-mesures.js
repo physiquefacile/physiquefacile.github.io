@@ -37,7 +37,7 @@
   }
 
   register({
-    id: "mesures", num: 6, disc: "Électricité", court: "Mesures électriques",
+    id: "mesures", num: 6, etatKeys: ["mes_etat"], disc: "Électricité", court: "Mesures électriques",
     titre: "Mesures électriques : utilisation du multimètre",
     objectifs: "utiliser un multimètre numérique en voltmètre, en ampèremètre et en ohmmètre ; choisir la fonction, la borne et le calibre adaptés ; brancher correctement l'appareil (dérivation ou série) ; évaluer l'incertitude d'une mesure à partir de la précision donnée par le constructeur et écrire correctement un résultat.",
     materiel: ["Multimètre numérique 2000 points (3 ½ digits)", "Pile 1,5 V, pile 9 V et capteur de faible tension", "Résistors R₁, R₂ et R₃ (code des couleurs)", "Fils et pointes de touche"],
@@ -104,7 +104,9 @@
         store.set("mes_par", P);
       };
       if (!P || !P.R || !P.cal) newSet();
-      const S = Object.assign({ p: "A", s: "1", b: "serie", k: "a", f: "OFF", c: 4, o: "VO", inv: false, fuse: true }, store.get("mes_etat", {}));
+      const S0 = { p: "A", s: "1", b: "serie", k: "a", f: "OFF", c: 4, o: "VO", inv: false, fuse: true }, OK = { p: ["A", "B", "C"], s: ["1", "2", "3"], b: ["serie", "deriv"], k: ["a", "c", "d"], f: ["OFF", "V", "A", "O"], c: [0, 1, 2, 3, 4], o: ["VO", "mA", "10A"], inv: [true, false], fuse: [true, false] };
+      const S = Object.assign({}, S0, store.get("mes_etat", {}));
+      Object.keys(S0).forEach(k => { if (!OK[k].includes(S[k])) S[k] = S0[k]; });   // état enregistré par une ancienne version : valeurs inconnues remises à zéro
       const saveS = () => store.set("mes_etat", S);
       let L = null;   // lecture courante
 

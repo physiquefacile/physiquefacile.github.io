@@ -321,8 +321,10 @@
     </section>`;
     $("#tpHost").appendChild(host);
 
-    const S = store.get(T.id + "_crv2", { fill: {}, calc: {}, qcm: {}, id: {} });
-    T.rows = {}; keys.forEach(k => { T.rows[k] = store.get(T.id + "_v2_" + k, []); S.fill[k] = S.fill[k] || []; while (S.fill[k].length < T.rows[k].length) S.fill[k].push({}); });
+    const S = store.get(T.id + "_crv2", null) || {};
+    ["fill", "calc", "qcm", "id"].forEach(k => { if (!S[k] || typeof S[k] !== "object" || Array.isArray(S[k])) S[k] = {}; });
+    keys.forEach(k => { if (!Array.isArray(S.fill[k])) S.fill[k] = []; });
+    T.rows = {}; keys.forEach(k => { const r = store.get(T.id + "_v2_" + k, []); T.rows[k] = Array.isArray(r) ? r.filter(x => x && typeof x === "object") : []; S.fill[k] = S.fill[k] || []; while (S.fill[k].length < T.rows[k].length) S.fill[k].push({}); });
     const save = () => { S.maj = Date.now(); store.set(T.id + "_crv2", S); keys.forEach(k => store.set(T.id + "_v2_" + k, T.rows[k])); };
     let SUB = store.get(T.id + "_submitted", null);
     let PEND = SUB ? null : store.get(T.id + "_pending", null);   // compte rendu verrouillé, en attente d'envoi (connexion absente)
@@ -498,7 +500,7 @@
       tbox.dataset.st = st;
       tbox.className = "timer noprint run" + (ms <= 120000 ? " bad" : ms <= 600000 ? " warn" : "");
       tbox.innerHTML = st === "fini" ? `<b>Temps écoulé.</b> <span>${SUB ? "" : PEND && PEND.refus ? "Compte rendu verrouillé, refusé par le serveur : adresse-toi à ton enseignant." : "Compte rendu verrouillé : il est envoyé automatiquement, dès que la connexion le permet."}</span>`
-        : `<span>Temps restant</span><b class="tleft">${hms(ms)}</b><span class="tbar"><i style="width:${Math.max(0, Math.min(100, ms / tot * 100)).toFixed(1)}%"></i></span><span>fin à ${new Date(Date.parse(ST.finTP) - ((sess() || {}).skew || 0)).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}</span>`;
+        : `<span>Temps restant</span><b class="tleft">${hms(ms)}</b><span class="tbar"><i style="width:${Math.max(0, Math.min(100, ms / tot * 100)).toFixed(1)}%"></i></span><span>${(() => { const sk = (sess() || {}).skew || 0, hm = t => new Date(t - sk).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }), d0 = Date.parse(ST.debutTP); return (isFinite(d0) ? `commencé à ${hm(d0)} • ` : "") + `durée ${ST.duree} min • fin à ${hm(Date.parse(ST.finTP))}`; })()}</span>`;
       if (st === "fini" && !autoDone && !SUB) {
         autoDone = true; lockCR();
         // copie figée à la fin du temps (ou à la dernière modification si la page était fermée) : plus aucune modification possible
@@ -635,7 +637,36 @@
     document.querySelectorAll("#tabs [data-t]").forEach(b => b.setAttribute("aria-pressed", b.dataset.t === id));
     TPS.forEach(t => { document.getElementById(t.id).hidden = t.id !== id; });
     if (!initial) history.replaceState(null, "", "#" + id);   // au chargement, ne pas ajouter d'ancre : le navigateur ferait défiler la page
-    const T = TPS.find(t => t.id === id); T.draw && T.draw(); T.renderAll();
+    const T = TPS.find(t => t.id === id); if (T.broken) return; T.draw && T.draw(); T.renderAll();
+  }
+  /* Un TP qui ne s'ouvre pas sur cet appareil (données locales d'une ancienne version, fichier incomplet) :
+     1) on réessaie en oubliant l'état de l'appareil virtuel ; 2) puis en mettant de côté les mesures locales
+     (sauvegardées dans « tp2_secours_<id> ») ; 3) sinon l'onglet reste et explique quoi faire, au lieu
+     de disparaître (l'étudiant était alors renvoyé sur le TP 1). Copie soumise et copie en attente d'envoi jamais touchées. */
+  function mountSafe(T) {
+    const purge = all => {
+      const pre = "tp2_" + T.id + "_", keep = ["_submitted", "_pending", "_journal"].map(x => "tp2_" + T.id + x);
+      const ui = (T.etatKeys || []).map(k => "tp2_" + k), bak = {};
+      try {
+        Object.keys(localStorage).filter(k => ui.includes(k) || (all && k.startsWith(pre) && !keep.includes(k))).forEach(k => { bak[k] = localStorage.getItem(k); localStorage.removeItem(k); });
+        if (Object.keys(bak).length) localStorage.setItem("tp2_secours_" + T.id, JSON.stringify({ date: new Date().toISOString(), cles: bak }));
+      } catch (e) {}
+    };
+    const clean = () => { const e = document.getElementById(T.id); if (e) e.remove(); };
+    let err = null;
+    for (let essai = 0; essai < 3; essai++) {
+      try { if (essai) { clean(); purge(essai === 2); } mount(T); if (essai) console.warn("TP " + T.id + " : ouvert après réinitialisation locale (" + essai + ")"); return; }
+      catch (e) { err = e; console.error("TP " + T.id + " (essai " + (essai + 1) + ")", e); }
+    }
+    clean(); T.broken = true;
+    const host = document.createElement("section"); host.className = "tp"; host.id = T.id; host.hidden = true;
+    const back = location.pathname.includes("/labo/") ? "labo/tp.html" : "tp.html";
+    host.innerHTML = `<div class="panel" style="border-left:4px solid var(--ko);padding:14px 16px"><h2 style="margin-top:0">Le TP n°${esc(T.lab)} n'a pas pu s'ouvrir sur cet appareil</h2>
+      <p>La page est sans doute incomplète (connexion lente) ou une ancienne version est restée en mémoire. Clique sur le bouton : la page se recharge avec la dernière version. Ta copie déjà soumise n'est pas touchée.</p>
+      <p><a class="btn primary" href="${location.pathname.includes("/labo/") ? "../" : ""}reparer.html?retour=${back}%23${T.id}">Mettre à jour la page</a></p>
+      <p class="hint">Si le problème continue, montre ce message à ton enseignant. Détail technique : ${esc(String(err && (err.message || err)).slice(0, 200))}</p></div>`;
+    $("#tpHost").appendChild(host);
+    T.renderAll = () => {};
   }
   // EC de travaux pratiques (syllabus de la Licence PCI, USNM)
   const EC_TP = [
@@ -701,16 +732,16 @@
         if (n < 2) { try { sessionStorage.setItem("tp2_autoref", n + 1); } catch (e) {} location.reload(); }
       } catch (e) {}
     })();
-    TPS.slice().forEach(T => { try { mount(T); } catch (err) { console.error("TP " + T.id, err); TPS.splice(TPS.indexOf(T), 1); const e = document.getElementById(T.id); if (e) e.remove(); const t = document.querySelector(`#tabs [data-t="${T.id}"]`); if (t) t.remove(); } });
+    TPS.slice().forEach(mountSafe);
     $("#tabs").addEventListener("click", e => { const b = e.target.closest("[data-t]"); if (b) go(b.dataset.t); });
     addEventListener("hashchange", () => { const h = location.hash.slice(1); if (TPS.some(t => t.id === h) && h !== cur) go(h); });
-    let rz; addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { const T = TPS.find(t => t.id === cur); T.draw && T.draw(); T.renderAll(); }, 120); });
+    let rz; addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { const T = TPS.find(t => t.id === cur); if (!T || T.broken) return; T.draw && T.draw(); T.renderAll(); }, 120); });
     const h = location.hash.slice(1); go(TPS.some(t => t.id === h) ? h : TPS[0].id, true);
     // boucle d'animation unique : seul le TP affiché avance
     let last = null;
     const loop = ts => { let dt = last == null ? 0 : (ts - last) / 1000; last = ts; if (dt > 0.5) dt = 0;   // temps réel (pause seulement si l'onglet a été quitté)
-      const T = TPS.find(t => t.id === cur); if (T && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
+      const T = TPS.find(t => t.id === cur); if (T && !T.broken && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 75, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 76, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();
