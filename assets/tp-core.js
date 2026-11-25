@@ -215,7 +215,7 @@
     if (!R.etudiant || !R.tps) return { ok: false, error: "Réponse incomplète du correcteur : vérifie que la dernière version du script est installée (Déployer → Gérer les déploiements → Nouvelle version)." };
     const old = sess();
     if (old && old.etudiant.carte !== R.etudiant.carte) wipe();
-    store.set("session", { etudiant: R.etudiant, code: String(code).trim().toUpperCase(), tps: R.tps, avis: !!R.avis, at: new Date().toISOString(), skew: Date.parse(R.serveur) - Date.now() || 0 });
+    store.set("session", { etudiant: R.etudiant, code: String(code).trim().toUpperCase(), tps: R.tps, avis: !!R.avis, corr: !!R.correction, at: new Date().toISOString(), skew: Date.parse(R.serveur) - Date.now() || 0 });
     return R;
   }
   function loginCard(changed) {
@@ -413,6 +413,30 @@
       cr.querySelectorAll("input, textarea").forEach(e => e.disabled = true);
       $("#" + T.id + "-sub").querySelector(".chk").hidden = true; $("#" + T.id + "-send").hidden = true; $("#" + T.id + "-clr").hidden = true;
       cr.querySelectorAll("[data-del]").forEach(b => b.remove());
+      // correction détaillée (correcteur v2.23 et plus) : cases justes / fausses, valeurs attendues, remarques, téléchargement
+      const corrGo = () => {
+        const s = sess(); if (!(s && s.corr && isFinite(R.note) && window.TPCorr) || document.getElementById(T.id + "-corrbtn")) return;
+        nb.insertAdjacentHTML("beforeend", `<div class="row"><button type="button" class="btn" id="${T.id}-corrbtn">Voir ma correction détaillée</button></div><p class="msg" id="${T.id}-cmsg"></p>`);
+        $("#" + T.id + "-corrbtn").onclick = async () => {
+          const bt = $("#" + T.id + "-corrbtn"), cm = $("#" + T.id + "-cmsg"); bt.disabled = true; cm.textContent = "Chargement de la correction…"; cm.className = "msg";
+          try {
+            const D = await post({ action: "correction", tp: T.id, carte: s.etudiant.carte, code: s.code, device: device() }, k => { cm.textContent = waitMsg(k); });
+            bt.disabled = false; if (!D || !D.ok) { cm.textContent = (D && D.error) || "Correction indisponible pour l'instant."; cm.className = "msg bad"; return; }
+            cm.textContent = ""; const hf = keys.some(k => (CR.parts[k].fill || []).length), hc = (CR.calc || []).length;
+            const ctx = { T, CR, keys, L, data: D, etu: s.etudiant, org: window.SITE_ORG || "", hf, hc, wM: 2 + (hf ? 0 : 6) + (hc ? 0 : 6), rules: window.TPCorr.rules[T.id],
+              qText: (q, i) => { const qi = q[0]; if (typeof qi === "string") { const t = QDT(qi); if (!t) return "Question " + (i + 1); let P = null; try { P = window.TPQD.propose(t, D.copie.raw[t.part] || [], q[2] || 1); } catch (e) {} return t.q.replace("{k}", P ? P.k : "…"); } return (CR.qcm[qi] || {}).q || "Question " + (i + 1); } };
+            const inner = window.TPCorr.build(ctx), html = window.TPCorr.doc(ctx, inner);
+            let box = document.getElementById(T.id + "-corr"); if (!box) { box = document.createElement("section"); box.id = T.id + "-corr"; box.className = "corrbox"; nb.insertAdjacentElement("afterend", box); }
+            box.innerHTML = `<div class="row"><b style="flex:1">Correction détaillée de ton compte rendu</b><button type="button" class="btn primary" id="${T.id}-corrpdf">Télécharger en PDF</button><button type="button" class="btn" id="${T.id}-corrhtml">Enregistrer (fichier)</button></div><style>${window.TPCorr.CSS_IN}</style><div class="crpage">${inner}</div>`;
+            box.scrollIntoView({ behavior: "smooth", block: "start" });
+            const nomF = `Correction_TP${T.lab}_${String(s.etudiant.nom || "etudiant").replace(/\s+/g, "_")}`;
+            $("#" + T.id + "-corrpdf").onclick = () => { const w = window.open("", "_blank"); if (!w) { cm.textContent = "Autorise l'ouverture des fenêtres pour télécharger, ou utilise « Enregistrer (fichier) »."; cm.className = "msg bad"; return; }
+              w.document.open(); w.document.write(html.replace("</body>", `<script>setTimeout(function(){document.title=${JSON.stringify(nomF)};print();},400)<\/script></body>`)); w.document.close(); };
+            $("#" + T.id + "-corrhtml").onclick = () => { const b = new Blob([html], { type: "text/html;charset=utf-8" }), a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = nomF + ".html"; document.body.appendChild(a); a.click(); a.remove(); };
+          } catch (err) { bt.disabled = false; cm.textContent = "Pas de connexion internet : réessaie dans un instant."; cm.className = "msg bad"; }
+        };
+      };
+      corrGo(); document.addEventListener("tp-avis", corrGo);
       // questionnaire « Ton avis sur le TP » (correcteur v2.21 et plus), après une copie notée
       const avisGo = () => { const s = sess(); if (s && s.avis && isFinite(R.note) && window.TPAvis) TPAvis.mount({ tp: T.id, lab: T.lab, after: nb, session: { carte: s.etudiant.carte, code: s.code }, post, device: device() }); };
       avisGo(); document.addEventListener("tp-avis", avisGo);
@@ -724,7 +748,7 @@
       try {
         const R = await post({ action: "login", carte: s0.etudiant.carte, code: s0.code, device: device() }, null, 2);
         if (!R || !R.ok || !R.tps) return;
-        if (!!R.avis !== !!s0.avis) { s0.avis = !!R.avis; store.set("session", s0); document.dispatchEvent(new Event("tp-avis")); }
+        if (!!R.avis !== !!s0.avis || !!R.correction !== !!s0.corr) { s0.avis = !!R.avis; s0.corr = !!R.correction; store.set("session", s0); document.dispatchEvent(new Event("tp-avis")); }
         const key = t => same(Object.keys(t).sort().map(k => [k, t[k].qcm, t[k].params, t[k].duree, t[k].debutTP || null, !!t[k].soumis, t[k].etat, t[k].seance]));
         if (key(R.tps) === key(s0.tps)) return;
         store.set("session", Object.assign({}, s0, { tps: R.tps, skew: Date.parse(R.serveur) - Date.now() || 0 }));
@@ -743,5 +767,5 @@
       const T = TPS.find(t => t.id === cur); if (T && !T.broken && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 76, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 77, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();
