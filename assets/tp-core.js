@@ -538,7 +538,11 @@
     /* ---------- QCM chronométré : une question à la fois, mesures verrouillées ---------- */
     const QSEC = ST && ST.qsec != null ? +ST.qsec : 30;
     // durée de la question i : double pour les questions qui demandent un calcul sur la droite de régression
-    const qdur = i => { const q = QS[i], t = q && typeof q[0] === "string" ? QDT(q[0]) : null; return QSEC * (t && t.g ? 2 : 1); };
+    // correcteur v2.24 et plus : durée propre aux questions à calcul (déduites des mesures), réglée par l'enseignant
+    const QSECC = ST && ST.qsecCalc != null ? +ST.qsecCalc : null;
+    const qdur = i => { const q = QS[i], calc = q && typeof q[0] === "string", t = calc ? QDT(q[0]) : null; return QSECC != null ? (calc ? QSECC : QSEC) : QSEC * (t && t.g ? 2 : 1); };
+    const qzTxt = () => { if (QSECC == null) return `${QSEC} s par question (${2 * QSEC} s pour celles qui portent sur ta droite)`; const nc = QS.filter(q => typeof q[0] === "string").length, ns = QS.length - nc;
+      return nc && ns ? `${QSEC} s par question sans calcul, ${QSECC} s par question avec calcul` : nc ? `${QSECC} s par question (questions avec calcul)` : `${QSEC} s par question`; };
     const qzOn = () => !!(SS && QS.length && QSEC > 0);
     const qzOK = inp => { if (!qzOn() || SUB) return true; const fs = inp.closest("fieldset"); return !!(S.qz && fs && +fs.dataset.qi === S.qz.i); };
     let qzTick = null;
@@ -549,12 +553,12 @@
       if (!qzOn() || SUB || PEND) { ctl.innerHTML = ""; F.forEach(f => f.hidden = false); if (qzTick) { clearInterval(qzTick); qzTick = null; } if (SUB || PEND) F.forEach(f => f.querySelectorAll("input").forEach(x => x.disabled = true)); return; }
       if (!S.qz) {
         F.forEach(f => f.hidden = true);
-        ctl.innerHTML = `<div class="qzintro"><p><b>QCM chronométré : ${N} questions, ${QSEC} s par question (${2 * QSEC} s pour celles qui portent sur ta droite).</b> Les questions s'affichent <b>une par une</b>, sans retour en arrière. Quand le temps d'une question est écoulé, on passe automatiquement à la suivante.</p><p><b>Dernière étape du TP :</b> en commençant le QCM, tes mesures, ton tableau et tes calculs sont <b>verrouillés définitivement</b>. Termine-les avant.</p><button type="button" class="btn primary" id="${T.id}-qzgo">Je réponds au QCM</button></div>`;
+        ctl.innerHTML = `<div class="qzintro"><p><b>QCM chronométré : ${N} questions, ${qzTxt()}.</b> Les questions s'affichent <b>une par une</b>, sans retour en arrière. Quand le temps d'une question est écoulé, on passe automatiquement à la suivante.</p><p><b>Dernière étape du TP :</b> en commençant le QCM, tes mesures, ton tableau et tes calculs sont <b>verrouillés définitivement</b>. Termine-les avant.</p><button type="button" class="btn primary" id="${T.id}-qzgo">Je réponds au QCM</button></div>`;
         $("#" + T.id + "-qzgo").onclick = () => {
           if (!keys.some(k => T.rows[k].length)) { T.msg("Fais d'abord tes mesures.", "bad"); return; }
           { const manque = [...new Set([...host.querySelectorAll("#" + T.id + "-qbox fieldset.qd")].filter(f => f.dataset.ok !== "1").map(f => { const t = QDT(f.dataset.qd); return t ? t.part : "?"; }))];
             if (manque.length) { T.msg("Certaines questions portent sur tes mesures de la partie " + manque.join(" et ") + ", qui ne sont pas encore faites (ou pas assez nombreuses). Fais d'abord ces mesures : chaque question doit pouvoir citer le numéro de ta mesure.", "bad"); return; } }
-          if (!confirm("Commencer le QCM ?\n\nTes mesures, ton tableau et tes calculs seront verrouillés définitivement.\n" + N + " questions, " + QSEC + " s chacune (" + 2 * QSEC + " s pour celles qui portent sur ta droite), sans retour en arrière.")) return;
+          if (!confirm("Commencer le QCM ?\n\nTes mesures, ton tableau et tes calculs seront verrouillés définitivement.\n" + N + " questions, " + qzTxt() + ", sans retour en arrière.")) return;
           S.qz = { deb: Date.now(), t: Date.now(), i: 0, d: [] }; save();
           T.renderAll(); cr.querySelectorAll("[data-calc]").forEach(x => x.disabled = true);
           qzRender();
@@ -767,5 +771,5 @@
       const T = TPS.find(t => t.id === cur); if (T && !T.broken && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 77, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 78, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();
