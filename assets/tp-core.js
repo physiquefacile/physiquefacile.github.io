@@ -527,11 +527,16 @@
         : `<span>Temps restant</span><b class="tleft">${hms(ms)}</b><span class="tbar"><i style="width:${Math.max(0, Math.min(100, ms / tot * 100)).toFixed(1)}%"></i></span><span>${(() => { const sk = (sess() || {}).skew || 0, hm = t => new Date(t - sk).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }), d0 = Date.parse(ST.debutTP); return (isFinite(d0) ? `commencé à ${hm(d0)} • ` : "") + `durée ${ST.duree} min • fin à ${hm(Date.parse(ST.finTP))}`; })()}</span>`;
       if (st === "fini" && !autoDone && !SUB) {
         autoDone = true; lockCR();
-        // copie figée à la fin du temps (ou à la dernière modification si la page était fermée) : plus aucune modification possible
-        if (!PEND && SS) freeze(buildPayload(), Math.min(Date.now(), S.maj || Date.now()));
-        smsg("Temps écoulé : ton compte rendu est verrouillé et va être envoyé automatiquement. S'il n'y a pas de connexion, il partira dès son retour.", "bad");
-        // envoi étalé sur 90 s pour ne pas saturer le serveur quand tout un groupe termine en même temps
-        setTimeout(() => doSend(true), Math.random() * 90000); retryLater();
+        // différé d'un tour : si le temps est écoulé dès l'ouverture de la page, le TP n'est pas encore entièrement monté
+        // (journalResume, QSEC… pas encore définis : le TP ne s'ouvrait plus du tout)
+        setTimeout(() => {
+          if (SUB) return;
+          // copie figée à la fin du temps (ou à la dernière modification si la page était fermée) : plus aucune modification possible
+          try { if (!PEND && SS) freeze(buildPayload(), Math.min(Date.now(), S.maj || Date.now())); } catch (e) { console.error("TP " + T.id + " : copie non figée", e); }
+          smsg("Temps écoulé : ton compte rendu est verrouillé et va être envoyé automatiquement. S'il n'y a pas de connexion, il partira dès son retour.", "bad");
+          // envoi étalé sur 90 s pour ne pas saturer le serveur quand tout un groupe termine en même temps
+          setTimeout(() => doSend(true), Math.random() * 90000); retryLater();
+        }, 0);
       }
     };
     if (tbox) { TIMERS.push(drawTimer); drawTimer(); } else qVis();
@@ -771,5 +776,5 @@
       const T = TPS.find(t => t.id === cur); if (T && !T.broken && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 78, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 79, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();
