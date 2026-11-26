@@ -389,7 +389,7 @@
     $("#" + T.id + "-clr").onclick = () => { if (SUB || PEND || S.qz) return; keys.forEach(k => { T.rows[k] = []; S.fill[k] = []; }); T.renderAll(); T.msg("Toutes les mesures ont été effacées."); };
 
     const showNote = R => {
-      const nb = $("#" + T.id + "-noteBox"); nb.hidden = false;
+      const nb = $("#" + T.id + "-noteBox"); nb.hidden = false; { const ar = $("#" + T.id + "-againrow"); if (ar) ar.remove(); }
       nb.innerHTML = isFinite(R.note) ? `<div class="nb-main"><span>Compte rendu soumis le ${esc(new Date(R.date).toLocaleString("fr-FR"))}</span><b>${String(R.note).replace(".", ",")} / 20</b></div>
         <div class="nb-detail">${(() => { const hf = keys.some(k => (CR.parts[k].fill || []).length), hc = (CR.calc || []).length, wM = 2 + (hf ? 0 : 6) + (hc ? 0 : 6);   // sans tableau ni calcul (TP C1), leurs points vont aux réponses notées
           return `<span>${hf || hc ? "Mesures" : "Réponses notées"} <b>${fr(R.mesures, 2)}</b> / ${wM}</span>` + (hf ? `<span>Tableaux <b>${fr(R.tableau, 2)}</b> / 6</span>` : "") + (hc ? `<span>Calculs <b>${fr(R.calculs, 2)}</b> / 6</span>` : ""); })()}<span>QCM <b>${fr(R.qcm, 2)}</b> / 6</span></div>
@@ -398,17 +398,7 @@
       // phase de test : l'enseignant autorise plusieurs soumissions (réglage MODE_TEST du script)
       if (ST && ST.essais) {
         nb.insertAdjacentHTML("beforeend", `<div class="row"><button type="button" class="btn primary" id="${T.id}-redo">Refaire ce TP (nouvel essai)</button></div><p class="msg" id="${T.id}-rmsg"></p>`);
-        $("#" + T.id + "-redo").onclick = async () => {
-          if (!confirm(`Refaire le TP n°${T.lab} ? Tes mesures et tes réponses actuelles seront effacées de cet appareil (la copie déjà envoyée reste chez ton enseignant).${ST.duree ? ` Le minuteur de ${ST.duree} min redémarre tout de suite.` : ""}`)) return;
-          const rb = $("#" + T.id + "-redo"), rm = $("#" + T.id + "-rmsg"); rb.disabled = true; rm.textContent = "Préparation du nouvel essai…"; rm.className = "msg";
-          try {
-            const R = await post({ action: "start", tp: T.id, carte: SS.etudiant.carte, code: SS.code, device: device(), nouvelEssai: true }, k => { rm.textContent = waitMsg(k); });
-            if (!R.ok) { rb.disabled = false; rm.textContent = R.error || "Impossible de recommencer."; rm.className = "msg bad"; return; }
-            try { localStorage.removeItem("tp2_" + T.id + "_submitted"); keys.forEach(k => localStorage.removeItem("tp2_" + T.id + "_v2_" + k)); localStorage.removeItem("tp2_" + T.id + "_crv2"); } catch (e) {}
-            const s2 = sess(); if (s2 && s2.tps[T.id]) { Object.assign(s2.tps[T.id], { soumis: null, debutTP: R.debutTP || null, finTP: R.finTP || null }, R.params ? { params: R.params, essai: R.essai } : {}); s2.skew = Date.parse(R.serveur) - Date.now() || 0; store.set("session", s2); }
-            location.hash = T.id; location.reload();
-          } catch (err) { rb.disabled = false; rm.textContent = "Pas de connexion internet : impossible de recommencer pour l'instant."; rm.className = "msg bad"; }
-        };
+        $("#" + T.id + "-redo").onclick = () => nouvelEssai($("#" + T.id + "-redo"), $("#" + T.id + "-rmsg"), false);
       }
       cr.querySelectorAll("input, textarea").forEach(e => e.disabled = true);
       $("#" + T.id + "-sub").querySelector(".chk").hidden = true; $("#" + T.id + "-send").hidden = true; $("#" + T.id + "-clr").hidden = true;
@@ -441,6 +431,19 @@
       const avisGo = () => { const s = sess(); if (s && s.avis && isFinite(R.note) && window.TPAvis) TPAvis.mount({ tp: T.id, lab: T.lab, after: nb, session: { carte: s.etudiant.carte, code: s.code }, post, device: device() }); };
       avisGo(); document.addEventListener("tp-avis", avisGo);
     };
+    /* nouvel essai (mode test) : après une copie notée, ou quand le temps est écoulé sans copie acceptée */
+    async function nouvelEssai(rb, rm, abandon) {
+      if (!confirm(abandon ? `Recommencer le TP n°${T.lab} ? Ta copie de cet essai n'a pas pu être envoyée à temps : elle sera abandonnée et tes mesures seront effacées de cet appareil.${ST.duree ? ` Un nouveau minuteur de ${ST.duree} min démarre tout de suite.` : ""}`
+        : `Refaire le TP n°${T.lab} ? Tes mesures et tes réponses actuelles seront effacées de cet appareil (la copie déjà envoyée reste chez ton enseignant).${ST.duree ? ` Le minuteur de ${ST.duree} min redémarre tout de suite.` : ""}`)) return;
+      rb.disabled = true; rm.textContent = "Préparation du nouvel essai…"; rm.className = "msg";
+      try {
+        const R = await post({ action: "start", tp: T.id, carte: SS.etudiant.carte, code: SS.code, device: device(), nouvelEssai: true }, k => { rm.textContent = waitMsg(k); });
+        if (!R.ok) { rb.disabled = false; rm.textContent = R.error || "Impossible de recommencer."; rm.className = "msg bad"; return; }
+        try { ["_submitted", "_pending", "_crv2"].forEach(x => localStorage.removeItem("tp2_" + T.id + x)); keys.forEach(k => localStorage.removeItem("tp2_" + T.id + "_v2_" + k)); } catch (e) {}
+        const s2 = sess(); if (s2 && s2.tps[T.id]) { Object.assign(s2.tps[T.id], { soumis: null, debutTP: R.debutTP || null, finTP: R.finTP || null }, R.params ? { params: R.params, essai: R.essai } : {}); s2.skew = Date.parse(R.serveur) - Date.now() || 0; store.set("session", s2); }
+        location.hash = T.id; location.reload();
+      } catch (err) { rb.disabled = false; rm.textContent = "Pas de connexion internet : impossible de recommencer pour l'instant."; rm.className = "msg bad"; }
+    }
     const smsg = (s, kind) => { const e = $("#" + T.id + "-smsg"); e.textContent = s; e.className = "msg" + (kind ? " " + kind : ""); };
     const lockCR = () => { cr.querySelectorAll("input, textarea, select").forEach(e => e.disabled = true); ["-send", "-clr"].forEach(x => { const e = $("#" + T.id + x); if (e) e.disabled = true; }); };
     const PEND_MSG = "Pas de connexion internet : ton compte rendu est VERROUILLÉ (plus aucune modification possible). Il sera envoyé automatiquement dès le retour de la connexion. Garde cette page ouverte, ou rouvre-la plus tard avec une connexion.";
@@ -525,6 +528,10 @@
       tbox.className = "timer noprint run" + (ms <= 120000 ? " bad" : ms <= 600000 ? " warn" : "");
       tbox.innerHTML = st === "fini" ? `<b>Temps écoulé.</b> <span>${SUB ? "" : PEND && PEND.refus ? "Compte rendu verrouillé, refusé par le serveur : adresse-toi à ton enseignant." : "Compte rendu verrouillé : il est envoyé automatiquement, dès que la connexion le permet."}</span>`
         : `<span>Temps restant</span><b class="tleft">${hms(ms)}</b><span class="tbar"><i style="width:${Math.max(0, Math.min(100, ms / tot * 100)).toFixed(1)}%"></i></span><span>${(() => { const sk = (sess() || {}).skew || 0, hm = t => new Date(t - sk).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }), d0 = Date.parse(ST.debutTP); return (isFinite(d0) ? `commencé à ${hm(d0)} • ` : "") + `durée ${ST.duree} min • fin à ${hm(Date.parse(ST.finTP))}`; })()}</span>`;
+      if (st === "fini" && !SUB && ST.essais && !$("#" + T.id + "-again")) {
+        tbox.insertAdjacentHTML("afterend", `<div class="row noprint" id="${T.id}-againrow"><button type="button" class="btn" id="${T.id}-again">Recommencer le TP (nouvel essai)</button><span class="msg" id="${T.id}-amsg"></span></div>`);
+        $("#" + T.id + "-again").onclick = () => nouvelEssai($("#" + T.id + "-again"), $("#" + T.id + "-amsg"), true);
+      }
       if (st === "fini" && !autoDone && !SUB) {
         autoDone = true; lockCR();
         // différé d'un tour : si le temps est écoulé dès l'ouverture de la page, le TP n'est pas encore entièrement monté
@@ -780,5 +787,5 @@
       const T = TPS.find(t => t.id === cur); if (T && !T.broken && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 80, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 81, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();
