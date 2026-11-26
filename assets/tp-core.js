@@ -405,7 +405,7 @@
             const R = await post({ action: "start", tp: T.id, carte: SS.etudiant.carte, code: SS.code, device: device(), nouvelEssai: true }, k => { rm.textContent = waitMsg(k); });
             if (!R.ok) { rb.disabled = false; rm.textContent = R.error || "Impossible de recommencer."; rm.className = "msg bad"; return; }
             try { localStorage.removeItem("tp2_" + T.id + "_submitted"); keys.forEach(k => localStorage.removeItem("tp2_" + T.id + "_v2_" + k)); localStorage.removeItem("tp2_" + T.id + "_crv2"); } catch (e) {}
-            const s2 = sess(); if (s2 && s2.tps[T.id]) { Object.assign(s2.tps[T.id], { soumis: null, debutTP: R.debutTP || null, finTP: R.finTP || null }); s2.skew = Date.parse(R.serveur) - Date.now() || 0; store.set("session", s2); }
+            const s2 = sess(); if (s2 && s2.tps[T.id]) { Object.assign(s2.tps[T.id], { soumis: null, debutTP: R.debutTP || null, finTP: R.finTP || null }, R.params ? { params: R.params, essai: R.essai } : {}); s2.skew = Date.parse(R.serveur) - Date.now() || 0; store.set("session", s2); }
             location.hash = T.id; location.reload();
           } catch (err) { rb.disabled = false; rm.textContent = "Pas de connexion internet : impossible de recommencer pour l'instant."; rm.className = "msg bad"; }
         };
@@ -762,7 +762,11 @@
         if (key(R.tps) === key(s0.tps)) return;
         store.set("session", Object.assign({}, s0, { tps: R.tps, skew: Date.parse(R.serveur) - Date.now() || 0 }));
         let n = 0; try { n = +sessionStorage.getItem("tp2_autoref") || 0; } catch (e) {}
-        if (n < 2) { try { sessionStorage.setItem("tp2_autoref", n + 1); } catch (e) {} location.reload(); }
+        // nouveau matériel (nouvel essai) : rechargement obligatoire, sinon l'étudiant mesurerait avec l'ancien matériel
+        const pkey = same(Object.keys(R.tps).sort().map(k => [k, R.tps[k].params])), pold = same(Object.keys(s0.tps).sort().map(k => [k, (s0.tps[k] || {}).params]));
+        let dejaVu = false; try { dejaVu = sessionStorage.getItem("tp2_parref") === pkey; } catch (e) {}
+        if (pkey !== pold && !dejaVu) { try { sessionStorage.setItem("tp2_parref", pkey); } catch (e) {} location.reload(); }
+        else if (n < 2) { try { sessionStorage.setItem("tp2_autoref", n + 1); } catch (e) {} location.reload(); }
       } catch (e) {}
     })();
     TPS.slice().forEach(mountSafe);
@@ -776,5 +780,5 @@
       const T = TPS.find(t => t.id === cur); if (T && !T.broken && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 79, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 80, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();
