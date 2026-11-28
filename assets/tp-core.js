@@ -325,6 +325,18 @@
     ["fill", "calc", "qcm", "id"].forEach(k => { if (!S[k] || typeof S[k] !== "object" || Array.isArray(S[k])) S[k] = {}; });
     keys.forEach(k => { if (!Array.isArray(S.fill[k])) S.fill[k] = []; });
     T.rows = {}; keys.forEach(k => { const r = store.get(T.id + "_v2_" + k, []); T.rows[k] = Array.isArray(r) ? r.filter(x => x && typeof x === "object") : []; S.fill[k] = S.fill[k] || []; while (S.fill[k].length < T.rows[k].length) S.fill[k].push({}); });
+    // TP minuté : un QCM, des réponses ou des mesures restés d'un essai précédent (avant le début de cet essai) sont effacés,
+    // sinon le QCM s'affiche « terminé » et les mesures restent verrouillées dès le départ du nouvel essai
+    try {
+      const d0 = ST && ST.debutTP ? Date.parse(ST.debutTP) - (((SS || {}).skew) || 0) - 120000 : NaN;
+      if (isFinite(d0) && !store.get(T.id + "_submitted", null) && !store.get(T.id + "_pending", null)) {
+        let vieux = false;
+        if (S.qz && !(S.qz.deb >= d0)) { S.qz = null; S.qcm = {}; vieux = true; }
+        keys.forEach(k => { const n = T.rows[k].length, keep = T.rows[k].map((x, i) => x.ts && x.ts < d0 ? -1 : i).filter(i => i >= 0); if (keep.length < n) { T.rows[k] = keep.map(i => T.rows[k][i]); S.fill[k] = keep.map(i => S.fill[k][i] || {}); vieux = true; } });
+        if (S.maj && S.maj < d0) { S.qz = null; S.qcm = {}; S.calc = {}; vieux = true; }
+        if (vieux) { S.maj = Date.now(); store.set(T.id + "_crv2", S); keys.forEach(k => store.set(T.id + "_v2_" + k, T.rows[k])); }
+      }
+    } catch (e) { console.error("TP " + T.id + " : nettoyage de l'essai précédent", e); }
     const save = () => { S.maj = Date.now(); store.set(T.id + "_crv2", S); keys.forEach(k => store.set(T.id + "_v2_" + k, T.rows[k])); };
     let SUB = store.get(T.id + "_submitted", null);
     let PEND = SUB ? null : store.get(T.id + "_pending", null);   // compte rendu verrouillé, en attente d'envoi (connexion absente)
@@ -518,7 +530,9 @@
             const R = await post({ action: "start", tp: T.id, carte: SS.etudiant.carte, code: SS.code, device: device() }, k => { m.textContent = waitMsg(k); });
             if (!R.ok) { go.disabled = false; m.textContent = R.error; m.className = "msg bad"; return; }
             ST.debutTP = R.debutTP; ST.finTP = R.finTP; const s2 = sess(); if (s2) { s2.tps[T.id].debutTP = R.debutTP; s2.tps[T.id].finTP = R.finTP; s2.skew = Date.parse(R.serveur) - Date.now() || 0; store.set("session", s2); }
-            T.clearRows(); store.set(T.id + "_journal", null); T.msg("Le TP a commencé : bon travail !", "ok"); drawTimer();
+            T.clearRows(); store.set(T.id + "_journal", null);
+            if (S.qz || Object.keys(S.qcm).length) { S.qz = null; S.qcm = {}; S.calc = {}; save(); location.hash = T.id; location.reload(); return; }
+            T.msg("Le TP a commencé : bon travail !", "ok"); drawTimer();
           } catch (err) { go.disabled = false; m.textContent = "Pas de connexion internet : impossible de démarrer le minuteur."; m.className = "msg bad"; }
         };
         return;
@@ -787,5 +801,5 @@
       const T = TPS.find(t => t.id === cur); if (T && !T.broken && T.tick && dt > 0) T.tick(dt); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
   }
-  window.TPCORE = { build: 81, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
+  window.TPCORE = { build: 82, scatter, register, start, $, css, esc, fr, gauss, store, fit, txt, linreg, chrono, isCur: id => cur === id };
 })();
