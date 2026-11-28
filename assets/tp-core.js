@@ -329,6 +329,8 @@
     // sinon le QCM s'affiche « terminé » et les mesures restent verrouillées dès le départ du nouvel essai
     try {
       const d0 = ST && ST.debutTP ? Date.parse(ST.debutTP) - (((SS || {}).skew) || 0) - 120000 : NaN;
+      // copie verrouillée (« envoi en attente ») figée AVANT le début de cet essai : elle appartient à l'essai précédent, on l'abandonne
+      { const pd = isFinite(d0) && store.get(T.id + "_pending", null); if (pd && !(Date.parse(pd.gel || pd.client) >= d0)) store.del(T.id + "_pending"); }
       if (isFinite(d0) && !store.get(T.id + "_submitted", null) && !store.get(T.id + "_pending", null)) {
         let vieux = false;
         if (S.qz && !(S.qz.deb >= d0)) { S.qz = null; S.qcm = {}; vieux = true; }
